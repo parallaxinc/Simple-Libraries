@@ -1,0 +1,13 @@
+libping.c
+-I ../../Utility/libsimpletools
+-L ../../Utility/libsimpletools
+ping.c
+ping.h
+>compiler=C
+>memtype=lmm main ram
+>optimize=-Os
+>-fno-exceptions
+>defs::-std=c99
+>-create_library
+>linker::-lsimpletools
+>BOARD::PROPBOE

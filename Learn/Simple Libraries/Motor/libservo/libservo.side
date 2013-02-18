@@ -1,0 +1,13 @@
+libservo.c
+-I ../../Utility/libsimpletools
+-L ../../Utility/libsimpletools
+servo.c
+servo.h
+>compiler=C
+>memtype=xmm-split external flash code + ram data
+>optimize=-Os
+>-fno-exceptions
+>defs::-std=c99
+>-create_library
+>linker::-lsimpletools
+>BOARD::PROPBOE

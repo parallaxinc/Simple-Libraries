@@ -1,0 +1,13 @@
+libcompass3d.c
+-I ../../Utility/libsimpletools
+-L ../../Utility/libsimpletools
+compass3d.c
+compass3d.h
+>compiler=C
+>memtype=xmm-split external flash code + ram data
+>optimize=-Os
+>-fno-exceptions
+>defs::-std=c99 -DTEST
+>-create_library
+>linker::-lsimpletools
+>BOARD::PROPBOE

@@ -1,0 +1,10 @@
+SD Test.c
+-I ../../../../Learn/Simple Libraries/Utility/libsimpletools
+-L ../../../../Learn/Simple Libraries/Utility/libsimpletools
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-fno-exceptions
+>defs::-std=c99
+>linker::-lsimpletools
+>BOARD::PROPBOE

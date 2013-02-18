@@ -1,0 +1,13 @@
+libwavplayer.c
+-I ../../../../Learn/Simple Libraries/Utility/libsimpletools
+-L ../../../../Learn/Simple Libraries/Utility/libsimpletools
+wavplayer.c -> wavplayer.c
+wavplayer.h -> wavplayer.h
+>compiler=C
+>memtype=xmm-split external flash code + ram data
+>optimize=-O2
+>-fno-exceptions
+>defs::-std=c99
+>-create_library
+>linker::-lsimpletools
+>BOARD::PROPBOE

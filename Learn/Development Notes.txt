@@ -1,0 +1,14 @@
+
+
+--- February 12, 2013 ---
+
+ - Moved Development Notes.txt into Learn folder
+ - Updated SimpleIDE\My Projects\Blank Simple Project
+ - Added SimpleIDE\My Projects\Welcome
+
+
+--- February 10 ---
+
+ - Added warning text file
+ - Added Development Notes 2013.02.10.txt to SimpleIDE\My Projects
+

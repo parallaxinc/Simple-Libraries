@@ -1,0 +1,12 @@
+Test WAV Player.c
+-I ../../../Simple Libraries/Audio/libwavplayer
+-I ../../../Simple Libraries/Utility/libsimpletools
+-L ../../../Simple Libraries/Audio/libwavplayer
+-L ../../../Simple Libraries/Utility/libsimpletools
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-O2
+>-fno-exceptions
+>defs::-std=c99
+>linker::-lsimpletools -lwavplayer
+>BOARD::HUB

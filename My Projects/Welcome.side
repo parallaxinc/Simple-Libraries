@@ -1,0 +1,10 @@
+Welcome.c
+-I ../Learn/Simple Libraries/Utility/libsimpletools
+-L ../Learn/Simple Libraries/Utility/libsimpletools
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-fno-exceptions
+>-Dprintf=__simple_printf
+>linker::-lsimpletools
+>BOARD::PROPBOE

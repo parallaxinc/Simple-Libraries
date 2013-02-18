@@ -1,0 +1,6 @@
+Blank Project.c
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-fno-exceptions
+>BOARD::PROPBOE

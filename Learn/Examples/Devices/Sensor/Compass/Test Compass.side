@@ -1,0 +1,12 @@
+Test Compass.c
+-I ../../../../Simple Libraries/Sensor/libcompass3d
+-I ../../../../Simple Libraries/Utility/libsimpletools
+-L ../../../../Simple Libraries/Sensor/libcompass3d
+-L ../../../../Simple Libraries/Utility/libsimpletools
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-fno-exceptions
+>defs::-std=c99
+>linker::-lsimpletools -lcompass3d
+>BOARD::PROPBOE

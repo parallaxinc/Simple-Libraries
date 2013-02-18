@@ -1,0 +1,12 @@
+Test Ping Distance.c
+-I ../../../../Simple Libraries/Sensor/libping
+-I ../../../../Simple Libraries/Utility/libsimpletools
+-L ../../../../Simple Libraries/Sensor/libping
+-L ../../../../Simple Libraries/Utility/libsimpletools
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-O0
+>-fno-exceptions
+>defs::-std=c99
+>linker::-lsimpletools -lping
+>BOARD::PROPBOE
