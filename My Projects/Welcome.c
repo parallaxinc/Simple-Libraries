@@ -17,8 +17,8 @@
       needed).
     - Make sure to select your board and COM port from the 
       toolbar dropdown menus.
-    - Click Tools and select Run with Terminal (or click the 
-      Run with Terminal button).  
+    - Click Program and select Run with Terminal (or click 
+      the Run with Terminal button).  
       
    Next, check the Help menu for new online tutorials, 
    software manual, and reference material.
