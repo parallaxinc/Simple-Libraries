@@ -1,4 +1,4 @@
-/**
+/**                                                                             
  * @file simpletools.h
  *
  * @author Andy Lindsay
@@ -9,8 +9,8 @@
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
  *
  * @brief WARNING, CONSTRUCTION ZONE: This is a preliminary library, 
- * major revisions pending, not for release.  This file provides convenience 
- * functions for:
+ * major revisions pending, not for release.  This library provides 
+ * convenience functions for:
  *
  * @li I/O control - convenient I/O pin monitoring and control functions
  * @li Timing - Delays, timeouts
@@ -37,7 +37,7 @@
  * adding libraries to support and endless variety of peripherals
  * and applications.
  */
-
+ 
 #include <propeller.h>
 #include <driver.h>
 #include <stdio.h>
@@ -50,15 +50,18 @@
 #include <dirent.h>
 #include <sys/sd.h>
 #include <i2c.h>
+#include <math.h>
 
 // Global variables shared by functions in separate files
-extern long dt;
+extern long iodt;
 extern long t_timeout;
 extern long pauseTicks;
 extern long t_mark;
-extern char set_forget;
+extern char setForget;
 extern int fdserDriverIndex;
 extern unsigned int buscnt;
+extern int dacCtrBits;
+ 
 
 // Values for use with SimpleIDE Terminal
 #define HOME   1
@@ -77,6 +80,16 @@ extern unsigned int buscnt;
 #define CRSRX  14
 #define CRSRY  15
 #define CLS    16
+
+// Values for use with shift_in
+#define   MSBPRE     0
+#define   LSBPRE     1
+#define   MSBPOST    2
+#define   LSBPOST    3
+  
+// Values for use with shift_out
+#define   LSBFIRST   0
+#define   MSBFIRST   1
 
 // Define types for simplified driver declarations
 typedef FILE* serial;
@@ -109,6 +122,19 @@ void high(int pin);
 void low(int pin);
 
 /**
+ * @brief Toggle the output state of the I/O pin.
+ *
+ * @details Change I/O pin's output state from low to high
+ * or high to low.  This function assumes that some other
+ * function has already set the I/O pin to output.
+ *
+ * @param pin I/O pin number
+ *
+ * @returns The new pin state
+ */
+unsigned int toggle(int pin);
+
+/**
  * @brief Set an I/O pin to input
  *
  * @details This function makes the Propeller
@@ -121,7 +147,20 @@ void low(int pin);
  * @returns 1 or 0 to indicate high or low signal
  * received
  */
-int input(int pin);
+unsigned int input(int pin);
+
+/**
+ * @brief Reverse the direction of an I/O pin.
+ *
+ * @details If an I/O pin's direction is set to input, this
+ * function changes it to output.  If it's set to output,
+ * this function changes it to input.
+ *
+ * @param pin I/O pin number
+ *
+ * @returns The new pin direction.
+ */
+unsigned int reverse(int pin);
 
 /**
  * @brief Check the state of an I/O pin without
@@ -140,33 +179,7 @@ int input(int pin);
  * 1 = 3.3 V and 0 = 0 V.  If the pin is an input,
  * 1 means V > 1.65 V, 0 means it's less.
  */
-int getState(int pin);
-
-/**
- * @brief Reverse the direction of an I/O pin.
- *
- * @details If an I/O pin's direction is set to input, this
- * function changes it to output.  If it's set to output,
- * this function changes it to input.
- *
- * @param pin I/O pin number
- *
- * @returns The new pin direction.
- */
-int reverse(int pin);
-
-/**
- * @brief Toggle the output state of the I/O pin.
- *
- * @details Change I/O pin's output state from low to high
- * or high to low.  This function assumes that some other
- * function has already set the I/O pin to output.
- *
- * @param pin I/O pin number
- *
- * @returns The new pin state
- */
-int toggle(int pin);
+unsigned int get_state(int pin);
 
 /**
  * @brief Check the direction of the I/O pin.                                        .
@@ -182,17 +195,7 @@ int toggle(int pin);
  * @returns I/O pin direction as seen by the cog that runs the
  * function
  */
-int getDirection(int pin);
-
-/**
- * @brief Set an I/O pin to a given direction.                                        .
- *
- * @details This function sets an I/O pin to either output or input.
- *
- * @param pin I/O pin number
- * @param direction I/O pin direction
-  */
-void setDirection(int pin, int direction);
+unsigned int get_direction(int pin);
 
 /**
  * @brief Get I/O pin output state.
@@ -206,7 +209,17 @@ void setDirection(int pin, int direction);
  *
  * @returns ina register bit for I/O pin, either 1 or 0.
  */
-int getOutput(int pin);
+unsigned int get_output(int pin);
+
+/**
+ * @brief Set an I/O pin to a given direction.                                        .
+ *
+ * @details This function sets an I/O pin to either output or input.
+ *
+ * @param pin I/O pin number
+ * @param direction I/O pin direction
+  */
+void set_direction(int pin, int direction);
 
 /**
  * @brief Set I/O pin output register bit to either 1 or 0.
@@ -220,7 +233,63 @@ int getOutput(int pin);
  * @param state 1 for high, 0 for low (when pin is actually set to output,
  * which can be done with setDirection.
  */
-void setOutput(int pin, int state);
+void set_output(int pin, int state);
+
+/**
+ * @brief Get states of a contiguous group of I/O pins
+ *
+ * @details This works the same as getState, but for a group of pins.  It
+ * tells you the actual state of each pin, regardless of whether it's a 
+ * voltage applied to intput or transmitted by an output.
+ *
+ * @param endPin the higest numbered pin.
+ * @param startPin the lowest numbered pin.
+ *
+ * @returns states value containing the binary bit pattern.  The value for
+ * startPin should be in bit-0, next in bit-1, etc.
+ */
+unsigned int get_states(int endPin, int startPin);
+
+/**
+ * @brief Get directions for a contiguous group of I/O pins
+ *
+ * @details Get direction register states from a contiguous group of bits 
+ * in the cog's ouput register.
+ *
+ * @param endPin the higest numbered pin.
+ * @param startPin the lowest numbered pin.
+ *
+ * @returns states Value containing a binary bit pattern.  The value for
+ * startPin should be in bit-0, next in bit-1, etc.
+ */
+unsigned int get_directions(int endPin, int startPin);
+
+/**
+ * @brief Get output settings for a contiguous group of I/O pins
+ *
+ * @details Get output register settings for a contiguous group of bits 
+ * in the cog's ouput register.
+ *
+ * @param endPin the higest numbered pin.
+ * @param startPin the lowest numbered pin.
+ *
+ * @returns pattern Value containing a binary bit pattern.  The value 
+ * for startPin should be in bit-0, next in bit-1, etc.
+ */
+unsigned int get_outputs(int endPin, int startPin);
+
+/**
+ * @brief Set directions for a contiguous group of I/O pins
+ *
+ * @details Set directions values in a contiguous group of bits in the 
+ * cog's output register.
+ *
+ * @param endPin the higest numbered pin.
+ * @param startPin the lowest numbered pin.
+ * @param states value containing the binary bit pattern.  The value for
+ * startPin should be in bit-0, next in bit-1, etc.
+ */
+void set_directions(int endPin, int startPin, unsigned int pattern);
 
 /**
  * @brief Set output states for a contiguous group of I/O pins
@@ -233,36 +302,7 @@ void setOutput(int pin, int state);
  * @param states value containing the binary bit pattern.  The value for
  * startPin should be in bit-0, next in bit-1, etc.
  */
-void setOutputs(int endPin, int startPin, int pattern);
-
-/**
- * @brief Get output states for a contiguous group of I/O pins
- *
- * @details Get output register states from a contiguous group of bits in the cog's
- * ouput register.
- *
- * @param endPin the higest numbered pin.
- * @param startPin the lowest numbered pin.
- *
- * @returns states Value containing the binary bit pattern.  The value for
- * startPin should be in bit-0, next in bit-1, etc.
- */
-int getOutputs(int endPin, int startPin);
-
-/**
- * @brief Get states of a contiguous group of I/O pins
- *
- * @details This works the same as getState, but for a group of pins.  It
- * tells you the actual state of each pin (either voltage applied to intput,
- * or voltage transmitted by an output.
- *
- * @param endPin the higest numbered pin.
- * @param startPin the lowest numbered pin.
- *
- * @returns states value containing the binary bit pattern.  The value for
- * startPin should be in bit-0, next in bit-1, etc.
- */
-int getStates(int endPin, int startPin);
+void set_outputs(int endPin, int startPin, unsigned int pattern);
 
 /**
  * @brief Delay cog from moving on to the next statement for a certain amount
@@ -275,6 +315,27 @@ int getStates(int endPin, int startPin);
  * @param dt The number of time increments to delay.
  */
 void pause(int dt);
+
+/**
+ * @brief Delay cog from moving on to the next statement for a certain number
+ * of system clock ticks.
+ *
+ * @details At 80 MHz, each clock tick is 12.5 ns.  Code overhead varies 
+ * depending on memory model and optimization.  A simple test if you want a
+ * certain number of clock ticks is:
+ * 
+ *  unsigned int ti, tf, us, pauseTicks;
+ *  us = CLKFREQ/1000000;                               // 1 us worth of ticks
+ *  pauseTicks = 10*us;                                 // 10 us of ticks
+ *  ti = CNT;                                           // Save start time
+ *  pause_ticks(pauseTicks);                            // Call pause_ticks
+ *  tf = CNT;                                           // Save end time
+ *  printf("pauseTicks = %d\n", pauseTicks);            // Display pauseTicks
+ *  printf("delayTicks = %d\n", tf - ti);               // Display measured
+ *
+ * @param tticks the number of pause clock ticks.
+ */
+#define pause_ticks(pticks) __builtin_propeller_waitcnt(pticks+CNT, 0)
 
 /**
  * @brief Mark the current time.
@@ -315,7 +376,7 @@ void wait(int time);
  *
  * @param clockticks the number of clock tics that pause(1) will delay.
  */
-void setPauseDt(int clockticks);
+void set_pause_dt(int clockticks);
 
 /**
  * @brief count number of low to high transitions an external input applies to
@@ -327,6 +388,51 @@ void setPauseDt(int clockticks);
  * @returns transitions The number of low to high transitions
  */
 long count(int pin, long duration);
+
+/**
+ * @brief Set D/A voltge
+ *
+ * @details Uses duty modulation to generate a digital signal that can be fed to a low
+ * pass RC filter for digital to analog voltage conversion.  Add an op amp buffer it
+ * it needs to drive a load.  Also works well for LED brightness.
+ *
+ * Default resolution is 8-bits for output voltages ranging from 0 V to (255/256) of
+ * 3.3 V.
+ *
+ * General equation is dacVal * (3.3 V/2^bits)
+ *
+ * Default is 8 bits, which results in dacVal * (3.3 V/ 256), so dacVal
+ * specifies the number of 256ths of 3.3 V.  You can change the resolution with
+ * the dac_ctr_res function.
+ *
+ * @param pin I/O pin number.
+ * @param channel, use 0 or 1 to select the cog's CTRA or CTRB counter modules, that
+ * are used for D/A conversion.
+ * @param dacVal Number of 256ths of 3.3 V by default.  Use a value from 0 (0 V) 
+ * to 255 .
+ */
+void dac_ctr(int pin, int channel, int dacVal);
+
+/**
+ * @brief Set D/A voltge resolution
+ *
+ * @details Uses duty modulation to generate a digital signal that can be fed to a low
+ * pass RC filter for digital to analog voltage conversion.  Add an op amp buffer it
+ * it needs to drive a load.  Also works well for LED brightness.
+ *
+ * Default resolution is 8-bits for output voltages ranging from 0 V to (255/256) of
+ * 3.3 V.
+ *
+ * General equation is dacVal * (3.3 V/2^bits)
+ *
+ * Default is 8 bits, which results in dacVal * (3.3 V/ 256), so dacVal
+ * specifies the number of 256ths of 3.3 V.
+ *
+ * @param pin I/O pin number
+ * @param time Number of ms to maintain voltage
+ * @param dacVal Numerator in fraction of 3.3 V.
+ */
+void dac_ctr_res(int bits);
 
 /**
  * @brief Use an I/O pin to transmit PWM signal
@@ -352,7 +458,7 @@ void pwm(int tHigh, int tCycle);
  *
  * @returns tPulse Number of time units the pulse lasted
  */
-long pulseIn(int pin, int state);
+long pulse_in(int pin, int state);
 
 /**
  * @brief Transmit a pulse with an I/O pin
@@ -369,7 +475,7 @@ long pulseIn(int pin, int state);
  * @param pin I/O pin number
  * @param time Amount of time the pulse lasts.
  */
-void pulseOut(int pin, int time);
+void pulse_out(int pin, int time);
 
 /**
  * @brief Set I/O pin to input and measure the time it takes a signal to transition from
@@ -386,42 +492,7 @@ void pulseOut(int pin, int time);
  *
  * @returns time from starting pin
  */
-long rcTime(int pin, int state);
-
-/**
- * @brief Sets the timeout value for the following timed I/O functions: pulseIn, rcTime
- *
- * @details Time increment is set in clock ticks.  For example, the default of 0.25
- * seconds is set with setTimeout(CLKFREQ/4).  To set the timeout to 20 ms, you could
- * use setTimeout(CLKFREQ/50).
- *
- * @param clockTics Number of clock ticks for timed I/o
- */
-void setTimeout(long clockTicks);
-
-/**
- * @brief Sets the time increment for the following timed I/O functions: count, pulsin,
- * pulseout, rctime.
- *
- * @details Time increment is set in clock ticks.  For example, the default of 1 us
- * units is specified with setDt(CLKFREQ/1000000).  For 2 microsecond units, use
- * setDt(CLKFREQ/500000).
- *
- * @param clockTics Number of clocktics that represents one I/O time increment.
- */
-void setIoDt(long clockTicks);
-
-/**
- * @brief Allows you to "set and forget" a command until it is done, and then check for
- * the result.
- *
- * @details (not implemented yet, and will be renamed parallel, or maybe mode or opMode)
- *
- * @param mode the mode of operation (0 for sequential, 1 for parallel)
- *
- * @returns
- */
-void setForget(char mode);
+long rc_time(int pin, int state);
 
 /**
  * @brief Make an I/O pin transmit a repeated high/low signal at a certain frqeuency.
@@ -437,52 +508,43 @@ void setForget(char mode);
  * @param frequency Square wave frequency
  *
  */
-void squareWave(int pin, int time, int freq);
+void square_wave(int pin, int time, int freq);
 
 /**
- * @brief Set D/A voltge
+ * @brief Sets the timeout value for the following timed I/O functions: pulseIn, rcTime
  *
- * @details Uses duty modulation to generate a digital signal that can be fed to a low
- * pass RC filter for digital to analog voltage conversion.  Add an op amp buffer it
- * it needs to drive a load.  Also works well for LED brightness.
+ * @details Time increment is set in clock ticks.  For example, the default of 0.25
+ * seconds is set with setTimeout(CLKFREQ/4).  To set the timeout to 20 ms, you could
+ * use setTimeout(CLKFREQ/50).
  *
- * Default resolution is 8-bits for output voltages ranging from 0 V to (255/256) of
- * 3.3 V.
- *
- * General equation is dacVal * (3.3 V/2^bits)
- *
- * Default is 8 bits, which results in dacVal * (3.3 V/ 256), so dacVal
- * specifies the number of 256ths of 3.3 V.
- *
- * @param pin I/O pin number
- * @param time Number of ms to maintain voltage
- * @param dacVal Numerator in fraction of 3.3 V.
+ * @param clockTics Number of clock ticks for timed I/o
  */
-void dac(int pin, int time, int dacVal);
+void set_io_timeout(long clockTicks);
 
 /**
- * @brief Set the dac function's resolution
+ * @brief Sets the time increment for the following timed I/O functions: count, pulsin,
+ * pulseout, rctime.
  *
- * @details Specify number of bits.  Default is 8, which allows for 2^8 = 256 voltages.
- * If you want 512 voltages, set use setDacBits(9).  If you want 128 voltages, use
- * setDacBits(7).
+ * @details Time increment is set in clock ticks.  For example, the default of 1 us
+ * units is specified with setDt(CLKFREQ/1000000).  For 2 microsecond units, use
+ * setDt(CLKFREQ/500000).
  *
- * @param bitCnt Number of D/A conversion bit resolution for values in the dac function.
+ * @param clockTics Number of clocktics that represents one I/O time increment.
  */
-int setDacBits(int bitCnt);
+void set_io_dt(long clockTicks);
+
 
 /**
  * @brief Receive data from a synchronous serial device
  *
- * @details (not implemented yet)
- *
- * @param dataPin Data pin
- * @param clockPin Clock pin
+ * @param pinDat Data pin
+ * @param pinClk Clock pin
  * @param mode Mode
  * @param bits number of binary values to transfer
- * @param data pointer to data variable or array
+ *
+ * @returns value received from the synchronous serial device.
  */
-void shiftIn(int dataPin, int clokPin, int mode, int bits, int data);
+int shift_in(int pinDat, int pinClk, int mode, int bits);
 
 /**
  * @brief Send data to a synchronous serial device
@@ -493,9 +555,110 @@ void shiftIn(int dataPin, int clokPin, int mode, int bits, int data);
  * @param clockPin Clock pin
  * @param mode Mode
  * @param bits number of binary values to transfer
- * @param data pointer to data variable or array
+ * @param value to transmit
  */
-void shiftOut(int dataPin, int clokPin, int mode, int bits, int data);
+void shift_out(int pinDat, int pinClk, int mode, int bits, int value);
+
+/**
+ * @brief Set up a simple serial driver with transmit & receive pins.
+ *
+ * @param pinTxOut transmitting output pin.
+ *
+ * @param pinRxIn receiving input pin.
+ *
+ * @param baud rate in bits per second.
+ *
+ * @returns a file pointer that you can pass to functions like fptrintf.
+ */
+FILE* sser_setTxRx(int pinTxOut, int pinRxIn, int baudRate);
+
+/**
+ * @brief Set up a simple serial driver with just a transmit pin.
+ *
+ * @details Example:
+ *
+ *   serial lcd = sser_setTx(11, 9600);    // Serial driver transmits on P11
+ *   fputc(22, LCD);                       // Transmit 22
+ *   fputc(12, lcd);                       // Transmit 12 
+ *   pause(5);                             // Wait 5 ms
+ *   fptrintf(lcd, "Hello!!!");            // Transmit a string
+ *
+ * @param pinTxOut transmitting output pin.
+ *
+ * @param baud rate in bits per second.
+ *
+ * @returns a file pointer that you can pass to functions like fptrintf.
+ */
+FILE* sser_setTx(int pinTxOut, int baudRate);
+
+/**
+ * @brief Set up a simple serial driver with just a receive pin.
+ *
+ * @param pinTxOut transmitting output pin.
+ *
+ * @param baud rate in bits per second.
+ *
+ * @returns a file pointer that you can pass to functions like fptrintf.
+ */
+FILE* sser_setRx(int pinRxIn, int baudRate);
+
+/**
+ * @brief Close a simple serial deiver.
+ *
+ * @param peripheral the name of the simple serial deiver's file pointer.
+ */
+int sser_close(FILE* peripheral);
+
+/**
+ * @brief Set up a full duplex serial driver.
+ *
+ * @param pinTxOut transmitting output pin.
+ *
+ * @param pinRxIN receiving input pin.
+ *
+ * @param baud rate in bits per second.
+ *
+ * @returns a file pointer that you can pass to functions like fptrintf.
+ */
+FILE* fdser_start(int pinTxOut, int pinRxIn, int baudRate, int mode);
+
+/**
+ * @brief Stop the serial deiver.
+ *
+ * @param peripheral the file pointer fdser_start returned.
+ */
+int fdser_stop(FILE* peripheral);
+
+/**
+ * @brief mount an SD card with the minimal 4-pin interface.
+ *
+ * @param doPin the SD card's data out pin.
+ *
+ * @param clkPin the SD card's clock pin.
+ *
+ * @param diPin the SD card's data in pin.
+ *
+ * @param csPin the SD card's chip select pin.
+ *
+ * @returns status 0 if successful, or an error code.
+ */
+int sd_mount(int doPin, int clkPin, int diPin, int csPin);
+
+
+/**
+ * @brief Set up an I2C bus.
+ *
+ * @detail After you have set up the bus, you can use i2cread and i2cwrite functions 
+ * in propgcc\propeller-elf\include\i2c.h to communicate on the bus.
+ *
+ * @param sclpin the I2C bus' serial clock pin.
+ *
+ * @param sdapin the I2C bus' serial data pin.
+ *
+ * @returns a pointer to the I2C bus.  You will need this to pass to the i2cWrite and
+ * i2cRead functions for communicaiton on the bus. 
+ */
+I2C* i2c_newbus(int sclpin, int sdapin);
 
 /**
  * @brief Convert value to zero terminated text string
@@ -512,22 +675,30 @@ void shiftOut(int dataPin, int clokPin, int mode, int bits, int data);
  */
 char* itoa(int i, char b[], int base);
 
-FILE* sser_setTxRx(int pinTxOut, int pinRxIn, int baudRate);
-
-FILE* sser_setTx(int pinTxOut, int baudRate);
-
-FILE* sser_setRx(int pinRxIn, int baudRate);
-
-int sser_close(FILE* peripheral);
-
-FILE* fdser_start(int pinTxOut, int pinRxIn, int baudRate, int mode);
-
-int fdser_stop(FILE* peripheral);
-
 int add_driver(_Driver *driverAddr);
 
-int sd_mount(int doPin, int clkPin, int diPin, int csPin);
+/**
+ * TERMS OF USE: MIT License
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ */
 
-I2C* i2c_newbus(int sclpin, int sdapin);
+
 
 

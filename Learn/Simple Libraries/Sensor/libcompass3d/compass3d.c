@@ -8,7 +8,7 @@
 
 uint8_t continuous_mode[] = { 0x02, 0x00 };
 
-void CompassInit(I2C *bus)
+void compass_init(I2C *bus)
 {
   /* set to continuous mode */
   if (i2cWrite(bus, 0x3C, continuous_mode, sizeof(continuous_mode), 1) != 0)
@@ -17,7 +17,7 @@ void CompassInit(I2C *bus)
 
 uint8_t read_data_registers[] = { 0x03 };
 
-void CompassRead(I2C *bus, int *px, int *py, int *pz)
+void compass_read(I2C *bus, int *px, int *py, int *pz)
 {
   int16_t x16, y16, z16;
   uint8_t data[6];

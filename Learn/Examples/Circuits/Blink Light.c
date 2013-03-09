@@ -12,9 +12,9 @@ int main()                                    // Main function
 {
   while(1)                                    // Endless loop
   {
-    high(9);                                  // Set P9 I/O pin high
+    high(26);                                 // Set P26 I/O pin high
     pause(100);                               // Wait 1/10 second
-    low(9);                                   // Set P9 I/O pin low
+    low(26);                                  // Set P26 I/O pin low
     pause(100);                               // Wait another 1/10 second
   }
 }

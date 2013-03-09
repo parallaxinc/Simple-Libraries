@@ -10,5 +10,6 @@ WAV Player Ping Volume Control.c
 >optimize=-O2
 >-fno-exceptions
 >defs::-std=c99
+>-ltiny
 >linker::-lsimpletools -lping -lwavplayer
 >BOARD::HUB

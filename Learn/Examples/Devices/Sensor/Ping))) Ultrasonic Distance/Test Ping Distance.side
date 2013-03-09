@@ -8,5 +8,6 @@ Test Ping Distance.c
 >optimize=-O0
 >-fno-exceptions
 >defs::-std=c99
+>-ltiny
 >linker::-lsimpletools -lping
->BOARD::PROPBOE
+>BOARD::GENERIC

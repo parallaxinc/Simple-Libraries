@@ -6,5 +6,6 @@ Decision Chain.c
 >optimize=-Os
 >-fno-exceptions
 >defs::-std=c99
+>-ltiny
 >linker::-lsimpletools
 >BOARD::PROPBOE

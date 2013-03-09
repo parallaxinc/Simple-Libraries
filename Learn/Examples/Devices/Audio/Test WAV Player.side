@@ -8,5 +8,6 @@ Test WAV Player.c
 >optimize=-O2
 >-fno-exceptions
 >defs::-std=c99
+>-ltiny
 >linker::-lsimpletools -lwavplayer
 >BOARD::HUB

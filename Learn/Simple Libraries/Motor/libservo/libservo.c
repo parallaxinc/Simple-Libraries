@@ -3,6 +3,6 @@
 
 int main()
 {
-  servoAngle(4, 90);
+  servo_angle(4, 90);
   while(1);
 }

@@ -1,5 +1,5 @@
 /**
- * @file ping.h
+ * @file wavplayer.h
  *
  * @author Andy Lindsay
  *
@@ -13,27 +13,22 @@
  */
 
 /**
- * @brief Measure echo time in terns of Propeller system clock
- * ticks.
+ * @brief Play a .wav file.
  *
- * @param pin Number of the I/O pin to set to connected to the
- * Ping))) sensor's SIG line.
- *
- * @returns the number of clock ticks it took for the Ping)))'s
- * echo to return to it.
+ * @param filename pointer to character array with filename.
  */
 void wav_play(const char* wavFilename);
 
 /**
- * @brief Report Ping))) measurement as a centimeter distance.
+ * @brief Set wav play volume 0 to 10.
  *
- * @param pin Number of the I/O pin to set to connected to the
- * Ping))) sensor's SIG line.
- *
- * @returns measured centimeter distance.
+ * @param vol wav playback volume.
  */
 void wav_volume(int vol);
 
+/**
+ * @brief Stop wav playback.
+ */
 void wav_stop(void);
 
 //void wav_start(void);

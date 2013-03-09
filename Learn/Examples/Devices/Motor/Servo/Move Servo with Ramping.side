@@ -8,5 +8,6 @@ Move Servo with Ramping.c
 >optimize=-Os
 >-fno-exceptions
 >defs::-std=c99
+>-ltiny
 >linker::-lsimpletools -lservo
 >BOARD::PROPBOE

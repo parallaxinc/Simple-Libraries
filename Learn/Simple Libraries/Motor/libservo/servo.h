@@ -45,7 +45,7 @@
  *
  * @returns 1 if successful, 0 if no cogs or 1 if no locks.
  */
-int servoAngle(int pin, int degreeTenths);
+int servo_angle(int pin, int degreeTenths);
 
 /**
  * @brief Set Parallax Continous Rotation Servo speed.
@@ -67,7 +67,7 @@ int servoAngle(int pin, int degreeTenths);
  *
  * @returns 1 if successful, 0 if no cogs or 1 if no locks.
  */
-int servoSpeed(int pin, int speed);
+int servo_speed(int pin, int speed);
 
 /**
  * @brief Sets servo control signal to servo connected to a given pin.
@@ -102,7 +102,7 @@ int servoSpeed(int pin, int speed);
  *
  * @returns .
  */
-int servoSet(int pin, int time);
+int servo_set(int pin, int time);
 
 /**
  * @brief Set the maximum change in control signal a servo will change
@@ -122,7 +122,7 @@ int servoSet(int pin, int time);
  *
  * @returns 1 if successful, 0 if pin not found.
  */
-int rampStep(int pin, int stepSize);
+int servo_setramp(int pin, int stepSize);
 
 /**
  * @brief Reports the number of microseconds of the pulse most recently sent
@@ -134,12 +134,12 @@ int rampStep(int pin, int stepSize);
  * of the most recent pulse sent to the servo. (Or -1 if an entry is not found
  * for the pin argument.
  */
-int servoGet(int pin);
+int servo_get(int pin);
 
 /**
  * @brief Stops the servo process and frees a cog.
  */
-void servoStop(void);
+void servo_stop(void);
 
 /**
  * @brief Starts the servo process and takes over a cog.
@@ -151,7 +151,7 @@ void servoStop(void);
  * @returns 1..8 if successful.  0 if no available cogs, -1 if no avialable
  * locks.
  */
-int servoStart(void);
+int servo_start(void);
 
 /**
  * TERMS OF USE: MIT License

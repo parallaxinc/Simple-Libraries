@@ -28,7 +28,7 @@ void blink(void *par);
 // Cog 0 starts here
 int main()
 {
-  pin = 9;
+  pin = 26;
   tdelay = 200;
   lockID = locknew();
   printf("lockID = %d\n", lockID);

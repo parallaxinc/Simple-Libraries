@@ -1,14 +1,33 @@
+To-dos: 
+
+ - Make all simpletools functions that use counter modules play nice
+   together.
+ - pwm_ctr funciton.
+ - multicore code examples.
+ - proof funciton docs.
+ - Make sure fdser is cooked.
+
+--- March 8, 2013 ---
+
+ - Change simpletools function names with more than one word from 
+   wordWord to word_word.
+ - Fix bugs in group I/O functions.
+ - D/A added to simpletools library and created a separate D/A library.
+ - Add more examples to Learn\Examples\C Intro, Circuits & Devices.
+ - Correct display problems with library documentation web pages. 
+ - Change examples to use tiny library (except for floating point).
+ - Update sser_set... for I/O cooked.
 
 
 --- February 12, 2013 ---
 
- - Moved Development Notes.txt into Learn folder
- - Updated SimpleIDE\My Projects\Blank Simple Project
- - Added SimpleIDE\My Projects\Welcome
+ - Move Development Notes.txt into Learn folder
+ - Update SimpleIDE\My Projects\Blank Simple Project
+ - Add SimpleIDE\My Projects\Welcome
 
 
 --- February 10 ---
 
- - Added warning text file
- - Added Development Notes 2013.02.10.txt to SimpleIDE\My Projects
+ - Add warning text file
+ - Add Development Notes 2013.02.10.txt to SimpleIDE\My Projects
 

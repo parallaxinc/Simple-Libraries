@@ -15,7 +15,7 @@ int main()                                    // Main function
   {
     int cmDist = ping_cm(9);                  // Get cm distance from Ping)))
     printf("cmDist = %d\n", cmDist);          // Display distance
-    pause(500);                               // Wait 1/2 second
+    pause(200);                               // Wait 1/2 second
   }
 }
 

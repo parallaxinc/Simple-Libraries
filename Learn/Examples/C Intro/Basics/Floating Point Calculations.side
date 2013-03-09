@@ -6,7 +6,6 @@ Floating Point Calculations.c
 >optimize=-Os
 >-fno-exceptions
 >defs::-std=c99
->-ltiny
 >-lm
 >linker::-lsimpletools
 >BOARD::PROPBOE

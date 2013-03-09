@@ -12,12 +12,12 @@
 
 int main()                                    // Main function
 {
-  servoAngle(18, 0);                          // P18 servo to 0 degrees
+  servo_angle(16, 0);                         // P18 servo to 0 degrees
   pause(500);                                 // Allow 1/2 second to get there
-  rampStep(18, 7);                            // Change by up to 7/10 degree/ms 
-  servoAngle(18, 1800);                       // P18 servo to 180 degrees
+  servo_setramp(16, 7);                       // Change by up to 7/10 degree/ms 
+  servo_angle(16, 1800);                      // P18 servo to 180 degrees
   pause(6000);                                // Allow 4 seconds to get there
                                               // (with ramping in effect)
-  servoStop();                                // Stop servo process
+  servo_stop();                               // Stop servo process
 }
 

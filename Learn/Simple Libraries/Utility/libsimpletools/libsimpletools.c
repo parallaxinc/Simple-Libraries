@@ -1,4 +1,4 @@
 #include "simpletools.h"
-main()
+int main()
 {
 }

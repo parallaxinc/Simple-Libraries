@@ -4,7 +4,7 @@ libping.c
 ping.c
 ping.h
 >compiler=C
->memtype=lmm main ram
+>memtype=xmm-split external flash code + ram data
 >optimize=-Os
 >-fno-exceptions
 >defs::-std=c99

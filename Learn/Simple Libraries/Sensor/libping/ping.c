@@ -3,8 +3,8 @@
 int ping(int pin)
 {
   low(pin);
-  pulseOut(pin, 10);
-  return pulseIn(pin, 1);
+  pulse_out(pin, 10);
+  return pulse_in(pin, 1);
 }
 
 int ping_cm(int pin)

@@ -56,10 +56,10 @@
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aadda60f3e54cb74e026974e9473352d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="compass3d_8h.html#aadda60f3e54cb74e026974e9473352d5">CompassInit</a> (I2C *bus)</td></tr>
-<tr class="memdesc:aadda60f3e54cb74e026974e9473352d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the Compass.  <a href="#aadda60f3e54cb74e026974e9473352d5"></a><br/></td></tr>
-<tr class="memitem:a19be0bbc2d294266cf8ea3c2668acab8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="compass3d_8h.html#a19be0bbc2d294266cf8ea3c2668acab8">CompassRead</a> (I2C *bus, int *px, int *py, int *pz)</td></tr>
-<tr class="memdesc:a19be0bbc2d294266cf8ea3c2668acab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read values from compass.  <a href="#a19be0bbc2d294266cf8ea3c2668acab8"></a><br/></td></tr>
+<tr class="memitem:a011d6ef53d85061994304353da830ecb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="compass3d_8h.html#a011d6ef53d85061994304353da830ecb">compass_init</a> (I2C *bus)</td></tr>
+<tr class="memdesc:a011d6ef53d85061994304353da830ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the Compass.  <a href="#a011d6ef53d85061994304353da830ecb"></a><br/></td></tr>
+<tr class="memitem:afcf08a7bbb73588e5bfaebae01961e79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="compass3d_8h.html#afcf08a7bbb73588e5bfaebae01961e79">compass_read</a> (I2C *bus, int *px, int *py, int *pz)</td></tr>
+<tr class="memdesc:afcf08a7bbb73588e5bfaebae01961e79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read values from compass.  <a href="#afcf08a7bbb73588e5bfaebae01961e79"></a><br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>WARNING, CONSTRUCTION ZONE: This is a preliminary library, revisions pending, not for release. This file provides convenience functions for reading measurements from the Parallax Compass Module 3-Axis HMC5883L. </p>
@@ -67,12 +67,12 @@ Functions</h2></td></tr>
 <dl class="section version"><dt>Version</dt><dd>v0.8</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed. </dd></dl>
 </div><h2>Function Documentation</h2>
-<a class="anchor" id="aadda60f3e54cb74e026974e9473352d5"></a>
+<a class="anchor" id="a011d6ef53d85061994304353da830ecb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void CompassInit </td>
+          <td class="memname">void compass_init </td>
           <td>(</td>
           <td class="paramtype">I2C *&#160;</td>
           <td class="paramname"><em>bus</em></td><td>)</td>
@@ -95,12 +95,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a19be0bbc2d294266cf8ea3c2668acab8"></a>
+<a class="anchor" id="afcf08a7bbb73588e5bfaebae01961e79"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void CompassRead </td>
+          <td class="memname">void compass_read </td>
           <td>(</td>
           <td class="paramtype">I2C *&#160;</td>
           <td class="paramname"><em>bus</em>, </td>
@@ -149,7 +149,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 27 2013 18:17:32 for compass3d library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 2 2013 14:39:07 for compass3d library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

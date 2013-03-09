@@ -40,21 +40,21 @@ volatile unsigned int lockID;                 // Lock ID
 
 void servo(void *par);                        // Function prototype for servo
 
-int servoAngle(int pin, int degreeTenths)     // Set continuous rotation speed
+int servo_angle(int pin, int degreeTenths)     // Set continuous rotation speed
 {
-  return servoSet(pin, degreeTenths + 500);   // Add center pulse width to speed
+  return servo_set(pin, degreeTenths + 500);   // Add center pulse width to speed
 }
 
-int servoSpeed(int pin, int speed)            // Set continuous rotation speed
+int servo_speed(int pin, int speed)            // Set continuous rotation speed
 {
-  return servoSet(pin, speed + 1500);         // Add center pulse width to speed
+  return servo_set(pin, speed + 1500);         // Add center pulse width to speed
 }
 
-int servoSet(int pin, int time)               // Set pulse width to servo on pin 
+int servo_set(int pin, int time)               // Set pulse width to servo on pin 
 {
   if(servoCog == 0)                           // If cog not started
   {
-    int result = servoStart();                // Start the cog
+    int result = servo_start();                // Start the cog
     if(result == 0) return 0;                 // No cogs open
     if(result == -1) return -1;               // No locks open
   }
@@ -95,7 +95,7 @@ int servoSet(int pin, int time)               // Set pulse width to servo on pin
   }
 }
 
-int rampStep(int pin, int stepSize)           // Set ramp step for a servo
+int servo_setramp(int pin, int stepSize)      // Set ramp step for a servo
 {
   int s = sizeof(p)/sizeof(int);              // Get array size
   int i;                                      // Local index variable
@@ -113,7 +113,7 @@ int rampStep(int pin, int stepSize)           // Set ramp step for a servo
   return 0;                                  // Return -1, pin not found
 }
 
-int servoGet(int pin)                         // Get servo position
+int servo_get(int pin)                        // Get servo position
 {
   int s = sizeof(p)/sizeof(int);              // Get size of servo arrays
   int i;                                      // Declare local index
@@ -157,7 +157,7 @@ void servo(void *par)                         // Servo process in other cog
           }
           tPulse = tp[i] + step;              // Increment pulse by step 
         }
-        pulseOut(p[i], tPulse);               // Send pulse to servo
+        pulse_out(p[i], tPulse);               // Send pulse to servo
         tp[i] = tPulse;                       // Remember pulse for next time
       }
     }
@@ -166,7 +166,7 @@ void servo(void *par)                         // Servo process in other cog
   }
 }
 
-void servoStop(void)                          // Stop servo process, free a cog
+void servo_stop(void)                          // Stop servo process, free a cog
 {
   if(servoCog)                                // If the cog is running
   {
@@ -176,11 +176,11 @@ void servoStop(void)                          // Stop servo process, free a cog
   }
 }
 
-int servoStart(void)                          // Take cog & start servo process
+int servo_start(void)                          // Take cog & start servo process
 {
   lockID = locknew();                         // Check out a lock
   if (lockID == -1) return -1;                // Return -1 if no locks
-  servoStop();                                // Stop in case cog is running
+  servo_stop();                                // Stop in case cog is running
   servoCog = cogstart(&servo, NULL, stack,    // Launch servo into new cog
              sizeof(stack)) + 1;
   return servoCog;                            // Return cog that was taken
