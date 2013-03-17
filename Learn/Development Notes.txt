@@ -1,11 +1,15 @@
 To-dos: 
 
+ - Proof function docs.
+ - Make sure fdser is cooked.
+ - Convert LMM libraries to COGC so that they can also be used by XMM.
+   
+
+--- March 17, 2013 ---
+
  - Make all simpletools functions that use counter modules play nice
    together.
- - pwm_ctr funciton.
- - multicore code examples.
- - proof funciton docs.
- - Make sure fdser is cooked.
+ - pwm function.
 
 --- March 8, 2013 ---
 

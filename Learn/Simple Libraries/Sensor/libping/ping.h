@@ -12,6 +12,16 @@
  * Distance Sensor.
  */
 
+
+#ifndef PING_H
+#define PING_H
+
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
+#include "simpletools.h"
+
 /**
  * @brief Measure echo time in terns of Propeller system clock
  * ticks.
@@ -43,6 +53,13 @@ int ping_cm(int pin);
  * @returns measured inch distance.
  */
 int ping_inches(int pin);
+
+#if defined(__cplusplus)
+}
+#endif
+/* __cplusplus */  
+#endif
+/* PING_H */  
 
 /**
  * TERMS OF USE: MIT License

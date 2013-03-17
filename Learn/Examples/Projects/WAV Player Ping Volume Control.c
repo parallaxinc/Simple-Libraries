@@ -10,7 +10,7 @@ int main()                                    // Main function
 {
   pause(1000);                                // Wait 1 s for host
 
-  int DO = 22, CLK = 23, DI = 24, CS = 25, PIN_PING = 9;
+  int DO = 22, CLK = 23, DI = 24, CS = 25, PIN_PING = 17;
   sd_mount(DO, CLK, DI, CS);
   
   const char levels[] = {"levels.wav"};

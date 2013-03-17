@@ -4,7 +4,7 @@ libwavplayer.c
 wavplayer.c -> wavplayer.c
 wavplayer.h -> wavplayer.h
 >compiler=C
->memtype=xmm-split external flash code + ram data
+>memtype=cmm main ram compact
 >optimize=-O2
 >-fno-exceptions
 >defs::-std=c99

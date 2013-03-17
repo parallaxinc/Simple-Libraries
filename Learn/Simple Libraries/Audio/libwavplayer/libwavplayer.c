@@ -6,7 +6,7 @@
 #include "simpletools.h"
 #include "wavplayer.h"
 
-int main()                                    // Main function
+int main()                             
 {
   int DO = 22, CLK = 23, DI = 24, CS = 25;
   sd_mount(DO, CLK, DI, CS);

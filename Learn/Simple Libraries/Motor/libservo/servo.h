@@ -23,6 +23,13 @@
  * this code to editor@parallax.com.
  */
 
+#ifndef SERVO_H
+#define SERVO_H
+
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
 #include "simpletools.h"
 
 /**
@@ -152,6 +159,14 @@ void servo_stop(void);
  * locks.
  */
 int servo_start(void);
+
+#if defined(__cplusplus)
+}
+#endif
+/* __cplusplus */  
+#endif
+
+/* SERVO_H */  
 
 /**
  * TERMS OF USE: MIT License

@@ -3,14 +3,14 @@
  *
  * @author Andy Lindsay
  *
- * @version dev002 (see details for more info)
+ * @version 0.9 (see details for more info)
  *
  * @copyright
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
  *
  * @brief WARNING, CONSTRUCTION ZONE: This is a preliminary library, 
- * major revisions pending, not for release.  This library provides 
- * convenience functions for:
+ * major revisions pending.  This library provides convenience functions 
+ * for:
  *
  * @li I/O control - convenient I/O pin monitoring and control functions
  * @li Timing - Delays, timeouts
@@ -37,7 +37,14 @@
  * adding libraries to support and endless variety of peripherals
  * and applications.
  */
- 
+
+#ifndef SIMPLETOOLS_H
+#define SIMPLETOOLS_H
+
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
 #include <propeller.h>
 #include <driver.h>
 #include <stdio.h>
@@ -90,6 +97,20 @@ extern int dacCtrBits;
 // Values for use with shift_out
 #define   LSBFIRST   0
 #define   MSBFIRST   1
+
+// Counter module values
+#ifndef NCO_PWM_1
+#define NCO_PWM_1 0b00100 << 26;
+#endif
+#ifndef CTR_NCO
+#define CTR_NCO (0b100 << 26);
+#endif
+#ifndef CTR_PLL
+#define CTR_PLL (0b10 << 26);
+#endif
+#ifndef DUTY_SE
+#define DUTY_SE (0b110 << 26)
+#endif
 
 // Define types for simplified driver declarations
 typedef FILE* serial;
@@ -240,7 +261,7 @@ void set_output(int pin, int state);
  *
  * @details This works the same as getState, but for a group of pins.  It
  * tells you the actual state of each pin, regardless of whether it's a 
- * voltage applied to intput or transmitted by an output.
+ * voltage applied to input or transmitted by an output.
  *
  * @param endPin the higest numbered pin.
  * @param startPin the lowest numbered pin.
@@ -254,9 +275,9 @@ unsigned int get_states(int endPin, int startPin);
  * @brief Get directions for a contiguous group of I/O pins
  *
  * @details Get direction register states from a contiguous group of bits 
- * in the cog's ouput register.
+ * in the cog's output register.
  *
- * @param endPin the higest numbered pin.
+ * @param endPin the highest numbered pin.
  * @param startPin the lowest numbered pin.
  *
  * @returns states Value containing a binary bit pattern.  The value for
@@ -268,9 +289,9 @@ unsigned int get_directions(int endPin, int startPin);
  * @brief Get output settings for a contiguous group of I/O pins
  *
  * @details Get output register settings for a contiguous group of bits 
- * in the cog's ouput register.
+ * in the cog's output register.
  *
- * @param endPin the higest numbered pin.
+ * @param endPin the highest numbered pin.
  * @param startPin the lowest numbered pin.
  *
  * @returns pattern Value containing a binary bit pattern.  The value 
@@ -284,7 +305,7 @@ unsigned int get_outputs(int endPin, int startPin);
  * @details Set directions values in a contiguous group of bits in the 
  * cog's output register.
  *
- * @param endPin the higest numbered pin.
+ * @param endPin the highest numbered pin.
  * @param startPin the lowest numbered pin.
  * @param states value containing the binary bit pattern.  The value for
  * startPin should be in bit-0, next in bit-1, etc.
@@ -297,7 +318,7 @@ void set_directions(int endPin, int startPin, unsigned int pattern);
  * @details Set output states of a contiguous group of bits in the cog's
  * output register.
  *
- * @param endPin the higest numbered pin.
+ * @param endPin the highest numbered pin.
  * @param startPin the lowest numbered pin.
  * @param states value containing the binary bit pattern.  The value for
  * startPin should be in bit-0, next in bit-1, etc.
@@ -308,7 +329,7 @@ void set_outputs(int endPin, int startPin, unsigned int pattern);
  * @brief Delay cog from moving on to the next statement for a certain amount
  * of time.
  *
- * @details The defualt time increemnt is 1 ms, so pause(100) would delay for
+ * @details The default time increment is 1 ms, so pause(100) would delay for
  * 100 ms = 1/10th of a second.  This time increment can be changed with a call
  * to the setPauseDt function.
  *
@@ -348,7 +369,7 @@ void mark(void);
 /**
  * @brief Compares the time against the time elapsed since mark.
  *
- * @details The defualt time incremnt is 1 us, so timeout(2000) will return 1
+ * @details The default time increment is 1 us, so timeout(2000) will return 1
  * if 2 ms or more has elapsed since mark, or 0 if it has not.
  *
  * @param time Number of time increments.
@@ -358,7 +379,7 @@ int timeout(int time);
 /**
  * @brief Waits a certain number of time increments from the last call to mark.
  *
- * @details The defualt time incremnt is 1 us, so wait(2000) will return wait
+ * @details The default time increment is 1 us, so wait(2000) will return wait
  * until 2 us after the last call to mark.  This function automatically updates
  * the marked time, so you can call it repeatedly without having to call mark.
  *
@@ -392,9 +413,15 @@ long count(int pin, long duration);
 /**
  * @brief Set D/A voltge
  *
- * @details Uses duty modulation to generate a digital signal that can be fed to a low
- * pass RC filter for digital to analog voltage conversion.  Add an op amp buffer it
- * it needs to drive a load.  Also works well for LED brightness.
+ * @details Launches process into another cog for up to two channels of D/A conversion
+ * on any I/O pin.  Other libraries may be available that provide D/A for more channels.
+ * Check SimpleIDE\Learn\Simple Libraries\Convert for options.  For more options, check
+ * obex.parallax.com.
+ *
+ * This library uses another cog's counter modules (2 per cog) to perform duty modulation,
+ * which is useful for D/A conversion.  The digital signal it generates will affect LED
+ * brightness.  The signal can be passed through a low pass RC filter for digital to 
+ * analog voltage conversion.  Add an op amp buffer it it needs to drive a load.  
  *
  * Default resolution is 8-bits for output voltages ranging from 0 V to (255/256) of
  * 3.3 V.
@@ -414,7 +441,7 @@ long count(int pin, long duration);
 void dac_ctr(int pin, int channel, int dacVal);
 
 /**
- * @brief Set D/A voltge resolution
+ * @brief Set D/A voltage resolution
  *
  * @details Uses duty modulation to generate a digital signal that can be fed to a low
  * pass RC filter for digital to analog voltage conversion.  Add an op amp buffer it
@@ -435,22 +462,81 @@ void dac_ctr(int pin, int channel, int dacVal);
 void dac_ctr_res(int bits);
 
 /**
- * @brief Use an I/O pin to transmit PWM signal
+ * @brief Stop the cog that's transmitting the DAC signal(s).  
  *
- * @details Typically used for signals that control DC motors.  Default
- * time increments are specified in 1 microsecond units.  Unit size can be changed
- * with a call to setIoDt funciton.
+ * @details Stops any signals, lets go of any I/O pins, and reclaims the cog for
+ * other uses.  
  *
- * @param tHigh time the output signal stays high
- * @param tCycle time of the cycle (high time + low time)
  */
-void pwm(int tHigh, int tCycle);
+void dac_ctrs_stop(void);
+
+/**
+ * @brief Use same cog to send square wave of a certain 
+ * frequency for a certain amount of time.  For set and forget
+ * with another cog, try square_wave function instead.
+ *
+ * @param pin I/O pin that sends the frequency
+ * @param time time in ms that the signal lasts
+ * @param frequency frequency of the signal in Hz.  Accepts
+ * values from 1 Hz to 128 MHz.
+ */
+void freqout(int pin, int msTime, int frequency);
+
+/**
+ * @brief Start pulse width modulation (PWM) process in another cog.
+ *
+ * @details Great for DC motors, can also be used for servos, but the 
+ * servo library is probably a better choice for that.
+ *
+ * A PWM signal sends repeated high signals with a fixed cycle time.
+ * Your code will typically control the amount of time a PWM signal is
+ * high during each cycle.  For example, pwm_start(1000) will establish
+ * a 1000 us PWM cycle.  You can then use the pwm_set function to send
+ * high signals that last anywhere from 0 to 1000 us.   
+ *
+ * @param cycleMicroseconds Number of microseconds the PWM cycle lasts.
+ */
+int pwm_start(unsigned int cycleMicroseconds);
+
+/**
+ * @brief Set a PWM signal's high time.
+ *
+ * @details After a single call to pwm_start, this function allows you
+ * to set a PWM signal's high time.  For example, if your pwm_start call
+ * sets up 1000 us (1 ms) you could use this function to make the signal
+ * high for 3/4 of its cycle with pwm_set(pin, channel, 750).  If the
+ * signal goes to a DC motor through an H bridge or other deliver circuit,
+ * the motor will behave as though it's only getting 3/4 of the supply 
+ * and turn at roughly 3/4 of full speed.
+ *
+ * @param pin I/O pin to send the PWM signal.  You can change this 
+ * value on the fly, which is useful for speed control of a DC motor in 
+ * two different directions.  When the PWM signal changes to a new pin,
+ * the cog sets the previous pin to input.  If you want it to stay low
+ * when the PWM cog lets go, just set the pin low in your code before 
+ * calling pwm_start.
+ * 
+ * @param channel You have options of 0 or 1 for up to two simultaneous 
+ * PWM signals.  If you have an application in mind that requires more
+ * PWM signals, check the SimpleIDE/Learn/Simple Libraries/Motor
+ * directory, and also online at obex.parallax.com. 
+ *
+ * @param tHigh the high time for each PWM cycle repetition.
+ */
+void pwm_set(int pin, int channel, int tHigh);
+
+/**
+ * @brief Shut down PWM process and reclaim cog and I/O pins for other
+ * uses.
+ *
+ */
+void pwm_stop(void);
 
 /**
  * @brief Measure the duration of a pulse applied to an I/O pin
  *
  * @details Default time increments are specified in 1 microsecond units.  Unit size
- * can be changed with a call to setIoDt funciton.
+ * can be changed with a call to setIoDt function.
  *
  * @param pin I/O pin number
  * @param state State of the pulse (1 for positive or high pulses, 0 for negative or
@@ -464,7 +550,7 @@ long pulse_in(int pin, int state);
  * @brief Transmit a pulse with an I/O pin
  *
  * @details Default time increments are specified in 1 microsecond units.  Unit size
- * can be changed with a call to setIoDt funciton.  The pulse will be positive if the
+ * can be changed with a call to setIoDt function.  The pulse will be positive if the
  * I/O pin is transmitting a low signal before the call.  The pulse will be negative
  * if it transmits a high signal before the call.  When the pulse is done, the pin
  * returns to whatever state it was in before the pulse.  If the pin was an input, it
@@ -481,7 +567,7 @@ void pulse_out(int pin, int time);
  * @brief Set I/O pin to input and measure the time it takes a signal to transition from
  * a start state to the opposite state.
  *
- * @details Named rctime because because it is often used to measure a resistor-capacitor
+ * @details Named rctime because it is often used to measure a resistor-capacitor
  * circuit's tendency to "decay" to either ground or 5 V (depending on wiring).  Default
  * time increments are specified in 1 microsecond units.  Unit size can be changed with a
  * call to setIoDt funciton.  The pulse will be positive if the I/O pin is transmitting a
@@ -495,20 +581,33 @@ void pulse_out(int pin, int time);
 long rc_time(int pin, int state);
 
 /**
- * @brief Make an I/O pin transmit a repeated high/low signal at a certain frqeuency.
+ * @brief Make I/O pin transmit a repeated high/low signal at a certain frequency.
+ * High and low times are the same.  Frequency can range from 1 Hz to 128 MHz.  
  *
- * @details Frequency can range from 1 Hz to 128 MHz.  High and low times are the same.
- * Positive time values will make the library use the same cog that is executing
- * your code generate the square wave and wait for it to finish.  Negative time
- * values will caluse the library to launch the process into another cog and
- * return immediately.
+ * @details Uses one additional cog with up to two active channels, each with a selectable
+ * frequency.  You can change transmit pins on the fly by calling this function on the 
+ * same channel, but with a different pin.  The previous pin will be set to input in that
+ * cog.  If your code is set to output, it will not affect that setting, only the setting
+ * for the cog that is transmitting the square wave.  Code in your cog, or some other cog
+ * can modulate the signal.  A low signal allows the square wave to transmit, and a high
+ * signal prevents it.  
  *
- * @param pin I/O pin that transmits square wave fequency
- * @param time Time to transmit square wave (in ms)
+ * @param pin I/O pin that transmits square wave frequency.  To stop sending the signal
+ * and change the pin back to input, pass the pin as a negative number.
+ * @param channel 0 or 1 Selects the counter module to transmit the frequency.
  * @param frequency Square wave frequency
  *
  */
-void square_wave(int pin, int time, int freq);
+void square_wave(int pin, int channel, int freq);
+
+/**
+ * @brief Stop the cog that's transmitting a square wave.  
+ *
+ * @details Stops any signals, lets go of any I/O pins, and reclaims the cog for
+ * other uses.  
+ *
+ */
+void square_wave_stop(void);
 
 /**
  * @brief Sets the timeout value for the following timed I/O functions: pulseIn, rcTime
@@ -605,7 +704,7 @@ FILE* sser_setRx(int pinRxIn, int baudRate);
 /**
  * @brief Close a simple serial deiver.
  *
- * @param peripheral the name of the simple serial deiver's file pointer.
+ * @param peripheral the name of the simple serial driver’s file pointer.
  */
 int sser_close(FILE* peripheral);
 
@@ -623,7 +722,7 @@ int sser_close(FILE* peripheral);
 FILE* fdser_start(int pinTxOut, int pinRxIn, int baudRate, int mode);
 
 /**
- * @brief Stop the serial deiver.
+ * @brief Stop the serial driver.
  *
  * @param peripheral the file pointer fdser_start returned.
  */
@@ -656,7 +755,7 @@ int sd_mount(int doPin, int clkPin, int diPin, int csPin);
  * @param sdapin the I2C bus' serial data pin.
  *
  * @returns a pointer to the I2C bus.  You will need this to pass to the i2cWrite and
- * i2cRead functions for communicaiton on the bus. 
+ * i2cRead functions for communication on the bus. 
  */
 I2C* i2c_newbus(int sclpin, int sdapin);
 
@@ -676,6 +775,13 @@ I2C* i2c_newbus(int sclpin, int sdapin);
 char* itoa(int i, char b[], int base);
 
 int add_driver(_Driver *driverAddr);
+
+#if defined(__cplusplus)
+}
+#endif
+/* __cplusplus */  
+#endif
+/* SIMPLETOOLS_H */  
 
 /**
  * TERMS OF USE: MIT License

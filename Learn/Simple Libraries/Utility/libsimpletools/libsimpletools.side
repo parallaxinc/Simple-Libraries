@@ -38,9 +38,10 @@ source/itoa.c
 source/simpleserial.c
 simpletools.h
 source/i2cinit.c
+freqout.c -> source/freqout.c
 >compiler=C
->memtype=lmm main ram
+>memtype=cmm main ram compact
 >optimize=-Os
 >-fno-exceptions
 >-create_library
->BOARD::HUB
+>BOARD::GENERIC

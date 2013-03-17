@@ -14,6 +14,13 @@
  * 3-Axis HMC5883L.
  */
 
+#ifndef COMPASS3D_H
+#define COMPASS3D_H
+
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
 #include <i2c.h>
 
 /**
@@ -62,6 +69,13 @@ void compass_init(I2C *bus);
  * compass module does not respond. 
  */
 void compass_read(I2C *bus, int *px, int *py, int *pz);
+
+#if defined(__cplusplus)
+}
+#endif
+/* __cplusplus */  
+#endif
+/* COMPASS3D_H */  
 
 /**
  * TERMS OF USE: MIT License
