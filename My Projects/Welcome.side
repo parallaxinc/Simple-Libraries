@@ -5,6 +5,7 @@ Welcome.c
 >memtype=cmm main ram compact
 >optimize=-Os
 >-fno-exceptions
->-Dprintf=__simple_printf
+>defs::-std=c99
+>-ltiny
 >linker::-lsimpletools
->BOARD::PROPBOE
+>BOARD::GENERIC

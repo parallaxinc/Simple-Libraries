@@ -1,6 +1,3 @@
-// WARNING: This is a development copy.  For public versions, 
-// go to code.google.com/p/propside/downloads/list
-
 /*
   Welcome.c
   
