@@ -1,0 +1,14 @@
+libservodiffdrive.c
+servodiffdrive.c
+-I ..\..\Utility\libsimpletools\
+-L ..\..\Utility\libsimpletools\
+-I ..\libservo\
+-L ..\libservo\
+servodiffdrive.h
+>compiler=C
+>memtype=xmm-split external flash code + ram data
+>optimize=-Os
+>-fno-exceptions
+>-create_library
+>linker::-lsimpletools -lservo
+>BOARD::HUB

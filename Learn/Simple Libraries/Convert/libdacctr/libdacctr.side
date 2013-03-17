@@ -1,0 +1,13 @@
+libdacctr.c
+-I ../../Utility/libsimpletools
+-L ../../Utility/libsimpletools
+dacctr.c
+dacctr.h
+>compiler=C
+>memtype=xmm-split external flash code + ram data
+>optimize=-Os
+>-fno-exceptions
+>defs::-std=c99
+>-create_library
+>linker::-lsimpletools
+>BOARD::PROPBOE
