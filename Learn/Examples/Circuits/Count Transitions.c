@@ -4,11 +4,11 @@
   Flash P26 at 10 Hz for 10 seconds.  After 1 s, count transitions for 1 s
   and report the count.
   
-  http://learn.parallax.com/C/Simple-Circuits-Propeller-C/Count-Transitions
+  http://learn.parallax.com/propeller-c-simple-circuits/count-transitions
 */
 #include "simpletools.h"                      // Include simpletools header
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   square_wave(26, 0, 10);                     // P26, ch0, 10 Hz.
   pause(1000);                                // Pause 1 second

@@ -5,6 +5,11 @@ To-dos:
  - Convert LMM libraries to COGC so that they can also be used by XMM.
    
 
+--- March 23, 2013 ---
+
+ - Update tutrial links in SimpleIDE/Learn/Examples
+ - Correct documentation errors from alpha forum
+
 --- March 17, 2013 ---
 
  - Make all simpletools functions that use counter modules play nice

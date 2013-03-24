@@ -8,4 +8,4 @@ Function with Parameters and Return Value.c
 >defs::-std=c99
 >-ltiny
 >linker::-lsimpletools
->BOARD::PROPBOE
+>BOARD::ACTIVITYBOARD

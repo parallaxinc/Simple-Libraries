@@ -3,12 +3,12 @@
   
   If a condition is true, display a second message.
   
-  learn.parallax.com/C/Propeller-C-Start-Simple/Make-Decision
+  http://learn.parallax.com/propeller-c-start-simple/make-decision
 */
 
 #include "simpletools.h"                      // Include simpletools header
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   pause(1000);                                // Wait 1 s for computer connection
   int a = 25;                                 // Initialize a variable to 25

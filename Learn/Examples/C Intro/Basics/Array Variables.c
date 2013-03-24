@@ -3,12 +3,12 @@
    
   Declare and initialize an array and display a couple of its slements.
   
-  learn.parallax.com/C/Propeller-C-Start-Simple/Array-Variables
+  http://learn.parallax.com/propeller-c-start-simple/array-variables
 */
 
 #include "simpletools.h"                      // Include simpletools header
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   int p[] = {1, 2, 3, 5, 7, 11};              // Initialize the array
   pause(1000);                                // Wait 1 s for host

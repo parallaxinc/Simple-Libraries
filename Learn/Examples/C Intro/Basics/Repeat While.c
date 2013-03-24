@@ -3,12 +3,12 @@
   
   Keep displaying n = n + 5 every half second while n <= 200.
   
-  learn.parallax.com/C/Propeller-C-Start-Simple/Looping-Code-Repeat-While
+  http://learn.parallax.com/propeller-c-start-simple/code-repeats
 */
 
 #include "simpletools.h"                      // Include simpletools header
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   int n = 0;                                  // Declare n, initialize to zero
   while(n < 200)                              // Repeat while n less than 200

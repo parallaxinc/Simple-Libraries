@@ -1,22 +1,22 @@
 /*
   Function with Parameter.c
   
-  Call a function that displays the result of two values added together.
+  Call a function that displays a value passed to it with a parameter.
   
-  learn.parallax.com/C/Propeller-C-Start-Simple/Function-Call-Parameter
+  http://learn.parallax.com/propeller-c-start-simple/function-parameter
 */
 
 #include "simpletools.h"                      // Include simpletools header
 
 void value(int a);                            // Function prototype
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   pause(500);                                 // Pause 1/2 second
   value(6);                                   // Call value function
 }
 
-void value(int a)                             // Value function
+void value(int a)                             // value function
 {
-  printf("The value is: a = %d\n", a);         // Display a single value
+  printf("The value is: a = %d\n", a);        // Display a single value
 }

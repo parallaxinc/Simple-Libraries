@@ -43,17 +43,22 @@
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="html/#nested-classes">Data Structures</a> &#124;
-<a href="html/#typedef-members">Typedefs</a> &#124;
-<a href="html/#func-members">Functions</a> &#124;
-<a href="html/#var-members">Variables</a>  </div>
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">dacctr.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>WARNING, CONSTRUCTION ZONE: This is a preliminary library, major revisions pending, not for release. This file provides convenience functions for digital to analog conversion using using counter modules (each cog has two).  
-<a href="html/#details">More...</a></p>
+<p>This file provides convenience functions for digital to analog conversion using using counter modules (each cog has two). <br/>
+ <br/>
+ <b><em>CONSTRUCTION ZONE:</em></b> This library is preliminary, major revisions pending, not for release. <br/>
+ <br/>
+ Currently supports LMM and CMM memory models.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;simpletools.h&quot;</code><br/>
 </div>
 <p><a href="html/dacctr_8h_source.html">Go to the source code of this file.</a></p>
@@ -63,6 +68,13 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/struct_dac_control.html">DacControl</a></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/struct_dac_addr.html">DacAddr</a></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/struct_dac_cog_memory.html">DacCogMemory</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a83e7c6583ebf1d8f9c2d2c32bbf0c984"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a83e7c6583ebf1d8f9c2d2c32bbf0c984"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>DUTY_SE</b>&#160;&#160;&#160;(6 &lt;&lt; 26)</td></tr>
+<tr class="memitem:a1e509235365fbf1eae4d12a31caf926c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1e509235365fbf1eae4d12a31caf926c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NEW_COG</b>&#160;&#160;&#160;2</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -76,36 +88,50 @@ typedef struct <a class="el" href="html/struct_dac_cog_memory.html">DacCogMemory
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a6c58e331012a2e577b91545dd4dc6c00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="html/struct_dac_control.html">dac</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/dacctr_8h.html#a6c58e331012a2e577b91545dd4dc6c00">dac_setup</a> (int pin, int channel, int bits)</td></tr>
-<tr class="memdesc:a6c58e331012a2e577b91545dd4dc6c00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure an I/O pin to set a voltage with digital to analog (D/A) conversion.  <a href="html/#a6c58e331012a2e577b91545dd4dc6c00"></a><br/></td></tr>
+<tr class="memdesc:a6c58e331012a2e577b91545dd4dc6c00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure an I/O pin to set a voltage with digital to analog (D/A) conversion.  <a href="#a6c58e331012a2e577b91545dd4dc6c00"></a><br/></td></tr>
 <tr class="memitem:ad547af7d558af0e35005d47fd4db8f3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/dacctr_8h.html#ad547af7d558af0e35005d47fd4db8f3e">dac_set</a> (<a class="el" href="html/struct_dac_control.html">dac</a> *da, int value)</td></tr>
-<tr class="memdesc:ad547af7d558af0e35005d47fd4db8f3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the D/A converter's output.  <a href="html/#ad547af7d558af0e35005d47fd4db8f3e"></a><br/></td></tr>
+<tr class="memdesc:ad547af7d558af0e35005d47fd4db8f3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the D/A converter's output.  <a href="#ad547af7d558af0e35005d47fd4db8f3e"></a><br/></td></tr>
 <tr class="memitem:a588e0df4307f324e1af79e817700e595"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/dacctr_8h.html#a588e0df4307f324e1af79e817700e595">dac_close</a> (<a class="el" href="html/struct_dac_control.html">dac</a> *da)</td></tr>
-<tr class="memdesc:a588e0df4307f324e1af79e817700e595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear a D/A converter that's running in the same cog and reclaim the I/O pin and counter module for other uses.  <a href="html/#a588e0df4307f324e1af79e817700e595"></a><br/></td></tr>
+<tr class="memdesc:a588e0df4307f324e1af79e817700e595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear a D/A converter that's running in the same cog and reclaim the I/O pin and counter module for other uses.  <a href="#a588e0df4307f324e1af79e817700e595"></a><br/></td></tr>
 <tr class="memitem:a28631eae2735825e6cdde5b8aaa04778"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/dacctr_8h.html#a28631eae2735825e6cdde5b8aaa04778">dac_start</a> (<a class="el" href="html/struct_dac_cog_memory.html">dacmem</a> mem, int sampleRate, <a class="el" href="html/struct_dac_control.html">dac</a> *da0, <a class="el" href="html/struct_dac_control.html">dac</a> *da1)</td></tr>
-<tr class="memdesc:a28631eae2735825e6cdde5b8aaa04778"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start D/A converter in new cog that sets voltages on either one or two pins.  <a href="html/#a28631eae2735825e6cdde5b8aaa04778"></a><br/></td></tr>
+<tr class="memdesc:a28631eae2735825e6cdde5b8aaa04778"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start D/A converter in new cog that sets voltages on either one or two pins.  <a href="#a28631eae2735825e6cdde5b8aaa04778"></a><br/></td></tr>
 <tr class="memitem:a70eaac08aec8cecc905ed93030633021"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/dacctr_8h.html#a70eaac08aec8cecc905ed93030633021">dac_stop</a> (int cogid)</td></tr>
-<tr class="memdesc:a70eaac08aec8cecc905ed93030633021"><td class="mdescLeft">&#160;</td><td class="mdescRight">stops a DAC cog and free's up a cog and all its resources for other uses.  <a href="html/#a70eaac08aec8cecc905ed93030633021"></a><br/></td></tr>
+<tr class="memdesc:a70eaac08aec8cecc905ed93030633021"><td class="mdescLeft">&#160;</td><td class="mdescRight">stops a DAC cog and free's up a cog and all its resources for other uses.  <a href="#a70eaac08aec8cecc905ed93030633021"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ab08b07d618a261f4068800a1f806aa71"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab08b07d618a261f4068800a1f806aa71"></a>
-const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>DUTY_SE</b></td></tr>
-<tr class="memitem:a20a45ebc08b85dc51eaeb14e3844e66a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a20a45ebc08b85dc51eaeb14e3844e66a"></a>
-const int&#160;</td><td class="memItemRight" valign="bottom"><b>NEW_COG</b></td></tr>
 <tr class="memitem:a46516cecda09e605554cf7378face120"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a46516cecda09e605554cf7378face120"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>WARNING, CONSTRUCTION ZONE: This is a preliminary library, major revisions pending, not for release. This file provides convenience functions for digital to analog conversion using using counter modules (each cog has two). </p>
+<div class="textblock"><p>This file provides convenience functions for digital to analog conversion using using counter modules (each cog has two). <br/>
+ <br/>
+ <b><em>CONSTRUCTION ZONE:</em></b> This library is preliminary, major revisions pending, not for release. <br/>
+ <br/>
+ Currently supports LMM and CMM memory models. </p>
 <dl class="section author"><dt>Author</dt><dd>Andy Lindsay</dd></dl>
 <dl class="section version"><dt>Version</dt><dd>dev002 (see details for more info)</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.</dd></dl>
 <p>The current cog's counters can be used for D/A conversion, or one or more new cogs can be launched, each with two D/A channels. The output of this type of D/A converter can go straight to an LED circuit for variable brightness, or to a filter and into an op amp to drive other circuits at certain voltages. See Propeller Activity Board schematic for an example. P26 and P27 are connected to a filter, op amp, and also to LEDs.</p>
-<p>Example same cog:</p>
-<p>dac myDac = dac_stup(3, 0, 8); // P3, channel 0, 8-bits (256ths of 3.3 V) dac_set(&amp;myDac, 128); // Voltage to 128/256ths of 3.3 V = 1.65 V // Call dac_set whenever you want to change the voltage</p>
-<p>Example in another cog:</p>
-<p>// P4, channel 0, 10-bits (1024ths of 3.3 V). dac cogDac = dac_stup(4, NEW_COG, 10); // Optionally, pre-set the voltage (to 256/1024ths of 3.3 V = 0.825 V). dac_set(&amp;cogDac, 256); // Set aside memory for the processor. dacmem mem; // Launch the process (we are using just one of the two available channels here). // In another cog, you have to specify the sampling rate. We are using 44100. int myCog = dac_start(mem, 44100, &amp;cogDac, NULL); </p>
-</div><h2>Function Documentation</h2>
+<p><b>Example in same cog:</b></p>
+<div class="fragment"><div class="line"><a class="code" href="html/struct_dac_control.html">dac</a> myDac = dac_setup(3, 0, 8); <span class="comment">// P3, channel 0, 8-bits (256ths of 3.3 V)</span></div>
+<div class="line">dac_set(&amp;myDac, 128);           <span class="comment">// Voltage to 128/256ths of 3.3 V = 1.65 V</span></div>
+<div class="line"></div>
+<div class="line"><span class="comment">// Call dac_set whenever you want to change the voltage</span></div>
+</div><!-- fragment --><p><b>Example in another cog:</b></p>
+<div class="fragment"><div class="line"><span class="comment">// P4, channel 0, 10-bits (1024ths of 3.3 V).</span></div>
+<div class="line"><a class="code" href="html/struct_dac_control.html">dac</a> cogDac = dac_setup(4, NEW_COG, 10);</div>
+<div class="line"></div>
+<div class="line"><span class="comment">// Optionally, pre-set the voltage (to 256/1024ths of 3.3 V = 0.825 V).</span></div>
+<div class="line">dac_set(&amp;cogDac, 256);</div>
+<div class="line"></div>
+<div class="line"><span class="comment">// Set aside memory for the processor.</span></div>
+<div class="line"><a class="code" href="html/struct_dac_cog_memory.html">dacmem</a> mem;</div>
+<div class="line"></div>
+<div class="line"><span class="comment">// Launch the process (we are using just one of the two available channels here).</span></div>
+<div class="line"><span class="comment">// In another cog, you have to specify the sampling rate.  We are using 44100.</span></div>
+<div class="line"><span class="keywordtype">int</span> myCog = dac_start(mem, 44100, &amp;cogDac, NULL);</div>
+</div><!-- fragment --> </div><h2>Function Documentation</h2>
 <a class="anchor" id="a588e0df4307f324e1af79e817700e595"></a>
 <div class="memitem">
 <div class="memproto">
@@ -288,7 +314,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 28 2013 18:52:43 for dacctr library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Sat Mar 23 2013 18:40:15 for dacctr library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

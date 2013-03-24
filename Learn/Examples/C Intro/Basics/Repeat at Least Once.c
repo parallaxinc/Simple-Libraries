@@ -1,17 +1,17 @@
 /*
-  Repeat While.c
+  Repeat at Least Once.c
   
   Keep displaying n = n + 5 every half second while n <= 10.
   Try making the while condition not true and see what happens.  For example
   change it to while(n < 0), which will not happen here.  Note that the code 
   in the loop still gets executed once.
   
-  learn.parallax.com/C/Propeller-C-Start-Simple/Looping-Code-Repeat-Least-Once
+  http://learn.parallax.com/propeller-c-start-simple/repeat-least-once
 */
 
 #include "simpletools.h"                      // Include simpletools header
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   pause(1000);
   int n = 0;                                  // Declare n, initialize to zero

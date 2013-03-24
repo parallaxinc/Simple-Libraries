@@ -10,4 +10,4 @@ Test WAV Player.c
 >defs::-std=c99
 >-ltiny
 >linker::-lsimpletools -lwavplayer
->BOARD::HUB
+>BOARD::ACTIVITYBOARD

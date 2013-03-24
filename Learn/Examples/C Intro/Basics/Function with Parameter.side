@@ -6,5 +6,6 @@ Function with Parameter.c
 >optimize=-Os
 >-fno-exceptions
 >defs::-std=c99
+>-ltiny
 >linker::-lsimpletools
->BOARD::PROPBOE
+>BOARD::ACTIVITYBOARD

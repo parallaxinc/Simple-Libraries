@@ -19,7 +19,7 @@ int main()                                    // Main function
 
   while(1)                                    // Repeat indefinitely
   {
-    compass_read(bus, &x, &y, &z);             // Compas vals -> variables
+    compass_read(bus, &x, &y, &z);            // Compass vals -> variables
     printf("%cx=%d, y=%d, z=%d%c\n",          // Display compass variables
            HOME, x, y, z, CLREOL);
     pause(500);                               // Wait 1/2 second

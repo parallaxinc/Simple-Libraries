@@ -3,12 +3,12 @@
   
   Add two integer values together and display the result.
   
-  learn.parallax.com/C/Propeller-C-Start-Simple/Variables-Calculations
+  http://learn.parallax.com/propeller-c-start-simple/variables-and-math
 */
 
 #include "simpletools.h"                      // Include simpletools header
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   pause(1000);                                // Wait 1 s for host computer
   int a = 25;                                 // Initialize a variable to 25

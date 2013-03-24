@@ -8,4 +8,4 @@ Count Transitions.c
 >defs::-std=c99
 >-ltiny
 >linker::-lsimpletools
->BOARD::PROPBOE
+>BOARD::ACTIVITYBOARD

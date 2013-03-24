@@ -3,12 +3,12 @@
   
   Count to ten in SimpleIDE Terminal.
   
-  learn.parallax.com/C/Propeller-C-Start-Simple/Counting-Loops 
+  http://learn.parallax.com/propeller-c-start-simple/counting-loops
 */
 
 #include "simpletools.h"
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   for(int n = 1; n <= 10; n++)                // Count to ten
   {

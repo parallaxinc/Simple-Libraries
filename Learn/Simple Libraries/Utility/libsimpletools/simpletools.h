@@ -8,22 +8,28 @@
  * @copyright
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
  *
- * @brief WARNING, CONSTRUCTION ZONE: This is a preliminary library, 
- * major revisions pending.  This library provides convenience functions 
- * for:
+ * @brief This library provides convenience functions 
+ * for a variety of microcontroller I/O, timing, conversion, and 
+ * communication tasks.
+ * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major 
+ * revisions pending, not for release.
+ * @n @n dac_ctr, pwm, square_wave are currently only supported by the LMM and 
+ * CMM memory models.  
  *
+ * @details This (under development) library provides a set of
+ * introductory functions that simplify:
+ *  
  * @li I/O control - convenient I/O pin monitoring and control functions
  * @li Timing - Delays, timeouts
  * @li Timed I/O - pulse generation/measurement, square waves, transition
  * counting, RC decay, etc.
- * @li Analog - D/A conversion, A/D conversation (but not yet), PWM, sine 
- * waves, etc.
- * @li Serial Communication - SPI, I2C, asynchronous
+ * @li Analog - D/A conversion, A/D conversation (but not yet), PWM, and 
+ * more.
+ * @li Serial Communication - SPI, I2C, asynchronous serial
  * @li Memory - EEPROM (not yet), SD storage
  *
- * @details This (under development) library provides a set of
- * introductory functions that simplify monitoring, control and
- * communication with simple peripherals, including lights, buttons,
+ * Applications include: monitoring, control and
+ * communication with simple peripherals, like lights, buttons,
  * dials, motors, peripheral integrated circuits and prototyping with
  * simple systems that use pulse, or serial communication.  (A few
  * examples from the very large list of devices includes: servos,
@@ -345,6 +351,7 @@ void pause(int dt);
  * depending on memory model and optimization.  A simple test if you want a
  * certain number of clock ticks is:
  * 
+ *  @code
  *  unsigned int ti, tf, us, pauseTicks;
  *  us = CLKFREQ/1000000;                               // 1 us worth of ticks
  *  pauseTicks = 10*us;                                 // 10 us of ticks
@@ -353,6 +360,7 @@ void pause(int dt);
  *  tf = CNT;                                           // Save end time
  *  printf("pauseTicks = %d\n", pauseTicks);            // Display pauseTicks
  *  printf("delayTicks = %d\n", tf - ti);               // Display measured
+ *  @endcode
  *
  * @param tticks the number of pause clock ticks.
  */
@@ -676,11 +684,13 @@ FILE* sser_setTxRx(int pinTxOut, int pinRxIn, int baudRate);
  *
  * @details Example:
  *
+ *   @code
  *   serial lcd = sser_setTx(11, 9600);    // Serial driver transmits on P11
  *   fputc(22, LCD);                       // Transmit 22
  *   fputc(12, lcd);                       // Transmit 12 
  *   pause(5);                             // Wait 5 ms
  *   fptrintf(lcd, "Hello!!!");            // Transmit a string
+ *   @endcode
  *
  * @param pinTxOut transmitting output pin.
  *

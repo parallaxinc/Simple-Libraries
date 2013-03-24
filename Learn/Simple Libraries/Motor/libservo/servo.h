@@ -8,10 +8,13 @@
  * @copyright Copyright (C) Parallax, Inc. 2012.  See end of file for
  * terms of use (MIT License).
  *
- * @brief WARNING, CONSTRUCTION ZONE: This is a preliminary library, 
- * major revisions pending, not for release.  Control servos in other cog.  
- * Number of servos depends on the library file you use.  For example, servo.c 
- * can control up to seven servos.  Since this library automatically delivers 
+ * @brief Control servos in other cog.  Currently up to 7, but more should
+ * be coming soon.  
+ * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
+ * pending, not for release.
+ * @n @n Currently supports LMM and CMM memory models.  
+ *
+ * @details This library automatically delivers 
  * control pulses to the servos every 20 ms, all you have to do is use the set 
  * method to pick the pin the servo is connected to and the duration of the 
  * control pulses.
@@ -38,9 +41,11 @@ extern "C" {
  *
  * @details Examples:
  *
- * @li servoAngle(pin, 0);     // for 0 degrees
- * @li servoAngle(pin, 900);   // for 90 degrees
- * @li servoAngle(pin, 1800);  // for 180 degrees
+ * @code
+ * servoAngle(pin, 0);     // for 0 degrees
+ * servoAngle(pin, 900);   // for 90 degrees
+ * servoAngle(pin, 1800);  // for 180 degrees
+ * @endcode
  *
  * 0 to 1800 corresponds to control pulses ranging from 500 to 2300 with 1400
  * at center (90 degrees), which is slightly different from the 1500 center
@@ -59,11 +64,13 @@ int servo_angle(int pin, int degreeTenths);
  *
  * @details Examples:
  *
- * @li servoSpeed(pin, 200);    // Twice full speed counterclockwise
- * @li servoSpeed(pin, 100);    // Full speed counterclockwise
- * @li servoSpeed(pin, 0);      // Stay still
- * @li servoSpeed(pin, -100);   // Full speed clockwise
- * @li servoSpeed(pin, -200);   // Twice full speed clockwise
+ * @code
+ * servoSpeed(pin, 200);    // Twice full speed counterclockwise
+ * servoSpeed(pin, 100);    // Full speed counterclockwise
+ * servoSpeed(pin, 0);      // Stay still
+ * servoSpeed(pin, -100);   // Full speed clockwise
+ * servoSpeed(pin, -200);   // Twice full speed clockwise
+ * @endcode
  *
  * 100 to -100 corresponds to the linear speed control range.  For example,
  * servoSpeed(pin, 75) will set the speed to roughly 75% of full speed
@@ -84,9 +91,11 @@ int servo_speed(int pin, int speed);
  *
  * Examples:
  *
- * @li   0 degrees -> servoSet(pin, 500);
- * @li  90 degrees -> servoSet(pin, 1400);
- * @li 180 degrees -> servoSet(pin, 2300);
+ * @code
+ * servoSet(pin, 500);    //   0 degrees
+ * servoSet(pin, 1400);   //  90 degrees
+ * servoSet(pin, 2300);   // 180 degrees
+ * @endcode
  *
  * 500, 1400, and 2300 are the number of microseconds (us) the control pulses
  * stay high.  More generally, a microsecond above 500 corresponds to 1/10

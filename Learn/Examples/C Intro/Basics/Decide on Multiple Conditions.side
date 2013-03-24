@@ -8,4 +8,4 @@ Decide on Multiple Conditions.c
 >defs::-std=c99
 >-ltiny
 >linker::-lsimpletools
->BOARD::PROPBOE
+>BOARD::ACTIVITYBOARD

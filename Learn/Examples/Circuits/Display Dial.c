@@ -1,14 +1,14 @@
 /*
   Display Dial.c
   
-  Display potentiometer in RC circuit connected to P5.
+  Display output of potentiometer RC circuit connected to P5.
   
-  http://learn.parallax.com/C/Simple-Circuits-Propeller-C/Check-Dial-Position
+  http://learn.parallax.com/propeller-c-simple-circuits/check-dial
 */
 
 #include "simpletools.h"                      // Include simpletools header
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   while(1)                                    // Endless loop
   {

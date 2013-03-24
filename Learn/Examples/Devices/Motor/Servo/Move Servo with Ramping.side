@@ -10,4 +10,4 @@ Move Servo with Ramping.c
 >defs::-std=c99
 >-ltiny
 >linker::-lsimpletools -lservo
->BOARD::PROPBOE
+>BOARD::ACTIVITYBOARD

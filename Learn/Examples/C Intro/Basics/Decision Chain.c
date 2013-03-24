@@ -3,12 +3,12 @@
   
   Check a series of conditions, but only act on the first one that's true.
   
-  learn.parallax.com/C/Propeller-C-Start-Simple/Decision-Chain
+  http://learn.parallax.com/propeller-c-start-simple/make-several-decisions
 */
 
 #include "simpletools.h"                      // Include simpletools header
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   pause(1000);                                // Wait 1 s for computer connection
   int a = 25;                                 // Initialize a variable to 25

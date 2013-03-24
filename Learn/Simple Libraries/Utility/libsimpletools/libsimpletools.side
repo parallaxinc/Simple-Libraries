@@ -44,4 +44,4 @@ freqout.c -> source/freqout.c
 >optimize=-Os
 >-fno-exceptions
 >-create_library
->BOARD::GENERIC
+>BOARD::ACTIVITYBOARD

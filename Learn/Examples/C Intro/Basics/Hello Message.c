@@ -3,12 +3,12 @@
   
   Click Help and select Tutorials to see lots of code and application examples. 
   
-  learn.parallax.com/C/Propeller-C-Start-Simple/Simple-Hello-Message
+  http://learn.parallax.com/propeller-c-start-simple/simple-hello-message
 */
 
 #include "simpletools.h"                      // Include simpletools header
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   pause(1000);                                // Wait 1 s for host
   printf("Hello!");                           // Display a message

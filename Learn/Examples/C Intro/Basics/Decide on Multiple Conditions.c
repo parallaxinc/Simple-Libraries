@@ -3,12 +3,12 @@
   
   Make a decision based on two conditions.  
   
-  learn.parallax.com/C/Propeller-C-Start-Simple/Decide-Multiple-Conditions 
+  http://learn.parallax.com/propeller-c-start-simple/make-complicated-decisions 
 */
 
 #include "simpletools.h"                      // Include simpletools header
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   pause(1000);                                // Wait 1 s for computer connection
   int a = 100;                                // Initialize a variable to 25

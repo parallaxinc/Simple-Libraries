@@ -3,4 +3,4 @@ Blank Project.c
 >memtype=cmm main ram compact
 >optimize=-Os
 >-fno-exceptions
->BOARD::GENERIC
+>BOARD::HUB

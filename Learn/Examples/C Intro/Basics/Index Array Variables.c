@@ -3,12 +3,12 @@
   
   Use a for loop to display all the elements in an array.
   
-  learn.parallax.com/C/Propeller-C-Start-Simple/Index-Array-Variables
+  http://learn.parallax.com/propeller-c-start-simple/index-array-variables
 */
 
 #include "simpletools.h"                      // Include simpletools header
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   int p[] = {1, 2, 3, 5, 7, 11};              // Initialize the array
   for(int i = 0; i < 6; i++)                  // Count i from 0 to 6

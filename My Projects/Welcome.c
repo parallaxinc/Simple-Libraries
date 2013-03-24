@@ -1,24 +1,25 @@
 /*
   Welcome.c
   
-  Welcome to SimpleIDE, the C programming environment that 
-  makes it easy to get started with the multi-core Propeller 
-  microcontroller! 
+  Welcome to SimpleIDE, the C programming environment that makes it easy to 
+  get started with the multi-core Propeller microcontroller! 
   
   To run this program:
   
-    - Is this the first Parallax software you've installed 
-      on your computer?  If so, install USB driver's now: 
-      www.parallax.com/usbdrivers
-    - Connect Propeller board to computer's USB (+ power if
-      needed).
-    - Make sure to select your board and COM port from the 
-      toolbar dropdown menus.
-    - Click Tools and select Run with Terminal (or click the 
-      Run with Terminal button).  
+    - Is this the first Parallax software you've installed on your computer?  
+      If so, install USB driver's now: www.parallax.com/usbdrivers
+    - Connect your Propeller board to your computer's USB.  Also connect power
+      to the board if needed, and if it has a power switch, turn it on.
+    - Make sure to select your COM port from the toolbar dropdown menu in the
+      upper-right corner.  If you are unsure which COM port your board is 
+      connected to, disconnect it and click the dropdown to check the port 
+      list, then reconnect it and check again.
+    - Click Tools and select Run with Terminal (or click the Run with Terminal 
+      button).  The SimpleIDE Terminal should appear and display the "Hello!"
+      message.
       
-   Next, check the Help menu for new online tutorials, 
-   software manual, and reference material.
+   Next, check the Help menu for new online tutorials, software manual, and 
+   reference material.
 */
 
 #include "simpletools.h"                      // Include simple tools

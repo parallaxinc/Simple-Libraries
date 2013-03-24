@@ -7,4 +7,4 @@ Hello LCD.c
 >-fno-exceptions
 >defs::-std=c99
 >linker::-lsimpletools
->BOARD::PROPBOE
+>BOARD::ACTIVITYBOARD

@@ -8,10 +8,11 @@
  * @copyright
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
  *
- * @brief WARNING, CONSTRUCTION ZONE: This is a preliminary library, 
- * major revisions pending, not for release.  This file provides 
- * convenience functions for digital to analog conversion using 
- * using counter modules (each cog has two).
+ * @brief This file provides convenience functions for digital to analog conversion using 
+ * using counter modules (each cog has two).  
+ * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
+ * pending, not for release.
+ * @n @n Currently supports LMM and CMM memory models.
  *
  * @details The current cog's counters can be used for D/A conversion,
  * or one or more new cogs can be launched, each with two D/A channels.  The output of this
@@ -20,24 +21,34 @@
  * Activity Board schematic for an example.  P26 and P27 are connected to a filter, op amp, 
  * and also to LEDs.
  *
- * Example same cog: 
- * 
- *   dac myDac = dac_stup(3, 0, 8);  // P3, channel 0, 8-bits (256ths of 3.3 V)
- *   dac_set(&myDac, 128);           // Voltage to 128/256ths of 3.3 V = 1.65 V
- *   // Call dac_set whenever you want to change the voltage
+ * <b>Example in same cog:</b>
  *
- * Example in another cog:
+ * @code
+ *
+ *   dac myDac = dac_setup(3, 0, 8); // P3, channel 0, 8-bits (256ths of 3.3 V)
+ *   dac_set(&myDac, 128);           // Voltage to 128/256ths of 3.3 V = 1.65 V
+ *
+ *   // Call dac_set whenever you want to change the voltage
+ * @endcode
+ *
+ * <b>Example in another cog:</b>
+ *
+ * @code
  *
  *   // P4, channel 0, 10-bits (1024ths of 3.3 V).
- *   dac cogDac = dac_stup(4, NEW_COG, 10);
- *   // Optionally, pre-set the voltage (to 256/1024ths of 3.3 V = 0.825 V).  
- *   dac_set(&cogDac, 256);          
- *   // Set aside memory for the processor.  
+ *   dac cogDac = dac_setup(4, NEW_COG, 10);
+ *
+ *   // Optionally, pre-set the voltage (to 256/1024ths of 3.3 V = 0.825 V).
+ *   dac_set(&cogDac, 256);
+ *
+ *   // Set aside memory for the processor.
  *   dacmem mem;
+ *
  *   // Launch the process (we are using just one of the two available channels here).
- *   // In another cog, you have to specify the sampling rate.  We are using 44100. 
+ *   // In another cog, you have to specify the sampling rate.  We are using 44100.
  *   int myCog = dac_start(mem, 44100, &cogDac, NULL);
  *
+ *  @endcode
  */
 
 #ifndef DACCTR_H

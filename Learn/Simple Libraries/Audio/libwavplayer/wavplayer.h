@@ -6,10 +6,12 @@
  * @copyright
  * Copyright (C) Parallax, Inc. 2012. All Rights MIT Licensed.
  *
- * @brief CONSTRUCTION ZONE: This is a preliminary library, 
- * revisions pending, not for release.  This library 
- * provides convenience functions for the Ping))) Ultrasonic 
- * Distance Sensor.
+ * @brief Plays 16-bit, 32ksps, mono .wav files in the root directory of a 
+ * microSD card.
+ * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
+ * pending, not for release.
+ * @n @n Currently supports LMM and CMM memory models.  
+ * @n @n Make sure to set optimization to -02 Speed.
  */
 #ifndef WAVPLAYER_H
 #define WAVPLAYER_H

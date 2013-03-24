@@ -6,10 +6,10 @@
  * @copyright
  * Copyright (C) Parallax, Inc. 2012. All Rights MIT Licensed.
  *
- * @brief CONSTRUCTION ZONE: This is a preliminary library, 
- * revisions pending, not for release.  This library 
- * provides convenience functions for the Ping))) Ultrasonic 
- * Distance Sensor.
+ * @brief Measure Ping))) Ultrasonic Distance Sensor values in cm, inches, 
+ * or microsecond echo return times.
+ * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
+ * pending, not for release.
  */
 
 

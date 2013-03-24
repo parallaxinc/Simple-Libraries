@@ -8,10 +8,11 @@
  * @copyright Copyright (C) Parallax, Inc. 2012.  See end of file for
  * terms of use (MIT License).
  *
- * WARNING, CONSTRUCTION ZONE: This is a preliminary library, 
- * revisions pending, not for release.  Adds a layer over servo library for 
+ * @brief Adds a layer over servo library for 
  * use with a differential servo drive robot.  You have to include the 
- * simpletools and servo libraries for this one to work.
+ * simpletools and servo libraries for this to work.
+ * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
+ * pending, not for release.
  *
  * @detail Functions that control servo speeds and directions automatically
  * reverse servo speed on the right side to make intuitive functions that 

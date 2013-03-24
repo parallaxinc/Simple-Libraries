@@ -8,5 +8,6 @@ Test Compass.c
 >optimize=-Os
 >-fno-exceptions
 >defs::-std=c99
+>-ltiny
 >linker::-lsimpletools -lcompass3d
->BOARD::PROPBOE
+>BOARD::ACTIVITYBOARD

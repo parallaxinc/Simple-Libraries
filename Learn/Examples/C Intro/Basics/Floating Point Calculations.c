@@ -3,7 +3,7 @@
   
   Calculate and display circumference of a circle of radius = 1.0.
   
-  learn.parallax.com/C/Propeller-C-Start-Simple/Floating-Point-Calculations
+  http://learn.parallax.com/propeller-c-start-simple/floating-point-math
 */
 
 #include "simpletools.h"                      // Include simpletools header

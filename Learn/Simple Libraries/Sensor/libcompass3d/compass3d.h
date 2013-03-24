@@ -8,10 +8,11 @@
  * @copyright
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
  *
- * @brief WARNING, CONSTRUCTION ZONE: This is a preliminary library, 
- * revisions pending, not for release.  This file provides convenience 
+ * @brief This library provides convenience 
  * functions for reading measurements from the Parallax Compass Module
  * 3-Axis HMC5883L.
+ * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
+ * pending, not for release. 
  */
 
 #ifndef COMPASS3D_H
@@ -31,7 +32,9 @@ extern "C" {
  * Example: Assuming the your program is using the 
  * simpletools library, you can use:
  *
+ *   @code
  *   i2c mybus = i2c_init(sclPin, sdaPin)
+ *   @endcode
  *
  * ... where sclPin is the number of the I/O pin number
  * connected to the compass module's SCL line and sdaPin

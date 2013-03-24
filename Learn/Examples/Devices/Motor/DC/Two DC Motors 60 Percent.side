@@ -8,4 +8,4 @@ Two DC Motors 60 Percent.c
 >defs::-std=c99
 >-ltiny
 >linker::-lsimpletools
->BOARD::PROPBOE
+>BOARD::ACTIVITYBOARD

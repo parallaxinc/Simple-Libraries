@@ -10,4 +10,4 @@ Test Ping Distance.c
 >defs::-std=c99
 >-ltiny
 >linker::-lsimpletools -lping
->BOARD::GENERIC
+>BOARD::ACTIVITYBOARD

@@ -1,6 +1,6 @@
 /*
   Two DC Motors 60 Percent.c
-  Drive a pair of DC motors at 6/10 of sull speed.
+  Drive a pair of DC motors at 6/10 of full speed.
 */
 #include "simpletools.h"
 

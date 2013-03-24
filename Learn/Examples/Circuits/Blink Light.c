@@ -1,14 +1,14 @@
 /*
   Blink Light.c
   
-  Blink light circuit connected to P9.
+  Blink light circuit connected to P26.
   
-  http://learn.parallax.com/C/Simple-Circuits-Propeller-C/Blink-Light
+  http://learn.parallax.com/propeller-c-simple-circuits/blink-light
 */
 
 #include "simpletools.h"                      // Include simpletools header
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   while(1)                                    // Endless loop
   {

@@ -6,9 +6,9 @@ servodiffdrive.c
 -L ..\libservo\
 servodiffdrive.h
 >compiler=C
->memtype=xmm-split external flash code + ram data
+>memtype=cmm main ram compact
 >optimize=-Os
 >-fno-exceptions
 >-create_library
 >linker::-lsimpletools -lservo
->BOARD::HUB
+>BOARD::ACTIVITYBOARD

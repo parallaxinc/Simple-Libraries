@@ -48,7 +48,11 @@
 </div><!--header-->
 <div class="contents">
 
-<p>WARNING, CONSTRUCTION ZONE: This is a preliminary library, major revisions pending, not for release. Control servos in other cog. Number of servos depends on the library file you use. For example, servo.c can control up to seven servos. Since this library automatically delivers control pulses to the servos every 20 ms, all you have to do is use the set method to pick the pin the servo is connected to and the duration of the control pulses.  
+<p>Control servos in other cog. Currently up to 7, but more should be coming soon. <br/>
+ <br/>
+ <b><em>CONSTRUCTION ZONE:</em></b> This library is preliminary, major revisions pending, not for release. <br/>
+ <br/>
+ Currently supports LMM and CMM memory models.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;simpletools.h&quot;</code><br/>
 </div>
@@ -73,10 +77,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 <tr class="memdesc:a703779e60ba1f5ef6757afde71ee05b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the servo process and takes over a cog.  <a href="#a703779e60ba1f5ef6757afde71ee05b4"></a><br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>WARNING, CONSTRUCTION ZONE: This is a preliminary library, major revisions pending, not for release. Control servos in other cog. Number of servos depends on the library file you use. For example, servo.c can control up to seven servos. Since this library automatically delivers control pulses to the servos every 20 ms, all you have to do is use the set method to pick the pin the servo is connected to and the duration of the control pulses. </p>
+<div class="textblock"><p>Control servos in other cog. Currently up to 7, but more should be coming soon. <br/>
+ <br/>
+ <b><em>CONSTRUCTION ZONE:</em></b> This library is preliminary, major revisions pending, not for release. <br/>
+ <br/>
+ Currently supports LMM and CMM memory models. </p>
 <dl class="section author"><dt>Author</dt><dd>Andy Lindsay</dd></dl>
 <dl class="section version"><dt>Version</dt><dd>dev001</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax, Inc. 2012. See end of file for terms of use (MIT License).</dd></dl>
+<p>This library automatically delivers control pulses to the servos every 20 ms, all you have to do is use the set method to pick the pin the servo is connected to and the duration of the control pulses.</p>
 <p>Parallax standard servos have a position range from approximately 0 to 180 degrees. For 0 degrees, use control pulses of</p>
 <p>Please submit bug reports, suggestions, and improvements to this code to <a href="#" onclick="location.href='mai'+'lto:'+'edi'+'to'+'r@p'+'ar'+'all'+'ax'+'.co'+'m'; return false;">edito<span style="display: none;">.nosp@m.</span>r@pa<span style="display: none;">.nosp@m.</span>ralla<span style="display: none;">.nosp@m.</span>x.co<span style="display: none;">.nosp@m.</span>m</a>. </p>
 </div><h2>Function Documentation</h2>
@@ -106,12 +115,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 
 <p>Set Parallax Standard Servo to angle from 0 to 180 in tenths of a degree. </p>
 <p>Examples:</p>
-<ul>
-<li>servoAngle(pin, 0); // for 0 degrees </li>
-<li>servoAngle(pin, 900); // for 90 degrees </li>
-<li>servoAngle(pin, 1800); // for 180 degrees</li>
-</ul>
-<p>0 to 1800 corresponds to control pulses ranging from 500 to 2300 with 1400 at center (90 degrees), which is slightly different from the 1500 center convention, but it places the servo's range of motion neatly between its mechanical limits.</p>
+<div class="fragment"><div class="line">servoAngle(pin, 0);     <span class="comment">// for 0 degrees</span></div>
+<div class="line">servoAngle(pin, 900);   <span class="comment">// for 90 degrees</span></div>
+<div class="line">servoAngle(pin, 1800);  <span class="comment">// for 180 degrees</span></div>
+</div><!-- fragment --><p>0 to 1800 corresponds to control pulses ranging from 500 to 2300 with 1400 at center (90 degrees), which is slightly different from the 1500 center convention, but it places the servo's range of motion neatly between its mechanical limits.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pin</td><td>Number of the I/O pin connected to servo </td></tr>
@@ -175,12 +182,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 <p>Sets servo control signal to servo connected to a given pin. </p>
 <p>This function directly controls the number of microseconds servo control pulses last.</p>
 <p>Examples:</p>
-<ul>
-<li>0 degrees -&gt; servoSet(pin, 500); </li>
-<li>90 degrees -&gt; servoSet(pin, 1400); </li>
-<li>180 degrees -&gt; servoSet(pin, 2300);</li>
-</ul>
-<p>500, 1400, and 2300 are the number of microseconds (us) the control pulses stay high. More generally, a microsecond above 500 corresponds to 1/10 of a degree clockwise of 0 degrees. So, for a given degree position, use:</p>
+<div class="fragment"><div class="line">servoSet(pin, 500);    <span class="comment">//   0 degrees</span></div>
+<div class="line">servoSet(pin, 1400);   <span class="comment">//  90 degrees</span></div>
+<div class="line">servoSet(pin, 2300);   <span class="comment">// 180 degrees</span></div>
+</div><!-- fragment --><p>500, 1400, and 2300 are the number of microseconds (us) the control pulses stay high. More generally, a microsecond above 500 corresponds to 1/10 of a degree clockwise of 0 degrees. So, for a given degree position, use:</p>
 <p>degree position = 500 + (number of 10ths of a degree)</p>
 <p>For setting continuous rotation servo speed, use:</p>
 <ul>
@@ -262,14 +267,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 
 <p>Set Parallax Continous Rotation Servo speed. </p>
 <p>Examples:</p>
-<ul>
-<li>servoSpeed(pin, 200); // Twice full speed counterclockwise </li>
-<li>servoSpeed(pin, 100); // Full speed counterclockwise </li>
-<li>servoSpeed(pin, 0); // Stay still </li>
-<li>servoSpeed(pin, -100); // Full speed clockwise </li>
-<li>servoSpeed(pin, -200); // Twice full speed clockwise</li>
-</ul>
-<p>100 to -100 corresponds to the linear speed control range. For example, servoSpeed(pin, 75) will set the speed to roughly 75% of full speed counterclockwise. This is a very rough approximation.</p>
+<div class="fragment"><div class="line">servoSpeed(pin, 200);    <span class="comment">// Twice full speed counterclockwise</span></div>
+<div class="line">servoSpeed(pin, 100);    <span class="comment">// Full speed counterclockwise</span></div>
+<div class="line">servoSpeed(pin, 0);      <span class="comment">// Stay still</span></div>
+<div class="line">servoSpeed(pin, -100);   <span class="comment">// Full speed clockwise</span></div>
+<div class="line">servoSpeed(pin, -200);   <span class="comment">// Twice full speed clockwise</span></div>
+</div><!-- fragment --><p>100 to -100 corresponds to the linear speed control range. For example, servoSpeed(pin, 75) will set the speed to roughly 75% of full speed counterclockwise. This is a very rough approximation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pin</td><td>Number of the I/O pin connected to servo </td></tr>
@@ -304,7 +307,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 2 2013 14:36:02 for Servo Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 23 2013 19:36:09 for Servo Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

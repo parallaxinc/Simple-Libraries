@@ -43,17 +43,21 @@
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="html/#define-members">Macros</a> &#124;
-<a href="html/#typedef-members">Typedefs</a> &#124;
-<a href="html/#func-members">Functions</a> &#124;
-<a href="html/#var-members">Variables</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">simpletools.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>WARNING, CONSTRUCTION ZONE: This is a preliminary library, major revisions pending. This library provides convenience functions for:  
-<a href="html/#details">More...</a></p>
+<p>This library provides convenience functions for a variety of microcontroller I/O, timing, conversion, and communication tasks. <br/>
+ <br/>
+ <b><em>CONSTRUCTION ZONE:</em></b> This library is preliminary, major revisions pending, not for release. <br/>
+ <br/>
+ dac_ctr, pwm, square_wave are currently only supported by the LMM and CMM memory models.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;propeller.h&gt;</code><br/>
 <code>#include &lt;driver.h&gt;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
@@ -125,7 +129,7 @@ Macros</h2></td></tr>
 <tr class="memitem:a83e7c6583ebf1d8f9c2d2c32bbf0c984"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a83e7c6583ebf1d8f9c2d2c32bbf0c984"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>DUTY_SE</b>&#160;&#160;&#160;(0b110 &lt;&lt; 26)</td></tr>
 <tr class="memitem:af9241e417ac6f468979cc60b0263d49f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#af9241e417ac6f468979cc60b0263d49f">pause_ticks</a>(pticks)&#160;&#160;&#160;__builtin_propeller_waitcnt(pticks+CNT, 0)</td></tr>
-<tr class="memdesc:af9241e417ac6f468979cc60b0263d49f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delay cog from moving on to the next statement for a certain number of system clock ticks.  <a href="html/#af9241e417ac6f468979cc60b0263d49f"></a><br/></td></tr>
+<tr class="memdesc:af9241e417ac6f468979cc60b0263d49f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delay cog from moving on to the next statement for a certain number of system clock ticks.  <a href="#af9241e417ac6f468979cc60b0263d49f"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -141,98 +145,98 @@ typedef I2C *&#160;</td><td class="memItemRight" valign="bottom"><b>i2c</b></td>
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a4d9825708f3b6cae156e4e5f1e1647f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a4d9825708f3b6cae156e4e5f1e1647f6">high</a> (int pin)</td></tr>
-<tr class="memdesc:a4d9825708f3b6cae156e4e5f1e1647f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an I/O pin to output-high.  <a href="html/#a4d9825708f3b6cae156e4e5f1e1647f6"></a><br/></td></tr>
+<tr class="memdesc:a4d9825708f3b6cae156e4e5f1e1647f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an I/O pin to output-high.  <a href="#a4d9825708f3b6cae156e4e5f1e1647f6"></a><br/></td></tr>
 <tr class="memitem:ab6b4677f42acfb2273127492d13a7e05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ab6b4677f42acfb2273127492d13a7e05">low</a> (int pin)</td></tr>
-<tr class="memdesc:ab6b4677f42acfb2273127492d13a7e05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an I/O pin to output-low.  <a href="html/#ab6b4677f42acfb2273127492d13a7e05"></a><br/></td></tr>
+<tr class="memdesc:ab6b4677f42acfb2273127492d13a7e05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an I/O pin to output-low.  <a href="#ab6b4677f42acfb2273127492d13a7e05"></a><br/></td></tr>
 <tr class="memitem:ac00aa846d252ba311694febd1100bd11"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ac00aa846d252ba311694febd1100bd11">toggle</a> (int pin)</td></tr>
-<tr class="memdesc:ac00aa846d252ba311694febd1100bd11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle the output state of the I/O pin.  <a href="html/#ac00aa846d252ba311694febd1100bd11"></a><br/></td></tr>
+<tr class="memdesc:ac00aa846d252ba311694febd1100bd11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle the output state of the I/O pin.  <a href="#ac00aa846d252ba311694febd1100bd11"></a><br/></td></tr>
 <tr class="memitem:a2a78b7cb5f06e6fb893e78d2cfa36367"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a2a78b7cb5f06e6fb893e78d2cfa36367">input</a> (int pin)</td></tr>
-<tr class="memdesc:a2a78b7cb5f06e6fb893e78d2cfa36367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an I/O pin to input.  <a href="html/#a2a78b7cb5f06e6fb893e78d2cfa36367"></a><br/></td></tr>
+<tr class="memdesc:a2a78b7cb5f06e6fb893e78d2cfa36367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an I/O pin to input.  <a href="#a2a78b7cb5f06e6fb893e78d2cfa36367"></a><br/></td></tr>
 <tr class="memitem:abe4291907fc0563f65a1f3ed85fb878d"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#abe4291907fc0563f65a1f3ed85fb878d">reverse</a> (int pin)</td></tr>
-<tr class="memdesc:abe4291907fc0563f65a1f3ed85fb878d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse the direction of an I/O pin.  <a href="html/#abe4291907fc0563f65a1f3ed85fb878d"></a><br/></td></tr>
+<tr class="memdesc:abe4291907fc0563f65a1f3ed85fb878d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverse the direction of an I/O pin.  <a href="#abe4291907fc0563f65a1f3ed85fb878d"></a><br/></td></tr>
 <tr class="memitem:a9f77582253a5ee75241615296dcf0d05"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a9f77582253a5ee75241615296dcf0d05">get_state</a> (int pin)</td></tr>
-<tr class="memdesc:a9f77582253a5ee75241615296dcf0d05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the state of an I/O pin without setting it to input.  <a href="html/#a9f77582253a5ee75241615296dcf0d05"></a><br/></td></tr>
+<tr class="memdesc:a9f77582253a5ee75241615296dcf0d05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the state of an I/O pin without setting it to input.  <a href="#a9f77582253a5ee75241615296dcf0d05"></a><br/></td></tr>
 <tr class="memitem:aa3e6b702137ad730e834bce8a114a550"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aa3e6b702137ad730e834bce8a114a550">get_direction</a> (int pin)</td></tr>
-<tr class="memdesc:aa3e6b702137ad730e834bce8a114a550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the direction of the I/O pin. .  <a href="html/#aa3e6b702137ad730e834bce8a114a550"></a><br/></td></tr>
+<tr class="memdesc:aa3e6b702137ad730e834bce8a114a550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the direction of the I/O pin. .  <a href="#aa3e6b702137ad730e834bce8a114a550"></a><br/></td></tr>
 <tr class="memitem:a1faf05ad4f74447ecbb557b4ee0c190e"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a1faf05ad4f74447ecbb557b4ee0c190e">get_output</a> (int pin)</td></tr>
-<tr class="memdesc:a1faf05ad4f74447ecbb557b4ee0c190e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get I/O pin output state.  <a href="html/#a1faf05ad4f74447ecbb557b4ee0c190e"></a><br/></td></tr>
+<tr class="memdesc:a1faf05ad4f74447ecbb557b4ee0c190e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get I/O pin output state.  <a href="#a1faf05ad4f74447ecbb557b4ee0c190e"></a><br/></td></tr>
 <tr class="memitem:a97c13d6b776c998bd74286c6a8b774dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a97c13d6b776c998bd74286c6a8b774dd">set_direction</a> (int pin, int direction)</td></tr>
-<tr class="memdesc:a97c13d6b776c998bd74286c6a8b774dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an I/O pin to a given direction. .  <a href="html/#a97c13d6b776c998bd74286c6a8b774dd"></a><br/></td></tr>
+<tr class="memdesc:a97c13d6b776c998bd74286c6a8b774dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an I/O pin to a given direction. .  <a href="#a97c13d6b776c998bd74286c6a8b774dd"></a><br/></td></tr>
 <tr class="memitem:a016272b69e2e657a35621cfb815661d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a016272b69e2e657a35621cfb815661d3">set_output</a> (int pin, int state)</td></tr>
-<tr class="memdesc:a016272b69e2e657a35621cfb815661d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set I/O pin output register bit to either 1 or 0.  <a href="html/#a016272b69e2e657a35621cfb815661d3"></a><br/></td></tr>
+<tr class="memdesc:a016272b69e2e657a35621cfb815661d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set I/O pin output register bit to either 1 or 0.  <a href="#a016272b69e2e657a35621cfb815661d3"></a><br/></td></tr>
 <tr class="memitem:a9a59d35d804a8700b92e7637f55485c5"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a9a59d35d804a8700b92e7637f55485c5">get_states</a> (int endPin, int startPin)</td></tr>
-<tr class="memdesc:a9a59d35d804a8700b92e7637f55485c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get states of a contiguous group of I/O pins.  <a href="html/#a9a59d35d804a8700b92e7637f55485c5"></a><br/></td></tr>
+<tr class="memdesc:a9a59d35d804a8700b92e7637f55485c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get states of a contiguous group of I/O pins.  <a href="#a9a59d35d804a8700b92e7637f55485c5"></a><br/></td></tr>
 <tr class="memitem:aef2876e81b935837260cf651cfeb0b0a"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aef2876e81b935837260cf651cfeb0b0a">get_directions</a> (int endPin, int startPin)</td></tr>
-<tr class="memdesc:aef2876e81b935837260cf651cfeb0b0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get directions for a contiguous group of I/O pins.  <a href="html/#aef2876e81b935837260cf651cfeb0b0a"></a><br/></td></tr>
+<tr class="memdesc:aef2876e81b935837260cf651cfeb0b0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get directions for a contiguous group of I/O pins.  <a href="#aef2876e81b935837260cf651cfeb0b0a"></a><br/></td></tr>
 <tr class="memitem:abf84ae3d77141e0787ac6322533aa5e2"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#abf84ae3d77141e0787ac6322533aa5e2">get_outputs</a> (int endPin, int startPin)</td></tr>
-<tr class="memdesc:abf84ae3d77141e0787ac6322533aa5e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get output settings for a contiguous group of I/O pins.  <a href="html/#abf84ae3d77141e0787ac6322533aa5e2"></a><br/></td></tr>
+<tr class="memdesc:abf84ae3d77141e0787ac6322533aa5e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get output settings for a contiguous group of I/O pins.  <a href="#abf84ae3d77141e0787ac6322533aa5e2"></a><br/></td></tr>
 <tr class="memitem:aff22a28c433f3857ca116c5286ddab33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aff22a28c433f3857ca116c5286ddab33">set_directions</a> (int endPin, int startPin, unsigned int pattern)</td></tr>
-<tr class="memdesc:aff22a28c433f3857ca116c5286ddab33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set directions for a contiguous group of I/O pins.  <a href="html/#aff22a28c433f3857ca116c5286ddab33"></a><br/></td></tr>
+<tr class="memdesc:aff22a28c433f3857ca116c5286ddab33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set directions for a contiguous group of I/O pins.  <a href="#aff22a28c433f3857ca116c5286ddab33"></a><br/></td></tr>
 <tr class="memitem:acbf5fe86eb36a02d4f86df2d3ca8d84d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#acbf5fe86eb36a02d4f86df2d3ca8d84d">set_outputs</a> (int endPin, int startPin, unsigned int pattern)</td></tr>
-<tr class="memdesc:acbf5fe86eb36a02d4f86df2d3ca8d84d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set output states for a contiguous group of I/O pins.  <a href="html/#acbf5fe86eb36a02d4f86df2d3ca8d84d"></a><br/></td></tr>
+<tr class="memdesc:acbf5fe86eb36a02d4f86df2d3ca8d84d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set output states for a contiguous group of I/O pins.  <a href="#acbf5fe86eb36a02d4f86df2d3ca8d84d"></a><br/></td></tr>
 <tr class="memitem:a982ca13d831df52db20bf590b649cec4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a982ca13d831df52db20bf590b649cec4">pause</a> (int dt)</td></tr>
-<tr class="memdesc:a982ca13d831df52db20bf590b649cec4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delay cog from moving on to the next statement for a certain amount of time.  <a href="html/#a982ca13d831df52db20bf590b649cec4"></a><br/></td></tr>
+<tr class="memdesc:a982ca13d831df52db20bf590b649cec4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delay cog from moving on to the next statement for a certain amount of time.  <a href="#a982ca13d831df52db20bf590b649cec4"></a><br/></td></tr>
 <tr class="memitem:afbfa1cfbdb01885472e3f64d26c09ed8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#afbfa1cfbdb01885472e3f64d26c09ed8">mark</a> (void)</td></tr>
-<tr class="memdesc:afbfa1cfbdb01885472e3f64d26c09ed8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the current time.  <a href="html/#afbfa1cfbdb01885472e3f64d26c09ed8"></a><br/></td></tr>
+<tr class="memdesc:afbfa1cfbdb01885472e3f64d26c09ed8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the current time.  <a href="#afbfa1cfbdb01885472e3f64d26c09ed8"></a><br/></td></tr>
 <tr class="memitem:aba16632261a1faa89b62c8d7d11b45cc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aba16632261a1faa89b62c8d7d11b45cc">timeout</a> (int time)</td></tr>
-<tr class="memdesc:aba16632261a1faa89b62c8d7d11b45cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares the time against the time elapsed since mark.  <a href="html/#aba16632261a1faa89b62c8d7d11b45cc"></a><br/></td></tr>
+<tr class="memdesc:aba16632261a1faa89b62c8d7d11b45cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares the time against the time elapsed since mark.  <a href="#aba16632261a1faa89b62c8d7d11b45cc"></a><br/></td></tr>
 <tr class="memitem:a14f739412d16800b58f14029279e5332"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a14f739412d16800b58f14029279e5332">wait</a> (int time)</td></tr>
-<tr class="memdesc:a14f739412d16800b58f14029279e5332"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits a certain number of time increments from the last call to mark.  <a href="html/#a14f739412d16800b58f14029279e5332"></a><br/></td></tr>
+<tr class="memdesc:a14f739412d16800b58f14029279e5332"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits a certain number of time increments from the last call to mark.  <a href="#a14f739412d16800b58f14029279e5332"></a><br/></td></tr>
 <tr class="memitem:a04c171fd47bc9149c306576c349de680"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a04c171fd47bc9149c306576c349de680">set_pause_dt</a> (int clockticks)</td></tr>
-<tr class="memdesc:a04c171fd47bc9149c306576c349de680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set time increment for pause function.  <a href="html/#a04c171fd47bc9149c306576c349de680"></a><br/></td></tr>
+<tr class="memdesc:a04c171fd47bc9149c306576c349de680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set time increment for pause function.  <a href="#a04c171fd47bc9149c306576c349de680"></a><br/></td></tr>
 <tr class="memitem:a20a9d97de9777b12cfd9353a83ac21cb"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a20a9d97de9777b12cfd9353a83ac21cb">count</a> (int pin, long duration)</td></tr>
-<tr class="memdesc:a20a9d97de9777b12cfd9353a83ac21cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">count number of low to high transitions an external input applies to an I/O pin over a certain period of time.  <a href="html/#a20a9d97de9777b12cfd9353a83ac21cb"></a><br/></td></tr>
+<tr class="memdesc:a20a9d97de9777b12cfd9353a83ac21cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">count number of low to high transitions an external input applies to an I/O pin over a certain period of time.  <a href="#a20a9d97de9777b12cfd9353a83ac21cb"></a><br/></td></tr>
 <tr class="memitem:a7f87d0c6e5e644d9a2ad011e556de1e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a7f87d0c6e5e644d9a2ad011e556de1e8">dac_ctr</a> (int pin, int channel, int dacVal)</td></tr>
-<tr class="memdesc:a7f87d0c6e5e644d9a2ad011e556de1e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set D/A voltge.  <a href="html/#a7f87d0c6e5e644d9a2ad011e556de1e8"></a><br/></td></tr>
+<tr class="memdesc:a7f87d0c6e5e644d9a2ad011e556de1e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set D/A voltge.  <a href="#a7f87d0c6e5e644d9a2ad011e556de1e8"></a><br/></td></tr>
 <tr class="memitem:af8ef60ed622a82bab16bea03cddc2340"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#af8ef60ed622a82bab16bea03cddc2340">dac_ctr_res</a> (int bits)</td></tr>
-<tr class="memdesc:af8ef60ed622a82bab16bea03cddc2340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set D/A voltage resolution.  <a href="html/#af8ef60ed622a82bab16bea03cddc2340"></a><br/></td></tr>
+<tr class="memdesc:af8ef60ed622a82bab16bea03cddc2340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set D/A voltage resolution.  <a href="#af8ef60ed622a82bab16bea03cddc2340"></a><br/></td></tr>
 <tr class="memitem:ae6eb83b5e35bc36c34b1aec412ffe7bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ae6eb83b5e35bc36c34b1aec412ffe7bd">dac_ctrs_stop</a> (void)</td></tr>
-<tr class="memdesc:ae6eb83b5e35bc36c34b1aec412ffe7bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the cog that's transmitting the DAC signal(s).  <a href="html/#ae6eb83b5e35bc36c34b1aec412ffe7bd"></a><br/></td></tr>
+<tr class="memdesc:ae6eb83b5e35bc36c34b1aec412ffe7bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the cog that's transmitting the DAC signal(s).  <a href="#ae6eb83b5e35bc36c34b1aec412ffe7bd"></a><br/></td></tr>
 <tr class="memitem:a78d00871cfb358e7c1f4fea6fc5d07f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a78d00871cfb358e7c1f4fea6fc5d07f5">freqout</a> (int pin, int msTime, int frequency)</td></tr>
-<tr class="memdesc:a78d00871cfb358e7c1f4fea6fc5d07f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use same cog to send square wave of a certain frequency for a certain amount of time. For set and forget with another cog, try square_wave function instead.  <a href="html/#a78d00871cfb358e7c1f4fea6fc5d07f5"></a><br/></td></tr>
+<tr class="memdesc:a78d00871cfb358e7c1f4fea6fc5d07f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use same cog to send square wave of a certain frequency for a certain amount of time. For set and forget with another cog, try square_wave function instead.  <a href="#a78d00871cfb358e7c1f4fea6fc5d07f5"></a><br/></td></tr>
 <tr class="memitem:a2ccfd8aa1b8c5e7d58ee2dbfa3ecebe5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a2ccfd8aa1b8c5e7d58ee2dbfa3ecebe5">pwm_start</a> (unsigned int cycleMicroseconds)</td></tr>
-<tr class="memdesc:a2ccfd8aa1b8c5e7d58ee2dbfa3ecebe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start pulse width modulation (PWM) process in another cog.  <a href="html/#a2ccfd8aa1b8c5e7d58ee2dbfa3ecebe5"></a><br/></td></tr>
+<tr class="memdesc:a2ccfd8aa1b8c5e7d58ee2dbfa3ecebe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start pulse width modulation (PWM) process in another cog.  <a href="#a2ccfd8aa1b8c5e7d58ee2dbfa3ecebe5"></a><br/></td></tr>
 <tr class="memitem:a57f683188c3dd35ee0574ff349835682"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a57f683188c3dd35ee0574ff349835682">pwm_set</a> (int pin, int channel, int tHigh)</td></tr>
-<tr class="memdesc:a57f683188c3dd35ee0574ff349835682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a PWM signal's high time.  <a href="html/#a57f683188c3dd35ee0574ff349835682"></a><br/></td></tr>
+<tr class="memdesc:a57f683188c3dd35ee0574ff349835682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a PWM signal's high time.  <a href="#a57f683188c3dd35ee0574ff349835682"></a><br/></td></tr>
 <tr class="memitem:aec8f4f09d7d0222e947bea4b37fc33c2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aec8f4f09d7d0222e947bea4b37fc33c2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aec8f4f09d7d0222e947bea4b37fc33c2">pwm_stop</a> (void)</td></tr>
 <tr class="memdesc:aec8f4f09d7d0222e947bea4b37fc33c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shut down PWM process and reclaim cog and I/O pins for other uses. <br/></td></tr>
 <tr class="memitem:ae251e0a94359068f5e56682311ef4201"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ae251e0a94359068f5e56682311ef4201">pulse_in</a> (int pin, int state)</td></tr>
-<tr class="memdesc:ae251e0a94359068f5e56682311ef4201"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the duration of a pulse applied to an I/O pin.  <a href="html/#ae251e0a94359068f5e56682311ef4201"></a><br/></td></tr>
+<tr class="memdesc:ae251e0a94359068f5e56682311ef4201"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the duration of a pulse applied to an I/O pin.  <a href="#ae251e0a94359068f5e56682311ef4201"></a><br/></td></tr>
 <tr class="memitem:af7d62062bce6f1cb4bc03006f8463ba5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#af7d62062bce6f1cb4bc03006f8463ba5">pulse_out</a> (int pin, int time)</td></tr>
-<tr class="memdesc:af7d62062bce6f1cb4bc03006f8463ba5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit a pulse with an I/O pin.  <a href="html/#af7d62062bce6f1cb4bc03006f8463ba5"></a><br/></td></tr>
+<tr class="memdesc:af7d62062bce6f1cb4bc03006f8463ba5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit a pulse with an I/O pin.  <a href="#af7d62062bce6f1cb4bc03006f8463ba5"></a><br/></td></tr>
 <tr class="memitem:ad5f7522ca251c3cf3d7fd903fcdb5bbe"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ad5f7522ca251c3cf3d7fd903fcdb5bbe">rc_time</a> (int pin, int state)</td></tr>
-<tr class="memdesc:ad5f7522ca251c3cf3d7fd903fcdb5bbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set I/O pin to input and measure the time it takes a signal to transition from a start state to the opposite state.  <a href="html/#ad5f7522ca251c3cf3d7fd903fcdb5bbe"></a><br/></td></tr>
+<tr class="memdesc:ad5f7522ca251c3cf3d7fd903fcdb5bbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set I/O pin to input and measure the time it takes a signal to transition from a start state to the opposite state.  <a href="#ad5f7522ca251c3cf3d7fd903fcdb5bbe"></a><br/></td></tr>
 <tr class="memitem:a521dea91cf2ba911ff66d3074672316f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a521dea91cf2ba911ff66d3074672316f">square_wave</a> (int pin, int channel, int freq)</td></tr>
-<tr class="memdesc:a521dea91cf2ba911ff66d3074672316f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make I/O pin transmit a repeated high/low signal at a certain frequency. High and low times are the same. Frequency can range from 1 Hz to 128 MHz.  <a href="html/#a521dea91cf2ba911ff66d3074672316f"></a><br/></td></tr>
+<tr class="memdesc:a521dea91cf2ba911ff66d3074672316f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make I/O pin transmit a repeated high/low signal at a certain frequency. High and low times are the same. Frequency can range from 1 Hz to 128 MHz.  <a href="#a521dea91cf2ba911ff66d3074672316f"></a><br/></td></tr>
 <tr class="memitem:a6291bd6f5b751420d414cff05e720ec8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a6291bd6f5b751420d414cff05e720ec8">square_wave_stop</a> (void)</td></tr>
-<tr class="memdesc:a6291bd6f5b751420d414cff05e720ec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the cog that's transmitting a square wave.  <a href="html/#a6291bd6f5b751420d414cff05e720ec8"></a><br/></td></tr>
+<tr class="memdesc:a6291bd6f5b751420d414cff05e720ec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the cog that's transmitting a square wave.  <a href="#a6291bd6f5b751420d414cff05e720ec8"></a><br/></td></tr>
 <tr class="memitem:a288d762194e0bad67f4f37ba43f57292"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a288d762194e0bad67f4f37ba43f57292">set_io_timeout</a> (long clockTicks)</td></tr>
-<tr class="memdesc:a288d762194e0bad67f4f37ba43f57292"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the timeout value for the following timed I/O functions: pulseIn, rcTime.  <a href="html/#a288d762194e0bad67f4f37ba43f57292"></a><br/></td></tr>
+<tr class="memdesc:a288d762194e0bad67f4f37ba43f57292"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the timeout value for the following timed I/O functions: pulseIn, rcTime.  <a href="#a288d762194e0bad67f4f37ba43f57292"></a><br/></td></tr>
 <tr class="memitem:a0867ecfca776cb0dac4028729f9e8939"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a0867ecfca776cb0dac4028729f9e8939">set_io_dt</a> (long clockTicks)</td></tr>
-<tr class="memdesc:a0867ecfca776cb0dac4028729f9e8939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the time increment for the following timed I/O functions: count, pulsin, pulseout, rctime.  <a href="html/#a0867ecfca776cb0dac4028729f9e8939"></a><br/></td></tr>
+<tr class="memdesc:a0867ecfca776cb0dac4028729f9e8939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the time increment for the following timed I/O functions: count, pulsin, pulseout, rctime.  <a href="#a0867ecfca776cb0dac4028729f9e8939"></a><br/></td></tr>
 <tr class="memitem:a4fca5193934cbc3b7fce7bfca131302d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a4fca5193934cbc3b7fce7bfca131302d">shift_in</a> (int pinDat, int pinClk, int mode, int bits)</td></tr>
-<tr class="memdesc:a4fca5193934cbc3b7fce7bfca131302d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive data from a synchronous serial device.  <a href="html/#a4fca5193934cbc3b7fce7bfca131302d"></a><br/></td></tr>
+<tr class="memdesc:a4fca5193934cbc3b7fce7bfca131302d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive data from a synchronous serial device.  <a href="#a4fca5193934cbc3b7fce7bfca131302d"></a><br/></td></tr>
 <tr class="memitem:a39f6cd6c7f7965e057926f92a9b2fa29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a39f6cd6c7f7965e057926f92a9b2fa29">shift_out</a> (int pinDat, int pinClk, int mode, int bits, int value)</td></tr>
-<tr class="memdesc:a39f6cd6c7f7965e057926f92a9b2fa29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data to a synchronous serial device.  <a href="html/#a39f6cd6c7f7965e057926f92a9b2fa29"></a><br/></td></tr>
+<tr class="memdesc:a39f6cd6c7f7965e057926f92a9b2fa29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data to a synchronous serial device.  <a href="#a39f6cd6c7f7965e057926f92a9b2fa29"></a><br/></td></tr>
 <tr class="memitem:a106470784d03cbcbc918f5a62a889652"><td class="memItemLeft" align="right" valign="top">FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a106470784d03cbcbc918f5a62a889652">sser_setTxRx</a> (int pinTxOut, int pinRxIn, int baudRate)</td></tr>
-<tr class="memdesc:a106470784d03cbcbc918f5a62a889652"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up a simple serial driver with transmit &amp; receive pins.  <a href="html/#a106470784d03cbcbc918f5a62a889652"></a><br/></td></tr>
+<tr class="memdesc:a106470784d03cbcbc918f5a62a889652"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up a simple serial driver with transmit &amp; receive pins.  <a href="#a106470784d03cbcbc918f5a62a889652"></a><br/></td></tr>
 <tr class="memitem:a88025d2f86ef703c73f30576e211fb6f"><td class="memItemLeft" align="right" valign="top">FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a88025d2f86ef703c73f30576e211fb6f">sser_setTx</a> (int pinTxOut, int baudRate)</td></tr>
-<tr class="memdesc:a88025d2f86ef703c73f30576e211fb6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up a simple serial driver with just a transmit pin.  <a href="html/#a88025d2f86ef703c73f30576e211fb6f"></a><br/></td></tr>
+<tr class="memdesc:a88025d2f86ef703c73f30576e211fb6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up a simple serial driver with just a transmit pin.  <a href="#a88025d2f86ef703c73f30576e211fb6f"></a><br/></td></tr>
 <tr class="memitem:ab7954045f2d39fd956e20d47a2ee0641"><td class="memItemLeft" align="right" valign="top">FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ab7954045f2d39fd956e20d47a2ee0641">sser_setRx</a> (int pinRxIn, int baudRate)</td></tr>
-<tr class="memdesc:ab7954045f2d39fd956e20d47a2ee0641"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up a simple serial driver with just a receive pin.  <a href="html/#ab7954045f2d39fd956e20d47a2ee0641"></a><br/></td></tr>
+<tr class="memdesc:ab7954045f2d39fd956e20d47a2ee0641"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up a simple serial driver with just a receive pin.  <a href="#ab7954045f2d39fd956e20d47a2ee0641"></a><br/></td></tr>
 <tr class="memitem:aa2cfe3365bd2f06146d31ed4fc491b3d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aa2cfe3365bd2f06146d31ed4fc491b3d">sser_close</a> (FILE *peripheral)</td></tr>
-<tr class="memdesc:aa2cfe3365bd2f06146d31ed4fc491b3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close a simple serial deiver.  <a href="html/#aa2cfe3365bd2f06146d31ed4fc491b3d"></a><br/></td></tr>
+<tr class="memdesc:aa2cfe3365bd2f06146d31ed4fc491b3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close a simple serial deiver.  <a href="#aa2cfe3365bd2f06146d31ed4fc491b3d"></a><br/></td></tr>
 <tr class="memitem:a4542ac1f21d9866a445f61bab86d0036"><td class="memItemLeft" align="right" valign="top">FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a4542ac1f21d9866a445f61bab86d0036">fdser_start</a> (int pinTxOut, int pinRxIn, int baudRate, int mode)</td></tr>
-<tr class="memdesc:a4542ac1f21d9866a445f61bab86d0036"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up a full duplex serial driver.  <a href="html/#a4542ac1f21d9866a445f61bab86d0036"></a><br/></td></tr>
+<tr class="memdesc:a4542ac1f21d9866a445f61bab86d0036"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up a full duplex serial driver.  <a href="#a4542ac1f21d9866a445f61bab86d0036"></a><br/></td></tr>
 <tr class="memitem:aa93c25d4442eaaa831f6f3e29fbe172e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aa93c25d4442eaaa831f6f3e29fbe172e">fdser_stop</a> (FILE *peripheral)</td></tr>
-<tr class="memdesc:aa93c25d4442eaaa831f6f3e29fbe172e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the serial driver.  <a href="html/#aa93c25d4442eaaa831f6f3e29fbe172e"></a><br/></td></tr>
+<tr class="memdesc:aa93c25d4442eaaa831f6f3e29fbe172e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the serial driver.  <a href="#aa93c25d4442eaaa831f6f3e29fbe172e"></a><br/></td></tr>
 <tr class="memitem:aa845f3e273a492072b625da584924f32"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aa845f3e273a492072b625da584924f32">sd_mount</a> (int doPin, int clkPin, int diPin, int csPin)</td></tr>
-<tr class="memdesc:aa845f3e273a492072b625da584924f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">mount an SD card with the minimal 4-pin interface.  <a href="html/#aa845f3e273a492072b625da584924f32"></a><br/></td></tr>
+<tr class="memdesc:aa845f3e273a492072b625da584924f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">mount an SD card with the minimal 4-pin interface.  <a href="#aa845f3e273a492072b625da584924f32"></a><br/></td></tr>
 <tr class="memitem:a244c7d505410656d46f7c201073e2a28"><td class="memItemLeft" align="right" valign="top">I2C *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a244c7d505410656d46f7c201073e2a28">i2c_newbus</a> (int sclpin, int sdapin)</td></tr>
-<tr class="memdesc:a244c7d505410656d46f7c201073e2a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up an I2C bus.  <a href="html/#a244c7d505410656d46f7c201073e2a28"></a><br/></td></tr>
+<tr class="memdesc:a244c7d505410656d46f7c201073e2a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up an I2C bus.  <a href="#a244c7d505410656d46f7c201073e2a28"></a><br/></td></tr>
 <tr class="memitem:ace368f66ef489173117522773fa96eef"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ace368f66ef489173117522773fa96eef">itoa</a> (int i, char b[], int base)</td></tr>
-<tr class="memdesc:ace368f66ef489173117522773fa96eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert value to zero terminated text string.  <a href="html/#ace368f66ef489173117522773fa96eef"></a><br/></td></tr>
+<tr class="memdesc:ace368f66ef489173117522773fa96eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert value to zero terminated text string.  <a href="#ace368f66ef489173117522773fa96eef"></a><br/></td></tr>
 <tr class="memitem:ad0591fd1afec50de792bc2be9f283afa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0591fd1afec50de792bc2be9f283afa"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>add_driver</b> (_Driver *driverAddr)</td></tr>
 </table><table class="memberdecls">
@@ -256,19 +260,24 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>buscnt</b></t
 int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>WARNING, CONSTRUCTION ZONE: This is a preliminary library, major revisions pending. This library provides convenience functions for: </p>
+<div class="textblock"><p>This library provides convenience functions for a variety of microcontroller I/O, timing, conversion, and communication tasks. <br/>
+ <br/>
+ <b><em>CONSTRUCTION ZONE:</em></b> This library is preliminary, major revisions pending, not for release. <br/>
+ <br/>
+ dac_ctr, pwm, square_wave are currently only supported by the LMM and CMM memory models. </p>
 <dl class="section author"><dt>Author</dt><dd>Andy Lindsay</dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.9 (see details for more info)</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.</dd></dl>
+<p>This (under development) library provides a set of introductory functions that simplify:</p>
 <ul>
 <li>I/O control - convenient I/O pin monitoring and control functions </li>
 <li>Timing - Delays, timeouts </li>
 <li>Timed I/O - pulse generation/measurement, square waves, transition counting, RC decay, etc. </li>
-<li>Analog - D/A conversion, A/D conversation (but not yet), PWM, sine waves, etc. </li>
-<li>Serial Communication - SPI, I2C, asynchronous </li>
+<li>Analog - D/A conversion, A/D conversation (but not yet), PWM, and more. </li>
+<li>Serial Communication - SPI, I2C, asynchronous serial </li>
 <li>Memory - EEPROM (not yet), SD storage</li>
 </ul>
-<p>This (under development) library provides a set of introductory functions that simplify monitoring, control and communication with simple peripherals, including lights, buttons, dials, motors, peripheral integrated circuits and prototyping with simple systems that use pulse, or serial communication. (A few examples from the very large list of devices includes: servos, ultrasonic distance sensors, accelerometers, serial liquid crystal, display, etc.)</p>
+<p>Applications include: monitoring, control and communication with simple peripherals, like lights, buttons, dials, motors, peripheral integrated circuits and prototyping with simple systems that use pulse, or serial communication. (A few examples from the very large list of devices includes: servos, ultrasonic distance sensors, accelerometers, serial liquid crystal, display, etc.)</p>
 <p>Intended use: Accompanies introductory electronics, robotics and programming lessons and projects on learn.parallax.com. After these lessons, bridge lessons will be added to familiarize the programmer with standard practices used by the community for adding libraries to support and endless variety of peripherals and applications. </p>
 </div><h2>Macro Definition Documentation</h2>
 <a class="anchor" id="af9241e417ac6f468979cc60b0263d49f"></a>
@@ -287,8 +296,15 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 
 <p>Delay cog from moving on to the next statement for a certain number of system clock ticks. </p>
 <p>At 80 MHz, each clock tick is 12.5 ns. Code overhead varies depending on memory model and optimization. A simple test if you want a certain number of clock ticks is:</p>
-<p>unsigned int ti, tf, us, pauseTicks; us = CLKFREQ/1000000; // 1 us worth of ticks pauseTicks = 10*us; // 10 us of ticks ti = CNT; // Save start time <a class="el" href="html/simpletools_8h.html#af9241e417ac6f468979cc60b0263d49f" title="Delay cog from moving on to the next statement for a certain number of system clock ticks...">pause_ticks(pauseTicks)</a>; // Call pause_ticks tf = CNT; // Save end time printf("pauseTicks = %d\n", pauseTicks); // Display pauseTicks printf("delayTicks = %d\n", tf - ti); // Display measured</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<div class="fragment"><div class="line"><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ti, tf, us, pauseTicks;</div>
+<div class="line">us = CLKFREQ/1000000;                               <span class="comment">// 1 us worth of ticks</span></div>
+<div class="line">pauseTicks = 10*us;                                 <span class="comment">// 10 us of ticks</span></div>
+<div class="line">ti = CNT;                                           <span class="comment">// Save start time</span></div>
+<div class="line"><a class="code" href="html/simpletools_8h.html#af9241e417ac6f468979cc60b0263d49f" title="Delay cog from moving on to the next statement for a certain number of system clock ticks...">pause_ticks</a>(pauseTicks);                            <span class="comment">// Call pause_ticks</span></div>
+<div class="line">tf = CNT;                                           <span class="comment">// Save end time</span></div>
+<div class="line">printf(<span class="stringliteral">&quot;pauseTicks = %d\n&quot;</span>, pauseTicks);            <span class="comment">// Display pauseTicks</span></div>
+<div class="line">printf(<span class="stringliteral">&quot;delayTicks = %d\n&quot;</span>, tf - ti);               <span class="comment">// Display measured</span></div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tticks</td><td>the number of pause clock ticks. </td></tr>
   </table>
@@ -1678,8 +1694,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 
 <p>Set up a simple serial driver with just a transmit pin. </p>
 <p>Example:</p>
-<p>serial lcd = sser_setTx(11, 9600); // Serial driver transmits on P11 fputc(22, LCD); // Transmit 22 fputc(12, lcd); // Transmit 12 pause(5); // Wait 5 ms fptrintf(lcd, "Hello!!!"); // Transmit a string</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<div class="fragment"><div class="line">serial lcd = <a class="code" href="html/simpletools_8h.html#a88025d2f86ef703c73f30576e211fb6f" title="Set up a simple serial driver with just a transmit pin.">sser_setTx</a>(11, 9600);    <span class="comment">// Serial driver transmits on P11</span></div>
+<div class="line">fputc(22, LCD);                       <span class="comment">// Transmit 22</span></div>
+<div class="line">fputc(12, lcd);                       <span class="comment">// Transmit 12 </span></div>
+<div class="line"><a class="code" href="html/simpletools_8h.html#a982ca13d831df52db20bf590b649cec4" title="Delay cog from moving on to the next statement for a certain amount of time.">pause</a>(5);                             <span class="comment">// Wait 5 ms</span></div>
+<div class="line">fptrintf(lcd, <span class="stringliteral">&quot;Hello!!!&quot;</span>);            <span class="comment">// Transmit a string</span></div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pinTxOut</td><td>transmitting output pin.</td></tr>
     <tr><td class="paramname">baud</td><td>rate in bits per second.</td></tr>
@@ -1812,7 +1832,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 17 2013 00:04:02 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Sat Mar 23 2013 20:29:23 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

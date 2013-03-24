@@ -11,7 +11,7 @@
   For more options and channels, use: 
     Learn\Simple Libraries\Convert\libdacctr   
   
-  http://learn.parallax.com/C/Simple-Circuits-Propeller-C/Set-Volts
+  http://learn.parallax.com/propeller-c-simple-circuits/set-voltage-output
 */
 
 #include "simpletools.h"                      // Include simpletools header

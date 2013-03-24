@@ -8,4 +8,4 @@ Floating Point Calculations.c
 >defs::-std=c99
 >-lm
 >linker::-lsimpletools
->BOARD::PROPBOE
+>BOARD::ACTIVITYBOARD

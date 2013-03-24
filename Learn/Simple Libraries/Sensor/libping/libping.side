@@ -4,10 +4,10 @@ libping.c
 ping.c
 ping.h
 >compiler=C
->memtype=xmm-split external flash code + ram data
+>memtype=cmm main ram compact
 >optimize=-Os
 >-fno-exceptions
 >defs::-std=c99
 >-create_library
 >linker::-lsimpletools
->BOARD::PROPBOE
+>BOARD::ACTIVITYBOARD

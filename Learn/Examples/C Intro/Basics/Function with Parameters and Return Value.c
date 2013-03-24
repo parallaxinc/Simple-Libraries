@@ -4,14 +4,14 @@
   Pass parameters to a function, let it do its job, and display the result
   it returns.
   
-  learn.parallax.com/C/Propeller-C-Start-Simple/Function-Parameters-Return-Value
+  http://learn.parallax.com/propeller-c-start-simple/function-parameters-and-return
 */
 
 #include "simpletools.h"                      // Include simpletools header
 
 int adder(int a, int b);                      // Function prototype
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   pause(500);                                 // 1/2 second pause
   int n = adder(25, 17);                      // Call adder function
