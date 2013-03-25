@@ -6,8 +6,8 @@ Test WAV Player.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-O2
+>-m32bit-doubles
 >-fno-exceptions
 >defs::-std=c99
->-ltiny
 >linker::-lsimpletools -lwavplayer
 >BOARD::ACTIVITYBOARD

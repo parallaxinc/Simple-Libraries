@@ -8,6 +8,7 @@ servodiffdrive.h
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
+>-m32bit-doubles
 >-fno-exceptions
 >-create_library
 >linker::-lsimpletools -lservo
