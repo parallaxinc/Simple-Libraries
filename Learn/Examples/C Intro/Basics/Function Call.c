@@ -7,7 +7,7 @@
   http://learn.parallax.com/propeller-c-start-simple/reusable-code-functions
 */
 
-#include "simpletools.h"                      // Include simpletools header
+#include "simpletools.h"                      // Include simpletools
 
 void hello(void);                             // Function prototype
 

@@ -1,4 +1,4 @@
-Hello Message.c
+Global Exchange.c
 -I ../../../Simple Libraries/Utility/libsimpletools
 -L ../../../Simple Libraries/Utility/libsimpletools
 >compiler=C

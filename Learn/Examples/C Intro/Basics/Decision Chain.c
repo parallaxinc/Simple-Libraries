@@ -6,7 +6,7 @@
   http://learn.parallax.com/propeller-c-start-simple/make-several-decisions
 */
 
-#include "simpletools.h"                      // Include simpletools header
+#include "simpletools.h"                      // Include simpletools
 
 int main()                                    // main function
 {
@@ -24,6 +24,6 @@ int main()                                    // main function
   }
   else                                        // Nothing else true?
   {
-    printf("a eqals b");                      // Print this
+    printf("a equals b");                     // Print this
   }
 }

@@ -6,7 +6,7 @@
   http://learn.parallax.com/propeller-c-start-simple/counting-loops
 */
 
-#include "simpletools.h"
+#include "simpletools.h"                      // Include simpletools
 
 int main()                                    // main function
 {

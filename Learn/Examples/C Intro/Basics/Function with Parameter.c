@@ -6,7 +6,7 @@
   http://learn.parallax.com/propeller-c-start-simple/function-parameter
 */
 
-#include "simpletools.h"                      // Include simpletools header
+#include "simpletools.h"                      // Include simpletools
 
 void value(int a);                            // Function prototype
 

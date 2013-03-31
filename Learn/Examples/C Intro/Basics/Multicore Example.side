@@ -1,4 +1,4 @@
-Hello Message.c
+Multicore Example.c
 -I ../../../Simple Libraries/Utility/libsimpletools
 -L ../../../Simple Libraries/Utility/libsimpletools
 >compiler=C

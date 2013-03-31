@@ -75,6 +75,9 @@ extern int fdserDriverIndex;
 extern unsigned int buscnt;
 extern int dacCtrBits;
  
+#ifndef PI
+#define PI 3.141592653589793
+#endif
 
 // Values for use with SimpleIDE Terminal
 #define HOME   1

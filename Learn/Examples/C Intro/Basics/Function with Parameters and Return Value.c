@@ -7,7 +7,7 @@
   http://learn.parallax.com/propeller-c-start-simple/function-parameters-and-return
 */
 
-#include "simpletools.h"                      // Include simpletools header
+#include "simpletools.h"                      // Include simpletools
 
 int adder(int a, int b);                      // Function prototype
 

@@ -6,7 +6,7 @@
   http://learn.parallax.com/propeller-c-start-simple/array-variables
 */
 
-#include "simpletools.h"                      // Include simpletools header
+#include "simpletools.h"                      // Include simpletools
 
 int main()                                    // main function
 {

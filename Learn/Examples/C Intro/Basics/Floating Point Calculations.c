@@ -6,9 +6,7 @@
   http://learn.parallax.com/propeller-c-start-simple/floating-point-math
 */
 
-#include "simpletools.h"                      // Include simpletools header
-
-const float PI = 3.141592653589793;           // Approximate value of pi
+#include "simpletools.h"                      // Include simpletools
 
 int main()                                    // Main function
 {
