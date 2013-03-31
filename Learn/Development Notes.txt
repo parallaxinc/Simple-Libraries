@@ -5,6 +5,12 @@ To-dos:
  - Convert LMM libraries to COGC so that they can also be used by XMM.
    
 
+--- March 30, 2013 ---
+
+ - Example code aligned with new tutorial home:
+   http://learn.parallax.com/propeller-c-start-simple
+ - Corrections from alpha forum entered
+
 --- March 23, 2013 ---
 
  - Update tutrial links in SimpleIDE/Learn/Examples
