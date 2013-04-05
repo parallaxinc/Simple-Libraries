@@ -1,12 +1,14 @@
-Display Button.c
+Measure Volts.c
 -I ../../Simple Libraries/Utility/libsimpletools
 -L ../../Simple Libraries/Utility/libsimpletools
+-I ../../../../SimpleIDE/Learn/Simple Libraries/Convert/libadcDCpropAB
+-L ../../../../SimpleIDE/Learn/Simple Libraries/Convert/libadcDCpropAB
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions
 >defs::-std=c99
->-ltiny
->linker::-lsimpletools
+>-lm
+>linker:: -lsimpletools -ladcDCpropAB
 >BOARD::ACTIVITYBOARD

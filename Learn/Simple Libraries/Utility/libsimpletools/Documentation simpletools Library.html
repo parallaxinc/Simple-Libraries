@@ -76,6 +76,8 @@
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a598a3330b3c21701223ee0ca14316eca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a598a3330b3c21701223ee0ca14316eca"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>PI</b>&#160;&#160;&#160;3.141592653589793</td></tr>
 <tr class="memitem:a0e26ea2db1b570d1a6fe1ac180ef4541"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0e26ea2db1b570d1a6fe1ac180ef4541"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>HOME</b>&#160;&#160;&#160;1</td></tr>
 <tr class="memitem:afa53bcf09725cf1948b70eaaa229a3d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afa53bcf09725cf1948b70eaaa229a3d1"></a>
@@ -1480,7 +1482,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
   <table class="params">
     <tr><td class="paramname">pinDat</td><td>Data pin </td></tr>
     <tr><td class="paramname">pinClk</td><td>Clock pin </td></tr>
-    <tr><td class="paramname">mode</td><td>Mode </td></tr>
+    <tr><td class="paramname">mode</td><td>Order and orientation to clock pulse options: MSBPRE, LSBPRE, MSBPOST, LSBPOST </td></tr>
     <tr><td class="paramname">bits</td><td>number of binary values to transfer</td></tr>
   </table>
   </dd>
@@ -1532,12 +1534,11 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 </div><div class="memdoc">
 
 <p>Send data to a synchronous serial device. </p>
-<p>(not implemented yet)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dataPin</td><td>Data pin </td></tr>
-    <tr><td class="paramname">clockPin</td><td>Clock pin </td></tr>
-    <tr><td class="paramname">mode</td><td>Mode </td></tr>
+    <tr><td class="paramname">pinDat</td><td>Data pin </td></tr>
+    <tr><td class="paramname">pinClk</td><td>Clock pin </td></tr>
+    <tr><td class="paramname">mode</td><td>Order that bits are transmitteed, either LSBFIRST or MSBFIRST. </td></tr>
     <tr><td class="paramname">bits</td><td>number of binary values to transfer </td></tr>
     <tr><td class="paramname">value</td><td>to transmit </td></tr>
   </table>
@@ -1832,7 +1833,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 23 2013 20:29:23 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Fri Apr 5 2013 11:21:06 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

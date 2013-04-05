@@ -1,13 +1,13 @@
 /*
-  piezo beep.c
+  Piezo Beep.c
   
   Beep a piezo speaker connected to P4.
   
-  http://learn.parallax.com/propeller-c-simple-circuits/beep-piezospeaker  
+  http://learn.parallax.com/propeller-c-simple-circuits/piezo-beep
   
 */
 
-#include "simpletools.h"                      // Include simpletools header                      
+#include "simpletools.h"                      // Include simpletools                   
 
 int main()                                    // main function             
 {

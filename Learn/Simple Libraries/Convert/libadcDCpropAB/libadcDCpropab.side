@@ -1,12 +1,16 @@
-Display Dial.c
--I ../../Simple Libraries/Utility/libsimpletools
--L ../../Simple Libraries/Utility/libsimpletools
+libadcDCpropab.c
+adcDCpropab.c
+adcDCpropab.h
+adcDCVpropab.c
+-I ../../Utility/libsimpletools
+-L ../../Utility/libsimpletools
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions
 >defs::-std=c99
->-ltiny
+>-lm
+>-create_library
 >linker::-lsimpletools
 >BOARD::ACTIVITYBOARD

@@ -1,5 +1,5 @@
 /*
-  Display Button.c
+  Button Display.c
   
   Dislays the state of the P3 button in the SimpleIDE Terminal.
   1 -> button pressed, 0 -> button not pressed.
@@ -7,7 +7,7 @@
   http://learn.parallax.com/propeller-c-simple-circuits/check-pushbuttons
 */
 
-#include "simpletools.h"                      // Include simpletools header
+#include "simpletools.h"                      // Include simpletools
 
 int main()                                    // main function
 {

@@ -643,13 +643,13 @@ void set_io_timeout(long clockTicks);
  */
 void set_io_dt(long clockTicks);
 
-
 /**
  * @brief Receive data from a synchronous serial device
  *
  * @param pinDat Data pin
  * @param pinClk Clock pin
- * @param mode Mode
+ * @param mode Order and orientation to clock pulse options: MSBPRE, LSBPRE, MSBPOST, 
+ * LSBPOST
  * @param bits number of binary values to transfer
  *
  * @returns value received from the synchronous serial device.
@@ -659,11 +659,9 @@ int shift_in(int pinDat, int pinClk, int mode, int bits);
 /**
  * @brief Send data to a synchronous serial device
  *
- * @details (not implemented yet)
- *
- * @param dataPin Data pin
- * @param clockPin Clock pin
- * @param mode Mode
+ * @param pinDat Data pin
+ * @param pinClk Clock pin
+ * @param mode Order that bits are transmitteed, either LSBFIRST or MSBFIRST.
  * @param bits number of binary values to transfer
  * @param value to transmit
  */

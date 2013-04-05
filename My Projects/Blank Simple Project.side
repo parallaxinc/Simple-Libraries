@@ -9,4 +9,4 @@ Blank Simple Project.c
 >defs::-std=c99
 >-ltiny
 >linker::-lsimpletools
->BOARD::HUB
+>BOARD::GENERIC

@@ -11,27 +11,19 @@
   For more options and channels, use: 
     Learn\Simple Libraries\Convert\libdacctr   
   
-  http://learn.parallax.com/propeller-c-simple-circuits/set-voltage-output
+  http://learn.parallax.com/propeller-c-simple-circuits/set-volts
 */
 
-#include "simpletools.h"                      // Include simpletools header
+#include "simpletools.h"                      // Include simpletools
 
 int main()                                    // Main function
 {
-  dac_ctr(26, 0, 233);                        // 3 V to D/A 0
-  dac_ctr(27, 1, 78);                         // 1 V to D/A 1
+  dac_ctr(26, 0, 233);                        // 3 V to D/A0
+  dac_ctr(27, 1, 78);                         // 1 V to D/A1
   pause(2000);                                // Pause 2 seconds
-  dac_ctr(26, 0, 78);                         // 1 V to D/A 0
-  dac_ctr(27, 1, 233);                        // 3 V to D/A 1
+  dac_ctr(26, 0, 78);                         // 1 V to D/A0
+  dac_ctr(27, 1, 233);                        // 3 V to D/A1
   pause(2000);                                // Pause 2 seconds
-  
-  int i = 0;                                  // Index variable
-  while(1)                                    // Repeat indefinitely
-  {
-    dac_ctr(26, 0, i);                        // D/A 0 V = 3.3 * i/256
-    dac_ctr(27, 1, 256-i);                    // D/A 1 V = 3.3 * (256-i)/256
-    pause(4);                                 // Pause 4 ms
-    if(++i == 256) i = 0;                     // Increment i in 0..255 range
-  }
+  dac_ctr(26, 0, 0);                          // 0 V to D/A0
+  dac_ctr(27, 1, 0);                          // 0 V to D/A1
 }
-

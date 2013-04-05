@@ -1,12 +1,12 @@
 /*
-  Display Dial.c
+  Sense Light.side
   
-  Display output of potentiometer RC circuit connected to P5.
+  Display light sensor levels.
   
-  http://learn.parallax.com/propeller-c-simple-circuits/check-dial
+  http://learn.parallax.com/propeller-c-simple-circuits/sense-light
 */
 
-#include "simpletools.h"                      // Include simpletools header
+#include "simpletools.h"                      // Include simpletools
 
 int main()                                    // main function
 {
