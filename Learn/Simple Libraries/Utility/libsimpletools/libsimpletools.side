@@ -40,7 +40,7 @@ simpletools.h
 source/i2cinit.c
 freqout.c -> source/freqout.c
 >compiler=C
->memtype=cmm main ram compact
+>memtype=lmm main ram
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions

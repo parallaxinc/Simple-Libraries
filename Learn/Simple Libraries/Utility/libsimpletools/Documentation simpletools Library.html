@@ -56,7 +56,7 @@
  <br/>
  <b><em>CONSTRUCTION ZONE:</em></b> This library is preliminary, major revisions pending, not for release. <br/>
  <br/>
- dac_ctr, pwm, square_wave are currently only supported by the LMM and CMM memory models.  
+ dac_ctr, square_wave, and all pwm functions, are currently only supported by the LMM and CMM memory models.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;propeller.h&gt;</code><br/>
 <code>#include &lt;driver.h&gt;</code><br/>
@@ -123,11 +123,11 @@ Macros</h2></td></tr>
 <tr class="memitem:a1c7ef42eff02618bde70868af4944d81"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1c7ef42eff02618bde70868af4944d81"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MSBFIRST</b>&#160;&#160;&#160;1</td></tr>
 <tr class="memitem:a4dbd6ec520f6a6b4e4610cc804c05fe8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4dbd6ec520f6a6b4e4610cc804c05fe8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NCO_PWM_1</b>&#160;&#160;&#160;0b00100 &lt;&lt; 26;</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NCO_PWM_1</b>&#160;&#160;&#160;(0b00100 &lt;&lt; 26)</td></tr>
 <tr class="memitem:af4f32a431c48e36da66f94897013ff09"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af4f32a431c48e36da66f94897013ff09"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CTR_NCO</b>&#160;&#160;&#160;(0b100 &lt;&lt; 26);</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CTR_NCO</b>&#160;&#160;&#160;(0b100 &lt;&lt; 26)</td></tr>
 <tr class="memitem:a35343305570a7f0c402035a61ac54562"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a35343305570a7f0c402035a61ac54562"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CTR_PLL</b>&#160;&#160;&#160;(0b10 &lt;&lt; 26);</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CTR_PLL</b>&#160;&#160;&#160;(0b10 &lt;&lt; 26)</td></tr>
 <tr class="memitem:a83e7c6583ebf1d8f9c2d2c32bbf0c984"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a83e7c6583ebf1d8f9c2d2c32bbf0c984"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>DUTY_SE</b>&#160;&#160;&#160;(0b110 &lt;&lt; 26)</td></tr>
 <tr class="memitem:af9241e417ac6f468979cc60b0263d49f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#af9241e417ac6f468979cc60b0263d49f">pause_ticks</a>(pticks)&#160;&#160;&#160;__builtin_propeller_waitcnt(pticks+CNT, 0)</td></tr>
@@ -159,11 +159,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a9f77582253a5ee75241615296dcf0d05"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a9f77582253a5ee75241615296dcf0d05">get_state</a> (int pin)</td></tr>
 <tr class="memdesc:a9f77582253a5ee75241615296dcf0d05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the state of an I/O pin without setting it to input.  <a href="#a9f77582253a5ee75241615296dcf0d05"></a><br/></td></tr>
 <tr class="memitem:aa3e6b702137ad730e834bce8a114a550"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aa3e6b702137ad730e834bce8a114a550">get_direction</a> (int pin)</td></tr>
-<tr class="memdesc:aa3e6b702137ad730e834bce8a114a550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the direction of the I/O pin. .  <a href="#aa3e6b702137ad730e834bce8a114a550"></a><br/></td></tr>
+<tr class="memdesc:aa3e6b702137ad730e834bce8a114a550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the direction of the I/O pin.  <a href="#aa3e6b702137ad730e834bce8a114a550"></a><br/></td></tr>
 <tr class="memitem:a1faf05ad4f74447ecbb557b4ee0c190e"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a1faf05ad4f74447ecbb557b4ee0c190e">get_output</a> (int pin)</td></tr>
 <tr class="memdesc:a1faf05ad4f74447ecbb557b4ee0c190e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get I/O pin output state.  <a href="#a1faf05ad4f74447ecbb557b4ee0c190e"></a><br/></td></tr>
 <tr class="memitem:a97c13d6b776c998bd74286c6a8b774dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a97c13d6b776c998bd74286c6a8b774dd">set_direction</a> (int pin, int direction)</td></tr>
-<tr class="memdesc:a97c13d6b776c998bd74286c6a8b774dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an I/O pin to a given direction. .  <a href="#a97c13d6b776c998bd74286c6a8b774dd"></a><br/></td></tr>
+<tr class="memdesc:a97c13d6b776c998bd74286c6a8b774dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an I/O pin to a given direction.  <a href="#a97c13d6b776c998bd74286c6a8b774dd"></a><br/></td></tr>
 <tr class="memitem:a016272b69e2e657a35621cfb815661d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a016272b69e2e657a35621cfb815661d3">set_output</a> (int pin, int state)</td></tr>
 <tr class="memdesc:a016272b69e2e657a35621cfb815661d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set I/O pin output register bit to either 1 or 0.  <a href="#a016272b69e2e657a35621cfb815661d3"></a><br/></td></tr>
 <tr class="memitem:a9a59d35d804a8700b92e7637f55485c5"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a9a59d35d804a8700b92e7637f55485c5">get_states</a> (int endPin, int startPin)</td></tr>
@@ -176,33 +176,32 @@ Functions</h2></td></tr>
 <tr class="memdesc:aff22a28c433f3857ca116c5286ddab33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set directions for a contiguous group of I/O pins.  <a href="#aff22a28c433f3857ca116c5286ddab33"></a><br/></td></tr>
 <tr class="memitem:acbf5fe86eb36a02d4f86df2d3ca8d84d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#acbf5fe86eb36a02d4f86df2d3ca8d84d">set_outputs</a> (int endPin, int startPin, unsigned int pattern)</td></tr>
 <tr class="memdesc:acbf5fe86eb36a02d4f86df2d3ca8d84d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set output states for a contiguous group of I/O pins.  <a href="#acbf5fe86eb36a02d4f86df2d3ca8d84d"></a><br/></td></tr>
-<tr class="memitem:a982ca13d831df52db20bf590b649cec4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a982ca13d831df52db20bf590b649cec4">pause</a> (int dt)</td></tr>
-<tr class="memdesc:a982ca13d831df52db20bf590b649cec4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delay cog from moving on to the next statement for a certain amount of time.  <a href="#a982ca13d831df52db20bf590b649cec4"></a><br/></td></tr>
+<tr class="memitem:a381e2d58c3d6a1f0fd8129bcc4726804"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a381e2d58c3d6a1f0fd8129bcc4726804">pause</a> (int time)</td></tr>
+<tr class="memdesc:a381e2d58c3d6a1f0fd8129bcc4726804"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delay cog from moving on to the next statement for a certain amount of time.  <a href="#a381e2d58c3d6a1f0fd8129bcc4726804"></a><br/></td></tr>
 <tr class="memitem:afbfa1cfbdb01885472e3f64d26c09ed8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#afbfa1cfbdb01885472e3f64d26c09ed8">mark</a> (void)</td></tr>
 <tr class="memdesc:afbfa1cfbdb01885472e3f64d26c09ed8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the current time.  <a href="#afbfa1cfbdb01885472e3f64d26c09ed8"></a><br/></td></tr>
 <tr class="memitem:aba16632261a1faa89b62c8d7d11b45cc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aba16632261a1faa89b62c8d7d11b45cc">timeout</a> (int time)</td></tr>
 <tr class="memdesc:aba16632261a1faa89b62c8d7d11b45cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares the time against the time elapsed since mark.  <a href="#aba16632261a1faa89b62c8d7d11b45cc"></a><br/></td></tr>
 <tr class="memitem:a14f739412d16800b58f14029279e5332"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a14f739412d16800b58f14029279e5332">wait</a> (int time)</td></tr>
-<tr class="memdesc:a14f739412d16800b58f14029279e5332"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits a certain number of time increments from the last call to mark.  <a href="#a14f739412d16800b58f14029279e5332"></a><br/></td></tr>
+<tr class="memdesc:a14f739412d16800b58f14029279e5332"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits a certain number of time increments from the last call to mark or wait functions.  <a href="#a14f739412d16800b58f14029279e5332"></a><br/></td></tr>
 <tr class="memitem:a04c171fd47bc9149c306576c349de680"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a04c171fd47bc9149c306576c349de680">set_pause_dt</a> (int clockticks)</td></tr>
 <tr class="memdesc:a04c171fd47bc9149c306576c349de680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set time increment for pause function.  <a href="#a04c171fd47bc9149c306576c349de680"></a><br/></td></tr>
 <tr class="memitem:a20a9d97de9777b12cfd9353a83ac21cb"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a20a9d97de9777b12cfd9353a83ac21cb">count</a> (int pin, long duration)</td></tr>
-<tr class="memdesc:a20a9d97de9777b12cfd9353a83ac21cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">count number of low to high transitions an external input applies to an I/O pin over a certain period of time.  <a href="#a20a9d97de9777b12cfd9353a83ac21cb"></a><br/></td></tr>
+<tr class="memdesc:a20a9d97de9777b12cfd9353a83ac21cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Count number of low to high transitions an external input applies to an I/O pin over a certain period of time.  <a href="#a20a9d97de9777b12cfd9353a83ac21cb"></a><br/></td></tr>
 <tr class="memitem:a7f87d0c6e5e644d9a2ad011e556de1e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a7f87d0c6e5e644d9a2ad011e556de1e8">dac_ctr</a> (int pin, int channel, int dacVal)</td></tr>
-<tr class="memdesc:a7f87d0c6e5e644d9a2ad011e556de1e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set D/A voltge.  <a href="#a7f87d0c6e5e644d9a2ad011e556de1e8"></a><br/></td></tr>
+<tr class="memdesc:a7f87d0c6e5e644d9a2ad011e556de1e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set D/A voltage.  <a href="#a7f87d0c6e5e644d9a2ad011e556de1e8"></a><br/></td></tr>
 <tr class="memitem:af8ef60ed622a82bab16bea03cddc2340"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#af8ef60ed622a82bab16bea03cddc2340">dac_ctr_res</a> (int bits)</td></tr>
 <tr class="memdesc:af8ef60ed622a82bab16bea03cddc2340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set D/A voltage resolution.  <a href="#af8ef60ed622a82bab16bea03cddc2340"></a><br/></td></tr>
-<tr class="memitem:ae6eb83b5e35bc36c34b1aec412ffe7bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ae6eb83b5e35bc36c34b1aec412ffe7bd">dac_ctrs_stop</a> (void)</td></tr>
-<tr class="memdesc:ae6eb83b5e35bc36c34b1aec412ffe7bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the cog that's transmitting the DAC signal(s).  <a href="#ae6eb83b5e35bc36c34b1aec412ffe7bd"></a><br/></td></tr>
+<tr class="memitem:ac82ec398e5c969f0286f40ef366c45da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ac82ec398e5c969f0286f40ef366c45da">dac_stop</a> (void)</td></tr>
+<tr class="memdesc:ac82ec398e5c969f0286f40ef366c45da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the cog that's transmitting the DAC signal(s).  <a href="#ac82ec398e5c969f0286f40ef366c45da"></a><br/></td></tr>
 <tr class="memitem:a78d00871cfb358e7c1f4fea6fc5d07f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a78d00871cfb358e7c1f4fea6fc5d07f5">freqout</a> (int pin, int msTime, int frequency)</td></tr>
 <tr class="memdesc:a78d00871cfb358e7c1f4fea6fc5d07f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use same cog to send square wave of a certain frequency for a certain amount of time. For set and forget with another cog, try square_wave function instead.  <a href="#a78d00871cfb358e7c1f4fea6fc5d07f5"></a><br/></td></tr>
 <tr class="memitem:a2ccfd8aa1b8c5e7d58ee2dbfa3ecebe5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a2ccfd8aa1b8c5e7d58ee2dbfa3ecebe5">pwm_start</a> (unsigned int cycleMicroseconds)</td></tr>
 <tr class="memdesc:a2ccfd8aa1b8c5e7d58ee2dbfa3ecebe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start pulse width modulation (PWM) process in another cog.  <a href="#a2ccfd8aa1b8c5e7d58ee2dbfa3ecebe5"></a><br/></td></tr>
 <tr class="memitem:a57f683188c3dd35ee0574ff349835682"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a57f683188c3dd35ee0574ff349835682">pwm_set</a> (int pin, int channel, int tHigh)</td></tr>
 <tr class="memdesc:a57f683188c3dd35ee0574ff349835682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a PWM signal's high time.  <a href="#a57f683188c3dd35ee0574ff349835682"></a><br/></td></tr>
-<tr class="memitem:aec8f4f09d7d0222e947bea4b37fc33c2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aec8f4f09d7d0222e947bea4b37fc33c2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aec8f4f09d7d0222e947bea4b37fc33c2">pwm_stop</a> (void)</td></tr>
-<tr class="memdesc:aec8f4f09d7d0222e947bea4b37fc33c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shut down PWM process and reclaim cog and I/O pins for other uses. <br/></td></tr>
+<tr class="memitem:aec8f4f09d7d0222e947bea4b37fc33c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aec8f4f09d7d0222e947bea4b37fc33c2">pwm_stop</a> (void)</td></tr>
+<tr class="memdesc:aec8f4f09d7d0222e947bea4b37fc33c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shut down PWM process and reclaim cog and I/O pins for other uses.  <a href="#aec8f4f09d7d0222e947bea4b37fc33c2"></a><br/></td></tr>
 <tr class="memitem:ae251e0a94359068f5e56682311ef4201"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ae251e0a94359068f5e56682311ef4201">pulse_in</a> (int pin, int state)</td></tr>
 <tr class="memdesc:ae251e0a94359068f5e56682311ef4201"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the duration of a pulse applied to an I/O pin.  <a href="#ae251e0a94359068f5e56682311ef4201"></a><br/></td></tr>
 <tr class="memitem:af7d62062bce6f1cb4bc03006f8463ba5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#af7d62062bce6f1cb4bc03006f8463ba5">pulse_out</a> (int pin, int time)</td></tr>
@@ -214,9 +213,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
 <tr class="memitem:a6291bd6f5b751420d414cff05e720ec8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a6291bd6f5b751420d414cff05e720ec8">square_wave_stop</a> (void)</td></tr>
 <tr class="memdesc:a6291bd6f5b751420d414cff05e720ec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the cog that's transmitting a square wave.  <a href="#a6291bd6f5b751420d414cff05e720ec8"></a><br/></td></tr>
 <tr class="memitem:a288d762194e0bad67f4f37ba43f57292"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a288d762194e0bad67f4f37ba43f57292">set_io_timeout</a> (long clockTicks)</td></tr>
-<tr class="memdesc:a288d762194e0bad67f4f37ba43f57292"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the timeout value for the following timed I/O functions: pulseIn, rcTime.  <a href="#a288d762194e0bad67f4f37ba43f57292"></a><br/></td></tr>
-<tr class="memitem:a0867ecfca776cb0dac4028729f9e8939"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a0867ecfca776cb0dac4028729f9e8939">set_io_dt</a> (long clockTicks)</td></tr>
-<tr class="memdesc:a0867ecfca776cb0dac4028729f9e8939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the time increment for the following timed I/O functions: count, pulsin, pulseout, rctime.  <a href="#a0867ecfca776cb0dac4028729f9e8939"></a><br/></td></tr>
+<tr class="memdesc:a288d762194e0bad67f4f37ba43f57292"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the timeout value for the following timed I/O functions: pulse_in, rc_time.  <a href="#a288d762194e0bad67f4f37ba43f57292"></a><br/></td></tr>
+<tr class="memitem:ac4b081567b4d3d054382f88c777d740e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ac4b081567b4d3d054382f88c777d740e">set_io_dt</a> (long clockticks)</td></tr>
+<tr class="memdesc:ac4b081567b4d3d054382f88c777d740e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the time increment for the following timed I/O functions: count, pulse_in, pulse_out, rc_time.  <a href="#ac4b081567b4d3d054382f88c777d740e"></a><br/></td></tr>
 <tr class="memitem:a4fca5193934cbc3b7fce7bfca131302d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a4fca5193934cbc3b7fce7bfca131302d">shift_in</a> (int pinDat, int pinClk, int mode, int bits)</td></tr>
 <tr class="memdesc:a4fca5193934cbc3b7fce7bfca131302d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive data from a synchronous serial device.  <a href="#a4fca5193934cbc3b7fce7bfca131302d"></a><br/></td></tr>
 <tr class="memitem:a39f6cd6c7f7965e057926f92a9b2fa29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a39f6cd6c7f7965e057926f92a9b2fa29">shift_out</a> (int pinDat, int pinClk, int mode, int bits, int value)</td></tr>
@@ -266,7 +265,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
  <br/>
  <b><em>CONSTRUCTION ZONE:</em></b> This library is preliminary, major revisions pending, not for release. <br/>
  <br/>
- dac_ctr, pwm, square_wave are currently only supported by the LMM and CMM memory models. </p>
+ dac_ctr, square_wave, and all pwm functions, are currently only supported by the LMM and CMM memory models. </p>
 <dl class="section author"><dt>Author</dt><dd>Andy Lindsay</dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.9 (see details for more info)</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.</dd></dl>
@@ -308,7 +307,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 <div class="line">printf(<span class="stringliteral">&quot;delayTicks = %d\n&quot;</span>, tf - ti);               <span class="comment">// Display measured</span></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">tticks</td><td>the number of pause clock ticks. </td></tr>
+    <tr><td class="paramname">pticks</td><td>the number of pause clock ticks. </td></tr>
   </table>
   </dd>
 </dl>
@@ -340,7 +339,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
       </table>
 </div><div class="memdoc">
 
-<p>count number of low to high transitions an external input applies to an I/O pin over a certain period of time. </p>
+<p>Count number of low to high transitions an external input applies to an I/O pin over a certain period of time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pin</td><td>I/O pin number </td></tr>
@@ -382,8 +381,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
       </table>
 </div><div class="memdoc">
 
-<p>Set D/A voltge. </p>
-<p>Launches process into another cog for up to two channels of D/A conversion on any I/O pin. Other libraries may be available that provide D/A for more channels. Check SimpleIDE Libraries for options. For more options, check obex.parallax.com.</p>
+<p>Set D/A voltage. </p>
+<p>Launches process into another cog for up to two channels of D/A conversion on any I/O pin. Other libraries may be available that provide D/A for more channels. Check SimpleIDE/Learn/Simple Libraries/Convert for options. For more options, check obex.parallax.com.</p>
 <p>This library uses another cog's counter modules (2 per cog) to perform duty modulation, which is useful for D/A conversion. The digital signal it generates will affect LED brightness. The signal can be passed through a low pass RC filter for digital to analog voltage conversion. Add an op amp buffer it it needs to drive a load.</p>
 <p>Default resolution is 8-bits for output voltages ranging from 0 V to (255/256) of 3.3 V.</p>
 <p>General equation is dacVal * (3.3 V/2^bits)</p>
@@ -391,7 +390,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pin</td><td>I/O pin number. </td></tr>
-    <tr><td class="paramname">channel,use</td><td>0 or 1 to select the cog's CTRA or CTRB counter modules, that are used for D/A conversion. </td></tr>
+    <tr><td class="paramname">channel</td><td>use 0 or 1 to select the cog's CTRA or CTRB counter modules, that are used for D/A conversion. </td></tr>
     <tr><td class="paramname">dacVal</td><td>Number of 256ths of 3.3 V by default. Use a value from 0 (0 V) to 255 . </td></tr>
   </table>
   </dd>
@@ -414,27 +413,24 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 </div><div class="memdoc">
 
 <p>Set D/A voltage resolution. </p>
-<p>Uses duty modulation to generate a digital signal that can be fed to a low pass RC filter for digital to analog voltage conversion. Add an op amp buffer it it needs to drive a load. Also works well for LED brightness.</p>
 <p>Default resolution is 8-bits for output voltages ranging from 0 V to (255/256) of 3.3 V.</p>
 <p>General equation is dacVal * (3.3 V/2^bits)</p>
 <p>Default is 8 bits, which results in dacVal * (3.3 V/ 256), so dacVal specifies the number of 256ths of 3.3 V.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pin</td><td>I/O pin number </td></tr>
-    <tr><td class="paramname">time</td><td>Number of ms to maintain voltage </td></tr>
-    <tr><td class="paramname">dacVal</td><td>Numerator in fraction of 3.3 V. </td></tr>
+    <tr><td class="paramname">bits</td><td>the D/A converter's resolution in bits. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="ae6eb83b5e35bc36c34b1aec412ffe7bd"></a>
+<a class="anchor" id="ac82ec398e5c969f0286f40ef366c45da"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void dac_ctrs_stop </td>
+          <td class="memname">void dac_stop </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -488,12 +484,18 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pinTxOut</td><td>transmitting output pin.</td></tr>
-    <tr><td class="paramname">pinRxIN</td><td>receiving input pin.</td></tr>
-    <tr><td class="paramname">baud</td><td>rate in bits per second.</td></tr>
+    <tr><td class="paramname">pinRxIn</td><td>receiving input pin.</td></tr>
+    <tr><td class="paramname">baudRate</td><td>in bits per second.</td></tr>
+    <tr><td class="paramname">mode</td><td>A 4-bit binary value. Each digit (bit) can be set to specify one of the behaviors listed below. For example, 0b0011 inverts Tx and Rx because bits 1 and 0 are set to 1.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a file pointer that you can pass to functions like fptrintf. </dd></dl>
+<div class="fragment"><div class="line">mode bit 0 = invert Rx---------------------| </div>
+<div class="line">mode bit 1 = invert Tx--------------------||</div>
+<div class="line">mode bit 2 = open-drain/source Tx--------||| </div>
+<div class="line">mode bit 3 = ignore Tx echo on Rx-------||||</div>
+<div class="line">                                      0b1111</div>
+</div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>a file pointer that you can pass to functions like fptrintf. </dd></dl>
 
 </div>
 </div>
@@ -555,8 +557,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pin</td><td>I/O pin that sends the frequency </td></tr>
-    <tr><td class="paramname">time</td><td>time in ms that the signal lasts </td></tr>
-    <tr><td class="paramname">frequency</td><td>frequency of the signal in Hz. Accepts values from 1 Hz to 128 MHz. </td></tr>
+    <tr><td class="paramname">msTime</td><td>time in ms that the signal lasts </td></tr>
+    <tr><td class="paramname">frequency</td><td>frequency of the signal in Hz. Accepts values from 1 Hz to 128000000 Hz (128 MHz). </td></tr>
   </table>
   </dd>
 </dl>
@@ -577,7 +579,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
       </table>
 </div><div class="memdoc">
 
-<p>Check the direction of the I/O pin. . </p>
+<p>Check the direction of the I/O pin. </p>
 <p>This function will tell you the direction of the I/O pin as seen by the cog executing it. Keep in mind that that your program might make other cogs use the I/O pin as an output, and a cog that treats a pin as an output wins over one that treats it as an input.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -743,7 +745,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 <p>This works the same as getState, but for a group of pins. It tells you the actual state of each pin, regardless of whether it's a voltage applied to input or transmitted by an output.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">endPin</td><td>the higest numbered pin. </td></tr>
+    <tr><td class="paramname">endPin</td><td>the highest numbered pin. </td></tr>
     <tr><td class="paramname">startPin</td><td>the lowest numbered pin.</td></tr>
   </table>
   </dd>
@@ -767,7 +769,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 </div><div class="memdoc">
 
 <p>Set an I/O pin to output-high. </p>
-<p>This function set makes the Propeller connect the I/O pin to its positive 3.3 V supply voltage enabling it to source up to 50 mA of current.</p>
+<p>This function set makes the Propeller P8X32A connect the I/O pin to its positive 3.3 V supply voltage enabling it to source up to 40 mA of current (max 1 W dissipation per chip).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pin</td><td>Number of the I/O pin to set high </td></tr>
@@ -802,7 +804,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 </div><div class="memdoc">
 
 <p>Set up an I2C bus. </p>
-<p>After you have set up the bus, you can use i2cread and i2cwrite functions in propgcc\propeller-elf\include\i2c.h to communicate on the bus.</p>
+<p>After you have set up the bus, you can use i2cread and i2cwrite functions in ...propgcc/propeller-elf/include/i2c.h to communicate on the bus.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sclpin</td><td>the I2C bus' serial clock pin.</td></tr>
@@ -899,7 +901,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 </div><div class="memdoc">
 
 <p>Set an I/O pin to output-low. </p>
-<p>This function makes the Propeller connect the I/O pin to its ground 0 V supply voltage enabling it to sink up to 50 mA of current.</p>
+<p>This function makes the Propeller P8X32A connect the I/O pin to its ground 0 V supply voltage enabling it to sink up to 40 mA of current (max 1 W dissipation per chip).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pin</td><td>Number of the I/O pin to set low </td></tr>
@@ -928,7 +930,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 
 </div>
 </div>
-<a class="anchor" id="a982ca13d831df52db20bf590b649cec4"></a>
+<a class="anchor" id="a381e2d58c3d6a1f0fd8129bcc4726804"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -936,17 +938,17 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
           <td class="memname">void pause </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td class="paramname"><em>time</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Delay cog from moving on to the next statement for a certain amount of time. </p>
-<p>The default time increment is 1 ms, so pause(100) would delay for 100 ms = 1/10th of a second. This time increment can be changed with a call to the setPauseDt function.</p>
+<p>The default time increment is 1 ms, so pause(100) would delay for 100 ms = 1/10th of a second. This time increment can be changed with a call to the set_pause_dt function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dt</td><td>The number of time increments to delay. </td></tr>
+    <tr><td class="paramname">time</td><td>The number of time increments to delay. </td></tr>
   </table>
   </dd>
 </dl>
@@ -978,7 +980,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 </div><div class="memdoc">
 
 <p>Measure the duration of a pulse applied to an I/O pin. </p>
-<p>Default time increments are specified in 1 microsecond units. Unit size can be changed with a call to setIoDt function.</p>
+<p>Default time increments are specified in 1 microsecond units. Unit size can be changed with a call to set_io_dt function.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pin</td><td>I/O pin number </td></tr>
@@ -1015,7 +1017,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 </div><div class="memdoc">
 
 <p>Transmit a pulse with an I/O pin. </p>
-<p>Default time increments are specified in 1 microsecond units. Unit size can be changed with a call to setIoDt function. The pulse will be positive if the I/O pin is transmitting a low signal before the call. The pulse will be negative if it transmits a high signal before the call. When the pulse is done, the pin returns to whatever state it was in before the pulse. If the pin was an input, it will be changed to output and use whatever value was in the output register bit for the pin. This defaults to low on startup, but you can pre-set it while leaving the pin set to input with the setOutput function (or check it with getOutput).</p>
+<p>Default time increments are specified in 1 microsecond units. Unit size can be changed with a call to set_io_dt function. The pulse will be positive if the I/O pin is transmitting a low signal before the call. The pulse will be negative if it transmits a high signal before the call. When the pulse is done, the pin returns to whatever state it was in before the pulse. If the pin was an input, it will be changed to output and use whatever value was in the output register bit for the pin. This defaults to low on startup, but you can pre-set it while leaving the pin set to input with the set_output function (or check it with get_output).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pin</td><td>I/O pin number </td></tr>
@@ -1057,12 +1059,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 </div><div class="memdoc">
 
 <p>Set a PWM signal's high time. </p>
-<p>After a single call to pwm_start, this function allows you to set a PWM signal's high time. For example, if your pwm_start call sets up 1000 us (1 ms) you could use this function to make the signal high for 3/4 of its cycle with pwm_set(pin, channel, 750). If the signal goes to a DC motor through an H bridge or other deliver circuit, the motor will behave as though it's only getting 3/4 of the supply and turn at roughly 3/4 of full speed.</p>
+<p>After a single call to pwm_start, this function allows you to set a PWM signal's high time. For example, if your pwm_start call sets up 1000 us (1 ms) you could use this function to make the signal high for 3/4 of its cycle with pwm_set(pin, channel, 750). If the signal goes to a DC motor through an H bridge or other driver circuit, the motor will behave as though it's only getting 3/4 of the supply and turn at roughly 3/4 of full speed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pin</td><td>I/O pin to send the PWM signal. You can change this value on the fly, which is useful for speed control of a DC motor in two different directions. When the PWM signal changes to a new pin, the cog sets the previous pin to input. If you want it to stay low when the PWM cog lets go, just set the pin low in your code before calling pwm_start.</td></tr>
     <tr><td class="paramname">channel</td><td>You have options of 0 or 1 for up to two simultaneous PWM signals. If you have an application in mind that requires more PWM signals, check the SimpleIDE/Learn/Simple Libraries/Motor directory, and also online at obex.parallax.com.</td></tr>
-    <tr><td class="paramname">tHigh</td><td>the high time for each PWM cycle repetition. </td></tr>
+    <tr><td class="paramname">tHigh</td><td>The high time for each PWM cycle repetition. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1095,6 +1097,25 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 
 </div>
 </div>
+<a class="anchor" id="aec8f4f09d7d0222e947bea4b37fc33c2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pwm_stop </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shut down PWM process and reclaim cog and I/O pins for other uses. </p>
+<p>Shut down PWM process and reclaim cog and I/O pins for other uses </p>
+
+</div>
+</div>
 <a class="anchor" id="ad5f7522ca251c3cf3d7fd903fcdb5bbe"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1120,7 +1141,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 </div><div class="memdoc">
 
 <p>Set I/O pin to input and measure the time it takes a signal to transition from a start state to the opposite state. </p>
-<p>Named rctime because it is often used to measure a resistor-capacitor circuit's tendency to "decay" to either ground or 5 V (depending on wiring). Default time increments are specified in 1 microsecond units. Unit size can be changed with a call to setIoDt funciton. The pulse will be positive if the I/O pin is transmitting a low signal before the call.</p>
+<p>Named rc_time because it is often used to measure a resistor-capacitor circuit's tendency to "decay" to either ground or 5 V (depending on wiring). Default time increments are specified in 1 microsecond units. Unit size can be changed with a call to set_io_dt function. The pulse will be positive if the I/O pin is transmitting a low signal before the call.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pin</td><td>I/O pin number </td></tr>
@@ -1232,7 +1253,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
       </table>
 </div><div class="memdoc">
 
-<p>Set an I/O pin to a given direction. . </p>
+<p>Set an I/O pin to a given direction. </p>
 <p>This function sets an I/O pin to either output or input.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1280,14 +1301,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
   <table class="params">
     <tr><td class="paramname">endPin</td><td>the highest numbered pin. </td></tr>
     <tr><td class="paramname">startPin</td><td>the lowest numbered pin. </td></tr>
-    <tr><td class="paramname">states</td><td>value containing the binary bit pattern. The value for startPin should be in bit-0, next in bit-1, etc. </td></tr>
+    <tr><td class="paramname">pattern</td><td>value containing the binary bit pattern. The value for startPin should be in bit-0, next in bit-1, etc. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="a0867ecfca776cb0dac4028729f9e8939"></a>
+<a class="anchor" id="ac4b081567b4d3d054382f88c777d740e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1295,17 +1316,17 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
           <td class="memname">void set_io_dt </td>
           <td>(</td>
           <td class="paramtype">long&#160;</td>
-          <td class="paramname"><em>clockTicks</em></td><td>)</td>
+          <td class="paramname"><em>clockticks</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the time increment for the following timed I/O functions: count, pulsin, pulseout, rctime. </p>
-<p>Time increment is set in clock ticks. For example, the default of 1 us units is specified with setDt(CLKFREQ/1000000). For 2 microsecond units, use setDt(CLKFREQ/500000).</p>
+<p>Sets the time increment for the following timed I/O functions: count, pulse_in, pulse_out, rc_time. </p>
+<p>Time increment is set in clock ticks. For example, the default of 1 us units is specified with set_io_dt(CLKFREQ/1000000). For 2 microsecond units, use set_io_dt(CLKFREQ/500000).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">clockTics</td><td>Number of clocktics that represents one I/O time increment. </td></tr>
+    <tr><td class="paramname">clockticks</td><td>Number of clocktics that represents one I/O time increment. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1326,11 +1347,11 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
       </table>
 </div><div class="memdoc">
 
-<p>Sets the timeout value for the following timed I/O functions: pulseIn, rcTime. </p>
-<p>Time increment is set in clock ticks. For example, the default of 0.25 seconds is set with setTimeout(CLKFREQ/4). To set the timeout to 20 ms, you could use setTimeout(CLKFREQ/50).</p>
+<p>Sets the timeout value for the following timed I/O functions: pulse_in, rc_time. </p>
+<p>Time increment is set in clock ticks. For example, the default of 0.25 seconds is set with set_io_timeout(CLKFREQ/4). To set the timeout to 20 ms, you could use set_io_timeout(CLKFREQ/50).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">clockTics</td><td>Number of clock ticks for timed I/o </td></tr>
+    <tr><td class="paramname">clockTicks</td><td>Number of clock ticks for timed I/O </td></tr>
   </table>
   </dd>
 </dl>
@@ -1362,7 +1383,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 </div><div class="memdoc">
 
 <p>Set I/O pin output register bit to either 1 or 0. </p>
-<p>This function focuses on the I/O pins output register. If you intend to use it to send high or low signals, consider using high or low instead. This function can also be used in conjunction with setDirection to send high or low signals.</p>
+<p>This function focuses on the I/O pins output register. If you intend to use it to send high or low signals, consider using high or low functions. This function can also be used in conjunction with set_direction to send high or low signals.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pin</td><td>I/O pin to set high or low. </td></tr>
@@ -1409,7 +1430,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
   <table class="params">
     <tr><td class="paramname">endPin</td><td>the highest numbered pin. </td></tr>
     <tr><td class="paramname">startPin</td><td>the lowest numbered pin. </td></tr>
-    <tr><td class="paramname">states</td><td>value containing the binary bit pattern. The value for startPin should be in bit-0, next in bit-1, etc. </td></tr>
+    <tr><td class="paramname">pattern</td><td>value containing the binary bit pattern. The value for startPin should be in bit-0, next in bit-1, etc. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1431,10 +1452,10 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 </div><div class="memdoc">
 
 <p>Set time increment for pause function. </p>
-<p>Default time increment for pause function is 1 ms. This function allows you to change that delay to custom values. For example, setPauseDt(CLKFREQ/2000) would set it to 1/2 ms increments. To return to default 1 ms increments, use setPauseDt(CLKFREQ/1000).</p>
+<p>Default time increment for pause function is 1 ms. This function allows you to change that delay to custom values. For example, set_pause_dt(CLKFREQ/2000) would set it to 1/2 ms increments. To return to default 1 ms increments, use set_pause_dt(CLKFREQ/1000).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">clockticks</td><td>the number of clock tics that pause(1) will delay. </td></tr>
+    <tr><td class="paramname">clockticks</td><td>the number of clock ticks that pause(1) will delay. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1482,7 +1503,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
   <table class="params">
     <tr><td class="paramname">pinDat</td><td>Data pin </td></tr>
     <tr><td class="paramname">pinClk</td><td>Clock pin </td></tr>
-    <tr><td class="paramname">mode</td><td>Order and orientation to clock pulse options: MSBPRE, LSBPRE, MSBPOST, LSBPOST </td></tr>
+    <tr><td class="paramname">mode</td><td>Order and orientation to clock pulse options: MSBPRE, LSBPRE, MSBPOST,LSBPOST </td></tr>
     <tr><td class="paramname">bits</td><td>number of binary values to transfer</td></tr>
   </table>
   </dd>
@@ -1583,7 +1604,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
   <table class="params">
     <tr><td class="paramname">pin</td><td>I/O pin that transmits square wave frequency. To stop sending the signal and change the pin back to input, pass the pin as a negative number. </td></tr>
     <tr><td class="paramname">channel</td><td>0 or 1 Selects the counter module to transmit the frequency. </td></tr>
-    <tr><td class="paramname">frequency</td><td>Square wave frequency </td></tr>
+    <tr><td class="paramname">freq</td><td>Square wave frequency </td></tr>
   </table>
   </dd>
 </dl>
@@ -1660,8 +1681,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 <p>Set up a simple serial driver with just a receive pin. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pinTxOut</td><td>transmitting output pin.</td></tr>
-    <tr><td class="paramname">baud</td><td>rate in bits per second.</td></tr>
+    <tr><td class="paramname">pinRxIn</td><td>receiving input pin.</td></tr>
+    <tr><td class="paramname">baudRate</td><td>rate in bits per second.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1698,12 +1719,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 <div class="fragment"><div class="line">serial lcd = <a class="code" href="html/simpletools_8h.html#a88025d2f86ef703c73f30576e211fb6f" title="Set up a simple serial driver with just a transmit pin.">sser_setTx</a>(11, 9600);    <span class="comment">// Serial driver transmits on P11</span></div>
 <div class="line">fputc(22, LCD);                       <span class="comment">// Transmit 22</span></div>
 <div class="line">fputc(12, lcd);                       <span class="comment">// Transmit 12 </span></div>
-<div class="line"><a class="code" href="html/simpletools_8h.html#a982ca13d831df52db20bf590b649cec4" title="Delay cog from moving on to the next statement for a certain amount of time.">pause</a>(5);                             <span class="comment">// Wait 5 ms</span></div>
+<div class="line"><a class="code" href="html/simpletools_8h.html#a381e2d58c3d6a1f0fd8129bcc4726804" title="Delay cog from moving on to the next statement for a certain amount of time.">pause</a>(5);                             <span class="comment">// Wait 5 ms</span></div>
 <div class="line">fptrintf(lcd, <span class="stringliteral">&quot;Hello!!!&quot;</span>);            <span class="comment">// Transmit a string</span></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pinTxOut</td><td>transmitting output pin.</td></tr>
-    <tr><td class="paramname">baud</td><td>rate in bits per second.</td></tr>
+    <tr><td class="paramname">baudRate</td><td>rate in bits per second.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1746,7 +1767,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
   <table class="params">
     <tr><td class="paramname">pinTxOut</td><td>transmitting output pin.</td></tr>
     <tr><td class="paramname">pinRxIn</td><td>receiving input pin.</td></tr>
-    <tr><td class="paramname">baud</td><td>rate in bits per second.</td></tr>
+    <tr><td class="paramname">baudRate</td><td>rate in bits per second.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1819,8 +1840,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
       </table>
 </div><div class="memdoc">
 
-<p>Waits a certain number of time increments from the last call to mark. </p>
-<p>The default time increment is 1 us, so wait(2000) will return wait until 2 us after the last call to mark. This function automatically updates the marked time, so you can call it repeatedly without having to call mark.</p>
+<p>Waits a certain number of time increments from the last call to mark or wait functions. </p>
+<p>The default time increment is 1 us, so wait(2000) will return wait until 2 us after the last call to mark or wait. This function automatically updates the marked time; you can call it repeatedly without having to call mark.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">time</td><td>Number of time increments. </td></tr>
@@ -1833,7 +1854,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>dacCtrBits</b></td></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 5 2013 11:21:06 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Fri Apr 5 2013 17:17:07 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

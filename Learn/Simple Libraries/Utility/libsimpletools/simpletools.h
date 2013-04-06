@@ -13,8 +13,8 @@
  * communication tasks.
  * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major 
  * revisions pending, not for release.
- * @n @n dac_ctr, pwm, square_wave are currently only supported by the LMM and 
- * CMM memory models.  
+ * @n @n dac_ctr, square_wave, and all pwm functions, are currently  
+ * only supported by the LMM and CMM memory models.  
  *
  * @details This (under development) library provides a set of
  * introductory functions that simplify:
@@ -109,13 +109,13 @@ extern int dacCtrBits;
 
 // Counter module values
 #ifndef NCO_PWM_1
-#define NCO_PWM_1 0b00100 << 26;
+#define NCO_PWM_1 (0b00100 << 26)
 #endif
 #ifndef CTR_NCO
-#define CTR_NCO (0b100 << 26);
+#define CTR_NCO (0b100 << 26)
 #endif
 #ifndef CTR_PLL
-#define CTR_PLL (0b10 << 26);
+#define CTR_PLL (0b10 << 26)
 #endif
 #ifndef DUTY_SE
 #define DUTY_SE (0b110 << 26)
@@ -131,9 +131,9 @@ typedef I2C* i2c;
  * @brief Set an I/O pin to output-high
  *
  * @details This function set makes the Propeller
- * connect the I/O pin to its positive 3.3 V
+ * P8X32A connect the I/O pin to its positive 3.3 V
  * supply voltage enabling it to source up to
- * 50 mA of current.
+ * 40 mA of current (max 1 W dissipation per chip).
  *
  * @param pin Number of the I/O pin to set high
  */
@@ -143,9 +143,9 @@ void high(int pin);
  * @brief Set an I/O pin to output-low
  *
  * @details This function makes the Propeller
- * connect the I/O pin to its ground 0 V
+ * P8X32A connect the I/O pin to its ground 0 V
  * supply voltage enabling it to sink up to
- * 50 mA of current.
+ * 40 mA of current (max 1 W dissipation per chip).
  *
  * @param pin Number of the I/O pin to set low
  */
@@ -212,7 +212,7 @@ unsigned int reverse(int pin);
 unsigned int get_state(int pin);
 
 /**
- * @brief Check the direction of the I/O pin.                                        .
+ * @brief Check the direction of the I/O pin.                                        
  *
  * @details This function will tell you the direction of the
  * I/O pin as seen by the cog executing it.  Keep in mind that
@@ -242,7 +242,7 @@ unsigned int get_direction(int pin);
 unsigned int get_output(int pin);
 
 /**
- * @brief Set an I/O pin to a given direction.                                        .
+ * @brief Set an I/O pin to a given direction.                                        
  *
  * @details This function sets an I/O pin to either output or input.
  *
@@ -256,7 +256,7 @@ void set_direction(int pin, int direction);
  *
  * @details This function focuses on the I/O pins output register.  If you
  * intend to use it to send high or low signals, consider using high or low
- * instead.  This function can also be used in conjunction with setDirection
+ * functions.  This function can also be used in conjunction with set_direction
  * to send high or low signals.
  *
  * @param pin I/O pin to set high or low.
@@ -272,7 +272,7 @@ void set_output(int pin, int state);
  * tells you the actual state of each pin, regardless of whether it's a 
  * voltage applied to input or transmitted by an output.
  *
- * @param endPin the higest numbered pin.
+ * @param endPin the highest numbered pin.
  * @param startPin the lowest numbered pin.
  *
  * @returns states value containing the binary bit pattern.  The value for
@@ -316,7 +316,7 @@ unsigned int get_outputs(int endPin, int startPin);
  *
  * @param endPin the highest numbered pin.
  * @param startPin the lowest numbered pin.
- * @param states value containing the binary bit pattern.  The value for
+ * @param pattern value containing the binary bit pattern.  The value for
  * startPin should be in bit-0, next in bit-1, etc.
  */
 void set_directions(int endPin, int startPin, unsigned int pattern);
@@ -329,7 +329,7 @@ void set_directions(int endPin, int startPin, unsigned int pattern);
  *
  * @param endPin the highest numbered pin.
  * @param startPin the lowest numbered pin.
- * @param states value containing the binary bit pattern.  The value for
+ * @param pattern value containing the binary bit pattern.  The value for
  * startPin should be in bit-0, next in bit-1, etc.
  */
 void set_outputs(int endPin, int startPin, unsigned int pattern);
@@ -340,11 +340,11 @@ void set_outputs(int endPin, int startPin, unsigned int pattern);
  *
  * @details The default time increment is 1 ms, so pause(100) would delay for
  * 100 ms = 1/10th of a second.  This time increment can be changed with a call
- * to the setPauseDt function.
+ * to the set_pause_dt function.
  *
- * @param dt The number of time increments to delay.
+ * @param time The number of time increments to delay.
  */
-void pause(int dt);
+void pause(int time);
 
 /**
  * @brief Delay cog from moving on to the next statement for a certain number
@@ -365,7 +365,7 @@ void pause(int dt);
  *  printf("delayTicks = %d\n", tf - ti);               // Display measured
  *  @endcode
  *
- * @param tticks the number of pause clock ticks.
+ * @param pticks the number of pause clock ticks.
  */
 #define pause_ticks(pticks) __builtin_propeller_waitcnt(pticks+CNT, 0)
 
@@ -388,11 +388,12 @@ void mark(void);
 int timeout(int time);
 
 /**
- * @brief Waits a certain number of time increments from the last call to mark.
+ * @brief Waits a certain number of time increments from the last call to
+ * mark or wait functions.
  *
  * @details The default time increment is 1 us, so wait(2000) will return wait
- * until 2 us after the last call to mark.  This function automatically updates
- * the marked time, so you can call it repeatedly without having to call mark.
+ * until 2 us after the last call to mark or wait.  This function automatically 
+ * updates the marked time; you can call it repeatedly without having to call mark.
  *
  * @param time Number of time increments.
  */
@@ -403,15 +404,15 @@ void wait(int time);
  *
  * @details Default time increment for pause function is 1 ms.  This function
  * allows you to change that delay to custom values. For example,
- * setPauseDt(CLKFREQ/2000) would set it to 1/2 ms increments.  To return to
- * default 1 ms increments, use setPauseDt(CLKFREQ/1000).
+ * set_pause_dt(CLKFREQ/2000) would set it to 1/2 ms increments.  To return to
+ * default 1 ms increments, use set_pause_dt(CLKFREQ/1000).
  *
- * @param clockticks the number of clock tics that pause(1) will delay.
+ * @param clockticks the number of clock ticks that pause(1) will delay.
  */
 void set_pause_dt(int clockticks);
 
 /**
- * @brief count number of low to high transitions an external input applies to
+ * @brief Count number of low to high transitions an external input applies to
  * an I/O pin over a certain period of time.
  *
  * @param pin I/O pin number
@@ -422,11 +423,11 @@ void set_pause_dt(int clockticks);
 long count(int pin, long duration);
 
 /**
- * @brief Set D/A voltge
+ * @brief Set D/A voltage
  *
  * @details Launches process into another cog for up to two channels of D/A conversion
  * on any I/O pin.  Other libraries may be available that provide D/A for more channels.
- * Check SimpleIDE\Learn\Simple Libraries\Convert for options.  For more options, check
+ * Check SimpleIDE/Learn/Simple Libraries/Convert for options.  For more options, check
  * obex.parallax.com.
  *
  * This library uses another cog's counter modules (2 per cog) to perform duty modulation,
@@ -444,7 +445,7 @@ long count(int pin, long duration);
  * the dac_ctr_res function.
  *
  * @param pin I/O pin number.
- * @param channel, use 0 or 1 to select the cog's CTRA or CTRB counter modules, that
+ * @param channel use 0 or 1 to select the cog's CTRA or CTRB counter modules, that
  * are used for D/A conversion.
  * @param dacVal Number of 256ths of 3.3 V by default.  Use a value from 0 (0 V) 
  * to 255 .
@@ -454,11 +455,7 @@ void dac_ctr(int pin, int channel, int dacVal);
 /**
  * @brief Set D/A voltage resolution
  *
- * @details Uses duty modulation to generate a digital signal that can be fed to a low
- * pass RC filter for digital to analog voltage conversion.  Add an op amp buffer it
- * it needs to drive a load.  Also works well for LED brightness.
- *
- * Default resolution is 8-bits for output voltages ranging from 0 V to (255/256) of
+ * @details Default resolution is 8-bits for output voltages ranging from 0 V to (255/256) of
  * 3.3 V.
  *
  * General equation is dacVal * (3.3 V/2^bits)
@@ -466,9 +463,7 @@ void dac_ctr(int pin, int channel, int dacVal);
  * Default is 8 bits, which results in dacVal * (3.3 V/ 256), so dacVal
  * specifies the number of 256ths of 3.3 V.
  *
- * @param pin I/O pin number
- * @param time Number of ms to maintain voltage
- * @param dacVal Numerator in fraction of 3.3 V.
+ * @param bits the D/A converter's resolution in bits.
  */
 void dac_ctr_res(int bits);
 
@@ -479,7 +474,7 @@ void dac_ctr_res(int bits);
  * other uses.  
  *
  */
-void dac_ctrs_stop(void);
+void dac_stop(void);
 
 /**
  * @brief Use same cog to send square wave of a certain 
@@ -487,9 +482,9 @@ void dac_ctrs_stop(void);
  * with another cog, try square_wave function instead.
  *
  * @param pin I/O pin that sends the frequency
- * @param time time in ms that the signal lasts
+ * @param msTime time in ms that the signal lasts
  * @param frequency frequency of the signal in Hz.  Accepts
- * values from 1 Hz to 128 MHz.
+ * values from 1 Hz to 128000000 Hz (128 MHz).
  */
 void freqout(int pin, int msTime, int frequency);
 
@@ -516,7 +511,7 @@ int pwm_start(unsigned int cycleMicroseconds);
  * to set a PWM signal's high time.  For example, if your pwm_start call
  * sets up 1000 us (1 ms) you could use this function to make the signal
  * high for 3/4 of its cycle with pwm_set(pin, channel, 750).  If the
- * signal goes to a DC motor through an H bridge or other deliver circuit,
+ * signal goes to a DC motor through an H bridge or other driver circuit,
  * the motor will behave as though it's only getting 3/4 of the supply 
  * and turn at roughly 3/4 of full speed.
  *
@@ -532,13 +527,15 @@ int pwm_start(unsigned int cycleMicroseconds);
  * PWM signals, check the SimpleIDE/Learn/Simple Libraries/Motor
  * directory, and also online at obex.parallax.com. 
  *
- * @param tHigh the high time for each PWM cycle repetition.
+ * @param tHigh The high time for each PWM cycle repetition.
  */
 void pwm_set(int pin, int channel, int tHigh);
 
 /**
  * @brief Shut down PWM process and reclaim cog and I/O pins for other
  * uses.
+ *
+ * @details Shut down PWM process and reclaim cog and I/O pins for other uses
  *
  */
 void pwm_stop(void);
@@ -547,7 +544,7 @@ void pwm_stop(void);
  * @brief Measure the duration of a pulse applied to an I/O pin
  *
  * @details Default time increments are specified in 1 microsecond units.  Unit size
- * can be changed with a call to setIoDt function.
+ * can be changed with a call to set_io_dt function.
  *
  * @param pin I/O pin number
  * @param state State of the pulse (1 for positive or high pulses, 0 for negative or
@@ -561,13 +558,13 @@ long pulse_in(int pin, int state);
  * @brief Transmit a pulse with an I/O pin
  *
  * @details Default time increments are specified in 1 microsecond units.  Unit size
- * can be changed with a call to setIoDt function.  The pulse will be positive if the
+ * can be changed with a call to set_io_dt function.  The pulse will be positive if the
  * I/O pin is transmitting a low signal before the call.  The pulse will be negative
  * if it transmits a high signal before the call.  When the pulse is done, the pin
  * returns to whatever state it was in before the pulse.  If the pin was an input, it
  * will be changed to output and use whatever value was in the output register bit
  * for the pin.  This defaults to low on startup, but you can pre-set it while leaving
- * the pin set to input with the setOutput function (or check it with getOutput).
+ * the pin set to input with the set_output function (or check it with get_output).
  *
  * @param pin I/O pin number
  * @param time Amount of time the pulse lasts.
@@ -578,10 +575,10 @@ void pulse_out(int pin, int time);
  * @brief Set I/O pin to input and measure the time it takes a signal to transition from
  * a start state to the opposite state.
  *
- * @details Named rctime because it is often used to measure a resistor-capacitor
+ * @details Named rc_time because it is often used to measure a resistor-capacitor
  * circuit's tendency to "decay" to either ground or 5 V (depending on wiring).  Default
  * time increments are specified in 1 microsecond units.  Unit size can be changed with a
- * call to setIoDt funciton.  The pulse will be positive if the I/O pin is transmitting a
+ * call to set_io_dt function.  The pulse will be positive if the I/O pin is transmitting a
  * low signal before the call.
  *
  * @param pin I/O pin number
@@ -606,7 +603,7 @@ long rc_time(int pin, int state);
  * @param pin I/O pin that transmits square wave frequency.  To stop sending the signal
  * and change the pin back to input, pass the pin as a negative number.
  * @param channel 0 or 1 Selects the counter module to transmit the frequency.
- * @param frequency Square wave frequency
+ * @param freq Square wave frequency
  *
  */
 void square_wave(int pin, int channel, int freq);
@@ -621,50 +618,51 @@ void square_wave(int pin, int channel, int freq);
 void square_wave_stop(void);
 
 /**
- * @brief Sets the timeout value for the following timed I/O functions: pulseIn, rcTime
+ * @brief Sets the timeout value for the following timed I/O functions: pulse_in, rc_time
  *
  * @details Time increment is set in clock ticks.  For example, the default of 0.25
- * seconds is set with setTimeout(CLKFREQ/4).  To set the timeout to 20 ms, you could
- * use setTimeout(CLKFREQ/50).
+ * seconds is set with set_io_timeout(CLKFREQ/4).  To set the timeout to 20 ms, you could
+ * use set_io_timeout(CLKFREQ/50).
  *
- * @param clockTics Number of clock ticks for timed I/o
+ * @param clockTicks Number of clock ticks for timed I/O
  */
 void set_io_timeout(long clockTicks);
 
 /**
- * @brief Sets the time increment for the following timed I/O functions: count, pulsin,
- * pulseout, rctime.
+ * @brief Sets the time increment for the following timed I/O functions: count, pulse_in,
+ * pulse_out, rc_time.
  *
  * @details Time increment is set in clock ticks.  For example, the default of 1 us
- * units is specified with setDt(CLKFREQ/1000000).  For 2 microsecond units, use
- * setDt(CLKFREQ/500000).
+ * units is specified with set_io_dt(CLKFREQ/1000000).  For 2 microsecond units, use
+ * set_io_dt(CLKFREQ/500000).
  *
- * @param clockTics Number of clocktics that represents one I/O time increment.
+ * @param clockticks Number of clocktics that represents one I/O time increment.
  */
-void set_io_dt(long clockTicks);
+void set_io_dt(long clockticks);
+
 
 /**
- * @brief Receive data from a synchronous serial device
- *
- * @param pinDat Data pin
- * @param pinClk Clock pin
- * @param mode Order and orientation to clock pulse options: MSBPRE, LSBPRE, MSBPOST, 
- * LSBPOST
- * @param bits number of binary values to transfer
- *
- * @returns value received from the synchronous serial device.
- */
+* @brief Receive data from a synchronous serial device
+*
+* @param pinDat Data pin
+* @param pinClk Clock pin
+* @param mode Order and orientation to clock pulse options: 
+* MSBPRE, LSBPRE, MSBPOST,LSBPOST
+* @param bits number of binary values to transfer
+*
+* @returns value received from the synchronous serial device.
+*/
 int shift_in(int pinDat, int pinClk, int mode, int bits);
 
 /**
- * @brief Send data to a synchronous serial device
- *
- * @param pinDat Data pin
- * @param pinClk Clock pin
- * @param mode Order that bits are transmitteed, either LSBFIRST or MSBFIRST.
- * @param bits number of binary values to transfer
- * @param value to transmit
- */
+* @brief Send data to a synchronous serial device
+*
+* @param pinDat Data pin
+* @param pinClk Clock pin
+* @param mode Order that bits are transmitteed, either LSBFIRST or MSBFIRST.
+* @param bits number of binary values to transfer
+* @param value to transmit
+*/
 void shift_out(int pinDat, int pinClk, int mode, int bits, int value);
 
 /**
@@ -674,7 +672,7 @@ void shift_out(int pinDat, int pinClk, int mode, int bits, int value);
  *
  * @param pinRxIn receiving input pin.
  *
- * @param baud rate in bits per second.
+ * @param baudRate rate in bits per second.
  *
  * @returns a file pointer that you can pass to functions like fptrintf.
  */
@@ -695,7 +693,7 @@ FILE* sser_setTxRx(int pinTxOut, int pinRxIn, int baudRate);
  *
  * @param pinTxOut transmitting output pin.
  *
- * @param baud rate in bits per second.
+ * @param baudRate rate in bits per second.
  *
  * @returns a file pointer that you can pass to functions like fptrintf.
  */
@@ -704,9 +702,9 @@ FILE* sser_setTx(int pinTxOut, int baudRate);
 /**
  * @brief Set up a simple serial driver with just a receive pin.
  *
- * @param pinTxOut transmitting output pin.
+ * @param pinRxIn receiving input pin.
  *
- * @param baud rate in bits per second.
+ * @param baudRate rate in bits per second.
  *
  * @returns a file pointer that you can pass to functions like fptrintf.
  */
@@ -724,9 +722,21 @@ int sser_close(FILE* peripheral);
  *
  * @param pinTxOut transmitting output pin.
  *
- * @param pinRxIN receiving input pin.
+ * @param pinRxIn receiving input pin.
  *
- * @param baud rate in bits per second.
+ * @param baudRate in bits per second.
+ *
+ * @param mode A 4-bit binary value. Each digit (bit) can be set to specify 
+ * one of the behaviors listed below. For example, 0b0011 inverts Tx and Rx
+ * because bits 1 and 0 are set to 1.
+ *
+ * @code
+ * mode bit 0 = invert Rx---------------------| 
+ * mode bit 1 = invert Tx--------------------||
+ * mode bit 2 = open-drain/source Tx--------||| 
+ * mode bit 3 = ignore Tx echo on Rx-------||||
+ *                                       0b1111
+ * @endcode
  *
  * @returns a file pointer that you can pass to functions like fptrintf.
  */
@@ -758,8 +768,8 @@ int sd_mount(int doPin, int clkPin, int diPin, int csPin);
 /**
  * @brief Set up an I2C bus.
  *
- * @detail After you have set up the bus, you can use i2cread and i2cwrite functions 
- * in propgcc\propeller-elf\include\i2c.h to communicate on the bus.
+ * @details After you have set up the bus, you can use i2cread and i2cwrite functions 
+ * in ...propgcc/propeller-elf/include/i2c.h to communicate on the bus.
  *
  * @param sclpin the I2C bus' serial clock pin.
  *
