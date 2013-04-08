@@ -10,7 +10,8 @@
     
   For more options and channels, use: 
     Learn\Simple Libraries\Convert\libdacctr   
-  
+
+  Additional info:  
   http://learn.parallax.com/propeller-c-simple-circuits/set-volts
 */
 
@@ -18,12 +19,11 @@
 
 int main()                                    // Main function
 {
-  dac_ctr(26, 0, 233);                        // 3 V to D/A0
+  dac_ctr(26, 0, 194);                        // 2.5 V to D/A0
   dac_ctr(27, 1, 78);                         // 1 V to D/A1
   pause(2000);                                // Pause 2 seconds
   dac_ctr(26, 0, 78);                         // 1 V to D/A0
-  dac_ctr(27, 1, 233);                        // 3 V to D/A1
+  dac_ctr(27, 1, 194);                        // 1.5 V to D/A1
   pause(2000);                                // Pause 2 seconds
-  dac_ctr(26, 0, 0);                          // 0 V to D/A0
-  dac_ctr(27, 1, 0);                          // 0 V to D/A1
+  dac_stop();                                 // Stop D/A cog
 }

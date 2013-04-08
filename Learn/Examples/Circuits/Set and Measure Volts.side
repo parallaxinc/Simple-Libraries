@@ -1,0 +1,14 @@
+Set and Measure Volts.c
+-I ../../Simple Libraries/Convert/libadcDCpropAB
+-I ../../Simple Libraries/Utility/libsimpletools
+-L ../../Simple Libraries/Convert/libadcDCpropAB
+-L ../../Simple Libraries/Utility/libsimpletools
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>defs::-std=c99
+>-lm
+>linker:: -lsimpletools -ladcDCpropAB
+>BOARD::ACTIVITYBOARD
