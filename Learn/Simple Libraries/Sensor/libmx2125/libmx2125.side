@@ -1,0 +1,17 @@
+libmx2125.c
+mx2125.h
+mx2125_tilt.c
+mx2125_accel.c
+mx2125_rotate.c
+-I ../../Utility/libsimpletools
+-L ../../Utility/libsimpletools
+>compiler=C
+>memtype=xmm-split external flash code + ram data
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>defs::-std=c99
+>-lm
+>-create_library
+>linker::-lsimpletools
+>BOARD::ACTIVITYBOARD

@@ -6,4 +6,4 @@ Blank Simple C++ Project.cpp
 >-fno-exceptions
 >-fno-rtti
 >-ltiny
->BOARD::GENERIC
+>BOARD::ACTIVITYBOARD

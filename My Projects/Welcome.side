@@ -9,4 +9,4 @@ Welcome.c
 >defs::-std=c99
 >-ltiny
 >linker::-lsimpletools
->BOARD::GENERIC
+>BOARD::ACTIVITYBOARD

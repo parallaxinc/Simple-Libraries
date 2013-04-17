@@ -1,0 +1,14 @@
+Test 2125 Acceleration.c
+-I ../../../../Simple Libraries/Sensor/libmx2125
+-I ../../../../Simple Libraries/Utility/libsimpletools
+-L ../../../../Simple Libraries/Sensor/libmx2125
+-L ../../../../Simple Libraries/Utility/libsimpletools
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>defs::-std=c99
+>-ltiny
+>linker::  -lsimpletools -lmx2125
+>BOARD::PROPBOE
