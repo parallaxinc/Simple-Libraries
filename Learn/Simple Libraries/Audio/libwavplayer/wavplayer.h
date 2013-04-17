@@ -11,7 +11,6 @@
  * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
  * pending, not for release.
  * @n @n Currently supports LMM and CMM memory models.  
- * @n @n Make sure to set optimization to -02 Speed.
  */
 #ifndef WAVPLAYER_H
 #define WAVPLAYER_H
@@ -23,12 +22,19 @@ extern "C" {
 /**
  * @brief Play a .wav file.
  *
- * @param filename pointer to character array with filename.
+ * @param wavFilename )Pointer to character array with filename.
  */
 void wav_play(const char* wavFilename);
 
 /**
- * @brief Set wav play volume 0 to 10.
+ * @brief Check if wav file is currently playing.
+ *
+ * @returns 1 if playing, 0 if not.
+ */
+int wav_playing();
+
+/**
+ * @brief Set wav play volume 0 to 10.  0 is lowest, 10 is highest.
  *
  * @param vol wav playback volume.
  */
@@ -39,8 +45,7 @@ void wav_volume(int vol);
  */
 void wav_stop(void);
 
-void blink(void *par);
-void spooler(void *par);
+
 
 #if defined(__cplusplus)
 }

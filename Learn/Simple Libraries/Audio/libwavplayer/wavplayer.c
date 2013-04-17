@@ -1,25 +1,49 @@
+/**
+ * @file wavplayer.c
+ *
+ * @author Andy Lindsay
+ *
+ * @copyright
+ * Copyright (C) Parallax, Inc. 2012. All Rights MIT Licensed.
+ *
+ * @brief Plays 16-bit, 32ksps, mono .wav files in the root directory of a 
+ * microSD card.
+ * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
+ * pending, not for release.
+ * @n @n Currently supports LMM and CMM memory models.  
+ * @n @n
+ * WAV file info sources, thanks to:
+ *   @n http://blogs.msdn.com/b/dawate/archive/2009/06/23/intro-to-audio-programming-part-2-demystifying-the-wav-format.aspx
+ *   @n http://www.sonicspot.com/guide/wavefiles.html
+ *   @n
+ */
+
 #include "simpletools.h"
 #include "wavplayer.h"
 
-volatile int sampleRate;
-volatile int swap = 0;
-volatile int playing = 0;
-volatile short int wavVal;  
-volatile int dacVal;
-volatile unsigned int dtSample;
-volatile unsigned int t;
-volatile int significantBitsPerSample=16;
-volatile unsigned int reps;
-volatile unsigned int cog, cog2;
+static volatile int sampleRate;
+static volatile int swap = 0;
+static volatile int playing = 0;
+static volatile short int wavVal;  
+static volatile int dacVal;
+static volatile unsigned int dtSample;
+static volatile unsigned int t;
+static volatile int significantBitsPerSample=16;
+static volatile unsigned int reps;
+static volatile unsigned int cog = 0;
+static volatile unsigned int cog2 = 0;
+static volatile unsigned int settingUp = 0;
 
-volatile unsigned int volume = 10;
-volatile const unsigned int BUF_SIZE = 512;
+static volatile unsigned int volume = 0;
+static volatile const unsigned int BUF_SIZE = 512;
 
-unsigned int stack[(160 + (50 * 4)) / 4];
-unsigned int stack2[(160 + (200 * 4)) / 4];
+static unsigned int stack[(160 + (50 * 4)) / 4];
+static unsigned int stack2[(160 + (200 * 4)) / 4];
 
 void play(void);
 void wav_reader(void* par);
+void audio_dac(void *par);
+void spooler(void *par);
 
 char bufferL[512];
 char bufferH[512];
@@ -31,9 +55,18 @@ FILE* fp;
 //void wav_start(void)
 void wav_play(const char* wavFilename)
 {
+  settingUp = 1;
+  if(!volume) volume = 7;
+  wav_stop();
   track = wavFilename;
-  cog2 = cogstart(&wav_reader, NULL, stack2, sizeof(stack2));
+  cog2 = cogstart(&wav_reader, NULL, stack2, sizeof(stack2)) + 1;
   //while(1);
+}
+
+int wav_playing()
+{
+  int status = settingUp || playing;
+  return status;
 }
 
 void wav_volume(int vol)
@@ -53,7 +86,20 @@ void wav_volume(int vol)
 
 void wav_stop(void)
 {
-  playing = 0;
+    playing = 0;
+    //volume = 0;
+    if(fp) fclose(fp);
+    fp = 0;
+    if(cog)
+    {
+      cogstop(cog-1);
+      cog = 0;
+    }
+    if(cog2)
+    {
+      cogstop(cog2-1);
+      cog2 = 0;
+    }
 }
 
 void wav_reader(void* par)
@@ -139,10 +185,11 @@ void wav_reader(void* par)
     //printf("Bandwidth (bytes/sec): = %d\n\n", byteRate); 
     fread(bufferH, 1, 512, fp);
        
-    cog = cogstart(&blink, NULL, stack, sizeof(stack));
+    cog = cogstart(&audio_dac, NULL, stack, sizeof(stack)) + 1;
     
-    int reps = fileSize/1024;
+    int reps = (fileSize-1)/1024;
     playing = 1;
+    settingUp = 0;
     int i;
     
     for(i = 1; i < reps; i++)
@@ -152,10 +199,8 @@ void wav_reader(void* par)
       while(swap != 1);
       fread(bufferH, 1, BUF_SIZE, fp);
     }
+    wav_stop();
     playing = 0;
-    volume = 0;
-    fclose(fp);
-    cogstop(cog2);
   }
   else
   {
@@ -164,7 +209,7 @@ void wav_reader(void* par)
 }
 
 //__attribute__((fcache))
-void blink(void *par)
+void audio_dac(void *par)
 {
   while(!playing);
   waitcnt(CLKFREQ/100+CNT);
@@ -205,11 +250,29 @@ void play(void)
       waitcnt(t+=dtSample);
     }
   }
-  cogstop(cog);
+  wav_stop();
 }
     
 
-
-
-
+/**
+ * TERMS OF USE: MIT License
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ */
 

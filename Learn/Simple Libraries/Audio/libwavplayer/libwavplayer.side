@@ -1,8 +1,8 @@
 libwavplayer.c
 -I ../../../../Learn/Simple Libraries/Utility/libsimpletools
 -L ../../../../Learn/Simple Libraries/Utility/libsimpletools
-wavplayer.c -> wavplayer.c
-wavplayer.h -> wavplayer.h
+wavplayer.h
+wavplayer.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-O2
