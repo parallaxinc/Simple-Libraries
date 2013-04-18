@@ -1,7 +1,7 @@
-Test Compass.c
--I ../../../../Simple Libraries/Sensor/libcompass3d
+Standard Servo Position.c
+-I ../../../../Simple Libraries/Motor/libservo
 -I ../../../../Simple Libraries/Utility/libsimpletools
--L ../../../../Simple Libraries/Sensor/libcompass3d
+-L ../../../../Simple Libraries/Motor/libservo
 -L ../../../../Simple Libraries/Utility/libsimpletools
 >compiler=C
 >memtype=cmm main ram compact
@@ -9,5 +9,6 @@ Test Compass.c
 >-m32bit-doubles
 >-fno-exceptions
 >defs::-std=c99
->linker::-lsimpletools -lcompass3d
+>-ltiny
+>linker::-lsimpletools -lservo
 >BOARD::ACTIVITYBOARD

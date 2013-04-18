@@ -1,6 +1,7 @@
 /*
   Hello LCD.c
   Needs to be converted to access a Parallax Serial LCD library.
+  learn.parallax.com/propeller-c-simple-devices/serial-lcd
 */
 
 #include "simpletools.h"

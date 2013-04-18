@@ -4,7 +4,7 @@
   Launch a function into another cog (processor) and display what it does
   to the global n variable over time. 
   
-  learn.parallax.com/propeller-c-start-simple/Multicore-Example
+  http://learn.parallax.com/propeller-c-functions/multicore-example
 */
 
 #include "simpletools.h"                      // Include simpletools

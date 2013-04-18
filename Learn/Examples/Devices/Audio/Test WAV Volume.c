@@ -3,7 +3,7 @@
 
   Play back a .wav file and try a few different volume settings.   
   
-  http://learn.parallax.com/C/Simple-Devices-Propeller-C/play-wav-files
+  http://learn.parallax.com/propeller-c-simple-devices/play-wav-files
 */
 
 #include "simpletools.h"

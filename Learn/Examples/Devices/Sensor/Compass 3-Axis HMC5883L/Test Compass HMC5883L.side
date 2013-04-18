@@ -1,7 +1,7 @@
-Move Servo with Ramping.c
--I ../../../../Simple Libraries/Motor/libservo
+Test Compass HMC5883L.c
+-I ../../../../Simple Libraries/Sensor/libcompass3d
 -I ../../../../Simple Libraries/Utility/libsimpletools
--L ../../../../Simple Libraries/Motor/libservo
+-L ../../../../Simple Libraries/Sensor/libcompass3d
 -L ../../../../Simple Libraries/Utility/libsimpletools
 >compiler=C
 >memtype=cmm main ram compact
@@ -9,6 +9,5 @@ Move Servo with Ramping.c
 >-m32bit-doubles
 >-fno-exceptions
 >defs::-std=c99
->-ltiny
->linker::-lsimpletools -lservo
+>linker::-lsimpletools -lcompass3d
 >BOARD::ACTIVITYBOARD

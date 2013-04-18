@@ -3,7 +3,7 @@
   
   Measure tilt.  Assumes MX2125 is being held horizontally and then tilted.   
   
-  http://learn.parallax.com/C/Simple-Devices-Propeller-C/tilt-acceleration
+  learn.parallax.com/propeller-c-simple-devices/tilt-and-acceleration-mx2125
 */
 
 #include "simpletools.h"                          // Include simpletools header

@@ -3,7 +3,7 @@
   
   Measure and display Ping))) Ultrasonic Distance Sensor distance measurements.
   
-  http://learn.parallax.com/C/Simple-Devices-Propeller-C/Sense-Distance-Ping
+  http://learn.parallax.com/propeller-c-simple-devices/sense-distance-ping
 */
 
 #include "simpletools.h"                      // Include simpletools header

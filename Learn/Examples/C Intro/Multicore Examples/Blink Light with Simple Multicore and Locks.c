@@ -7,7 +7,7 @@
 /*
   Blink Light with Simple Multicore and Locks.c   
   Multicore example for use with CMM or LMM memory models.
-  learn.parallax.com/C/Propeller-C-Start-Simple/Multicore-Locks
+
 */
 
 #include "simpletools.h"                      // Include simpletools header

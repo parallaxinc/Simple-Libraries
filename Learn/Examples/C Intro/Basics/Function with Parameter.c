@@ -3,7 +3,7 @@
   
   Call a function that displays a value passed to it with a parameter.
   
-  http://learn.parallax.com/propeller-c-start-simple/function-parameter
+  http://learn.parallax.com/propeller-c-functions/function-parameter
 */
 
 #include "simpletools.h"                      // Include simpletools

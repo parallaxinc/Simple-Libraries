@@ -1,4 +1,4 @@
-Move Servo.c
+Standard Servo with Ramping.c
 -I ../../../../Simple Libraries/Motor/libservo
 -I ../../../../Simple Libraries/Utility/libsimpletools
 -L ../../../../Simple Libraries/Motor/libservo

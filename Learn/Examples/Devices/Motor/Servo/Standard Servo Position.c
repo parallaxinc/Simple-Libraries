@@ -1,10 +1,10 @@
 /*
-  Move Servo.c
+  Standard Servo Position.c
   
   Moves servo to 0, 90 and 180 degrees.  Holds each position for 2 s.
   Connect servo to P18 port on Propeller BOE.
   
-  http://learn.parallax.com/C/Simple-Devices-Propeller-C/Move-Servo
+  http://learn.parallax.com/propeller-c-simple-devices/standard-servo-position
 */
 
 #include "simpletools.h"                      // Include simpletools header

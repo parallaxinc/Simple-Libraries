@@ -1,10 +1,10 @@
 /*
-  Test Compass.c
+  Test Compass HMC5883L.c
   
   Test compass with SCL connected to P3 and SDA connected to P2. Display
   measurement results in SimpleIDE Terminal.
   
-  http://learn.parallax.com/C/Simple-Devices-Propeller-C/Sense-Compass-Direction
+ learn.parallax.com/propeller-c-simple-devices/sense-direction-compass-hmc5883l
 */
 
 #include "simpletools.h"                      // Include simpletools header

@@ -4,7 +4,7 @@
   Pass parameters to a function, let it do its job, and display the result
   it returns.
   
-  http://learn.parallax.com/propeller-c-start-simple/function-parameters-and-return
+  http://learn.parallax.com/propeller-c-functions/function-parameters-and-return
 */
 
 #include "simpletools.h"                      // Include simpletools

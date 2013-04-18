@@ -4,7 +4,7 @@
   SD Minimal modified so that it tests for drive and file before performing
   any read/write operations.  
   
-  http://learn.parallax.com/C/Simple-Devices-Propeller-C/sd-card-data
+  http://learn.parallax.com/propeller-c-simple-devices/sd-card-data
 */
 
 #include "simpletools.h"                      // Include simpletools header    .

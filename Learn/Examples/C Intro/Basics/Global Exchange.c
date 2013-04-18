@@ -3,7 +3,7 @@
   
   Functions exchange information with global variables. 
   
-  learn.parallax.com/propeller-c-start-simple/memory-functions-can-share
+  http://learn.parallax.com/propeller-c-functions/memory-functions-can-share
 */
 
 #include "simpletools.h"                      // Include simpletools

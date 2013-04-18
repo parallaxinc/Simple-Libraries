@@ -3,7 +3,7 @@
 
   Create test.txt, write characters in, read back out, display. 
   
-  http://learn.parallax.com/C/Simple-Devices-Propeller-C/sd-card-data
+  http://learn.parallax.com/propeller-c-simple-devices/sd-card-data
 */
 
 #include "simpletools.h"                      // Include simpletools header    .

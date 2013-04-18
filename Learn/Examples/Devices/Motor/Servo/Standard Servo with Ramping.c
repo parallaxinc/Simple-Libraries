@@ -1,10 +1,10 @@
 /*
-  Move Servo with Ramping.c
+  Standard Servo with Ramping.c
   
   Moves servo to 0, 90 and 180 degrees.  Allows 2 seconds to get to 
   each position.  Uses ramping to gradually move the servo to the target.
   
-  http://learn.parallax.com/C/Simple-Devices-Propeller-C/Smooth-Servo-Motions  
+  learn.parallax.com/propeller-c-simple-devices/standard-servo-ramping  
 */
 
 #include "simpletools.h"                      // Include simpletools header
