@@ -1,4 +1,4 @@
-Test WAV Player.c
+Test WAV Volume.c
 -I ../../../Simple Libraries/Audio/libwavplayer
 -I ../../../Simple Libraries/Utility/libsimpletools
 -L ../../../Simple Libraries/Audio/libwavplayer

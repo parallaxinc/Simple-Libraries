@@ -1,6 +1,9 @@
 /*
   SD Minimal.side
-  Minimal SD file read and write.
+
+  Create test.txt, write characters in, read back out, display. 
+  
+  http://learn.parallax.com/C/Simple-Devices-Propeller-C/sd-card-data
 */
 
 #include "simpletools.h"                      // Include simpletools header    .
