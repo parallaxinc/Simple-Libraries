@@ -11,7 +11,7 @@ const int CLR = 12;
 
 int main()
 {
-  serial lcd = sser_setTx(11, 9600);
+  serial lcd = sser_setTx(12, 9600);
   
   fputc(ON, lcd);
   fputc(CLR, lcd);

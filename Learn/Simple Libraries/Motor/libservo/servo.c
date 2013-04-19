@@ -24,19 +24,19 @@
 #include "simpletools.h"
 #include "servo.h"
 
-unsigned int stack[(160 + (64 * 4)) / 4];     // Stack          
+static unsigned int stack[(160 + (64 * 4)) / 4];     // Stack          
 
-volatile int p[7] = {-1, -1, -1, -1,          // I/O pins
+static volatile int p[7] = {-1, -1, -1, -1,          // I/O pins
                      -1, -1, -1};
-volatile int t[7] = {-1, -1, -1, -1,          // Current iteration pulse widths
+static volatile int t[7] = {-1, -1, -1, -1,          // Current iteration pulse widths
                      -1, -1, -1};
-volatile int tp[7] = {-1, -1, -1, -1,         // Previous iteration pulse widhts
+static volatile int tp[7] = {-1, -1, -1, -1,         // Previous iteration pulse widhts
                       -1, -1, -1};
-volatile int r[7] = {2000, 2000, 2000, 2000,  // Step sizes initialized to 2000
+static volatile int r[7] = {2000, 2000, 2000, 2000,  // Step sizes initialized to 2000
                      2000, 2000, 2000};
 
-volatile unsigned int servoCog = 0;           // Cog initialazied to zero
-volatile unsigned int lockID;                 // Lock ID 
+static volatile unsigned int servoCog = 0;           // Cog initialazied to zero
+static volatile unsigned int lockID;                 // Lock ID 
 
 void servo(void *par);                        // Function prototype for servo
 

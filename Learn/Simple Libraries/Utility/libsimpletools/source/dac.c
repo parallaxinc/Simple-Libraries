@@ -22,10 +22,10 @@ void dac_ctr_cog(void* par);
 #define DUTY_SE (0b110 << 26)
 #endif
 
-unsigned int stack[(160 + (50*4)) / 4];       
+static unsigned int stack[(160 + (50*4)) / 4];       
 
-int dacCtrBits = 8;
-unsigned int cog = 0;
+static int dacCtrBits;
+static unsigned int cog;
 static volatile int ctra, ctrb, frqa, frqb;
 
 void dac_ctr_res(int bits)
@@ -35,6 +35,7 @@ void dac_ctr_res(int bits)
 
 void dac_ctr(int pin, int channel, int dacVal)
 {
+  if(dacCtrBits == 0) dacCtrBits = 8;
   int dacBitX = 32 - dacCtrBits;
   
   if(!cog) cog = cogstart(&dac_ctr_cog, NULL,
@@ -92,7 +93,7 @@ void dac_ctr_cog(void* par)
   }
 }
 
-void dac_stop(void)
+void dac_ctr_stop(void)
 {
   if(cog) cogstop(cog - 1);
   cog = 0;

@@ -76,7 +76,7 @@
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">char</span> setForget;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> fdserDriverIndex;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buscnt;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> dacCtrBits;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">//extern int dacCtrBits;</span></div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#ifndef PI</span></div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define PI 3.141592653589793</span></div>
@@ -178,7 +178,7 @@
 <div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;</div>
 <div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#af8ef60ed622a82bab16bea03cddc2340" title="Set D/A voltage resolution.">dac_ctr_res</a>(<span class="keywordtype">int</span> bits);</div>
 <div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;</div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#ac82ec398e5c969f0286f40ef366c45da" title="Stop the cog that&#39;s transmitting the DAC signal(s).">dac_stop</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a37edfbadb336de010e4cfdecdeca6148" title="Stop the cog that&#39;s transmitting the DAC signal(s).">dac_ctr_stop</a>(<span class="keywordtype">void</span>);</div>
 <div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;</div>
 <div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a78d00871cfb358e7c1f4fea6fc5d07f5" title="Use same cog to send square wave of a certain frequency for a certain amount of time. For set and forget with another cog, try square_wave function instead.">freqout</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">int</span> msTime, <span class="keywordtype">int</span> frequency);</div>
 <div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;</div>
@@ -238,7 +238,7 @@
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 5 2013 17:17:07 for simpletools library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 18 2013 15:28:01 for simpletools library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

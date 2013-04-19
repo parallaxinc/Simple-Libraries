@@ -73,7 +73,7 @@ extern long t_mark;
 extern char setForget;
 extern int fdserDriverIndex;
 extern unsigned int buscnt;
-extern int dacCtrBits;
+//extern int dacCtrBits;
  
 #ifndef PI
 #define PI 3.141592653589793
@@ -474,7 +474,7 @@ void dac_ctr_res(int bits);
  * other uses.  
  *
  */
-void dac_stop(void);
+void dac_ctr_stop(void);
 
 /**
  * @brief Use same cog to send square wave of a certain 

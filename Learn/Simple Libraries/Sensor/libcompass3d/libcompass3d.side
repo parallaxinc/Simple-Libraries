@@ -8,7 +8,6 @@ compass3d.h
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions
->defs::-std=c99 -DTEST
 >-create_library
 >linker::-lsimpletools
 >BOARD::ACTIVITYBOARD

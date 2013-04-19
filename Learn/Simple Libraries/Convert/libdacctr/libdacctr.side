@@ -4,7 +4,7 @@ libdacctr.c
 dacctr.c
 dacctr.h
 >compiler=C
->memtype=cmm main ram compact
+>memtype=lmm main ram
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions

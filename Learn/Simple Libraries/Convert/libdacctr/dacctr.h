@@ -68,7 +68,7 @@ extern "C" {
 #define NEW_COG 2
 #endif
 
-extern int dacCtrBits;
+//extern int dacCtrBits;
  
 typedef struct DacControl
 {

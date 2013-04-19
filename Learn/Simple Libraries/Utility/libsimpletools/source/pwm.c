@@ -21,12 +21,12 @@
 #endif
 
 void pw(void* par);
-unsigned int pwstack[(160 + (50 * 4)) / 4];
+static unsigned int pwstack[(160 + (50 * 4)) / 4];
 
 static volatile unsigned int tCycle, ticksA, ticksB, ctra, ctrb;
 static volatile int us;
 
-int pwcog = 0;
+static int pwcog = 0;
 
 static int ctraPin = -1;
 static int ctrbPin = -1;

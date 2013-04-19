@@ -25,5 +25,5 @@ int main()                                    // Main function
   dac_ctr(26, 0, 78);                         // 1 V to D/A0
   dac_ctr(27, 1, 194);                        // 1.5 V to D/A1
   pause(2000);                                // Pause 2 seconds
-  dac_stop();                                 // Stop D/A cog
+  dac_ctr_stop();                             // Stop D/A cog
 }

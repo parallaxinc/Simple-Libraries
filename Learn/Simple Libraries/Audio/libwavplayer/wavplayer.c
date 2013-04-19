@@ -45,8 +45,8 @@ void wav_reader(void* par);
 void audio_dac(void *par);
 void spooler(void *par);
 
-char bufferL[512];
-char bufferH[512];
+char wavDacBufferL[512];
+char wavDacBufferH[512];
 
 volatile const char* track;
 
@@ -177,13 +177,13 @@ void wav_reader(void* par)
 
     unsigned int ti, tf, t, byteRate;
     ti = CNT;
-    fread(bufferL, 1, 512, fp);
+    fread(wavDacBufferL, 1, 512, fp);
     tf = CNT;
     t = tf - ti;
     //printf("\nClock ticks for 512 bytes = %d\n", t); 
     byteRate = CLKFREQ*32/t*16;
     //printf("Bandwidth (bytes/sec): = %d\n\n", byteRate); 
-    fread(bufferH, 1, 512, fp);
+    fread(wavDacBufferH, 1, 512, fp);
        
     cog = cogstart(&audio_dac, NULL, stack, sizeof(stack)) + 1;
     
@@ -195,9 +195,9 @@ void wav_reader(void* par)
     for(i = 1; i < reps; i++)
     { 
       while(swap != 2);
-      fread(bufferL, 1, BUF_SIZE, fp);
+      fread(wavDacBufferL, 1, BUF_SIZE, fp);
       while(swap != 1);
-      fread(bufferH, 1, BUF_SIZE, fp);
+      fread(wavDacBufferH, 1, BUF_SIZE, fp);
     }
     wav_stop();
     playing = 0;
@@ -234,7 +234,7 @@ void play(void)
     swap = 1;
     for(i = 0; i < BUF_SIZE; i+=2)
     {
-      wavVal = bufferL[i] | bufferL[i+1]<<8;
+      wavVal = wavDacBufferL[i] | wavDacBufferL[i+1]<<8;
       dacVal = (wavVal + 32768) * volume;
       FRQA = dacVal;
       FRQB = dacVal;
@@ -243,7 +243,7 @@ void play(void)
     swap = 2;
     for(i = 0; i < BUF_SIZE; i+=2)
     {
-      wavVal = bufferH[i] | bufferH[i+1]<<8;
+      wavVal = wavDacBufferH[i] | wavDacBufferH[i+1]<<8;
       dacVal = (wavVal + 32768) * volume;
       FRQA = dacVal;
       FRQB = dacVal;

@@ -1,8 +1,8 @@
 Test Compass HMC5883L.c
--I ../../../../Simple Libraries/Sensor/libcompass3d
 -I ../../../../Simple Libraries/Utility/libsimpletools
--L ../../../../Simple Libraries/Sensor/libcompass3d
 -L ../../../../Simple Libraries/Utility/libsimpletools
+-I ../../../../Simple Libraries/Sensor/libcompass3d
+-L ../../../../Simple Libraries/Sensor/libcompass3d
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
