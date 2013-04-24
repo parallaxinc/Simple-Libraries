@@ -15,7 +15,7 @@ int main()                                    // Main function
   sd_mount(DO, CLK, DI, CS);                  // Mount SD card
   
   const char levels[] = {"levels.wav"};       // Set up levels string
-  wav_play(levels);                           // Pass to wav playwer
+  wav_play(levels);                           // Pass to wav player
   
   wav_volume(6);                              // Adjust volume
   pause(5000);                                // Play for 5 s
