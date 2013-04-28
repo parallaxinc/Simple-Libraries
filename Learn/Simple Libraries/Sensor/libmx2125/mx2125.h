@@ -9,8 +9,6 @@
 * @brief Measure acceleration, tilt and rotation with the Memsic MX2125 Dual 
 * Axis Accelerometer.
 *
-* @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major 
-* revisions pending, not for release.
 */
 
 #ifndef MX2125_H

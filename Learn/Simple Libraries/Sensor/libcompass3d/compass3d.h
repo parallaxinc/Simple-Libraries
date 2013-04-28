@@ -12,7 +12,7 @@
  * functions for reading measurements from the Parallax Compass Module
  * 3-Axis HMC5883L.
  * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
- * pending, not for release. 
+ * pending. 
  */
 
 #ifndef COMPASS3D_H

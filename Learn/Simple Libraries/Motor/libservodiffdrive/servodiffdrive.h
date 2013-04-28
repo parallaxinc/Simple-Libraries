@@ -9,10 +9,9 @@
  * terms of use (MIT License).
  *
  * @brief Adds a layer over servo library for 
- * use with a differential servo drive robot.  You have to include the 
- * simpletools and servo libraries for this to work.
- * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
- * pending, not for release.
+ * use with a differential servo drive robot.  You have to add the 
+ * simpletools and servo libraries to your project (with the Add Simple
+ * Libraries button) for this to work.
  *
  * @detail Functions that control servo speeds and directions automatically
  * reverse servo speed on the right side to make intuitive functions that 

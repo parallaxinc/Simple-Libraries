@@ -10,8 +10,6 @@
  *
  * @brief Control servos in other cog.  Currently up to 7, but more should
  * be coming soon.  
- * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
- * pending, not for release.
  * @n @n Currently supports LMM and CMM memory models.  
  *
  * @details This library automatically delivers 

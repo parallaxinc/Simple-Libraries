@@ -5,6 +5,11 @@ To-dos:
  - Convert LMM libraries to COGC so that they can also be used by XMM.
    
 
+--- April 14, 2013 ---
+
+ - More examples in /Learn/Examples
+ - Corrections and updates to /Learn/Simple Libraries
+
 --- March 30, 2013 ---
 
  - Example code aligned with new tutorial home:

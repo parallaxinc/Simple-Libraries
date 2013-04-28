@@ -11,8 +11,8 @@
  * @brief This library provides convenience functions 
  * for a variety of microcontroller I/O, timing, conversion, and 
  * communication tasks.
- * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major 
- * revisions pending, not for release.
+ * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is still preliminary, 
+ * revisions pending.
  * @n @n dac_ctr, square_wave, and all pwm functions, are currently  
  * only supported by the LMM and CMM memory models.  
  *

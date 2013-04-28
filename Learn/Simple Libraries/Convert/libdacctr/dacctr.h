@@ -10,8 +10,6 @@
  *
  * @brief This file provides convenience functions for digital to analog conversion using 
  * using counter modules (each cog has two).  
- * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
- * pending, not for release.
  * @n @n Currently supports LMM and CMM memory models.
  *
  * @details The current cog's counters can be used for D/A conversion,

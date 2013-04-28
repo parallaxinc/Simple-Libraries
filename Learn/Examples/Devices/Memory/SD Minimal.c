@@ -22,7 +22,7 @@ int main(void)                                // Main function
   
   char s[15];                                 // Buffer for characters.
   fp = fopen("test.txt", "r");                // Reopen file for reading.
-  fread(s, 1, 15, fp);                        // Read 21 characters
+  fread(s, 1, 15, fp);                        // Read 15 characters
   fclose(fp);                                 // Close the file.
 
   printf("First 15 chars in test.txt:\n");    // Display heading

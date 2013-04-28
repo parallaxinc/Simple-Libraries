@@ -10,8 +10,6 @@
  * library is intended for DC measurements.  For signal measurements, check use the
  * AC version of this library: libadcACpropab
  * 
- * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
- * pending, not for release.
  */
 
 #ifndef PROPAB_ADC_DC_H

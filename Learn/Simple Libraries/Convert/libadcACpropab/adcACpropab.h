@@ -9,8 +9,6 @@
  * @brief Measure ADC124S021 for signal recording and measurements.  For the voltmeter
  * version, check out the DC version of this library: adcACpropab
  *
- * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
- * pending, not for release.
  */
 
 #ifndef PROPAB_ADC_AC_H

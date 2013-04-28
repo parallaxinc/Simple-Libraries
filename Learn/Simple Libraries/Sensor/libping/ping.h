@@ -8,8 +8,6 @@
 *
 * @brief Measure Ping))) Ultrasonic Distance Sensor values in cm, inches, 
 * or microsecond echo return times.
-* @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
-* pending, not for release.
 */
 
 #ifndef PING_H
