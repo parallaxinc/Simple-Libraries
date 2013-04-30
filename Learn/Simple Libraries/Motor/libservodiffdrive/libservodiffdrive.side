@@ -1,9 +1,9 @@
 libservodiffdrive.c
 servodiffdrive.c
--I ..\..\Utility\libsimpletools\
--L ..\..\Utility\libsimpletools\
--I ..\libservo\
--L ..\libservo\
+-I ../../Utility/libsimpletools
+-L ../../Utility/libsimpletools
+-I ../libservo
+-L ../libservo
 servodiffdrive.h
 >compiler=C
 >memtype=cmm main ram compact
