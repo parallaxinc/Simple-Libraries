@@ -65,25 +65,29 @@ int ee_get_int(int addr)
    return result;
 }
 
-void ee_put_float32(float value, int addr)
+void ee_put_float32(float fpVal, int addr)
 {
   if(!eeprom) ee_Init();
-  char  data[6] = { addr >> 8, addr & 0xFF, 
-                      ((char) value & 0xFF), (((char) value >> 8) & 0xFF), 
-                      (((char) value >> 16) & 0xFF), (((char) value >> 24) & 0xFF) };
+  int value;
+  memcpy(&value, &fpVal, sizeof fpVal);
+  char data[6] = { addr >> 8, addr & 0xFF, 
+                  (char) (value & 0xFF), ((char) (value >> 8) & 0xFF), 
+                 ((char) (value >> 16) & 0xFF), ((char)( value >> 24) & 0xFF) };
   while(!i2cWrite(eeprom, EEPROM_ADDR, data, 6, 1));
 }
 
 float ee_get_float32(int addr)
 {
-   if(!eeprom) ee_Init();
-   char  data[2] = { addr >> 8, addr & 0xFF };
-   char  value[4];
-   while(i2cWrite(eeprom, EEPROM_ADDR, data, 2, 1));
-   while(i2cRead(eeprom, EEPROM_ADDR, value, 4, 0)); 
-   float result = ((int) value[3] << 24) | ((int) value[2] << 16) | 
-                ((int) value[1] << 8) | (int) value[0];
-   return result;
+  if(!eeprom) ee_Init();
+  char  data[2] = { addr >> 8, addr & 0xFF };
+  char  value[4];
+  while(i2cWrite(eeprom, EEPROM_ADDR, data, 2, 1));
+  while(i2cRead(eeprom, EEPROM_ADDR, value, 4, 0)); 
+  int result = ((int) value[3] << 24) | ((int) value[2] << 16) | 
+               ((int) value[1] << 8) | (int) value[0];
+  float fpVal;
+  memcpy(&fpVal, &result, sizeof result);
+  return fpVal;
 }
 
 char* ee_get_str(char* s, int n, int addr)
