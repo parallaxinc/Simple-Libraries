@@ -39,6 +39,7 @@ source/simpleserial.c
 simpletools.h
 source/i2cinit.c
 freqout.c -> source/freqout.c
+eeprom.c -> source/eeprom.c
 >compiler=C
 >memtype=xmm-split external flash code + ram data
 >optimize=-Os

@@ -23,10 +23,10 @@
  * @li Timing - Delays, timeouts
  * @li Timed I/O - pulse generation/measurement, square waves, transition
  * counting, RC decay, etc.
- * @li Analog - D/A conversion, A/D conversation (but not yet), PWM, and 
+ * @li Analog - D/A conversion, A/D conversation, PWM, and 
  * more.
  * @li Serial Communication - SPI, I2C, asynchronous serial
- * @li Memory - EEPROM (not yet), SD storage
+ * @li Memory - EEPROM, SD storage
  *
  * Applications include: monitoring, control and
  * communication with simple peripherals, like lights, buttons,
@@ -78,6 +78,11 @@ extern unsigned int buscnt;
 #ifndef PI
 #define PI 3.141592653589793
 #endif
+
+#ifndef EEPROM_ADDR
+#define EEPROM_ADDR	 0xA0
+#endif
+
 
 // Values for use with SimpleIDE Terminal
 #define HOME   1
@@ -750,22 +755,6 @@ FILE* fdser_start(int pinTxOut, int pinRxIn, int baudRate, int mode);
 int fdser_stop(FILE* peripheral);
 
 /**
- * @brief mount an SD card with the minimal 4-pin interface.
- *
- * @param doPin the SD card's data out pin.
- *
- * @param clkPin the SD card's clock pin.
- *
- * @param diPin the SD card's data in pin.
- *
- * @param csPin the SD card's chip select pin.
- *
- * @returns status 0 if successful, or an error code.
- */
-int sd_mount(int doPin, int clkPin, int diPin, int csPin);
-
-
-/**
  * @brief Set up an I2C bus.
  *
  * @details After you have set up the bus, you can use i2cread and i2cwrite functions 
@@ -779,6 +768,125 @@ int sd_mount(int doPin, int clkPin, int diPin, int csPin);
  * i2cRead functions for communication on the bus. 
  */
 I2C* i2c_newbus(int sclpin, int sdapin);
+
+/**
+ * @brief Store a byte value at a certain address in the Propeller Chip's
+ * dedicated EEPROM.
+ *
+ * @param value The byte value to store in EEPROM.
+ *
+ * @param addr The EEPROM address where the value is to be stored.
+ */
+void ee_put_byte(char value, int addr);
+
+/**
+ * @brief Get a byte value from a certain address in the Propeller Chip's
+ * dedicated EEPROM.
+ *
+ * @param addr The EEPROM address that with the byte value that should be fetched.
+ *
+ * @returns value The byte value stored by the EEPROM at the address specified
+ * by the addr parameter.
+ */
+char ee_get_byte(int addr);
+
+/**
+ * @brief Store an int value at a certain address in the Propeller Chip's
+ * dedicated EEPROM.  An int value occupies four bytes, so the next value
+ * should be stored at an address value that's four bytes higher.
+ *
+ * @param value The int value to store in EEPROM.
+ *
+ * @param addr The EEPROM address where the value is to be stored.
+ */
+void ee_put_int(int value, int addr);
+
+/**
+ * @brief Get an int value from a certain address in the Propeller Chip's
+ * dedicated EEPROM.  If you are fetching several int values, make sure to 
+ * add 4 to the addr value with each successive call.
+ *
+ * @param addr The EEPROM address with the int value that should be fetched.
+ *
+ * @returns value The int value stored by the EEPROM at the specified address.
+ */
+int ee_get_int(int addr);
+
+/**
+ * @brief Store a string of byte values starting at a certain address in 
+ * the Propeller Chip's dedicated EEPROM.
+ *
+ * @param s Address of a char array containing the string of bytes.
+ *
+ * @param n The number of bytes to copy from the array.
+ *
+ * @param addr The EEPROM address of the first byte in the string.
+ */
+void ee_put_str(char* s, int n, int addr);
+
+/**
+ * @brief Fetch a string of byte values starting at a certain address in 
+ * Propeller Chip's dedicated EEPROM.  
+ *
+ * @param s Address of a char array to receive the string of bytes fetched
+ * from EEPROM.
+ *
+ * @param n The number of bytes to copy from EEPROM to the array.
+ *
+ * @param addr The EEPROM address of the first byte in the string.
+ * 
+ * @returns The address of the array that stores the characters that
+ * that were fetched.
+ */
+char* ee_get_str(char* s, int n, int addr);
+
+/**
+ * @brief Store a 32 bit precision floating point value at a certain address
+ * in the Propeller Chip'sdedicated EEPROM.  A 32 bit value occupies four bytes
+ * so if you are storing values in a sequence, make sure to add 4 to each addr
+ * parameter value.
+ *
+ * Make sure that the Math box is checked in the Project Manger.  In Simple View,
+ * click the Show Project Manager button in SimpleIDE's bottom-left corner.  Then
+ * click the Linker tab, and check the Math Lib box.
+ *
+ * @param value The 32-bit floating point float value to store in EEPROM.
+ *
+ * @param addr The EEPROM address where the value is to be stored.
+ */
+void ee_put_float32(float value, int addr);
+
+/**
+ * @brief Fetch a 32 bit precision floating point value from a certain address
+ * in the Propeller Chip's dedicated EEPROM.  A 32 bit value occupies four bytes
+ * so if you are fetching values in a sequence, make sure to add 4 to each addr
+ * parameter value.
+ *
+ * Make sure that the Math box is checked in the Project Manger.  In Simple View,
+ * click the Show Project Manager button in SimpleIDE's bottom-left corner.  Then
+ * click the Linker tab, and check the Math Lib box.
+ *
+ * @param addr The EEPROM address with the 32-bit floating point float value 
+ * that should be fetched.
+ *
+ * @returns value The float value stored by the EEPROM at the specified address.
+ */
+float ee_get_float32(int addr);
+
+/**
+ * @brief mount an SD card with the minimal 4-pin interface.
+ *
+ * @param doPin the SD card's data out pin.
+ *
+ * @param clkPin the SD card's clock pin.
+ *
+ * @param diPin the SD card's data in pin.
+ *
+ * @param csPin the SD card's chip select pin.
+ *
+ * @returns status 0 if successful, or an error code.
+ */
+int sd_mount(int doPin, int clkPin, int diPin, int csPin);
 
 /**
  * @brief Convert value to zero terminated text string
@@ -796,6 +904,7 @@ I2C* i2c_newbus(int sclpin, int sdapin);
 char* itoa(int i, char b[], int base);
 
 int add_driver(_Driver *driverAddr);
+
 
 #if defined(__cplusplus)
 }

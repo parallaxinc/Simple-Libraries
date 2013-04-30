@@ -78,6 +78,8 @@
 Macros</h2></td></tr>
 <tr class="memitem:a598a3330b3c21701223ee0ca14316eca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a598a3330b3c21701223ee0ca14316eca"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>PI</b>&#160;&#160;&#160;3.141592653589793</td></tr>
+<tr class="memitem:a95a8626764b7fcbf81fddaa0a197def8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a95a8626764b7fcbf81fddaa0a197def8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>EEPROM_ADDR</b>&#160;&#160;&#160;0xA0</td></tr>
 <tr class="memitem:a0e26ea2db1b570d1a6fe1ac180ef4541"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0e26ea2db1b570d1a6fe1ac180ef4541"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>HOME</b>&#160;&#160;&#160;1</td></tr>
 <tr class="memitem:afa53bcf09725cf1948b70eaaa229a3d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afa53bcf09725cf1948b70eaaa229a3d1"></a>
@@ -232,10 +234,26 @@ Functions</h2></td></tr>
 <tr class="memdesc:a4542ac1f21d9866a445f61bab86d0036"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up a full duplex serial driver.  <a href="#a4542ac1f21d9866a445f61bab86d0036"></a><br/></td></tr>
 <tr class="memitem:aa93c25d4442eaaa831f6f3e29fbe172e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aa93c25d4442eaaa831f6f3e29fbe172e">fdser_stop</a> (FILE *peripheral)</td></tr>
 <tr class="memdesc:aa93c25d4442eaaa831f6f3e29fbe172e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the serial driver.  <a href="#aa93c25d4442eaaa831f6f3e29fbe172e"></a><br/></td></tr>
-<tr class="memitem:aa845f3e273a492072b625da584924f32"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aa845f3e273a492072b625da584924f32">sd_mount</a> (int doPin, int clkPin, int diPin, int csPin)</td></tr>
-<tr class="memdesc:aa845f3e273a492072b625da584924f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">mount an SD card with the minimal 4-pin interface.  <a href="#aa845f3e273a492072b625da584924f32"></a><br/></td></tr>
 <tr class="memitem:a244c7d505410656d46f7c201073e2a28"><td class="memItemLeft" align="right" valign="top">I2C *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a244c7d505410656d46f7c201073e2a28">i2c_newbus</a> (int sclpin, int sdapin)</td></tr>
 <tr class="memdesc:a244c7d505410656d46f7c201073e2a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up an I2C bus.  <a href="#a244c7d505410656d46f7c201073e2a28"></a><br/></td></tr>
+<tr class="memitem:a081f694149df3ff45e1d5f0dcb00b87e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a081f694149df3ff45e1d5f0dcb00b87e">ee_put_byte</a> (char value, int addr)</td></tr>
+<tr class="memdesc:a081f694149df3ff45e1d5f0dcb00b87e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a byte value at a certain address in the Propeller Chip's dedicated EEPROM.  <a href="#a081f694149df3ff45e1d5f0dcb00b87e"></a><br/></td></tr>
+<tr class="memitem:a485abe174bbe5678b70fb3e7e40c35e0"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a485abe174bbe5678b70fb3e7e40c35e0">ee_get_byte</a> (int addr)</td></tr>
+<tr class="memdesc:a485abe174bbe5678b70fb3e7e40c35e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a byte value from a certain address in the Propeller Chip's dedicated EEPROM.  <a href="#a485abe174bbe5678b70fb3e7e40c35e0"></a><br/></td></tr>
+<tr class="memitem:a9ad5c145340d62984a126aab9cf7ad6d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a9ad5c145340d62984a126aab9cf7ad6d">ee_put_int</a> (int value, int addr)</td></tr>
+<tr class="memdesc:a9ad5c145340d62984a126aab9cf7ad6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store an int value at a certain address in the Propeller Chip's dedicated EEPROM. An int value occupies four bytes, so the next value should be stored at an address value that's four bytes higher.  <a href="#a9ad5c145340d62984a126aab9cf7ad6d"></a><br/></td></tr>
+<tr class="memitem:ac09dcba6511dc8042fae0e78193c0fee"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ac09dcba6511dc8042fae0e78193c0fee">ee_get_int</a> (int addr)</td></tr>
+<tr class="memdesc:ac09dcba6511dc8042fae0e78193c0fee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an int value from a certain address in the Propeller Chip's dedicated EEPROM. If you are fetching several int values, make sure to add 4 to the addr value with each successive call.  <a href="#ac09dcba6511dc8042fae0e78193c0fee"></a><br/></td></tr>
+<tr class="memitem:a518e5af2b121da90b1d0c003f150891b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a518e5af2b121da90b1d0c003f150891b">ee_put_str</a> (char *s, int n, int addr)</td></tr>
+<tr class="memdesc:a518e5af2b121da90b1d0c003f150891b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a string of byte values starting at a certain address in the Propeller Chip's dedicated EEPROM.  <a href="#a518e5af2b121da90b1d0c003f150891b"></a><br/></td></tr>
+<tr class="memitem:a3e8839420ceb92caab4bd8906e1b4c2c"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a3e8839420ceb92caab4bd8906e1b4c2c">ee_get_str</a> (char *s, int n, int addr)</td></tr>
+<tr class="memdesc:a3e8839420ceb92caab4bd8906e1b4c2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch a string of byte values starting at a certain address in Propeller Chip's dedicated EEPROM.  <a href="#a3e8839420ceb92caab4bd8906e1b4c2c"></a><br/></td></tr>
+<tr class="memitem:a5d6b8dd51af9e64b28154504fb988c06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a5d6b8dd51af9e64b28154504fb988c06">ee_put_float32</a> (float value, int addr)</td></tr>
+<tr class="memdesc:a5d6b8dd51af9e64b28154504fb988c06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a 32 bit precision floating point value at a certain address in the Propeller Chip'sdedicated EEPROM. A 32 bit value occupies four bytes so if you are storing values in a sequence, make sure to add 4 to each addr parameter value.  <a href="#a5d6b8dd51af9e64b28154504fb988c06"></a><br/></td></tr>
+<tr class="memitem:ac0236a2dcc412cb619f4ea9fd7c7e56a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ac0236a2dcc412cb619f4ea9fd7c7e56a">ee_get_float32</a> (int addr)</td></tr>
+<tr class="memdesc:ac0236a2dcc412cb619f4ea9fd7c7e56a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch a 32 bit precision floating point value from a certain address in the Propeller Chip's dedicated EEPROM. A 32 bit value occupies four bytes so if you are fetching values in a sequence, make sure to add 4 to each addr parameter value.  <a href="#ac0236a2dcc412cb619f4ea9fd7c7e56a"></a><br/></td></tr>
+<tr class="memitem:aa845f3e273a492072b625da584924f32"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aa845f3e273a492072b625da584924f32">sd_mount</a> (int doPin, int clkPin, int diPin, int csPin)</td></tr>
+<tr class="memdesc:aa845f3e273a492072b625da584924f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">mount an SD card with the minimal 4-pin interface.  <a href="#aa845f3e273a492072b625da584924f32"></a><br/></td></tr>
 <tr class="memitem:ace368f66ef489173117522773fa96eef"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ace368f66ef489173117522773fa96eef">itoa</a> (int i, char b[], int base)</td></tr>
 <tr class="memdesc:ace368f66ef489173117522773fa96eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert value to zero terminated text string.  <a href="#ace368f66ef489173117522773fa96eef"></a><br/></td></tr>
 <tr class="memitem:ad0591fd1afec50de792bc2be9f283afa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0591fd1afec50de792bc2be9f283afa"></a>
@@ -272,9 +290,9 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>buscnt</b></t
 <li>I/O control - convenient I/O pin monitoring and control functions </li>
 <li>Timing - Delays, timeouts </li>
 <li>Timed I/O - pulse generation/measurement, square waves, transition counting, RC decay, etc. </li>
-<li>Analog - D/A conversion, A/D conversation (but not yet), PWM, and more. </li>
+<li>Analog - D/A conversion, A/D conversation, PWM, and more. </li>
 <li>Serial Communication - SPI, I2C, asynchronous serial </li>
-<li>Memory - EEPROM (not yet), SD storage</li>
+<li>Memory - EEPROM, SD storage</li>
 </ul>
 <p>Applications include: monitoring, control and communication with simple peripherals, like lights, buttons, dials, motors, peripheral integrated circuits and prototyping with simple systems that use pulse, or serial communication. (A few examples from the very large list of devices includes: servos, ultrasonic distance sensors, accelerometers, serial liquid crystal, display, etc.)</p>
 <p>Intended use: Accompanies introductory electronics, robotics and programming lessons and projects on learn.parallax.com. After these lessons, bridge lessons will be added to familiarize the programmer with standard practices used by the community for adding libraries to support and endless variety of peripherals and applications. </p>
@@ -439,6 +457,273 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>buscnt</b></t
 
 <p>Stop the cog that's transmitting the DAC signal(s). </p>
 <p>Stops any signals, lets go of any I/O pins, and reclaims the cog for other uses. </p>
+
+</div>
+</div>
+<a class="anchor" id="a485abe174bbe5678b70fb3e7e40c35e0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char ee_get_byte </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a byte value from a certain address in the Propeller Chip's dedicated EEPROM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addr</td><td>The EEPROM address that with the byte value that should be fetched.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value The byte value stored by the EEPROM at the address specified by the addr parameter. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac0236a2dcc412cb619f4ea9fd7c7e56a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float ee_get_float32 </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetch a 32 bit precision floating point value from a certain address in the Propeller Chip's dedicated EEPROM. A 32 bit value occupies four bytes so if you are fetching values in a sequence, make sure to add 4 to each addr parameter value. </p>
+<p>Make sure that the Math box is checked in the Project Manger. In Simple View, click the Show Project Manager button in SimpleIDE's bottom-left corner. Then click the Linker tab, and check the Math Lib box.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addr</td><td>The EEPROM address with the 32-bit floating point float value that should be fetched.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value The float value stored by the EEPROM at the specified address. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac09dcba6511dc8042fae0e78193c0fee"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ee_get_int </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get an int value from a certain address in the Propeller Chip's dedicated EEPROM. If you are fetching several int values, make sure to add 4 to the addr value with each successive call. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addr</td><td>The EEPROM address with the int value that should be fetched.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value The int value stored by the EEPROM at the specified address. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3e8839420ceb92caab4bd8906e1b4c2c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* ee_get_str </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>addr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetch a string of byte values starting at a certain address in Propeller Chip's dedicated EEPROM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>Address of a char array to receive the string of bytes fetched from EEPROM.</td></tr>
+    <tr><td class="paramname">n</td><td>The number of bytes to copy from EEPROM to the array.</td></tr>
+    <tr><td class="paramname">addr</td><td>The EEPROM address of the first byte in the string.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The address of the array that stores the characters that that were fetched. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a081f694149df3ff45e1d5f0dcb00b87e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ee_put_byte </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>addr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Store a byte value at a certain address in the Propeller Chip's dedicated EEPROM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The byte value to store in EEPROM.</td></tr>
+    <tr><td class="paramname">addr</td><td>The EEPROM address where the value is to be stored. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5d6b8dd51af9e64b28154504fb988c06"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ee_put_float32 </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>addr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Store a 32 bit precision floating point value at a certain address in the Propeller Chip'sdedicated EEPROM. A 32 bit value occupies four bytes so if you are storing values in a sequence, make sure to add 4 to each addr parameter value. </p>
+<p>Make sure that the Math box is checked in the Project Manger. In Simple View, click the Show Project Manager button in SimpleIDE's bottom-left corner. Then click the Linker tab, and check the Math Lib box.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The 32-bit floating point float value to store in EEPROM.</td></tr>
+    <tr><td class="paramname">addr</td><td>The EEPROM address where the value is to be stored. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a9ad5c145340d62984a126aab9cf7ad6d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ee_put_int </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>addr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Store an int value at a certain address in the Propeller Chip's dedicated EEPROM. An int value occupies four bytes, so the next value should be stored at an address value that's four bytes higher. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The int value to store in EEPROM.</td></tr>
+    <tr><td class="paramname">addr</td><td>The EEPROM address where the value is to be stored. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a518e5af2b121da90b1d0c003f150891b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ee_put_str </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>addr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Store a string of byte values starting at a certain address in the Propeller Chip's dedicated EEPROM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>Address of a char array containing the string of bytes.</td></tr>
+    <tr><td class="paramname">n</td><td>The number of bytes to copy from the array.</td></tr>
+    <tr><td class="paramname">addr</td><td>The EEPROM address of the first byte in the string. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1852,7 +2137,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>buscnt</b></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Apr 28 2013 07:01:46 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Mon Apr 29 2013 17:02:37 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
