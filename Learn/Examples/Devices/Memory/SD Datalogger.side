@@ -1,0 +1,11 @@
+SD Datalogger.c
+-I ../../../Simple Libraries/Utility/libsimpletools
+-L ../../../Simple Libraries/Utility/libsimpletools
+>-fno-exceptions
+>-m32bit-doubles
+>BOARD::ACTIVITYBOARD
+>compiler=C
+>defs::-std=c99
+>linker::-lsimpletools
+>memtype=cmm main ram compact
+>optimize=-Os
