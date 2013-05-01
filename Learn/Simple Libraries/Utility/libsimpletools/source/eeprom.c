@@ -50,7 +50,14 @@ void ee_put_int(int value, int addr)
   char  data[6] = { addr >> 8, addr & 0xFF, 
                       (char)(value & 0xFF), (char)((value >> 8) & 0xFF), 
                       (char)((value >> 16) & 0xFF), (char)((value >> 24) & 0xFF) };
-  while(!i2cWrite(eeprom, EEPROM_ADDR, data, 6, 1));
+  //while(!i2cWrite(eeprom, EEPROM_ADDR, data, 6, 0));
+  int i;
+  for(i = 0; i < 4; i++)
+  {
+    ee_put_byte(data[i+2], addr+i);
+    //printf("Hang test, made it to here!\n");
+  }
+  
 }
 
 int ee_get_int(int addr)
@@ -73,7 +80,12 @@ void ee_put_float32(float fpVal, int addr)
   char data[6] = { addr >> 8, addr & 0xFF, 
                   (char) (value & 0xFF), ((char) (value >> 8) & 0xFF), 
                  ((char) (value >> 16) & 0xFF), ((char)( value >> 24) & 0xFF) };
-  while(!i2cWrite(eeprom, EEPROM_ADDR, data, 6, 1));
+  //while(!i2cWrite(eeprom, EEPROM_ADDR, data, 6, 1));
+  int i;
+  for(i = 0; i < 4; i++)
+  {
+    ee_put_byte(data[i+2], addr+i);
+  }
 }
 
 float ee_get_float32(int addr)
