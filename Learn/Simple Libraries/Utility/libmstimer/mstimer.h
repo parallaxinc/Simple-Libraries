@@ -1,14 +1,21 @@
 /**
-* @file mstimer.h
-*
-* @author Andy Lindsay
-*
-* @copyright
-* Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
-*
-* @brief Tracks milliseconds elapsed in another cog.  This is part of
-* a tutorial on adding a Simple Library to the project.
-*/
+ * @file mstimer.h
+ *
+ * @author Andy Lindsay
+ *
+ * @copyright
+ * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
+ *
+ * @brief Tracks milliseconds elapsed in another cog.  This is part of
+ * a tutorial on adding a Simple Library to the project.
+ */
+
+#ifndef MSTIMER_H
+#define MSTIMER_H
+
+#if defined(__cplusplus)
+extern "C" {
+#endif
 
 #include "simpletools.h"                      
 
@@ -43,6 +50,13 @@ void mstime_reset();
  * counting from.
  */
 void mstime_set(int newTime);
+
+#if defined(__cplusplus)
+}
+#endif
+/* __cplusplus */ 
+#endif
+/* MSTIMER_H */ 
 
 /**
  * TERMS OF USE: MIT License

@@ -1,0 +1,14 @@
+Hello VGA.c
+-I ../../../Simple Libraries/Utility/libsimpletools
+-L ../../../Simple Libraries/Utility/libsimpletools
+-I ../../../Simple Libraries/Display/libvgatext
+-L ../../../Simple Libraries/Display/libvgatext
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>defs::-std=c99
+>-ltiny
+>linker::-lsimpletools -lvgatext
+>BOARD::ACTIVITYBOARD
