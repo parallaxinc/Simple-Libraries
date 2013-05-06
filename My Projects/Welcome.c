@@ -14,7 +14,7 @@
       upper-right corner.  If you are unsure which COM port your board is 
       connected to, disconnect it and click the dropdown to check the port 
       list, then reconnect it and check again.
-    - Click Tools and select Run with Terminal (or click the Run with Terminal 
+    - Click Program and select Run with Terminal (or click the Run with Terminal 
       button).  The SimpleIDE Terminal should appear and display the "Hello!"
       message.
       
