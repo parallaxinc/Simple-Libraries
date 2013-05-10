@@ -362,7 +362,7 @@ void pause(int time);
  *  @code
  *  unsigned int ti, tf, us, pauseTicks;
  *  us = CLKFREQ/1000000;                               // 1 us worth of ticks
- *  pauseTicks = 10*us;                                 // 10 us of ticks
+ *  pauseTicks = 50*us;                                 // 50 us of ticks
  *  ti = CNT;                                           // Save start time
  *  pause_ticks(pauseTicks);                            // Call pause_ticks
  *  tf = CNT;                                           // Save end time

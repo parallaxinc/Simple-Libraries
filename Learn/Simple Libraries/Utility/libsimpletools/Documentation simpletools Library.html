@@ -315,7 +315,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>buscnt</b></t
 <p>At 80 MHz, each clock tick is 12.5 ns. Code overhead varies depending on memory model and optimization. A simple test if you want a certain number of clock ticks is:</p>
 <div class="fragment"><div class="line"><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ti, tf, us, pauseTicks;</div>
 <div class="line">us = CLKFREQ/1000000;                               <span class="comment">// 1 us worth of ticks</span></div>
-<div class="line">pauseTicks = 10*us;                                 <span class="comment">// 10 us of ticks</span></div>
+<div class="line">pauseTicks = 50*us;                                 <span class="comment">// 50 us of ticks</span></div>
 <div class="line">ti = CNT;                                           <span class="comment">// Save start time</span></div>
 <div class="line"><a class="code" href="html/simpletools_8h.html#af9241e417ac6f468979cc60b0263d49f" title="Delay cog from moving on to the next statement for a certain number of system clock ticks...">pause_ticks</a>(pauseTicks);                            <span class="comment">// Call pause_ticks</span></div>
 <div class="line">tf = CNT;                                           <span class="comment">// Save end time</span></div>
@@ -2137,7 +2137,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>buscnt</b></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 29 2013 17:02:37 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Thu May 9 2013 20:00:49 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
