@@ -3,7 +3,7 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.9 (see details for more info)
+ * @version 0.91 (see details for more info)
  *
  * @copyright
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
@@ -23,8 +23,7 @@
  * @li Timing - Delays, timeouts
  * @li Timed I/O - pulse generation/measurement, square waves, transition
  * counting, RC decay, etc.
- * @li Analog - D/A conversion, A/D conversation, PWM, and 
- * more.
+ * @li Analog - D/A conversion, PWM, and more.
  * @li Serial Communication - SPI, I2C, asynchronous serial
  * @li Memory - EEPROM, SD storage
  *
@@ -42,6 +41,8 @@
  * programmer with standard practices used by the community for
  * adding libraries to support and endless variety of peripherals
  * and applications.
+ *
+ * Revision 0.91 shift_in function pre-clock mode bug fixed.
  */
 
 #ifndef SIMPLETOOLS_H

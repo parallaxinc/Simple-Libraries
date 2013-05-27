@@ -12,11 +12,11 @@
 
 int main()                                    // Main function
 {
-  servo_angle(16, 0);                         // P18 servo to 0 degrees
+  servo_angle(14, 0);                         // P14 servo to 0 degrees
   pause(3000);                                // ...for 3 seconds
-  servo_angle(16, 900);                       // P18 servo to 90 degrees
+  servo_angle(14, 900);                       // P14 servo to 90 degrees
   pause(3000);                                // ...for 3 seconds
-  servo_angle(16, 1800);                      // P18 servo to 180 degrees
+  servo_angle(14, 1800);                      // P14 servo to 180 degrees
   pause(3000);                                // ...for 3 seconds
   servo_stop();                               // Stop servo process
 }

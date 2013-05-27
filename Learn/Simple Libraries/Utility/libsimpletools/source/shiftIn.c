@@ -52,13 +52,14 @@ int shift_in(int pinDat, int pinClk, int mode, int bits)
   int i;
   for(i = vi; i != vf; i += inc)
   {
+    if(preflag) value |= (input(pinDat) << i); 
     toggle(pinClk);
     toggle(pinClk);
-    if(!i)
-    {
-      if(preflag) break;
-    }
-    value |= (input(pinDat) << i); 
+    //if(!i)
+    //{
+    //  if(preflag) break;
+    //}
+    if(!preflag) value |= (input(pinDat) << i); 
   }
   return value;
 }

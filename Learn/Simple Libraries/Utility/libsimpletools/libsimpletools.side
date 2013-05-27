@@ -41,7 +41,7 @@ source/i2cinit.c
 freqout.c -> source/freqout.c
 eeprom.c -> source/eeprom.c
 >compiler=C
->memtype=xmm-split external flash code + ram data
+>memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions
