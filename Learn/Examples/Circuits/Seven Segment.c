@@ -5,6 +5,7 @@
   
   http://learn.parallax.com/propeller-c-simple-circuits/seven-segment-display
 */
+
 #include "simpletools.h"                      // Include simpletools
 
 int main()                                    // main function

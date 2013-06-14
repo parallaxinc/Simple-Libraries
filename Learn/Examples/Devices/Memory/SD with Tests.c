@@ -26,7 +26,7 @@ int main(void)                                // Main function
     }
     else                                      // Zero file pinter?
     {                                         // Bad, error message.
-      printf("File did not open.\n");         
+      print("File did not open.\n");         
     }                                         
     fclose(fp);                               // Close the file
   
@@ -36,22 +36,22 @@ int main(void)                                // Main function
   
     if(fp)                                    // Nonzero file pinter?  
     {                                         // Good, continue.
-    printf("First 21 chars in test.txt:\n");  // Display heading
+    print("First 21 chars in test.txt:\n");   // Display heading
     fread(s, 1, 21, fp);                      // Read 21 characters
-    printf("%s", s);                          // Display them
-    printf("\n");                             // With a newline at the end.
+    print("%s", s);                           // Display them
+    print("\n");                              // With a newline at the end.
     }
     else                                      // Zero file pointer?
     {                                         // Bad, print error.
-      printf("File did not open.\n");         
-      printf("\n");
+      print("File did not open.\n");         
+      print("\n");
     }
     fclose(fp);                               // Close the file.
   }
   else                                        // Mount error code not zero?
   {                                           // Bad, display code
-    printf("Error opening card.");
-    printf("error code = %d\n", erc);
+    print("Error opening card.");
+    print("error code = %d\n", erc);
   }
 }    
             

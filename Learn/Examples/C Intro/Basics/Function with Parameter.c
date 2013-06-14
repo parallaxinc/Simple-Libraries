@@ -18,5 +18,5 @@ int main()                                    // main function
 
 void value(int a)                             // value function
 {
-  printf("The value is: a = %d\n", a);        // Display a single value
+  print("The value is: a = %d\n", a);         // Display a single value
 }

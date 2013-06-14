@@ -14,7 +14,7 @@ int main()                                    // main function
   while(1)                                    // Endless loop
   {
     int button = input(3);                    // P3 input -> button variable
-    printf("button = %d\n", button);          // Display button state
+    print("button = %d\n", button);           // Display button state
     pause(100);                               // Wait 0.1 second before repeat
   }
 }

@@ -31,7 +31,7 @@ int main()
   pin = 26;
   tdelay = 200;
   lockID = locknew();
-  printf("lockID = %d\n", lockID);
+  print("lockID = %d\n", lockID);
   // Pass function pointer, optional parameter value, 
   // stack array address, and the stack's size to cogstart.
   int cog = cogstart(&blink, NULL, stack, sizeof(stack));
@@ -46,11 +46,11 @@ int main()
   for(i = 0; i< 3; i++)
   {
     int lockstate = lockset(lockID);
-    printf("lockstate = %d\n", lockstate);
+    print("lockstate = %d\n", lockstate);
   }
   //
   while(lockset(lockID));
-  printf("we passed the lock!\n");
+  print("we passed the lock!\n");
   pause(1000);
   lockclr(lockID);
   pause(1000);

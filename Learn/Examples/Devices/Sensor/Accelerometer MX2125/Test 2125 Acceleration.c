@@ -15,8 +15,8 @@ int main()                                    // Main function
   {
     int x = mx_accel(10);                     // X-axis acceleration 
     int y = mx_accel(11);                     // Y-axis acceleration
-    printf("%cx = %d, y = %d, %c\n",          // Display both
-            HOME, x,      y,  CLREOL);
+    print("%cx = %d, y = %d, %c\n",           // Display both
+           HOME, x,      y,  CLREOL);
     pause(200);                               // 1/5th second before repeat
   }  
 }

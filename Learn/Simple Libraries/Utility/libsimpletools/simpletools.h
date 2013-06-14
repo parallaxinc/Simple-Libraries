@@ -53,6 +53,7 @@ extern "C" {
 #endif
 
 #include <propeller.h>
+#include "simpletext.h"
 #include <driver.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -84,7 +85,7 @@ extern unsigned int buscnt;
 #define EEPROM_ADDR	 0xA0
 #endif
 
-
+/*
 // Values for use with SimpleIDE Terminal
 #define HOME   1
 #define CRSRXY 2
@@ -102,6 +103,7 @@ extern unsigned int buscnt;
 #define CRSRX  14
 #define CRSRY  15
 #define CLS    16
+*/
 
 // Values for use with shift_in
 #define   MSBPRE     0
@@ -128,8 +130,8 @@ extern unsigned int buscnt;
 #endif
 
 // Define types for simplified driver declarations
-typedef FILE* serial;
-typedef FILE* fdserial;
+//typedef FILE* serial;
+//typedef FILE* fdserial;
 typedef FILE* sdcard;
 typedef I2C* i2c;
 

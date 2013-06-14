@@ -21,9 +21,9 @@ int main()                                    // Main function
     v2 = adc_volts(2);                        // Check A/D 2                
     v3 = adc_volts(3);                        // Check A/D 3
     
-    putchar(HOME);                            // Cursor -> top-left "home"
-    printf("A/D2 = %f V%c\n", v2, CLREOL);    // Display volts
-    printf("A/D3 = %f V%c\n", v3, CLREOL);    // Display volts
+    putChar(HOME);                            // Cursor -> top-left "home"
+    print("A/D2 = %f V%c\n", v2, CLREOL);     // Display volts
+    print("A/D3 = %f V%c\n", v3, CLREOL);     // Display volts
 
     pause(100);                               // Wait 1/10 s
   }  

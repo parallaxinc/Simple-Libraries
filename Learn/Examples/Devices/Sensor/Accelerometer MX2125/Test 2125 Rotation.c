@@ -14,7 +14,7 @@ int main()                                    // Main function
   while(1)                                    // Repeat indefinitely
   {
     int angle = mx_rotate(10, 11);            // Rotation -> angle variable
-    printf("%crotate angle = %d, %c\n",       // Display rotation angle
+    print("%crotate angle = %d%c\n",          // Display rotation angle
             HOME, angle, CLREOL);
     pause(200);                               // 1/5th second before repeat
   }  

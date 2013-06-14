@@ -15,7 +15,7 @@ int main()                                    // main function
     high(5);                                  // Set P5 high
     pause(1);                                 // Wait for circuit to charge
     int t = rc_time(5, 1);                    // Measure decay time on P5
-    printf("t = %d\n", t);                    // Display decay time
+    print("t = %d\n", t);                     // Display decay time
     pause(100);                               // Wait 1/10th of a second
   }
 }

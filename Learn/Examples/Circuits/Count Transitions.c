@@ -14,7 +14,7 @@ int main()                                    // main function
   pause(1000);                                // Pause 1 second
 
   int cycles = count(26, 1000);               // Count for 1 second
-  printf("cycles = %d\n", cycles);            // Report on/off cycles
+  print("cycles = %d\n", cycles);             // Report on/off cycles
 
   // Negative pin clears signal and lets go of I/O pin.
   square_wave(-26, 0, 0);                     

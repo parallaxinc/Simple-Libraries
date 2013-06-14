@@ -14,8 +14,8 @@ int main()                                    // Main function
   while(1)                                    // Repeat indefinitely
   {
     int cmDist = ping_cm(15);                 // Get cm distance from Ping)))
-    printf("cmDist = %d\n", cmDist);          // Display distance
-    pause(200);                               // Wait 1/5 second
+    print("cmDist = %d\n", cmDist);          // Display distance
+    pause(200);                                // Wait 1/5 second
   }
 }
 

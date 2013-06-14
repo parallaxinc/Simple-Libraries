@@ -40,10 +40,14 @@ simpletools.h
 source/i2cinit.c
 freqout.c -> source/freqout.c
 eeprom.c -> source/eeprom.c
+fpucog.c -> source/fpucog.c
+-I ../../Text Devices/libsimpletext
+-L ../../Text Devices/libsimpletext
 >compiler=C
->memtype=cmm main ram compact
+>memtype=xmm-split external flash code + ram data
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions
 >-create_library
+>linker::-lsimpletext
 >BOARD::ACTIVITYBOARD

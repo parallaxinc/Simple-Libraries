@@ -26,7 +26,7 @@ int main()                                    // main function
   // Watch what the other cog is doing to the value of n.
   while(1)
   {
-    printf("n = %d\n", n);                    // Display result
+    print("n = %d\n", n);                     // Display result
     pause(100);                               // Wait 1/10 of a second    
   }    
 }

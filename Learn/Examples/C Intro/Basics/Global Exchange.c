@@ -18,7 +18,7 @@ int main()                                    // main function
   a = 96;                                     // Set values of a & b
   b = 32;
   adder();                                    // Call adder function
-  printf("n = %d\n", n);                      // Display result
+  print("n = %d\n", n);                       // Display result
 }
 
 void adder(void)                              // Adder, no parameters or return

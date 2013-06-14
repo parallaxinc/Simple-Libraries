@@ -1,6 +1,8 @@
 Floating Point Calculations.c
 -I ../../../Simple Libraries/Utility/libsimpletools
 -L ../../../Simple Libraries/Utility/libsimpletools
+-I ../../../Simple Libraries/Text Devices/libsimpletext
+-L ../../../Simple Libraries/Text Devices/libsimpletext
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
@@ -8,5 +10,5 @@ Floating Point Calculations.c
 >-fno-exceptions
 >defs::-std=c99
 >-lm
->linker::-lsimpletools
+>linker::-lsimpletools -lsimpletext
 >BOARD::ACTIVITYBOARD

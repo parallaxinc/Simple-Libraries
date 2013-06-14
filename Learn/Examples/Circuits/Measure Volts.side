@@ -3,6 +3,8 @@ Measure Volts.c
 -L ../../Simple Libraries/Utility/libsimpletools
 -I ../../../../SimpleIDE/Learn/Simple Libraries/Convert/libadcDCpropAB
 -L ../../../../SimpleIDE/Learn/Simple Libraries/Convert/libadcDCpropAB
+-I ../../Simple Libraries/Text Devices/libsimpletext
+-L ../../Simple Libraries/Text Devices/libsimpletext
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
@@ -10,5 +12,5 @@ Measure Volts.c
 >-fno-exceptions
 >defs::-std=c99
 >-lm
->linker:: -lsimpletools -ladcDCpropAB
+>linker:: -lsimpletools -ladcDCpropAB -lsimpletext
 >BOARD::ACTIVITYBOARD

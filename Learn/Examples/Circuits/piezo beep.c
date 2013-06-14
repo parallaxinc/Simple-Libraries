@@ -4,7 +4,6 @@
   Beep a piezo speaker connected to P4.
   
   http://learn.parallax.com/propeller-c-simple-circuits/piezo-beep
-  
 */
 
 #include "simpletools.h"                      // Include simpletools                   

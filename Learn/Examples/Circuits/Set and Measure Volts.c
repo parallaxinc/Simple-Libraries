@@ -17,8 +17,8 @@ int main()                                       // Main function
   dac_ctr(26, 0, 194);                           // D/A ch 0 -> 2.5 V to D/A 0
   dac_ctr(27, 1, 78);                            // D/A ch 1 -> 1 V to D/A 1
 
-  printf("A/D0 = %f\n", adc_volts(0));           // Display A/D0 volts
-  printf("A/D1 = %f\n", adc_volts(1));           // Display A/D1 volts
+  print("A/D0 = %f\n", adc_volts(0));            // Display A/D0 volts
+  print("A/D1 = %f\n", adc_volts(1));            // Display A/D1 volts
 }
 
 

@@ -15,7 +15,7 @@ int main()                                        // Main function
   {
     int x = mx_tilt(10);                          // X-axis tilt
     int y = mx_tilt(11);                          // Y-axis tilt
-    printf("%ctilt x = %d, tilt y = %d, %c\n",    // Display tilts 
+    print("%ctilt x = %d, tilt y = %d, %c\n",     // Display tilts 
             HOME,       x,           y, CLREOL);
     pause(200);                                   // 1/5th second before repeat
   }  

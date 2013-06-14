@@ -25,8 +25,8 @@ int main(void)                                // Main function
   fread(s, 1, 15, fp);                        // Read 15 characters
   fclose(fp);                                 // Close the file.
 
-  printf("First 15 chars in test.txt:\n");    // Display heading
-  printf("%s", s);                            // Display characters
-  printf("\n");                               // With a newline at the end.
+  print("First 15 chars in test.txt:\n");     // Display heading
+  print("%s", s);                             // Display characters
+  print("\n");                                // With a newline at the end.
 }    
 

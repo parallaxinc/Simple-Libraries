@@ -15,7 +15,7 @@ int main()                                    // main function
   {
     pause(500);                               // 0.5 s between repetitions
     n = n + 5;                                // Add 5 to n each time through
-    printf("n = %d\n", n);                    // Display name & value of n
+    print("n = %d\n", n);                     // Display name & value of n
   }
-  printf("All done!");                        // Display all done
+  print("All done!");                         // Display all done
 }

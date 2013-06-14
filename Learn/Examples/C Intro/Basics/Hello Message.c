@@ -11,5 +11,5 @@
 int main()                                    // main function
 {
   pause(1000);                                // Wait 1 s for host
-  printf("Hello!!!");                         // Display a message
+  print("Hello!!!");                          // Display a message
 }

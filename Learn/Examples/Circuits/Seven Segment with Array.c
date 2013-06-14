@@ -25,8 +25,8 @@ int main()                                    // main function
   for(int i = 0; i < 10; i++)                 // Count 0...9
   {
     set_outputs(15, 8, n[i]);                 // n[i] -> 7 segment
-    printf("n[%d] = %s\n",                    // Display n[i] in binary
-               i,   itoa(n[i], s, 2));
+    print("n[%d] = %08b\n", i, n[i]);         // Display n[i] in binary
+               
     pause(1000);                              // Wait 1 s.
   }
 }

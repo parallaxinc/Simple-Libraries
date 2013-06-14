@@ -3,13 +3,14 @@ Test 2125 Rotation.c
 -L ../../../../Simple Libraries/Utility/libsimpletools
 -I ../../../../Simple Libraries/Sensor/libmx2125
 -L ../../../../Simple Libraries/Sensor/libmx2125
+-I ../../../../Simple Libraries/Text Devices/libsimpletext
+-L ../../../../Simple Libraries/Text Devices/libsimpletext
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions
 >defs::-std=c99
->-ltiny
 >-lm
->linker:: -lmx2125  -lsimpletools
+>linker:: -lmx2125  -lsimpletools -lsimpletext
 >BOARD::PROPBOE

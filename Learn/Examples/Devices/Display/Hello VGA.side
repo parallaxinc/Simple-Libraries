@@ -3,12 +3,14 @@ Hello VGA.c
 -L ../../../Simple Libraries/Utility/libsimpletools
 -I ../../../Simple Libraries/Display/libvgatext
 -L ../../../Simple Libraries/Display/libvgatext
+-I ../../../Simple Libraries/Text Devices/libsimpletext
+-L ../../../Simple Libraries/Text Devices/libsimpletext
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions
 >defs::-std=c99
->-ltiny
->linker::-lsimpletools -lvgatext
+>-lm
+>linker::-lsimpletools -lvgatext -lsimpletext
 >BOARD::ACTIVITYBOARD

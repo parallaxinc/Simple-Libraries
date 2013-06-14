@@ -3,12 +3,14 @@ Standard Servo Position.c
 -I ../../../../Simple Libraries/Utility/libsimpletools
 -L ../../../../Simple Libraries/Motor/libservo
 -L ../../../../Simple Libraries/Utility/libsimpletools
+-I ../../../../Simple Libraries/Text Devices/libsimpletext
+-L ../../../../Simple Libraries/Text Devices/libsimpletext
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions
 >defs::-std=c99
->-ltiny
->linker::-lsimpletools -lservo
+>-lm
+>linker::-lsimpletools -lservo -lsimpletext
 >BOARD::ACTIVITYBOARD

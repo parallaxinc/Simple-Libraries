@@ -15,7 +15,7 @@ int main()                                    // main function
 {
   pause(500);                                 // 1/2 second pause
   int n = adder(25, 17);                      // Call adder function
-  printf("adder's result is = %d", n);        // Display adder function result
+  print("adder's result is = %d", n);         // Display adder function result
 }
 
 int adder(int a, int b)                       // adder function

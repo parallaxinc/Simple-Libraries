@@ -14,6 +14,6 @@ int main()                                    // main function
   for(int i = 0; i < 6; i++)                  // Count i from 0 to 5
   {
     pause(500);                               // 1/2 second pause
-    printf("p[%d] = %d\n", i, p[i]);          // Display array element & value
+    print("p[%d] = %d\n", i, p[i]);           // Display array element & value
   }
 }

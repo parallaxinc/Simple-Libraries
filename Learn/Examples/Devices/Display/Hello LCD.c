@@ -11,11 +11,11 @@ const int CLR = 12;
 
 int main()
 {
-  serial lcd = sser_setTx(12, 9600);
+  serial *lcd = serial_open(12, 12, 0, 9600);
   
-  fputc(ON, lcd);
-  fputc(CLR, lcd);
+  writeChar(lcd, ON);
+  writeChar(lcd, CLR);
   pause(5);
-  fprintf(lcd, "Hello LCD!!!");
+  dprint(lcd, "Hello LCD!!!");
 }
 

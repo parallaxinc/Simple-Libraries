@@ -14,8 +14,8 @@ int DO = 22, CLK = 23, DI = 24, CS = 25;      // SD card pins on Propeller BOE
 int main(void)                                // Main function
 {
   pause(1000);                                // Delay for terminal
-  printf("Enter several values.\n");          // User instructions
-  printf("To exit, type q then Enter\n");
+  print("Enter several values.\n");           // User instructions
+  print("To exit, type q then Enter\n");
 
   sd_mount(DO, CLK, DI, CS);                  // Mount SD card
 
@@ -24,21 +24,21 @@ int main(void)                                // Main function
   int n, status;                              // Number & status variables
   while(1)                                    // Endless loop
   {
-    printf("> ");                             // User prompt
-    status = scanf("%d", &n);                 // Get number & status
+    print("> ");                              // User prompt
+    status = scan("%d", &n);                  // Get number & status
     if(!status) break;                        // Status 0? Break out of loop
     fwrite(&n, 4, 1, fp);                     // Write number to SD card
   } 
   fclose(fp);                                 // Close the file
   
-  printf("\nYou entered:\n");                 // List heading
+  print("\nYou entered:\n");                  // List heading
 
   fp = fopen("test.txt", "r");                // Open a file for writing
   while(1)
   {
     status = fread(&n, 4, 1, fp);             // Read from SD & get status
     if(!status) break;                        // If no more, break loop
-    printf("n = %d\n", n);                    // Display value
+    print("n = %d\n", n);                     // Display value
   } 
   fclose(fp);                                 // Close the file
 }    
