@@ -33,17 +33,23 @@ int main(void)
   sprint(sval,"Toast Test");
   putln(sval);
 
-#if 0
-  putStr("\nEnter float string: ");
+#if 1
+  putStr("\nEnter scan float string : ");
+  scan("%f %s", &fval, sval);
+  print("%f %s\n", fval, sval);
+  putFloat(fval);
+  putStr("\n");
+  putln(sval);
+
+  putStr("\nEnter sscan float string: ");
   getStr(buffer, buflen);
   putln(buffer);
   sscan(buffer, "%f %s", &fval, sval);
-  sprint(buffer, "%f %s\n", fval, sval);
+  sprint(buffer, "%f %s", fval, sval);
   putln(buffer);
   putFloat(fval);
   putStr("\n");
-  putFloat(fval2);
-  putStr("\n");
+  putln(sval);
 #endif
 
   putFloat(101.3);
@@ -94,6 +100,16 @@ int main(void)
   /* traditional hello message using buffer printf. */
   sprint(buffer, "Hello, world! Again!\n");
   writeStr(text, buffer);
+
+
+#if 1
+  writeStr(text, "\nEnter dscan float string: ");
+  dscan(text, "%f %s", &fval, sval);
+  dprint(text, "%f %s\n", fval, sval);
+  writeFloat(text, fval);
+  writeLine(text, "");
+  writeLine(text, sval);
+#endif
 
   writeChar(text, 'T');
   writeChar(text, 'o');

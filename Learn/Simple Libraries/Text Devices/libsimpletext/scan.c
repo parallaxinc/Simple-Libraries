@@ -1,31 +1,21 @@
 /*
  * Super-simple text I/O for PropGCC, stripped of all stdio overhead.
- * Copyright (c) 2012, Ted Stefanik. Concept inspired by:
- *
- *     very simple printf, adapted from one written by me [Eric Smith]
- *     for the MiNT OS long ago
- *     placed in the public domain
- *       - Eric Smith
- *     Propeller specific adaptations
- *     Copyright (c) 2011 Parallax, Inc.
- *     Written by Eric R. Smith, Total Spectrum Software Inc.
- *
+ * Copyright (c) 2013, Parallax Inc
  * MIT licensed (see terms at end of file)
  */
 #include <stdlib.h>
 #include "simpletext.h"
 
-int sscan(const char *str, const char *fmt, ...) 
+int scan(const char *fmt, ...) 
 {
+  char str[256]; 
   va_list args;
-  
+  getStr(str, 256);
   va_start(args, fmt);
   int blocks = _doscanf(str, fmt, args);
   va_end(args);
-  
   return blocks;
 }
-
 
 /* +--------------------------------------------------------------------
  * |  TERMS OF USE: MIT License
@@ -50,3 +40,4 @@ int sscan(const char *str, const char *fmt, ...)
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * +--------------------------------------------------------------------
  */
+

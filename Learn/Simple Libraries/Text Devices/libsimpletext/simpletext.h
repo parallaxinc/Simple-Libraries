@@ -116,7 +116,7 @@ terminal *simpleterm_open(void);
 void      simpleterm_close(void);
 
 /**
- * This defines the debug port device.
+ * This returns the default debug port device.
  */
 terminal *simpleterm_pointer(void);
 
@@ -166,12 +166,12 @@ char *getStr(char *buffer, int max);
  */
 void putBin(int value);
 /**
- * Sends a char on the debug port.
+ * Send a char on the debug port.
  * @param c is the char to send. 
  */
 void putChar(char c);
 /**
- * Prints a string representation of a decimal number to the debug port.
+ * Print a string representation of a decimal number to the debug port.
  * @param value is number to print. 
  */
 void putDec(int value);
@@ -187,12 +187,12 @@ void putFloat(float value);
  */
 void putHex(int value);
 /**
- * Sends a string + new line on the transmit debug port.
+ * Send a string + new line on the transmit debug port.
  * @param str is the null terminated string to send. 
  */
 int  putln(char* str);
 /**
- * Sends a string on the transmit debug port.
+ * Send a string on the transmit debug port.
  * @param str is the null terminated string to send. 
  */
 int  putStr(char* str);
@@ -255,19 +255,19 @@ void writeBin(text_t *device, int value);
  */
 void writeBinDigits(text_t *device, int value, int digits);
 /**
- * Sends a char on the transmit device.
+ * Send a char on the transmit device.
  * @param device is a previously open/started terminal device.
  * @param c is the char to send. 
  */
 void writeChar(text_t *device, char c);
 /**
- * Prints a string representation of a decimal number to output
+ * Print a string representation of a decimal number to output
  * @param device is a previously open/started terminal device.
  * @param value is number to print. 
  */
 void writeDec(text_t *device, int value);
 /**
- * Prints a string representation of a decimal number to output
+ * Print a string representation of a decimal number to output
  * @param device is a previously open/started terminal device.
  * @param value is number to print. 
  * @param width is number of characters to print padded by spaces. 
@@ -301,24 +301,66 @@ void writeHexDigits(text_t *device, int value, int digits);
  */
 void writeFloatPrecision(text_t *device, float value, int width, int precision);
 /**
- * Sends a string + new line on the transmit device.
+ * Send a string + new line on the transmit device.
  * @param device is a previously open/started terminal device.
  * @param str is the null terminated string to send. 
  */
 int  writeLine(text_t *device, char* str);
 /**
- * Sends a string on the transmit device.
+ * Send a string on the transmit device.
  * @param device is a previously open/started terminal device.
  * @param str is the null terminated string to send. 
  */
 int  writeStr(text_t *device, char* str);
 /**
- * Sends a string on the transmit device.
+ * Send a string on the transmit device.
  * @param device is a previously open/started terminal device.
  * @param str is the null terminated string to send. 
  * @param width is number of characters to print padded by spaces. 
  */
 int  writeStrDigits(text_t *device, char* str, int width);
+
+/**
+ * Print format "..." args to the default simple terminal device.
+ * The output is limited to 256 bytes.
+ *
+ * @param format is a C printf comparable format string.
+ * @param ... is the arguments to use with the format string.
+ * returns the number of bytes placed into the buffer.
+ */
+int print(const char *format, ...);
+
+/**
+ * Convert formatted simple terminal input to the "..." args.
+ * The input is limited to 256 bytes.
+ *
+ * @param format is a C printf comparable format string.
+ * @param ... is the arguments where output will go and must be pointers.
+ * returns the number of bytes placed into the buffer.
+ */
+int scan(const char *fmt, ...);
+
+/**
+ * Print format "..." args to the device
+ * The output is limited to 256 bytes.
+ *
+ * @param device is where to put the formatted output.
+ * @param format is a C printf comparable format string.
+ * @param ... is the arguments to use with the format string.
+ * returns the number of bytes placed into the buffer.
+ */
+int dprint(text_t* device, const char *format, ...);
+
+/**
+ * Convert formatted device input to the "..." args.
+ * The input is limited to 256 bytes.
+ *
+ * @param device is where to get the formatted input.
+ * @param format is a C printf comparable format string.
+ * @param ... is the arguments where output will go and must be pointers.
+ * returns the number of bytes placed into the buffer.
+ */
+int dscan(text_t* device, const char *fmt, ...);
 
 /**
  * Print format "..." args to the output buffer.
@@ -329,17 +371,17 @@ int  writeStrDigits(text_t *device, char* str, int width);
  * @param ... is the arguments to use with the format string.
  * returns the number of bytes placed into the buffer.
  */
-int sprint(char *output, const char *format, ...);
+int sprint(char *buffer, const char *format, ...);
 
 /**
- * Create formatted output to the "..." args from the input buffer.
+ * Convert formatted buffer to the "..." args.
  *
- * @param input is where to put the formatted output.
+ * @param buffer is where to put the formatted output.
  * @param format is a C printf comparable format string.
  * @param ... is the arguments where output will go and must be pointers.
  * returns the number of bytes placed into the buffer.
  */
-int sscan(const char *input, const char *fmt, ...);
+int sscan(const char *buffer, const char *fmt, ...);
 
 
 /*  API not intended for public use */
@@ -350,6 +392,7 @@ const char* _scanf_getl(const char *str, int* dst, int base, unsigned width, int
 
 #include <stdarg.h>
 int   _doscanf(const char* str, const char *fmt, va_list args);
+int   _dosprnt(const char *fmt, va_list args, char *obuf);
 
 char* float2string(float f, char *s, int width, int precision);
 float string2float(char *s, char **end);

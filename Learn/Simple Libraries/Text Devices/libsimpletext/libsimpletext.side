@@ -39,6 +39,11 @@ serial.c
 simpleterm.c
 simpleterm_close.c
 serial_close.c
+dosprint.c
+dprint.c
+dscan.c
+print.c
+scan.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
