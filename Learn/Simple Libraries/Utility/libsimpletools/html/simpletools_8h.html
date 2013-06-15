@@ -15,7 +15,6 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="ParallaxLogo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">simpletools library
    &#160;<span id="projectnumber">v0.8</span>
@@ -59,6 +58,7 @@
  dac_ctr, square_wave, and all pwm functions, are currently only supported by the LMM and CMM memory models.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;propeller.h&gt;</code><br/>
+<code>#include &quot;simpletext.h&quot;</code><br/>
 <code>#include &lt;driver.h&gt;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;stdlib.h&gt;</code><br/>
@@ -81,37 +81,39 @@ Macros</h2></td></tr>
 <tr class="memitem:a95a8626764b7fcbf81fddaa0a197def8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a95a8626764b7fcbf81fddaa0a197def8"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>EEPROM_ADDR</b>&#160;&#160;&#160;0xA0</td></tr>
 <tr class="memitem:a0e26ea2db1b570d1a6fe1ac180ef4541"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0e26ea2db1b570d1a6fe1ac180ef4541"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>HOME</b>&#160;&#160;&#160;1</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>HOME</b>&#160;&#160;&#160;(1)</td></tr>
 <tr class="memitem:afa53bcf09725cf1948b70eaaa229a3d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afa53bcf09725cf1948b70eaaa229a3d1"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRSRXY</b>&#160;&#160;&#160;2</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRSRXY</b>&#160;&#160;&#160;(2)</td></tr>
 <tr class="memitem:a9e599685cbc5af2bb2a3baffdf881dff"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9e599685cbc5af2bb2a3baffdf881dff"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRSRLF</b>&#160;&#160;&#160;3</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRSRLF</b>&#160;&#160;&#160;(3)</td></tr>
 <tr class="memitem:acaf84697e36358569284ae174db49051"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acaf84697e36358569284ae174db49051"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRSRRT</b>&#160;&#160;&#160;4</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRSRRT</b>&#160;&#160;&#160;(4)</td></tr>
 <tr class="memitem:a2fda2c79c6638bf0c75ce50209da388a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2fda2c79c6638bf0c75ce50209da388a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRSRUP</b>&#160;&#160;&#160;5</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRSRUP</b>&#160;&#160;&#160;(5)</td></tr>
 <tr class="memitem:a01b2cacea568fc44982a68a31da8757f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a01b2cacea568fc44982a68a31da8757f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRSRDN</b>&#160;&#160;&#160;6</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRSRDN</b>&#160;&#160;&#160;(6)</td></tr>
 <tr class="memitem:a1ceb0e81b845fdcd1b8371e92229a13b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1ceb0e81b845fdcd1b8371e92229a13b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BEEP</b>&#160;&#160;&#160;7</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BEEP</b>&#160;&#160;&#160;(7)</td></tr>
 <tr class="memitem:a4f41e5dc4d1d256277cb259077da1fc6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4f41e5dc4d1d256277cb259077da1fc6"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BKSP</b>&#160;&#160;&#160;8</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BKSP</b>&#160;&#160;&#160;(8)</td></tr>
 <tr class="memitem:ad58a1fbfc85c7e4790fc55e654f50221"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad58a1fbfc85c7e4790fc55e654f50221"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>TAB</b>&#160;&#160;&#160;9</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>TAB</b>&#160;&#160;&#160;(9)</td></tr>
 <tr class="memitem:a4fc34b120ed3bd1120c1eb36abbcd6af"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4fc34b120ed3bd1120c1eb36abbcd6af"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NL</b>&#160;&#160;&#160;10</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NL</b>&#160;&#160;&#160;(10)</td></tr>
+<tr class="memitem:a350c9d6cb81908d59427ee96844d1a9c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a350c9d6cb81908d59427ee96844d1a9c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LF</b>&#160;&#160;&#160;(10)</td></tr>
 <tr class="memitem:ac2f56dd6f32ebc7b504090212600d922"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac2f56dd6f32ebc7b504090212600d922"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CLREOL</b>&#160;&#160;&#160;11</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CLREOL</b>&#160;&#160;&#160;(11)</td></tr>
 <tr class="memitem:a1cdb24d24f81764bea8c96fe07d48e0a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1cdb24d24f81764bea8c96fe07d48e0a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CLRDN</b>&#160;&#160;&#160;12</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CLRDN</b>&#160;&#160;&#160;(12)</td></tr>
 <tr class="memitem:a876ce77f3c672c7162658151e648389e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a876ce77f3c672c7162658151e648389e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CR</b>&#160;&#160;&#160;13</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CR</b>&#160;&#160;&#160;(13)</td></tr>
 <tr class="memitem:a3cf3d7ff85aa894ae161d3f7ced308f1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3cf3d7ff85aa894ae161d3f7ced308f1"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRSRX</b>&#160;&#160;&#160;14</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRSRX</b>&#160;&#160;&#160;(14)</td></tr>
 <tr class="memitem:af522fc6b22b3ec6d30fa9e5462d925e5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af522fc6b22b3ec6d30fa9e5462d925e5"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRSRY</b>&#160;&#160;&#160;15</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CRSRY</b>&#160;&#160;&#160;(15)</td></tr>
 <tr class="memitem:ada59561816893aa39c4aa41f1043c554"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ada59561816893aa39c4aa41f1043c554"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CLS</b>&#160;&#160;&#160;16</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CLS</b>&#160;&#160;&#160;(16)</td></tr>
 <tr class="memitem:a0a50888a81959bc58f01b49ec0f8c961"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0a50888a81959bc58f01b49ec0f8c961"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MSBPRE</b>&#160;&#160;&#160;0</td></tr>
 <tr class="memitem:acd0275a42546f7deb25aafca03ccadca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acd0275a42546f7deb25aafca03ccadca"></a>
@@ -137,12 +139,6 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a600a9d2d57b87e4de07362e7bc8ce567"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a600a9d2d57b87e4de07362e7bc8ce567"></a>
-typedef FILE *&#160;</td><td class="memItemRight" valign="bottom"><b>serial</b></td></tr>
-<tr class="memitem:a0fde0947297cca05572a81b6241f41ca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0fde0947297cca05572a81b6241f41ca"></a>
-typedef FILE *&#160;</td><td class="memItemRight" valign="bottom"><b>fdserial</b></td></tr>
-<tr class="memitem:af64c11eee9e70e858ed20be3f242d92d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af64c11eee9e70e858ed20be3f242d92d"></a>
-typedef FILE *&#160;</td><td class="memItemRight" valign="bottom"><b>sdcard</b></td></tr>
 <tr class="memitem:a9bdaf53a56557e2575e48b72ff84d6e8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9bdaf53a56557e2575e48b72ff84d6e8"></a>
 typedef I2C *&#160;</td><td class="memItemRight" valign="bottom"><b>i2c</b></td></tr>
 </table><table class="memberdecls">
@@ -222,18 +218,6 @@ Functions</h2></td></tr>
 <tr class="memdesc:a4fca5193934cbc3b7fce7bfca131302d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive data from a synchronous serial device.  <a href="#a4fca5193934cbc3b7fce7bfca131302d"></a><br/></td></tr>
 <tr class="memitem:a39f6cd6c7f7965e057926f92a9b2fa29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a39f6cd6c7f7965e057926f92a9b2fa29">shift_out</a> (int pinDat, int pinClk, int mode, int bits, int value)</td></tr>
 <tr class="memdesc:a39f6cd6c7f7965e057926f92a9b2fa29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data to a synchronous serial device.  <a href="#a39f6cd6c7f7965e057926f92a9b2fa29"></a><br/></td></tr>
-<tr class="memitem:a106470784d03cbcbc918f5a62a889652"><td class="memItemLeft" align="right" valign="top">FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a106470784d03cbcbc918f5a62a889652">sser_setTxRx</a> (int pinTxOut, int pinRxIn, int baudRate)</td></tr>
-<tr class="memdesc:a106470784d03cbcbc918f5a62a889652"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up a simple serial driver with transmit &amp; receive pins.  <a href="#a106470784d03cbcbc918f5a62a889652"></a><br/></td></tr>
-<tr class="memitem:a88025d2f86ef703c73f30576e211fb6f"><td class="memItemLeft" align="right" valign="top">FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a88025d2f86ef703c73f30576e211fb6f">sser_setTx</a> (int pinTxOut, int baudRate)</td></tr>
-<tr class="memdesc:a88025d2f86ef703c73f30576e211fb6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up a simple serial driver with just a transmit pin.  <a href="#a88025d2f86ef703c73f30576e211fb6f"></a><br/></td></tr>
-<tr class="memitem:ab7954045f2d39fd956e20d47a2ee0641"><td class="memItemLeft" align="right" valign="top">FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#ab7954045f2d39fd956e20d47a2ee0641">sser_setRx</a> (int pinRxIn, int baudRate)</td></tr>
-<tr class="memdesc:ab7954045f2d39fd956e20d47a2ee0641"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up a simple serial driver with just a receive pin.  <a href="#ab7954045f2d39fd956e20d47a2ee0641"></a><br/></td></tr>
-<tr class="memitem:aa2cfe3365bd2f06146d31ed4fc491b3d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#aa2cfe3365bd2f06146d31ed4fc491b3d">sser_close</a> (FILE *peripheral)</td></tr>
-<tr class="memdesc:aa2cfe3365bd2f06146d31ed4fc491b3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close a simple serial deiver.  <a href="#aa2cfe3365bd2f06146d31ed4fc491b3d"></a><br/></td></tr>
-<tr class="memitem:a4542ac1f21d9866a445f61bab86d0036"><td class="memItemLeft" align="right" valign="top">FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a4542ac1f21d9866a445f61bab86d0036">fdser_start</a> (int pinTxOut, int pinRxIn, int baudRate, int mode)</td></tr>
-<tr class="memdesc:a4542ac1f21d9866a445f61bab86d0036"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up a full duplex serial driver.  <a href="#a4542ac1f21d9866a445f61bab86d0036"></a><br/></td></tr>
-<tr class="memitem:aa93c25d4442eaaa831f6f3e29fbe172e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#aa93c25d4442eaaa831f6f3e29fbe172e">fdser_stop</a> (FILE *peripheral)</td></tr>
-<tr class="memdesc:aa93c25d4442eaaa831f6f3e29fbe172e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the serial driver.  <a href="#aa93c25d4442eaaa831f6f3e29fbe172e"></a><br/></td></tr>
 <tr class="memitem:a244c7d505410656d46f7c201073e2a28"><td class="memItemLeft" align="right" valign="top">I2C *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a244c7d505410656d46f7c201073e2a28">i2c_newbus</a> (int sclpin, int sdapin)</td></tr>
 <tr class="memdesc:a244c7d505410656d46f7c201073e2a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up an I2C bus.  <a href="#a244c7d505410656d46f7c201073e2a28"></a><br/></td></tr>
 <tr class="memitem:a081f694149df3ff45e1d5f0dcb00b87e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a081f694149df3ff45e1d5f0dcb00b87e">ee_put_byte</a> (char value, int addr)</td></tr>
@@ -283,20 +267,20 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>buscnt</b></t
  <br/>
  dac_ctr, square_wave, and all pwm functions, are currently only supported by the LMM and CMM memory models. </p>
 <dl class="section author"><dt>Author</dt><dd>Andy Lindsay</dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.91 (see details for more info)</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.92 (see details for more info)</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.</dd></dl>
 <p>This (under development) library provides a set of introductory functions that simplify:</p>
 <ul>
 <li>I/O control - convenient I/O pin monitoring and control functions </li>
 <li>Timing - Delays, timeouts </li>
 <li>Timed I/O - pulse generation/measurement, square waves, transition counting, RC decay, etc. </li>
-<li>Analog - D/A conversion, PWM, and more. </li>
-<li>Serial Communication - SPI, I2C, asynchronous serial </li>
+<li>Analog - D/A conversion, PWM, and more.  A/D conversion see ...Learn/Simple Libraries/Convert for A/D conversion libraries </li>
+<li>Serial Communication - SPI, I2C  half and full duplex asynchronous serial communication, see ...Learn/Simple Libraries/Text Devices </li>
 <li>Memory - EEPROM, SD storage</li>
 </ul>
 <p>Applications include: monitoring, control and communication with simple peripherals, like lights, buttons, dials, motors, peripheral integrated circuits and prototyping with simple systems that use pulse, or serial communication. (A few examples from the very large list of devices includes: servos, ultrasonic distance sensors, accelerometers, serial liquid crystal, display, etc.)</p>
 <p>Intended use: Accompanies introductory electronics, robotics and programming lessons and projects on learn.parallax.com. After these lessons, bridge lessons will be added to familiarize the programmer with standard practices used by the community for adding libraries to support and endless variety of peripherals and applications.</p>
-<p>Revision 0.91 shift_in function pre-clock mode bug fixed. </p>
+<p>Revision 0.91 shift_in function pre-clock mode bug fixed. Revision 0.92 Simpletext functionality incorporated for use of character and string I/O with both terminal and peripheral devices. Simple Text folder replaces PropGCC serial driver support for simple and full duplex serial peripherals. </p>
 </div><h2>Macro Definition Documentation</h2>
 <a class="anchor" id="af9241e417ac6f468979cc60b0263d49f"></a>
 <div class="memitem">
@@ -722,85 +706,6 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>buscnt</b></t
     <tr><td class="paramname">s</td><td>Address of a char array containing the string of bytes.</td></tr>
     <tr><td class="paramname">n</td><td>The number of bytes to copy from the array.</td></tr>
     <tr><td class="paramname">addr</td><td>The EEPROM address of the first byte in the string. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a4542ac1f21d9866a445f61bab86d0036"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FILE* fdser_start </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>pinTxOut</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>pinRxIn</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>baudRate</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>mode</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set up a full duplex serial driver. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pinTxOut</td><td>transmitting output pin.</td></tr>
-    <tr><td class="paramname">pinRxIn</td><td>receiving input pin.</td></tr>
-    <tr><td class="paramname">baudRate</td><td>in bits per second.</td></tr>
-    <tr><td class="paramname">mode</td><td>A 4-bit binary value. Each digit (bit) can be set to specify one of the behaviors listed below. For example, 0b0011 inverts Tx and Rx because bits 1 and 0 are set to 1.</td></tr>
-  </table>
-  </dd>
-</dl>
-<div class="fragment"><div class="line">mode bit 0 = invert Rx---------------------| </div>
-<div class="line">mode bit 1 = invert Tx--------------------||</div>
-<div class="line">mode bit 2 = open-drain/source Tx--------||| </div>
-<div class="line">mode bit 3 = ignore Tx echo on Rx-------||||</div>
-<div class="line">                                      0b1111</div>
-</div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>a file pointer that you can pass to functions like fptrintf. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aa93c25d4442eaaa831f6f3e29fbe172e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int fdser_stop </td>
-          <td>(</td>
-          <td class="paramtype">FILE *&#160;</td>
-          <td class="paramname"><em>peripheral</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Stop the serial driver. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">peripheral</td><td>the file pointer fdser_start returned. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1914,151 +1819,6 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>buscnt</b></t
 
 </div>
 </div>
-<a class="anchor" id="aa2cfe3365bd2f06146d31ed4fc491b3d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int sser_close </td>
-          <td>(</td>
-          <td class="paramtype">FILE *&#160;</td>
-          <td class="paramname"><em>peripheral</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Close a simple serial deiver. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">peripheral</td><td>the name of the simple serial driver’s file pointer. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="ab7954045f2d39fd956e20d47a2ee0641"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FILE* sser_setRx </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>pinRxIn</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>baudRate</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set up a simple serial driver with just a receive pin. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pinRxIn</td><td>receiving input pin.</td></tr>
-    <tr><td class="paramname">baudRate</td><td>rate in bits per second.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>a file pointer that you can pass to functions like fptrintf. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a88025d2f86ef703c73f30576e211fb6f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FILE* sser_setTx </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>pinTxOut</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>baudRate</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set up a simple serial driver with just a transmit pin. </p>
-<p>Example:</p>
-<div class="fragment"><div class="line">serial lcd = <a class="code" href="simpletools_8h.html#a88025d2f86ef703c73f30576e211fb6f" title="Set up a simple serial driver with just a transmit pin.">sser_setTx</a>(11, 9600);    <span class="comment">// Serial driver transmits on P11</span></div>
-<div class="line">fputc(22, LCD);                       <span class="comment">// Transmit 22</span></div>
-<div class="line">fputc(12, lcd);                       <span class="comment">// Transmit 12 </span></div>
-<div class="line"><a class="code" href="simpletools_8h.html#a381e2d58c3d6a1f0fd8129bcc4726804" title="Delay cog from moving on to the next statement for a certain amount of time.">pause</a>(5);                             <span class="comment">// Wait 5 ms</span></div>
-<div class="line">fptrintf(lcd, <span class="stringliteral">&quot;Hello!!!&quot;</span>);            <span class="comment">// Transmit a string</span></div>
-</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pinTxOut</td><td>transmitting output pin.</td></tr>
-    <tr><td class="paramname">baudRate</td><td>rate in bits per second.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>a file pointer that you can pass to functions like fptrintf. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a106470784d03cbcbc918f5a62a889652"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FILE* sser_setTxRx </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>pinTxOut</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>pinRxIn</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>baudRate</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set up a simple serial driver with transmit &amp; receive pins. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pinTxOut</td><td>transmitting output pin.</td></tr>
-    <tr><td class="paramname">pinRxIn</td><td>receiving input pin.</td></tr>
-    <tr><td class="paramname">baudRate</td><td>rate in bits per second.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>a file pointer that you can pass to functions like fptrintf. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="aba16632261a1faa89b62c8d7d11b45cc"></a>
 <div class="memitem">
 <div class="memproto">
@@ -2138,7 +1898,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>buscnt</b></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon May 27 2013 16:01:01 for simpletools library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 15 2013 16:15:43 for simpletools library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

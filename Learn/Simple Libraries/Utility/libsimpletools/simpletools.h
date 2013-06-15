@@ -3,7 +3,7 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.91 (see details for more info)
+ * @version 0.92 (see details for more info)
  *
  * @copyright
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
@@ -23,8 +23,12 @@
  * @li Timing - Delays, timeouts
  * @li Timed I/O - pulse generation/measurement, square waves, transition
  * counting, RC decay, etc.
- * @li Analog - D/A conversion, PWM, and more.
- * @li Serial Communication - SPI, I2C, asynchronous serial
+ * @li Analog - D/A conversion, PWM, and more.  
+ * @nFor A/D conversion see ...Learn/Simple Libraries/Convert
+ * for A/D conversion libraries
+ * @li Serial Communication - SPI, I2C
+ * @nFor half and full duplex asynchronous serial communication, see 
+ * ...Learn/Simple Libraries/Text Devices
  * @li Memory - EEPROM, SD storage
  *
  * Applications include: monitoring, control and
@@ -43,6 +47,10 @@
  * and applications.
  *
  * Revision 0.91 shift_in function pre-clock mode bug fixed.
+ * Revision 0.92 Simpletext functionality incorporated for use of
+ * character and string I/O with both terminal and peripheral devices.
+ * Simple Text folder replaces PropGCC serial driver support for simple
+ * and full duplex serial peripherals.  
  */
 
 #ifndef SIMPLETOOLS_H
@@ -85,46 +93,96 @@ extern unsigned int buscnt;
 #define EEPROM_ADDR	 0xA0
 #endif
 
-/*
-// Values for use with SimpleIDE Terminal
-#define HOME   1
-#define CRSRXY 2
-#define CRSRLF 3
-#define CRSRRT 4
-#define CRSRUP 5
-#define CRSRDN 6
-#define BEEP   7
-#define BKSP   8
-#define TAB    9
-#define NL     10
-#define CLREOL 11
-#define CLRDN  12
-#define CR     13
-#define CRSRX  14
-#define CRSRY  15
-#define CLS    16
-*/
+/* Values for use with SimpleIDE Terminal */
+#ifndef HOME
+#define HOME   (1)
+#endif
+#ifndef CRSRXY
+#define CRSRXY (2)
+#endif
+#ifndef CRSRLF
+#define CRSRLF (3)
+#endif
+#ifndef CRSRRT
+#define CRSRRT (4)
+#endif
+#ifndef CRSRUP
+#define CRSRUP (5)
+#endif
+#ifndef CRSRDN
+#define CRSRDN (6)
+#endif
+#ifndef BEEP
+#define BEEP   (7)
+#endif
+#ifndef BKSP
+#define BKSP   (8)
+#endif
+#ifndef TAB
+#define TAB    (9)
+#endif
+#ifndef NL
+#define NL     (10)
+#endif
+#ifndef LF
+#define LF     (10)
+#endif
+#ifndef CLREOL
+#define CLREOL (11)
+#endif
+#ifndef CLRDN
+#define CLRDN  (12)
+#endif
+#ifndef CR
+#define CR     (13)
+#endif
+#ifndef CRSRX
+#define CRSRX  (14)
+#endif
+#ifndef CRSRY
+#define CRSRY  (15)
+#endif
+#ifndef CLS
+#define CLS    (16)
+#endif
+
 
 // Values for use with shift_in
+#ifndef   MSBPRE     
 #define   MSBPRE     0
+#endif
+#ifndef   LSBPRE     
 #define   LSBPRE     1
+#endif
+#ifndef   MSBPOST    
 #define   MSBPOST    2
+#endif
+#ifndef   LSBPOST    
 #define   LSBPOST    3
+#endif
   
 // Values for use with shift_out
+#ifndef   LSBFIRST   
 #define   LSBFIRST   0
+#endif
+
+#ifndef   MSBFIRST   
 #define   MSBFIRST   1
+#endif
 
 // Counter module values
 #ifndef NCO_PWM_1
 #define NCO_PWM_1 (0b00100 << 26)
 #endif
+
 #ifndef CTR_NCO
 #define CTR_NCO (0b100 << 26)
 #endif
+
 #ifndef CTR_PLL
 #define CTR_PLL (0b10 << 26)
 #endif
+
 #ifndef DUTY_SE
 #define DUTY_SE (0b110 << 26)
 #endif
@@ -132,7 +190,7 @@ extern unsigned int buscnt;
 // Define types for simplified driver declarations
 //typedef FILE* serial;
 //typedef FILE* fdserial;
-typedef FILE* sdcard;
+//typedef FILE* sdcard;
 typedef I2C* i2c;
 
 /**
@@ -672,90 +730,6 @@ int shift_in(int pinDat, int pinClk, int mode, int bits);
 * @param value to transmit
 */
 void shift_out(int pinDat, int pinClk, int mode, int bits, int value);
-
-/**
- * @brief Set up a simple serial driver with transmit & receive pins.
- *
- * @param pinTxOut transmitting output pin.
- *
- * @param pinRxIn receiving input pin.
- *
- * @param baudRate rate in bits per second.
- *
- * @returns a file pointer that you can pass to functions like fptrintf.
- */
-FILE* sser_setTxRx(int pinTxOut, int pinRxIn, int baudRate);
-
-/**
- * @brief Set up a simple serial driver with just a transmit pin.
- *
- * @details Example:
- *
- *   @code
- *   serial lcd = sser_setTx(11, 9600);    // Serial driver transmits on P11
- *   fputc(22, LCD);                       // Transmit 22
- *   fputc(12, lcd);                       // Transmit 12 
- *   pause(5);                             // Wait 5 ms
- *   fptrintf(lcd, "Hello!!!");            // Transmit a string
- *   @endcode
- *
- * @param pinTxOut transmitting output pin.
- *
- * @param baudRate rate in bits per second.
- *
- * @returns a file pointer that you can pass to functions like fptrintf.
- */
-FILE* sser_setTx(int pinTxOut, int baudRate);
-
-/**
- * @brief Set up a simple serial driver with just a receive pin.
- *
- * @param pinRxIn receiving input pin.
- *
- * @param baudRate rate in bits per second.
- *
- * @returns a file pointer that you can pass to functions like fptrintf.
- */
-FILE* sser_setRx(int pinRxIn, int baudRate);
-
-/**
- * @brief Close a simple serial deiver.
- *
- * @param peripheral the name of the simple serial driver’s file pointer.
- */
-int sser_close(FILE* peripheral);
-
-/**
- * @brief Set up a full duplex serial driver.
- *
- * @param pinTxOut transmitting output pin.
- *
- * @param pinRxIn receiving input pin.
- *
- * @param baudRate in bits per second.
- *
- * @param mode A 4-bit binary value. Each digit (bit) can be set to specify 
- * one of the behaviors listed below. For example, 0b0011 inverts Tx and Rx
- * because bits 1 and 0 are set to 1.
- *
- * @code
- * mode bit 0 = invert Rx---------------------| 
- * mode bit 1 = invert Tx--------------------||
- * mode bit 2 = open-drain/source Tx--------||| 
- * mode bit 3 = ignore Tx echo on Rx-------||||
- *                                       0b1111
- * @endcode
- *
- * @returns a file pointer that you can pass to functions like fptrintf.
- */
-FILE* fdser_start(int pinTxOut, int pinRxIn, int baudRate, int mode);
-
-/**
- * @brief Stop the serial driver.
- *
- * @param peripheral the file pointer fdser_start returned.
- */
-int fdser_stop(FILE* peripheral);
 
 /**
  * @brief Set up an I2C bus.

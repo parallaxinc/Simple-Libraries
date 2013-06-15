@@ -33,9 +33,7 @@ source/toggle.c
 source/wait.c
 source/addfiledriver.c
 source/sddriverconfig.c
-source/fullduplexserial.c
 source/itoa.c
-source/simpleserial.c
 simpletools.h
 source/i2cinit.c
 freqout.c -> source/freqout.c
@@ -44,7 +42,7 @@ fpucog.c -> source/fpucog.c
 -I ../../Text Devices/libsimpletext
 -L ../../Text Devices/libsimpletext
 >compiler=C
->memtype=xmm-split external flash code + ram data
+>memtype=xmmc external flash code main ram data
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions
