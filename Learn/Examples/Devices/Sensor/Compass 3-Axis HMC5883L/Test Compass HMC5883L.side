@@ -1,0 +1,16 @@
+Test Compass HMC5883L.c
+-I ../../../../Simple Libraries/Utility/libsimpletools
+-L ../../../../Simple Libraries/Utility/libsimpletools
+-I ../../../../Simple Libraries/Sensor/libcompass3d
+-L ../../../../Simple Libraries/Sensor/libcompass3d
+-I ../../../../Simple Libraries/Text Devices/libsimpletext
+-L ../../../../Simple Libraries/Text Devices/libsimpletext
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>defs::-std=c99
+>-lm
+>linker::-lsimpletools -lcompass3d -lsimpletext
+>BOARD::ACTIVITYBOARD

@@ -1,0 +1,13 @@
+EEPROM Data.c
+-I ../../../Simple Libraries/Utility/libsimpletools
+-L ../../../Simple Libraries/Utility/libsimpletools
+-I ../../../Simple Libraries/Text Devices/libsimpletext
+-L ../../../Simple Libraries/Text Devices/libsimpletext
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>defs::-std=c99
+>linker::-lsimpletools -lsimpletext
+>BOARD::ACTIVITYBOARD

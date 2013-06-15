@@ -1,0 +1,53 @@
+libsimpletools.c
+-I include
+source/count.c
+source/dac.c
+source/getDirection.c
+source/getOutput.c
+source/getOutputs.c
+source/getState.c
+source/getStates.c
+source/getDirections.c
+source/high.c
+source/input.c
+source/low.c
+source/mark.c
+source/pause.c
+source/pulseIn.c
+source/pulseOut.c
+source/pwm.c
+source/rcTime.c
+source/reverse.c
+source/setDirection.c
+source/setDirections.c
+source/setIoDt.c
+source/setOutput.c
+source/setOutputs.c
+source/setPauseDt.c
+source/setTimeout.c
+source/shiftIn.c
+source/shiftOut.c
+source/squareWave.c
+source/timeout.c
+source/toggle.c
+source/wait.c
+source/addfiledriver.c
+source/sddriverconfig.c
+source/fullduplexserial.c
+source/itoa.c
+source/simpleserial.c
+simpletools.h
+source/i2cinit.c
+freqout.c -> source/freqout.c
+eeprom.c -> source/eeprom.c
+fpucog.c -> source/fpucog.c
+-I ../../Text Devices/libsimpletext
+-L ../../Text Devices/libsimpletext
+>compiler=C
+>memtype=xmm-split external flash code + ram data
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>-create_library
+>linker::-lsimpletext
+>BOARD::ACTIVITYBOARD

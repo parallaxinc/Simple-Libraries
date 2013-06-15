@@ -1,0 +1,14 @@
+libvgatext.c
+vgatext.c
+vga.c
+vgatext.h
+-I ../../Utility/libsimpletools
+-L ../../Utility/libsimpletools
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-fno-exceptions
+>defs::-std=c99
+>-create_library
+>linker::-lsimpletools
+>BOARD::PROPBOE

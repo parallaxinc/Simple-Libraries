@@ -1,0 +1,13 @@
+libcompass3d.c
+-I ../../Utility/libsimpletools
+-L ../../Utility/libsimpletools
+compass3d.c
+compass3d.h
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>-create_library
+>linker::-lsimpletools
+>BOARD::ACTIVITYBOARD
