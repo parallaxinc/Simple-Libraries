@@ -1,43 +1,12 @@
 /**
- * @file SimpleSerial.c
- * Defines the SimpleSerial module
+ * @file serial.c
+ * Defines the serial receive and transmit routines.
  *
  * Copyright (c) 2013, Parallax Inc.
  * Written by Steve Denson
  */
-#include <stdlib.h>
 #include <propeller.h>
 #include "serial.h"
-
-serial *serial_open(int rxpin, int txpin, int mode, int baudrate)
-{
-  Serial_t *serptr;
-
-  /* can't use array instead of malloc because it would go out of scope. */
-  text_t* text = (text_t*) malloc(sizeof(text_t));
-
-  /* set pins first for boards that can misbehave intentionally like the Quickstart */
-  DIRA |=  (1<<txpin);
-  OUTA |=  (1<<txpin);
-  DIRA &= ~(1<<rxpin);
-
-  //memset(text, 0, sizeof(text_t));
-  serptr = (Serial_t*) malloc(sizeof(Serial_t));
-  text->devst = serptr;
-  //memset((char*)serptr, 0, sizeof(Serial_t));
-  
-  text->txChar    = serial_txChar;     /* required for terminal to work */
-  text->rxChar    = serial_rxChar;     /* required for terminal to work */
-
-  serptr->rx_pin  = rxpin; /* recieve pin */
-  serptr->tx_pin  = txpin; /* transmit pin*/
-  serptr->mode    = mode;
-  serptr->baud    = baudrate;
-  serptr->ticks   = CLKFREQ/baudrate; /* baud from clkfreq (cpu clock typically 80000000 for 5M*pll16x) */
-
-  waitcnt(CLKFREQ/2+CNT);
-  return text;
-}
 
 __attribute__((fcache)) static int _inbyte(int bitcycles, int cycle1, int rxmask, int value)
 {
@@ -138,5 +107,3 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 +--------------------------------------------------------------------
 */
-
-

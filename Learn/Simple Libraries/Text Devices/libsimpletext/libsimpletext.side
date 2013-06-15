@@ -35,7 +35,6 @@ putLine.c
 writeLine.c
 simpletext.h
 serial.h
-serial.c
 simpleterm.c
 simpleterm_close.c
 serial_close.c
@@ -44,12 +43,14 @@ dprint.c
 dscan.c
 print.c
 scan.c
+serial_open.c
+serial_rxtx.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-Wall
 >-fno-exceptions
->defs::-std=c99
+>defs::-std=c99 
 >-create_library
 >BOARD::ACTIVITYBOARD

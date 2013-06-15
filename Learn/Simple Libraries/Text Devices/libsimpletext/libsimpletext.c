@@ -7,11 +7,6 @@
  */
 #include "serial.h"
 
-/*
- * global serial module pointer - can be local.
- */
-HUBDATA serial *text;
-
 int main(void)
 {
   int   n;
@@ -24,11 +19,18 @@ int main(void)
   float fval2 = 1.4;
   float e = 2.71828184590;
 
+  /*
+   * global serial module pointer - can be local.
+   */
+  serial *text;
+
   /* no need to wait for terminal startup.
    * delay is done in the default serial open function. */
 
   /* traditional hello message. */
   putln("Hello, world!");
+
+#if MORETESTING
 
   sprint(sval,"Toast Test");
   putln(sval);
@@ -152,6 +154,8 @@ int main(void)
   
   writeLine(text, "All done.");
   serial_close(text);
+
+#endif
 
   return 0;
 }
