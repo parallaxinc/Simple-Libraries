@@ -27,5 +27,5 @@
 int main()                                    // Main function
 {
   pause(1000);                                // Wait 1 s for terminal software
-  printf("Hello!");                           // Display test message
+  print("Hello!");                            // Display test message
 }
