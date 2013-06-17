@@ -1,6 +1,6 @@
 /**
  * @file fdserial.h
- * Full Duplex Serial adapter API definition.
+ * @brief Full Duplex Serial adapter API definition.
  *
  * Copyright (c) 2008-2013, Steve Denson
  * See end of file for terms of use.
@@ -48,7 +48,7 @@ typedef struct fdserial_struct
 } fdserial_st;
 
 /**
- * start initializes and starts native assembly driver in a cog. 
+ * @brief Initializes and starts native assembly driver in a cog. 
  * @param rxpin is pin number for receive input
  * @param txpin is pin number for transmit output
  * @param mode is interface mode
@@ -56,51 +56,60 @@ typedef struct fdserial_struct
  * @returns non-zero on success
  */
 fdserial *fdserial_open(int rxpin, int txpin, int mode, int baudrate);
+
 /**
- * stop stops the cog running the native assembly driver 
+ * @brief Stop stops the cog running the native assembly driver 
  */
 void fdserial_close(fdserial *term);
+
 /**
- * rxcheck gets a byte from the receive queue if available
+ * @brief Gets a byte from the receive queue if available
  * function does not block.
  * @returns receive byte 0 to 0xff or -1 if none available 
  */
 int  fdserial_rxCheck(fdserial *term);
+
 /**
- * rxflush empties the receive queue 
+ * @brief Empties the receive queue 
  */
 void fdserial_rxFlush(fdserial *term);
+
 /**
- * Find out if a byte is ready in the receive buffer.
+ * @brief Find out if a byte is ready in the receive buffer.
  * The function does not block.
  * @returns non-zero if byte ready. Does not return received byte.
  */
 int  fdserial_rxReady(fdserial *term);
+
 /**
- * rxtime gets a byte from the receive queue if available by timeout
+ * @brief Gets a byte from the receive queue if available by timeout
  * function blocks if no recieve for ms timeout.
  * @param ms is number of milliseconds to wait for a char
  * @returns receive byte 0 to 0xff or -1 if none available 
  */
 int  fdserial_rxTime(fdserial *term, int ms);
+
 /**
- * rx waits for a byte from the receive queue. blocks until somehting is ready
+ * @brief Waits for a byte from the receive queue. blocks until somehting is ready
  * @returns received byte 
  */
 int  fdserial_rxChar(fdserial *term);
+
 /**
- * Sends a byte on the transmit queue.
+ * @brief Sends a byte on the transmit queue.
  * @param txbyte is byte to send. 
  * @returns waits for and returns received byte if mode is 8 
  */
 int  fdserial_txChar(fdserial *term, int txbyte);
+
 /**
- * Find out if the tx queue is empty.
+ * @brief Find out if the tx queue is empty.
  * @returns non-zero if tx buffer is empty.
  */
 int  fdserial_txEmpty(fdserial *term);
+
 /**
- * Flush the transmit queue.
+ * @brief Flush the transmit queue.
  */
 void fdserial_txFlush(fdserial *term);
 

@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "fdserial.h"
 
-/**
+/*
  * start initializes and starts native assembly driver in a cog.
  * @param rxpin is pin number for receive input
  * @param txpin is pin number for transmit output
@@ -62,7 +62,7 @@ fdserial *fdserial_open(int rxpin, int txpin, int mode, int baudrate)
   return term;
 }
 
-/**
+/*
  * stop stops the cog running the native assembly driver 
  */
 void fdserial_close(fdserial *term)
@@ -82,7 +82,7 @@ void fdserial_close(fdserial *term)
   term = 0;
 }
 
-/**
+/*
  * checks if anything is in the tx queue
  */
 int fdserial_txEmpty(fdserial *term)
@@ -91,7 +91,7 @@ int fdserial_txEmpty(fdserial *term)
   return fdp->tx_tail == fdp->tx_head;
 }
 
-/**
+/*
  * Gets a byte from the receive queue if available
  * Function does not block. We move rxtail after getting char.
  * @returns receive byte 0 to 0xff or -1 if none available 
@@ -110,7 +110,7 @@ int fdserial_rxCheck(fdserial *term)
   return rc;
 }
 
-/**
+/*
  * Wait for a byte from the receive queue. blocks until something is ready.
  * @returns received byte 
  */
@@ -122,7 +122,7 @@ int fdserial_rxChar(fdserial *term)
   return rc;
 }
 
-/**
+/*
  * tx sends a byte on the transmit queue.
  * @param txbyte is byte to send. 
  */

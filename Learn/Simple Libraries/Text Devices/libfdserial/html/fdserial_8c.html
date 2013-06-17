@@ -54,33 +54,23 @@
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a43ff539c64dfbb0f2f95403a4c746788"><td class="memItemLeft" align="right" valign="top">fdserial *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fdserial_8c.html#a43ff539c64dfbb0f2f95403a4c746788">fdserial_open</a> (int rxpin, int txpin, int mode, int baudrate)</td></tr>
-<tr class="memitem:a985817e84fdaf4720c9e03ec77ad8806"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fdserial_8c.html#a985817e84fdaf4720c9e03ec77ad8806">fdserial_close</a> (fdserial *term)</td></tr>
+<tr class="memdesc:a43ff539c64dfbb0f2f95403a4c746788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes and starts native assembly driver in a cog.  <a href="#a43ff539c64dfbb0f2f95403a4c746788"></a><br/></td></tr>
+<tr class="memitem:a985817e84fdaf4720c9e03ec77ad8806"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a985817e84fdaf4720c9e03ec77ad8806"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fdserial_8c.html#a985817e84fdaf4720c9e03ec77ad8806">fdserial_close</a> (fdserial *term)</td></tr>
+<tr class="memdesc:a985817e84fdaf4720c9e03ec77ad8806"><td class="mdescLeft">&#160;</td><td class="mdescRight">stop stops the cog running the native assembly driver <br/></td></tr>
 <tr class="memitem:a284f42357a5f6b00e1bad4b41d64a56f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fdserial_8c.html#a284f42357a5f6b00e1bad4b41d64a56f">fdserial_txEmpty</a> (fdserial *term)</td></tr>
+<tr class="memdesc:a284f42357a5f6b00e1bad4b41d64a56f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find out if the tx queue is empty.  <a href="#a284f42357a5f6b00e1bad4b41d64a56f"></a><br/></td></tr>
 <tr class="memitem:a5a0fddf660282e5cc10ffff2e6e87070"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fdserial_8c.html#a5a0fddf660282e5cc10ffff2e6e87070">fdserial_rxCheck</a> (fdserial *term)</td></tr>
+<tr class="memdesc:a5a0fddf660282e5cc10ffff2e6e87070"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a byte from the receive queue if available function does not block.  <a href="#a5a0fddf660282e5cc10ffff2e6e87070"></a><br/></td></tr>
 <tr class="memitem:afde60905b34d7f6c9b338bf08e843fe0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fdserial_8c.html#afde60905b34d7f6c9b338bf08e843fe0">fdserial_rxChar</a> (fdserial *term)</td></tr>
+<tr class="memdesc:afde60905b34d7f6c9b338bf08e843fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits for a byte from the receive queue. blocks until somehting is ready.  <a href="#afde60905b34d7f6c9b338bf08e843fe0"></a><br/></td></tr>
 <tr class="memitem:a1205e361a4088556d4347cdc0d78079b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fdserial_8c.html#a1205e361a4088556d4347cdc0d78079b">fdserial_txChar</a> (fdserial *term, int txbyte)</td></tr>
+<tr class="memdesc:a1205e361a4088556d4347cdc0d78079b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a byte on the transmit queue.  <a href="#a1205e361a4088556d4347cdc0d78079b"></a><br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Full Duplex Serial adapter module.</p>
 <p>Copyright (c) 2008-2013, Steve Denson See end of file for terms of use. </p>
 </div><h2>Function Documentation</h2>
-<a class="anchor" id="a985817e84fdaf4720c9e03ec77ad8806"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void fdserial_close </td>
-          <td>(</td>
-          <td class="paramtype">fdserial *&#160;</td>
-          <td class="paramname"><em>term</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>stop stops the cog running the native assembly driver </p>
-
-</div>
-</div>
 <a class="anchor" id="a43ff539c64dfbb0f2f95403a4c746788"></a>
 <div class="memitem">
 <div class="memproto">
@@ -116,12 +106,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>start initializes and starts native assembly driver in a cog. </p>
+
+<p>Initializes and starts native assembly driver in a cog. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">rxpin</td><td>is pin number for receive input </td></tr>
     <tr><td class="paramname">txpin</td><td>is pin number for transmit output </td></tr>
-    <tr><td class="paramname">mode</td><td>is interface mode. see header FDSERIAL_MODE_... </td></tr>
+    <tr><td class="paramname">mode</td><td>is interface mode </td></tr>
     <tr><td class="paramname">baudrate</td><td>is frequency of bits ... 115200, 57600, etc... </td></tr>
   </table>
   </dd>
@@ -143,7 +134,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Wait for a byte from the receive queue. blocks until something is ready. </p>
+
+<p>Waits for a byte from the receive queue. blocks until somehting is ready. </p>
 <dl class="section return"><dt>Returns</dt><dd>received byte </dd></dl>
 
 </div>
@@ -161,7 +153,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Gets a byte from the receive queue if available Function does not block. We move rxtail after getting char. </p>
+
+<p>Gets a byte from the receive queue if available function does not block. </p>
 <dl class="section return"><dt>Returns</dt><dd>receive byte 0 to 0xff or -1 if none available </dd></dl>
 
 </div>
@@ -189,13 +182,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>tx sends a byte on the transmit queue. </p>
+
+<p>Sends a byte on the transmit queue. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">txbyte</td><td>is byte to send. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>waits for and returns received byte if mode is 8 </dd></dl>
 
 </div>
 </div>
@@ -212,14 +207,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>checks if anything is in the tx queue </p>
+
+<p>Find out if the tx queue is empty. </p>
+<dl class="section return"><dt>Returns</dt><dd>non-zero if tx buffer is empty. </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 15 2013 15:40:42 for fdserial library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 17 2013 16:09:27 for fdserial library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
