@@ -61,7 +61,9 @@ extern "C" {
 #endif
 
 #include <propeller.h>
+#if defined(__SimpleTEXT__)
 #include "simpletext.h"
+#endif
 #include <driver.h>
 #include <stdio.h>
 #include <stdlib.h>
