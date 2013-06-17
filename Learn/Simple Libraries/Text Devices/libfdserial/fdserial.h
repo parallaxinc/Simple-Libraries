@@ -91,7 +91,7 @@ int  fdserial_rxTime(fdserial *term, int ms);
 
 /**
  * @brief Waits for a byte from the receive queue. blocks until somehting is ready
- * @returns received byte 
+ * @returns received byte. 
  */
 int  fdserial_rxChar(fdserial *term);
 
