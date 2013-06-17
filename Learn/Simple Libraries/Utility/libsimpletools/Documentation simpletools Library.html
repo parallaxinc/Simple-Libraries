@@ -17,7 +17,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">simpletools library
-   &#160;<span id="projectnumber">v0.8</span>
+   &#160;<span id="projectnumber">v0.92</span>
    </div>
    <div id="projectbrief">Collection of convenience functions for common microcontroller tasks</div>
   </td>
@@ -51,14 +51,11 @@
 </div><!--header-->
 <div class="contents">
 
-<p>This library provides convenience functions for a variety of microcontroller I/O, timing, conversion, and communication tasks. <br/>
- <br/>
- <b><em>CONSTRUCTION ZONE:</em></b> This library is still preliminary, revisions pending. <br/>
- <br/>
- dac_ctr, square_wave, and all pwm functions, are currently only supported by the LMM and CMM memory models.  
+<p>This library provides convenience functions for a variety of microcontroller I/O, timing, conversion, and communication tasks. This library also includes (and you can call functions from) <a href="html/../../../Text%20Devices/libsimpletext/
+Documentation%20simpletext%20Library.html" target="blank">simpletext</a> and <a href="html/../../../Text%20Devices/libsimpletext/
+Documentation%20serial%20Library.html" target="blank">serial</a>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;propeller.h&gt;</code><br/>
-<code>#include &quot;simpletext.h&quot;</code><br/>
 <code>#include &lt;driver.h&gt;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;stdlib.h&gt;</code><br/>
@@ -261,14 +258,16 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>fdserDriverIndex</b></
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>buscnt</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>This library provides convenience functions for a variety of microcontroller I/O, timing, conversion, and communication tasks. <br/>
- <br/>
- <b><em>CONSTRUCTION ZONE:</em></b> This library is still preliminary, revisions pending. <br/>
- <br/>
- dac_ctr, square_wave, and all pwm functions, are currently only supported by the LMM and CMM memory models. </p>
+<div class="textblock"><p>This library provides convenience functions for a variety of microcontroller I/O, timing, conversion, and communication tasks. This library also includes (and you can call functions from) <a href="html/../../../Text%20Devices/libsimpletext/
+Documentation%20simpletext%20Library.html" target="blank">simpletext</a> and <a href="html/../../../Text%20Devices/libsimpletext/
+Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 <dl class="section author"><dt>Author</dt><dd>Andy Lindsay</dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.92 (see details for more info)</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.</dd></dl>
+<p><b>NOTE:</b> If you want to update old projects to work with this version of simpletools, you may need to manually use the Add Simple Library button to add .../SimpleIDE/Learn/Text Devices/libsimpletext.</p>
+<p><b><em>CONSTRUCTION ZONE:</em></b> This library is still preliminary, revisions pending. <br/>
+ <br/>
+ dac_ctr, square_wave, and all pwm functions, are currently only supported by the LMM and CMM memory models.</p>
 <p>This (under development) library provides a set of introductory functions that simplify:</p>
 <ul>
 <li>I/O control - convenient I/O pin monitoring and control functions </li>
@@ -1898,7 +1897,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>buscnt</b></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 15 2013 16:15:43 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Mon Jun 17 2013 15:27:16 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

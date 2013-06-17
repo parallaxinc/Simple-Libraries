@@ -10,8 +10,19 @@
  *
  * @brief This library provides convenience functions 
  * for a variety of microcontroller I/O, timing, conversion, and 
- * communication tasks.
- * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is still preliminary, 
+ * communication tasks.  This library also includes (and you can 
+ * call functions from) 
+ * <a target="blank" href="../../../Text%20Devices/libsimpletext/
+ * Documentation%20simpletext%20Library.html">simpletext</a> 
+ * and
+ * <a target="blank" href="../../../Text%20Devices/libsimpletext/
+ * Documentation%20serial%20Library.html">serial</a>.  
+ *
+ * <b>NOTE:</b> If you want to update old projects to work with this version
+ * of simpletools, you may need to manually use the Add Simple Library button
+ * to add .../SimpleIDE/Learn/Text Devices/libsimpletext.  
+ *
+ * <b><i>CONSTRUCTION ZONE:</i></b> This library is still preliminary, 
  * revisions pending.
  * @n @n dac_ctr, square_wave, and all pwm functions, are currently  
  * only supported by the LMM and CMM memory models.  
