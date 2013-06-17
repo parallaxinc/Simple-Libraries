@@ -8,7 +8,7 @@
 #include <propeller.h>
 #include "fdserial.h"
 
-/**
+/*
  * rxflush empties the receive queue 
  */
 void fdserial_rxFlush(fdserial *term)
@@ -17,7 +17,7 @@ void fdserial_rxFlush(fdserial *term)
       ; // clear out queue by receiving all available 
 }
 
-/**
+/*
  * Check if a byte is available in the buffer.
  * Function does not block.
  * @returns non-zero if a byte is available.
@@ -28,7 +28,7 @@ int fdserial_rxReady(fdserial *term)
   return (fdp->rx_tail != fdp->rx_head);
 }
 
-/**
+/*
  * Get a byte from the receive queue if available within timeout period.
  * Function blocks if no recieve for ms timeout.
  * @param ms is number of milliseconds to wait for a char
