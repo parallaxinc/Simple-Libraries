@@ -42,6 +42,10 @@ int  serial_rxChar(serial *device)
 
   /* set input */
   unsigned int rxmask = 1 << sp->rx_pin;
+
+  if(sp->tx_pin < SERIAL_MIN_PIN && sp->tx_pin > SERIAL_MAX_PIN)
+    return 0; /* don't receive on pins out of range */
+
   DIRA &= ~rxmask;
 
   value = _inbyte(sp->ticks, sp->ticks + (sp->ticks>>20), rxmask, 0);
@@ -76,6 +80,10 @@ int serial_txChar(serial *device, int value)
 {
   Serial_t *sp = (Serial_t*) device->devst;
   int txmask = (1 << sp->tx_pin);
+
+  if(sp->tx_pin < SERIAL_MIN_PIN && sp->tx_pin > SERIAL_MAX_PIN)
+    return 0; /* don't transmit on pins out of range */
+
   DIRA |= txmask;
 
   _outbyte(sp->ticks, txmask, (value | 0x100) << 1);
