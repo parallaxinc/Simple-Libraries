@@ -11,6 +11,11 @@
 
 #include "simpletext.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 typedef struct serial_info
 {
   int rx_pin;
@@ -57,7 +62,12 @@ int  serial_rxChar(serial *device);
  */
 int  serial_txChar(serial *device, int txbyte);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif
+/* __SERIAL_H */
 
 /*
 +--------------------------------------------------------------------

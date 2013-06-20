@@ -20,6 +20,11 @@
 
 #include <propeller.h>
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #if !defined(__PROPELLER_32BIT_DOUBLES__)
 #error "This library requires 32bit doubles"
 #endif
@@ -190,12 +195,12 @@ void putHex(int value);
  * Send a string + new line on the transmit debug port.
  * @param str is the null terminated string to send. 
  */
-int  putln(char* str);
+int  putln(const char* str);
 /**
  * Send a string on the transmit debug port.
  * @param str is the null terminated string to send. 
  */
-int  putStr(char* str);
+int  putStr(const char* str);
 
 /**
  * Get a binary number from the receive device.
@@ -397,7 +402,12 @@ int   _dosprnt(const char *fmt, va_list args, char *obuf);
 char* float2string(float f, char *s, int width, int precision);
 float string2float(char *s, char **end);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif
+/* __SimpleTEXT__ */
 
 /*
 +--------------------------------------------------------------------

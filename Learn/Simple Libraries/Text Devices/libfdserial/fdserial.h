@@ -10,6 +10,11 @@
 
 #include "simpletext.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 typedef text_t fdserial;
 
 /**
@@ -113,7 +118,12 @@ int  fdserial_txEmpty(fdserial *term);
  */
 void fdserial_txFlush(fdserial *term);
 
+#ifdef __cplusplus
+}
+#endif
+
 #endif 
+/* __FDSerial_H */
 
 /*
 +--------------------------------------------------------------------

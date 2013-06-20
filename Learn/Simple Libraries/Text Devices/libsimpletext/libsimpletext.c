@@ -7,6 +7,8 @@
  */
 #include "serial.h"
 
+/* #define MORETESTING */
+
 int main(void)
 {
   int   n;
@@ -30,7 +32,7 @@ int main(void)
   /* traditional hello message. */
   putln("Hello, world!");
 
-#if MORETESTING
+#ifdef MORETESTING
 
   sprint(sval,"Toast Test");
   putln(sval);
