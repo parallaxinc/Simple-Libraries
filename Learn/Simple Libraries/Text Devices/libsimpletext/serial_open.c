@@ -17,9 +17,13 @@ serial *serial_open(int rxpin, int txpin, int mode, int baudrate)
   text_t* text = (text_t*) malloc(sizeof(text_t));
 
   /* set pins first for boards that can misbehave intentionally like the Quickstart */
-  DIRA |=  (1<<txpin);
-  OUTA |=  (1<<txpin);
-  DIRA &= ~(1<<rxpin);
+  if(txpin >= SERIAL_MIN_PIN && txpin <= SERIAL_MAX_PIN) {
+    DIRA |=  (1<<txpin);
+    OUTA |=  (1<<txpin);
+  }
+  if(rxpin >= SERIAL_MIN_PIN && rxpin <= SERIAL_MAX_PIN) {
+    DIRA &= ~(1<<rxpin);
+  }
 
   //memset(text, 0, sizeof(text_t));
   serptr = (Serial_t*) malloc(sizeof(Serial_t));

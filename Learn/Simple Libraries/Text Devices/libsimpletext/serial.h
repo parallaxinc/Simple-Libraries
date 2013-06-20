@@ -16,6 +16,10 @@ extern "C"
 {
 #endif
 
+/* don't allow using pins < 0 or > SERIAL_MAX_PIN */
+#define SERIAL_MIN_PIN 0
+#define SERIAL_MAX_PIN 31
+
 typedef struct serial_info
 {
   int rx_pin;
@@ -33,10 +37,11 @@ typedef text_t serial;
 
 /**
  * Initializes the simple serial terminal.
- * Equivalent to a start function which runs assembly in a cog. 
+ * Equivalent to a start function which runs assembly in a cog.
+ * If the txpin is < 0 or > 31, the pin will not be set to output.
  *
- * @param rxpin is pin number for receive input
- * @param txpin is pin number for transmit output
+ * @param rxpin is pin number 0 to 31 for receive input
+ * @param txpin is pin number 0 to 31 for transmit output
  * @param mode  is unused mode field (for FdSerial compatibility)
  * @param baudrate is frequency of bits ... 115200, 57600, etc...
  * @returns device term pointer for use with other functions.
