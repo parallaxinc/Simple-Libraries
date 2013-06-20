@@ -8,7 +8,7 @@
  */
 #include "simpletext.h"
 
-int putln(char *str)
+int putln(const char *str)
 {
   int n = 0;
   while(*str) {

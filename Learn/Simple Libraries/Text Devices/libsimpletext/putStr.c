@@ -7,7 +7,7 @@
  */
 #include "simpletext.h"
 
-int putStr(char *str)
+int putStr(const char *str)
 {
   int n = 0;
   while(*str) {
