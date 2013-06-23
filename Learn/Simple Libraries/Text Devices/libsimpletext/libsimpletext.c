@@ -34,6 +34,8 @@ int main(void)
 
 #ifdef MORETESTING
 
+  putLine("Hello, again!");
+
   sprint(sval,"Toast Test");
   putln(sval);
 

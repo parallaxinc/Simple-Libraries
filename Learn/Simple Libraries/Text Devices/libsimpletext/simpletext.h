@@ -197,6 +197,11 @@ void putHex(int value);
  */
 int  putln(const char* str);
 /**
+ * Send a string + new line on the transmit debug port. This is an alias of putln.
+ * @param str is the null terminated string to send. 
+ */
+int  putLine(const char* str);
+/**
  * Send a string on the transmit debug port.
  * @param str is the null terminated string to send. 
  */

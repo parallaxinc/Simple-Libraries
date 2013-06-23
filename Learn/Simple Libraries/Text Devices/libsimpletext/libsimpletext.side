@@ -45,6 +45,7 @@ print.c
 scan.c
 serial_open.c
 serial_rxtx.c
+putln.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
