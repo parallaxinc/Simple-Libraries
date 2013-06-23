@@ -8,12 +8,16 @@
  */
 #include "simpletext.h"
 
-/*
- * alias of putln to maintain symmetry with writeLine.
- */
-int putLine(const char *str)
+int putln(const char *str)
 {
-  return putln(str);
+  int n = 0;
+  while(*str) {
+    putChar(*str);
+    str++;
+    n++;
+  }
+  putChar('\n');
+  return n;
 }
 
 /*
