@@ -9,6 +9,10 @@
 
 void writeDecDigits(text_t *p, int val, int width)
 {
+  if(val < 0) {
+    val = -val;
+    writeChar(p, '-');
+  }
   printNumber(p, val, 10, width, ' ');
 }
 
