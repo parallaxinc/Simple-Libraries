@@ -34,6 +34,11 @@ int main(void)
 
 #ifdef MORETESTING
 
+  putDec(1);
+  putChar(' ');
+  putDec(-1);
+  putLine("");
+
   putLine("Hello, again!");
 
   sprint(sval,"Toast Test");
