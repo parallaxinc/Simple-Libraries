@@ -13,7 +13,6 @@ void hello(void);                             // Function prototype
 
 int main()                                    // main function
 {
-  pause(500);                                 // Pause 1/2 second
   hello();                                    // Call hello function
   print("Hello again from main!\n");          // Display message
 }

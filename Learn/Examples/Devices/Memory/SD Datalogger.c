@@ -13,9 +13,9 @@ int DO = 22, CLK = 23, DI = 24, CS = 25;      // SD card pins on Propeller BOE
 
 int main(void)                                // Main function
 {
-  pause(1000);                                // Delay for terminal
-  print("Enter several values.\n");           // User instructions
-  print("To exit, type q then Enter\n");
+  print("Enter several values.\n\n");         // User instructions
+  print("To see logged values, press\n");
+  print("Enter a second time.\n\n");
 
   sd_mount(DO, CLK, DI, CS);                  // Mount SD card
 

@@ -11,7 +11,6 @@
 
 int main(void)                                // Main function code starts here
 {
-  pause(1000);                                // Wait 1 s for SimpleIDE Terminal
   int addr = 64000;                           // Pick EEPROM base address. 
 
   ee_put_int(42, addr);                       // 42 -> EEPROM address 64000

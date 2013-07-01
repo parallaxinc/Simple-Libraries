@@ -47,7 +47,7 @@ serial_open.c
 serial_rxtx.c
 putln.c
 >compiler=C
->memtype=cmm main ram compact
+>memtype=xmmc external flash code main ram data
 >optimize=-Os
 >-m32bit-doubles
 >-Wall

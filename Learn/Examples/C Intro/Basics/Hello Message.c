@@ -10,6 +10,5 @@
 
 int main()                                    // main function
 {
-  pause(1000);                                // Wait 1 s for host
   print("Hello!!!");                          // Display a message
 }

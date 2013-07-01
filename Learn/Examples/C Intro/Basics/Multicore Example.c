@@ -16,7 +16,6 @@ unsigned int stack[40 + 25];                  // Stack vars for other cog
 
 int main()                                    // main function
 {
-  pause(1000);                                // Wait 1 s for Terminal
   t = 50;                                     // Set values of t & n
   n = 5000;
 

@@ -13,7 +13,6 @@ int adder(int a, int b);                      // Function prototype
 
 int main()                                    // main function
 {
-  pause(500);                                 // 1/2 second pause
   int n = adder(25, 17);                      // Call adder function
   print("adder's result is = %d", n);         // Display adder function result
 }

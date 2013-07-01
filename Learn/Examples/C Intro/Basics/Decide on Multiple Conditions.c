@@ -10,7 +10,6 @@
 
 int main()                                    // main function
 {
-  pause(1000);                                // Wait 1 s for computer connection
   int a = 100;                                // Initialize a variable to 25
   int b = 17;                                 // Initialize b variable to 17
   print("a = %d, b = %d\n", a, b);            // Print all
