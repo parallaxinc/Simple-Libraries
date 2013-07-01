@@ -11,7 +11,6 @@
 
 int main()                                       // Main function
 {
-  pause(1000);                                   // Wait 1 s for Terminal app
   adc_init(21, 20, 19, 18);                      // CS=21, SCL=20, DO=19, DI=18
 
   dac_ctr(26, 0, 194);                           // D/A ch 0 -> 2.5 V to D/A 0

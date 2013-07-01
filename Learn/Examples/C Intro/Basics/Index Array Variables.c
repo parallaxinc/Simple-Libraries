@@ -13,7 +13,7 @@ int main()                                    // main function
   int p[] = {1, 2, 3, 5, 7, 11};              // Initialize the array
   for(int i = 0; i < 6; i++)                  // Count i from 0 to 5
   {
-    pause(500);                               // 1/2 second pause
     print("p[%d] = %d\n", i, p[i]);           // Display array element & value
+    pause(500);                               // 1/2 second pause
   }
 }

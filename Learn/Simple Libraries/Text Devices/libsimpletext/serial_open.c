@@ -39,7 +39,7 @@ serial *serial_open(int rxpin, int txpin, int mode, int baudrate)
   serptr->baud    = baudrate;
   serptr->ticks   = CLKFREQ/baudrate; /* baud from clkfreq (cpu clock typically 80000000 for 5M*pll16x) */
 
-  waitcnt(CLKFREQ/2+CNT);
+  waitcnt(4*CLKFREQ/5+CNT);
   return text;
 }
 

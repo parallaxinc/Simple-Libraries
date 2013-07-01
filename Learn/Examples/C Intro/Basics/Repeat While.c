@@ -13,9 +13,9 @@ int main()                                    // main function
   int n = 0;                                  // Declare n, initialize to zero
   while(n < 200)                              // Repeat while n less than 200
   {
-    pause(500);                               // 0.5 s between repetitions
-    n = n + 5;                                // Add 5 to n each time through
     print("n = %d\n", n);                     // Display name & value of n
+    n = n + 5;                                // Add 5 to n each time through
+    pause(500);                               // 0.5 s between repetitions
   }
   print("All done!");                         // Display all done
 }

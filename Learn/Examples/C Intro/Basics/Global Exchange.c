@@ -14,7 +14,6 @@ int a, b, n;                                  // Global variables
 
 int main()                                    // main function
 {
-  pause(1000);                                // Wait 1 s for host
   a = 96;                                     // Set values of a & b
   b = 32;
   adder();                                    // Call adder function

@@ -12,7 +12,6 @@ void value(int a);                            // Function prototype
 
 int main()                                    // main function
 {
-  pause(500);                                 // Pause 1/2 second
   value(6);                                   // Call value function
 }
 
