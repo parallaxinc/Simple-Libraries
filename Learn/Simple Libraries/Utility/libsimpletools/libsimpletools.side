@@ -35,17 +35,30 @@ source/addfiledriver.c
 source/sddriverconfig.c
 source/itoa.c
 simpletools.h
-source/i2cinit.c
 freqout.c -> source/freqout.c
-eeprom.c -> source/eeprom.c
 fpucog.c -> source/fpucog.c
 -I ../../Text Devices/libsimpletext
 -L ../../Text Devices/libsimpletext
+-I ../../Protocol/libsimplei2c
+-L ../../Protocol/libsimplei2c
+i2c_init.c -> source/i2c_init.c
+i2c_in.c -> source/i2c_in.c
+i2c_out.c -> source/i2c_out.c
+eeprom_init.c -> source/eeprom_init.c
+eeprom_getByte.c -> source/eeprom_getByte.c
+eeprom_getFloat.c -> source/eeprom_getFloat.c
+eeprom_getInt.c -> source/eeprom_getInt.c
+eeprom_getStr.c -> source/eeprom_getStr.c
+eeprom_putByte.c -> source/eeprom_putByte.c
+eeprom_putFloat.c -> source/eeprom_putFloat.c
+eeprom_putInt.c -> source/eeprom_putInt.c
+eeprom_putStr.c -> source/eeprom_putStr.c
 >compiler=C
->memtype=xmmc external flash code main ram data
+>memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions
+>defs::-std=c99
 >-create_library
->linker::-lsimpletext
+>linker::-lsimpletext -lsimplei2c
 >BOARD::ACTIVITYBOARD

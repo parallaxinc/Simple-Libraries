@@ -1,0 +1,16 @@
+libsimplei2c.c
+-I ./library/libsimpletext
+-L ./library/libsimpletext
+simplei2c.c
+simplei2c.h
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-Wall
+>-fno-exceptions
+>defs::-std=c99
+>-lm
+>-create_library
+>linker::-lsimpletext -lm
+>BOARD::ACTIVITYBOARD
