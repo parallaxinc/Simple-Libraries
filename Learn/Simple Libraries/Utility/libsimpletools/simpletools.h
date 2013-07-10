@@ -35,10 +35,10 @@
  * @li Timed I/O - pulse generation/measurement, square waves, transition
  * counting, RC decay, etc.
  * @li Analog - D/A conversion, PWM, and more.  
- * @nFor A/D conversion see ...Learn/Simple Libraries/Convert
+ * @n For A/D conversion see ...Learn/Simple Libraries/Convert
  * for A/D conversion libraries
  * @li Serial Communication - SPI, I2C
- * @nFor half and full duplex asynchronous serial communication, see 
+ * @n For half and full duplex asynchronous serial communication, see 
  * ...Learn/Simple Libraries/Text Devices
  * @li Memory - EEPROM, SD storage
  *
@@ -57,11 +57,17 @@
  * adding libraries to support and endless variety of peripherals
  * and applications.
  *
- * Revision 0.91 shift_in function pre-clock mode bug fixed.
+ * Revision 0.91 shift_in function pre-clock mode bug fixed. @n @n
  * Revision 0.92 Simpletext functionality incorporated for use of
  * character and string I/O with both terminal and peripheral devices.
  * Simple Text folder replaces PropGCC serial driver support for simple
- * and full duplex serial peripherals.  
+ * and full duplex serial peripherals. @n @n
+ * Revision 0.93 i2c_newbus now uses @n
+ *   .../Learn/Simple Libraries/Protocol/simplei2c/@n 
+ * Added:@n
+ *   i2c_out, i2c_in to cover most common I2C slave applications
+ * EEPROM ee_get_* and ee_put_* changed to ee_get* and ee_put* where 
+ * the * term is camel-case.
  */
 
 #ifndef SIMPLETOOLS_H
@@ -85,6 +91,7 @@ extern "C" {
 #include <sys/sd.h>
 #include <i2c.h>
 #include <math.h>
+#include "simplei2c.h"
 
 // Global variables shared by functions in separate files
 extern long iodt;
@@ -94,6 +101,10 @@ extern long t_mark;
 extern char setForget;
 extern int fdserDriverIndex;
 extern unsigned int buscnt;
+extern i2c *eeprom;
+extern int eeInitFlag;
+
+//extern i2c *eeprom;
 //extern int dacCtrBits;
  
 #ifndef PI
@@ -101,7 +112,7 @@ extern unsigned int buscnt;
 #endif
 
 #ifndef EEPROM_ADDR
-#define EEPROM_ADDR	 0xA0
+#define EEPROM_ADDR	 0xA0 >> 1
 #endif
 
 /* Values for use with SimpleIDE Terminal */
@@ -202,7 +213,7 @@ extern unsigned int buscnt;
 //typedef FILE* serial;
 //typedef FILE* fdserial;
 //typedef FILE* sdcard;
-typedef I2C* i2c;
+//typedef I2C* i2c;
 
 /**
  * @brief Set an I/O pin to output-high
@@ -752,10 +763,83 @@ void shift_out(int pinDat, int pinClk, int mode, int bits, int value);
  *
  * @param sdapin the I2C bus' serial data pin.
  *
+ * @param scldrive sets I/O pin connected to SCL line to send high signals by 
+ * either (sclDrive = 0) allowing the pullup resistor on the bus to pull the 
+ * line high, or (sclDrive = 1) by setting the I/O pin to output and driving the
+ * line high.  sclDrive = 0 is by far the most common arrangement.  sclDrive = 1 
+ * is used with some Propeller boards that do not have a pull-up resistor on the 
+ * EEPROM's SCL line.    
+ *
  * @returns a pointer to the I2C bus.  You will need this to pass to the i2cWrite and
  * i2cRead functions for communication on the bus. 
  */
-I2C* i2c_newbus(int sclpin, int sdapin);
+i2c *i2c_newbus(int sclpin, int sdapin, int scldrive);
+
+
+/**
+ * @brief Send data to device using I2C protocol.
+ *
+ * @details This function uses Simple Libraries/Protocol/libsimplei2c for
+ * clock and data line signaling.  You can also use this library to create
+ * custom I2C functions.  Other I2C signaling options are included in
+ * Propeller GCC.  Search for i2C int he propgcc folder for more info.  
+ *
+ * @param *bus pointer to an I2C bus.  Use i2c_newbus to get a pointer to an
+ * I2C bus structure.
+ *
+ * @param i2cAddr 8 bit device address.  This is the 7-bit I2C address and 
+ * read/write bit.  The value of the read/write bit does not matter because
+ * the i2c_out and i2c_in functions clear and set it as needed.
+ *
+ * @param *regAddr Pointer to variable or array that contains the number of 
+ * bytes to write to the device's register(s) or a memory address.
+ *
+ * @param regSize Number of bytes to use for regAddr.  This value can be zero
+ * for no register or memory address data.
+ *
+ * @param *data Pointer to variable or array to send to the I2C device.
+ *
+ * @param count number of bytes in data
+ *
+ * @returns total number of bytes written. Should be 1 + regSize + count.  
+ */
+HUBTEXT int  i2c_out(i2c *bus, int i2cAddr, 
+                     const unsigned char *regAddr, int regSize, 
+                     const unsigned char *data, int count);
+
+
+/**
+ * @brief Receive data from device using I2C protocol.
+ *
+ * @details This function uses Simple Libraries/Protocol/libsimplei2c for
+ * clock and data line signaling.  You can also use this library to create
+ * custom I2C functions.  Other I2C signaling options are included in
+ * Propeller GCC.  Search for i2C int he propgcc folder for more info.  
+ *
+ * @param *bus pointer to an I2C bus.  Use i2c_newbus to get a pointer to an
+ * I2C bus structure.
+ *
+ * @param i2cAddr 8 bit device address.  This is the 7-bit I2C address and 
+ * read/write bit.  The value of the read/write bit does not matter because
+ * the i2c_out and i2c_in functions clear and set it as needed.
+ *
+ * @param regAddr Pointer to variable or array that contains the number of 
+ * bytes to write to the device's register(s) or a memory address.
+ *
+ * @param regSize Number of bytes to use for regAddr.  This value can be zero
+ * for no register or memory address data.
+ *
+ * @param *data Pointer to variable or array that will receive data from 
+ * I2C device.
+ *
+ * @param count number of bytes in data
+ *
+ * @returns total number of bytes written. Should be 1 + regSize + count.  
+ */
+HUBTEXT int  i2c_in(i2c *bus, int i2cAddr, 
+                     const unsigned char *regAddr, int regSize, 
+                     unsigned char *data, int count);
+
 
 /**
  * @brief Store a byte value at a certain address in the Propeller Chip's
@@ -765,7 +849,13 @@ I2C* i2c_newbus(int sclpin, int sdapin);
  *
  * @param addr The EEPROM address where the value is to be stored.
  */
-void ee_put_byte(char value, int addr);
+void ee_putByte(char value, int addr);
+
+/**
+ * @brief ee_put_byte renamed ee_putByte.
+ */
+#define ee_put_byte ee_putByte
+
 
 /**
  * @brief Get a byte value from a certain address in the Propeller Chip's
@@ -776,7 +866,13 @@ void ee_put_byte(char value, int addr);
  * @returns value The byte value stored by the EEPROM at the address specified
  * by the addr parameter.
  */
-char ee_get_byte(int addr);
+char ee_getByte(int addr);
+
+/**
+ * @brief ee_get_byte renamed ee_getByte.
+ */
+#define ee_get_byte ee_getByte
+
 
 /**
  * @brief Store an int value at a certain address in the Propeller Chip's
@@ -787,7 +883,13 @@ char ee_get_byte(int addr);
  *
  * @param addr The EEPROM address where the value is to be stored.
  */
-void ee_put_int(int value, int addr);
+void ee_putInt(int value, int addr);
+
+/**
+ * @brief ee_put_int renamed ee_putInt.
+ */
+#define ee_put_int ee_putInt
+
 
 /**
  * @brief Get an int value from a certain address in the Propeller Chip's
@@ -798,7 +900,13 @@ void ee_put_int(int value, int addr);
  *
  * @returns value The int value stored by the EEPROM at the specified address.
  */
-int ee_get_int(int addr);
+int ee_getInt(int addr);
+
+/**
+ * @brief ee_get_int renamed ee_getInt.
+ */
+#define ee_get_int ee_getInt
+
 
 /**
  * @brief Store a string of byte values starting at a certain address in 
@@ -810,7 +918,13 @@ int ee_get_int(int addr);
  *
  * @param addr The EEPROM address of the first byte in the string.
  */
-void ee_put_str(char* s, int n, int addr);
+void ee_putStr(unsigned char *s, int n, int addr);
+
+/**
+ * @brief ee_put_str renamed ee_putStr.
+ */
+#define ee_put_str ee_putStr
+
 
 /**
  * @brief Fetch a string of byte values starting at a certain address in 
@@ -826,7 +940,13 @@ void ee_put_str(char* s, int n, int addr);
  * @returns The address of the array that stores the characters that
  * that were fetched.
  */
-char* ee_get_str(char* s, int n, int addr);
+char* ee_getStr(unsigned char* s, int n, int addr);
+
+/**
+ * @brief ee_get_str renamed ee_getStr.
+ */
+#define ee_get_str ee_getStr
+
 
 /**
  * @brief Store a 32 bit precision floating point value at a certain address
@@ -842,7 +962,13 @@ char* ee_get_str(char* s, int n, int addr);
  *
  * @param addr The EEPROM address where the value is to be stored.
  */
-void ee_put_float32(float value, int addr);
+void ee_putFloat32(float value, int addr);
+
+/**
+ * @brief ee_put_float32 renamed ee_putFloat32.
+ */
+#define ee_put_float32 ee_putFloat32
+
 
 /**
  * @brief Fetch a 32 bit precision floating point value from a certain address
@@ -859,7 +985,13 @@ void ee_put_float32(float value, int addr);
  *
  * @returns value The float value stored by the EEPROM at the specified address.
  */
-float ee_get_float32(int addr);
+float ee_getFloat32(int addr);
+
+/**
+ * @brief ee_get_float32 renamed ee_getFloat32.
+ */
+#define ee_get_float32 ee_getFloat32
+
 
 /**
  * @brief mount an SD card with the minimal 4-pin interface.
@@ -892,7 +1024,6 @@ int sd_mount(int doPin, int clkPin, int diPin, int csPin);
 char* itoa(int i, char b[], int base);
 
 int add_driver(_Driver *driverAddr);
-
 
 #if defined(__cplusplus)
 }

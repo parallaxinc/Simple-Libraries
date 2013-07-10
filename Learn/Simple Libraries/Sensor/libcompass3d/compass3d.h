@@ -22,7 +22,9 @@
 extern "C" {
 #endif
 
-#include <i2c.h>
+//#include <i2c.h>
+#include "simplei2c.h"
+#include "simpletools.h"
 
 /**
  * @brief Initialize the Compass
@@ -47,7 +49,7 @@ extern "C" {
  * @returns void, but it will display an error message if the
  * compass module does not respond. 
  */
-void compass_init(I2C *bus);
+void compass_init(i2c *bus);
 
 /**
  * @brief Read values from compass
@@ -71,7 +73,7 @@ void compass_init(I2C *bus);
  * @returns void, but it will display an error message if the
  * compass module does not respond. 
  */
-void compass_read(I2C *bus, int *px, int *py, int *pz);
+void compass_read(i2c *bus, int *px, int *py, int *pz);
 
 #if defined(__cplusplus)
 }

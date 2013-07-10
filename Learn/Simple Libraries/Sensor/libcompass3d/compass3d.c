@@ -5,37 +5,26 @@
 
 #include "compass3d.h"
 #include "simpletools.h"
+#include "simplei2c.h"
 
-uint8_t continuous_mode[] = { 0x02, 0x00 };
-
-void compass_init(I2C *bus)
+void compass_init(i2c *bus)
 {
   /* set to continuous mode */
-  if (i2cWrite(bus, 0x3C, continuous_mode, sizeof(continuous_mode), 1) != 0)
-  printf("Setting continuous mode failed\n");
+  const unsigned char cont_mode[] = {0x02, 0x00};
+  int n = i2c_out(bus, 0x3C, &cont_mode[0], 1, &cont_mode[1], 1);
 }
 
-uint8_t read_data_registers[] = { 0x03 };
-
-void compass_read(I2C *bus, int *px, int *py, int *pz)
+void compass_read(i2c *bus, int *px, int *py, int *pz)
 {
   int16_t x16, y16, z16;
   uint8_t data[6];
-    
-  /* select the data registers */
-  if (i2cWrite(bus, 0x3C, read_data_registers, sizeof(read_data_registers), 1) != 0)
-  printf("Write failed\n");
-    
-  /* read the data registers */
-  if (i2cRead(bus, 0x3D, data, sizeof(data), 1) != 0)
-  printf("Read failed\n");
+  char datRegTo3 = 0x03;
+  i2c_in(bus, 0x3D, &datRegTo3, 1, data, 6);
 
-  /* assemble the return values */
   x16 = (data[0] << 8) | data[1];
   z16 = (data[2] << 8) | data[3];
   y16 = (data[4] << 8) | data[5];
-    
-  /* return the signed values */
+
   *px = x16;
   *py = y16;
   *pz = z16;
