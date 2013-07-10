@@ -23,9 +23,9 @@ HUBTEXT int  i2c_in(i2c *bus, int i2cAddr,
 {
   int n  = 0;
   i2cAddr &= -2;                                        // Clear i2cAddr.bit0 (write)
-  i2c_start(bus);
   if(regSize) 
   {
+    i2c_start(bus);
     if(i2c_writeByte(bus, i2cAddr)) return n; else n++;
     n += i2c_writeData(bus, regAddr, regSize);
   }
