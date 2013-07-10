@@ -1,7 +1,7 @@
 /*
   Piezo Beep.c
   
-  Beep a piezo speaker connected to P4.
+  Beep a piezo speaker connected to Propeller I/O pin P4.
   
   http://learn.parallax.com/propeller-c-simple-circuits/piezo-beep
 */
