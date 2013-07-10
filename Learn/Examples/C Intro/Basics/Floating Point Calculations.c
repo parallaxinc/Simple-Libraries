@@ -5,6 +5,7 @@
   
   http://learn.parallax.com/propeller-c-start-simple/floating-point-math
 */
+
 #include "simpletools.h"                      // Include simpletools
 
 int main()                                    // Main function

@@ -5,6 +5,8 @@ Test 2125 Tilt.c
 -L ../../../../Simple Libraries/Sensor/libmx2125
 -I ../../../../Simple Libraries/Text Devices/libsimpletext
 -L ../../../../Simple Libraries/Text Devices/libsimpletext
+-I ../../../../Simple Libraries/Protocol/libsimplei2c
+-L ../../../../Simple Libraries/Protocol/libsimplei2c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
@@ -12,5 +14,5 @@ Test 2125 Tilt.c
 >-fno-exceptions
 >defs::-std=c99
 >-lm
->linker:: -lmx2125 -lsimpletools -lsimpletext
+>linker:: -lmx2125 -lsimpletools -lsimpletext -lsimplei2c
 >BOARD::PROPBOE

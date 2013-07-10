@@ -3,6 +3,8 @@ Blink Light.c
 -L ../../Simple Libraries/Utility/libsimpletools
 -I ../../Simple Libraries/Text Devices/libsimpletext
 -L ../../Simple Libraries/Text Devices/libsimpletext
+-I ../../Simple Libraries/Protocol/libsimplei2c
+-L ../../Simple Libraries/Protocol/libsimplei2c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
@@ -10,5 +12,5 @@ Blink Light.c
 >-fno-exceptions
 >defs::-std=c99
 >-lm
->linker::-lsimpletools -lsimpletext
+>linker::-lsimpletools -lsimpletext -lsimplei2c
 >BOARD::ACTIVITYBOARD

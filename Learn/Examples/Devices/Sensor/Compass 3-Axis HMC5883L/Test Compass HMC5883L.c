@@ -6,6 +6,7 @@
   
  learn.parallax.com/propeller-c-simple-devices/sense-direction-compass-hmc5883l
 */
+
 #include "simpletools.h"                      // Include simpletools header
 #include "compass3d.h"                        // Include compass3d header
 

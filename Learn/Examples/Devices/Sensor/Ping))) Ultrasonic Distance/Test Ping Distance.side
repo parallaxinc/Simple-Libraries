@@ -5,6 +5,8 @@ Test Ping Distance.c
 -L ../../../../Simple Libraries/Utility/libsimpletools
 -I ../../../../Simple Libraries/Text Devices/libsimpletext
 -L ../../../../Simple Libraries/Text Devices/libsimpletext
+-I ../../../../Simple Libraries/Protocol/libsimplei2c
+-L ../../../../Simple Libraries/Protocol/libsimplei2c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-O0
@@ -12,5 +14,5 @@ Test Ping Distance.c
 >-fno-exceptions
 >defs::-std=c99
 >-lm
->linker::-lsimpletools -lping -lsimpletext
+>linker::-lsimpletools -lping -lsimpletext -lsimplei2c
 >BOARD::ACTIVITYBOARD
