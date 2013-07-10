@@ -5,6 +5,8 @@ Measure Volts.c
 -L ../../../../SimpleIDE/Learn/Simple Libraries/Convert/libadcDCpropAB
 -I ../../Simple Libraries/Text Devices/libsimpletext
 -L ../../Simple Libraries/Text Devices/libsimpletext
+-I ../../Simple Libraries/Protocol/libsimplei2c
+-L ../../Simple Libraries/Protocol/libsimplei2c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
@@ -12,5 +14,5 @@ Measure Volts.c
 >-fno-exceptions
 >defs::-std=c99
 >-lm
->linker:: -lsimpletools -ladcDCpropAB -lsimpletext
+>linker:: -lsimpletools -ladcDCpropAB -lsimpletext -lsimplei2c
 >BOARD::ACTIVITYBOARD

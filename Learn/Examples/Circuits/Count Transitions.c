@@ -6,6 +6,7 @@
   
   http://learn.parallax.com/propeller-c-simple-circuits/count-transitions
 */
+
 #include "simpletools.h"                      // Include simpletools
 
 int main()                                    // main function
