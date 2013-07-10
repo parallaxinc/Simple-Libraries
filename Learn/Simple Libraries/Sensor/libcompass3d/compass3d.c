@@ -10,8 +10,9 @@
 void compass_init(i2c *bus)
 {
   /* set to continuous mode */
-  const unsigned char cont_mode[] = {0x02, 0x00};
-  int n = i2c_out(bus, 0x3C, &cont_mode[0], 1, &cont_mode[1], 1);
+  unsigned char modeReg = 0x02;
+  unsigned char contMode = 0x00;
+  int n = i2c_out(bus, 0x3C, &modeReg, 1, &contMode, 1);
 }
 
 void compass_read(i2c *bus, int *px, int *py, int *pz)
