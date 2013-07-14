@@ -33,6 +33,7 @@ extern "C" {
 #endif
 
 #include "simpletools.h"                      // Include simple tools
+#include "servo.h"
 
 /**
  * @brief Set up left and right wheel servo pin connections.
