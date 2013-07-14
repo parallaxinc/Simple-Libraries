@@ -1,4 +1,5 @@
 #include "servodiffdrive.h"                   // Include servo lib funct defs
+#include "servo.h"
 
 static int pinLeft, pinRight, rampLeft, rampRight;   // Variables shared by functions
 

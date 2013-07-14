@@ -26,6 +26,5 @@
 
 int main()                                    // Main function
 {
-  pause(1000);                                // Wait 1 s for terminal software
   print("Hello!");                            // Display test message
 }

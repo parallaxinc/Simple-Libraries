@@ -87,6 +87,10 @@ libsimpletools now includes simpletext from Text Devices.  In addition to replac
 </li>
 <br>
 <li> 
+A 0.8 second delay was added to the first serial message sent to Simple Terminal by functions in the simpletext library.  This prevents Windows machines from potentially mistaking the serial message as legacy serial peripheral identifying strings.  Since the delay is now automatic, all pause(1000) calls were removed from the start of example programs.
+</li>
+<br>
+<li> 
 All example programs updated to use print from simpletext in place of printf from stdio.  This significantly reduces the program size penalty for displaying floating point types.  
 </li>
 </ul>
