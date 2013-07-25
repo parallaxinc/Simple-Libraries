@@ -1,3 +1,15 @@
+/*
+* @file libdacctr.c
+*
+* @author Andy Lindsay
+*
+* @copyright
+* Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
+*
+* @brief Project and test harness for the dacctr library.
+*/
+
+
 #include "simpletools.h"
 #include "dacctr.h"
 

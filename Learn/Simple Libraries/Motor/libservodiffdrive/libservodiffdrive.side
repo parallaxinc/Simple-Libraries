@@ -1,9 +1,5 @@
 libservodiffdrive.c
 servodiffdrive.c
--I ../../Utility/libsimpletools
--L ../../Utility/libsimpletools
--I ../libservo
--L ../libservo
 servodiffdrive.h
 >compiler=C
 >memtype=cmm main ram compact
@@ -11,5 +7,4 @@ servodiffdrive.h
 >-m32bit-doubles
 >-fno-exceptions
 >-create_library
->linker::-lsimpletools -lservo
 >BOARD::ACTIVITYBOARD

@@ -11,4 +11,4 @@ Welcome.c
 >defs::-std=c99
 >-lm
 >linker::-lsimpletools -lsimpletext
->BOARD::ACTIVITYBOARD
+>BOARD::

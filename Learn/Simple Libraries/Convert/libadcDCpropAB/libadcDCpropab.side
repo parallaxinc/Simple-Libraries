@@ -2,8 +2,6 @@ libadcDCpropab.c
 adcDCpropab.c
 adcDCpropab.h
 adcDCVpropab.c
--I ../../Utility/libsimpletools
--L ../../Utility/libsimpletools
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
@@ -12,5 +10,4 @@ adcDCVpropab.c
 >defs::-std=c99
 >-lm
 >-create_library
->linker::-lsimpletools
 >BOARD::ACTIVITYBOARD

@@ -1,12 +1,15 @@
 /*
-  @file libcompass3d.c
-
-  Temporary test harness for compass.  
-
-  SCL connected to P3 and SDA connected to P2. Display measurement results in 
-  SimpleIDE Terminal.
-  
-  learn.parallax.com/propeller-c-simple-devices/sense-direction-compass-hmc5883l
+* @file libcompass3d.c
+*
+* @author Andy Lindsay
+*
+* @copyright
+* Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
+*
+* @brief Temporary project and test harness for the name library.
+*
+* SCL connected to P3 and SDA connected to P2. Display measurement results in 
+* SimpleIDE Terminal
 */
 
 #include "simpletools.h"                      // Include simpletools header
@@ -15,7 +18,7 @@
 
 int main()                                    // Main function
 {
-#if 0
+
 
   int x, y, z;                                // Declare x, y, & z axis variables
   pause(1000);
@@ -85,7 +88,7 @@ int main()                                    // Main function
     pause(500);                                  // Wait 1/2 second
   }
 
-#endif
+
 }
 
 

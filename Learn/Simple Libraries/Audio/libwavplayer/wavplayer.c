@@ -34,7 +34,7 @@ static volatile unsigned int cog = 0;
 static volatile unsigned int cog2 = 0;
 static volatile unsigned int settingUp = 0;
 
-static volatile unsigned int volume = 0;
+static volatile unsigned int volume;
 static volatile const unsigned int BUF_SIZE = 512;
 
 static unsigned int stack[(160 + (50 * 4)) / 4];
@@ -56,7 +56,7 @@ FILE* fp;
 void wav_play(const char* wavFilename)
 {
   settingUp = 1;
-  if(!volume) volume = 7;
+  if(!volume) wav_volume(7);
   wav_stop();
   track = wavFilename;
   cog2 = cogstart(&wav_reader, NULL, stack2, sizeof(stack2)) + 1;

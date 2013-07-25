@@ -1,6 +1,13 @@
-/**
- * This is the main libsimpleterm program file.
- */
+/*
+* @file libfdserial.c
+*
+* @author Steve Denson
+*
+* @copyright
+* Copyright (C) Steve Denson 2008-2013. All Rights MIT Licensed.
+*
+* @brief Project and test harness for the fdserial library.
+*/
 #include "fdserial.h"
 
 int main(void)

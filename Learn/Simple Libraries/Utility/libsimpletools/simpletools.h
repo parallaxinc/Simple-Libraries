@@ -89,7 +89,6 @@ extern "C" {
 #include <sys/stat.h>
 #include <dirent.h>
 #include <sys/sd.h>
-#include <i2c.h>
 #include <math.h>
 #include "simplei2c.h"
 

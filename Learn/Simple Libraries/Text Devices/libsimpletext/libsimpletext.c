@@ -1,10 +1,11 @@
 /**
  * @file libsimpletext.h
- * Test harness for library simpletext
+ * Project and Test harness for library simpletext
  *
- * Copyright (c) 2013, Parallax Inc.
+ * Copyright (c) 2013, Parallax Inc. MIT license.
  * Written by Steve Denson
  */
+
 #include "serial.h"
 
 /* #define MORETESTING */

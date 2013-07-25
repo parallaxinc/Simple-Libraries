@@ -1,9 +1,14 @@
-/**
- * @file libsimplei2c.c
- * Test harness for simplei2c library.
- *
- * Copyright (c) 2013, Parallax Inc.
- */
+/*
+* @file libsimplei2c.c
+*
+* @author Steve Denson 
+*
+* @copyright
+* Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
+*
+* @brief Project and test harness for the simplei2c library.
+*/
+
 #include "simplei2c.h"
 #include "simpletext.h"
 #include "simpletools.h"

@@ -1,6 +1,4 @@
 libping.c
--I ../../Utility/libsimpletools
--L ../../Utility/libsimpletools
 ping.c
 ping.h
 >compiler=C
@@ -9,6 +7,6 @@ ping.h
 >-m32bit-doubles
 >-fno-exceptions
 >defs::-std=c99
+>-lm
 >-create_library
->linker::-lsimpletools
 >BOARD::ACTIVITYBOARD
