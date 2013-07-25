@@ -1,8 +1,14 @@
 /*
-  Blank Simple Project.c
-  Click Help and select Tutorials to see lots of code and 
-  application examples. 
+* @file libwavplayer.c
+*
+* @author Andy Lindsay
+*
+* @copyright
+* Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
+*
+* @brief Project and test harness for the wavplayer library.
 */
+
 #include "simpletools.h"
 #include "wavplayer.h"
 

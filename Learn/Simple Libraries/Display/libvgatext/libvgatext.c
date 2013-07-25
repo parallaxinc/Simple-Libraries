@@ -1,3 +1,15 @@
+/*
+* @file libvgatext.c
+*
+* @author Andy Lindsay
+*
+* @copyright
+* Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
+*
+* @brief Project and test harness for the vgatext library.
+*/
+
+
 #include "simpletools.h"  
 #include "vgatext.h"
 

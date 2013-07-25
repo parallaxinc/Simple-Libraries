@@ -1,6 +1,4 @@
 libsimplei2c.c
--I ./library/libsimpletext
--L ./library/libsimpletext
 simplei2c.c
 simplei2c.h
 >compiler=C
@@ -12,5 +10,5 @@ simplei2c.h
 >defs::-std=c99
 >-lm
 >-create_library
->linker::-lsimpletext -lm
+>linker::-lm
 >BOARD::ACTIVITYBOARD

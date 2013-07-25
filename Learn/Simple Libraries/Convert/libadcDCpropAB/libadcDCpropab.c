@@ -1,10 +1,17 @@
 /*
-  libadcPropABdc.c
-  Propeller Activity Board Simple Library project for DC measurements.
+* @file libadcDCpropAB.c
+*
+* @author Andy Lindsay
+*
+* @copyright
+* Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
+*
+* @brief Project and test harness for the adcDCpropAB library.
 */
 
+
 #include "simpletools.h"                      // Include simpletools
-#include "adcDCpropab.h"                      // Include adcPropABdc
+#include "adcDCpropAB.h"                      // Include adcPropABdc
 
 int main()                                    // Main function
 {

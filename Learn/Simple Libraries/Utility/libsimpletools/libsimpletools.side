@@ -1,5 +1,4 @@
 libsimpletools.c
--I include
 source/count.c
 source/dac.c
 source/getDirection.c
@@ -37,10 +36,6 @@ source/itoa.c
 simpletools.h
 freqout.c -> source/freqout.c
 fpucog.c -> source/fpucog.c
--I ../../Text Devices/libsimpletext
--L ../../Text Devices/libsimpletext
--I ../../Protocol/libsimplei2c
--L ../../Protocol/libsimplei2c
 i2c_init.c -> source/i2c_init.c
 i2c_in.c -> source/i2c_in.c
 i2c_out.c -> source/i2c_out.c
@@ -54,11 +49,11 @@ eeprom_putFloat.c -> source/eeprom_putFloat.c
 eeprom_putInt.c -> source/eeprom_putInt.c
 eeprom_putStr.c -> source/eeprom_putStr.c
 >compiler=C
->memtype=cmm main ram compact
+>memtype=xmmc external flash code main ram data
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions
 >defs::-std=c99
+>-lm
 >-create_library
->linker::-lsimpletext -lsimplei2c
 >BOARD::ACTIVITYBOARD

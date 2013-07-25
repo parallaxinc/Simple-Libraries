@@ -47,11 +47,12 @@ serial_open.c
 serial_rxtx.c
 putln.c
 >compiler=C
->memtype=xmmc external flash code main ram data
+>memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-Wall
 >-fno-exceptions
 >defs::-std=c99 
+>-lm
 >-create_library
 >BOARD::ACTIVITYBOARD

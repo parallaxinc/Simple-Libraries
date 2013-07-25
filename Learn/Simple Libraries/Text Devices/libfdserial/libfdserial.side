@@ -1,8 +1,6 @@
 libfdserial.c
 fdserial.h
 fdserial_utils.c
--I ../libsimpletext
--L ../libsimpletext
 pst.spin
 fdserial.c
 >compiler=C
@@ -12,5 +10,6 @@ fdserial.c
 >-Wall
 >-fno-exceptions
 >defs::-std=c99
->linker::-lsimpletext
+>-lm
+>-create_library
 >BOARD::GENERIC

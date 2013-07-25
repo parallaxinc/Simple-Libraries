@@ -1,3 +1,16 @@
+/*
+* @file libmx2125.c
+*
+* @author Andy Lindsay
+*
+* @copyright
+* Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
+*
+* @brief Project and test harness for the mx2125 library.
+*/
+
+
+
 #include "simpletools.h"   
 #include "mx2125.h" 
 

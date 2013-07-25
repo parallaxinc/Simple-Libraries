@@ -1,6 +1,4 @@
 libmstimer.c
--I ../libsimpletools
--L ../libsimpletools
 mstimer.c
 mstimer.h
 >compiler=C
@@ -9,6 +7,6 @@ mstimer.h
 >-m32bit-doubles
 >-fno-exceptions
 >defs::-std=c99
->-ltiny
->linker::-lsimpletools
+>-lm
+>-create_library
 >BOARD::ACTIVITYBOARD

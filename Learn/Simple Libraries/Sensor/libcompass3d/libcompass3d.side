@@ -1,10 +1,6 @@
 libcompass3d.c
--I ../../Utility/libsimpletools
--L ../../Utility/libsimpletools
 compass3d.c
 compass3d.h
--I ../../Protocol/libsimplei2c
--L ../../Protocol/libsimplei2c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
@@ -12,5 +8,4 @@ compass3d.h
 >-fno-exceptions
 >-lm
 >-create_library
->linker::-lsimpletools -lsimplei2c -lsimplei2c
 >BOARD::ACTIVITYBOARD

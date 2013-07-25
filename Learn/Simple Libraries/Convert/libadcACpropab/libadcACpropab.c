@@ -1,7 +1,14 @@
 /*
-  libadcPropABac.c
-  Propeller Activity Board Simple Library project for AC measurements.
+* @file libadcACpropab.c
+*
+* @author Andy Lindsay
+*
+* @copyright
+* Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
+*
+* @brief Project and test harness for the adcACpropab library.
 */
+
 #include "simpletools.h"
 
 #include "simpletools.h"                      // Include simpletools
