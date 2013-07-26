@@ -22,7 +22,6 @@
 extern "C" {
 #endif
 
-//#include <i2c.h>
 #include "simplei2c.h"
 #include "simpletools.h"
 

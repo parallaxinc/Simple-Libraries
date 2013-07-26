@@ -4,7 +4,7 @@
   Flash P26 at 10 Hz for 10 seconds.  After 1 s, count transitions for 1 s
   and report the count.
   
-  http://learn.parallax.com/propeller-c-simple-circuits/count-transitions
+  http://learn.parallax.com/propeller-c-tutorials
 */
 
 #include "simpletools.h"                      // Include simpletools

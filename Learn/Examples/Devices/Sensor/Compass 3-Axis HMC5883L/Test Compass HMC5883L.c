@@ -4,7 +4,7 @@
   Test compass with SCL connected to P3 and SDA connected to P2. Display
   measurement results in SimpleIDE Terminal.
   
- learn.parallax.com/propeller-c-simple-devices/sense-direction-compass-hmc5883l
+ learn.parallax.com/propeller-c-tutorials
 */
 
 #include "simpletools.h"                      // Include simpletools header

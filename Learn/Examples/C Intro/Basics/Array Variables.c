@@ -1,7 +1,7 @@
 /* 
   Array Variables.c  
    
-  Declare and initialize an array and display a couple of its slements.
+  Declare and initialize an array and display a couple of its elements.
   
   http://learn.parallax.com/propeller-c-start-simple/array-variables
 */

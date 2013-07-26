@@ -1,12 +1,4 @@
 Set and Measure Volts.c
--I ../../Simple Libraries/Convert/libadcDCpropAB
--I ../../Simple Libraries/Utility/libsimpletools
--L ../../Simple Libraries/Convert/libadcDCpropAB
--L ../../Simple Libraries/Utility/libsimpletools
--I ../../Simple Libraries/Text Devices/libsimpletext
--L ../../Simple Libraries/Text Devices/libsimpletext
--I ../../Simple Libraries/Protocol/libsimplei2c
--L ../../Simple Libraries/Protocol/libsimplei2c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
@@ -14,5 +6,4 @@ Set and Measure Volts.c
 >-fno-exceptions
 >defs::-std=c99
 >-lm
->linker:: -lsimpletools -ladcDCpropAB -lsimpletext -lsimplei2c
 >BOARD::ACTIVITYBOARD

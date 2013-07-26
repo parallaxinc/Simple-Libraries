@@ -1,6 +1,6 @@
 /*
   Blank Simple Project.c
-  Click Help and select Tutorials to see lots of code examples. 
+  http://learn.parallax.com/propeller-c-tutorials 
 */
 #include "simpletools.h"                      // Include simple tools
 

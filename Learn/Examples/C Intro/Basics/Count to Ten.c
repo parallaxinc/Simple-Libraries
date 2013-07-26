@@ -1,7 +1,7 @@
 /*
   Count to Ten.c
   
-  Count to ten in SimpleIDE Terminal.
+  Count to ten in SimpleIDE Terminal using a for loop.
   
   http://learn.parallax.com/propeller-c-start-simple/counting-loops
 */

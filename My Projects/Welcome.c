@@ -20,6 +20,7 @@
       
    Next, check the Help menu for new online tutorials, software manual, and 
    reference material.
+   http://learn.parallax.com/propeller-c-tutorials
 */
 
 #include "simpletools.h"                      // Include simple tools

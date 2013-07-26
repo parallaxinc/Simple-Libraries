@@ -7,7 +7,7 @@
 */
 
 #include "simpletools.h"                      // Include simpletools
-#include "adcDCpropab.h"                      // Include adcDCpropab
+#include "adcDCpropAB.h"                      // Include adcDCpropab
 
 int main()                                    // Main function
 {

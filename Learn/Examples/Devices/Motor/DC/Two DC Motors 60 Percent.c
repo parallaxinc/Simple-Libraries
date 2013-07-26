@@ -1,6 +1,7 @@
 /*
   Two DC Motors 60 Percent.c
   Drive a pair of DC motors at 6/10 of full speed.
+  http://learn.parallax.com/propeller-c-tutorials
 */
 
 #include "simpletools.h"

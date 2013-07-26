@@ -1,7 +1,7 @@
 /*
   Repeat While.c
   
-  Keep displaying n = n + 5 every half second while n <= 200.
+  Keep displaying n = n + 5 every half second while n < 200.
   
   http://learn.parallax.com/propeller-c-start-simple/code-repeats
 */

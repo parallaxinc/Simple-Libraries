@@ -4,7 +4,7 @@
   Use EEPROM to advance modes with each press/release of the reset button.
   Also advances with each power-off, power-on cycle. 
   
-  http://learn.parallax.com/propeller-c-simple-devices/eeprom-modes
+  http://learn.parallax.com/propeller-c-tutorials
 */
 
 #include "simpletools.h"                      // Include simpletools header    .
