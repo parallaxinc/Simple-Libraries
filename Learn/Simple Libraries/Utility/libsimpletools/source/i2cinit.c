@@ -2,7 +2,6 @@
  * @file i2cinit.c
  */
 
-//#include <i2c.h>
 #include "simpletools.h"
 #include "simplei2c.h"
 

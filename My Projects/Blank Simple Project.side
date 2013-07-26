@@ -1,8 +1,4 @@
 Blank Simple Project.c
--I ../Learn/Simple Libraries/Utility/libsimpletools
--L ../Learn/Simple Libraries/Utility/libsimpletools
--I ../Learn/Simple Libraries/Text Devices/libsimpletext
--L ../Learn/Simple Libraries/Text Devices/libsimpletext
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
@@ -10,5 +6,4 @@ Blank Simple Project.c
 >-fno-exceptions
 >defs::-std=c99
 >-lm
->linker::-lsimpletools -lsimpletext
 >BOARD::ACTIVITYBOARD

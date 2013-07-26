@@ -1,12 +1,7 @@
 /*
-  CONSTRUCTION ZONE
-  This is a preliminary program, not for release.
-  Current plan is to revise for counting display.
-/*
-
-/*
   Blink Light with Simple Multicore.c   
   Multicore example for use with CMM or LMM memory models.
+  http://learn.parallax.com/propeller-c-tutorials
 
 */
 

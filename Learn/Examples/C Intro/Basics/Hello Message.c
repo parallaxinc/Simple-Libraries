@@ -1,7 +1,7 @@
 /*
   Hello Message.c
   
-  Click Help and select Tutorials to see lots of code and application examples. 
+  Display a hello message in the serial terminal. 
   
   http://learn.parallax.com/propeller-c-start-simple/simple-hello-message
 */

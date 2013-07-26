@@ -1,5 +1,5 @@
 /*
-  Measure Volts.c
+  Set and Measure Volts.c
 
   Set D/A0 to 2.5 V and D/A1 to 1 V, and measure with A/D0 and A/D1.  
 
@@ -7,7 +7,7 @@
 */
 
 #include "simpletools.h"                         // Include simpletools
-#include "adcDCpropab.h"                         // Include adcDCpropab
+#include "adcDCpropAB.h"                         // Include adcDCpropab
 
 int main()                                       // Main function
 {

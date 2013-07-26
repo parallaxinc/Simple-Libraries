@@ -4,7 +4,7 @@
   Write values and text to the Proepller Chip's dedicated EEPROM, and then
   read back and display.
   
-  http://learn.parallax.com/propeller-c-simple-devices/eeprom-data
+  http://learn.parallax.com/propeller-c-tutorials
 */
 
 #include "simpletools.h"                      // Include simpletools header    .
