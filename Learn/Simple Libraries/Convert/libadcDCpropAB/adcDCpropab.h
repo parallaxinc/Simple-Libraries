@@ -76,7 +76,7 @@ void adc_init(int csPin, int sclPin, int doPin, int diPin);
  * @param channel The A/D converter's input channel, either channel 0, 1, 2, or 3.  
  * Marked A/D 0, 1, 2 or 3 on the Propeller Activity Board.
  *
- * @returns voltage measurement as a number of 4096ths of 5 V.  
+ * @returns Voltage measurement as a number of 4096ths of 5 V.  
  */
 int adc_in(int channel);
 
@@ -87,7 +87,7 @@ int adc_in(int channel);
  * @param channel The A/D converter's input channel, either channel 0, 1, 2, or 3.  
  * Marked A/D 0, 1, 2 or 3 on the Propeller Activity Board.
  *
- * @returns floating point value that represents the voltage measurement.
+ * @returns Floating point value that represents the voltage measurement.
  */
 float adc_volts(int channel);
 

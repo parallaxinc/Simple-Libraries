@@ -8,7 +8,7 @@
 
 #include "simpletools.h"                      // Include simpletools
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   float r = 1.0;                              // Set radius to 1.0
   float c = 2.0 * PI * r;                     // Calculate circumference

@@ -3,7 +3,7 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.92 (see details for more info)
+ * @version 0.93 (see details for more info)
  *
  * @copyright
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
@@ -222,7 +222,7 @@ extern int eeInitFlag;
  * supply voltage enabling it to source up to
  * 40 mA of current (max 1 W dissipation per chip).
  *
- * @param pin Number of the I/O pin to set high
+ * @param pin Number of the I/O pin to set high.
  */
 void high(int pin);
 
@@ -234,7 +234,7 @@ void high(int pin);
  * supply voltage enabling it to sink up to
  * 40 mA of current (max 1 W dissipation per chip).
  *
- * @param pin Number of the I/O pin to set low
+ * @param pin Number of the I/O pin to set low.
  */
 void low(int pin);
 
@@ -245,9 +245,9 @@ void low(int pin);
  * or high to low.  This function assumes that some other
  * function has already set the I/O pin to output.
  *
- * @param pin I/O pin number
+ * @param pin I/O pin number.
  *
- * @returns The new pin state
+ * @returns The new pin state.
  */
 unsigned int toggle(int pin);
 
@@ -259,10 +259,10 @@ unsigned int toggle(int pin);
  * so that it can return the binary value of the
  * voltage applied by an external circuit.
  *
- * @param pin Number of the I/O pin to set to input
+ * @param pin Number of the I/O pin to set to input.
  *
  * @returns 1 or 0 to indicate high or low signal
- * received
+ * received.
  */
 unsigned int input(int pin);
 
@@ -273,7 +273,7 @@ unsigned int input(int pin);
  * function changes it to output.  If it's set to output,
  * this function changes it to input.
  *
- * @param pin I/O pin number
+ * @param pin I/O pin number.
  *
  * @returns The new pin direction.
  */
@@ -310,7 +310,7 @@ unsigned int get_state(int pin);
  * @param pin I/O pin number
  *
  * @returns I/O pin direction as seen by the cog that runs the
- * function
+ * function.
  */
 unsigned int get_direction(int pin);
 
@@ -322,9 +322,9 @@ unsigned int get_direction(int pin);
  * I/O pin is set to input, or whether another cog is sending a different
  * output state.
  *
- * @param pin I/O pin number
+ * @param pin I/O pin number.
  *
- * @returns ina register bit for I/O pin, either 1 or 0.
+ * @returns In a register bit for I/O pin, either 1 or 0.
  */
 unsigned int get_output(int pin);
 
@@ -333,15 +333,15 @@ unsigned int get_output(int pin);
  *
  * @details This function sets an I/O pin to either output or input.
  *
- * @param pin I/O pin number
- * @param direction I/O pin direction
+ * @param pin I/O pin number.
+ * @param direction I/O pin direction.
   */
 void set_direction(int pin, int direction);
 
 /**
  * @brief Set I/O pin output register bit to either 1 or 0.
  *
- * @details This function focuses on the I/O pins output register.  If you
+ * @details This function focuses on the I/O pin's output register.  If you
  * intend to use it to send high or low signals, consider using high or low
  * functions.  This function can also be used in conjunction with set_direction
  * to send high or low signals.
@@ -359,70 +359,70 @@ void set_output(int pin, int state);
  * tells you the actual state of each pin, regardless of whether it's a 
  * voltage applied to input or transmitted by an output.
  *
- * @param endPin the highest numbered pin.
- * @param startPin the lowest numbered pin.
+ * @param endPin The highest numbered pin.
+ * @param startPin The lowest numbered pin.
  *
- * @returns states value containing the binary bit pattern.  The value for
+ * @returns States value containing the binary bit pattern.  The value for
  * startPin should be in bit-0, next in bit-1, etc.
  */
 unsigned int get_states(int endPin, int startPin);
 
 /**
- * @brief Get directions for a contiguous group of I/O pins
+ * @brief Get directions for a contiguous group of I/O pins.
  *
  * @details Get direction register states from a contiguous group of bits 
  * in the cog's output register.
  *
- * @param endPin the highest numbered pin.
- * @param startPin the lowest numbered pin.
+ * @param endPin The highest numbered pin.
+ * @param startPin The lowest numbered pin.
  *
- * @returns states Value containing a binary bit pattern.  The value for
+ * @returns States value containing a binary bit pattern.  The value for
  * startPin should be in bit-0, next in bit-1, etc.
  */
 unsigned int get_directions(int endPin, int startPin);
 
 /**
- * @brief Get output settings for a contiguous group of I/O pins
+ * @brief Get output settings for a contiguous group of I/O pins.
  *
  * @details Get output register settings for a contiguous group of bits 
  * in the cog's output register.
  *
- * @param endPin the highest numbered pin.
- * @param startPin the lowest numbered pin.
+ * @param endPin The highest numbered pin.
+ * @param startPin The lowest numbered pin.
  *
- * @returns pattern Value containing a binary bit pattern.  The value 
+ * @returns Pattern value containing a binary bit pattern.  The value 
  * for startPin should be in bit-0, next in bit-1, etc.
  */
 unsigned int get_outputs(int endPin, int startPin);
 
 /**
- * @brief Set directions for a contiguous group of I/O pins
+ * @brief Set directions for a contiguous group of I/O pins.
  *
  * @details Set directions values in a contiguous group of bits in the 
  * cog's output register.
  *
- * @param endPin the highest numbered pin.
- * @param startPin the lowest numbered pin.
- * @param pattern value containing the binary bit pattern.  The value for
+ * @param endPin The highest numbered pin.
+ * @param startPin The lowest numbered pin.
+ * @param pattern Value containing the binary bit pattern.  The value for
  * startPin should be in bit-0, next in bit-1, etc.
  */
 void set_directions(int endPin, int startPin, unsigned int pattern);
 
 /**
- * @brief Set output states for a contiguous group of I/O pins
+ * @brief Set output states for a contiguous group of I/O pins.
  *
  * @details Set output states of a contiguous group of bits in the cog's
  * output register.
  *
- * @param endPin the highest numbered pin.
- * @param startPin the lowest numbered pin.
- * @param pattern value containing the binary bit pattern.  The value for
+ * @param endPin The highest numbered pin.
+ * @param startPin The lowest numbered pin.
+ * @param pattern Value containing the binary bit pattern.  The value for
  * startPin should be in bit-0, next in bit-1, etc.
  */
 void set_outputs(int endPin, int startPin, unsigned int pattern);
 
 /**
- * @brief Delay cog from moving on to the next statement for a certain amount
+ * @brief Delay cog from moving on to the next statement for a certain length
  * of time.
  *
  * @details The default time increment is 1 ms, so pause(100) would delay for
@@ -505,7 +505,7 @@ void set_pause_dt(int clockticks);
  * @param pin I/O pin number
  * @param duration Amount of time the measurement counts transitions
  *
- * @returns transitions The number of low to high transitions
+ * @returns The number of low to high transitions
  */
 long count(int pin, long duration);
 
@@ -520,9 +520,9 @@ long count(int pin, long duration);
  * This library uses another cog's counter modules (2 per cog) to perform duty modulation,
  * which is useful for D/A conversion.  The digital signal it generates will affect LED
  * brightness.  The signal can be passed through a low pass RC filter for digital to 
- * analog voltage conversion.  Add an op amp buffer it it needs to drive a load.  
+ * analog voltage conversion.  Add an op amp buffer if it needs to drive a load.  
  *
- * Default resolution is 8-bits for output voltages ranging from 0 V to (255/256) of
+ * Default resolution is 8 bits for output voltages ranging from 0 V to (255/256) of
  * 3.3 V.
  *
  * General equation is dacVal * (3.3 V/2^bits)
@@ -532,7 +532,7 @@ long count(int pin, long duration);
  * the dac_ctr_res function.
  *
  * @param pin I/O pin number.
- * @param channel use 0 or 1 to select the cog's CTRA or CTRB counter modules, that
+ * @param channel Use 0 or 1 to select the cog's CTRA or CTRB counter modules, which
  * are used for D/A conversion.
  * @param dacVal Number of 256ths of 3.3 V by default.  Use a value from 0 (0 V) 
  * to 255 .
@@ -550,7 +550,7 @@ void dac_ctr(int pin, int channel, int dacVal);
  * Default is 8 bits, which results in dacVal * (3.3 V/ 256), so dacVal
  * specifies the number of 256ths of 3.3 V.
  *
- * @param bits the D/A converter's resolution in bits.
+ * @param bits The D/A converter's resolution in bits.
  */
 void dac_ctr_res(int bits);
 
@@ -569,8 +569,8 @@ void dac_ctr_stop(void);
  * with another cog, try square_wave function instead.
  *
  * @param pin I/O pin that sends the frequency
- * @param msTime time in ms that the signal lasts
- * @param frequency frequency of the signal in Hz.  Accepts
+ * @param msTime Time in ms that the signal lasts
+ * @param frequency Frequency of the signal in Hz.  Accepts
  * values from 1 Hz to 128000000 Hz (128 MHz).
  */
 void freqout(int pin, int msTime, int frequency);
@@ -637,7 +637,7 @@ void pwm_stop(void);
  * @param state State of the pulse (1 for positive or high pulses, 0 for negative or
  * low pulses.
  *
- * @returns tPulse Number of time units the pulse lasted
+ * @returns Number of time units the pulse lasted.
  */
 long pulse_in(int pin, int state);
 
@@ -653,7 +653,7 @@ long pulse_in(int pin, int state);
  * for the pin.  This defaults to low on startup, but you can pre-set it while leaving
  * the pin set to input with the set_output function (or check it with get_output).
  *
- * @param pin I/O pin number
+ * @param pin I/O pin number.
  * @param time Amount of time the pulse lasts.
  */
 void pulse_out(int pin, int time);
@@ -668,10 +668,10 @@ void pulse_out(int pin, int time);
  * call to set_io_dt function.  The pulse will be positive if the I/O pin is transmitting a
  * low signal before the call.
  *
- * @param pin I/O pin number
- * @param state Starting pin state
+ * @param pin I/O pin number.
+ * @param state Starting pin state.
  *
- * @returns time from starting pin
+ * @returns Time from starting pin.
  */
 long rc_time(int pin, int state);
 
@@ -687,10 +687,10 @@ long rc_time(int pin, int state);
  * can modulate the signal.  A low signal allows the square wave to transmit, and a high
  * signal prevents it.  
  *
- * @param pin I/O pin that transmits square wave frequency.  To stop sending the signal
+ * @param pin I/O pin that transmits square wave frequency.  To stop sending the signal.
  * and change the pin back to input, pass the pin as a negative number.
- * @param channel 0 or 1 Selects the counter module to transmit the frequency.
- * @param freq Square wave frequency
+ * @param channel 0 or 1 selects the counter module to transmit the frequency.
+ * @param freq Square wave frequency.
  *
  */
 void square_wave(int pin, int channel, int freq);
@@ -731,13 +731,13 @@ void set_io_dt(long clockticks);
 /**
 * @brief Receive data from a synchronous serial device
 *
-* @param pinDat Data pin
-* @param pinClk Clock pin
+* @param pinDat Data pin.
+* @param pinClk Clock pin.
 * @param mode Order and orientation to clock pulse options: 
-* MSBPRE, LSBPRE, MSBPOST,LSBPOST
-* @param bits number of binary values to transfer
+* MSBPRE, LSBPRE, MSBPOST,LSBPOST.
+* @param bits Number of binary values to transfer.
 *
-* @returns value received from the synchronous serial device.
+* @returns Value received from the synchronous serial device.
 */
 int shift_in(int pinDat, int pinClk, int mode, int bits);
 
@@ -747,18 +747,15 @@ int shift_in(int pinDat, int pinClk, int mode, int bits);
 * @param pinDat Data pin
 * @param pinClk Clock pin
 * @param mode Order that bits are transmitteed, either LSBFIRST or MSBFIRST.
-* @param bits number of binary values to transfer
-* @param value to transmit
+* @param bits Number of binary values to transfer.
+* @param Value to transmit.
 */
 void shift_out(int pinDat, int pinClk, int mode, int bits, int value);
 
 /**
- * @brief Set up an I2C bus.
+ * @brief Set up a simple serial driver with transmit & receive pins.
  *
- * @details After you have set up the bus, you can use i2cread and i2cwrite functions 
- * in ...propgcc/propeller-elf/include/i2c.h to communicate on the bus.
- *
- * @param sclpin the I2C bus' serial clock pin.
+ * @param pinTxOut Transmitting output pin.
  *
  * @param sdapin the I2C bus' serial data pin.
  *
@@ -937,7 +934,7 @@ void ee_putStr(unsigned char *s, int n, int addr);
  * @param addr The EEPROM address of the first byte in the string.
  * 
  * @returns The address of the array that stores the characters that
- * that were fetched.
+ * were fetched.
  */
 char* ee_getStr(unsigned char* s, int n, int addr);
 
@@ -948,8 +945,8 @@ char* ee_getStr(unsigned char* s, int n, int addr);
 
 
 /**
- * @brief Store a 32 bit precision floating point value at a certain address
- * in the Propeller Chip'sdedicated EEPROM.  A 32 bit value occupies four bytes
+ * @brief Store a 32-bit precision floating point value at a certain address
+ * in the Propeller Chip's dedicated EEPROM.  A 32-bit value occupies four bytes
  * so if you are storing values in a sequence, make sure to add 4 to each addr
  * parameter value.
  *
@@ -970,8 +967,8 @@ void ee_putFloat32(float value, int addr);
 
 
 /**
- * @brief Fetch a 32 bit precision floating point value from a certain address
- * in the Propeller Chip's dedicated EEPROM.  A 32 bit value occupies four bytes
+ * @brief Fetch a 32-bit precision floating point value from a certain address
+ * in the Propeller Chip's dedicated EEPROM.  A 32-bit value occupies four bytes
  * so if you are fetching values in a sequence, make sure to add 4 to each addr
  * parameter value.
  *
@@ -987,38 +984,32 @@ void ee_putFloat32(float value, int addr);
 float ee_getFloat32(int addr);
 
 /**
- * @brief ee_get_float32 renamed ee_getFloat32.
- */
-#define ee_get_float32 ee_getFloat32
-
-
-/**
- * @brief mount an SD card with the minimal 4-pin interface.
+ * @brief Mount an SD card with the minimal 4-pin interface.
  *
- * @param doPin the SD card's data out pin.
+ * @param doPin The SD card's data out pin.
  *
- * @param clkPin the SD card's clock pin.
+ * @param clkPin The SD card's clock pin.
  *
- * @param diPin the SD card's data in pin.
+ * @param diPin The SD card's data in pin.
  *
- * @param csPin the SD card's chip select pin.
+ * @param csPin The SD card's chip select pin.
  *
  * @returns status 0 if successful, or an error code.
  */
 int sd_mount(int doPin, int clkPin, int diPin, int csPin);
 
 /**
- * @brief Convert value to zero terminated text string
+ * @brief Convert value to zero terminated text string.
  *
  * @details Given an int, a character array pointer and a base, this function
  *          converts the int into the characters that represent the value in
  *          the specified base.
  *
- * @param   i an integer value
- * @param   b[] a character array pointer
- * @param   base the number base for the character representation
+ * @param   i An integer value.
+ * @param   b[] A character array pointer.
+ * @param   base The number base for the character representation.
  *
- * @returns the character array address it received.
+ * @returns The character array address it received.
  */
 char* itoa(int i, char b[], int base);
 

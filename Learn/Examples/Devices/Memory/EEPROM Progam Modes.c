@@ -9,9 +9,9 @@
 
 #include "simpletools.h"                      // Include simpletools header    .
 
-int main(void)                                // Main function code starts here
+int main(void)                                // main function code starts here
 {
-  int addr = 65535;                           // Higest EEPROM address least used
+  int addr = 65535;                           // Highest EEPROM address least used
   char mode = ee_get_byte(addr);              // Value at address 65535 -> mode
   mode += 1;                                  // Add one
   mode %= 3;                                  // Modulus (remainder of mode / 3)

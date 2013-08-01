@@ -9,7 +9,7 @@
 
 #include "simpletools.h"                      // Include simpletools header    .
 
-int main(void)                                // Main function code starts here
+int main(void)                                // main function
 {
   int addr = 64000;                           // Pick EEPROM base address. 
 

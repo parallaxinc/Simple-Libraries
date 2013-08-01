@@ -11,7 +11,7 @@
 
 int DO = 22, CLK = 23, DI = 24, CS = 25;      // SD card pins on Propeller BOE
 
-int main(void)                                // Main function
+int main(void)                                // main function
 {
   print("Enter several values.\n\n");         // User instructions
   print("To see logged values, press\n");

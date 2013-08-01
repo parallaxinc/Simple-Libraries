@@ -9,7 +9,7 @@
 #include "simpletools.h"                          // Include simpletools header
 #include "mx2125.h"                               // Include mx2125 header 
 
-int main()                                        // Main function
+int main()                                        // main function
 {
   while(1)                                        // Repeat indefinitely
   {

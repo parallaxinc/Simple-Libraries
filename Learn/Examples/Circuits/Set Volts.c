@@ -17,7 +17,7 @@
 
 #include "simpletools.h"                      // Include simpletools
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   dac_ctr(26, 0, 194);                        // 2.5 V to D/A0
   dac_ctr(27, 1, 78);                         // 1 V to D/A1

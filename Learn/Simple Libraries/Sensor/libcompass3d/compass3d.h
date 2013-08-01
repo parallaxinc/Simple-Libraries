@@ -37,7 +37,7 @@ extern "C" {
  *   i2c mybus = i2c_init(sclPin, sdaPin)
  *   @endcode
  *
- * ... where sclPin is the number of the I/O pin number
+ * ... where sclPin is the number of the I/O pin
  * connected to the compass module's SCL line and sdaPin
  * is the number of the pin connected to the module's
  * SDA line. 
@@ -51,23 +51,23 @@ extern "C" {
 void compass_init(i2c *bus);
 
 /**
- * @brief Read values from compass
+ * @brief Read values from compass.
  *
- * @details This function finds a compas on the specified
+ * @details This function finds a compass on the specified
  * bus, reads its x, y, and z values and loads them into
  * variables that are passed by address.
  *
- * @param *bus - a pointer to the I2C bus (mybus in the 
+ * @param *bus A pointer to the I2C bus (mybus in the 
  * example above).
  *
- * @param *px - a pointer to a variable to receive the 
- * x value measurement.
+ * @param *px A pointer to a variable to receive the 
+ * x-value measurement.
  *
- * @param *py - a pointer to a variable to receive the 
- * y value measurement.
+ * @param *py A pointer to a variable to receive the 
+ * y-value measurement.
  *
- * @param *px - a pointer to a variable to receive the 
- * x value measurement.
+ * @param *pz A pointer to a variable to receive the 
+ * z-value measurement.
  *
  * @returns void, but it will display an error message if the
  * compass module does not respond. 

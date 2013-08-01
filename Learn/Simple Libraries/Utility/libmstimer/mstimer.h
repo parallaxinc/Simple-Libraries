@@ -46,7 +46,7 @@ void mstime_reset();
 /**
  * @brief Set the millisecond timer.
  *
- * @param newTime new millisecond time value that timer should start 
+ * @param newTime New millisecond time value that timer should start 
  * counting from.
  */
 void mstime_set(int newTime);

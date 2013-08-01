@@ -9,12 +9,12 @@
 #include "simpletools.h"
 #include "wavplayer.h"
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   int DO = 22, CLK = 23, DI = 24, CS = 25;    // SD I/O pins
   sd_mount(DO, CLK, DI, CS);                  // Mount SD card
   
-  const char techloop[] = {"techloop.wav"};     // Set up levels string
+  const char techloop[] = {"techloop.wav"};   // Set up levels string
   wav_play(techloop);                         // Pass to wav player
   
   wav_volume(6);                              // Adjust volume
