@@ -1,6 +1,6 @@
 /*
   Hello LCD.c
-  Needs to be converted to access a Parallax Serial LCD library.
+  Under development.
   learn.parallax.com/propeller-c-tutorials
 */
 

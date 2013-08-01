@@ -1,9 +1,9 @@
 /**
  * @file vgatext.h
  *
- * @author Spin + ASM by Chip Gracey
- * Converted from Spin + ASM with Eric Smith's Spin2Cpp utility
- * Commented and function names adjusted by Andy Lindsay
+ * @author Spin + ASM by Chip Gracey.
+ * Converted from Spin + ASM with Eric Smith's Spin2Cpp utility.
+ * Commented and function names adjusted by Andy Lindsay.
  *
  * @copyright
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
@@ -67,8 +67,8 @@ typedef struct VGA_Text {
 /**
  * @brief Start the VGA text display.
  *
- * @param Basepin pin connected to VGA's V (vertical sycn) input.  Must be P0, P8, P16, or P24.  
- * counting upward from this pin, the connections are H, B0, B1, G0, G1, R0, R1.  Example: if the
+ * @param Basepin pin connected to VGA's V (vertical sync) input.  Must be P0, P8, P16, or P24.  
+ * Counting upward from this pin, the connections are: H, B0, B1, G0, G1, R0, R1.  Example: if the
  * Basepin is set to 8, P8 is connected to H, P9 to V, P10 to B0, and so on, up through P15 to R1.
  *
  * @returns Nonzero if successfully launched, or zero if no cog available. 
@@ -83,7 +83,7 @@ typedef struct VGA_Text {
 /**
  * @brief Display a string.
  *
- * @param Stringptr a pointer to a text string.
+ * @param Stringptr A pointer to a text string.
  */
   int32_t	vga_text_str(char* Stringptr);
 
@@ -108,18 +108,18 @@ typedef struct VGA_Text {
  *
  * @param Value The value to display.
  *
- * @param Digits The number of digits to display
+ * @param Digits The number of digits to display.
  */
   int32_t	vga_text_bin(int32_t Value, int32_t Digits);
 
 /**
  * @brief Display a character.
  *
- * @param C character to print.  This could be a printable character like 
+ * @param C Character to print.  This could be a printable character like 
  * 'a', 'b', 'Z', '&', '~', or non-printable control characters
  *
  * @details Non-Printable Control Characters (with simpletools constants
- * when they match.
+ * when they match.)
  *
  * CLS = 0
  * HOME = 1

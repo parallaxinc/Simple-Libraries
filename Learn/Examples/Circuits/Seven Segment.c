@@ -12,7 +12,7 @@ int main()                                    // main function
 {
   set_directions(15, 8, 0b11111111);          // P15...P8 -> output
                                               
-  set_outputs(15, 8, 0b11100111);             // 0 -> 7 segment display
+  set_outputs(15, 8, 0b11100111);             // 0 -> 7-segment display
   pause(500);
   set_outputs(15, 8, 0b10000100);             // 1
   pause(500);

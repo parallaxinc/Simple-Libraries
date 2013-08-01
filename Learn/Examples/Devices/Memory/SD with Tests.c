@@ -11,7 +11,7 @@
 
 int DO = 22, CLK = 23, DI = 24, CS = 25;      // SD card pins on Propeller BOE
 
-int main(void)                                // Main function
+int main(void)                                // main function
 {
   int erc = sd_mount(DO, CLK, DI, CS);        // Mount SD card
   if(!erc)                                    // Error code = 0, good, continue

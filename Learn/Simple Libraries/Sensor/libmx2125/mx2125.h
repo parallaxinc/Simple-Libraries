@@ -6,8 +6,7 @@
 * @copyright
 * Copyright (C) Parallax, Inc. 2012. All Rights MIT Licensed.
 *
-* @brief Measure acceleration, tilt and rotation with the Memsic MX2125 Dual 
-* Axis Accelerometer.
+* @brief Measure acceleration, tilt, and rotation with the Memsic MX2125 Dual-axis Accelerometer.
 *
 */
 
@@ -21,7 +20,7 @@ extern "C" {
 #include "simpletools.h"
 
 /**
- * @brief approximation of PI for conversting g to angular values like
+ * @brief Approximation of PI for converting g to angular values like
  * rotation and tilt.
  */
 #ifndef PI 
@@ -32,7 +31,7 @@ extern "C" {
  * @brief Measure acceleration in terms of g (acceleration due to earth's 
  * gravity). A measurement of +/-1250 corresponds to approximately +/- 1 g.
  *
- * @param axisPin Number of I/O pin connected to either MX2125's X or Y-
+ * @param axisPin Number of I/O pin connected to either MX2125's X- or Y-
  * axis pins.
  *
  * @returns Value that represents 1250ths of a g acting on the
@@ -46,9 +45,9 @@ int mx_accel(int axisPin);
  * Zero degree rotation is when the triangle on the MX2125 chip is pointing
  * up.
  *
- * @param xPin Number of I/O pin connected to either MX2125's x-axis pin.
+ * @param xPin Number of I/O pin connected to MX2125's x-axis pin.
  *
- * @param yPin Number of I/O pin connected to either MX2125's y-axis pin.
+ * @param yPin Number of I/O pin connected to MX2125's y-axis pin.
  *
  * @returns Integer degree value (0 to 359) that represents the clockwise 
  * angle of rotation. 
@@ -60,7 +59,7 @@ int mx_rotate(int xPin, int yPin);
  * is when the top surface of the accelerometer chip is parallel to the 
  * ground.
  *
- * @param axisPin Number of I/O pin connected to either MX2125's X or Y-
+ * @param axisPin Number of I/O pin connected to either of MX2125's X- or Y-
  * axis pins.
  *
  * @returns Value from 0 to 90 that represents the tilt of that axis. 

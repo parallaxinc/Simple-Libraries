@@ -10,7 +10,7 @@
 #include "simpletools.h"                      // Include simpletools header
 #include "servo.h"                            // Include servo header
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   servo_angle(16, 0);                         // P16 servo to 0 degrees
   pause(500);                                 // Allow 1/2 second to get there

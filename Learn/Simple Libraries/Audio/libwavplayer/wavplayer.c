@@ -8,8 +8,7 @@
  *
  * @brief Plays 16-bit, 32ksps, mono .wav files in the root directory of a 
  * microSD card.
- * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
- * pending, not for release.
+
  * @n @n Currently supports LMM and CMM memory models.  
  * @n @n
  * WAV file info sources, thanks to:

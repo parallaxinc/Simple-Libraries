@@ -7,7 +7,7 @@
 #include "simpletools.h"                      // Include simple tools
 #include "vgatext.h"                          // Include VGA text
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   vga_text_start(8);                          // P8 basepin to V
   vga_text_str("Hello Propeller VGA!");       // Display hello message

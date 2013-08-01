@@ -162,7 +162,7 @@ void servo_stop(void);
  * the servoSet function calls it if it detects that the servo cog has not
  * been started.
  *
- * @returns 1..8 if successful.  0 if no available cogs, -1 if no avialable
+ * @returns 1..8 if successful.  0 if no available cogs, -1 if no available
  * locks.
  */
 int servo_start(void);

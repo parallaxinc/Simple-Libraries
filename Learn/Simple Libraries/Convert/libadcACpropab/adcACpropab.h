@@ -108,7 +108,7 @@ typedef struct AdcBox
  * the array.  For example, if you only want to monitor channels 2 and 0, use 0b0101.
  * If you instead want to monitor channels 3, and 2, use 0b1100.  
  *
- * @param array, address of the four int array that will receive the updates.  Channel-3
+ * @param array, Address of the four int array that will receive the updates.  Channel-3
  * measurement goes into array[3], channel-2 into array[2], and so on.  Regardless of 
  * how many channels you intend to monitor, make sure to declare an in array with four
  * elements.  At the start, the process will store -1 in any slots that the pattern 

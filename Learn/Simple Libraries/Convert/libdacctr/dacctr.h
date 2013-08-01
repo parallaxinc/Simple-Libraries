@@ -104,7 +104,7 @@ typedef struct DacCogMemory
  *
  * @param pin Number of the I/O pin to perform D/A conversion.
  *
- * @param channel use 0 for the cog's CTRA or 1 for the cog's CTRB counter module.  You can
+ * @param channel Use 0 for the cog's CTRA or 1 for the cog's CTRB counter module.  You can
  * also use NEW_COG if you are going to use dac_start.  
  *
  * @param bits The resolution of your D/A converter in bits.  If you set it to 8, you will
@@ -123,10 +123,10 @@ dac dac_setup(int pin, int channel, int bits);
  * @details After a call to dac_setup, you can use the dac structure it returns to set the
  * D/A converter's voltage.  Again, see examples at the top of this file.
  *
- * @param da the pointer to the dac structure that dac_setup function returned.  
+ * @param da The pointer to the dac structure that dac_setup function returned.  
  *
- * @param value the output value for the D/A converter.  (Like the number of 256ths of 3.3 V
- * if you set up an 8-bit D/A converter with dac_stup.
+ * @param value The output value for the D/A converter.  (Like the number of 256ths of 3.3 V
+ * if you set up an 8-bit D/A converter with dac_setup.
  */
 void dac_set(dac* da, int value);
 
@@ -134,7 +134,7 @@ void dac_set(dac* da, int value);
  * @brief Clear a D/A converter that's running in the same cog and reclaim the I/O pin and
  * counter module for other uses.
  *
- * @param dac structure corresponding to the I/O pin that's sending the dac signal you
+ * @param dac Structure corresponding to the I/O pin that's sending the dac signal you
  * want to close.
  */
 void dac_close(dac* da);
@@ -150,10 +150,10 @@ void dac_close(dac* da);
  * @param sampleRate The sample rate you want the dac to update values at.  Top speed is
  * 46 kHz, 44.1 kHz is recommended.
  *
- * @param da0 - Address of the dac structure the cog's channel 0 will run.  If you do
+ * @param da0 Address of the dac structure the cog's channel 0 will run.  If you do
  * not want to use this channel, pass NULL.
  *
- * @param da1 - Address of the dac structure the cog's channel 1 will run.  If you do
+ * @param da1 Address of the dac structure the cog's channel 1 will run.  If you do
  * not want to use this channel, pass NULL.
  *
  * @returns dac cog ID, the number of the cog the process was launched into.  You can save 
@@ -162,9 +162,9 @@ void dac_close(dac* da);
 int dac_start(dacmem mem, int sampleRate, dac* da0, dac* da1);
 
 /**
- * @brief stops a DAC cog and free's up a cog and all its resources for other uses.
+ * @brief Stops a dac cog and frees up a cog and all its resources for other uses.
  *
- * @param cogid the dac cog's ID that dac_start returned.
+ * @param cogid The dac cog's ID that dac_start returned.
  */
 int dac_stop(int cogid);
 
