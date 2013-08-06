@@ -1,5 +1,7 @@
 /*
   Hello Message.c
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Display a hello message in the serial terminal. 
   

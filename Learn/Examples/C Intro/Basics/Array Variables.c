@@ -1,5 +1,7 @@
 /* 
   Array Variables.c  
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
    
   Declare and initialize an array and display a couple of its elements.
   

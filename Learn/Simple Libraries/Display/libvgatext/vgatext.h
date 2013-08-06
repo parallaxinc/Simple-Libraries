@@ -1,9 +1,11 @@
 /**
  * @file vgatext.h
  *
- * @author Spin + ASM by Chip Gracey.
- * Converted from Spin + ASM with Eric Smith's Spin2Cpp utility.
- * Commented and function names adjusted by Andy Lindsay.
+ * @author Spin + ASM by Chip Gracey
+ * Converted from Spin + ASM with Eric Smith's Spin2Cpp utility
+ * Commented and function names adjusted by Andy Lindsay
+ *
+ * @version 0.5
  *
  * @copyright
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.

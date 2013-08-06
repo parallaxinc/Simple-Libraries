@@ -1,5 +1,11 @@
 /**
- * @file i2c.h
+ * @file simplei2c.h
+ *
+ * @version 0.5
+ *
+ * @copyright
+ * Copyright (c) 2013, Parallax Inc. All Rights MIT Licensed.
+ *
  * @brief Provides simple i2c start, stop, read, and write functions.
  * See simpletools library for additional I2C functions.
  *

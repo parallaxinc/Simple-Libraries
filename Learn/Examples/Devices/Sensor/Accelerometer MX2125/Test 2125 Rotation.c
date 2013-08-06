@@ -1,5 +1,7 @@
 /*
   Test 2125 Rotation.c
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Measure rotation.  Assumes MX2125 is being held vertically and rotated.   
   

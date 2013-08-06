@@ -1,6 +1,8 @@
 /*
   EEPROM Program Modes.side
 
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
+
   Use EEPROM to advance modes with each press/release of the reset button.
   Also advances with each power-off, power-on cycle. 
   

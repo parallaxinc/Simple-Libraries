@@ -1,5 +1,7 @@
 /*
   Floating Point Calculations.c
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Calculate and display circumference of a circle of radius = 1.0.
   

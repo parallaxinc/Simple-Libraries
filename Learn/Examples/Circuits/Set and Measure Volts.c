@@ -1,15 +1,17 @@
 /*
   Set and Measure Volts.c
 
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
+
   Set D/A0 to 2.5 V and D/A1 to 1 V, and measure with A/D0 and A/D1.  
 
   http://learn.parallax.com/propeller-c-simple-circuits/set-volts
 */
 
 #include "simpletools.h"                         // Include simpletools
-#include "adcDCpropAB.h"                         // Include adcDCpropab
+#include "adcDCpropab.h"                         // Include adcDCpropab
 
-int main()                                       // Main function
+int main()                                       // main function
 {
   adc_init(21, 20, 19, 18);                      // CS=21, SCL=20, DO=19, DI=18
 

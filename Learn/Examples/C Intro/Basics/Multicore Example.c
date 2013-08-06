@@ -1,5 +1,7 @@
 /*
   Multicore Example.c
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Launch a function into another cog (processor) and display what it does
   to the global n variable over time. 
@@ -9,7 +11,7 @@
 
 #include "simpletools.h"                      // Include simpletools
 
-void adder(void* par);                        // Forward declaration
+void adder(void *par);                        // Forward declaration
 
 static volatile int t, n;                     // Global vars for cogs to share
 unsigned int stack[40 + 25];                  // Stack vars for other cog

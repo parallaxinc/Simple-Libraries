@@ -20,7 +20,7 @@
 #define NCO_PWM_1 0b00100 << 26
 #endif
 
-void pw(void* par);
+void pw(void *par);
 static unsigned int pwstack[(160 + (50 * 4)) / 4];
 
 static volatile unsigned int tCycle, ticksA, ticksB, ctra, ctrb;
@@ -60,7 +60,7 @@ void pwm_stop(void)
   pwcog = 0;
 }
 
-void pw(void* par)
+void pw(void *par)
 {
   FRQA = 1;
   FRQB = 1;

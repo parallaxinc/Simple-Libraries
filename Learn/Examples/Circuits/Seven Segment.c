@@ -1,5 +1,7 @@
 /*
   Seven Segment.c
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Display digits on a 7 segment (common cathode) LED display.
   

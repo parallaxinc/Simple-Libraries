@@ -1,9 +1,13 @@
 /**
  * @file fdserial.h
- * @brief Full Duplex Serial adapter API definition.
  *
+ * @version 0.5
+ *
+ * @copyright
  * Copyright (c) 2008-2013, Steve Denson
  * See end of file for terms of use.
+ *
+ * @brief Full Duplex Serial adapter API definition.
  */
 #ifndef __FDSerial_H
 #define __FDSerial_H

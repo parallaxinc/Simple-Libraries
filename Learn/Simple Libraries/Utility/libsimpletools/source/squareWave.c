@@ -79,7 +79,7 @@ void square_wave_stop(void)
 }
 
 
-void square_wave_cog(void* par)
+void square_wave_cog(void *par)
 {
   int pin;
   while(1)

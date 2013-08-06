@@ -1,5 +1,7 @@
 /*
   Test Ping Distance.c
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Measure and display Ping))) Ultrasonic Distance Sensor distance measurements.
   

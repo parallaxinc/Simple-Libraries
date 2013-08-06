@@ -7,8 +7,8 @@
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
  *
  * @brief Initialize ADC124S021 and measure voltage as a raw, 12-bit5 adc value.
- * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
- * pending, not for release.
+ * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, revisions 
+ * pending.
  */
 
 #include "simpletools.h"

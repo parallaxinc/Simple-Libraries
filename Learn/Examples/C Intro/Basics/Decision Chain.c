@@ -1,6 +1,8 @@
 /*
   Decision Chain.c
   
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
+
   Check a series of conditions, but only act on the first one that's true.
   
   http://learn.parallax.com/propeller-c-start-simple/make-several-decisions

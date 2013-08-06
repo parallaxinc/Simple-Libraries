@@ -1,5 +1,7 @@
 /*
   Test 2125 Acceleration.c
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Measure X and Y-axis acceleration with Memsic 2125 accelerometer.
   
