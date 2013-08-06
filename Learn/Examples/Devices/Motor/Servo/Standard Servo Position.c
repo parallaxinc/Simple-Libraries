@@ -2,7 +2,7 @@
   Standard Servo Position.c
   
   Moves servo to 0, 90 and 180 degrees.  Holds each position for 2 s.
-  Connect servo to P16 port on Propeller ActivityBoard.
+  Connect servo to P16 port on Propeller Activity Board.
   
   http://learn.parallax.com/propeller-c-simple-devices/standard-servo
 */

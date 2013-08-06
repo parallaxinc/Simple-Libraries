@@ -1,17 +1,17 @@
 /*
-* @file libadcDCpropAB.c
+* @file libadcDCpropab.c
 *
 * @author Andy Lindsay
 *
 * @copyright
 * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
 *
-* @brief Project and test harness for the adcDCpropAB library.
+* @brief Project and test harness for the adcDCpropab library.
 */
 
 
 #include "simpletools.h"                      // Include simpletools
-#include "adcDCpropAB.h"                      // Include adcPropABdc
+#include "adcDCpropab.h"                      // Include adcDCpropab
 
 int main()                                    // Main function
 {

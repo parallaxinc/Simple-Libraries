@@ -2,6 +2,8 @@
   Count to Ten.c
   
   Count to ten in SimpleIDE Terminal using a for loop.
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   http://learn.parallax.com/propeller-c-start-simple/counting-loops
 */

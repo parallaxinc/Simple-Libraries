@@ -1,8 +1,17 @@
 /**
  * @file simpletext.h
+ *
+ * @author Steve Denson
+ *
+ * @version 0.5
+ *
+ * @copyright
+ * Copyright (C) 2013, Parallax Inc. 
+ * See end of file for terms of use.
+ *
  * Simple Terminal Library API definition.
  *
- * This library is provided with the following in mind:
+ * @brief This library is provided with the following in mind:
  *
  * - Designed for minimum size with generic IO devices.
  * - Designed for any character IO device using rxChar/txChar functions.
@@ -10,10 +19,6 @@
  * - Supports get/print decimal, binary, float, hex, char, and string.
  * - Supports print format values to buffer comparable to sprintf (printBuffFormat).
  * - Supports scan  format values from buffer comparable to sscanf (scanBuffFormat).
- *
- * Copyright (C) 2013, Parallax Inc.
- * Written by Steve Denson
- * See end of file for terms of use.
  */
 #ifndef __SimpleTEXT__
 #define __SimpleTEXT__

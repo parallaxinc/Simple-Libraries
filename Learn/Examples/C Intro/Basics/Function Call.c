@@ -1,5 +1,7 @@
 /*
   Function Call.c
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Send a simple hello message to the console, but use a function to display
   one of the messages.

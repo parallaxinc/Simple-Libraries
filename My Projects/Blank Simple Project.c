@@ -8,7 +8,7 @@ int main()                                    // Main function
 {
   // Add startup code here.
 
-  while(1)                                    // Repeat indefinitely
+ 
   {
     // Add main loop code here.
     

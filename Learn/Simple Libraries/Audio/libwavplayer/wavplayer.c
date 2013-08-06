@@ -40,7 +40,7 @@ static unsigned int stack[(160 + (50 * 4)) / 4];
 static unsigned int stack2[(160 + (200 * 4)) / 4];
 
 void play(void);
-void wav_reader(void* par);
+void wav_reader(void *par);
 void audio_dac(void *par);
 void spooler(void *par);
 
@@ -101,7 +101,7 @@ void wav_stop(void)
     }
 }
 
-void wav_reader(void* par)
+void wav_reader(void *par)
 {
   waitcnt(CLKFREQ+CNT);
    

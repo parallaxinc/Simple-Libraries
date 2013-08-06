@@ -1,5 +1,7 @@
 /*
   Button Display.c
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Dislays the state of the P3 button in the SimpleIDE Terminal.
   1 -> button pressed, 0 -> button not pressed.

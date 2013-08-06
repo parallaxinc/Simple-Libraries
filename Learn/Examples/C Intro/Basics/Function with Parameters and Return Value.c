@@ -1,5 +1,7 @@
 /*
   Function with Parameters and Return Value.c
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Pass parameters to a function, let it do its job, and display the result
   it returns.

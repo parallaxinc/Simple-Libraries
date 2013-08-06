@@ -16,7 +16,7 @@
 
 #include "simpletools.h"
 
-void dac_ctr_cog(void* par);
+void dac_ctr_cog(void *par);
 
 #ifndef DUTY_SE
 #define DUTY_SE (0b110 << 26)
@@ -52,7 +52,7 @@ void dac_ctr(int pin, int channel, int dacVal)
   }  
 }
 
-void dac_ctr_cog(void* par)
+void dac_ctr_cog(void *par)
 {
   int pin;
   while(1)

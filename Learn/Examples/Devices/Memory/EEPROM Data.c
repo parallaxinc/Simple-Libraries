@@ -1,6 +1,8 @@
 /*
   EEPROM Data.side
 
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
+
   Write values and text to the Proepller Chip's dedicated EEPROM, and then
   read back and display.
   

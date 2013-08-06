@@ -1,5 +1,8 @@
 /*
   Hello VGA.c
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
+
   Test Propeller VGA.  P8-V, P9-H, P10-B0, P11-B1, P12-G0, P13-G1
                        P14-R0, P15-R1. 
 */

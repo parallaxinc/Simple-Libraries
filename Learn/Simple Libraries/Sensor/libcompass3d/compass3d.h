@@ -3,7 +3,7 @@
  *
  * @author Andy Lindsay
  *
- * @version v0.8
+ * @version v0.85
  *
  * @copyright
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.

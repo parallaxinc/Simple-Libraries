@@ -1,5 +1,7 @@
 /*
   Repeat While.c
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Keep displaying n = n + 5 every half second while n < 200.
   

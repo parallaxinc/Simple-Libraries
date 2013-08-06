@@ -1,5 +1,7 @@
 /*
   Set Volts.c
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Set voltages at D/A 0 with P26 and at D/A 1 with P27.
   V(D/A) = daVal * 3.3 V / 256.

@@ -1,13 +1,15 @@
 /*
   Measure Volts.c
 
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
+
   Make voltmeter style measurements with the Propeller Activity Board.
 
   http://learn.parallax.com/propeller-c-simple-circuits/measure-volts
 */
 
 #include "simpletools.h"                      // Include simpletools
-#include "adcDCpropAB.h"                      // Include adcDCpropab
+#include "adcDCpropab.h"                      // Include adcDCpropab
 
 int main()                                    // Main function
 {

@@ -1,6 +1,8 @@
 /*
   Hello LCD.c
-  Under development.
+
+  Under development; Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
+
   learn.parallax.com/propeller-c-tutorials
 */
 

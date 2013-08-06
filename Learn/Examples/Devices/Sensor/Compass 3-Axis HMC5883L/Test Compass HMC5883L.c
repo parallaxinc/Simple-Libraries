@@ -1,5 +1,7 @@
 /*
   Test Compass HMC5883L.c
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Test compass with SCL connected to P3 and SDA connected to P2. Display
   measurement results in SimpleIDE Terminal.
@@ -10,7 +12,7 @@
 #include "simpletools.h"                      // Include simpletools header
 #include "compass3d.h"                        // Include compass3d header
 
-int main()                                    // Main function
+int main()                                    // main function
 {
   int x, y, z;                                // Declare x, y, & z axis variables
   

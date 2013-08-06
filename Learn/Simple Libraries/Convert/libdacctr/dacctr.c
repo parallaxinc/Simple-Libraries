@@ -16,7 +16,7 @@
 
 #include "dacctr.h"
 
-void dac_loop(void* par);
+void dac_loop(void *par);
 
 
 dac dac_setup(int pin, int channel, int bits)
@@ -76,7 +76,7 @@ int dac_start(dacmem mem, int sampleRate, dac* da0, dac* da1)
 }
 
 
-void dac_loop(void* par)
+void dac_loop(void *par)
 {
   daca* dacAddr = (daca*) par; 
 

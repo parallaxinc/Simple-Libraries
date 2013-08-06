@@ -1,5 +1,7 @@
 /*
   Decide on Multiple Conditions.c 
+
+  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Make a decision based on two conditions.  
   
