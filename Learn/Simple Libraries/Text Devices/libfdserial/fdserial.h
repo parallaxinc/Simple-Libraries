@@ -1,7 +1,9 @@
 /**
  * @file fdserial.h
  *
- * @version 0.5
+ * @author Steve Denson
+ *
+ * @version 0.85
  *
  * @copyright
  * Copyright (c) 2008-2013, Steve Denson

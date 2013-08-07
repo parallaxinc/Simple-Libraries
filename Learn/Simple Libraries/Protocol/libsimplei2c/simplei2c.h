@@ -1,7 +1,7 @@
 /**
  * @file simplei2c.h
  *
- * @version 0.5
+ * @version 0.85
  *
  * @copyright
  * Copyright (c) 2013, Parallax Inc. All Rights MIT Licensed.
