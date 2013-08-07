@@ -33,7 +33,7 @@ static volatile unsigned int cog = 0;
 static volatile unsigned int cog2 = 0;
 static volatile unsigned int settingUp = 0;
 
-static volatile unsigned int volume;
+static volatile unsigned int volume = 0;
 static volatile const unsigned int BUF_SIZE = 512;
 
 static unsigned int stack[(160 + (50 * 4)) / 4];

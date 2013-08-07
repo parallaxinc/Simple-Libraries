@@ -3,7 +3,7 @@
  *
  * @author Steve Denson
  *
- * @version 0.5
+ * @version 0.85
  *
  * @copyright
  * Copyright (C) 2013, Parallax Inc. 
