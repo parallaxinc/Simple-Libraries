@@ -44,16 +44,16 @@
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="html/#nested-classes">Data Structures</a> &#124;
-<a href="html/#typedef-members">Typedefs</a> &#124;
-<a href="html/#func-members">Functions</a>  </div>
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">simplei2c.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
 <p>Provides simple i2c start, stop, read, and write functions. See simpletools library for additional I2C functions.  
-<a href="html/#details">More...</a></p>
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;propeller.h&gt;</code><br/>
 </div>
 <p><a href="html/simplei2c_8h_source.html">Go to the source code of this file.</a></p>
@@ -72,34 +72,35 @@ typedef struct <a class="el" href="html/structi2c__st.html">i2c_st</a>&#160;</td
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aac00dd37c369015a360ee095ac732da3"><td class="memItemLeft" align="right" valign="top">HUBTEXT <a class="el" href="html/structi2c__st.html">i2c</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simplei2c_8h.html#aac00dd37c369015a360ee095ac732da3">i2c_open</a> (<a class="el" href="html/structi2c__st.html">i2c</a> *bus, int sclPin, int sdaPin, int sclDrive)</td></tr>
-<tr class="memdesc:aac00dd37c369015a360ee095ac732da3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open an i2c device.  <a href="html/#aac00dd37c369015a360ee095ac732da3">More...</a><br/></td></tr>
+<tr class="memdesc:aac00dd37c369015a360ee095ac732da3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open an i2c device.  <a href="#aac00dd37c369015a360ee095ac732da3">More...</a><br/></td></tr>
 <tr class="separator:aac00dd37c369015a360ee095ac732da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65bcbd826cf4a1dc5cf475cfd48b5526"><td class="memItemLeft" align="right" valign="top">HUBTEXT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simplei2c_8h.html#a65bcbd826cf4a1dc5cf475cfd48b5526">i2c_start</a> (<a class="el" href="html/structi2c__st.html">i2c</a> *bus)</td></tr>
-<tr class="memdesc:a65bcbd826cf4a1dc5cf475cfd48b5526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signal i2c start condition on bus.  <a href="html/#a65bcbd826cf4a1dc5cf475cfd48b5526">More...</a><br/></td></tr>
+<tr class="memdesc:a65bcbd826cf4a1dc5cf475cfd48b5526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signal i2c start condition on bus.  <a href="#a65bcbd826cf4a1dc5cf475cfd48b5526">More...</a><br/></td></tr>
 <tr class="separator:a65bcbd826cf4a1dc5cf475cfd48b5526"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bf2d7acbe519371cf41b38c8bb3a933"><td class="memItemLeft" align="right" valign="top">HUBTEXT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simplei2c_8h.html#a5bf2d7acbe519371cf41b38c8bb3a933">i2c_stop</a> (<a class="el" href="html/structi2c__st.html">i2c</a> *bus)</td></tr>
-<tr class="memdesc:a5bf2d7acbe519371cf41b38c8bb3a933"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send Signal i2c stop condition on bus.  <a href="html/#a5bf2d7acbe519371cf41b38c8bb3a933">More...</a><br/></td></tr>
+<tr class="memdesc:a5bf2d7acbe519371cf41b38c8bb3a933"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send Signal i2c stop condition on bus.  <a href="#a5bf2d7acbe519371cf41b38c8bb3a933">More...</a><br/></td></tr>
 <tr class="separator:a5bf2d7acbe519371cf41b38c8bb3a933"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13b3545ec419afeb9e4bd8473877b647"><td class="memItemLeft" align="right" valign="top">HUBTEXT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simplei2c_8h.html#a13b3545ec419afeb9e4bd8473877b647">i2c_writeByte</a> (<a class="el" href="html/structi2c__st.html">i2c</a> *bus, int byte)</td></tr>
-<tr class="memdesc:a13b3545ec419afeb9e4bd8473877b647"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send i2c byte and return acknowledgement from device. Does not set start or stop. Drives SCL line if i2c device opened using sclDrive = 1.  <a href="html/#a13b3545ec419afeb9e4bd8473877b647">More...</a><br/></td></tr>
+<tr class="memdesc:a13b3545ec419afeb9e4bd8473877b647"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send i2c byte and return acknowledgement from device. Does not set start or stop. Drives SCL line if i2c device opened using sclDrive = 1.  <a href="#a13b3545ec419afeb9e4bd8473877b647">More...</a><br/></td></tr>
 <tr class="separator:a13b3545ec419afeb9e4bd8473877b647"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c604b72f0c7d3a729eb0280b37d475a"><td class="memItemLeft" align="right" valign="top">HUBTEXT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simplei2c_8h.html#a7c604b72f0c7d3a729eb0280b37d475a">i2c_readByte</a> (<a class="el" href="html/structi2c__st.html">i2c</a> *bus, int ackState)</td></tr>
-<tr class="memdesc:a7c604b72f0c7d3a729eb0280b37d475a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive i2c byte and reply with ack state. Does not set start or stop. Drives SCL line if i2c device opened using sclDrive = 1.  <a href="html/#a7c604b72f0c7d3a729eb0280b37d475a">More...</a><br/></td></tr>
+<tr class="memdesc:a7c604b72f0c7d3a729eb0280b37d475a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive i2c byte and reply with ack state. Does not set start or stop. Drives SCL line if i2c device opened using sclDrive = 1.  <a href="#a7c604b72f0c7d3a729eb0280b37d475a">More...</a><br/></td></tr>
 <tr class="separator:a7c604b72f0c7d3a729eb0280b37d475a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fc9885c718114f83602c2d8981c12ae"><td class="memItemLeft" align="right" valign="top">HUBTEXT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simplei2c_8h.html#a1fc9885c718114f83602c2d8981c12ae">i2c_writeData</a> (<a class="el" href="html/structi2c__st.html">i2c</a> *bus, const unsigned char *data, int count)</td></tr>
-<tr class="memdesc:a1fc9885c718114f83602c2d8981c12ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a block of i2c data. Does not set start or stop.  <a href="html/#a1fc9885c718114f83602c2d8981c12ae">More...</a><br/></td></tr>
+<tr class="memdesc:a1fc9885c718114f83602c2d8981c12ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a block of i2c data. Does not set start or stop.  <a href="#a1fc9885c718114f83602c2d8981c12ae">More...</a><br/></td></tr>
 <tr class="separator:a1fc9885c718114f83602c2d8981c12ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4cd43dd2619829f306ddc055e8077cd"><td class="memItemLeft" align="right" valign="top">HUBTEXT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simplei2c_8h.html#ac4cd43dd2619829f306ddc055e8077cd">i2c_readData</a> (<a class="el" href="html/structi2c__st.html">i2c</a> *bus, unsigned char *data, int count)</td></tr>
-<tr class="memdesc:ac4cd43dd2619829f306ddc055e8077cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive a block of i2c data. Does not send start or stop conditions.  <a href="html/#ac4cd43dd2619829f306ddc055e8077cd">More...</a><br/></td></tr>
+<tr class="memdesc:ac4cd43dd2619829f306ddc055e8077cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive a block of i2c data. Does not send start or stop conditions.  <a href="#ac4cd43dd2619829f306ddc055e8077cd">More...</a><br/></td></tr>
 <tr class="separator:ac4cd43dd2619829f306ddc055e8077cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afae9df04fe43e5f5652fd8638b0a4c18"><td class="memItemLeft" align="right" valign="top">HUBTEXT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simplei2c_8h.html#afae9df04fe43e5f5652fd8638b0a4c18">i2c_poll</a> (<a class="el" href="html/structi2c__st.html">i2c</a> *bus, int addr)</td></tr>
-<tr class="memdesc:afae9df04fe43e5f5652fd8638b0a4c18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send i2c start and addr byte. Looks for ACK (0) or NACK (1). This is useful for checking if a device is responding or starting a new i2c packet. No stop is sent.  <a href="html/#afae9df04fe43e5f5652fd8638b0a4c18">More...</a><br/></td></tr>
+<tr class="memdesc:afae9df04fe43e5f5652fd8638b0a4c18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send i2c start and addr byte. Looks for ACK (0) or NACK (1). This is useful for checking if a device is responding or starting a new i2c packet. No stop is sent.  <a href="#afae9df04fe43e5f5652fd8638b0a4c18">More...</a><br/></td></tr>
 <tr class="separator:afae9df04fe43e5f5652fd8638b0a4c18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provides simple i2c start, stop, read, and write functions. See simpletools library for additional I2C functions. </p>
 <dl class="section version"><dt>Version</dt><dd>0.85</dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2013, Parallax Inc. All Rights MIT Licensed. </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2013, Parallax Inc. All Rights MIT Licensed.</dd></dl>
+<p>Copyright (c) 2013, Parallax Inc. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="aac00dd37c369015a360ee095ac732da3"></a>
 <div class="memitem">
@@ -399,7 +400,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Aug 6 2013 14:22:05 for simple i2c library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Tue Aug 6 2013 20:53:09 for simple i2c library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>
