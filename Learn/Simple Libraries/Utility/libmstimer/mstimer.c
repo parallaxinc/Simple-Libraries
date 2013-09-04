@@ -14,7 +14,7 @@
 #include "mstimer.h"
 
 static volatile int t, dt, cog;               // Global var for cogs to share
-unsigned int stack[40 + 25];                  // Stack vars for other cog
+static unsigned int stack[40 + 25];           // Stack vars for other cog
 
 void ms_timer(void *par);                 
 
