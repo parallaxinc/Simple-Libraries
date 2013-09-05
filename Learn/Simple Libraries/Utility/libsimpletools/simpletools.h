@@ -3,7 +3,7 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.93 (see details for more info)
+ * @version 0.94 (see details for more info)
  *
  * @copyright
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
@@ -67,7 +67,9 @@
  * Added:@n
  *   i2c_out, i2c_in to cover most common I2C slave applications
  * EEPROM ee_get_* and ee_put_* changed to ee_get* and ee_put* where 
- * the * term is camel-case.
+ * the * term is camel-case. @n @n
+ * Revision 0.94 Fixed bug in ee_put* that prevented contiguous data
+ * from crossing the EEPROM's address/128 buffer boundaries.
  */
 
 #ifndef SIMPLETOOLS_H
