@@ -69,7 +69,8 @@
  * EEPROM ee_get_* and ee_put_* changed to ee_get* and ee_put* where 
  * the * term is camel-case. @n @n
  * Revision 0.94 Fixed bug in ee_put* that prevented contiguous data
- * from crossing the EEPROM's address/128 buffer boundaries.
+ * from crossing the EEPROM's address/128 buffer boundaries.  Updated
+ * stack array to static in mstimer.c.
  */
 
 #ifndef SIMPLETOOLS_H
