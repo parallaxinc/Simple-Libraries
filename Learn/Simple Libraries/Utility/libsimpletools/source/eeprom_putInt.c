@@ -3,7 +3,7 @@
  *
  * @author Andy Lindsay
  *
- * @version dev001
+ * @version dev002
  *
  * @copyright Copyright (C) Parallax, Inc. 2013.  See end of file for
  * terms of use (MIT License).
@@ -26,8 +26,21 @@ void ee_putInt(int value, int addr)
   unsigned char val[4] = {(char) value, (char) (value >> 8), (char) (value >> 16), (char) (value >> 24)};
   if(!eeInitFlag) ee_init();
   unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr&0xFF)};
+
   int n = i2c_out(eeprom, 0xA0, addrArray, 2, val, 4);
-  while(i2c_poll(eeprom, 0xA0)); 
+  while(i2c_poll(eeprom, 0xA0));
+
+  //if(0)
+  if(addr % 128 > 124)
+  {
+    int offset = 128 - (addr % 128);
+    addr += offset;
+    int elcnt = 4 - offset;
+    addrArray[0] = (char)(addr >> 8);
+    addrArray[1] = (char)(addr & 0xFF);
+    n += i2c_out(eeprom, 0xA0, addrArray, 2, &val[offset], elcnt);
+    while(i2c_poll(eeprom, 0xA0)); 
+  }
   return;
 }
 

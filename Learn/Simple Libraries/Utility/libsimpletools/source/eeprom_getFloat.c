@@ -21,7 +21,7 @@ int eeInitFlag;
 
 void ee_init();
 
-float ee_get_float32(int addr)
+float ee_getFloat32(int addr)
 {
   if(!eeInitFlag) ee_init();
   //int value = 0;
