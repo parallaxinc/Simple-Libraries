@@ -1,5 +1,5 @@
 /**
- * @file servo.h
+ * @file servoAux.h
  *
  * @author Andy Lindsay
  *
@@ -8,11 +8,12 @@
  * @copyright Copyright (C) Parallax, Inc. 2013.  See end of file for
  * terms of use (MIT License).
  *
- * @brief Control up to 14 servos in other cog.  For up to 28, add the 
- * servoAux library to your project.  Control the first 14 with servo_set,
+ * @brief If you need to control more than the 14 servos the servo library
+ * covers, add this library to your project to control up to 14 more for a 
+ * total of 28 servos.  Control the first 14 with servo_set,
  * servo_speed, servo_angle, and other servo_ function calls.  Control servos
  * 15 and up with the same function calls, but starting with servoAux_ instead
- * of servo_.  
+ * of servo_.    
  * @n @n Currently supports LMM and CMM memory models.  
  * @n    servo library launches a single cog for controlling 1st to 14th servos
  * @n    servoAux library launches an additional cog for controlling the 15th through
@@ -26,12 +27,12 @@
  * Parallax standard servos have a position range from approximately 0 to 180
  * degrees.  
  *
- * @n Please submit bug reports, suggestions, and improvements to
+ * Please submit bug reports, suggestions, and improvements to
  * this code to editor@parallax.com.
  */
 
-#ifndef servo_H
-#define servo_H
+#ifndef servoAux_H
+#define servoAux_H
 
 #if defined(__cplusplus)
 extern "C" {
@@ -46,9 +47,9 @@ extern "C" {
  * @details Examples:
  *
  * @code
- * servo_angle(pin, 0);     // for 0 degrees
- * servo_angle(pin, 900);   // for 90 degrees
- * servo_angle(pin, 1800);  // for 180 degrees
+ * servoAux_angle(pin, 0);     // for 0 degrees
+ * servoAux_angle(pin, 900);   // for 90 degrees
+ * servoAux_angle(pin, 1800);  // for 180 degrees
  * @endcode
  *
  * 0 to 1800 corresponds to control pulses ranging from 500 to 2300 with 1400
@@ -62,7 +63,7 @@ extern "C" {
  * @returns pin number = success, -1 = no cogs available, -2 = no locks available, -3 = 
  * all 14 servo slots already filled.
  */
-int servo_angle(int pin, int degreeTenths);
+int servoAux_angle(int pin, int degreeTenths);
 
 /**
  * @brief Set Parallax Continuous Rotation servo speed.
@@ -70,24 +71,24 @@ int servo_angle(int pin, int degreeTenths);
  * @details Examples:
  *
  * @code
- * servo_speed(pin, 200);    // Twice full speed counterclockwise
- * servo_speed(pin, 100);    // Full speed counterclockwise
- * servo_speed(pin, 0);      // Stay still
- * servo_speed(pin, -100);   // Full speed clockwise
- * servo_speed(pin, -200);   // Twice full speed clockwise
+ * servoAux_speed(pin, 200);    // Twice full speed counterclockwise
+ * servoAux_speed(pin, 100);    // Full speed counterclockwise
+ * servoAux_speed(pin, 0);      // Stay still
+ * servoAux_speed(pin, -100);   // Full speed clockwise
+ * servoAux_speed(pin, -200);   // Twice full speed clockwise
  * @endcode
  *
  * 100 to -100 corresponds to the linear speed control range.  For example,
- * servo_speed(pin, 75) will set the speed to roughly 75% of full speed
+ * servoAux_speed(pin, 75) will set the speed to roughly 75% of full speed
  * counterclockwise.  This is a very rough approximation.
  *
  * @param pin Number of the I/O pin connected to servo
- * @param speed Speed from -100 to 100
+ * @param speed from -100 to 100
  *
  * @returns pin number = success, -1 = no cogs available, -2 = no locks available, -3 = 
  * all 14 servo slots already filled.
  */
-int servo_speed(int pin, int speed);
+int servoAux_speed(int pin, int speed);
 
 /**
  * @brief Set the maximum change in control signal a servo will change
@@ -107,7 +108,7 @@ int servo_speed(int pin, int speed);
  *
  * @returns pin if successful, -4 if pin not found.
  */
-int servo_setramp(int pin, int stepSize);
+int servoAux_setRamp(int pin, int stepSize);
 
 /**
  * @brief Sets servo control signal to servo connected to a given pin for 
@@ -119,9 +120,9 @@ int servo_setramp(int pin, int stepSize);
  * Examples for Parallax Standard Servo:
  *
  * @code
- * servo_set(pin, 500);    //   0 degrees
- * servo_set(pin, 1400);   //  90 degrees
- * servo_set(pin, 2300);   // 180 degrees
+ * servoAux_set(pin, 500);    //   0 degrees
+ * servoAux_set(pin, 1400);   //  90 degrees
+ * servoAux_set(pin, 2300);   // 180 degrees
  * @endcode
  *
  * 500, 1400, and 2300 are the number of microseconds (us) the control pulses
@@ -132,9 +133,9 @@ int servo_setramp(int pin, int stepSize);
  *
  * For setting Parallax Continuous Rotation Servo speed, use:
  *
- * @li Full speed clockwise        -> servo_set(pin, 1400);
- * @li Stay still                  -> servo_set(pin, 1500);
- * @li Full speed counterclockwise -> servo_set(pin, 1600);
+ * @li Full speed clockwise        -> servoAux_set(pin, 1400);
+ * @li Stay still                  -> servoAux_set(pin, 1500);
+ * @li Full speed counterclockwise -> servoAux_set(pin, 1600);
  *
  * Values in the 1400 to 1600 range are (roughly) proportional to speed for a 
  * Parallax Continuous Rotation Servo, but it's not nearly as precise as position 
@@ -148,7 +149,7 @@ int servo_setramp(int pin, int stepSize);
  * @returns pin number = success, -1 = no cogs available, -2 = no locks available, -3 = 
  * all 14 servo slots already filled.
  */
-int servo_set(int pin, int time);
+int servoAux_set(int pin, int time);
 
 /**
  * @brief Reports the number of microseconds of the pulse most recently sent
@@ -160,24 +161,24 @@ int servo_set(int pin, int time);
  * of the most recent pulse sent to the servo. (Or -4 if an entry is not found
  * for the pin argument.
  */
-int servo_get(int pin);
+int servoAux_get(int pin);
 
 /**
  * @brief Stops the servo process and frees a cog.
  */
-void servo_stop(void);
+void servoAux_stop(void);
 
 /**
  * @brief Starts the servo process and takes over a cog.
  *
  * @details You do not need to call this function from your code because
- * the servo_set function calls it if it detects that the servo cog has not
+ * the servoAux_set function calls it if it detects that the servo cog has not
  * been started.
  *
  * @returns 1..8 if successful.  0 if no available cogs, -1 if no available
  * locks.
  */
-int servo_start(void);
+int servoAux_start(void);
 
 #if defined(__cplusplus)
 }
@@ -185,7 +186,7 @@ int servo_start(void);
 /* __cplusplus */  
 #endif
 
-/* servo_H */  
+/* servoAux_H */  
 
 /**
  * TERMS OF USE: MIT License

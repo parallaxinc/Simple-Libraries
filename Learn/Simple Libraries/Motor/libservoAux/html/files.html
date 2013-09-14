@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Servo Library: Globals</title>
+<title>Auxiliary Servo Library: File List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Servo Library
+   <div id="projectname">Auxiliary Servo Library
    &#160;<span id="projectnumber">v0.9</span>
    </div>
    <div id="projectbrief">Servo motor control library for educational and hobby applications</div>
@@ -35,45 +35,29 @@
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li class="current"><a href="globals.html"><span>Globals</span></a></li>
-    </ul>
-  </div>
-  <div id="navrow3" class="tabs2">
-    <ul class="tablist">
-      <li class="current"><a href="globals.html"><span>All</span></a></li>
-      <li><a href="globals_func.html"><span>Functions</span></a></li>
+      <li class="current"><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>Globals</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">File List</div>  </div>
+</div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all documented functions, variables, defines, enums, and typedefs with links to the documentation:</div><ul>
-<li>servo_angle()
-: <a class="el" href="servo_8h.html#a75027a62be20a7317d7148cf3fa377e7">servo.h</a>
-</li>
-<li>servo_get()
-: <a class="el" href="servo_8h.html#a509762acf1b97c28a5e94c484e49645b">servo.h</a>
-</li>
-<li>servo_set()
-: <a class="el" href="servo_8h.html#a232c438670861c19edbce1caea61da2c">servo.h</a>
-</li>
-<li>servo_setramp()
-: <a class="el" href="servo_8h.html#a93658705046cf2849f6b3d8a2690919b">servo.h</a>
-</li>
-<li>servo_speed()
-: <a class="el" href="servo_8h.html#a050629dc3091257326da107c68ffed28">servo.h</a>
-</li>
-<li>servo_start()
-: <a class="el" href="servo_8h.html#a703779e60ba1f5ef6757afde71ee05b4">servo.h</a>
-</li>
-<li>servo_stop()
-: <a class="el" href="servo_8h.html#ac0e7bba8971fdab8c944f49d452422ae">servo.h</a>
-</li>
-</ul>
+<div class="textblock">Here is a list of all documented files with brief descriptions:</div><div class="directory">
+<table class="directory">
+<tr id="row_0_" class="even"><td class="entry"><img src="ftv2lastnode.png" alt="\" width="16" height="22" /><a href="servo_aux_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="servo_aux_8h.html" target="_self">servoAux.h</a></td><td class="desc">If you need to control more than the 14 servos the servo library covers, add this library to your project to control up to 14 more for a total of 28 servos. Control the first 14 with servo_set, servo_speed, servo_angle, and other servo_ function calls. Control servos 15 and up with the same function calls, but starting with servoAux_ instead of servo_. <br/>
+ <br/>
+ Currently supports LMM and CMM memory models. <br/>
+ servo library launches a single cog for controlling 1st to 14th servos <br/>
+ servoAux library launches an additional cog for controlling the 15th through 28th servos</td></tr>
+</table>
+</div><!-- directory -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 14 2013 10:29:28 for Servo Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 14 2013 10:36:04 for Auxiliary Servo Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
