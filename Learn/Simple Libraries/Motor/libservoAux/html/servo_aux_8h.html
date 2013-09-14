@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Servo Library: servo.h File Reference</title>
+<title>Auxiliary Servo Library: servoAux.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -16,7 +16,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Servo Library
+   <div id="projectname">Auxiliary Servo Library
    &#160;<span id="projectnumber">v0.9</span>
    </div>
    <div id="projectbrief">Servo motor control library for educational and hobby applications</div>
@@ -44,11 +44,11 @@
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">servo.h File Reference</div>  </div>
+<div class="title">servoAux.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Control up to 14 servos in other cog. For up to 28, add the servoAux library to your project. Control the first 14 with servo_set, servo_speed, servo_angle, and other servo_ function calls. Control servos 15 and up with the same function calls, but starting with servoAux_ instead of servo_. <br/>
+<p>If you need to control more than the 14 servos the servo library covers, add this library to your project to control up to 14 more for a total of 28 servos. Control the first 14 with servo_set, servo_speed, servo_angle, and other servo_ function calls. Control servos 15 and up with the same function calls, but starting with servoAux_ instead of servo_. <br/>
  <br/>
  Currently supports LMM and CMM memory models. <br/>
  servo library launches a single cog for controlling 1st to 14th servos <br/>
@@ -56,28 +56,28 @@
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;simpletools.h&quot;</code><br/>
 </div>
-<p><a href="servo_8h_source.html">Go to the source code of this file.</a></p>
+<p><a href="servo_aux_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a75027a62be20a7317d7148cf3fa377e7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="servo_8h.html#a75027a62be20a7317d7148cf3fa377e7">servo_angle</a> (int pin, int degreeTenths)</td></tr>
-<tr class="memdesc:a75027a62be20a7317d7148cf3fa377e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set Parallax Standard Servo to angle from 0 to 180 in tenths of a degree.  <a href="#a75027a62be20a7317d7148cf3fa377e7"></a><br/></td></tr>
-<tr class="memitem:a050629dc3091257326da107c68ffed28"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="servo_8h.html#a050629dc3091257326da107c68ffed28">servo_speed</a> (int pin, int speed)</td></tr>
-<tr class="memdesc:a050629dc3091257326da107c68ffed28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set Parallax Continuous Rotation servo speed.  <a href="#a050629dc3091257326da107c68ffed28"></a><br/></td></tr>
-<tr class="memitem:a93658705046cf2849f6b3d8a2690919b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="servo_8h.html#a93658705046cf2849f6b3d8a2690919b">servo_setramp</a> (int pin, int stepSize)</td></tr>
-<tr class="memdesc:a93658705046cf2849f6b3d8a2690919b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the maximum change in control signal a servo will change in a given 20 ms time period.  <a href="#a93658705046cf2849f6b3d8a2690919b"></a><br/></td></tr>
-<tr class="memitem:a232c438670861c19edbce1caea61da2c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="servo_8h.html#a232c438670861c19edbce1caea61da2c">servo_set</a> (int pin, int time)</td></tr>
-<tr class="memdesc:a232c438670861c19edbce1caea61da2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets servo control signal to servo connected to a given pin for microsecond pulse durations.  <a href="#a232c438670861c19edbce1caea61da2c"></a><br/></td></tr>
-<tr class="memitem:a509762acf1b97c28a5e94c484e49645b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="servo_8h.html#a509762acf1b97c28a5e94c484e49645b">servo_get</a> (int pin)</td></tr>
-<tr class="memdesc:a509762acf1b97c28a5e94c484e49645b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports the number of microseconds of the pulse most recently sent to a given servo.  <a href="#a509762acf1b97c28a5e94c484e49645b"></a><br/></td></tr>
-<tr class="memitem:ac0e7bba8971fdab8c944f49d452422ae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac0e7bba8971fdab8c944f49d452422ae"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="servo_8h.html#ac0e7bba8971fdab8c944f49d452422ae">servo_stop</a> (void)</td></tr>
-<tr class="memdesc:ac0e7bba8971fdab8c944f49d452422ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the servo process and frees a cog. <br/></td></tr>
-<tr class="memitem:a703779e60ba1f5ef6757afde71ee05b4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="servo_8h.html#a703779e60ba1f5ef6757afde71ee05b4">servo_start</a> (void)</td></tr>
-<tr class="memdesc:a703779e60ba1f5ef6757afde71ee05b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the servo process and takes over a cog.  <a href="#a703779e60ba1f5ef6757afde71ee05b4"></a><br/></td></tr>
+<tr class="memitem:a39c402d5c45972ef4148966b2642a8b9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="servo_aux_8h.html#a39c402d5c45972ef4148966b2642a8b9">servoAux_angle</a> (int pin, int degreeTenths)</td></tr>
+<tr class="memdesc:a39c402d5c45972ef4148966b2642a8b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set Parallax Standard Servo to angle from 0 to 180 in tenths of a degree.  <a href="#a39c402d5c45972ef4148966b2642a8b9"></a><br/></td></tr>
+<tr class="memitem:a52632187b41efe0f8c2f5048f3d7491d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="servo_aux_8h.html#a52632187b41efe0f8c2f5048f3d7491d">servoAux_speed</a> (int pin, int speed)</td></tr>
+<tr class="memdesc:a52632187b41efe0f8c2f5048f3d7491d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set Parallax Continuous Rotation servo speed.  <a href="#a52632187b41efe0f8c2f5048f3d7491d"></a><br/></td></tr>
+<tr class="memitem:aa52a5aabefde911f8f49737a65229385"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="servo_aux_8h.html#aa52a5aabefde911f8f49737a65229385">servoAux_setRamp</a> (int pin, int stepSize)</td></tr>
+<tr class="memdesc:aa52a5aabefde911f8f49737a65229385"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the maximum change in control signal a servo will change in a given 20 ms time period.  <a href="#aa52a5aabefde911f8f49737a65229385"></a><br/></td></tr>
+<tr class="memitem:a76313559ed3a0e2fc0e3766faa324025"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="servo_aux_8h.html#a76313559ed3a0e2fc0e3766faa324025">servoAux_set</a> (int pin, int time)</td></tr>
+<tr class="memdesc:a76313559ed3a0e2fc0e3766faa324025"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets servo control signal to servo connected to a given pin for microsecond pulse durations.  <a href="#a76313559ed3a0e2fc0e3766faa324025"></a><br/></td></tr>
+<tr class="memitem:a3e4013e8b38697ba9e63f3d9e5f60450"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="servo_aux_8h.html#a3e4013e8b38697ba9e63f3d9e5f60450">servoAux_get</a> (int pin)</td></tr>
+<tr class="memdesc:a3e4013e8b38697ba9e63f3d9e5f60450"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reports the number of microseconds of the pulse most recently sent to a given servo.  <a href="#a3e4013e8b38697ba9e63f3d9e5f60450"></a><br/></td></tr>
+<tr class="memitem:acbedf406a6ac7af152ffaaaaa5b30013"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acbedf406a6ac7af152ffaaaaa5b30013"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="servo_aux_8h.html#acbedf406a6ac7af152ffaaaaa5b30013">servoAux_stop</a> (void)</td></tr>
+<tr class="memdesc:acbedf406a6ac7af152ffaaaaa5b30013"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the servo process and frees a cog. <br/></td></tr>
+<tr class="memitem:a707a45da8b9b07ad9179aa1c514c0b52"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="servo_aux_8h.html#a707a45da8b9b07ad9179aa1c514c0b52">servoAux_start</a> (void)</td></tr>
+<tr class="memdesc:a707a45da8b9b07ad9179aa1c514c0b52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the servo process and takes over a cog.  <a href="#a707a45da8b9b07ad9179aa1c514c0b52"></a><br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Control up to 14 servos in other cog. For up to 28, add the servoAux library to your project. Control the first 14 with servo_set, servo_speed, servo_angle, and other servo_ function calls. Control servos 15 and up with the same function calls, but starting with servoAux_ instead of servo_. <br/>
+<div class="textblock"><p>If you need to control more than the 14 servos the servo library covers, add this library to your project to control up to 14 more for a total of 28 servos. Control the first 14 with servo_set, servo_speed, servo_angle, and other servo_ function calls. Control servos 15 and up with the same function calls, but starting with servoAux_ instead of servo_. <br/>
  <br/>
  Currently supports LMM and CMM memory models. <br/>
  servo library launches a single cog for controlling 1st to 14th servos <br/>
@@ -87,15 +87,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax, Inc. 2013. See end of file for terms of use (MIT License).</dd></dl>
 <p>This library automatically delivers control pulses to the servos every 20 ms, all you have to do is use the set method to pick the pin the servo is connected to and the duration of the control pulses.</p>
 <p>Parallax standard servos have a position range from approximately 0 to 180 degrees.</p>
-<p><br/>
- Please submit bug reports, suggestions, and improvements to this code to <a href="#" onclick="location.href='mai'+'lto:'+'edi'+'to'+'r@p'+'ar'+'all'+'ax'+'.co'+'m'; return false;">edito<span style="display: none;">.nosp@m.</span>r@pa<span style="display: none;">.nosp@m.</span>ralla<span style="display: none;">.nosp@m.</span>x.co<span style="display: none;">.nosp@m.</span>m</a>. </p>
+<p>Please submit bug reports, suggestions, and improvements to this code to <a href="#" onclick="location.href='mai'+'lto:'+'edi'+'to'+'r@p'+'ar'+'all'+'ax'+'.co'+'m'; return false;">edito<span style="display: none;">.nosp@m.</span>r@pa<span style="display: none;">.nosp@m.</span>ralla<span style="display: none;">.nosp@m.</span>x.co<span style="display: none;">.nosp@m.</span>m</a>. </p>
 </div><h2>Function Documentation</h2>
-<a class="anchor" id="a75027a62be20a7317d7148cf3fa377e7"></a>
+<a class="anchor" id="a39c402d5c45972ef4148966b2642a8b9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int servo_angle </td>
+          <td class="memname">int servoAux_angle </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>pin</em>, </td>
@@ -116,9 +115,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 
 <p>Set Parallax Standard Servo to angle from 0 to 180 in tenths of a degree. </p>
 <p>Examples:</p>
-<div class="fragment"><div class="line">servo_angle(pin, 0);     <span class="comment">// for 0 degrees</span></div>
-<div class="line">servo_angle(pin, 900);   <span class="comment">// for 90 degrees</span></div>
-<div class="line">servo_angle(pin, 1800);  <span class="comment">// for 180 degrees</span></div>
+<div class="fragment"><div class="line">servoAux_angle(pin, 0);     <span class="comment">// for 0 degrees</span></div>
+<div class="line">servoAux_angle(pin, 900);   <span class="comment">// for 90 degrees</span></div>
+<div class="line">servoAux_angle(pin, 1800);  <span class="comment">// for 180 degrees</span></div>
 </div><!-- fragment --><p>0 to 1800 corresponds to control pulses ranging from 500 to 2300 with 1400 at center (90 degrees), which is slightly different from the 1500 center convention, but it places the Parallax Standard Servo's range of motion neatly between its mechanical limits.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -131,12 +130,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 
 </div>
 </div>
-<a class="anchor" id="a509762acf1b97c28a5e94c484e49645b"></a>
+<a class="anchor" id="a3e4013e8b38697ba9e63f3d9e5f60450"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int servo_get </td>
+          <td class="memname">int servoAux_get </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>pin</em></td><td>)</td>
@@ -156,12 +155,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 
 </div>
 </div>
-<a class="anchor" id="a232c438670861c19edbce1caea61da2c"></a>
+<a class="anchor" id="a76313559ed3a0e2fc0e3766faa324025"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int servo_set </td>
+          <td class="memname">int servoAux_set </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>pin</em>, </td>
@@ -183,16 +182,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 <p>Sets servo control signal to servo connected to a given pin for microsecond pulse durations. </p>
 <p>This function directly controls the number of microseconds servo control pulses last.</p>
 <p>Examples for Parallax Standard Servo:</p>
-<div class="fragment"><div class="line">servo_set(pin, 500);    <span class="comment">//   0 degrees</span></div>
-<div class="line">servo_set(pin, 1400);   <span class="comment">//  90 degrees</span></div>
-<div class="line">servo_set(pin, 2300);   <span class="comment">// 180 degrees</span></div>
+<div class="fragment"><div class="line">servoAux_set(pin, 500);    <span class="comment">//   0 degrees</span></div>
+<div class="line">servoAux_set(pin, 1400);   <span class="comment">//  90 degrees</span></div>
+<div class="line">servoAux_set(pin, 2300);   <span class="comment">// 180 degrees</span></div>
 </div><!-- fragment --><p>500, 1400, and 2300 are the number of microseconds (us) the control pulses stay high. More generally, a microsecond above 500 corresponds to 1/10 of a degree counterclockwise of 0 degrees. So, for a given degree position, use:</p>
 <p>degree position = 500 + (number of 10ths of a degree)</p>
 <p>For setting Parallax Continuous Rotation Servo speed, use:</p>
 <ul>
-<li>Full speed clockwise -&gt; servo_set(pin, 1400); </li>
-<li>Stay still -&gt; servo_set(pin, 1500); </li>
-<li>Full speed counterclockwise -&gt; servo_set(pin, 1600);</li>
+<li>Full speed clockwise -&gt; servoAux_set(pin, 1400); </li>
+<li>Stay still -&gt; servoAux_set(pin, 1500); </li>
+<li>Full speed counterclockwise -&gt; servoAux_set(pin, 1600);</li>
 </ul>
 <p>Values in the 1400 to 1600 range are (roughly) proportional to speed for a Parallax Continuous Rotation Servo, but it's not nearly as precise as position control. Setting full speeds at 1300 and 1700 is a common practice to make sure both servos are going as fast as they possibly can.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -206,12 +205,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 
 </div>
 </div>
-<a class="anchor" id="a93658705046cf2849f6b3d8a2690919b"></a>
+<a class="anchor" id="aa52a5aabefde911f8f49737a65229385"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int servo_setramp </td>
+          <td class="memname">int servoAux_setRamp </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>pin</em>, </td>
@@ -243,12 +242,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 
 </div>
 </div>
-<a class="anchor" id="a050629dc3091257326da107c68ffed28"></a>
+<a class="anchor" id="a52632187b41efe0f8c2f5048f3d7491d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int servo_speed </td>
+          <td class="memname">int servoAux_speed </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>pin</em>, </td>
@@ -269,16 +268,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 
 <p>Set Parallax Continuous Rotation servo speed. </p>
 <p>Examples:</p>
-<div class="fragment"><div class="line">servo_speed(pin, 200);    <span class="comment">// Twice full speed counterclockwise</span></div>
-<div class="line">servo_speed(pin, 100);    <span class="comment">// Full speed counterclockwise</span></div>
-<div class="line">servo_speed(pin, 0);      <span class="comment">// Stay still</span></div>
-<div class="line">servo_speed(pin, -100);   <span class="comment">// Full speed clockwise</span></div>
-<div class="line">servo_speed(pin, -200);   <span class="comment">// Twice full speed clockwise</span></div>
-</div><!-- fragment --><p>100 to -100 corresponds to the linear speed control range. For example, servo_speed(pin, 75) will set the speed to roughly 75% of full speed counterclockwise. This is a very rough approximation.</p>
+<div class="fragment"><div class="line">servoAux_speed(pin, 200);    <span class="comment">// Twice full speed counterclockwise</span></div>
+<div class="line">servoAux_speed(pin, 100);    <span class="comment">// Full speed counterclockwise</span></div>
+<div class="line">servoAux_speed(pin, 0);      <span class="comment">// Stay still</span></div>
+<div class="line">servoAux_speed(pin, -100);   <span class="comment">// Full speed clockwise</span></div>
+<div class="line">servoAux_speed(pin, -200);   <span class="comment">// Twice full speed clockwise</span></div>
+</div><!-- fragment --><p>100 to -100 corresponds to the linear speed control range. For example, servoAux_speed(pin, 75) will set the speed to roughly 75% of full speed counterclockwise. This is a very rough approximation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pin</td><td>Number of the I/O pin connected to servo </td></tr>
-    <tr><td class="paramname">speed</td><td>Speed from -100 to 100</td></tr>
+    <tr><td class="paramname">speed</td><td>from -100 to 100</td></tr>
   </table>
   </dd>
 </dl>
@@ -286,12 +285,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 
 </div>
 </div>
-<a class="anchor" id="a703779e60ba1f5ef6757afde71ee05b4"></a>
+<a class="anchor" id="a707a45da8b9b07ad9179aa1c514c0b52"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int servo_start </td>
+          <td class="memname">int servoAux_start </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -301,7 +300,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 </div><div class="memdoc">
 
 <p>Starts the servo process and takes over a cog. </p>
-<p>You do not need to call this function from your code because the servo_set function calls it if it detects that the servo cog has not been started.</p>
+<p>You do not need to call this function from your code because the servoAux_set function calls it if it detects that the servo cog has not been started.</p>
 <dl class="section return"><dt>Returns</dt><dd>1..8 if successful. 0 if no available cogs, -1 if no available locks. </dd></dl>
 
 </div>
@@ -309,7 +308,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 14 2013 10:29:28 for Servo Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 14 2013 10:36:04 for Auxiliary Servo Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
