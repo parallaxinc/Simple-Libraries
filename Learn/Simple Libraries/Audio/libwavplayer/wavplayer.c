@@ -26,7 +26,7 @@ static volatile int playing = 0;
 static volatile short int wavVal;  
 static volatile int dacVal;
 static volatile unsigned int dtSample;
-static volatile unsigned int t;
+//static volatile unsigned int t;
 static volatile int significantBitsPerSample=16;
 static volatile unsigned int reps;
 static volatile unsigned int cog = 0;
@@ -59,6 +59,7 @@ void wav_play(const char* wavFilename)
   wav_stop();
   track = wavFilename;
   cog2 = cogstart(&wav_reader, NULL, stack2, sizeof(stack2)) + 1;
+  waitcnt(CLKFREQ/20 + CNT);
   //while(1);
 }
 
@@ -85,75 +86,77 @@ void wav_volume(int vol)
 
 void wav_stop(void)
 {
-    playing = 0;
-    //volume = 0;
-    if(fp) fclose(fp);
-    fp = 0;
-    if(cog)
-    {
-      cogstop(cog-1);
-      cog = 0;
-    }
-    if(cog2)
-    {
-      cogstop(cog2-1);
-      cog2 = 0;
-    }
+  playing = 0;
+  if(fp) fclose(fp);
+  fp = 0;
+  if(cog2)
+  {
+    cogstop(cog2-1);
+    cog2 = 0;
+  }
+}
+
+void wav_close(void)
+{
+  if(cog)
+  {
+    cogstop(cog-1);
+    cog = 0;
+  }
+  wav_stop();
 }
 
 void wav_reader(void *par)
 {
-  waitcnt(CLKFREQ+CNT);
-   
   char b[4];
   int v;
   unsigned short int w;
   
   const char* trackp = (const char*) track;
   
-  FILE *fp = fopen(trackp, "r");
+  fp = fopen(trackp, "r");
   if(fp)
   {
     fread(b, 1, 4, fp);
-    //printf("Chunk ID: %s\n", b);
+    //print("Chunk ID: %s\n", b);
     
     fread(b, 1, 4, fp);
     int fileSize = b[3] << 24 | b[2] << 16 | b[1] << 8 | b[0];
-    //printf("File Size: %d\n", fileSize);
+    //print("File Size: %d\n", fileSize);
     
     fread(b, 1, 4, fp);
-    //printf("RIFF Type: %s\n", b);
+    //print("RIFF Type: %s\n", b);
 
     fread(b, 1, 4, fp);
-    //printf("Chunk ID: %s\n", b);
+    //print("Chunk ID: %s\n", b);
     
     fread(b, 1, 4, fp);
     int chunkDataSize = b[3] << 24 | b[2] << 16 | b[1] << 8 | b[0];
-    //printf("Chunk data size: %d\n", chunkDataSize);
+    //print("Chunk data size: %d\n", chunkDataSize);
 
     fread(b, 1, 2, fp);
     int compressionCode = b[1] << 8 | b[0];
-    //printf("Compression code: %d\n", compressionCode);
+    //print("Compression code: %d\n", compressionCode);
 
     fread(b, 1, 2, fp);
     int numberOfChannels = b[1] << 8 | b[0];
-    //printf("Number of channels: %d\n", numberOfChannels);
+    //print("Number of channels: %d\n", numberOfChannels);
 
     fread(b, 1, 4, fp);
     sampleRate = b[3] << 24 | b[2] << 16 | b[1] << 8 | b[0];
-    //printf("Sample rate: %d\n", sampleRate);
+    //print("Sample rate: %d\n", sampleRate);
 
     fread(b, 1, 4, fp);
     int averageBytesPerSecond = b[3] << 24 | b[2] << 16 | b[1] << 8 | b[0];
-    //printf("Average bytes per second: %d\n", averageBytesPerSecond);
+    //print("Average bytes per second: %d\n", averageBytesPerSecond);
 
     fread(b, 1, 2, fp);
     int blockAlign = b[1] << 8 | b[0];
-    //printf("Block align: %d\n", blockAlign);
+    //print("Block align: %d\n", blockAlign);
 
     fread(b, 1, 2, fp);
     significantBitsPerSample = b[1] << 8 | b[0];
-    //printf("Significant bits/sample: %d\n", significantBitsPerSample);
+    //print("Significant bits/sample: %d\n", significantBitsPerSample);
 
     int extraFormatBytes;
     if(compressionCode != 1)
@@ -165,26 +168,27 @@ void wav_reader(void *par)
     {
       extraFormatBytes = 0;
     }  
-    //printf("Extra format bytes: %d\n", extraFormatBytes);
-    
+    //print("Extra format bytes: %d\n", extraFormatBytes);
+
     fread(b, 1, 4, fp);
-    //printf("Chunk identifier: %s\n", b);
+    //print("Chunk identifier: %s\n", b);
 
     fread(b, 1, 4, fp);
     int dwordChunkSize = b[3] << 24 | b[2] << 16 | b[1] << 8 | b[0];
-    //printf("dword Chunk Size: %d\n", dwordChunkSize);
+    //print("dword Chunk Size: %d\n", dwordChunkSize);
 
-    unsigned int ti, tf, t, byteRate;
-    ti = CNT;
+    //unsigned int ti, tf, t, byteRate;
+    //ti = CNT;
     fread(wavDacBufferL, 1, 512, fp);
-    tf = CNT;
-    t = tf - ti;
-    //printf("\nClock ticks for 512 bytes = %d\n", t); 
-    byteRate = CLKFREQ*32/t*16;
-    //printf("Bandwidth (bytes/sec): = %d\n\n", byteRate); 
+    //tf = CNT;
+    //int t = tf - ti;
+    //print("\nClock ticks for 512 bytes = %d\n", t); 
+    //byteRate = CLKFREQ*32/t*16;
+    //print("Bandwidth (bytes/sec): = %d\n\n", byteRate); 
     fread(wavDacBufferH, 1, 512, fp);
        
-    cog = cogstart(&audio_dac, NULL, stack, sizeof(stack)) + 1;
+    if(!cog)
+      cog = cogstart(&audio_dac, NULL, stack, sizeof(stack)) + 1;
     
     int reps = (fileSize-1)/1024;
     playing = 1;
@@ -199,11 +203,6 @@ void wav_reader(void *par)
       fread(wavDacBufferH, 1, BUF_SIZE, fp);
     }
     wav_stop();
-    playing = 0;
-  }
-  else
-  {
-    //printf("Couldn't read the file.");
   }
 }
 
@@ -211,47 +210,50 @@ void wav_reader(void *par)
 void audio_dac(void *par)
 {
   while(!playing);
-  waitcnt(CLKFREQ/100+CNT);
-  
+
   CTRA = 0x18000000 + 27;
   CTRB = 0x18000000 + 26;
-
   DIRA |= (1<<27);
   DIRA |= (1<<26);
-  dtSample = CLKFREQ/sampleRate;
-  play();  
-}  
 
-//__attribute__((fcache))
-void play(void)
-{
-  t = CNT;
-  t+=dtSample;
+  dtSample = CLKFREQ/sampleRate;
   int i;
-  while(playing)
+  int t = CNT;
+  t += dtSample;
+
+  while(1)
   {
-    swap = 1;
-    for(i = 0; i < BUF_SIZE; i+=2)
+    if(playing)
     {
-      wavVal = wavDacBufferL[i] | wavDacBufferL[i+1]<<8;
-      dacVal = (wavVal + 32768) * volume;
-      FRQA = dacVal;
-      FRQB = dacVal;
-      waitcnt(t+=dtSample);
+      swap = 1;
+      for(i = 0; i < BUF_SIZE; i+=2)
+      {
+        wavVal = wavDacBufferL[i] | wavDacBufferL[i+1]<<8;
+        dacVal = (wavVal + 32768) * volume;
+        FRQA = dacVal;
+        FRQB = dacVal;
+        waitcnt(t+=dtSample);
+      }
+      swap = 2;
+      for(i = 0; i < BUF_SIZE; i+=2)
+      {
+        wavVal = wavDacBufferH[i] | wavDacBufferH[i+1]<<8;
+        dacVal = (wavVal + 32768) * volume;
+        FRQA = dacVal;
+        FRQB = dacVal;
+        waitcnt(t+=dtSample);
+      }
     }
-    swap = 2;
-    for(i = 0; i < BUF_SIZE; i+=2)
+    else
     {
-      wavVal = wavDacBufferH[i] | wavDacBufferH[i+1]<<8;
-      dacVal = (wavVal + 32768) * volume;
+      dacVal = 32768 * volume;
       FRQA = dacVal;
       FRQB = dacVal;
       waitcnt(t+=dtSample);
     }
   }
-  wav_stop();
-}
-    
+}  
+
 
 /**
  * TERMS OF USE: MIT License
