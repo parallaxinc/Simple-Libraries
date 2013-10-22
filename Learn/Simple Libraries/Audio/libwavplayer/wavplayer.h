@@ -3,13 +3,13 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.85
+ * @version 0.90
  *
  * @copyright
  * Copyright (C) Parallax, Inc. 2012. All Rights MIT Licensed.
  *
- * @brief Plays 16-bit, 32ksps, mono .wav files in the root directory of a 
- * microSD card.
+ * @brief Plays 16-bit, 32ksps, mono .wav files in the root directory 
+ * of a microSD card.
 
  * @n @n Currently supports LMM and CMM memory models.  
  */
@@ -42,10 +42,21 @@ int wav_playing();
 void wav_volume(int vol);
 
 /**
- * @brief Stop wav playback.
+ * @brief Stop wav file reading but leave audio output open so that you 
+ * can play another track without a click at the start.  Recommended 
+ * over wav_close unless your application needs to recover both the wav 
+ * reading and audio output cogs for other uses.
  */
 void wav_stop(void);
 
+/**
+ * @brief Stop wav file reading and close audio output.  Only recommended
+ * if your application needs to recover two cogs for other purposes.  
+ * Otherwise, use wave_stop.  It will stop the cog that reads the wav
+ * file, but leave the audio output cog open, which will prevent a click
+ * at the start of the next track your application plays.
+ */ 
+void wav_close(void);
 
 
 #if defined(__cplusplus)
