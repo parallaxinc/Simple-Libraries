@@ -70,7 +70,9 @@
  * the * term is camel-case. @n @n
  * Revision 0.94 Fixed bug in ee_put* that prevented contiguous data
  * from crossing the EEPROM's address/128 buffer boundaries.  Updated
- * stack array to static in mstimer.c.
+ * stack array to static in mstimer.c.@n@n
+ * Revision 0.95 square_wave bug that prevented output frequency changes
+ * (fixed).
  */
 
 #ifndef SIMPLETOOLS_H

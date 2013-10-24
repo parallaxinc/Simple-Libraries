@@ -17,7 +17,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">simpletools library
-   &#160;<span id="projectnumber">v0.94</span>
+   &#160;<span id="projectnumber">v0.95</span>
    </div>
    <div id="projectbrief">Collection of convenience functions for common microcontroller tasks</div>
   </td>
@@ -314,7 +314,9 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
  Added:<br/>
  i2c_out, i2c_in to cover most common I2C slave applications EEPROM ee_get_* and ee_put_* changed to ee_get* and ee_put* where the * term is camel-case. <br/>
  <br/>
- Revision 0.94 Fixed bug in ee_put* that prevented contiguous data from crossing the EEPROM's address/128 buffer boundaries. Updated stack array to static in mstimer.c. </p>
+ Revision 0.94 Fixed bug in ee_put* that prevented contiguous data from crossing the EEPROM's address/128 buffer boundaries. Updated stack array to static in mstimer.c.<br/>
+<br/>
+ Revision 0.95 square_wave bug that prevented output frequency changes (fixed). </p>
 </div><h2>Macro Definition Documentation</h2>
 <a class="anchor" id="af9241e417ac6f468979cc60b0263d49f"></a>
 <div class="memitem">
@@ -2068,7 +2070,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 4 2013 18:47:13 for simpletools library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 24 2013 12:15:53 for simpletools library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
