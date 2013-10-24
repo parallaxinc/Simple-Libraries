@@ -9,7 +9,7 @@
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
  *
  * @brief This library provides convenience functions 
- * for a variety of microcontroller I/O, timing, conversion, and 
+ * for a variety of microcontroller I/O, timing, conversion, and  
  * communication tasks.  This library also includes (and you can 
  * call functions from) 
  * <a target="blank" href="../../../Text%20Devices/libsimpletext/
