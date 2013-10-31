@@ -10,8 +10,13 @@
  *
  * @brief Plays 16-bit, 32ksps, mono .wav files in the root directory 
  * of a microSD card.
-
- * @n @n Currently supports LMM and CMM memory models.  
+ *
+ * @n Currently supports LMM and CMM memory models. 
+ *
+ * @details v0.90 
+ * @li Clicks between tracks removed
+ * @li Bug that prevented later tracks in a sequence from being played 
+ * is fixed 
  */
 #ifndef WAVPLAYER_H
 #define WAVPLAYER_H
