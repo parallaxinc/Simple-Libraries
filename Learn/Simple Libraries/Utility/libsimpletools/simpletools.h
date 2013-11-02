@@ -3,7 +3,7 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.94 (see details for more info)
+ * @version 0.96 (see details for more info)
  *
  * @copyright
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
@@ -72,7 +72,9 @@
  * from crossing the EEPROM's address/128 buffer boundaries.  Updated
  * stack array to static in mstimer.c.@n@n
  * Revision 0.95 square_wave bug that prevented output frequency changes
- * (fixed).
+ * (fixed). @n@n
+ * Revision 0.96 ee_putStr updated to support 128 byte page writes.  More
+ * corrections to ee_put* for contiguous data crossing address/128 boundary.
  */
 
 #ifndef SIMPLETOOLS_H

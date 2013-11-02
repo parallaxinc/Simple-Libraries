@@ -3,7 +3,7 @@
  *
  * @author Andy Lindsay
  *
- * @version dev002
+ * @version dev003
  *
  * @copyright Copyright (C) Parallax, Inc. 2013.  See end of file for
  * terms of use (MIT License).
@@ -23,25 +23,17 @@ void ee_init();
 
 void ee_putFloat32(float fpVal, int addr)
 {
-  if(!eeInitFlag) ee_init();
-  unsigned char value[4] = {0, 0, 0, 0};
-  memcpy(&value, &fpVal, sizeof fpVal);
-  unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr & 0xFF)};
-  int n = i2c_out(eeprom, 0xA0, addrArray, 2, value, 4);
-  while(i2c_poll(eeprom, 0xA0)); 
-
-  //if(0)
-  if(addr % 128 > 124)
-  {
-    int offset = 128 - (addr % 128);
-    addr += offset;
-    int elcnt = 4 - offset;
-    addrArray[0] = (char)(addr >> 8);
-    addrArray[1] = (char)(addr & 0xFF);
-    n += i2c_out(eeprom, 0xA0, addrArray, 2, &value[offset], elcnt);
-    while(i2c_poll(eeprom, 0xA0)); 
-  }
+  unsigned char val[4];
+  memcpy(val, &fpVal, sizeof fpVal);
+  ee_putStr(val, 4, addr);
   return;
+
+  /*
+  int value;
+  memcpy(&value, &fpVal, sizeof fpVal);
+  ee_putInt(value, addr);
+  return;
+  */
 }
 
 /**
