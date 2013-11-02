@@ -17,7 +17,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">simpletools library
-   &#160;<span id="projectnumber">v0.95</span>
+   &#160;<span id="projectnumber">v0.96</span>
    </div>
    <div id="projectbrief">Collection of convenience functions for common microcontroller tasks</div>
   </td>
@@ -286,7 +286,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>eeInitFlag</b></td></t
 Documentation%20simpletext%20Library.html" target="blank">simpletext</a> and <a href="html/../../../Text%20Devices/libsimpletext/
 Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 <dl class="section author"><dt>Author</dt><dd>Andy Lindsay</dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.94 (see details for more info)</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.96 (see details for more info)</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.</dd></dl>
 <p><b>NOTE:</b> If you want to update old projects to work with this version of simpletools, you may need to manually use the Add Simple Library button to add .../SimpleIDE/Learn/Text Devices/libsimpletext.</p>
 <p><b><em>CONSTRUCTION ZONE:</em></b> This library is still preliminary, revisions pending. <br/>
@@ -316,7 +316,9 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
  <br/>
  Revision 0.94 Fixed bug in ee_put* that prevented contiguous data from crossing the EEPROM's address/128 buffer boundaries. Updated stack array to static in mstimer.c.<br/>
 <br/>
- Revision 0.95 square_wave bug that prevented output frequency changes (fixed). </p>
+ Revision 0.95 square_wave bug that prevented output frequency changes (fixed). <br/>
+<br/>
+ Revision 0.96 ee_putStr updated to support 128 byte page writes. More corrections to ee_put* for contiguous data crossing address/128 boundary. </p>
 </div><h2>Macro Definition Documentation</h2>
 <a class="anchor" id="af9241e417ac6f468979cc60b0263d49f"></a>
 <div class="memitem">
@@ -2070,7 +2072,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Oct 24 2013 12:15:53 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Fri Nov 1 2013 22:54:56 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

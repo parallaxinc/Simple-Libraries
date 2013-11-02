@@ -3,7 +3,7 @@
  *
  * @author Andy Lindsay
  *
- * @version dev002
+ * @version dev003
  *
  * @copyright Copyright (C) Parallax, Inc. 2013.  See end of file for
  * terms of use (MIT License).
@@ -21,36 +21,28 @@ int eeInitFlag;
 
 void ee_init();
 
+
 void ee_putStr(unsigned char *s, int n, int addr)
 {
+  unsigned char addrArray[2];
   if(!eeInitFlag) ee_init();
-  for(int i = 0; i < n; i++) ee_putByte(s[i], addr + i);
 
-  /* // This one won't work because of the EEPROM's 128 byte buffer.
-  i2c_out(eeprom, 0xA0, addrArray, 2, s, n);
-  while(i2c_poll(eeprom, 0xA0)); 
-  */
-
-  /* // Fix and use this one for future rev
-  unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr&0xFF)};
-  int bufcnt = 128 - (128 % addr);
-  int n1;
-  int na = 0;
-  if(n < bufcnt) n1 = n; else n1 = bufcnt;
-  i2c_out(eeprom, 0xA0, addrArray, 2, s, n1);
-  while(i2c_poll(eeprom, 0xA0)); 
-  while(1)
+  while(n > 0)
   {
-    na += n1;
-    addr += n1;
-    n -= n1;
-    if(n == 0) break;
-    if(n < 128) n1 = n; else n1 = 128;
     addrArray[0] = (char)(addr >> 8);
     addrArray[1] = (char)(addr&0xFF);
-    i2c_out(eeprom, 0xA0, addrArray, 2, &s[na], n1);
+
+    int pageAddr = addr % 128;
+    int byteCnt = 128 - pageAddr;
+    if(byteCnt > n) byteCnt = n;
+
+    i2c_out(eeprom, 0xA0, addrArray, 2, s, byteCnt);
+    while(i2c_poll(eeprom, 0xA0));
+
+    n -= byteCnt;
+    addr += byteCnt;
+    s += byteCnt;
   }
-  */
   return;
 }
 

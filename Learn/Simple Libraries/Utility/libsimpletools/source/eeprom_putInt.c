@@ -24,24 +24,33 @@ void ee_init();
 void ee_putInt(int value, int addr)
 {
   unsigned char val[4] = {(char) value, (char) (value >> 8), (char) (value >> 16), (char) (value >> 24)};
+  ee_putStr(val, 4, addr);
+  return;
+
+  /*
   if(!eeInitFlag) ee_init();
+
+  unsigned char val[4] = {(char) value, (char) (value >> 8), (char) (value >> 16), (char) (value >> 24)};
   unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr&0xFF)};
 
-  int n = i2c_out(eeprom, 0xA0, addrArray, 2, val, 4);
+  int pageAddr = addr % 128;
+  int byteCnt = 128 - pageAddr;
+  if(byteCnt > 4) byteCnt = 4;
+
+  int n = i2c_out(eeprom, 0xA0, addrArray, 2, val, byteCnt);
   while(i2c_poll(eeprom, 0xA0));
 
-  //if(0)
-  if(addr % 128 > 124)
+  if(byteCnt < 4)
   {
-    int offset = 128 - (addr % 128);
+    int offset = byteCnt;
+    byteCnt = 4 - byteCnt;
     addr += offset;
-    int elcnt = 4 - offset;
     addrArray[0] = (char)(addr >> 8);
     addrArray[1] = (char)(addr & 0xFF);
-    n += i2c_out(eeprom, 0xA0, addrArray, 2, &val[offset], elcnt);
+    n += i2c_out(eeprom, 0xA0, addrArray, 2, &val[offset], byteCnt);
     while(i2c_poll(eeprom, 0xA0)); 
   }
-  return;
+  */
 }
 
 /**
