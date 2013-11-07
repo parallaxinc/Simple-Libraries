@@ -75,6 +75,7 @@
  * (fixed). @n@n
  * Revision 0.96 ee_putStr updated to support 128 byte page writes.  More
  * corrections to ee_put* for contiguous data crossing address/128 boundary.
+ * Revision 0.96.1 Add documentation for start_fpu_cog and stop_fpu_cog.
  */
 
 #ifndef SIMPLETOOLS_H
@@ -755,14 +756,14 @@ int shift_in(int pinDat, int pinClk, int mode, int bits);
 * @param pinClk Clock pin
 * @param mode Order that bits are transmitteed, either LSBFIRST or MSBFIRST.
 * @param bits Number of binary values to transfer.
-* @param Value to transmit.
+* @param value to transmit.
 */
 void shift_out(int pinDat, int pinClk, int mode, int bits, int value);
 
 /**
  * @brief Set up a simple serial driver with transmit & receive pins.
  *
- * @param pinTxOut Transmitting output pin.
+ * @param sclpin the I2C bus' serial clock pin.
  *
  * @param sdapin the I2C bus' serial data pin.
  *
@@ -1019,6 +1020,35 @@ int sd_mount(int doPin, int clkPin, int diPin, int csPin);
  * @returns The character array address it received.
  */
 char* itoa(int i, char b[], int base);
+
+
+/**
+ * @brief Restarts floating point coprocessor (which runs in a separate
+ * cog) after it has been shut down by stop_fpu_cog.  This process is 
+ * started automatically when an application that uses the simpletools
+ * library is launched.  So the only time you would call it is after
+ * calling stop_fpu_cog in order to reclaim a cog for other uses.  
+ * CAUTION: Do not try call simpletext library functions while the
+ * fpu cog is shut down, it could cause the application to hang.
+ *
+ * @returns Nonzero if successful, or zero if no cogs available.
+ */
+int start_fpu_cog(void);
+
+
+/**
+ * @brief Stop floating point coprocessing cog that is started
+ * automatically when an application that uses the simpletools library 
+ * is launched.  When this function stops the cog running the floating 
+ * point coprocessor, it will save a cog, but disable certain floating 
+ * point functionalities until it is restarted by calling start_fpu_cog.
+ * CAUTION: Do not try call simpletext library functions while the
+ * fpu cog is shut down, it could cause the application to hang.
+ *
+ * @returns Nonzero if successful, or zero if no cogs available.
+ */
+void stop_fpu_cog(void);
+
 
 int add_driver(_Driver *driverAddr);
 
