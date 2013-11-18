@@ -343,7 +343,7 @@ int  writeStrDigits(text_t *device, char* str, int width);
  * @param ... is the arguments to use with the format string.
  * returns the number of bytes placed into the buffer.
  */
-int print(const char *format, ...);
+int print(const char *format, ...) __attribute__((format (printf, 1, 2)));
 
 /**
  * Convert formatted simple terminal input to the "..." args.
