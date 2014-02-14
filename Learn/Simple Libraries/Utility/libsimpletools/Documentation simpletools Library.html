@@ -17,7 +17,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">simpletools library
-   &#160;<span id="projectnumber">v0.96.1</span>
+   &#160;<span id="projectnumber">v0.97</span>
    </div>
    <div id="projectbrief">Collection of convenience functions for common microcontroller tasks</div>
   </td>
@@ -255,12 +255,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:a3da63e55d0799ab30686bf38a5f15d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch a 32-bit precision floating point value from a certain address in the Propeller Chip's dedicated EEPROM. A 32-bit value occupies four bytes so if you are fetching values in a sequence, make sure to add 4 to each addr parameter value.  <a href="#a3da63e55d0799ab30686bf38a5f15d43"></a><br/></td></tr>
 <tr class="memitem:aa845f3e273a492072b625da584924f32"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aa845f3e273a492072b625da584924f32">sd_mount</a> (int doPin, int clkPin, int diPin, int csPin)</td></tr>
 <tr class="memdesc:aa845f3e273a492072b625da584924f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mount an SD card with the minimal 4-pin interface.  <a href="#aa845f3e273a492072b625da584924f32"></a><br/></td></tr>
-<tr class="memitem:ace368f66ef489173117522773fa96eef"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ace368f66ef489173117522773fa96eef">itoa</a> (int i, char b[], int base)</td></tr>
-<tr class="memdesc:ace368f66ef489173117522773fa96eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert value to zero terminated text string.  <a href="#ace368f66ef489173117522773fa96eef"></a><br/></td></tr>
 <tr class="memitem:a61783ad70f65edb523f1f467bc47cabb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a61783ad70f65edb523f1f467bc47cabb">start_fpu_cog</a> (void)</td></tr>
 <tr class="memdesc:a61783ad70f65edb523f1f467bc47cabb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restarts floating point coprocessor (which runs in a separate cog) after it has been shut down by stop_fpu_cog. This process is started automatically when an application that uses the simpletools library is launched. So the only time you would call it is after calling stop_fpu_cog in order to reclaim a cog for other uses. CAUTION: Do not try call simpletext library functions while the fpu cog is shut down, it could cause the application to hang.  <a href="#a61783ad70f65edb523f1f467bc47cabb"></a><br/></td></tr>
 <tr class="memitem:a736648757711b6d9b47073d860c8797d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a736648757711b6d9b47073d860c8797d">stop_fpu_cog</a> (void)</td></tr>
 <tr class="memdesc:a736648757711b6d9b47073d860c8797d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop floating point coprocessing cog that is started automatically when an application that uses the simpletools library is launched. When this function stops the cog running the floating point coprocessor, it will save a cog, but disable certain floating point functionalities until it is restarted by calling start_fpu_cog. CAUTION: Do not try call simpletext library functions while the fpu cog is shut down, it could cause the application to hang.  <a href="#a736648757711b6d9b47073d860c8797d"></a><br/></td></tr>
+<tr class="memitem:ace368f66ef489173117522773fa96eef"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ace368f66ef489173117522773fa96eef">itoa</a> (int i, char b[], int base)</td></tr>
+<tr class="memdesc:ace368f66ef489173117522773fa96eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert value to zero terminated text string.  <a href="#ace368f66ef489173117522773fa96eef"></a><br/></td></tr>
+<tr class="memitem:a9c5d06d96a66ec25c018b469e9c5e06b"><td class="memItemLeft" align="right" valign="top">int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a9c5d06d96a66ec25c018b469e9c5e06b">cog_run</a> (void(*function)(void *par), int stacksize)</td></tr>
+<tr class="memdesc:a9c5d06d96a66ec25c018b469e9c5e06b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run a function's code in the next available cog (processor).  <a href="#a9c5d06d96a66ec25c018b469e9c5e06b"></a><br/></td></tr>
+<tr class="memitem:a5b2cba6f29a9955c55ab239066e30e7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a5b2cba6f29a9955c55ab239066e30e7f">cog_end</a> (int *coginfo)</td></tr>
+<tr class="memdesc:a5b2cba6f29a9955c55ab239066e30e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">End function code running in another cog that was launched with cog_run.  <a href="#a5b2cba6f29a9955c55ab239066e30e7f"></a><br/></td></tr>
 <tr class="memitem:ad0591fd1afec50de792bc2be9f283afa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0591fd1afec50de792bc2be9f283afa"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>add_driver</b> (_Driver *driverAddr)</td></tr>
 </table><table class="memberdecls">
@@ -322,7 +326,13 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 <br/>
  Revision 0.95 square_wave bug that prevented output frequency changes (fixed). <br/>
 <br/>
- Revision 0.96 ee_putStr updated to support 128 byte page writes. More corrections to ee_put* for contiguous data crossing address/128 boundary. Revision 0.96.1 Add documentation for start_fpu_cog and stop_fpu_cog. </p>
+ Revision 0.96 ee_putStr updated to support 128 byte page writes. More corrections to ee_put* for contiguous data crossing address/128 boundary. <br/>
+<br/>
+ Revision 0.96.1 Add documentation for start_fpu_cog and stop_fpu_cog. <br/>
+<br/>
+ Revision 0.97 Add cog_run and cog_end for simplified running of function code in other cogs. <br/>
+<br/>
+ </p>
 </div><h2>Macro Definition Documentation</h2>
 <a class="anchor" id="af9241e417ac6f468979cc60b0263d49f"></a>
 <div class="memitem">
@@ -358,6 +368,68 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 </div>
 </div>
 <h2>Function Documentation</h2>
+<a class="anchor" id="a5b2cba6f29a9955c55ab239066e30e7f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cog_end </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>coginfo</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>End function code running in another cog that was launched with cog_run. </p>
+<p>This function uses the value returned by cog_run to stop a function running in another cog and free the stack space cog_run allocated with its stacksize parameter.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*coginfo</td><td>the address returned by cog_run. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a9c5d06d96a66ec25c018b469e9c5e06b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int* cog_run </td>
+          <td>(</td>
+          <td class="paramtype">void(*)(void *par)&#160;</td>
+          <td class="paramname"><em>function</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>stacksize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Run a function's code in the next available cog (processor). </p>
+<p>cog_run is designed to make launching application level functions (typically from the main file) quick and easy. All you have to do is pass a pointer to a function with no return value or parameters along with the number for extra memory to reserve. The value returned can be used to shut down the process and free up memory and a cog later by passing it to cog_end.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*function</td><td>pointer to a function with no parameters or return value. Example, if your function is void myFunction(), then pass &amp;myFunciton.</td></tr>
+    <tr><td class="paramname">stacksize</td><td>Number of extra int variables for local variable declarations and call/return stack. This also needs to cover any local variable declarations in functions that your function calls, including library functions. Be liberal with extra stack space for prototyping, and if in doubt, 40 to whatever value you calculate.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Address of memory set aside for the cog. Make sure to save this value in a variable if you inted to stop the process later with cog_end. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a20a9d97de9777b12cfd9353a83ac21cb"></a>
 <div class="memitem">
 <div class="memproto">
@@ -2114,7 +2186,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 6 2013 18:04:30 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2014 10:48:02 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

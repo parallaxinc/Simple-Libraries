@@ -48,8 +48,10 @@ eeprom_putByte.c -> source/eeprom_putByte.c
 eeprom_putFloat.c -> source/eeprom_putFloat.c
 eeprom_putInt.c -> source/eeprom_putInt.c
 eeprom_putStr.c -> source/eeprom_putStr.c
+cogrun.c -> source/cogrun.c
+cogend.c -> source/cogend.c
 >compiler=C
->memtype=cmm main ram compact
+>memtype=xmmc external flash code main ram data
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions

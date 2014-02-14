@@ -1,241 +1,505 @@
-/**
- * @file vgatext.c
+/*
+ * vgatext.c
+ * VGA_Text native device driver interface.
  *
- * @author Spin + ASM by Chip Gracey
- * Converted from Spin + ASM with Eric Smith's Spin2Cpp utility
- *
- * @copyright
- * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
- *
- * @brief Displays text on a VGA monitor.
+ * Copyright (c) 2013, Parallax Inc
+ * Written by Steve Denson
+ * See end of file for terms of use.
  */
-
+#include <stdlib.h>
+#include <string.h>
 #include <propeller.h>
+
+#include "simpletext.h"
 #include "vgatext.h"
 
-#ifdef __GNUC__
-#define INLINE__ static inline
-#define PostEffect__(X, Y) __extension__({ int32_t tmp__ = (X); (X) = (Y); tmp__; })
-#else
-#define INLINE__ static
-static int32_t tmp__;
-#define PostEffect__(X, Y) (tmp__ = (X), (X) = (Y), tmp__)
-#define waitcnt(n) _waitcnt(n)
-#define locknew() _locknew()
-#define lockret(i) _lockret(i)
-#define lockset(i) _lockset(i)
-#define lockclr(i) _lockclr(i)
-#define coginit(id, code, par) _coginit((unsigned)(par)>>2, (unsigned)(code)>>2, id)
-#define cognew(code, par) coginit(0x8, (code), (par))
-#define cogstop(i) _cogstop(i)
+/*
+ * This is the main global vga text control/status structure.
+ */
+HUBDATA volatile vgatextdev_t gVgaText;
+
+static int dummyRx(vgatext *ptr) { return 0; }
+
+vgatext *vgatext_open(int basepin)
+{
+  /* can't use array instead of malloc because it would go out of scope. */
+  text_t *text = (text_t*) malloc(sizeof(text_t));
+
+  text->devst = &gVgaText;
+
+  text->txChar    = vgatext_putchar;  /* required for terminal to work */
+  text->rxChar    = dummyRx;          /* required for terminal to work */
+
+  text->cogid[0] = vgatext_start(&gVgaText, basepin);
+  return text;
+}
+
+void vgatext_close(vgatext *device)
+{
+  int id = device->cogid[0];
+
+  if(!device)
+    return;
+
+  if(id > 0) {
+    cogstop(getStopCOGID(id));
+    device->cogid[0] = 0;
+  }
+
+  free(device);
+  device = 0;
+}
+
+/*
+ * This is the VGA text screen area.
+ */
+HUBDATA short gVgaScreen[VGA_TEXT_SCREENSIZE];
+
+/*
+ * This is the VGA color palette area.
+ */
+HUBDATA static int gcolors[VGA_TEXT_COLORTABLE_SIZE];
+
+/*
+ * In the case of __PROPELLER_XMM__ we must copy the PASM to
+ * a temporary HUB buffer for cog start. Define buffer here.
+ */
+#if defined(__PROPELLER_XMM__)
+HUBDATA static uint32_t pasm[496];
 #endif
 
-INLINE__ int32_t Rotl__(uint32_t a, uint32_t b) { return (a<<b) | (a>>(32-b)); }
-INLINE__ int32_t Rotr__(uint32_t a, uint32_t b) { return (a>>b) | (a<<(32-b)); }
-INLINE__ int32_t Shr__(uint32_t a, uint32_t b) { return (a>>b); }
-INLINE__ int32_t Between__(int32_t x, int32_t a, int32_t b){ if (a <= b) return x >= a && x <= b; return x >= b && x <= a; }
-
-INLINE__ int32_t Lookup__(int32_t x, int32_t b, int32_t a[], int32_t n) { int32_t i = (x)-(b); return ((unsigned)i >= n) ? 0 : (a)[i]; }
-
-static  int32_t	vga_text_print(int32_t C);
-static  int32_t	vga_text_newline(void);
-static VGA_Text thisobj;
-
-static uint8_t dat[]={
-  0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 
-  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x00, 0x00, 0x00, 0x0f, 0x00, 0x00, 0x00, 
-  0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-  0x00, 0x02, 0x00, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x4b, 0x00, 0x00, 0x00, 0x2b, 0x00, 0x00, 0x00, 
-  0xe0, 0x01, 0x00, 0x00, 0x0b, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x1f, 0x00, 0x00, 0x00, 
-  0x00, 0x00, 0x00, 0x00, 0x3f, 0x01, 0x3c, 0x14, 0x22, 0x00, 0x15, 0x3f, 0x0f, 0x05, 0x08, 0x2e, 
-  0x10, 0x35, 0x0f, 0x03};
-  
-int32_t vga_text_start(int32_t Basepin)
-{
-  int32_t Okay = 0;
-  vga_text_setcolors((int32_t)(&(*(uint8_t *)&dat[84])));
-  vga_text_out(0);
-  memmove( (void *)&thisobj.Vga_status, (void *)&(*(int32_t *)&dat[0]), 4*(Vga_count));
-  thisobj.Vga_pins = (Basepin | 0x7);
-  thisobj.Vga_screen = (int32_t)(&thisobj.Screen);
-  thisobj.Vga_colors = (int32_t)(&thisobj.Colors);
-  thisobj.Vga_rate = (Shr__(CLKFREQ, 2));
-  Okay = vgaSpin_Start((int32_t)(&thisobj.Vga_status));
-  return Okay;
-}
-
-int32_t vga_text_stop(void)
-{
-  vgaSpin_Stop();
-  return 0;
-}
-
-int32_t vga_text_str(char* Stringptr)
-{
-  {
-    int32_t _idx__0000;
-    _idx__0000 = strlen((char *) Stringptr);
-    do {
-      vga_text_out(((uint8_t *)(Stringptr++))[0]);
-      _idx__0000 = (_idx__0000 + -1);
-    } while (_idx__0000 >= 1);
-  }
-  return 0;
-}
-
-int32_t vga_text_dec(int32_t Value)
-{
-  int32_t	I;
-  int32_t result = 0;
-  if (Value < 0) {
-    Value = (-Value);
-    vga_text_out('-');
-  }
-  I = 1000000000;
-  {
-    int32_t _idx__0001;
-    _idx__0001 = 10;
-    do {
-      if (Value >= I) {
-        vga_text_out(((Value / I) + '0'));
-        Value = (Value % I);
-        result = -1;
-      } else {
-        if ((result) || (I == 1)) {
-          vga_text_out('0');
-        }
-      }
-      I = (I / 10);
-      _idx__0001 = (_idx__0001 + -1);
-    } while (_idx__0001 >= 1);
-  }
-  return result;
-}
-
-int32_t vga_text_hex(int32_t Value, int32_t Digits)
-{
-  static int32_t look__0002[] = {48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 66, 67, 68, 69, 70, };
-
-  Value = (Value << ((8 - Digits) << 2));
-  {
-    int32_t _idx__0003;
-    _idx__0003 = Digits;
-    do {
-      vga_text_out(Lookup__(((Value = (Rotl__(Value, 4))) & 0xf), 0, look__0002, 16));
-      _idx__0003 = (_idx__0003 + -1);
-    } while (_idx__0003 >= 1);
-  }
-  return 0;
-}
-
-int32_t vga_text_bin(int32_t Value, int32_t Digits)
-{
-  Value = (Value << (32 - Digits));
-  {
-    int32_t _idx__0004;
-    _idx__0004 = Digits;
-    do {
-      vga_text_out((((Value = (Rotl__(Value, 1))) & 0x1) + '0'));
-      _idx__0004 = (_idx__0004 + -1);
-    } while (_idx__0004 >= 1);
-  }
-  return 0;
-}
-
-int32_t vga_text_out(int32_t C)
-{
-  int32_t	I, K;
-  int32_t result = 0;
-  if (thisobj.Flag == 0) {
-    if (C == 0) {
-      { int32_t _fill__0005; uint16_t *_ptr__0007 = (uint16_t *)&thisobj.Screen; uint16_t _val__0006 = 544; for (_fill__0005 = Screensize; _fill__0005 > 0; --_fill__0005) {  *_ptr__0007++ = _val__0006; } };
-      thisobj.Col = (thisobj.Row = 0);
-    } else if (C == 1) {
-      thisobj.Col = (thisobj.Row = 0);
-    } else if (C == 8) {
-      if (thisobj.Col) {
-        (thisobj.Col--);
-      }
-    } else if (C == 9) {
-      do {
-        vga_text_print(' ');
-      } while (thisobj.Col & 0x7);
-    } else if (Between__(C, 10, 12)) {
-      thisobj.Flag = C;
-      return result;
-    } else if (C == 13) {
-      vga_text_newline();
-    } else if (1) {
-      vga_text_print(C);
-    }
-  } else if (thisobj.Flag == 10) {
-    thisobj.Col = (C % Cols);
-  } else if (thisobj.Flag == 11) {
-    thisobj.Row = (C % Rows);
-  } else if (thisobj.Flag == 12) {
-    thisobj.Color = (C & 0x7);
-  }
-  thisobj.Flag = 0;
-  return result;
-}
-
-int32_t vga_text_setcolors(int32_t Colorptr)
-{
-  int32_t	I, Fore, Back;
-  I = 0;
-  do {
-    Fore = (((uint8_t *)Colorptr)[(I << 1)] << 2);
-    Back = (((uint8_t *)Colorptr)[((I << 1) + 1)] << 2);
-    thisobj.Colors[(I << 1)] = ((((Fore << 24) + (Back << 16)) + (Fore << 8)) + Back);
-    thisobj.Colors[((I << 1) + 1)] = ((((Fore << 24) + (Fore << 16)) + (Back << 8)) + Back);
-    I = (I + 1);
-  } while (I <= 7);
-  return 0;
-}
-
-int32_t vga_text_print(int32_t C)
-{
-  thisobj.Screen[((thisobj.Row * Cols) + thisobj.Col)] = (((((thisobj.Color << 1) + (C & 0x1)) << 10) + 512) + (C & 0xfe));
-  if ((++thisobj.Col) == Cols) {
-    vga_text_newline();
-  }
-  return 0;
-}
-
-int32_t vga_text_newline(void)
-{
-  int32_t	I;
-  thisobj.Col = 0;
-  if ((++thisobj.Row) == Rows) {
-    (thisobj.Row--);
-    memmove( (void *)&thisobj.Screen, (void *)&thisobj.Screen[Cols], 2*(Lastrow));
-    { int32_t _fill__0008; uint16_t *_ptr__0010 = (uint16_t *)&thisobj.Screen[Lastrow]; uint16_t _val__0009 = 544; for (_fill__0008 = Cols; _fill__0008 > 0; --_fill__0008) {  *_ptr__0010++ = _val__0009; } };
-  }
-  return 0;
-}
-
-
-/**
- * TERMS OF USE: MIT License
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
+/*
+ * These are variables to keep up with display;
  */
+static int col, row, flag;
+
+static int blank = 0x220;
+
+/*
+ * This is the VGA palette.
+ */
+static char gpalette[VGA_TEXT_COLORTABLE_SIZE] =     
+{                           // fgRGB  bgRGB    '
+    0b111111, 0b000001,     // %%333, %%001    '0    white / dark blue
+    0b111100, 0b010100,     // %%330, %%110    '1   yellow / brown
+    0b100010, 0b000000,     // %%202, %%000    '2  magenta / black
+    0b010101, 0b111111,     // %%111, %%333    '3     grey / white
+    0b001111, 0b000101,     // %%033, %%011    '4     cyan / dark cyan
+    0b001000, 0b101110,     // %%020, %%232    '5    green / gray-green
+    0b010000, 0b110101,     // %%100, %%311    '6      red / pink
+    0b001111, 0b000001      // %%033, %%003    '7     cyan / blue
+};
+
+char greypalette[VGA_TEXT_COLORTABLE_SIZE] =     
+{                           // fgRGB  bgRGB    '
+    0b111111, 0b000001,     // %%333, %%001    '0    white / dark blue
+    0b000001, 0b111111,     // %%333, %%001    '0 dark blue/ white
+    0b111111, 0b000000,     // %%333, %%001    '0    white / black
+    0b000000, 0b111111,     // %%333, %%001    '1    black / white
+    0b010101, 0b000000,     // %%330, %%110    '2     grey / black
+    0b000000, 0b010101,     // %%202, %%000    '3    black / grey
+    0b111111, 0b010101,     // %%111, %%333    '4    white / grey
+    0b010101, 0b111111      // %%111, %%333    '5     grey / white
+};
+
+/*
+ * This should set the character foreground and screen background.
+ * API are available to get/set this.
+ */
+static int color = 0;
+
+static void wordfill(short *dst, short val, int len);
+static void wordmove(short *dst, short *src, int len);
+
+/*
+ * VGA_Text start function starts VGA on a cog
+ * See header file for more details.
+ */
+int vgatext_start(volatile vgatextdev_t* vga, int basepin)
+{
+    extern int binary_VGA_dat_start[];
+    int id = 0;
+
+    col   = 0; // init vars
+    row   = 0;
+    flag  = 0;
+
+    vga->status = 0;
+    vga->enable = 1;
+    vga->pins   = basepin | 0x7;
+    vga->mode   = 0b1000;
+    vga->screen = (long) gVgaScreen;
+    vga->colors = (long) gcolors;
+    vga->ht = VGA_TEXT_COLS;
+    vga->vt = VGA_TEXT_ROWS;
+    vga->hx = 1;
+    vga->vx = 1;
+    vga->ho = 1;
+    vga->vo = 1;
+    vga->hd = 512;
+    vga->hf = 10;
+    vga->hs = 75;
+    vga->hb = 43;
+    vga->vd = 480;
+    vga->vf = 11;
+    vga->vs = 2;
+    vga->vb = 31;
+    vga->rate = 80000000 >> 2;
+    vga->palette = gpalette;
+      
+#if defined(__PROPELLER_USE_XMM__)
+    /* in the case of XMM we need all PASM pointers to be in HUB memory */
+    extern int binary_VGA_dat_end[];
+    int pasmsize = ((int)binary_VGA_dat_start-(int)binary_VGA_dat_end)>>2;
+    id = load_cog_driver_xmm((uint32_t*) binary_VGA_dat_start, pasmsize, (void*)vga);
+#else
+    id = cognew((void*)binary_VGA_dat_start, (void*)vga);
+#endif
+    
+    /* Set main fg/bg colors here.
+     * It's ok to use a global palette just to get started.
+     * It can be replaced.
+     */
+    vgatext_setColorPalette(&vga->palette[VGA_TEXT_PAL_WHITE_BLUE]);
+    wordfill(gVgaScreen, blank, VGA_TEXT_SCREENSIZE);
+    
+    waitcnt(CLKFREQ/5+CNT);
+    
+    return id;
+}
+
+/*
+ * VGA_Text stop function stops VGA cog
+ * See header file for more details.
+ */
+void    vgatext_stop(int id)
+{
+    if(id) {
+        cogstop(id);
+    }
+}
+
+/*
+ * VGA_Text setcolors function sets the palette to that defined by pointer.
+ * See header file for more details.
+ */
+void    vgatext_setColorPalette(char* ptr)
+{
+    int  ii = 0;
+    int  mm = 0;
+    int  fg = 0;
+    int  bg = 0;
+    for(ii = 0; ii < VGA_TEXT_COLORTABLE_SIZE; ii += 2)
+    {
+        mm = ii + 1; // beta1 ICC has trouble with math in braces. use mm
+        fg = ptr[ii] << 2;
+        bg = ptr[mm] << 2;
+        gcolors[ii]  = fg << 24 | bg << 16 | fg << 8 | bg;
+        gcolors[mm]  = fg << 24 | fg << 16 | bg << 8 | bg;
+   }        
+}
+
+/*
+ * print a new line
+ */
+static void newline(void)
+{
+    col = 0;
+    if (++row == VGA_TEXT_ROWS) {
+        row--;
+        wordmove(&gVgaScreen[0], &gVgaScreen[VGA_TEXT_COLS], VGA_TEXT_LASTROW); // scroll
+        wordfill(&gVgaScreen[VGA_TEXT_LASTROW], blank, VGA_TEXT_COLS); // clear new line
+    }
+}
+
+/*
+ * print a character
+ */
+static void printc(int c)
+{
+    int   ndx = row * VGA_TEXT_COLS + col;
+    short val = 0;
+    
+    /* a character is represented by a palette color and character index
+     */
+    
+    val  = ((color << 1) | (c & 1)) << 10;
+    val += 0x200 + (c & 0xFE);
+
+    // Driver updates during invisible time.
+    // while(gVgaText.status != VGA_TEXT_STAT_INVISIBLE)    ;
+
+    while(gVgaText.status != VGA_TEXT_STAT_INVISIBLE)
+        ;
+    gVgaScreen[ndx] = val; // works
+
+    if (++col == VGA_TEXT_COLS) {
+        newline();
+    }
+}
 
 
+/*
+ * VGA_Text out function prints a character at current position or performs
+ * a screen function.
+ * See header file for more details.
+ */
+int vgatext_out(int c)
+{
+    if(flag == 0)
+    {
+        switch(c)
+        {
+            case 0:
+            case 16:
+                wordfill(&gVgaScreen[0], color << 11 | blank, VGA_TEXT_SCREENSIZE);
+                col = 0;
+                row = 0;
+                break;
+            case 1:
+                col = 0;
+                row = 0;
+                break;
+            case 8:
+                if (col)
+                    col--;
+                break;
+            case 9:
+                do {
+                    printc(' ');
+                } while(col & 7);
+                break;
+            case 0xA:   // fall though
+            case 0xB:   // fall though
+            case 0xC:   // fall though
+                flag = c;
+                return 0;
+            case 0xD:
+                newline();
+                break;
+            default:
+                printc(c);
+                break;
+        }
+    }
+    else
+    if (flag == 0xA) {
+        col = c % VGA_TEXT_COLS;
+    }
+    else
+    if (flag == 0xB) {
+        row = c % VGA_TEXT_ROWS;
+    }
+    else
+    if (flag == 0xC) {
+        color = c & 0xf;
+    }
+    flag = 0;
+    return 1;
+}
+//#endif
+
+/*
+ * VGA_Text vgatext_putchar print char to screen with normal stdio definitions
+ * See header file for more details.
+ */
+int vgatext_putchar(vgatext *vga, int c)
+{
+    switch(c)
+    {
+        case '\b':
+            if (col)
+                col--;
+            break;
+        case '\t':
+            do {
+                printc(' ');
+            } while(col & 7);
+            break;
+        case '\n':
+            newline();
+            break;
+        case '\r':
+            col = 0;
+            break;
+        case 16:
+            vgatext_clear();
+            break;
+        case 1:
+            vgatext_home();
+            break;
+        default:
+            printc(c);
+            break;
+    }
+    return (int)c;
+}
+
+
+/*
+ * Clear the display.
+ */
+void vgatext_clear(void)
+{
+  vgatext_out(16);
+}
+
+
+/*
+ * Cursor to home position.
+ */
+void vgatext_home(void)
+{
+  vgatext_out(1);
+}
+
+
+/*
+ * Clear to end of line.
+ */
+void vgatext_clearEOL(void)
+{ 
+  int lastCol = col;
+  int lastRow = row;
+  for(int i = col; i < VGA_TEXT_COLS; i++)
+    printc(' ');
+  col = lastCol;
+  row = lastRow;
+}
+
+
+/*
+ * VGA_Text setCoordPosition function sets position to Cartesian x,y.
+ * See header file for more details.
+ */
+void    vgatext_setCoordPosition(int x, int y)
+{
+    col = x;
+    row = VGA_TEXT_ROWS-y-1;
+}
+
+
+/*
+ * VGA_Text setXY function sets position to x,y.
+ * See header file for more details.
+ */
+void    vgatext_setXY(int x, int y)
+{
+    col = x;
+    row = y;
+}
+
+/*
+ * VGA_Text setX function sets column position value
+ * See header file for more details.
+ */
+void    vgatext_setX(int x)
+{
+    col = x;
+}
+
+/*
+ * VGA_Text setY function sets row position value
+ * See header file for more details.
+ */
+void    vgatext_setY(int y)
+{
+    row = y;
+}
+
+/*
+ * VGA_Text getX function gets column position
+ * See header file for more details.
+ */
+int vgatext_getX(void)
+{
+    return col;
+}
+
+/*
+ * VGA_Text getY function gets row position
+ * See header file for more details.
+ */
+int vgatext_getY(void)
+{
+    return row;
+}
+
+/*
+ * VGA_Text setColors function sets palette color set index
+ * See header file for more details.
+ */
+void vgatext_setColors(int value)
+{
+    color = value % VGA_TEXT_COLORS;
+}
+
+/*
+ * VGA_Text getColors function gets palette color set index
+ * See header file for more details.
+ */
+int vgatext_getColors(void)
+{
+    return color % VGA_TEXT_COLORS;
+}
+
+/*
+ * VGA_Text getWidth function gets screen width.
+ * See header file for more details.
+ */
+int vgatext_getColumns(void)
+{
+    return VGA_TEXT_COLS;
+}
+
+/*
+ * VGA_Text getHeight function gets screen height.
+ * See header file for more details.
+ */
+int vgatext_getRows(void)
+{
+    return VGA_TEXT_ROWS;
+}
+
+static void wordfill(short *dst, short val, int len)
+{
+    while(--len > -1) {
+        *dst = val;
+        dst++;
+    }
+}
+
+static void wordmove(short *dst, short *src, int len)
+{
+    while(--len > -1) {
+        *dst = *src;
+        dst++;
+        src++;
+    }
+}
+
+/*
++--------------------------------------------------------------------
+|  TERMS OF USE: MIT License
++--------------------------------------------------------------------
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files
+(the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
++------------------------------------------------------------------
+*/
 
