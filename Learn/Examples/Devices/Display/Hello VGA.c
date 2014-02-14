@@ -13,7 +13,7 @@ vgatext *vga;                                 // VGA identifier
 
 int main(void)                                // Main function
 {
-  vga = vgatext_open(0);                      // Open VGA port with P8 base
+  vga = vgatext_open(0);                      // Open VGA port with P0 base
     
   dprint(vga,"Hello VGA.\n");                 // Message + newline
   dprint(vga,"Hello again!\n");               // Another message
