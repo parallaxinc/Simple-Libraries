@@ -1,20 +1,26 @@
 /*
   Hello VGA.c
+  
+  Test some of the vgatext library's features with a VGA display.
 
-  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
-
-  Test Propeller VGA.  P8-V, P9-H, P10-B0, P11-B1, P12-G0, P13-G1
-                       P14-R0, P15-R1. 
+  http://learn.parallax.com/propeller-c-simple-devices/vga-text-display
 */
 
-#include "simpletools.h"                      // Include simple tools
-#include "vgatext.h"                          // Include VGA text
+#include "simpletools.h"                      // Library includes
+#include "vgatext.h"
 
-int main()                                    // main function
+vgatext *vga;                                 // VGA identifier
+
+int main(void)                                // Main function
 {
-  vga_text_start(8);                          // P8 basepin to V
-  vga_text_str("Hello Propeller VGA!");       // Display hello message
-  while(1);                                   // This cog keeps going
-}
+  vga = vgatext_open(0);                      // Open VGA port with P8 base
+    
+  dprint(vga,"Hello VGA.\n");                 // Message + newline
+  dprint(vga,"Hello again!\n");               // Another message
 
+  vgatext_setXY(3, 4);                        // Set position
+  vgatext_setColors(5);                       // Set color palette
+
+  dprint(vga, "* <- x=3 y=4 color=5");        // Text at position in palette
+}
 

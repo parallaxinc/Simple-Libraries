@@ -1,13 +1,13 @@
 libvgatext.c
+VGA.spin
 vgatext.c
-vga.c
 vgatext.h
 >compiler=C
->memtype=xmmc external flash code main ram data
+>memtype=lmm main ram
 >optimize=-Os
 >-m32bit-doubles
+>-Wall
 >-fno-exceptions
 >defs::-std=c99
->-lm
 >-create_library
->BOARD::ACTIVITYBOARD
+>BOARD::GENERIC

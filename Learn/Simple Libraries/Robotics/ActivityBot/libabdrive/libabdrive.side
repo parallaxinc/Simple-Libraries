@@ -1,0 +1,19 @@
+libabdrive.c
+abdrive.c -> abdrive.c
+abdrive.h -> abdrive.h
+trimset.c
+goto.c
+getticks.c
+servoPins.c
+ramp.c
+debug.c
+Display.c
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-Wall
+>-fno-exceptions
+>defs::-std=c99
+>-create_library
+>BOARD::PROPBOE

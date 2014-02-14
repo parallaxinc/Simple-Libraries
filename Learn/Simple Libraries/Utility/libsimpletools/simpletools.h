@@ -74,8 +74,10 @@
  * Revision 0.95 square_wave bug that prevented output frequency changes
  * (fixed). @n@n
  * Revision 0.96 ee_putStr updated to support 128 byte page writes.  More
- * corrections to ee_put* for contiguous data crossing address/128 boundary.
- * Revision 0.96.1 Add documentation for start_fpu_cog and stop_fpu_cog.
+ * corrections to ee_put* for contiguous data crossing address/128 boundary. @n@n
+ * Revision 0.96.1 Add documentation for start_fpu_cog and stop_fpu_cog. @n@n
+ * Revision 0.97 Add cog_run and cog_end for simplified running of function
+ * code in other cogs. @n@n
  */
 
 #ifndef SIMPLETOOLS_H
@@ -1006,21 +1008,6 @@ float ee_getFloat32(int addr);
  */
 int sd_mount(int doPin, int clkPin, int diPin, int csPin);
 
-/**
- * @brief Convert value to zero terminated text string.
- *
- * @details Given an int, a character array pointer and a base, this function
- *          converts the int into the characters that represent the value in
- *          the specified base.
- *
- * @param   i An integer value.
- * @param   b[] A character array pointer.
- * @param   base The number base for the character representation.
- *
- * @returns The character array address it received.
- */
-char* itoa(int i, char b[], int base);
-
 
 /**
  * @brief Restarts floating point coprocessor (which runs in a separate
@@ -1048,6 +1035,60 @@ int start_fpu_cog(void);
  * @returns Nonzero if successful, or zero if no cogs available.
  */
 void stop_fpu_cog(void);
+
+
+/**
+ * @brief Convert value to zero terminated text string.
+ *
+ * @details Given an int, a character array pointer and a base, this function
+ *          converts the int into the characters that represent the value in
+ *          the specified base.
+ *
+ * @param   i An integer value.
+ * @param   b[] A character array pointer.
+ * @param   base The number base for the character representation.
+ *
+ * @returns The character array address it received.
+ */
+char* itoa(int i, char b[], int base);
+
+
+/**
+ * @brief Run a function's code in the next available cog (processor).
+ *
+ * @details cog_run is designed to make launching application level
+ * functions (typically from the main file) quick and easy. All you have
+ * to do is pass a pointer to a function with no return value or parameters
+ * along with the number for extra memory to reserve. The value returned 
+ * can be used to shut down the process and free up memory and a cog later
+ * by passing it to cog_end. 
+ *
+ * @param *function pointer to a function with no parameters 
+ * or return value. Example, if your function is void myFunction(), then
+ * pass &myFunciton. 
+ *
+ * @param stacksize Number of extra int variables for local variable declarations
+ * and call/return stack. This also needs to cover any local variable declarations
+ * in functions that your function calls, including library functions. Be liberal 
+ * with extra stack space for prototyping, and if in doubt, 40 to whatever value 
+ * you calculate.
+ *
+ * @returns Address of memory set aside for the cog. Make sure to save this value
+ * in a variable if you inted to stop the process later with cog_end.
+ */
+int *cog_run(void (*function)(void *par), int stacksize);
+
+
+/**
+ * @brief End function code running in another cog that was launched with cog_run.
+ *
+ * @details This function uses the value returned by cog_run to stop a function
+ * running in another cog and free the stack space cog_run allocated with its
+ * stacksize parameter.
+ *
+ * @param *coginfo the address returned by cog_run.
+ */
+void cog_end(int *coginfo);
 
 
 int add_driver(_Driver *driverAddr);

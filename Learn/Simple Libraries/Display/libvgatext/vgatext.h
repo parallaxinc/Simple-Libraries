@@ -1,221 +1,347 @@
 /**
  * @file vgatext.h
+ * VGA_Text native device driver interface
  *
- * @author Spin + ASM by Chip Gracey
- * Converted from Spin + ASM with Eric Smith's Spin2Cpp utility
- * Commented and function names adjusted by Andy Lindsay
- *
- * @version 0.85
- *
- * @copyright
- * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
- *
- * @brief Displays text on a VGA monitor.  
- * To-do: Bring in features from
- * Steve Denson's VgaText application: 
- * https://code.google.com/p/propgcc/source/browse/demos/#demos%2FVgaText
- * Note, this library is still preliminary; revisions are pending.
+ * Copyright (c) 2013, Parallax Inc
+ * Written by Steve Denson
+ * See end of file for terms of use.
  */
+ 
+/**
+ * NOTE: Currently setting individual character foreground/background
+ * colors do not work. Setting a screen palette is ok though i.e.
+ * setColorPalette(&gpalette[VGA_TEXT_PAL_MAGENTA_BLACK]);
+ */
+ 
+#ifndef __VGATEXT_H
+#define __VGATEXT_H
 
-#ifndef VGA_Text_Class_Defined__
-#define VGA_Text_Class_Defined__
-
-#if defined(__cplusplus)
-extern "C" {
+#ifdef __cplusplus
+extern "C"
+{
 #endif
 
-#include <stdint.h>
+#include "simpletext.h"
 
-/**
- * @internal
+/*
+ * This defines vgatext as a type alias to text_t
+ * Spelling is choice of Parallax education, not the author.
  */
-#define Cols (32)
-#define Rows (15)
-#define Screensize (480)
-#define Lastrow (448)
-#define Vga_count (21)
+typedef text_t vgatext;
 
 /**
- * @internal
+ * @brief vgatext color indices
  */
-typedef struct VGA_Text {
-  int32_t	Col, Row, Color, Flag;
-  int32_t	Colors[16];
-  int32_t	Vga_status;
-  int32_t	Vga_enable;
-  int32_t	Vga_pins;
-  int32_t	Vga_mode;
-  int32_t	Vga_screen;
-  int32_t	Vga_colors;
-  int32_t	Vga_ht;
-  int32_t	Vga_vt;
-  int32_t	Vga_hx;
-  int32_t	Vga_vx;
-  int32_t	Vga_ho;
-  int32_t	Vga_vo;
-  int32_t	Vga_hd;
-  int32_t	Vga_hf;
-  int32_t	Vga_hs;
-  int32_t	Vga_hb;
-  int32_t	Vga_vd;
-  int32_t	Vga_vf;
-  int32_t	Vga_vs;
-  int32_t	Vga_vb;
-  int32_t	Vga_rate;
-  uint16_t	Screen[480];
-  char dummy__;
-} VGA_Text;
+#define VGA_TEXT_WHITE_BLUE     0
+#define VGA_TEXT_YELLOW_BROWN   1
+#define VGA_TEXT_MAGENTA_BLACK  2
+#define VGA_TEXT_GREY_WHITE     3
+#define VGA_TEXT_CYAN_DARKCYAN  4
+#define VGA_TEXT_GREEN_WHITE    5
+#define VGA_TEST_RED_PINK       6
+#define VGA_TEXT_CYAN_BLUE      7
+
+#define VGA_TEXT_COLORS 8
 
 /**
- * @brief Start the VGA text display.
- *
- * @param Basepin pin connected to VGA's V (vertical sync) input.  Must be P0, P8, P16, or P24.  
- * Counting upward from this pin, the connections are: H, B0, B1, G0, G1, R0, R1.  Example: if the
- * Basepin is set to 8, P8 is connected to H, P9 to V, P10 to B0, and so on, up through P15 to R1.
- *
- * @returns Nonzero if successfully launched, or zero if no cog available. 
+ * VGA_Text palette color indices
  */
-  int32_t	vga_text_start(int32_t Basepin);
+#define VGA_TEXT_PAL_WHITE_BLUE     0
+#define VGA_TEXT_PAL_YELLOW_BROWN   2
+#define VGA_TEXT_PAL_MAGENTA_BLACK  4
+#define VGA_TEXT_PAL_GREY_WHITE     6
+#define VGA_TEXT_PAL_CYAN_DARKCYAN  8
+#define VGA_TEXT_PAL_GREEN_WHITE    10
+#define VGA_TEST_PAL_RED_PINK       12
+#define VGA_TEXT_PAL_CYAN_BLUE      14
+
 
 /**
- * @brief Stop the VGA display and free up a cog.
+ * Color table size.
+ * Table holds foreground and background info, so size is 2 x table colors.
  */
-  int32_t	vga_text_stop(void);
+#define VGA_TEXT_COLORTABLE_SIZE 8*2
 
 /**
- * @brief Display a string.
- *
- * @param Stringptr A pointer to a text string.
+ * Column count
  */
-  int32_t	vga_text_str(char* Stringptr);
+#define  VGA_TEXT_COLS 30
 
 /**
- * @brief Display a value as decimal text.
- *
- * @param Value The value to display.
+ * Row count
  */
-  int32_t	vga_text_dec(int32_t Value);
+#define  VGA_TEXT_ROWS 14
 
 /**
- * @brief Display a value as hexadecimal text.
- *
- * @param Value The value to display.
- *
- * @param Digits The number of digits to display
+ * Screen size count
  */
-  int32_t	vga_text_hex(int32_t Value, int32_t Digits);
+#define  VGA_TEXT_SCREENSIZE (VGA_TEXT_COLS * VGA_TEXT_ROWS)
 
 /**
- * @brief Display a value as binary text.
- *
- * @param Value The value to display.
- *
- * @param Digits The number of digits to display.
+ * Last row position count
  */
-  int32_t	vga_text_bin(int32_t Value, int32_t Digits);
+#define  VGA_TEXT_LASTROW (VGA_TEXT_SCREENSIZE-VGA_TEXT_COLS)
 
 /**
- * @brief Display a character.
- *
- * @param C Character to print.  This could be a printable character like 
- * 'a', 'b', 'Z', '&', '~', or non-printable control characters
- *
- * @details Non-Printable Control Characters (with simpletools constants
- * when they match.)
- *
- * CLS = 0
- * HOME = 1
- * BKSPC = 8
- * 10 (next character should be a position number)
- * 11 (next character should be a position number)
- * 12 set color (color pointer value follows)
- * CR = 13 
+ * Status enumeration
  */
-  int32_t	vga_text_out(int32_t C);
+typedef enum {
+    VGA_TEXT_STAT_DISABLED,
+    VGA_TEXT_STAT_INVISIBLE,
+    VGA_TEXT_STAT_VISIBLE
+} vgaTextStat_t;
 
 /**
- * @brief Override color palette.
+ * Control structure
+ */
+typedef struct _vga_text_struct
+{
+    long status    ; // 0/1/2 = off/visible/invisible      read-only   (21 longs)
+    long enable    ; // 0/non-0 = off/on                   write-only
+    long pins      ; // %pppttt = pins                     write-only
+    long mode      ; // %tihv = tile,interlace,hpol,vpol   write-only
+    long screen    ; // pointer to screen (words)          write-only
+    long colors    ; // pointer to colors (longs)          write-only            
+    long ht        ; // horizontal tiles                   write-only
+    long vt        ; // vertical tiles                     write-only
+    long hx        ; // horizontal tile expansion          write-only
+    long vx        ; // vertical tile expansion            write-only
+    long ho        ; // horizontal offset                  write-only
+    long vo        ; // vertical offset                    write-only
+    long hd        ; // horizontal display ticks           write-only
+    long hf        ; // horizontal front porch ticks       write-only
+    long hs        ; // horizontal sync ticks              write-only
+    long hb        ; // horizontal back porch ticks        write-only
+    long vd        ; // vertical display lines             write-only
+    long vf        ; // vertical front porch lines         write-only
+    long vs        ; // vertical sync lines                write-only
+    long vb        ; // vertical back porch lines          write-only
+    long rate      ; // tick rate (Hz)                     write-only
+    char *palette  ; // color palette
+} vgatextdev_t;
+
+/*
+ * Starts VGA on a cog
+ * @param basepin is first pin number (out of 8) connected to VGA
+ * param clockrate is the clockrate defined for the platform.
+ * @returns non-zero cogid on success
+ */
+int     vgatext_start(volatile vgatextdev_t* vga, int basepin);
+
+/*
+ * VGA_Text stop function stops VGA cog
+ * @param id is cog id returned from start function.
+ */
+void    vgatext_stop(int id);
+
+/*
+ * VGA_Text public API
+ */
+
+/**
+ * @brief Open a VGA connection.  This function launches VGA driver 
+ * code into the next available cog.
  *
- * @param Colorptr Points to a list of up to 8 colors.
+ * @param basepin can be 0, 8, 16, or 24, which correspond to base pins of 
+ * P0, P8, or P16 or P24.  The basepin should be connected to VGA V, basepin + 
+ * 1 to VGA H, and so on...  Here is the full connection list.
+ *
+ * basepin   Connected to
+ *  + 7           R1 @n
+ *  + 6           R0 @n
+ *  + 5           G1 @n
+ *  + 4           G0 @n
+ *  + 3           B1 @n
+ *  + 2           B0 @n
+ *  + 1           H  @n
+ *  + 0           V  @n
+ *
+ * @returns vgatext identifier.  It's the address that gets copied to a 
+ * pointer variable, which is passed as an identifier to simpletext functions 
+ * with text_t *dev parameters and/or vgatext functions with vgatext *vga parameters.
+ */
+vgatext *vgatext_open(int basepin);
+
+/**
+ * @brief Close VGA connection, stop and recover cog running 
+ * VGA code and memory that was allocated.
+ *
+ * @param *device value that was returned by vgatext_open.
+ */
+void    vgatext_close(vgatext *device);
+
+/**
+ * @brief Prints a character at current cursor position or performs
+ * a screen function based on the following table: 
+ *
+ *    0 = clear screen @n
+ *    1 = home @n
+ *    8 = backspace @n
+ *    9 = tab (8 spaces per) @n
+ *    10 = set X position (X follows) @n
+ *    11 = set Y position (Y follows) @n
+ *    12 = set color (color follows) @n
+ *    13 = return @n
+ *    16 = clear screen @n
+ *  others = printable characters @n
+ *
+ * @param c char to print.
+ */
+int     vgatext_out(int c);
+
+/**
+ * @brief Print character to screen.
+ *
+ * @param *vga the device identifier
+ * @param c is character to print
+ */
+int    vgatext_putchar(vgatext *vga, int c);
+
+/**
+ * @brief sets the palette using a character array.  This overrides
+ * the default color palette.  
+ *
+ * @details Each custom color palette is defined in a byte with values 
+ * of r, g, and b that can range from 0 to 3, and are packed as follows:@n
  * 
- * @details Each color is two bytes: foreground, background.  
- * Red, green and blue can each be values from 0 to 3.
- * char foreground = (red << 4) | (green << 2) | blue
- * Example: If you want the foreground to have a red value of 2, 
- * a green value of 1 and a blue value of 3, use 
- * char foreground = (2 << 4) | (1 << 2) | 3
+ * Example: Set color palette 0 foreground to r = 1, g = 2, b = 3 and background 
+ * to r = 3, b = 0, and g = 1.  Also set color palette 1's foreground with color
+ * palette 0's background and vice-versa.
+ * 
+ * char custom[16];
+ * 
+ * custom[0] = (1 << 4) | (2 << 2) | 3;  // Foreground 0 @n
+ * custom[1] = (3 << 4) | (0 << 2) | 1;  // Background 0 @n
+ * custom[2] = (3 << 4) | (0 << 2) | 1;  // Foreground 1 @n
+ * custom[3] = (1 << 4) | (2 << 2) | 3;  // Background 1 @n
+ * // ...etc up to custom[15] for background 7           @n
  *
+ * @param palette is a char array[16].
  */
-  int32_t	vga_text_setcolors(int32_t Colorptr);
+void    vgatext_setColorPalette(char* palette);
 
-#if defined(__cplusplus)
+/**
+ * @brief Clear the VGA display. 
+ */
+void vgatext_clear(void);
+
+/**
+ * @brief Send cursor to top-left home position. 
+ */
+void vgatext_home(void);
+
+
+/**
+ * @brief Clear to end of line, then place cursor after the last
+ * character printed on the line. 
+ */
+void vgatext_clearEOL(void);
+
+
+/**
+ * @brief Set position to x rows and y columns from top-left. 
+ *
+ * @param x columns from left.
+ *
+ * @param y rows from top.
+ */
+void    vgatext_setXY(int x, int y);
+
+/**
+ * @brief Set cursor to x columns from left.  
+ *
+ * @param x columns from left
+ */
+void    vgatext_setX(int x);
+
+/**
+ * @brief Set cursor to y rows from top.  
+ *
+ * @param y rows from top
+ */
+void    vgatext_setY(int y);
+
+/**
+ * @brief Set cursor position to Cartesian x, y from bottom-left.
+ *
+ * @param x is column counted from left.
+ *
+ * @param y is row counted from bottom.
+ */
+void    vgatext_setCoordPosition(int x, int y);
+
+/**
+ * @brief get cursor's column position.
+ *
+ * @returns columns from left.  
+ */
+int vgatext_getX(void);
+
+/**
+ * @brief Get cursor's row position.
+ *
+ * @returns rows from top.
+ */
+int vgatext_getY(void);
+
+/**
+ * @brief Set palette color index.
+ *
+ * @param value is a color set index number 0 .. 7
+ * See vgatext color indices.
+ */
+void vgatext_setColors(int value);
+
+/**
+ * @brief Get palette color index
+ *
+ * @returns number representing color set index
+ * See vgatext color indices.
+ */
+int vgatext_getColors(void);
+
+/**
+ * @brief Get screen width.
+ *
+ * @returns Screen column count.
+ */
+int vgatext_getColumns(void);
+
+/**
+ * @brief Get screen height.
+ * @returns Screen row count.
+ */
+int vgatext_getRows(void);
+
+#ifdef __cplusplus
 }
 #endif
-/* __cplusplus */ 
+
 #endif
-/* VGA_Text_Class_Defined__ */ 
-
-#ifndef vgaSpin_Class_Defined__
-#define vgaSpin_Class_Defined__
-
-#if defined(__cplusplus)
-extern "C" {
-#endif
-
-#include <stdint.h>
-
-/**
- * @internal
- */
-#define Paramcount (21)
-#define Colortable (384)
-
-/**
- * @internal
- */
-typedef struct vgaSpin {
-  int32_t	Cog;
-  char dummy__;
-} vgaSpin;
-
-/**
- * @internal
- */
-  int32_t	vgaSpin_Start(int32_t Vgaptr);
-
-/**
- * @internal
- */
-  int32_t	vgaSpin_Stop(void);
-
-#if defined(__cplusplus)
-}
-#endif
-/* __cplusplus */ 
-/* __cplusplus */ 
-#endif
-/* vgaSpin_Class_Defined__ */ 
-
-/**
- * TERMS OF USE: MIT License
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- */
+//__VGATEXT_H
 
 
+/*
++--------------------------------------------------------------------
+|  TERMS OF USE: MIT License
++--------------------------------------------------------------------
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files
+(the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
++------------------------------------------------------------------
+*/
