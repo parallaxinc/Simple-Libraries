@@ -19,6 +19,9 @@ int main()                                    // Main function
   ad_init(21, 20, 19, 18);                    // CS=21, SCL=20, DO=19, DI=18
   da_init(26, 27);                            // P26 -> CH0, P27 -> CH1
 
+  da_setupScale();
+  da_useScale();
+
   float dacvolts = 0.0;
   int dacval = 0;
 

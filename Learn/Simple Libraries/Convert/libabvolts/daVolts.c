@@ -6,6 +6,10 @@ int abvolts_daCtrBits;
 
 void da_volts(int channel, float daVal)
 {
+  if(!abvolts_daCtrBits)
+  {
+    da_out(channel, 0);
+  }
   int levels = (1<<abvolts_daCtrBits);
   daVal *= ((float) levels / 3.3);
   daVal *= abvolts_scale[channel];

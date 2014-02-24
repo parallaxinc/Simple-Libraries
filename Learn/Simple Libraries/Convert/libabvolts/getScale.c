@@ -4,7 +4,7 @@
 float abvolts_scale[2];
 //int daCtrBits;
 
-void da_getScale()
+void da_useScale()
 {
   int addr = _abvolts_EE_start_;
   char s[8];
