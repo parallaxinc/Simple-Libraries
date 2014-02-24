@@ -2,14 +2,19 @@
 #include "simpletools.h"
 
 static int pinCh0 = 26, pinCh1 = 27;
+float abvolts_scale[2];
 
-void da_setScale()
+void da_setupScale()
 {
   high(pinCh0);
   high(pinCh1);
 
+  pause(5);
+
   float vA = ad_volts(0);
   float vB = ad_volts(1);
+
+  //print("%f %f\n", vA, vB);
 
   if( (vA > 3.1 && vA < 3.5 && vB > 3.1 && vB < 3.5))
   {
@@ -40,10 +45,20 @@ void da_setScale()
 
     input(pinCh0);
     input(pinCh1);
+
+    putStr("Ch0 scalar = ");
+    putFloat(vA);
+    putStr("\nCh1 scalar = ");
+    putFloat(vB);
+    putChar('\n');
+    putChar('\n');
+
+    abvolts_scale[0] = vA;
+    abvolts_scale[1] = vB;
   }
   else
   {
-    putStr("Error!  Make sure D/A0 is connected to A/D0 and D/A1 is connected to D/A1");
+    putStr("Error!  Someething went wrong. Check your circuit and power source.");
   }
 }
 

@@ -31,9 +31,13 @@ void da_out(int channel, int daVal)
 {
   if(abvolts_daCtrBits == 0) abvolts_daCtrBits = 8;
   int daBitX = 32 - abvolts_daCtrBits;
-  
-  if(!cog) cog = cogstart(&da_ctr_cog, NULL,
-                          stack, sizeof(stack)) + 1;
+
+  if(!cog)
+  {
+    cog = cogstart(&da_ctr_cog, NULL,
+                  stack, sizeof(stack)) + 1;
+  }
+
   if(!channel)
   {
     ctra = (DUTY_SE + pinCh0);
@@ -45,7 +49,6 @@ void da_out(int channel, int daVal)
     frqb = (daVal << daBitX);
   }  
 }
-
 
 void da_ctr_cog(void *par)
 {

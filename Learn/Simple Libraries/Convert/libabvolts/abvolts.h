@@ -190,23 +190,23 @@ void da_res(int bits);
 
 
 /**
- * @brief Set scale to adjust D/A0 and D/A1.  Connect DA/0 to AD/0 and DA/1 to AD/1 before running.
+ * @brief Set up scale to adjust D/A0 and D/A1.  Connect DA/0 to AD/0 and DA/1 to AD/1 before running.
  * Writes scalars to EEPROM memory.  These scalars can be retrieved with da_getScale();
  *
  * @details Measures high signal to D/A0 and D/A1 and use any difference in 3.3 V signal to set
  * output scalars that are stored in EEPROM.
  */
-void da_setScale(void);
+void da_setupScale(void);
 
 
 /**
- * @brief Get scale that adjusts D/A0 and D/A1.  If you have not called da_setScale some time
+ * @brief Load scale that adjusts D/A0 and D/A1.  If you have not called da_setScale some time
  * in the past, this will not have any affect.
  *
- * @details Measures high signal to D/A0 and D/A1 and use any difference in 3.3 V signal to set
- * output scalars that are stored in EEPROM.
+ * @details Retrievels scalars for adjusting D/A outputs from EEPROM and uses them for subsiquent
+ * D/A conversions.
  */
-void da_getScale(void);
+void da_useScale(void);
 
 
 /**
