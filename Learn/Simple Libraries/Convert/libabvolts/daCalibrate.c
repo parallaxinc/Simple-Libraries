@@ -58,7 +58,7 @@ void da_setupScale()
   }
   else
   {
-    putStr("Error!  Someething went wrong. Check your circuit and power source.");
+    putStr("Error! Something went wrong. Check your circuit and power source.");
   }
 }
 
