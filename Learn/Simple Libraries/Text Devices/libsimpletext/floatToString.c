@@ -10,6 +10,13 @@
 
 #include "simpletext.h"
 
+#ifndef S_ISNAN
+#define S_ISNAN(x) (x != x)
+#endif  /* !defined(S_ISNAN) */
+#ifndef S_ISINF
+#define S_ISINF(x) (x != 0.0 && x + x == x)
+#endif  /* !defined(S_ISINF) */
+
 char* float2string(float f, char *s, int ccount, int digits)
 {
   union convert  {
@@ -33,6 +40,18 @@ char* float2string(float f, char *s, int ccount, int digits)
   int q;
   int n;
 
+  if(S_ISNAN(f)) {
+    strcpy(s, "nan");
+    return s;
+  }
+  if(S_ISINF(f)) {
+    if(((int)f) & 0x80000000)
+      strcpy(s, "-inf");
+    else
+      strcpy(s, "inf");
+    return s;
+  }
+        
   /* clamp the digits. */
   int clamp = 6; /* a buffer must be at least clamp + 4 digits */
   digits = (digits > clamp) ? clamp : digits;
