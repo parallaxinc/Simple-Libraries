@@ -33,6 +33,29 @@ int main(void)
   /* traditional hello message. */
   putln("Hello, world!");
 
+#ifdef DIV0_NAN_TEST
+  float fproblem;
+  float f;
+
+  for(f = 5.0; f > -5.0; f -= 1.0) {
+    fproblem = 1.0 / f;
+    print("f = %02.2f, fproblem = %02.2f\n", f, fproblem);
+  }
+  for(f = 5.0; f > -5.0; f -= 1.0) {
+    fproblem = 1.0 / -f;
+    putStr("f = "); putFloat(f); putStr(" fproblem = "); putFloat(fproblem); putLine("");
+  }
+
+   for(f = 5.0; f > -5.0; f -= 1.0) {
+      fproblem = atan(0.0/f);
+      print("f = %02.2f, fproblem = %02.2f\n", f, fproblem);
+   }
+   for(f = 5.0; f > -5.0; f -= 1.0) {
+      fproblem = atan(0.0/-f);
+      putStr("f = "); putFloat(f); putStr(" fproblem = "); putFloat(fproblem); putLine("");
+   }
+#endif
+   
 #ifdef MORETESTING
 
   putDec(1);
