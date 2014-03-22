@@ -8,7 +8,7 @@
 
 #include "serial.h"
 
-/* #define MORETESTING */
+// #define MORETESTING
 
 int main(void)
 {

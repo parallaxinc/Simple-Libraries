@@ -13,48 +13,6 @@
  * very simple printf -- just understands a few format features
  */
 
-static int SPUTC(int c, char *buf)
-{
-  *buf++ = c;
-  return 1;
-}
-
-static int SPUTS(char *s, char *obuf)
-{
-  char *buf = obuf;
-    while (*s) {
-      buf += SPUTC(*s++, buf);
-    }
-    return buf-obuf;
-}
-
-
-static int SPUTL(unsigned long u, int base, int width, int fill_char, char *obuf)
-{
-  int r = 0;
-  static char outbuf[32];
-  char *t;
-  char *buf = obuf;
-
-  t = outbuf;
-
-  do {
-    *t++ = "0123456789abcdef"[u % base];
-    u /= base;
-    width--;
-  } while (u > 0);
-
-  while (width-- > 0) {
-    buf += SPUTC(fill_char,buf);
-    r++;
-  }
-  while (t != outbuf) {
-    buf += SPUTC(*--t, buf);
-    r++;
-  }
-  return buf-obuf;
-}
-
 int _dosprnt(const char *fmt, va_list args, char *obuf)
 {
   char c, fill_char;

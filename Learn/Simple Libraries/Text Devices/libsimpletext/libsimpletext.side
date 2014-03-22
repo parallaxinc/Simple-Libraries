@@ -46,6 +46,15 @@ scan.c
 serial_open.c
 serial_rxtx.c
 putln.c
+putFloatPrecision.c
+putHexDigits.c
+putDecDigits.c
+putBinDigits.c
+dosput.c
+intprint.c
+dprinti.c
+sprinti.c
+printi.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
