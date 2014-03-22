@@ -13,6 +13,8 @@ __attribute__((fcache)) static int _inbyte(int bitcycles, int cycle1, int rxmask
   int waitcycles;
   int j = 8;
 
+  cycle1 += cycle1 >> 2;
+
   /* wait for a start bit */
   waitpeq(0, rxmask);
   waitcycles = cycle1 + CNT;
@@ -48,7 +50,7 @@ int  serial_rxChar(serial *device)
 
   DIRA &= ~rxmask;
 
-  value = _inbyte(sp->ticks, sp->ticks + (sp->ticks>>20), rxmask, 0);
+  value = _inbyte(sp->ticks, sp->ticks, rxmask, 0);
   /* wait for the line to go high (as it will when the stop bit arrives) */
   waitpeq(rxmask, rxmask);
   return value & 0xff;
