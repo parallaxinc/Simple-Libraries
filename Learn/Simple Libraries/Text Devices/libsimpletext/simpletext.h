@@ -127,6 +127,8 @@ terminal *simpleterm_pointer(void);
 
 /**
  * This sets default debug port device to ptr.
+ * User should declare and initialize the device before calling the function.
+ * @param ptr is a serial, fdserial, or other text_t device.
  */
 static inline void simpleterm_reset(text_t *ptr)
 {
