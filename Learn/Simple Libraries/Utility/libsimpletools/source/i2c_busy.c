@@ -1,27 +1,29 @@
-/**
- * @file setForget.c
+/*
+ * @file i2c_init.c
  *
  * @author Andy Lindsay
  *
- * @version dev001
+ * @version dev002
  *
- * @copyright Copyright (C) Parallax, Inc. 2012.  See end of file for
+ * @copyright Copyright (C) Parallax, Inc. 2013.  See end of file for
  * terms of use (MIT License).
  *
- * @brief setForget function source, see simpletools.h for documentation.
+ * @brief i2c function source, see simpletools.h for documentation.
  *
  * @detail Please submit bug reports, suggestions, and improvements to
  * this code to editor@parallax.com.
  */
 
-#include "simpletools.h"                      // simpletools function prototypes
+#include "simpletools.h"
+#include "simplei2c.h"
 
-char setForget = 0;
-
-void set_forget(char mode)                     // setForget function definition
+HUBTEXT int i2c_busy(i2c *busID, int i2cSlaveAddr)
 {
-  setForget = mode;
-}
+  i2cSlaveAddr <<= 1;
+  i2cSlaveAddr &= -2;
+  int status = i2c_poll(busID, i2cSlaveAddr);
+  return status;
+}  
 
 /**
  * TERMS OF USE: MIT License
@@ -44,3 +46,4 @@ void set_forget(char mode)                     // setForget function definition
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+

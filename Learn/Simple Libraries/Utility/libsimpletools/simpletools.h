@@ -3,10 +3,10 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.96 (see details for more info)
+ * @version 0.97 (see details for more info)
  *
  * @copyright
- * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
+ * Copyright (C) Parallax, Inc. 2014. All Rights MIT Licensed.
  *
  * @brief This library provides convenience functions 
  * for a variety of microcontroller I/O, timing, conversion, and  
@@ -78,6 +78,8 @@
  * Revision 0.96.1 Add documentation for start_fpu_cog and stop_fpu_cog. @n@n
  * Revision 0.97 Add cog_run and cog_end for simplified running of function
  * code in other cogs. @n@n
+ * Revision 0.98 fpucog floating point coprocessor no longer self-starts by default.  
+ * i2c_out and i2c_in char *regAddr parameter changed to int memAddr. @n@n
  */
 
 #ifndef SIMPLETOOLS_H
@@ -103,118 +105,274 @@ extern "C" {
 #include "simplei2c.h"
 
 // Global variables shared by functions in separate files
+/**
+ * @brief Clock ticks in a time increment used by pulse_in, pulse_out, and rc_time.
+ * Default value is the number of system clock ticks in a microsecond = CLKFREQ/1000000.
+ */
 extern long iodt;
+
+/**
+ * @brief Clock ticks in a time increment used by pulse_in, pulse_out, and rc_time.
+ * Default value is the number of system clock ticks in 1/4 s = CLKFREQ/4.
+ */
 extern long t_timeout;
+
+/**
+ * @brief Clock ticks in a time increment used by pause function.  Default value is the 
+ * number of system clock ticks in 1/1000 s = CLKFREQ/1000.
+ */
 extern long pauseTicks;
+
+/**
+ * @brief Varaible shared by mark and time_out functions.
+ */
 extern long t_mark;
-extern char setForget;
-extern int fdserDriverIndex;
+
+/**
+ * @brief Varaible used by i2c_newbus.
+ */
 extern unsigned int buscnt;
+
+/**
+ * @brief The busID for the Propeller Activity Board's EEPROM bus.
+ */
 extern i2c *eeprom;
+
+/**
+ * @brief Initialization flag used by ee_ functions.
+ */
 extern int eeInitFlag;
 
 //extern i2c *eeprom;
 //extern int dacCtrBits;
  
 #ifndef PI
+/**
+ * @brief 3.141592653589793
+ */
 #define PI 3.141592653589793
 #endif
 
 #ifndef EEPROM_ADDR
+/**
+ * @brief Propeller EEPROM I2C bus slave address
+ */
 #define EEPROM_ADDR	 0xA0 >> 1
 #endif
 
 /* Values for use with SimpleIDE Terminal */
 #ifndef HOME
+/**
+ * @brief HOME character (1) sends SimpleIDE Terminal's cursor to top-left "home" position.
+ */
 #define HOME   (1)
 #endif
+
 #ifndef CRSRXY
+/**
+ * @brief CRSRXY charactar (2) sends cursor to a certain number of spaces over (X)
+ * and returns (Y) down from SimpleIDE Terminal's top-left HOME positoin.  This 
+ * character has to be followed immediately by the X and Y values when transmitted
+ * to the SimpleIDE Terminal. 
+ */
 #define CRSRXY (2)
 #endif
+
 #ifndef CRSRLF
+/**
+ * @brief CRSRLF character (3) sends the SimpleIDE Terminal's cursor one column 
+ * (space) to the left of its current position.
+ */
 #define CRSRLF (3)
 #endif
+
 #ifndef CRSRRT
+/**
+ * @brief CRSRRT character (4) sends the SimpleIDE Terminal's cursor one column 
+ * (space) to the right of its current position.
+ */
 #define CRSRRT (4)
 #endif
+
 #ifndef CRSRUP
+/**
+ * @brief CRSRUP character (5) sends the SimpleIDE Terminal's cursor one row 
+ * (carriage return) upward from its current position.
+ */
 #define CRSRUP (5)
 #endif
+
 #ifndef CRSRDN
+/**
+ * @brief CRSRDN character (6) sends the SimpleIDE Terminal's cursor one row 
+ * (carriage return) downward from its current position.
+ */
 #define CRSRDN (6)
 #endif
+
 #ifndef BEEP
+/**
+ * @brief BEEP character (7) makes the system speaker in some computers beep 
+ * when received by SimpleIDE Terminal.
+ */
 #define BEEP   (7)
 #endif
+
 #ifndef BKSP
+/**
+ * @brief BKSP character (8) sends the SimpleIDE Terminal's cursor one column 
+ * (space) to the left of its current position and erases whatever character 
+ * was there.
+ */
 #define BKSP   (8)
 #endif
+
 #ifndef TAB
+/**
+ * @brief TAB character (9) advances the cursor to the right by a tab's worth 
+ * of spaces.  
+ */
 #define TAB    (9)
 #endif
+
 #ifndef NL
+/**
+ * @brief NL character (10) sends the SimpleIDE Terminal's cursor to the leftmost
+ * character in the next line down.
+ */
 #define NL     (10)
 #endif
+
 #ifndef LF
+/**
+ * @brief LF is same as NL.
+ */
 #define LF     (10)
 #endif
+
 #ifndef CLREOL
+/**
+ * @brief CLREOL character (11) erases all SimpleIDE Terminal characters to the 
+ * right of the cursor.
+ */
 #define CLREOL (11)
 #endif
+
 #ifndef CLRDN
+/**
+ * @brief CLRDN character (12) erases all SimpleIDE Termianl charcters below the 
+ * cursor.
+ */
 #define CLRDN  (12)
 #endif
+
 #ifndef CR
+/**
+ * @brief CR character (13) sends SimpleIDE Terminal's cursor one row
+ * downward.
+ */
 #define CR     (13)
 #endif
+
 #ifndef CRSRX
+/**
+ * @brief CRSRX character (14) positions SimpleIDE Terminal's cursor X characters
+ * from the its left edge.
+ */
 #define CRSRX  (14)
 #endif
+
 #ifndef CRSRY
+/**
+ * @brief CRSRY character (15) sends SimpleIDE Terminal's cursor Y rows to the 
+ * from its top edge.  
+ */
 #define CRSRY  (15)
 #endif
+
 #ifndef CLS
+/**
+ * @brief CLS character (16) clears SimpleIDE's screen, erasing all characters and
+ * placing the cursor in the top-left corner.
+ */
 #define CLS    (16)
 #endif
 
 
 // Values for use with shift_in
 #ifndef   MSBPRE     
+/**
+ * @brief For use with shift_in.  Stands for most significant bit first, pre-clock.
+ */
 #define   MSBPRE     0
 #endif
+
 #ifndef   LSBPRE     
+/**
+ * @brief For use with shift_in.  Stands for least significant bit first, pre-clock.
+ */
 #define   LSBPRE     1
 #endif
+
 #ifndef   MSBPOST    
+/**
+ * @brief For use with shift_in.  Stands for most significant bit first, post-clock.
+ */
 #define   MSBPOST    2
 #endif
+
 #ifndef   LSBPOST    
+/**
+ * @brief For use with shift_in.  Stands for least significant bit first, post-clock.
+ */
 #define   LSBPOST    3
 #endif
   
 // Values for use with shift_out
 #ifndef   LSBFIRST   
+/**
+ * @brief For use with shift_out.  Stands for least significant bit first.
+ */
 #define   LSBFIRST   0
 #endif
 
 #ifndef   MSBFIRST   
+/**
+ * @brief For use with shift_out.  Stands for most significant bit first.
+ */
 #define   MSBFIRST   1
 #endif
 
 // Counter module values
 #ifndef NCO_PWM_1
+/**
+ * @brief Building block for configuring a cog's counter module to PWM mode.  
+ * Used by pwm functions.  PWM stands for pulse width modulation.
+ */
 #define NCO_PWM_1 (0b00100 << 26)
 #endif
 
 #ifndef CTR_NCO
+/**
+ * @brief Building block for configuring a cog's counter module to NCO mode.  
+ * Used by square_wave function.  NCO stands for numerically controlled oscillator.
+ */
 #define CTR_NCO (0b100 << 26)
 #endif
 
 #ifndef CTR_PLL
+/**
+ * @brief Building block for configuring a cog's counter module to PLL mode.  
+ * Used by square_wave function.  PLL stands for phase locked loop.
+ */
 #define CTR_PLL (0b10 << 26)
 #endif
 
 #ifndef DUTY_SE
+/**
+ * @brief Building block for configuring a cog's counter module to DUTY_SE mode.  
+ * Used by dac functions.  DUTY_SE stands for duty single ended.
+ */
 #define DUTY_SE (0b110 << 26)
 #endif
 
@@ -765,21 +923,22 @@ void shift_out(int pinDat, int pinClk, int mode, int bits, int value);
 /**
  * @brief Set up a simple serial driver with transmit & receive pins.
  *
- * @param sclpin the I2C bus' serial clock pin.
+ * @param sclPin the I2C bus' serial clock pin.
  *
- * @param sdapin the I2C bus' serial data pin.
+ * @param sdaPin the I2C bus' serial data pin.
  *
- * @param scldrive sets I/O pin connected to SCL line to send high signals by 
- * either (sclDrive = 0) allowing the pullup resistor on the bus to pull the 
+ * @param sclDrive sets I/O pin connected to SCL line to send high signals by 
+ * either (sclDrive = 0) allowing the pull-up resistor on the bus to pull the 
  * line high, or (sclDrive = 1) by setting the I/O pin to output and driving the
  * line high.  sclDrive = 0 is by far the most common arrangement.  sclDrive = 1 
  * is used with some Propeller boards that do not have a pull-up resistor on the 
  * EEPROM's SCL line.    
  *
- * @returns a pointer to the I2C bus.  You will need this to pass to the i2cWrite and
- * i2cRead functions for communication on the bus. 
+ * @returns busID - a pointer to the I2C bus info in memory.  The busID value gets
+ * passed to i2c_out, i2c_in, and i2c_busy's busID parameter to select which I2C 
+ * bus to use. 
  */
-i2c *i2c_newbus(int sclpin, int sdapin, int scldrive);
+i2c *i2c_newbus(int sclPin, int sdaPin, int sclDrive);
 
 
 /**
@@ -788,30 +947,28 @@ i2c *i2c_newbus(int sclpin, int sdapin, int scldrive);
  * @details This function uses Simple Libraries/Protocol/libsimplei2c for
  * clock and data line signaling.  You can also use this library to create
  * custom I2C functions.  Other I2C signaling options are included in
- * Propeller GCC.  Search for i2C int he propgcc folder for more info.  
+ * Propeller GCC.  Search for i2C in the propgcc folder for more info.  
  *
- * @param *bus pointer to an I2C bus.  Use i2c_newbus to get a pointer to an
- * I2C bus structure.
+ * @param *busID I2C bus identifier.  i2c_newbus returns this pointer.
  *
- * @param i2cAddr 8 bit device address.  This is the 7-bit I2C address and 
- * read/write bit.  The value of the read/write bit does not matter because
- * the i2c_out and i2c_in functions clear and set it as needed.
+ * @param i2cSlaveAddr 7 bit I2C slave device address.   
  *
- * @param *regAddr Pointer to variable or array that contains the number of 
- * bytes to write to the device's register(s) or a memory address.
+ * @param memAddr Value for setting memory address pointer inside the I2C
+ * device.
  *
- * @param regSize Number of bytes to use for regAddr.  This value can be zero
- * for no register or memory address data.
+ * @param memAddrCount Number of bytes to use for memAddr.  This value can 
+ * be zero for no register or memory address data, in which case memAddr
+ * can be set to NULL.
  *
- * @param *data Pointer to variable or array to send to the I2C device.
+ * @param *data Pointer to bytes to send to the I2C device.
  *
- * @param count number of bytes in data
+ * @param dataCount Number of bytes in data to send.
  *
- * @returns total number of bytes written. Should be 1 + regSize + count.  
+ * @returns total number of bytes written. Should be 1 + memAddrCount + dataCount.  
  */
-HUBTEXT int  i2c_out(i2c *bus, int i2cAddr, 
-                     const unsigned char *regAddr, int regSize, 
-                     const unsigned char *data, int count);
+HUBTEXT int  i2c_out(i2c *busID, int i2cSlaveAddr, 
+                     int memAddr, int memAddrCount, 
+                     const unsigned char *data, int dataCount);
 
 
 /**
@@ -820,31 +977,40 @@ HUBTEXT int  i2c_out(i2c *bus, int i2cAddr,
  * @details This function uses Simple Libraries/Protocol/libsimplei2c for
  * clock and data line signaling.  You can also use this library to create
  * custom I2C functions.  Other I2C signaling options are included in
- * Propeller GCC.  Search for i2C int he propgcc folder for more info.  
+ * Propeller GCC.  Search for i2C in the propgcc folder for more info.  
  *
- * @param *bus pointer to an I2C bus.  Use i2c_newbus to get a pointer to an
- * I2C bus structure.
+ * @param *busID I2C bus identifier.  i2c_newbus returns this pointer.
  *
- * @param i2cAddr 8 bit device address.  This is the 7-bit I2C address and 
- * read/write bit.  The value of the read/write bit does not matter because
- * the i2c_out and i2c_in functions clear and set it as needed.
+ * @param i2cSlaveAddr 7 bit I2C slave device address.   
  *
- * @param regAddr Pointer to variable or array that contains the number of 
- * bytes to write to the device's register(s) or a memory address.
+ * @param memAddr Value for setting memory address pointer inside the I2C
+ * device.
  *
- * @param regSize Number of bytes to use for regAddr.  This value can be zero
- * for no register or memory address data.
+ * @param memAddrCount Number of bytes to use for memAddr.  This value can 
+ * be zero for no register or memory address data, in which case memAddr
+ * can be set to NULL.
  *
- * @param *data Pointer to variable or array that will receive data from 
- * I2C device.
+ * @param *data Pointer to bytes set aside for receiving data from the I2C device.
  *
- * @param count number of bytes in data
+ * @param dataCount Number of bytes in data to send.
  *
- * @returns total number of bytes written. Should be 1 + regSize + count.  
+ * @returns total number of bytes written. Should be 1 + memAddrCount + dataCount.  
  */
-HUBTEXT int  i2c_in(i2c *bus, int i2cAddr, 
-                     const unsigned char *regAddr, int regSize, 
-                     unsigned char *data, int count);
+HUBTEXT int  i2c_in(i2c *busID, int i2cSlaveAddr, 
+                    int memAddr, int memAddrCount, 
+                    unsigned char *data, int dataCount);
+
+
+/**
+ * @brief Check if I2C device is busy or responding.
+ *
+ * @param *busID I2C bus identifier.  i2c_newbus returns this pointer.
+ *
+ * @param i2cSlaveAddr 7 bit I2C slave device address.   
+ *
+ * @returns 1 if busy, 0 if ready.  
+ */
+HUBTEXT int i2c_busy(i2c *busID, int i2cSlaveAddr);
 
 
 /**
@@ -1090,8 +1256,6 @@ int *cog_run(void (*function)(void *par), int stacksize);
  */
 void cog_end(int *coginfo);
 
-
-int add_driver(_Driver *driverAddr);
 
 #if defined(__cplusplus)
 }

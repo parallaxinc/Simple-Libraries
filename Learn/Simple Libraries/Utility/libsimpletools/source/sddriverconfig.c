@@ -1,5 +1,7 @@
 #include "simpletools.h"
 
+int add_driver(_Driver *driverAddr);
+
 extern _Driver _FileDriver;
 
 int sd_mount(int doPin, int clkPin, int diPin, int csPin)

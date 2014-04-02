@@ -26,8 +26,9 @@ float ee_getFloat32(int addr)
   if(!eeInitFlag) ee_init();
   //int value = 0;
   unsigned char value[4] = {0, 0, 0, 0};
-  unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr & 0xFF)};
-  i2c_in(eeprom, 0xA0, addrArray, 2, value, 4);
+  // unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr & 0xFF)};
+  // i2c_in(eeprom, 0xA0, addrArray, 2, value, 4);
+  i2c_in(eeprom, 0x50, addr, 2, value, 4);
   float fpVal;
   memcpy(&fpVal, &value, sizeof value);
   return fpVal;

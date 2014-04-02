@@ -23,11 +23,11 @@ unsigned int buscnt = 0;
 
 static i2c list[MAX_I2C_BUS];
 
-i2c *i2c_newbus(int sclpin, int sdapin, int scldrive)
+i2c *i2c_newbus(int sclPin, int sdaPin, int sclDrive)
 {
-  i2c *bus = i2c_open(&list[buscnt++], sclpin, sdapin, scldrive);
-  bus = &list[buscnt-1];
-  return bus;
+  i2c *busID = i2c_open(&list[buscnt++], sclPin, sdaPin, sclDrive);
+  busID = &list[buscnt-1];
+  return busID;
 }  
 
 /**

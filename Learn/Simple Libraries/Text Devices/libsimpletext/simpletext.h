@@ -1,20 +1,31 @@
 /**
  * @file simpletext.h
- * Simple Terminal Library API definition.
  *
- * This library is provided with the following in mind:
+ * @author Steve Denson
  *
- * - Designed for minimum size with generic IO devices.
- * - Designed for any character IO device using rxChar/txChar functions.
- * - Contains 2 built-in device drivers FdSerial and SimpleSerial.
- * - Supports get/print decimal, binary, float, hex, char, and string.
- * - Supports print format values to buffer comparable to sprintf (printBuffFormat).
- * - Supports scan  format values from buffer comparable to sscanf (scanBuffFormat).
+ * @copyright
+ * Copyright (C) Parallax, Inc. 2014. All Rights MIT Licensed.
  *
- * Copyright (C) 2013, Parallax Inc.
- * Written by Steve Denson
- * See end of file for terms of use.
+ * @brief This library provides a collection of functions for communicating with
+ * text devices such as SimpleIDE Terminal, serial peripheral devices, and even 
+ * VGA displays. 
+ * 
+ * @details Features: 
+ *
+ * @li Generic IO devices support with reduced code size
+ * @li Supports IO devices with rxChar/txChar functions.
+ * @li Contains 2 built-in device drivers - fdserial and simpleserial.
+ * @li Can get and print decimal, binary, float, hex, char, and string.
+ * @li Supports print format values to buffer comparable to sprintf (printBuffFormat and sprint).
+ * @li Supports format values from buffer comparable to sscanf (scanBuffFormat and sscan).
+ * 
+ * @version 0.97 Digits versions of put/get and write/read added for transmitting and receiving
+ * values with fixed numbers of digits.  Floating point output functions updated to handle nan 
+ * (not a number) and +/- inf (infinity).
+ *
+ * 
  */
+ 
 #ifndef __SimpleTEXT__
 #define __SimpleTEXT__
 
@@ -104,31 +115,39 @@ typedef struct text_struct
 
 typedef text_t terminal;
 
+
 /**
- * This function is opened by default when the library is used.
- * The port by default transmits on P30 and receives on P31 at 115200 bps.
- * The port is a simple serial driver and does not buffer bytes.
+ * @brief Reopens the SimpleIDE Terminal connection if it was closed
+ * previously.  The SimpleIDE Terminal connection transmits on P30 and receives 
+ * on P31 at 115200 bps.  The port is a simple serial driver running in the same 
+ * cog, and does not buffer bytes.
  *
- * Users do not have to call this unless the termial has been closed.
  * @returns 0 if port is already open, else returns term pointer.
  */
 terminal *simpleterm_open(void);
 
+
 /**
- * This function is provided if a different default driver is to be used.
- * The function should be called before opening another driver.
+ * @brief Closes the SimpleIDE Terminal connection in one cog so that it can be 
+ * opened in another cog with simpleterm_open, fdserial_open(30, 31, 0, 115200), 
+ * or some other driver.
  */
 void      simpleterm_close(void);
 
+
 /**
- * This returns the default debug port device.
+ * @brief Get default device pointer to SimpleIDE Terminal.
+ *
+ * @returns terminal* Pointer to SimpleIDE Terminal device.
  */
 terminal *simpleterm_pointer(void);
 
+
 /**
- * This sets default debug port device to ptr.
- * User should declare and initialize the device before calling the function.
- * @param ptr is a serial, fdserial, or other text_t device.
+ * @brief Sets default debug port device.  Make sure to declare and initialize the 
+ * device before calling the function.
+ * 
+ * @param *ptr Device ID pointer to serial, fdserial, or other text_t device.
  */
 static inline void simpleterm_reset(text_t *ptr)
 {
@@ -137,446 +156,623 @@ static inline void simpleterm_reset(text_t *ptr)
   dport_ptr = ptr;
 }
 
+
 /**
- * Get a binary number from the debug port.
- * @returns number received.
+ * @brief Get binary number from the debug port.
+ * 
+ * @returns Value received.
  */
 int  getBin(void);
 
+
 /**
- * Get a char from the debug port.
- * @returns character received as an integer.
+ * @brief Get char from the debug port.
+ * 
+ * @returns Character received as an integer.
  */
 int  getChar(void);
 
+
 /**
- * Get a decimal number from the debug port.
- * @returns number received.
+ * @brief Get decimal number from the debug port.
+ * 
+ * @returns Value received.
  */
 int  getDec(void);
 
+
 /**
- * Get a floating point number from the debug port.
- * @returns number received.
+ * @brief Get floating point number from the debug port.
+ * 
+ * @returns Value received.
  */
 float getFloat(void);
 
+
 /**
- * Get a hexadecimal number from the debug port.
- * @returns number received.
+ * @brief Get hexadecimal number from the debug port.
+ * 
+ * @returns Value received.
  */
 int  getHex(void);
 
+
 /**
- * Get a string of chars from the debug port.
- * @param buffer is a previously declared array of char big enough to hold the input string plus 2 null terminators.
- * @param max is the maximum size to read and should be less or equal buffer size.
- * @returns string received.
+ * @brief Get string of chars from the debug port.
+ * 
+ * @param *buffer array of chars with enough elements to hold the input string plus 2 
+ * null terminators.
+ * 
+ * @param max Maximum size to read and should be less or equal buffer size.
+ *
+ * @returns Pointer to string received.
  */
 char *getStr(char *buffer, int max);
 
+
 /**
- * Print a string representation of a binary number to the debug port.
- * @param value is number to print. 
- * @param digits is number of characters to print. 
+ * @brief Print string representation of a binary number to the debug port.
+ *
+ * @param value Number to print. 
  */
 void putBin(int value);
+
+
 /**
- * Print a string representation of a binary number to debug output
- * @param value is number to print. 
- * @param digits is number of characters to print. 
+ * @brief Print string representation of a binary number to debug port with a fixed
+ * number of digits.
+ *
+ * @param value Number to print. 
+ * 
+ * @param digits Number of characters to print. 
  */
 void putBinDigits(int value, int digits);
+
+
 /**
- * Send a char on the debug port.
- * @param c is the char to send. 
+ * @brief Print a char to the debug port.
+ * 
+ * @param c Char to send. 
  */
 void putChar(char c);
+
+
 /**
- * Print a string representation of a decimal number to the debug port.
- * @param value is number to print. 
+ * @brief Print string representation of a decimal number to the debug port.
+ *
+ * @param value Number to print. 
  */
 void putDec(int value);
+
+
 /**
- * Print a string representation of a decimal number to the debug port.
- * @param value is number to print. 
- * @param width is number of characters to print padded by zeros. 
+ * @brief Print string representation of a decimal number to the debug port.
+ *
+ * @param value Number to print. 
+ *
+ * @param width Number of characters to print padded by zeros. 
  */
 void putDecDigits(int value, int width);
+
+
 /**
- * Print a string representation of a 32 bit floating point number to the debug port.
- * @param value is number to print. 
+ * @brief Print string representation of a 32 bit floating point number to the 
+ * debug port.
+ * 
+ * @param value Number to print. 
  */
 void putFloat(float value);
+
+
 /**
- * Print a string representation of a hexadecimal number to the debug port.
- * @param value is number to print. 
- * @param digits is number of characters to print. 
+ * @brief Print string representation of a hexadecimal number to the debug port.
+ * 
+ * @param value Number to print. 
  */
 void putHex(int value);
+
+
 /**
- * Print a string representation of a hexadecimal number to the debug port.
- * @param value is number to print. 
- * @param digits is number of hexadecimal characters to print padded by zeros. 
+ * @brief Print string representation of a hexadecimal number to the debug port with
+ * a fixed number of digits.
+ *
+ * @param value Number to print.
+ * 
+ * @param digits Number of hexadecimal characters to print padded by zeros. 
  */
 void putHexDigits(int value, int digits);
+
+
 /**
- * Print a string representation of a 32 bit floating point number to the debug port.
- * @param width is number of characters to print. 
- * @param precision is number of decimal point digits to print. 
- * @param value is number to print. 
+ * @brief Print string representation of a 32 bit floating point number to the 
+ * debug port with a fixed number of digits.
+ * 
+ * @param value Number to print. 
+ *
+ * @param width Number of characters to print. 
+ * 
+ * @param precision Number of decimal point digits to print. 
  */
 void putFloatPrecision(float value, int width, int precision);
+
+
 /**
- * Send a string + new line on the transmit debug port.
- * @param str is the null terminated string to send. 
+ * @brief Print string + new line on the transmit debug port.
+ * 
+ * @param *str Null terminated string to send. 
  */
 int  putln(const char* str);
+
+
 /**
- * Send a string + new line on the transmit debug port. This is an alias of putln.
- * @param str is the null terminated string to send. 
+ * @brief Print string + new line on the transmit debug port. This is an alias 
+ * of putln.
+ * 
+ * @param *str Null terminated string to send. 
  */
 int  putLine(const char* str);
+
+
 /**
- * Send a string on the transmit debug port.
- * @param str is the null terminated string to send. 
+ * @brief Print string to the debug port.
+ * 
+ * @param *str Null terminated string to send. 
  */
 int  putStr(const char* str);
 
+
 /**
- * Get a binary number from the receive device.
- * @param device is a previously open/started terminal device.
- * @returns number received.
+ * @brief Get binary number from the receive device.
+ * 
+ * @param *device Previously open/started terminal device.
+ * 
+ * @returns Number received.
  */
 int  readBin(text_t *device);
 
+
 /**
- * Get a char from the receive device.
- * @param device is a previously open/started terminal device.
- * @returns character received as an integer.
+ * @brief Get char from the receive device.
+ * 
+ * @param *device Previously open/started terminal device.
+ * 
+ * @returns character received as an int value.
  */
 int  readChar(text_t *device);
 
+
 /**
- * Get a decimal number from the receive device.
- * @param device is a previously open/started terminal device.
- * @returns number received.
+ * @brief Get decimal number from the receive device.
+ * 
+ * @param *device Previously open/started terminal device.
+ * 
+ * @returns Number received.
  */
 int  readDec(text_t *device);
 
+
 /**
- * Get a floating point number from the receive device.
- * @param device is a previously open/started terminal device.
- * @returns number received.
+ * @brief Get floating point number from the receive device.
+ * 
+ * @param *device Previously open/started terminal device.
+ * 
+ * @returns Number received.
  */
 float readFloat(text_t *device);
 
+
 /**
- * Get a hexadecimal number from the receive device.
- * @param device is a previously open/started terminal device.
- * @returns number received.
+ * @brief Get hexadecimal number from the receive device.
+ * 
+ * @param *device Previously open/started terminal device.
+ * 
+ * @returns Number received.
  */
 int  readHex(text_t *device);
 
+
 /**
- * Get a string of chars from the receive device.
- * @param device is a previously open/started terminal device.
- * @param buffer is a previously declared array of char big enough to hold the input string.
- * @param max is the maximum size to read and should be less or equal buffer size.
+ * @brief Get string of chars from the receive device.
+ * 
+ * @param *device Previously open/started terminal device.
+ * 
+ * @param buffer Char array with enough elements to hold the input string.
+ * 
+ * @param max Maximum size to read and should be less or equal buffer size.
+ * 
  * @returns string received.
  */
 char *readStr(text_t *device, char *buffer, int max);
 
+
 /**
- * Print a string representation of a binary number to the debug port.
- * @param device is a previously open/started terminal device.
- * @param value is number to print. 
+ * @brief Print string representation of a binary number to the receive device.
+ * 
+ * @param *device Previously open/started terminal device.
+ * 
+ * @param value Number to print. 
  */
 void writeBin(text_t *device, int value);
+
+
 /**
- * Print a string representation of a binary number to output
- * @param device is a previously open/started terminal device.
- * @param value is number to print. 
- * @param digits is number of characters to print. 
+ * @brief Print string representation of a binary number to output with a fixed 
+ * number of digits.
+ * 
+ * @param *device Previously open/started terminal device.
+ * 
+ * @param value Number to print. 
+ * 
+ * @param digits Number of characters to print. 
  */
 void writeBinDigits(text_t *device, int value, int digits);
+
+
 /**
- * Send a char on the transmit device.
- * @param device is a previously open/started terminal device.
- * @param c is the char to send. 
+ * @brief Send char on the transmit device.
+ * 
+ * @param device Previously open/started terminal device.
+ * 
+ * @param c Char to send. 
  */
 void writeChar(text_t *device, char c);
+
+
 /**
- * Print a string representation of a decimal number to output
- * @param device is a previously open/started terminal device.
- * @param value is number to print. 
+ * @brief Print string representation of a decimal number to output.
+ * 
+ * @param device Previously open/started terminal device.
+ * 
+ * @param value Number to print. 
  */
 void writeDec(text_t *device, int value);
+
+
 /**
- * Print a string representation of a decimal number to output
- * @param device is a previously open/started terminal device.
- * @param value is number to print. 
- * @param width is number of characters to print padded by spaces. 
+ * @brief Print string representation of a decimal number to output device 
+ * with a fixed number of digits.
+ * 
+ * @param device Previously open/started terminal device.
+ * 
+ * @param value Number to print. 
+ * 
+ * @param width Number of characters to print padded by spaces. 
  */
 void writeDecDigits(text_t *device, int value, int width);
+
+
 /**
- * Print a string representation of a 32 bit floating point number to device
- * @param device is a previously open/started terminal device.
- * @param value is number to print. 
+ * @brief Print string representation of a 32 bit floating point number to device.
+ * 
+ * @param device Previously open/started terminal device.
+ * 
+ * @param value Number to print. 
  */
 void writeFloat(text_t *device, float value);
+
+
 /**
- * Print a string representation of a hexadecimal number to output
- * @param device is a previously open/started terminal device.
- * @param value is number to print. 
+ * @brief Print string representation of a hexadecimal number to output device.
+ * 
+ * @param device Previously open/started terminal device.
+ * 
+ * @param value Number to print. 
  */
 void writeHex(text_t *device, int value);
+
+
 /**
- * Print a string representation of a hexadecimal number to output
- * @param device is a previously open/started terminal device.
- * @param value is number to print. 
- * @param digits is number of hexadecimal characters to print. 
+ * @brief Print string representation of a hexadecimal number to output device with a
+ * fixed number of digits.
+ * 
+ * @param device Previously open/started terminal device.
+ * 
+ * @param value Number to print. 
+ * 
+ * @param digits Number of hexadecimal characters to print. 
  */
 void writeHexDigits(text_t *device, int value, int digits);
+
+
 /**
- * Print a string representation of a 32 bit floating point number to device
- * @param device is a previously open/started terminal device.
- * @param width is number of characters to print. 
- * @param precision is number of decimal point digits to print. 
- * @param value is number to print. 
+ * @brief Print string representation of a 32 bit floating point number to device with
+ * a certain number of decimal point digits.
+ * 
+ * @param device Previously open/started terminal device.
+ * 
+ * @param width Number of characters to print. 
+ * 
+ * @param precision Number of decimal point digits to print. 
+ * 
+ * @param value Number to print. 
  */
 void writeFloatPrecision(text_t *device, float value, int width, int precision);
+
+
 /**
- * Send a string + new line on the transmit device.
- * @param device is a previously open/started terminal device.
- * @param str is the null terminated string to send. 
+ * @brief Send a string + new line on the transmit device.
+ * 
+ * @param device Previously open/started terminal device.
+ * 
+ * @param str Null terminated string to send. 
  */
 int  writeLine(text_t *device, char* str);
+
+
 /**
- * Send a string on the transmit device.
- * @param device is a previously open/started terminal device.
- * @param str is the null terminated string to send. 
+ * @brief Send a string on the transmit device.
+ * 
+ * @param device Previously open/started terminal device.
+ * 
+ * @param str Null terminated string to send. 
  */
 int  writeStr(text_t *device, char* str);
+
+
 /**
- * Send a string on the transmit device.
- * @param device is a previously open/started terminal device.
- * @param str is the null terminated string to send. 
- * @param width is number of characters to print padded by spaces. 
+ * @brief Send a string on the transmit device.
+ * 
+ * @param device previously open/started terminal device.
+ * 
+ * @param str Null terminated string to send. 
+ * 
+ * @param width Number of characters to print padded by spaces. 
  */
 int  writeStrDigits(text_t *device, char* str, int width);
 
+
 /**
- * Print format "..." args to the default simple terminal device.
+ * @brief Print format "..." args to the default simple terminal device.
  * The output is limited to 256 bytes.
  *
- * Format specifiers for print dprint, and sprint:
+ * @details Format specifiers for print dprint, and sprint:
  *
  * - %%
- * Prints the % sign to the output.
+ * Prints % sign to the output.
  *
  * - %b
- * Prints the binary representation of the int parameter.
+ * Prints binary representation of the int parameter.
  * Note that %b is not an ANSI standard format specifier.
  *
  * - %c
- * Prints the char representation of the int parameter.
+ * Prints char representation of the int parameter.
  *
  * - %d
- * Prints the integer representation of the int parameter.
+ * Prints decimal integer representation of the int parameter.
  *
  * - %f
- * Prints the floating point representation of the float parameter.
+ * Prints floating point representation of the float parameter.
  *
  * - %s
- * Prints the string representation of the char* parameter.
+ * Prints string representation of the char* parameter.
  *
  * - %u
- * Prints the unsigned integer representation of the int parameter.
+ * Prints unsigned integer representation of the int parameter.
  *
  * - %x
- * Prints the hexadecimal integer representation of the int parameter.
+ * Prints hexadecimal integer representation of the int parameter.
  *
  * Width and precision %n.p cause n digits of the integer to print, and
  * p digits of the decimal to print.
  *
- * @param format is a C printf comparable format string.
- * @param ... is the arguments to use with the format string.
- * returns the number of bytes placed into the buffer.
+ * @param format C printf comparable format string.
+ * 
+ * @param ... Arguments to use with the format string.
+ * 
+ * @returns Number of bytes placed into the buffer.
  */
 int print(const char *format, ...) __attribute__((format (printf, 1, 2)));
 
+
 /**
- * Print integer and char only format "..." args to the default simple terminal device.
- * This version does not support floating point.
- * The output is limited to 256 bytes.
+ * @brief Print integer and char only format "..." args to the default simple 
+ * terminal device.  This version does not support floating point.  The output is 
+ * limited to 256 bytes.
  *
  * @note See print for format specifiers except %f.
  *
- * @param format is a C printf comparable format string.
- * @param ... is the arguments to use with the format string.
- * returns the number of bytes placed into the buffer.
+ * @param format C printf comparable format string.
+ * 
+ * @param ... Arguments to use with the format string.
+ * 
+ * @returns Number of bytes placed into the buffer.
  */
 int printi(const char *format, ...) __attribute__((format (printf, 1, 2)));
 
+
 /**
- * Convert formatted simple terminal input to the "..." args.
+ * @brief Convert formatted simple terminal input to the "..." args.
  * The input is limited to 256 bytes.
  *
- * Format specifiers for scan, dscan, and sscan:
+ * @details Format specifiers for scan, dscan, and sscan:
  *
  * - %%
- * Scan the % sign to the input.
+ * Scan % sign to the input.
  *
  * - %b
- * Scans the binary representation to the int parameter.
+ * Scans binary representation to the int parameter.
  * Note that %b is not an ANSI standard format specifier.
  *
  * - %c
- * Scans the char representation to the int parameter.
+ * Scans char representation to the int parameter.
  *
  * - %d
- * Scans the integer representation to the int parameter.
+ * Scans integer representation to the int parameter.
  *
  * - %f
- * Scans the floating point representation to the float parameter.
+ * Scans floating point representation to the float parameter.
  *
  * - %s
- * Scans the string representation to the char* parameter.
+ * Scans string representation to the char* parameter.
  *
  * - %u
- * Scans the unsigned integer representation to the int parameter.
+ * Scans unsigned integer representation to the int parameter.
  *
  * - %x
- * Scans the hexadecimal integer representation to the int parameter.
+ * Scans hexadecimal integer representation to the int parameter.
  *
  * Width and precision %n.p cause n digits to the integer to print, and
  * p digits to the decimal to print.
  *
- * @param format is a C printf comparable format string.
- * @param ... is the arguments where output will go and must be pointers.
- * returns the number of bytes placed into the buffer.
+ * @param format C printf comparable format string.
+ * 
+ * @param ... Arguments where output will go and must be pointers.
+ * 
+ * @returns Number of bytes placed into the buffer.
  */
 int scan(const char *fmt, ...) __attribute__((format (printf, 1, 2)));
 
+
 /**
- * Convert formatted simple terminal input to the "..." args.
+ * @brief Convert formatted simple terminal input to the "..." args.
  * This version does not provide floating point conversions.
  * The input is limited to 256 bytes.
  *
  * @note See scan for format specifiers.
  *
- * @param format is a C printf comparable format string.
- * @param ... is the arguments where output will go and must be pointers.
- * returns the number of bytes placed into the buffer.
+ * @param format C printf comparable format string.
+ * 
+ * @param ... Arguments where output will go and must be pointers.
+ * 
+ * @returns Number of bytes placed into the buffer.
  */
 int scani(const char *fmt, ...) __attribute__((format (printf, 1, 2)));
 
+
 /**
- * Print format "..." args to the device
+ * @brief Print format "..." args to the device
  * The output is limited to 256 bytes.
  *
  * @note See print for format specifiers.
- *
- * @param device is where to put the formatted output.
- * @param format is a C printf comparable format string.
- * @param ... is the arguments to use with the format string.
- * returns the number of bytes placed into the buffer.
+ * 
+ * @param device Previously open/started terminal device.
+ * 
+ * @param format C printf comparable format string.
+ * 
+ * @param ... Arguments to use with the format string.
+ * 
+ * @returns Number of bytes placed into the buffer.
  */
 int dprint(text_t* device, const char *format, ...) __attribute__((format (printf, 2, 3)));
 
+
 /**
- * Print integer and char only format "..." args to the default simple terminal device.
+ * @brief Print integer and char only format "..." args to the default simple terminal device.
  * This version does not support floating point.
  * The output is limited to 256 bytes.
  *
  * @note See print for format specifiers except %f.
- *
- * @param device is where to put the formatted output.
- * @param format is a C printf comparable format string.
- * @param ... is the arguments to use with the format string.
- * returns the number of bytes placed into the buffer.
+ * 
+ * @param device Previously open/started terminal device.
+ * 
+ * @param format C printf comparable format string.
+ * 
+ * @param ... Arguments to use with the format string.
+ * 
+ * @returns Number of bytes placed into the buffer.
  */
 int dprinti(text_t* device, const char *format, ...) __attribute__((format (printf, 2, 3)));
 
 
 /**
- * Convert formatted device input to the "..." args.
+ * @brief Convert formatted device input to the "..." args.
  * The input is limited to 256 bytes.
  *
  * @note See scan for format specifiers.
- *
- * @param device is where to get the formatted input.
- * @param format is a C printf comparable format string.
- * @param ... is the arguments where output will go and must be pointers.
- * returns the number of bytes placed into the buffer.
+ * 
+ * @param device Previously open/started terminal device.
+ * 
+ * @param format C printf comparable format string.
+ * 
+ * @param ... Arguments where output will go and must be pointers.
+ * 
+ * @returns Number of bytes placed into the buffer.
  */
 int dscan(text_t* device, const char *fmt, ...) __attribute__((format (printf, 2, 3)));
 
+
 /**
- * Convert formatted device input to the "..." args.
+ * @brief Convert formatted device input to the "..." args.
  * This version does not provide floating point conversions.
  * The input is limited to 256 bytes.
  *
  * @note See scan for format specifiers.
- *
- * @param device is where to get the formatted input.
- * @param format is a C printf comparable format string.
- * @param ... is the arguments where output will go and must be pointers.
- * returns the number of bytes placed into the buffer.
+ * 
+ * @param device Previously open/started terminal device.
+ * 
+ * @param format C printf comparable format string.
+ * 
+ * @param ... Arguments where output will go and must be pointers.
+ * 
+ * @returns Number of bytes placed into the buffer.
  */
 int dscani(text_t* device, const char *fmt, ...) __attribute__((format (printf, 2, 3)));
 
+
 /**
- * Print format "..." args to the output buffer.
+ * @brief Print format "..." args to the output buffer.
  * The output buffer *must be* big enough for the output.
  *
  * @note See print for format specifiers.
  *
- * @param buffer is where to put the formatted output.
+ * @param buffer Pointer to memory where formatted output can be stored.
+ * 
  * @param format is a C printf comparable format string.
+ * 
  * @param ... is the arguments to use with the format string.
- * returns the number of bytes placed into the buffer.
+ * 
+ * @returns the number of bytes placed into the buffer.
  */
 int sprint(char *buffer, const char *format, ...) __attribute__((format (printf, 2, 3)));
 
+
 /**
- * Print integer and char only format "..." args to the default simple terminal device.
+ * @brief Print integer and char only format "..." args to the default simple terminal device.
  * This version does not support floating point.
  * The output is limited to 256 bytes.
  *
  * @note See print for format specifiers except %f.
  *
- * @param buffer is where to put the formatted output.
- * @param format is a C printf comparable format string.
- * @param ... is the arguments to use with the format string.
- * returns the number of bytes placed into the buffer.
+ * @param buffer Pointer to memory where formatted output can be stored.
+ * 
+ * @param format C printf comparable format string.
+ * 
+ * @param ... Arguments to use with the format string.
+ * 
+ * @returns Number of bytes placed into the buffer.
  */
 int sprinti(char *buffer, const char *format, ...) __attribute__((format (printf, 2, 3)));
 
 
 /**
- * Convert formatted buffer to the "..." args.
+ * @brief Convert formatted buffer to the "..." args.
  *
  * @note See scan for format specifiers.
  *
- * @param buffer is where to put the formatted output.
- * @param format is a C printf comparable format string.
- * @param ... is the arguments where output will go and must be pointers.
- * returns the number of bytes placed into the buffer.
+ * @param buffer Pointer to memory where formatted output can be stored.
+ *
+ * @param format C printf comparable format string.
+ *
+ * @param ... Arguments where output will go and must be pointers.
+ * 
+ * @returns Number of bytes placed into the buffer.
  */
 int sscan(const char *buffer, const char *fmt, ...) __attribute__((format (printf, 2, 3)));
 
+
 /**
- * Convert formatted buffer to the "..." args.
+ * @brief Convert formatted buffer to the "..." args.
  * This version does not provide floating point conversions.
  *
  * @note See scan for format specifiers.
  *
- * @param buffer is where to put the formatted output.
- * @param format is a C printf comparable format string.
- * @param ... is the arguments where output will go and must be pointers.
- * returns the number of bytes placed into the buffer.
+ * @param buffer Pointer to memory where formatted output can be stored.
+ * 
+ * @param format C printf comparable format string.
+ * 
+ * @param ... Arguments where output will go and must be pointers.
+ * 
+ * @returns Number of bytes placed into the buffer.
  */
 int sscani(const char *buffer, const char *fmt, ...) __attribute__((format (printf, 2, 3)));
 
@@ -606,27 +802,25 @@ float string2float(char *s, char **end);
 #endif
 /* __SimpleTEXT__ */
 
-/*
-+--------------------------------------------------------------------
-| TERMS OF USE: MIT License
-+--------------------------------------------------------------------
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files
-(the "Software"), to deal in the Software without restriction,
-including without limitation the rights to use, copy, modify, merge,
-publish, distribute, sublicense, and/or sell copies of the Software,
-and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-+--------------------------------------------------------------------
-*/
+/**
+ * TERMS OF USE: MIT License
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ */
