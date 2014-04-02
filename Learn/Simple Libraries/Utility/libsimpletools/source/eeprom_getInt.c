@@ -24,10 +24,12 @@ void ee_init();
 int ee_getInt(int addr)
 {
   if(!eeInitFlag) ee_init();
-  unsigned char val[4] = {0, 0, 0, 0};
-  const unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr&0xFF)};
-  i2c_in(eeprom, 0xA0, addrArray, 2, val, 4);
-  int value = (int)((int)(val[0]) | (int)(val[1] << 8) | (int)(val[2] << 16) | (int)(val[3] << 24));
+  //unsigned char val[4] = {0, 0, 0, 0};
+  int value;
+  // const unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr&0xFF)};
+  // i2c_in(eeprom, 0xA0, addrArray, 2, val, 4);
+  i2c_in(eeprom, 0x50, addr, 2, (char*) &value, 4);
+  // int value = (int)((int)(val[0]) | (int)(val[1] << 8) | (int)(val[2] << 16) | (int)(val[3] << 24));
   return value;
 }
 

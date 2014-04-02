@@ -25,8 +25,9 @@ char ee_getByte(int addr)
 {
   if(!eeInitFlag) ee_init();
   unsigned char value = 0;
-  const unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr&0xFF)};
-  i2c_in(eeprom, 0xA0, addrArray, 2, &value, 1);
+  // const unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr&0xFF)};
+  // i2c_in(eeprom, 0xA0, addrArray, 2, &value, 1);
+  i2c_in(eeprom, 0x50, addr, 2, &value, 1);
   return value;
 }
 
