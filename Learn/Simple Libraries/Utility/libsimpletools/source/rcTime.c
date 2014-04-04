@@ -18,11 +18,13 @@
 
 long rc_time(int pin, int state)              // rcTime function definition
 {
+  /*
   if(iodt == 0)                               // If dt not initialized
   {
     set_io_dt(CLKFREQ/1000000);               // Set up timed I/O time increment
     set_io_timeout(CLKFREQ/4);                // Set up timeout
   }
+  */
   long tDecay;                                // Declare tDecay variable
   int ctr = ((8 + ((!state & 1) * 4)) << 26); // POS detector counter setup
   ctr += pin;                                 // Add pin to setup

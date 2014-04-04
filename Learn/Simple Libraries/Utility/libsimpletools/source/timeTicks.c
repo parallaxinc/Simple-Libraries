@@ -1,37 +1,38 @@
 /**
- * @file eeprom.c
+ * @file timeTicks.c
  *
  * @author Andy Lindsay
  *
  * @version dev001
  *
- * @copyright Copyright (C) Parallax, Inc. 2013.  See end of file for
+ * @copyright Copyright (C) Parallax, Inc. 2012.  See end of file for
  * terms of use (MIT License).
  *
- * @brief eeprom functions source, see simpletools.h for documentation.
+ * @brief mark function source, see simpletools.h for documentation.
  *
  * @detail Please submit bug reports, suggestions, and improvements to
  * this code to editor@parallax.com.
  */
+ 
 
-#include "simpletools.h"                      // simpletools function prototypes
+#include "simpletools.h"
 
-i2c *eeprom;
-int eeInitFlag;
+int ms, us;
 
-void ee_init();
-
-int ee_getInt(int addr)
+__attribute__((constructor))                  // Flag for running at startup
+void timeTicksSetup()
 {
-  if(!eeInitFlag) ee_init();
-  //unsigned char val[4] = {0, 0, 0, 0};
-  int value;
-  // const unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr&0xFF)};
-  // i2c_in(eeprom, 0xA0, addrArray, 2, val, 4);
-  i2c_in(eeprom, 0x50, addr, 2, (unsigned char*) &value, 4);
-  // int value = (int)((int)(val[0]) | (int)(val[1] << 8) | (int)(val[2] << 16) | (int)(val[3] << 24));
-  return value;
+  msTicks = CLKFREQ/1000;
+  usTicks = CLKFREQ/1000000;  
+
+  ms = msTicks;
+  us = usTicks;
+
+  iodt = usTicks;
+  pauseTicks = msTicks;
+  t_timeout = 250*msTicks;
 }
+
 
 /**
  * TERMS OF USE: MIT License

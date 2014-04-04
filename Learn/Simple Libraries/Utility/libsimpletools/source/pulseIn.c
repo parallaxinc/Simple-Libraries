@@ -18,11 +18,13 @@
 
 long pulse_in(int pin, int state)              // pulseIn function definition
 {
+  /*
   if(iodt == 0)
   {
     set_io_dt(CLKFREQ/1000000);
     set_io_timeout(CLKFREQ/4);
   }
+  */
   long tPulse;
   int ctr = ((8 + ((!state & 1) * 4)) << 26) + pin;
   input(pin);

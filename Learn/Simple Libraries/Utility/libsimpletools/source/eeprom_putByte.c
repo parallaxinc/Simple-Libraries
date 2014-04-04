@@ -21,12 +21,13 @@ int eeInitFlag;
 
 void ee_init();
 
-void ee_putByte(char value, int addr)
+void ee_putByte(unsigned char value, int addr)
 {
   if(!eeInitFlag) ee_init();
   // unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr&0xFF)};
   // int n = i2c_out(eeprom, 0xA0, addrArray, 2, &value, 1);
-  int n = i2c_out(eeprom, 0x50, addr, 2, &value, 1);
+  // int n = i2c_out(eeprom, 0x50, addr, 2, &value, 1);
+  i2c_out(eeprom, 0x50, addr, 2, &value, 1);
   while(i2c_poll(eeprom, 0xA0)); 
 }
 

@@ -21,9 +21,8 @@
  * 
  * @version 0.97 Digits versions of put/get and write/read added for transmitting and receiving
  * values with fixed numbers of digits.  Floating point output functions updated to handle nan 
- * (not a number) and +/- inf (infinity).
- *
- * 
+ * (not a number) and +/- inf (infinity).  printi, dprinti, scani, dscani, sprinti, sscani functions
+ * added for supporting non-floating point with less program space. 
  */
  
 #ifndef __SimpleTEXT__
@@ -149,7 +148,7 @@ terminal *simpleterm_pointer(void);
  * 
  * @param *ptr Device ID pointer to serial, fdserial, or other text_t device.
  */
-static inline void simpleterm_reset(text_t *ptr)
+static inline void simpleterm_set(text_t *ptr)
 {
   extern text_t *dport_ptr;
   simpleterm_close();

@@ -24,18 +24,19 @@ void pw(void *par);
 static unsigned int pwstack[(160 + (50 * 4)) / 4];
 
 static volatile unsigned int tCycle, ticksA, ticksB, ctra, ctrb;
-static volatile int us;
+//static volatile int us;
 
 static int pwcog = 0;
 
-static int ctraPin = -1;
-static int ctrbPin = -1;
+//static int ctraPin = -1;
+//static int ctrbPin = -1;
 
 int pwm_start(unsigned int cycleMicroseconds)
 {
-  us = CLKFREQ/1000000;
-  tCycle = cycleMicroseconds * us;
+  //us = CLKFREQ/1000000;
+  tCycle = cycleMicroseconds * usTicks;
   pwcog = cogstart(&pw, NULL, pwstack, sizeof(pwstack)) + 1;  
+  return pwcog;
 }
 
 void pwm_set(int pin, int channel, int tHigh)
@@ -44,13 +45,13 @@ void pwm_set(int pin, int channel, int tHigh)
   {
     ctra = NCO_PWM_1;
     ctra |= pin;
-    ticksA = tHigh * us;
+    ticksA = tHigh * usTicks;
   }
   else
   {
     ctrb = NCO_PWM_1;
     ctrb |= pin;
-    ticksB = tHigh * us;
+    ticksB = tHigh * usTicks;
   }
 }
 

@@ -24,35 +24,32 @@ HUBTEXT int  i2c_in(i2c *busID, int i2cSlaveAddr,
   int n  = 0;
   i2cSlaveAddr <<= 1;
   i2cSlaveAddr &= -2;                                        // Clear i2cSlaveAddr.bit0 (write)
+  i2c_start(busID);
+  if(i2c_writeByte(busID, i2cSlaveAddr)) return n; else n++;
   if(memAddrCount) 
   {
-    i2c_start(busID);
-    if(i2c_writeByte(busID, i2cSlaveAddr)) return n; else n++;
-    // n += i2c_writeData(busID, regAddr, memAddrCount);
-    int size = abs(memAddrCount);
-    unsigned char a[size];
-    memset(a, 0, size);
-    if(memAddrCount > 0)
+    int m;
+    if(memAddrCount)
     {
-      for(int i = 0; i < size; i++)
-      {
-        a[i] = (char) (memAddr >> ((size-1-i)*8));
-      } 
-    }
-    else
-    {
-      for(int i = 0; i < size; i++)
-      {
-        a[i] = (char) (memAddr >> (i*8));
-      } 
-    }
-    n += i2c_writeData(busID, a, size);
-  }
+      if(memAddrCount > 0)
+        endianSwap(&m, &memAddr, 4);
+      else 
+        m = memAddr;
+      n += i2c_writeData(busID, (unsigned char*) &m, abs(memAddrCount));
+    }  
+  }  
   i2cSlaveAddr |= 1;                                       // Set i2cSlaveAddr.bit0 (read)
   i2c_start(busID);
   if(i2c_writeByte(busID, i2cSlaveAddr)) return n; else n++;
-  n += i2c_readData(busID, data, dataCount);
+  n += i2c_readData(busID, data, abs(dataCount));
   i2c_stop(busID);
+  if(dataCount < 0)
+  {
+    dataCount = -dataCount;
+    char temp[dataCount];
+    memcpy(temp, data, dataCount);
+    endianSwap(data, temp, dataCount);
+  }
   return n;  
 }
 

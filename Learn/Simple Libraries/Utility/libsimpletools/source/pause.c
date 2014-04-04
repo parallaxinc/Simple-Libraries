@@ -20,7 +20,7 @@ long pauseTicks = 0;
 
 void pause(int time)                          // pause function definition
 { // If pauseTicks not initialized, set it up to 1 ms.
-  if(!pauseTicks) set_pause_dt(CLKFREQ/1000);
+  // if(!pauseTicks) set_pause_dt(CLKFREQ/1000);
   time *= pauseTicks;                         // Calculate system clock ticks
   waitcnt(time+CNT);                          // Wait for system clock target
 }

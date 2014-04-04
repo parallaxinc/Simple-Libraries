@@ -85,7 +85,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:a0e26ea2db1b570d1a6fe1ac180ef4541"><td class="mdescLeft">&#160;</td><td class="mdescRight">HOME character (1) sends SimpleIDE Terminal's cursor to top-left "home" position. <br/></td></tr>
 <tr class="memitem:afa53bcf09725cf1948b70eaaa229a3d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afa53bcf09725cf1948b70eaaa229a3d1"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#afa53bcf09725cf1948b70eaaa229a3d1">CRSRXY</a>&#160;&#160;&#160;(2)</td></tr>
-<tr class="memdesc:afa53bcf09725cf1948b70eaaa229a3d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRSRXY charactar (2) sends cursor to a certain number of spaces over (X) and returns (Y) down from SimpleIDE Terminal's top-left HOME positoin. This character has to be followed immediately by the X and Y values when transmitted to the SimpleIDE Terminal. <br/></td></tr>
+<tr class="memdesc:afa53bcf09725cf1948b70eaaa229a3d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRSRXY character (2) sends cursor to a certain number of spaces over (X) and returns (Y) down from SimpleIDE Terminal's top-left HOME position. This character has to be followed immediately by the X and Y values when transmitted to the SimpleIDE Terminal. <br/></td></tr>
 <tr class="memitem:a9e599685cbc5af2bb2a3baffdf881dff"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9e599685cbc5af2bb2a3baffdf881dff"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a9e599685cbc5af2bb2a3baffdf881dff">CRSRLF</a>&#160;&#160;&#160;(3)</td></tr>
 <tr class="memdesc:a9e599685cbc5af2bb2a3baffdf881dff"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRSRLF character (3) sends the SimpleIDE Terminal's cursor one column (space) to the left of its current position. <br/></td></tr>
@@ -118,7 +118,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:ac2f56dd6f32ebc7b504090212600d922"><td class="mdescLeft">&#160;</td><td class="mdescRight">CLREOL character (11) erases all SimpleIDE Terminal characters to the right of the cursor. <br/></td></tr>
 <tr class="memitem:a1cdb24d24f81764bea8c96fe07d48e0a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1cdb24d24f81764bea8c96fe07d48e0a"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a1cdb24d24f81764bea8c96fe07d48e0a">CLRDN</a>&#160;&#160;&#160;(12)</td></tr>
-<tr class="memdesc:a1cdb24d24f81764bea8c96fe07d48e0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">CLRDN character (12) erases all SimpleIDE Termianl charcters below the cursor. <br/></td></tr>
+<tr class="memdesc:a1cdb24d24f81764bea8c96fe07d48e0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">CLRDN character (12) erases all SimpleIDE Terminal characters below the cursor. <br/></td></tr>
 <tr class="memitem:a876ce77f3c672c7162658151e648389e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a876ce77f3c672c7162658151e648389e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a876ce77f3c672c7162658151e648389e">CR</a>&#160;&#160;&#160;(13)</td></tr>
 <tr class="memdesc:a876ce77f3c672c7162658151e648389e"><td class="mdescLeft">&#160;</td><td class="mdescRight">CR character (13) sends SimpleIDE Terminal's cursor one row downward. <br/></td></tr>
@@ -289,12 +289,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa845f3e273a492072b625da584924f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mount an SD card with the minimal 4-pin interface.  <a href="#aa845f3e273a492072b625da584924f32"></a><br/></td></tr>
 <tr class="memitem:a61783ad70f65edb523f1f467bc47cabb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a61783ad70f65edb523f1f467bc47cabb">start_fpu_cog</a> (void)</td></tr>
 <tr class="memdesc:a61783ad70f65edb523f1f467bc47cabb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restarts floating point coprocessor (which runs in a separate cog) after it has been shut down by stop_fpu_cog. This process is started automatically when an application that uses the simpletools library is launched. So the only time you would call it is after calling stop_fpu_cog in order to reclaim a cog for other uses. CAUTION: Do not try call simpletext library functions while the fpu cog is shut down, it could cause the application to hang.  <a href="#a61783ad70f65edb523f1f467bc47cabb"></a><br/></td></tr>
-<tr class="memitem:a736648757711b6d9b47073d860c8797d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a736648757711b6d9b47073d860c8797d">stop_fpu_cog</a> (void)</td></tr>
-<tr class="memdesc:a736648757711b6d9b47073d860c8797d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop floating point coprocessing cog that is started automatically when an application that uses the simpletools library is launched. When this function stops the cog running the floating point coprocessor, it will save a cog, but disable certain floating point functionalities until it is restarted by calling start_fpu_cog. CAUTION: Do not try call simpletext library functions while the fpu cog is shut down, it could cause the application to hang.  <a href="#a736648757711b6d9b47073d860c8797d"></a><br/></td></tr>
-<tr class="memitem:ace368f66ef489173117522773fa96eef"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#ace368f66ef489173117522773fa96eef">itoa</a> (int i, char b[], int base)</td></tr>
-<tr class="memdesc:ace368f66ef489173117522773fa96eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert value to zero terminated text string.  <a href="#ace368f66ef489173117522773fa96eef"></a><br/></td></tr>
 <tr class="memitem:a9c5d06d96a66ec25c018b469e9c5e06b"><td class="memItemLeft" align="right" valign="top">int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a9c5d06d96a66ec25c018b469e9c5e06b">cog_run</a> (void(*function)(void *par), int stacksize)</td></tr>
 <tr class="memdesc:a9c5d06d96a66ec25c018b469e9c5e06b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run a function's code in the next available cog (processor).  <a href="#a9c5d06d96a66ec25c018b469e9c5e06b"></a><br/></td></tr>
+<tr class="memitem:ad260529b4817b8bc40d280053d921a9e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#ad260529b4817b8bc40d280053d921a9e">cog_num</a> (int *coginfo)</td></tr>
+<tr class="memdesc:ad260529b4817b8bc40d280053d921a9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the cog ID.  <a href="#ad260529b4817b8bc40d280053d921a9e"></a><br/></td></tr>
 <tr class="memitem:a5b2cba6f29a9955c55ab239066e30e7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a5b2cba6f29a9955c55ab239066e30e7f">cog_end</a> (int *coginfo)</td></tr>
 <tr class="memdesc:a5b2cba6f29a9955c55ab239066e30e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">End function code running in another cog that was launched with cog_run.  <a href="#a5b2cba6f29a9955c55ab239066e30e7f"></a><br/></td></tr>
 </table><table class="memberdecls">
@@ -311,10 +309,10 @@ long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simp
 <tr class="memdesc:ac32bfd0f079f74e0b542acfe12858617"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock ticks in a time increment used by pause function. Default value is the number of system clock ticks in 1/1000 s = CLKFREQ/1000. <br/></td></tr>
 <tr class="memitem:aae1cb6a158ee32bbdf3686eb12d96b46"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae1cb6a158ee32bbdf3686eb12d96b46"></a>
 long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#aae1cb6a158ee32bbdf3686eb12d96b46">t_mark</a></td></tr>
-<tr class="memdesc:aae1cb6a158ee32bbdf3686eb12d96b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Varaible shared by mark and time_out functions. <br/></td></tr>
+<tr class="memdesc:aae1cb6a158ee32bbdf3686eb12d96b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variable shared by mark and time_out functions. <br/></td></tr>
 <tr class="memitem:af4ec88c167cf4578da1ec0f46975f057"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af4ec88c167cf4578da1ec0f46975f057"></a>
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#af4ec88c167cf4578da1ec0f46975f057">buscnt</a></td></tr>
-<tr class="memdesc:af4ec88c167cf4578da1ec0f46975f057"><td class="mdescLeft">&#160;</td><td class="mdescRight">Varaible used by i2c_newbus. <br/></td></tr>
+<tr class="memdesc:af4ec88c167cf4578da1ec0f46975f057"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variable used by i2c_newbus. <br/></td></tr>
 <tr class="memitem:a936f99bf236f37dfb6d132db8bcd0e2c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a936f99bf236f37dfb6d132db8bcd0e2c"></a>
 i2c *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a936f99bf236f37dfb6d132db8bcd0e2c">eeprom</a></td></tr>
 <tr class="memdesc:a936f99bf236f37dfb6d132db8bcd0e2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The busID for the Propeller Activity Board's EEPROM bus. <br/></td></tr>
@@ -365,7 +363,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 <br/>
  Revision 0.97 Add cog_run and cog_end for simplified running of function code in other cogs. <br/>
 <br/>
- Revision 0.98 fpucog floating point coprocessor no longer self-starts by default. i2c_out and i2c_in char *regAddr parameter changed to int memAddr. <br/>
+ Revision 0.98 fpucog floating point coprocessor no longer self-starts by default. All floating point functionality is still supported, processing just happens in the same cog. i2c_out and i2c_in char *regAddr parameter changed to int memAddr. itoa removed, use sprint(charArray, "%d", intVal) to to make int to ASCII conversions.<br/>
 <br/>
  </p>
 </div><h2>Macro Definition Documentation</h2>
@@ -428,6 +426,31 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 
 </div>
 </div>
+<a class="anchor" id="ad260529b4817b8bc40d280053d921a9e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int cog_num </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>coginfo</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the cog ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*coginfo</td><td>the address returned by cog_run.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The cog ID number. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a9c5d06d96a66ec25c018b469e9c5e06b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -456,12 +479,12 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 <p>cog_run is designed to make launching application level functions (typically from the main file) quick and easy. All you have to do is pass a pointer to a function with no return value or parameters along with the number for extra memory to reserve. The value returned can be used to shut down the process and free up memory and a cog later by passing it to cog_end.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">*function</td><td>pointer to a function with no parameters or return value. Example, if your function is void myFunction(), then pass &amp;myFunciton.</td></tr>
+    <tr><td class="paramname">*function</td><td>pointer to a function with no parameters or return value. Example, if your function is void myFunction(), then pass &amp;myFunction.</td></tr>
     <tr><td class="paramname">stacksize</td><td>Number of extra int variables for local variable declarations and call/return stack. This also needs to cover any local variable declarations in functions that your function calls, including library functions. Be liberal with extra stack space for prototyping, and if in doubt, 40 to whatever value you calculate.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Address of memory set aside for the cog. Make sure to save this value in a variable if you inted to stop the process later with cog_end. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>*coginfo Address of memory set aside for the cog. Make sure to save this value in a variable if you intend to stop the process later with cog_end or check which cog the process was launched into with cog_num. </dd></dl>
 
 </div>
 </div>
@@ -634,7 +657,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 </div><div class="memdoc">
 
 <p>Fetch a 32-bit precision floating point value from a certain address in the Propeller Chip's dedicated EEPROM. A 32-bit value occupies four bytes so if you are fetching values in a sequence, make sure to add 4 to each addr parameter value. </p>
-<p>Make sure that the Math box is checked in the Project Manger. In Simple View, click the Show Project Manager button in SimpleIDE's bottom-left corner. Then click the Linker tab, and check the Math Lib box.</p>
+<p>Make sure that the Math box is checked in the Project Manager. In Simple View, click the Show Project Manager button in SimpleIDE's bottom-left corner. Then click the Linker tab, and check the Math Lib box.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">addr</td><td>The EEPROM address with the 32-bit floating point float value that should be fetched.</td></tr>
@@ -773,7 +796,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 </div><div class="memdoc">
 
 <p>Store a 32-bit precision floating point value at a certain address in the Propeller Chip's dedicated EEPROM. A 32-bit value occupies four bytes so if you are storing values in a sequence, make sure to add 4 to each addr parameter value. </p>
-<p>Make sure that the Math box is checked in the Project Manger. In Simple View, click the Show Project Manager button in SimpleIDE's bottom-left corner. Then click the Linker tab, and check the Math Lib box.</p>
+<p>Make sure that the Math box is checked in the Project Manager. In Simple View, click the Show Project Manager button in SimpleIDE's bottom-left corner. Then click the Linker tab, and check the Math Lib box.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value</td><td>The 32-bit floating point float value to store in EEPROM.</td></tr>
@@ -1349,50 +1372,6 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 or 0 to indicate high or low signal received. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ace368f66ef489173117522773fa96eef"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">char* itoa </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>i</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>b</em>[], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>base</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Convert value to zero terminated text string. </p>
-<p>Given an int, a character array pointer and a base, this function converts the int into the characters that represent the value in the specified base.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">i</td><td>An integer value. </td></tr>
-    <tr><td class="paramname">b[]</td><td>A character array pointer. </td></tr>
-    <tr><td class="paramname">base</td><td>The number base for the character representation.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The character array address it received. </dd></dl>
 
 </div>
 </div>
@@ -2069,7 +2048,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
   <table class="params">
     <tr><td class="paramname">pinDat</td><td>Data pin </td></tr>
     <tr><td class="paramname">pinClk</td><td>Clock pin </td></tr>
-    <tr><td class="paramname">mode</td><td>Order that bits are transmitteed, either LSBFIRST or MSBFIRST. </td></tr>
+    <tr><td class="paramname">mode</td><td>Order that bits are transmitted, either LSBFIRST or MSBFIRST. </td></tr>
     <tr><td class="paramname">bits</td><td>Number of binary values to transfer. </td></tr>
     <tr><td class="paramname">value</td><td>to transmit. </td></tr>
   </table>
@@ -2159,25 +2138,6 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 
 </div>
 </div>
-<a class="anchor" id="a736648757711b6d9b47073d860c8797d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void stop_fpu_cog </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Stop floating point coprocessing cog that is started automatically when an application that uses the simpletools library is launched. When this function stops the cog running the floating point coprocessor, it will save a cog, but disable certain floating point functionalities until it is restarted by calling start_fpu_cog. CAUTION: Do not try call simpletext library functions while the fpu cog is shut down, it could cause the application to hang. </p>
-<dl class="section return"><dt>Returns</dt><dd>Nonzero if successful, or zero if no cogs available. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="aba16632261a1faa89b62c8d7d11b45cc"></a>
 <div class="memitem">
 <div class="memproto">
@@ -2257,7 +2217,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Apr 2 2014 15:59:24 for simpletools library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 3 2014 13:19:30 for simpletools library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
