@@ -42,7 +42,7 @@ int shift_in(int pinDat, int pinClk, int mode, int bits)
       vf = -1;
       inc = -1;
       break;
-    case LSBPOST:
+    default: // case LSBPOST:
       vi = 0;
       vf = bits;
       inc = 1;

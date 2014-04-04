@@ -1,13 +1,13 @@
 /*
-* @file libsimpletools.c
-*
-* @author Andy Lindsay
-*
-* @copyright
-* Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
-*
-* @brief Project and test harness for the simpletools library.
-*/
+ * @file libsimpletools.c
+ *
+ * @author Andy Lindsay
+ *
+ * @copyright
+ * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
+ *
+ * @brief Project and test harness for the simpletools library.
+ */
 
 
 #include "simpletools.h"

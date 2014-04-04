@@ -10,7 +10,7 @@ void square_wave_setup(int pin, int freq, int* ctr, int* frq);
 void freqout(int pin, int msTime, int frequency)
 {
   int ctr, frq, channel;
-  char s[32];
+  //char s[32];
   square_wave_setup(pin, frequency, &ctr, &frq);
   if(!CTRA)
   {

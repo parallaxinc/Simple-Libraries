@@ -1,37 +1,23 @@
-/**
- * @file eeprom.c
+/*
+ * @file cognum.c
  *
  * @author Andy Lindsay
  *
- * @version dev001
+ * @copyright
+ * Copyright (C) Parallax, Inc. 2014. All Rights MIT Licensed.
  *
- * @copyright Copyright (C) Parallax, Inc. 2013.  See end of file for
- * terms of use (MIT License).
- *
- * @brief eeprom functions source, see simpletools.h for documentation.
- *
- * @detail Please submit bug reports, suggestions, and improvements to
- * this code to editor@parallax.com.
+ * @brief Source code for cog_num function.
  */
 
-#include "simpletools.h"                      // simpletools function prototypes
 
-i2c *eeprom;
-int eeInitFlag;
+#include "simpletools.h"
 
-void ee_init();
-
-int ee_getInt(int addr)
+int cog_num(int *coginfo)
 {
-  if(!eeInitFlag) ee_init();
-  //unsigned char val[4] = {0, 0, 0, 0};
-  int value;
-  // const unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr&0xFF)};
-  // i2c_in(eeprom, 0xA0, addrArray, 2, val, 4);
-  i2c_in(eeprom, 0x50, addr, 2, (unsigned char*) &value, 4);
-  // int value = (int)((int)(val[0]) | (int)(val[1] << 8) | (int)(val[2] << 16) | (int)(val[3] << 24));
-  return value;
+  int cog = *coginfo;
+  return cog;
 }
+
 
 /**
  * TERMS OF USE: MIT License

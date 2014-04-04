@@ -32,7 +32,6 @@ source/toggle.c
 source/wait.c
 source/addfiledriver.c
 source/sddriverconfig.c
-source/itoa.c
 simpletools.h
 freqout.c -> source/freqout.c
 i2c_init.c -> source/i2c_init.c
@@ -50,10 +49,14 @@ eeprom_putStr.c -> source/eeprom_putStr.c
 cogrun.c -> source/cogrun.c
 cogend.c -> source/cogend.c
 i2c_busy.c -> source/i2c_busy.c
+cognum.c -> source/cognum.c
+endianSwap.c -> source/endianSwap.c
+timeTicks.c -> source/timeTicks.c
 >compiler=C
->memtype=xmmc external flash code main ram data
+>memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
+>-Wall
 >-fno-exceptions
 >defs::-std=c99
 >-lm

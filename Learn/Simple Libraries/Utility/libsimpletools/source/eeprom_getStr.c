@@ -21,7 +21,7 @@ int eeInitFlag;
 
 void ee_init();
 
-char* ee_get_str(unsigned char *s, int n, int addr)
+unsigned char* ee_get_str(unsigned char *s, int n, int addr)
 {
   if(!eeInitFlag) ee_init();
   // const unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr&0xFF)};

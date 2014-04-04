@@ -79,7 +79,14 @@
  * Revision 0.97 Add cog_run and cog_end for simplified running of function
  * code in other cogs. @n@n
  * Revision 0.98 fpucog floating point coprocessor no longer self-starts by default.  
- * i2c_out and i2c_in char *regAddr parameter changed to int memAddr. @n@n
+ * All floating point functionality is still supported, processing just happens in
+ * the same cog.  i2c_out and i2c_in char *regAddr parameter changed to int memAddr. 
+ * itoa removed, use sprint(charArray, "%d", intVal) to to make int to ASCII 
+ * conversions.  msTicks and usTicks global variables are pre-initialized to the 
+ * number of system clock ticks in a millisecond and microsecond for convenience in
+ * library development.  Variables named us and ms are initialized to the same values 
+ * for user applications.  Function endianSwap added to simplify communication with 
+ * devices that send/receive byte data in big endian format.@n@n
  */
 
 #ifndef SIMPLETOOLS_H
@@ -104,7 +111,33 @@ extern "C" {
 #include <math.h>
 #include "simplei2c.h"
 
-// Global variables shared by functions in separate files
+
+/**
+ * @brief Propeller system clock ticks in 1 millisecond (ms).
+ */
+extern int ms;
+
+
+/**
+ * @brief Propeller system clock ticks in 1 millisecond (us).
+ */
+extern int us;
+
+
+/**
+ * @brief Propeller system clock ticks in 1 millisecond.  Changing this value is
+ * not recommended because it can affect library performance.
+ */
+extern int msTicks;
+
+
+/**
+ * @brief Propeller system clock ticks in 1 microsecond.  Changing this value is
+ * not recommended because it can affect library performance.
+ */
+extern int usTicks;
+
+
 /**
  * @brief Clock ticks in a time increment used by pulse_in, pulse_out, and rc_time.
  * Default value is the number of system clock ticks in a microsecond = CLKFREQ/1000000.
@@ -124,12 +157,12 @@ extern long t_timeout;
 extern long pauseTicks;
 
 /**
- * @brief Varaible shared by mark and time_out functions.
+ * @brief Variable shared by mark and time_out functions.
  */
 extern long t_mark;
 
 /**
- * @brief Varaible used by i2c_newbus.
+ * @brief Variable used by i2c_newbus.
  */
 extern unsigned int buscnt;
 
@@ -170,8 +203,8 @@ extern int eeInitFlag;
 
 #ifndef CRSRXY
 /**
- * @brief CRSRXY charactar (2) sends cursor to a certain number of spaces over (X)
- * and returns (Y) down from SimpleIDE Terminal's top-left HOME positoin.  This 
+ * @brief CRSRXY character (2) sends cursor to a certain number of spaces over (X)
+ * and returns (Y) down from SimpleIDE Terminal's top-left HOME position.  This 
  * character has to be followed immediately by the X and Y values when transmitted
  * to the SimpleIDE Terminal. 
  */
@@ -260,7 +293,7 @@ extern int eeInitFlag;
 
 #ifndef CLRDN
 /**
- * @brief CLRDN character (12) erases all SimpleIDE Termianl charcters below the 
+ * @brief CLRDN character (12) erases all SimpleIDE Terminal characters below the 
  * cursor.
  */
 #define CLRDN  (12)
@@ -914,7 +947,7 @@ int shift_in(int pinDat, int pinClk, int mode, int bits);
 *
 * @param pinDat Data pin
 * @param pinClk Clock pin
-* @param mode Order that bits are transmitteed, either LSBFIRST or MSBFIRST.
+* @param mode Order that bits are transmitted, either LSBFIRST or MSBFIRST.
 * @param bits Number of binary values to transfer.
 * @param value to transmit.
 */
@@ -1020,8 +1053,9 @@ HUBTEXT int i2c_busy(i2c *busID, int i2cSlaveAddr);
  * @param value The byte value to store in EEPROM.
  *
  * @param addr The EEPROM address where the value is to be stored.
+ * 
  */
-void ee_putByte(char value, int addr);
+void ee_putByte(unsigned char value, int addr);
 
 /**
  * @brief ee_put_byte renamed ee_putByte.
@@ -1112,7 +1146,7 @@ void ee_putStr(unsigned char *s, int n, int addr);
  * @returns The address of the array that stores the characters that
  * were fetched.
  */
-char* ee_getStr(unsigned char* s, int n, int addr);
+unsigned char* ee_getStr(unsigned char* s, int n, int addr);
 
 /**
  * @brief ee_get_str renamed ee_getStr.
@@ -1126,7 +1160,7 @@ char* ee_getStr(unsigned char* s, int n, int addr);
  * so if you are storing values in a sequence, make sure to add 4 to each addr
  * parameter value.
  *
- * Make sure that the Math box is checked in the Project Manger.  In Simple View,
+ * Make sure that the Math box is checked in the Project Manager.  In Simple View,
  * click the Show Project Manager button in SimpleIDE's bottom-left corner.  Then
  * click the Linker tab, and check the Math Lib box.
  *
@@ -1148,7 +1182,7 @@ void ee_putFloat32(float value, int addr);
  * so if you are fetching values in a sequence, make sure to add 4 to each addr
  * parameter value.
  *
- * Make sure that the Math box is checked in the Project Manger.  In Simple View,
+ * Make sure that the Math box is checked in the Project Manager.  In Simple View,
  * click the Show Project Manager button in SimpleIDE's bottom-left corner.  Then
  * click the Linker tab, and check the Math Lib box.
  *
@@ -1189,7 +1223,7 @@ int sd_mount(int doPin, int clkPin, int diPin, int csPin);
 int start_fpu_cog(void);
 
 
-/**
+/*
  * @brief Stop floating point coprocessing cog that is started
  * automatically when an application that uses the simpletools library 
  * is launched.  When this function stops the cog running the floating 
@@ -1199,11 +1233,13 @@ int start_fpu_cog(void);
  * fpu cog is shut down, it could cause the application to hang.
  *
  * @returns Nonzero if successful, or zero if no cogs available.
- */
+
 void stop_fpu_cog(void);
 
+ */
 
-/**
+
+/*
  * @brief Convert value to zero terminated text string.
  *
  * @details Given an int, a character array pointer and a base, this function
@@ -1215,8 +1251,10 @@ void stop_fpu_cog(void);
  * @param   base The number base for the character representation.
  *
  * @returns The character array address it received.
+
+  char* itoa(int i, char b[], int base);
+
  */
-char* itoa(int i, char b[], int base);
 
 
 /**
@@ -1231,7 +1269,7 @@ char* itoa(int i, char b[], int base);
  *
  * @param *function pointer to a function with no parameters 
  * or return value. Example, if your function is void myFunction(), then
- * pass &myFunciton. 
+ * pass &myFunction. 
  *
  * @param stacksize Number of extra int variables for local variable declarations
  * and call/return stack. This also needs to cover any local variable declarations
@@ -1239,10 +1277,21 @@ char* itoa(int i, char b[], int base);
  * with extra stack space for prototyping, and if in doubt, 40 to whatever value 
  * you calculate.
  *
- * @returns Address of memory set aside for the cog. Make sure to save this value
- * in a variable if you inted to stop the process later with cog_end.
+ * @returns *coginfo Address of memory set aside for the cog. Make sure to save this value
+ * in a variable if you intend to stop the process later with cog_end or check which cog
+ * the process was launched into with cog_num.
  */
 int *cog_run(void (*function)(void *par), int stacksize);
+
+
+/**
+ * @brief Get the cog ID.
+ *
+ * @param *coginfo the address returned by cog_run.
+ *
+ * @returns The cog ID number.
+ */
+int cog_num(int *coginfo);
 
 
 /**
@@ -1255,6 +1304,22 @@ int *cog_run(void (*function)(void *par), int stacksize);
  * @param *coginfo the address returned by cog_run.
  */
 void cog_end(int *coginfo);
+
+
+/**
+ * @brief Take bytes in one variable at varAddr, swap their order, and store them 
+ * in another variable at resultAddr.  This is useful for communication with peripherals
+ * that transmit/receive bytes in multi-byte values in reverse order from how the 
+ * Propeller stores it in RAM.  
+ *
+ * @param *resultAddr Address of variable to store result.  Make sure it's the
+ * same type as the varAddr parameter.
+ *
+ * @param *varAddr Address of source variable.  Accepts any variable type.
+ *
+ * @param *byteCount Number of bytes in the variable.
+ */
+void endianSwap(void *resultAddr, void *varAddr, int byteCount);
 
 
 #if defined(__cplusplus)
@@ -1285,7 +1350,3 @@ void cog_end(int *coginfo);
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-
-
-
-

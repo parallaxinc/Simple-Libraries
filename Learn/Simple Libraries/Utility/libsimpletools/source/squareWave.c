@@ -86,7 +86,7 @@ void square_wave_cog(void *par)
   {
     if(ctra != CTRA)
     {
-      if(CTRA & 0b111111 != ctra & 0b111111)
+      if((CTRA & 0b111111) != (ctra & 0b111111))
       {
         pin = CTRA & 0b111111;
         DIRA &= ~(1 << pin);
@@ -107,7 +107,7 @@ void square_wave_cog(void *par)
     
     if(ctrb != CTRB)
     {
-      if(CTRB & 0b111111 != ctrb & 0b111111)
+      if((CTRB & 0b111111) != (ctrb & 0b111111))
       {
         pin = CTRB & 0b111111;
         DIRA &= ~(1 << pin);
@@ -122,10 +122,8 @@ void square_wave_cog(void *par)
         DIRA |= (1 << pin);
       }  
     }
-  
     if(FRQB != frqb)
       FRQB = frqb;
-
   }
 }
 
@@ -172,7 +170,7 @@ int int_fraction(int a, int b, int shift)
   {
     b <<= -shift;
   }
-  int f;
+  int f = 0;
   int i;
   for(i = 0; i < 32; i++)
   {

@@ -24,7 +24,7 @@ void ee_init();
 
 void ee_putStr(unsigned char *s, int n, int addr)
 {
-  unsigned char addrArray[2];
+  //unsigned char addrArray[2];
   if(!eeInitFlag) ee_init();
 
   while(n > 0)

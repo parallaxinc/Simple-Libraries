@@ -26,28 +26,31 @@ HUBTEXT int  i2c_out(i2c *busID, int i2cSlaveAddr,
   i2cSlaveAddr &= -2;
   i2c_start(busID);
   if(i2c_writeByte(busID, i2cSlaveAddr)) return n; else n++;
-  if(memAddrCount) 
+  int m;
+  if(memAddrCount)
   {
-    int size = abs(memAddrCount);
-    unsigned char a[size];
-    memset(a, 0, size);
     if(memAddrCount > 0)
     {
-      for(int i = 0; i < size; i++)
-      {
-        a[i] = (char) (memAddr >> ((size-1-i)*8));
-      } 
-    }
-    else
+      endianSwap(&m, &memAddr, 4);
+    }  
+    else 
     {
-      for(int i = 0; i < size; i++)
-      {
-        a[i] = (char) (memAddr >> (i*8));
-      } 
-    }
-    n += i2c_writeData(busID, a, size);
-  }
-  n += i2c_writeData(busID, data, dataCount);
+      m = memAddr;
+      memAddrCount = - memAddrCount;
+    }  
+    n += i2c_writeData(busID, (unsigned char*) &m, memAddrCount);
+  }  
+  if(dataCount)
+  {
+    if(dataCount > 0)
+      n += i2c_writeData(busID, data, dataCount);
+    else  
+    {
+      unsigned char temp[dataCount];
+      endianSwap(temp, (void*) data, -dataCount);
+      n += i2c_writeData(busID, temp, -dataCount);
+    }        
+  }  
   i2c_stop(busID);
   return n;  
 }
