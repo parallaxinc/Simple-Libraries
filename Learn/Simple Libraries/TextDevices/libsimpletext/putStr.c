@@ -1,4 +1,4 @@
-/**
+/*
  * @file putStr.c
  * Function to print a string to the terminal.
  *

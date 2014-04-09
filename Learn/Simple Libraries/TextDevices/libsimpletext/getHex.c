@@ -1,4 +1,4 @@
-/**
+/*
  * @file getHex.c
  * Function to get hexadecimal number from the terminal.
  *

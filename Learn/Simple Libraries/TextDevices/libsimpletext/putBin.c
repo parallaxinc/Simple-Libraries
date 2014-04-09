@@ -1,4 +1,4 @@
-/**
+/*
  * @file putBin.c
  * Function to print a binary number to the terminal.
  *

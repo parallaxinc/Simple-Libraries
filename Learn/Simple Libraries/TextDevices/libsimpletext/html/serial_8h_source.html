@@ -17,7 +17,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">simpletext library
-   &#160;<span id="projectnumber">v0.97</span>
+   &#160;<span id="projectnumber">v0.98</span>
    </div>
    <div id="projectbrief">Compact variations of put/get write/read and print/scan for smaller program sizes</div>
   </td>
@@ -46,7 +46,14 @@
 <div class="title">serial.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * @file SimpleSerial.h</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> * Defines serial module</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Copyright (c) 2013, Parallax Inc.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * Written by Steve Denson</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * Symbol naming decided by Parallax</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#ifndef __SERIAL_H</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define __SERIAL_H</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor"></span></div>
@@ -76,7 +83,7 @@
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">typedef</span> <a class="code" href="structtext__struct.html">text_t</a> <a class="code" href="structtext__struct.html">serial</a>;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;serial *<a class="code" href="serial__open_8c.html#a0b43532699509b3227d5deaa5dade7ba">serial_open</a>(<span class="keywordtype">int</span> rxpin, <span class="keywordtype">int</span> txpin, <span class="keywordtype">int</span> mode, <span class="keywordtype">int</span> baudrate);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;serial *serial_open(<span class="keywordtype">int</span> rxpin, <span class="keywordtype">int</span> txpin, <span class="keywordtype">int</span> mode, <span class="keywordtype">int</span> baudrate);</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keywordtype">void</span> serial_close(serial *device);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keywordtype">int</span>  serial_rxChar(serial *device);</div>
@@ -116,7 +123,7 @@
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Apr 2 2014 14:05:59 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 7 2014 11:05:47 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

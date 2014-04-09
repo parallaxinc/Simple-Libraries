@@ -1,4 +1,4 @@
-/**
+/*
  * @file getFloat.c
  * Function to get float number from the terminal.
  *

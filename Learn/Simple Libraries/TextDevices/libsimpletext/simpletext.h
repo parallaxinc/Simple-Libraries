@@ -19,7 +19,7 @@
  * @li Supports print format values to buffer comparable to sprintf (printBuffFormat and sprint).
  * @li Supports format values from buffer comparable to sscanf (scanBuffFormat and sscan).
  * 
- * @version 0.97 Digits versions of put/get and write/read added for transmitting and receiving
+ * @version 0.98 Digits versions of put/get and write/read added for transmitting and receiving
  * values with fixed numbers of digits.  Floating point output functions updated to handle nan 
  * (not a number) and +/- inf (infinity).  printi, dprinti, scani, dscani, sprinti, sscani functions
  * added for supporting non-floating point with less program space. 
@@ -61,56 +61,142 @@ typedef struct text_struct
 
 /* Values for use with SimpleIDE Terminal */
 #ifndef HOME
+/**
+ * @brief HOME character (1) sends SimpleIDE Terminal's cursor to top-left "home" position.
+ */
 #define HOME   (1)
 #endif
+
 #ifndef CRSRXY
+/**
+ * @brief CRSRXY character (2) sends cursor to a certain number of spaces over (X)
+ * and returns (Y) down from SimpleIDE Terminal's top-left HOME position.  This 
+ * character has to be followed immediately by the X and Y values when transmitted
+ * to the SimpleIDE Terminal. 
+ */
 #define CRSRXY (2)
 #endif
+
 #ifndef CRSRLF
+/**
+ * @brief CRSRLF character (3) sends the SimpleIDE Terminal's cursor one column 
+ * (space) to the left of its current position.
+ */
 #define CRSRLF (3)
 #endif
+
 #ifndef CRSRRT
+/**
+ * @brief CRSRRT character (4) sends the SimpleIDE Terminal's cursor one column 
+ * (space) to the right of its current position.
+ */
 #define CRSRRT (4)
 #endif
+
 #ifndef CRSRUP
+/**
+ * @brief CRSRUP character (5) sends the SimpleIDE Terminal's cursor one row 
+ * (carriage return) upward from its current position.
+ */
 #define CRSRUP (5)
 #endif
+
 #ifndef CRSRDN
+/**
+ * @brief CRSRDN character (6) sends the SimpleIDE Terminal's cursor one row 
+ * (carriage return) downward from its current position.
+ */
 #define CRSRDN (6)
 #endif
+
 #ifndef BEEP
+/**
+ * @brief BEEP character (7) makes the system speaker in some computers beep 
+ * when received by SimpleIDE Terminal.
+ */
 #define BEEP   (7)
 #endif
+
 #ifndef BKSP
+/**
+ * @brief BKSP character (8) sends the SimpleIDE Terminal's cursor one column 
+ * (space) to the left of its current position and erases whatever character 
+ * was there.
+ */
 #define BKSP   (8)
 #endif
+
 #ifndef TAB
+/**
+ * @brief TAB character (9) advances the cursor to the right by a tab's worth 
+ * of spaces.  
+ */
 #define TAB    (9)
 #endif
+
 #ifndef NL
+/**
+ * @brief NL character (10) sends the SimpleIDE Terminal's cursor to the leftmost
+ * character in the next line down.
+ */
 #define NL     (10)
 #endif
+
 #ifndef LF
+/**
+ * @brief LF is same as NL.
+ */
 #define LF     (10)
 #endif
+
 #ifndef CLREOL
+/**
+ * @brief CLREOL character (11) erases all SimpleIDE Terminal characters to the 
+ * right of the cursor.
+ */
 #define CLREOL (11)
 #endif
+
 #ifndef CLRDN
+/**
+ * @brief CLRDN character (12) erases all SimpleIDE Terminal characters below the 
+ * cursor.
+ */
 #define CLRDN  (12)
 #endif
+
 #ifndef CR
+/**
+ * @brief CR character (13) sends SimpleIDE Terminal's cursor one row
+ * downward.
+ */
 #define CR     (13)
 #endif
+
 #ifndef CRSRX
+/**
+ * @brief CRSRX character (14) positions SimpleIDE Terminal's cursor X characters
+ * from the its left edge.
+ */
 #define CRSRX  (14)
 #endif
+
 #ifndef CRSRY
+/**
+ * @brief CRSRY character (15) sends SimpleIDE Terminal's cursor Y rows to the 
+ * from its top edge.  
+ */
 #define CRSRY  (15)
 #endif
+
 #ifndef CLS
+/**
+ * @brief CLS character (16) clears SimpleIDE's screen, erasing all characters and
+ * placing the cursor in the top-left corner.
+ */
 #define CLS    (16)
 #endif
+
 
 typedef text_t terminal;
 
@@ -629,7 +715,7 @@ int scan(const char *fmt, ...) __attribute__((format (printf, 1, 2)));
  *
  * @note See scan for format specifiers.
  *
- * @param format C printf comparable format string.
+ * @param *fmt C printf comparable format string.
  * 
  * @param ... Arguments where output will go and must be pointers.
  * 
@@ -681,7 +767,7 @@ int dprinti(text_t* device, const char *format, ...) __attribute__((format (prin
  * 
  * @param device Previously open/started terminal device.
  * 
- * @param format C printf comparable format string.
+ * @param *fmt C printf comparable format string.
  * 
  * @param ... Arguments where output will go and must be pointers.
  * 
@@ -699,7 +785,7 @@ int dscan(text_t* device, const char *fmt, ...) __attribute__((format (printf, 2
  * 
  * @param device Previously open/started terminal device.
  * 
- * @param format C printf comparable format string.
+ * @param *fmt C printf comparable format string.
  * 
  * @param ... Arguments where output will go and must be pointers.
  * 
@@ -716,7 +802,7 @@ int dscani(text_t* device, const char *fmt, ...) __attribute__((format (printf, 
  *
  * @param buffer Pointer to memory where formatted output can be stored.
  * 
- * @param format is a C printf comparable format string.
+ * @param *format is a C printf comparable format string.
  * 
  * @param ... is the arguments to use with the format string.
  * 
@@ -734,7 +820,7 @@ int sprint(char *buffer, const char *format, ...) __attribute__((format (printf,
  *
  * @param buffer Pointer to memory where formatted output can be stored.
  * 
- * @param format C printf comparable format string.
+ * @param *format C printf comparable format string.
  * 
  * @param ... Arguments to use with the format string.
  * 

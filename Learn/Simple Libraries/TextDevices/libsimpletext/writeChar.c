@@ -1,4 +1,4 @@
-/**
+/*
  * @file writeChar.c
  * Function to print a char to the terminal.
  *

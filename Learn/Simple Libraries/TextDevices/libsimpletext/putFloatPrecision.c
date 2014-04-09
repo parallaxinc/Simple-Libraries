@@ -1,5 +1,4 @@
-
-/**
+/*
  * @file putFloatPrecision.c
  * Function to print a float number to the debug port.
  *

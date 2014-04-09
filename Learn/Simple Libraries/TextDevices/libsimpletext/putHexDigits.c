@@ -1,4 +1,4 @@
-/**
+/*
  * @file putHexDigits.c
  * Function to print a hex number padded to number of digits to the debug port.
  *

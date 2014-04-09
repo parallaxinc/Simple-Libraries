@@ -17,7 +17,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">simpletext library
-   &#160;<span id="projectnumber">v0.97</span>
+   &#160;<span id="projectnumber">v0.98</span>
    </div>
    <div id="projectbrief">Compact variations of put/get write/read and print/scan for smaller program sizes</div>
   </td>
@@ -230,7 +230,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 <li>Supports print format values to buffer comparable to sprintf (printBuffFormat and sprint). </li>
 <li>Supports format values from buffer comparable to sscanf (scanBuffFormat and sscan).</li>
 </ul>
-<dl class="section version"><dt>Version</dt><dd>0.97 Digits versions of put/get and write/read added for transmitting and receiving values with fixed numbers of digits. Floating point output functions updated to handle nan (not a number) and +/- inf (infinity). </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.98 Digits versions of put/get and write/read added for transmitting and receiving values with fixed numbers of digits. Floating point output functions updated to handle nan (not a number) and +/- inf (infinity). printi, dprinti, scani, dscani, sprinti, sscani functions added for supporting non-floating point with less program space. </dd></dl>
 </div><h2>Typedef Documentation</h2>
 <a class="anchor" id="ad35b10758e25df566cdeba60ab213ea8"></a>
 <div class="memitem">
@@ -369,7 +369,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">device</td><td>Previously open/started terminal device.</td></tr>
-    <tr><td class="paramname">format</td><td>C printf comparable format string.</td></tr>
+    <tr><td class="paramname">*fmt</td><td>C printf comparable format string.</td></tr>
     <tr><td class="paramname">...</td><td>Arguments where output will go and must be pointers.</td></tr>
   </table>
   </dd>
@@ -413,7 +413,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">device</td><td>Previously open/started terminal device.</td></tr>
-    <tr><td class="paramname">format</td><td>C printf comparable format string.</td></tr>
+    <tr><td class="paramname">*fmt</td><td>C printf comparable format string.</td></tr>
     <tr><td class="paramname">...</td><td>Arguments where output will go and must be pointers.</td></tr>
   </table>
   </dd>
@@ -1249,7 +1249,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 <dl class="section note"><dt>Note</dt><dd>See scan for format specifiers.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">format</td><td>C printf comparable format string.</td></tr>
+    <tr><td class="paramname">*fmt</td><td>C printf comparable format string.</td></tr>
     <tr><td class="paramname">...</td><td>Arguments where output will go and must be pointers.</td></tr>
   </table>
   </dd>
@@ -1332,7 +1332,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buffer</td><td>Pointer to memory where formatted output can be stored.</td></tr>
-    <tr><td class="paramname">format</td><td>is a C printf comparable format string.</td></tr>
+    <tr><td class="paramname">*format</td><td>is a C printf comparable format string.</td></tr>
     <tr><td class="paramname">...</td><td>is the arguments to use with the format string.</td></tr>
   </table>
   </dd>
@@ -1376,7 +1376,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buffer</td><td>Pointer to memory where formatted output can be stored.</td></tr>
-    <tr><td class="paramname">format</td><td>C printf comparable format string.</td></tr>
+    <tr><td class="paramname">*format</td><td>C printf comparable format string.</td></tr>
     <tr><td class="paramname">...</td><td>Arguments to use with the format string.</td></tr>
   </table>
   </dd>
@@ -1938,7 +1938,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Apr 2 2014 14:06:00 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 7 2014 11:05:48 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

@@ -16,8 +16,6 @@
 
 #include "simpletools.h"                      // simpletools function prototypes
 
-long t_mark = 0;
-
 void mark(void)                               // pause function definition
 {
   // If dt not initialized, set it up to 1 us.

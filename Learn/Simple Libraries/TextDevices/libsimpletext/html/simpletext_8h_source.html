@@ -17,7 +17,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">simpletext library
-   &#160;<span id="projectnumber">v0.97</span>
+   &#160;<span id="projectnumber">v0.98</span>
    </div>
    <div id="projectbrief">Compact variations of put/get write/read and print/scan for smaller program sizes</div>
   </td>
@@ -47,283 +47,283 @@
 </div><!--header-->
 <div class="contents">
 <a href="simpletext_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#ifndef __SimpleTEXT__</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define __SimpleTEXT__</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;propeller.h&gt;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor"></span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#if !defined(__PROPELLER_32BIT_DOUBLES__)</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#error &quot;This library requires 32bit doubles&quot;</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#define TERM_NAME_LEN 20</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define TERM_COG_LEN  7</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="code" href="structtext__struct.html">   46</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structtext__struct.html">text_struct</a></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  int  (*rxChar)(<span class="keyword">struct </span><a class="code" href="structtext__struct.html">text_struct</a> *p);            <span class="comment">/* required for terminal to work */</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  int  (*txChar)(<span class="keyword">struct </span><a class="code" href="structtext__struct.html">text_struct</a> *p, <span class="keywordtype">int</span> ch);    <span class="comment">/* required for terminal to work */</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">int</span>  cogid[TERM_COG_LEN];                         <span class="comment">/* pointer to cog(s) used if any */</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keyword">volatile</span> <span class="keywordtype">void</span> *devst;                             <span class="comment">/* pointer to device info struct */</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <a class="code" href="structtext__struct.html">text_t</a>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#define getStopCOGID(id) ((id)-(1))</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define setStopCOGID(id) ((id)+(1))</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#include &quot;serial.h&quot;</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">/* Values for use with SimpleIDE Terminal */</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#ifndef HOME</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HOME   (1)</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CRSRXY</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CRSRXY (2)</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CRSRLF</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CRSRLF (3)</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CRSRRT</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CRSRRT (4)</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CRSRUP</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CRSRUP (5)</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CRSRDN</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CRSRDN (6)</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef BEEP</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define BEEP   (7)</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef BKSP</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define BKSP   (8)</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef TAB</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define TAB    (9)</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef NL</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define NL     (10)</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef LF</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define LF     (10)</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CLREOL</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CLREOL (11)</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CLRDN</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CLRDN  (12)</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CR</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CR     (13)</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CRSRX</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CRSRX  (14)</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CRSRY</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CRSRY  (15)</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CLS</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CLS    (16)</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="code" href="simpletext_8h.html#ad35b10758e25df566cdeba60ab213ea8">  116</a></span>&#160;<span class="keyword">typedef</span> <a class="code" href="structtext__struct.html">text_t</a> <a class="code" href="simpletext_8h.html#ad35b10758e25df566cdeba60ab213ea8">terminal</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifndef __SimpleTEXT__</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define __SimpleTEXT__</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;propeller.h&gt;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor"></span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#if !defined(__PROPELLER_32BIT_DOUBLES__)</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#error &quot;This library requires 32bit doubles&quot;</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#define TERM_NAME_LEN 20</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define TERM_COG_LEN  7</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="code" href="structtext__struct.html">   45</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structtext__struct.html">text_struct</a></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;{</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  int  (*rxChar)(<span class="keyword">struct </span><a class="code" href="structtext__struct.html">text_struct</a> *p);            <span class="comment">/* required for terminal to work */</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  int  (*txChar)(<span class="keyword">struct </span><a class="code" href="structtext__struct.html">text_struct</a> *p, <span class="keywordtype">int</span> ch);    <span class="comment">/* required for terminal to work */</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">int</span>  cogid[TERM_COG_LEN];                         <span class="comment">/* pointer to cog(s) used if any */</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keyword">volatile</span> <span class="keywordtype">void</span> *devst;                             <span class="comment">/* pointer to device info struct */</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <a class="code" href="structtext__struct.html">text_t</a>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#define getStopCOGID(id) ((id)-(1))</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define setStopCOGID(id) ((id)+(1))</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#include &quot;serial.h&quot;</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">/* Values for use with SimpleIDE Terminal */</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#ifndef HOME</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HOME   (1)</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CRSRXY</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CRSRXY (2)</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CRSRLF</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CRSRLF (3)</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CRSRRT</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CRSRRT (4)</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CRSRUP</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CRSRUP (5)</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CRSRDN</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CRSRDN (6)</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef BEEP</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define BEEP   (7)</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef BKSP</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define BKSP   (8)</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef TAB</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define TAB    (9)</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef NL</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define NL     (10)</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef LF</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define LF     (10)</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CLREOL</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CLREOL (11)</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CLRDN</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CLRDN  (12)</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CR</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CR     (13)</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CRSRX</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CRSRX  (14)</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CRSRY</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CRSRY  (15)</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef CLS</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CLS    (16)</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="code" href="simpletext_8h.html#ad35b10758e25df566cdeba60ab213ea8">  115</a></span>&#160;<span class="keyword">typedef</span> <a class="code" href="structtext__struct.html">text_t</a> <a class="code" href="simpletext_8h.html#ad35b10758e25df566cdeba60ab213ea8">terminal</a>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;terminal *<a class="code" href="simpletext_8h.html#a42689adab52188c9dc4c0c911064bb85" title="Reopens the SimpleIDE Terminal connection if it was closed previously. The SimpleIDE Terminal connect...">simpleterm_open</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;terminal *<a class="code" href="simpletext_8h.html#a42689adab52188c9dc4c0c911064bb85" title="Reopens the SimpleIDE Terminal connection if it was closed previously. The SimpleIDE Terminal connect...">simpleterm_open</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="keywordtype">void</span>      <a class="code" href="simpleterm__close_8c.html#a4592569e43c8c91763585c5bbd955d28" title="Closes the SimpleIDE Terminal connection in one cog so that it can be opened in another cog with simp...">simpleterm_close</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keywordtype">void</span>      simpleterm_close(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;terminal *<a class="code" href="simpleterm_8c.html#a0fea43036e7b042d7d2e0083ff1178de" title="Get default device pointer to SimpleIDE Terminal.">simpleterm_pointer</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;terminal *simpleterm_pointer(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> simpleterm_reset(<a class="code" href="structtext__struct.html">text_t</a> *ptr)</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;{</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  <span class="keyword">extern</span> <a class="code" href="structtext__struct.html">text_t</a> *dport_ptr;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  <a class="code" href="simpleterm__close_8c.html#a4592569e43c8c91763585c5bbd955d28" title="Closes the SimpleIDE Terminal connection in one cog so that it can be opened in another cog with simp...">simpleterm_close</a>();</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  dport_ptr = ptr;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;}</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> simpleterm_set(<a class="code" href="structtext__struct.html">text_t</a> *ptr)</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;{</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  <span class="keyword">extern</span> <a class="code" href="structtext__struct.html">text_t</a> *dport_ptr;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  simpleterm_close();</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  dport_ptr = ptr;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;}</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="get_bin_8c.html#ac006c7eebe6635e95aa23d683ac5bde6" title="Get binary number from the debug port.">getBin</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="keywordtype">int</span>  getBin(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="get_char_8c.html#a5d9c66ab4e542cc2d427c25061382810" title="Get char from the debug port.">getChar</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="keywordtype">int</span>  getChar(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="get_dec_8c.html#a085417fd0363883644810216d5d98fed" title="Get decimal number from the debug port.">getDec</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="keywordtype">int</span>  getDec(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="keywordtype">float</span> <a class="code" href="get_float_8c.html#a14d7e705491eeb971d407227e164fd29" title="Get floating point number from the debug port.">getFloat</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="keywordtype">float</span> getFloat(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="get_hex_8c.html#ade3cd3f6b74ee7d1a19bb2a84d269e53" title="Get hexadecimal number from the debug port.">getHex</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="keywordtype">int</span>  getHex(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="keywordtype">char</span> *getStr(<span class="keywordtype">char</span> *buffer, <span class="keywordtype">int</span> max);</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="keywordtype">char</span> *getStr(<span class="keywordtype">char</span> *buffer, <span class="keywordtype">int</span> max);</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="keywordtype">void</span> <a class="code" href="put_bin_8c.html#ab929d6a6d2d1344c44f3d4012f6a68bf" title="Print string representation of a binary number to the debug port.">putBin</a>(<span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="keywordtype">void</span> putBin(<span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;</div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#a1c725396b93a61179effea56de3c90c8" title="Print string representation of a binary number to debug port with a fixed number of digits...">putBinDigits</a>(<span class="keywordtype">int</span> value, <span class="keywordtype">int</span> digits);</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="keywordtype">void</span> putBinDigits(<span class="keywordtype">int</span> value, <span class="keywordtype">int</span> digits);</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;</div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="keywordtype">void</span> <a class="code" href="put_char_8c.html#aaac5dd9e012b5fa09707361d1785a7da" title="Print a char to the debug port.">putChar</a>(<span class="keywordtype">char</span> c);</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="keywordtype">void</span> putChar(<span class="keywordtype">char</span> c);</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="keywordtype">void</span> <a class="code" href="put_dec_8c.html#a44b1a076bca3306b2649aa8ed122ee51" title="Print string representation of a decimal number to the debug port.">putDec</a>(<span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="keywordtype">void</span> putDec(<span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;</div>
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#a348f789c750e9a3aa417192d4a64ed8f" title="Print string representation of a decimal number to the debug port.">putDecDigits</a>(<span class="keywordtype">int</span> value, <span class="keywordtype">int</span> width);</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="keywordtype">void</span> putDecDigits(<span class="keywordtype">int</span> value, <span class="keywordtype">int</span> width);</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="keywordtype">void</span> <a class="code" href="put_float_8c.html#a100982f405f240bb11781fd4c8930e89" title="Print string representation of a 32 bit floating point number to the debug port.">putFloat</a>(<span class="keywordtype">float</span> value);</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="keywordtype">void</span> putFloat(<span class="keywordtype">float</span> value);</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;</div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="keywordtype">void</span> <a class="code" href="put_hex_8c.html#a3e4ce10466d359e6c7c56caa937bf3a6" title="Print string representation of a hexadecimal number to the debug port.">putHex</a>(<span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="keywordtype">void</span> putHex(<span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#ac5b31a2007304e1d8218e594aab0f46d" title="Print string representation of a hexadecimal number to the debug port with a fixed number of digits...">putHexDigits</a>(<span class="keywordtype">int</span> value, <span class="keywordtype">int</span> digits);</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="keywordtype">void</span> putHexDigits(<span class="keywordtype">int</span> value, <span class="keywordtype">int</span> digits);</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;</div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#ad4d74bda33d433745af546edfb3f5c0a" title="Print string representation of a 32 bit floating point number to the debug port with a fixed number o...">putFloatPrecision</a>(<span class="keywordtype">float</span> value, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> precision);</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="keywordtype">void</span> putFloatPrecision(<span class="keywordtype">float</span> value, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> precision);</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="keywordtype">int</span>  putln(<span class="keyword">const</span> <span class="keywordtype">char</span>* str);</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="keywordtype">int</span>  putln(<span class="keyword">const</span> <span class="keywordtype">char</span>* str);</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="put_line_8c.html#a373ca5ecddb535d3ef1f06db0f14cb18" title="Print string + new line on the transmit debug port. This is an alias of putln.">putLine</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str);</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="keywordtype">int</span>  putLine(<span class="keyword">const</span> <span class="keywordtype">char</span>* str);</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="put_str_8c.html#a8af38dae7a814612c5df018b81e42c99" title="Print string to the debug port.">putStr</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str);</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="keywordtype">int</span>  putStr(<span class="keyword">const</span> <span class="keywordtype">char</span>* str);</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;</div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="get_bin_8c.html#ab5080c6da3fc7a8416c0c17da2b9a681" title="Get binary number from the receive device.">readBin</a>(<a class="code" href="structtext__struct.html">text_t</a> *device);</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;<span class="keywordtype">int</span>  readBin(<a class="code" href="structtext__struct.html">text_t</a> *device);</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;</div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="get_char_8c.html#a020dadcc3f6103c3d418e1ccd10cfec0" title="Get char from the receive device.">readChar</a>(<a class="code" href="structtext__struct.html">text_t</a> *device);</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="keywordtype">int</span>  readChar(<a class="code" href="structtext__struct.html">text_t</a> *device);</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;</div>
 <div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="get_dec_8c.html#a5fb64dfe0968367a0cb3f0f41987a14b" title="Get decimal number from the receive device.">readDec</a>(<a class="code" href="structtext__struct.html">text_t</a> *device);</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="keywordtype">int</span>  readDec(<a class="code" href="structtext__struct.html">text_t</a> *device);</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;</div>
 <div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="keywordtype">float</span> <a class="code" href="get_float_8c.html#a9a478f27dd59fed92047ff907597e265" title="Get floating point number from the receive device.">readFloat</a>(<a class="code" href="structtext__struct.html">text_t</a> *device);</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="keywordtype">float</span> readFloat(<a class="code" href="structtext__struct.html">text_t</a> *device);</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="get_hex_8c.html#a4e282b69eb872ebe1a2355772686ae1e" title="Get hexadecimal number from the receive device.">readHex</a>(<a class="code" href="structtext__struct.html">text_t</a> *device);</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="keywordtype">int</span>  readHex(<a class="code" href="structtext__struct.html">text_t</a> *device);</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;</div>
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="keywordtype">char</span> *readStr(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">char</span> *buffer, <span class="keywordtype">int</span> max);</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="keywordtype">char</span> *readStr(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">char</span> *buffer, <span class="keywordtype">int</span> max);</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;</div>
 <div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#ae5231b1a395f03efc9bbebe7632ffe3a" title="Print string representation of a binary number to the receive device.">writeBin</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#ae5231b1a395f03efc9bbebe7632ffe3a" title="Print string representation of a binary number to the receive device.">writeBin</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;</div>
 <div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#a2de984d05f56360337466bf8f16638ba" title="Print string representation of a binary number to output with a fixed number of digits.">writeBinDigits</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">int</span> value, <span class="keywordtype">int</span> digits);</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#a2de984d05f56360337466bf8f16638ba" title="Print string representation of a binary number to output with a fixed number of digits.">writeBinDigits</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">int</span> value, <span class="keywordtype">int</span> digits);</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;</div>
 <div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#ae9d1767fa9ed4a518f5a59094ba5be6e" title="Send char on the transmit device.">writeChar</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">char</span> c);</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#ae9d1767fa9ed4a518f5a59094ba5be6e" title="Send char on the transmit device.">writeChar</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">char</span> c);</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;</div>
 <div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#a8f885a7ef3acb7ee064178b904144639" title="Print string representation of a decimal number to output.">writeDec</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#a8f885a7ef3acb7ee064178b904144639" title="Print string representation of a decimal number to output.">writeDec</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;</div>
 <div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#ada8d073a38ea4075afc1b13e83fa10d5" title="Print string representation of a decimal number to output device with a fixed number of digits...">writeDecDigits</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">int</span> value, <span class="keywordtype">int</span> width);</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#ada8d073a38ea4075afc1b13e83fa10d5" title="Print string representation of a decimal number to output device with a fixed number of digits...">writeDecDigits</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">int</span> value, <span class="keywordtype">int</span> width);</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;</div>
 <div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#ad49a79ebc9176a879e5dbcd411c46aca" title="Print string representation of a 32 bit floating point number to device.">writeFloat</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">float</span> value);</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#ad49a79ebc9176a879e5dbcd411c46aca" title="Print string representation of a 32 bit floating point number to device.">writeFloat</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">float</span> value);</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;</div>
 <div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#ae268ade5a7310a2a13266c765b14da54" title="Print string representation of a hexadecimal number to output device.">writeHex</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#ae268ade5a7310a2a13266c765b14da54" title="Print string representation of a hexadecimal number to output device.">writeHex</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;</div>
 <div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#a94c2c9cfe28369009a6e714b110fb4c1" title="Print string representation of a hexadecimal number to output device with a fixed number of digits...">writeHexDigits</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">int</span> value, <span class="keywordtype">int</span> digits);</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#a94c2c9cfe28369009a6e714b110fb4c1" title="Print string representation of a hexadecimal number to output device with a fixed number of digits...">writeHexDigits</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">int</span> value, <span class="keywordtype">int</span> digits);</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;</div>
 <div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;</div>
-<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#a5b2eff25df40d2acd41cc218f45c03d0" title="Print string representation of a 32 bit floating point number to device with a certain number of deci...">writeFloatPrecision</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">float</span> value, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> precision);</div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletext_8h.html#a5b2eff25df40d2acd41cc218f45c03d0" title="Print string representation of a 32 bit floating point number to device with a certain number of deci...">writeFloatPrecision</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">float</span> value, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> precision);</div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;</div>
 <div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;</div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;</div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="simpletext_8h.html#a349427549117b712ed2e5e96c4f11709" title="Send a string + new line on the transmit device.">writeLine</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">char</span>* str);</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="simpletext_8h.html#a349427549117b712ed2e5e96c4f11709" title="Send a string + new line on the transmit device.">writeLine</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">char</span>* str);</div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;</div>
 <div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;</div>
-<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;</div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="simpletext_8h.html#a09ddb1f539f4366e090339f560db5c40" title="Send a string on the transmit device.">writeStr</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">char</span>* str);</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="simpletext_8h.html#a09ddb1f539f4366e090339f560db5c40" title="Send a string on the transmit device.">writeStr</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">char</span>* str);</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;</div>
 <div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;</div>
-<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;</div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="simpletext_8h.html#a6e53cc216fbb7ac0ce260cd5099e4229" title="Send a string on the transmit device.">writeStrDigits</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">char</span>* str, <span class="keywordtype">int</span> width);</div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="simpletext_8h.html#a6e53cc216fbb7ac0ce260cd5099e4229" title="Send a string on the transmit device.">writeStrDigits</a>(<a class="code" href="structtext__struct.html">text_t</a> *device, <span class="keywordtype">char</span>* str, <span class="keywordtype">int</span> width);</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;</div>
 <div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;</div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;</div>
-<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#af086b772271172b0289d5965cdef9e20" title="Print format &quot;...&quot; args to the default simple terminal device. The output is limited to 256 bytes...">print</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *format, ...) __attribute__((format (printf, 1, 2)));</div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#af086b772271172b0289d5965cdef9e20" title="Print format &quot;...&quot; args to the default simple terminal device. The output is limited to 256 bytes...">print</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *format, ...) __attribute__((format (printf, 1, 2)));</div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;</div>
 <div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;</div>
-<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;</div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#a30c26fc54e77382344126a7c6e98d552" title="Print integer and char only format &quot;...&quot; args to the default simple terminal device. This version does not support floating point. The output is limited to 256 bytes.">printi</a>(const <span class="keywordtype">char</span> *format, ...) __attribute__((format (printf, 1, 2)));</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#a30c26fc54e77382344126a7c6e98d552" title="Print integer and char only format &quot;...&quot; args to the default simple terminal device. This version does not support floating point. The output is limited to 256 bytes.">printi</a>(const <span class="keywordtype">char</span> *format, ...) __attribute__((format (printf, 1, 2)));</div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;</div>
 <div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;</div>
-<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;</div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#aa99da427a8eb18e62994b85d13315a8f" title="Convert formatted simple terminal input to the &quot;...&quot; args. The input is limited to 256 bytes...">scan</a>(const <span class="keywordtype">char</span> *fmt, ...) __attribute__((format (printf, 1, 2)));</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#aa99da427a8eb18e62994b85d13315a8f" title="Convert formatted simple terminal input to the &quot;...&quot; args. The input is limited to 256 bytes...">scan</a>(const <span class="keywordtype">char</span> *fmt, ...) __attribute__((format (printf, 1, 2)));</div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;</div>
 <div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;</div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;</div>
-<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#aa20c887d4111fed9b742303f5adf7063" title="Convert formatted simple terminal input to the &quot;...&quot; args. This version does not provide floating poi...">scani</a>(const <span class="keywordtype">char</span> *fmt, ...) __attribute__((format (printf, 1, 2)));</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#aa20c887d4111fed9b742303f5adf7063" title="Convert formatted simple terminal input to the &quot;...&quot; args. This version does not provide floating poi...">scani</a>(const <span class="keywordtype">char</span> *fmt, ...) __attribute__((format (printf, 1, 2)));</div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;</div>
 <div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;</div>
-<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;</div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#af8a53a0810c631408c83f8340fd6d033" title="Print format &quot;...&quot; args to the device The output is limited to 256 bytes.">dprint</a>(<a class="code" href="structtext__struct.html">text_t</a>* device, const <span class="keywordtype">char</span> *format, ...) __attribute__((format (printf, 2, 3)));</div>
+<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#af8a53a0810c631408c83f8340fd6d033" title="Print format &quot;...&quot; args to the device The output is limited to 256 bytes.">dprint</a>(<a class="code" href="structtext__struct.html">text_t</a>* device, const <span class="keywordtype">char</span> *format, ...) __attribute__((format (printf, 2, 3)));</div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;</div>
 <div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;</div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;</div>
-<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#ae2f72a32a138f0769f538f8af1b824af" title="Print integer and char only format &quot;...&quot; args to the default simple terminal device. This version does not support floating point. The output is limited to 256 bytes.">dprinti</a>(<a class="code" href="structtext__struct.html">text_t</a>* device, const <span class="keywordtype">char</span> *format, ...) __attribute__((format (printf, 2, 3)));</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#ae2f72a32a138f0769f538f8af1b824af" title="Print integer and char only format &quot;...&quot; args to the default simple terminal device. This version does not support floating point. The output is limited to 256 bytes.">dprinti</a>(<a class="code" href="structtext__struct.html">text_t</a>* device, const <span class="keywordtype">char</span> *format, ...) __attribute__((format (printf, 2, 3)));</div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;</div>
 <div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;</div>
-<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;</div>
-<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#ab55e56d25f6e6dfd9c1f8e8f24063b45" title="Convert formatted device input to the &quot;...&quot; args. The input is limited to 256 bytes.">dscan</a>(<a class="code" href="structtext__struct.html">text_t</a>* device, const <span class="keywordtype">char</span> *fmt, ...) __attribute__((format (printf, 2, 3)));</div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#ab55e56d25f6e6dfd9c1f8e8f24063b45" title="Convert formatted device input to the &quot;...&quot; args. The input is limited to 256 bytes.">dscan</a>(<a class="code" href="structtext__struct.html">text_t</a>* device, const <span class="keywordtype">char</span> *fmt, ...) __attribute__((format (printf, 2, 3)));</div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;</div>
 <div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;</div>
-<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;</div>
-<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#a74bc6709238f55bfd1bbd502fc7ca937" title="Convert formatted device input to the &quot;...&quot; args. This version does not provide floating point conver...">dscani</a>(<a class="code" href="structtext__struct.html">text_t</a>* device, const <span class="keywordtype">char</span> *fmt, ...) __attribute__((format (printf, 2, 3)));</div>
+<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#a74bc6709238f55bfd1bbd502fc7ca937" title="Convert formatted device input to the &quot;...&quot; args. This version does not provide floating point conver...">dscani</a>(<a class="code" href="structtext__struct.html">text_t</a>* device, const <span class="keywordtype">char</span> *fmt, ...) __attribute__((format (printf, 2, 3)));</div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;</div>
 <div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;</div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;</div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#ab015006b5bf21c085f32bf5f46165df5" title="Print format &quot;...&quot; args to the output buffer. The output buffer must be big enough for the output...">sprint</a>(<span class="keywordtype">char</span> *buffer, const <span class="keywordtype">char</span> *format, ...) __attribute__((format (printf, 2, 3)));</div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#ab015006b5bf21c085f32bf5f46165df5" title="Print format &quot;...&quot; args to the output buffer. The output buffer must be big enough for the output...">sprint</a>(<span class="keywordtype">char</span> *buffer, const <span class="keywordtype">char</span> *format, ...) __attribute__((format (printf, 2, 3)));</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;</div>
 <div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;</div>
-<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;</div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#adf07dbe191c4661e3fbfcc4c7a681a64" title="Print integer and char only format &quot;...&quot; args to the default simple terminal device. This version does not support floating point. The output is limited to 256 bytes.">sprinti</a>(<span class="keywordtype">char</span> *buffer, const <span class="keywordtype">char</span> *format, ...) __attribute__((format (printf, 2, 3)));</div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#adf07dbe191c4661e3fbfcc4c7a681a64" title="Print integer and char only format &quot;...&quot; args to the default simple terminal device. This version does not support floating point. The output is limited to 256 bytes.">sprinti</a>(<span class="keywordtype">char</span> *buffer, const <span class="keywordtype">char</span> *format, ...) __attribute__((format (printf, 2, 3)));</div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;</div>
 <div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;</div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;</div>
-<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#a802a0851c742b1ae39a9bd522e6fbb05" title="Convert formatted buffer to the &quot;...&quot; args.">sscan</a>(const <span class="keywordtype">char</span> *buffer, const <span class="keywordtype">char</span> *fmt, ...) __attribute__((format (printf, 2, 3)));</div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#a802a0851c742b1ae39a9bd522e6fbb05" title="Convert formatted buffer to the &quot;...&quot; args.">sscan</a>(const <span class="keywordtype">char</span> *buffer, const <span class="keywordtype">char</span> *fmt, ...) __attribute__((format (printf, 2, 3)));</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;</div>
 <div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;</div>
-<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;</div>
-<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#a3262ee66347c3f21c810887606c3cd6c" title="Convert formatted buffer to the &quot;...&quot; args. This version does not provide floating point conversions...">sscani</a>(const <span class="keywordtype">char</span> *buffer, const <span class="keywordtype">char</span> *fmt, ...) __attribute__((format (printf, 2, 3)));</div>
-<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;</div>
-<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;<span class="comment">/*  API not intended for public use */</span></div>
-<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;<span class="keywordtype">int</span>   printNumber(<a class="code" href="structtext__struct.html">text_t</a> *p, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> u, <span class="keywordtype">int</span> base, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> fill_char);</div>
-<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;<span class="keywordtype">char</span>* _safe_gets(<a class="code" href="structtext__struct.html">text_t</a> *term, <span class="keywordtype">char</span>* origBuf, <span class="keywordtype">int</span> count);</div>
-<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;const <span class="keywordtype">char</span>* _scanf_getf(const <span class="keywordtype">char</span> *str, <span class="keywordtype">float</span>* dst);</div>
-<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;const <span class="keywordtype">char</span>* _scanf_getl(const <span class="keywordtype">char</span> *str, <span class="keywordtype">int</span>* dst, <span class="keywordtype">int</span> base, <span class="keywordtype">unsigned</span> width, <span class="keywordtype">int</span> isSigned);</div>
-<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;</div>
-<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;<span class="keywordtype">int</span> SPUTC(<span class="keywordtype">int</span> c, <span class="keywordtype">char</span> *buf);</div>
-<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;<span class="keywordtype">int</span> SPUTS(<span class="keywordtype">char</span> *s, <span class="keywordtype">char</span> *obuf);</div>
-<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;<span class="keywordtype">int</span> SPUTL(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> u, <span class="keywordtype">int</span> base, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> fill_char, <span class="keywordtype">char</span> *obuf);</div>
-<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;</div>
-<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;<span class="preprocessor">#include &lt;stdarg.h&gt;</span></div>
-<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;<span class="preprocessor"></span><span class="keywordtype">int</span>   _doscanf(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, <span class="keyword">const</span> <span class="keywordtype">char</span> *fmt, va_list args);</div>
-<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;<span class="keywordtype">int</span>   _intscanf(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, <span class="keyword">const</span> <span class="keywordtype">char</span> *fmt, va_list args);</div>
-<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;<span class="keywordtype">int</span>   _dosprnt(<span class="keyword">const</span> <span class="keywordtype">char</span> *fmt, va_list args, <span class="keywordtype">char</span> *obuf);</div>
-<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;<span class="keywordtype">int</span>   _intsprnt(<span class="keyword">const</span> <span class="keywordtype">char</span> *fmt, va_list args, <span class="keywordtype">char</span> *obuf);</div>
-<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;</div>
-<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;<span class="keywordtype">char</span>* float2string(<span class="keywordtype">float</span> f, <span class="keywordtype">char</span> *s, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> precision);</div>
-<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;<span class="keywordtype">float</span> string2float(<span class="keywordtype">char</span> *s, <span class="keywordtype">char</span> **end);</div>
-<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;</div>
-<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;<span class="preprocessor"></span><span class="comment">/* __SimpleTEXT__ */</span></div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletext_8h.html#a3262ee66347c3f21c810887606c3cd6c" title="Convert formatted buffer to the &quot;...&quot; args. This version does not provide floating point conversions...">sscani</a>(const <span class="keywordtype">char</span> *buffer, const <span class="keywordtype">char</span> *fmt, ...) __attribute__((format (printf, 2, 3)));</div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;</div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;<span class="comment">/*  API not intended for public use */</span></div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;<span class="keywordtype">int</span>   printNumber(<a class="code" href="structtext__struct.html">text_t</a> *p, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> u, <span class="keywordtype">int</span> base, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> fill_char);</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;<span class="keywordtype">char</span>* _safe_gets(<a class="code" href="structtext__struct.html">text_t</a> *term, <span class="keywordtype">char</span>* origBuf, <span class="keywordtype">int</span> count);</div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;const <span class="keywordtype">char</span>* _scanf_getf(const <span class="keywordtype">char</span> *str, <span class="keywordtype">float</span>* dst);</div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;const <span class="keywordtype">char</span>* _scanf_getl(const <span class="keywordtype">char</span> *str, <span class="keywordtype">int</span>* dst, <span class="keywordtype">int</span> base, <span class="keywordtype">unsigned</span> width, <span class="keywordtype">int</span> isSigned);</div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;</div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;<span class="keywordtype">int</span> SPUTC(<span class="keywordtype">int</span> c, <span class="keywordtype">char</span> *buf);</div>
+<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;<span class="keywordtype">int</span> SPUTS(<span class="keywordtype">char</span> *s, <span class="keywordtype">char</span> *obuf);</div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;<span class="keywordtype">int</span> SPUTL(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> u, <span class="keywordtype">int</span> base, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> fill_char, <span class="keywordtype">char</span> *obuf);</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;<span class="preprocessor">#include &lt;stdarg.h&gt;</span></div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;<span class="preprocessor"></span><span class="keywordtype">int</span>   _doscanf(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, <span class="keyword">const</span> <span class="keywordtype">char</span> *fmt, va_list args);</div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;<span class="keywordtype">int</span>   _intscanf(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, <span class="keyword">const</span> <span class="keywordtype">char</span> *fmt, va_list args);</div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;<span class="keywordtype">int</span>   _dosprnt(<span class="keyword">const</span> <span class="keywordtype">char</span> *fmt, va_list args, <span class="keywordtype">char</span> *obuf);</div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;<span class="keywordtype">int</span>   _intsprnt(<span class="keyword">const</span> <span class="keywordtype">char</span> *fmt, va_list args, <span class="keywordtype">char</span> *obuf);</div>
+<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;</div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;<span class="keywordtype">char</span>* float2string(<span class="keywordtype">float</span> f, <span class="keywordtype">char</span> *s, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> precision);</div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;<span class="keywordtype">float</span> string2float(<span class="keywordtype">char</span> *s, <span class="keywordtype">char</span> **end);</div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;</div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;<span class="preprocessor"></span><span class="comment">/* __SimpleTEXT__ */</span></div>
+<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;</div>
 <div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;</div>
-<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;</div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Apr 2 2014 14:06:00 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 7 2014 11:05:48 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

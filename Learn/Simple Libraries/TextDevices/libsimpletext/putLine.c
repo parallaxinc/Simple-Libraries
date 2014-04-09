@@ -1,4 +1,4 @@
-/**
+/*
  * @file putLine.c
  * Function to print a string with new-line to the terminal.
  *

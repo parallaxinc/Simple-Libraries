@@ -1,4 +1,4 @@
-/**
+/*
  * @file SimpleSerial_close.c
  *
  * Copyright (c) 2013, Parallax Inc.

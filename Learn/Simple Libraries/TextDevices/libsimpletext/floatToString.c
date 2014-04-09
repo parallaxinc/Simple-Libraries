@@ -1,4 +1,4 @@
-/**
+/*
  * @file floatToString.c
  *
  * Copyright (c) 2013 Parallax Inc.

@@ -1,4 +1,4 @@
-/**
+/*
  * @file writeLine.c
  * Function to print a string with new-line to the text pointer.
  *

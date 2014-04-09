@@ -1,4 +1,4 @@
-/**
+/*
  * @file getBin.c
  * Function to get a binary number from the terminal.
  *

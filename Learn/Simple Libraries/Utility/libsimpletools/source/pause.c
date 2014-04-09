@@ -16,8 +16,6 @@
 
 #include "simpletools.h"                      // simpletools function prototypes
 
-long pauseTicks = 0;
-
 void pause(int time)                          // pause function definition
 { // If pauseTicks not initialized, set it up to 1 ms.
   // if(!pauseTicks) set_pause_dt(CLKFREQ/1000);

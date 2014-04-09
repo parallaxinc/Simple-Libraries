@@ -1,4 +1,4 @@
-/**
+/*
  * @file writeBinDigits.c
  * Function to print a binary number to the terminal.
  *

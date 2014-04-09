@@ -1,4 +1,4 @@
-/**
+/*
  * @file writeDec.c
  * Function to print a number to the terminal.
  *
