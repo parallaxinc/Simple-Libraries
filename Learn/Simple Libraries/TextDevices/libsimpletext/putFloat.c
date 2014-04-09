@@ -1,4 +1,4 @@
-/**
+/*
  * @file putFloat.c
  * Function to print a float number to the default terminal.
  *

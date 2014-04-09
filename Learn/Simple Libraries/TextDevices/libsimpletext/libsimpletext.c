@@ -1,4 +1,4 @@
-/**
+/*
  * @file libsimpletext.h
  * Project and Test harness for library simpletext
  *
@@ -8,7 +8,7 @@
 
 #include "serial.h"
 
-#define MORETESTING
+//#define MORETESTING
 
 int main(void)
 {

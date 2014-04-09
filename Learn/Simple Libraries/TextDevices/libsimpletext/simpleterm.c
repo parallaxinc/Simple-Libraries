@@ -1,4 +1,4 @@
-/**
+/*
  * @file SimpleTerm.c
  * SimpleTerm startup default constructor
  *

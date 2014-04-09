@@ -1,4 +1,4 @@
-/**
+/*
  * @file putHex.c
  * Function to print a hex number to the default terminal.
  *

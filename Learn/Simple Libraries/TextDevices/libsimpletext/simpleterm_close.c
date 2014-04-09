@@ -1,4 +1,4 @@
-/**
+/*
  * @file SimpleTerm_close.c
  * SimpleTerm close is rarely used.
  *

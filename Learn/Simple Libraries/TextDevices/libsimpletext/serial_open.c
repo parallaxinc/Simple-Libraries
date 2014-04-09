@@ -1,4 +1,4 @@
-/**
+/*
  * @file serial_open.c
  * Opens a serial module. 
  *

@@ -142,24 +142,24 @@ extern int usTicks;
  * @brief Clock ticks in a time increment used by pulse_in, pulse_out, and rc_time.
  * Default value is the number of system clock ticks in a microsecond = CLKFREQ/1000000.
  */
-extern long iodt;
+extern int iodt;
 
 /**
  * @brief Clock ticks in a time increment used by pulse_in, pulse_out, and rc_time.
  * Default value is the number of system clock ticks in 1/4 s = CLKFREQ/4.
  */
-extern long t_timeout;
+extern int t_timeout;
 
 /**
  * @brief Clock ticks in a time increment used by pause function.  Default value is the 
  * number of system clock ticks in 1/1000 s = CLKFREQ/1000.
  */
-extern long pauseTicks;
+extern int pauseTicks;
 
 /**
  * @brief Variable shared by mark and time_out functions.
  */
-extern long t_mark;
+extern int t_mark;
 
 /**
  * @brief Variable used by i2c_newbus.

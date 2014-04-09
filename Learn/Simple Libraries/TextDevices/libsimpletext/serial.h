@@ -16,8 +16,14 @@ extern "C"
 {
 #endif
 
-/* don't allow using pins < 0 or > SERIAL_MAX_PIN */
+/** 
+ * @brief Min serial pin value.
+ */ 
 #define SERIAL_MIN_PIN 0
+
+/** 
+ * @brief Max serial pin value.
+ */ 
 #define SERIAL_MAX_PIN 31
 
 typedef struct serial_info
@@ -29,41 +35,55 @@ typedef struct serial_info
   int ticks;
 } Serial_t;
 
-/*
- * This defines serial as a type alias to text_t
+/**
+ * @brief Makes declarations like serial lcd to stand in for text_t lcd.
  * Spelling is choice of Parallax education, not the author.
  */
 typedef text_t serial;
 
 /**
- * Initializes the simple serial terminal.
- * Equivalent to a start function which runs assembly in a cog.
- * If the txpin is < 0 or > 31, the pin will not be set to output.
+ * @brief Open a simple serial connection.  
  *
- * @param rxpin is pin number 0 to 31 for receive input
- * @param txpin is pin number 0 to 31 for transmit output
- * @param mode  is unused mode field (for FdSerial compatibility)
- * @param baudrate is frequency of bits ... 115200, 57600, etc...
- * @returns device term pointer for use with other functions.
+ * @param rxpin Serial input pin, receives serial data.
+ * 
+ * @param txpin Serial output pin, transmits serial data.
+ * 
+ * @param mode Unused mode field (for FdSerial compatibility)
+ * 
+ * @param baudrate Bit value transmit rate, 9600, 115200, etc...
+ *
+ * @returns device ID pointer for use with simpletext.h and serial.h functions
+ * with text_t or serial.
  */
 serial *serial_open(int rxpin, int txpin, int mode, int baudrate);
 
+
 /**
- * Close device. Equivalent to a stop function without stopping a cog.
- * @param device is a previously open/started terminal device.
+ * @brief Close serial connection.  
+ * 
+ * @param device A previously opened serial connection.
  */
 void serial_close(serial *device);
+
+                         
 /**
- * Gets a byte from the receive queue if available. Function does not block.
- * @param device is a previously open/started terminal device.
+ * @brief Receive a byte.  Waits until next byte is recieved.
+ *
+ * @param device ID returned by serial_open.
+ *
  * @returns receive byte 0 to 0xff or -1 if none available 
  */
 int  serial_rxChar(serial *device);
+
+
 /**
- * Sends a byte on the transmit queue.
+ * @brief Send a byte.
+ * 
  * @param device is a previously open/started terminal device.
- * @param txbyte is byte to send. 
- * @returns waits for and returns received byte if mode is 8 
+ * 
+ * @param device ID returned by serial_open.
+ * 
+ * @returns Byte that was transmitted. 
  */
 int  serial_txChar(serial *device, int txbyte);
 

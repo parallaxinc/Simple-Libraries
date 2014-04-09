@@ -1,4 +1,4 @@
-/**
+/*
  * @file serial.c
  * Defines the serial receive and transmit routines.
  *

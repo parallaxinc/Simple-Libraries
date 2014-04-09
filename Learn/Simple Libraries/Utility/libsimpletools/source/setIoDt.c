@@ -16,8 +16,6 @@
 
 #include "simpletools.h"                      // simpletools function prototypes
 
-long iodt = 0;
-
 void set_io_dt(long clockticks)                 // setIoDt function definition
 {
   iodt = clockticks;

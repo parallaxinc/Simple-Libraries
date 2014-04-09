@@ -1,4 +1,4 @@
-/**
+/*
  * @file writeStr.c
  * Function to print a string to the pointer.
  *

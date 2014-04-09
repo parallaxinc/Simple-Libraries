@@ -16,8 +16,6 @@
 
 #include "simpletools.h"                      // simpletools function prototypes
 
-long t_timeout = 0;
-
 void set_io_timeout(long clockTicks)          // setTimeout function definition
 {
   t_timeout = clockTicks;

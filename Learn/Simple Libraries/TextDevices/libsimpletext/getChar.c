@@ -1,4 +1,4 @@
-/**
+/*
  * @file getChar.c
  * Simple Terminal getchar function.
  *

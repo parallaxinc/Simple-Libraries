@@ -1,4 +1,4 @@
-/**
+/*
  * @file writeHex.c
  * Function to print a hex number to the pointer.
  *

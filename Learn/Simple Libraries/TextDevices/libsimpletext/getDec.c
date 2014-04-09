@@ -1,4 +1,4 @@
-/**
+/*
  * @file getDec.c
  * Function to get decimal number from the terminal.
  *

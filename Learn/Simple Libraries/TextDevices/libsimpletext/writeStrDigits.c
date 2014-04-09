@@ -1,4 +1,4 @@
-/**
+/*
  * @file writeStrDigits.c
  * Function to print a string of specified width to the pointer.
  *

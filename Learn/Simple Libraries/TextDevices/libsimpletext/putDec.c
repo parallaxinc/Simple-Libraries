@@ -1,4 +1,4 @@
-/**
+/*
  * @file putDec.c
  * Function to print a decimal number to the default terminal.
  *

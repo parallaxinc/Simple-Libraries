@@ -1,5 +1,4 @@
-
-/**
+/*
  * @file writeFloatPrecision.c
  * Function to print a float number to the pointer.
  *

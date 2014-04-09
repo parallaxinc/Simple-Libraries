@@ -1,4 +1,3 @@
-
 /*
  * Super-simple text I/O for PropGCC, stripped of all stdio overhead.
  * Copyright (c) 2012, Ted Stefanik. Concept inspired by:

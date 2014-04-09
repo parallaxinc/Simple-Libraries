@@ -1,4 +1,4 @@
-/**
+/*
  * @file putBinDigits.c
  * Function to print a binary number to the debug port.
  *

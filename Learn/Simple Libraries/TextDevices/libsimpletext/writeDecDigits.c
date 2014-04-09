@@ -1,4 +1,4 @@
-/**
+/*
  * @file writeDecDigits.c
  * Function to print a number of space padded width to the terminal.
  *

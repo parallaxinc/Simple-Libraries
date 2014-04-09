@@ -17,7 +17,13 @@
 
 #include "simpletools.h"
 
-int ms, us;
+int ms;
+int us;
+int msTicks;
+int usTicks;
+int iodt;
+int t_timeout;
+int pauseTicks;
 
 __attribute__((constructor))                  // Flag for running at startup
 void timeTicksSetup()

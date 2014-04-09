@@ -1,4 +1,4 @@
-/**
+/*
  * @file putChar.c
  * Function to print a char to the default terminal.
  * If c is \n, append \r.
