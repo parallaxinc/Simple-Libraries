@@ -135,7 +135,7 @@ void servo(void *par)                                // servo process in other c
 
   int s = sizeof(p)/sizeof(int);                     // Get size of servo array
   int i;                                             // Local index variable
-  mark();                                            // Mark the current time
+  //mark();                                            // Mark the current time
   while(1)                                           // servo control loop
   {
     while(lockset(lockID));                          // Set the lock 

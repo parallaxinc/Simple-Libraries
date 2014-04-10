@@ -79,7 +79,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:a598a3330b3c21701223ee0ca14316eca"><td class="mdescLeft">&#160;</td><td class="mdescRight">3.141592653589793 <br/></td></tr>
 <tr class="memitem:a95a8626764b7fcbf81fddaa0a197def8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a95a8626764b7fcbf81fddaa0a197def8"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a95a8626764b7fcbf81fddaa0a197def8">EEPROM_ADDR</a>&#160;&#160;&#160;0xA0 &gt;&gt; 1</td></tr>
-<tr class="memdesc:a95a8626764b7fcbf81fddaa0a197def8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propeller EEPROM I2C bus slave address. <br/></td></tr>
+<tr class="memdesc:a95a8626764b7fcbf81fddaa0a197def8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propeller EEPROM I2C bus address. <br/></td></tr>
 <tr class="memitem:a0e26ea2db1b570d1a6fe1ac180ef4541"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0e26ea2db1b570d1a6fe1ac180ef4541"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a0e26ea2db1b570d1a6fe1ac180ef4541">HOME</a>&#160;&#160;&#160;(1)</td></tr>
 <tr class="memdesc:a0e26ea2db1b570d1a6fe1ac180ef4541"><td class="mdescLeft">&#160;</td><td class="mdescRight">HOME character (1) sends SimpleIDE Terminal's cursor to top-left "home" position. <br/></td></tr>
@@ -164,7 +164,7 @@ Macros</h2></td></tr>
 <tr class="memitem:af9241e417ac6f468979cc60b0263d49f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#af9241e417ac6f468979cc60b0263d49f">pause_ticks</a>(pticks)&#160;&#160;&#160;__builtin_propeller_waitcnt(pticks+CNT, 0)</td></tr>
 <tr class="memdesc:af9241e417ac6f468979cc60b0263d49f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delay cog from moving on to the next statement for a certain number of system clock ticks.  <a href="#af9241e417ac6f468979cc60b0263d49f"></a><br/></td></tr>
 <tr class="memitem:ac04aea26e16ed3b740d27bc03eed2db5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac04aea26e16ed3b740d27bc03eed2db5"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ac04aea26e16ed3b740d27bc03eed2db5">ee_put_byte</a>&#160;&#160;&#160;<a class="el" href="html/simpletools_8h.html#ae28b7b668cbb58c164a8259f403b8d60">ee_putByte</a></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ac04aea26e16ed3b740d27bc03eed2db5">ee_put_byte</a>&#160;&#160;&#160;<a class="el" href="html/simpletools_8h.html#a593162b2f71e2ad23f0a09516cf9a7b4">ee_putByte</a></td></tr>
 <tr class="memdesc:ac04aea26e16ed3b740d27bc03eed2db5"><td class="mdescLeft">&#160;</td><td class="mdescRight">ee_put_byte renamed ee_putByte. <br/></td></tr>
 <tr class="memitem:aae4945cabc87fb08d37fca7e0db20422"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae4945cabc87fb08d37fca7e0db20422"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aae4945cabc87fb08d37fca7e0db20422">ee_get_byte</a>&#160;&#160;&#160;<a class="el" href="html/simpletools_8h.html#ac1042df969c1f5bffa816fdf068c4ed9">ee_getByte</a></td></tr>
@@ -179,7 +179,7 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a59386353f20e5a9688e189423fbcfc85">ee_put_str</a>&#160;&#160;&#160;<a class="el" href="html/simpletools_8h.html#ab958571c584ab8d846c3a8a2cb326109">ee_putStr</a></td></tr>
 <tr class="memdesc:a59386353f20e5a9688e189423fbcfc85"><td class="mdescLeft">&#160;</td><td class="mdescRight">ee_put_str renamed ee_putStr. <br/></td></tr>
 <tr class="memitem:a2c2ae1a4f7d1f422c346687845979b7f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2c2ae1a4f7d1f422c346687845979b7f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a2c2ae1a4f7d1f422c346687845979b7f">ee_get_str</a>&#160;&#160;&#160;<a class="el" href="html/simpletools_8h.html#af70a2b4d4595f5cf5d60e9c585ca216d">ee_getStr</a></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a2c2ae1a4f7d1f422c346687845979b7f">ee_get_str</a>&#160;&#160;&#160;<a class="el" href="html/simpletools_8h.html#a6e3fa8a82d1bc2be0828314652debe26">ee_getStr</a></td></tr>
 <tr class="memdesc:a2c2ae1a4f7d1f422c346687845979b7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">ee_get_str renamed ee_getStr. <br/></td></tr>
 <tr class="memitem:a9d6e9570f4721c1a580299bdb80638d5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9d6e9570f4721c1a580299bdb80638d5"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a9d6e9570f4721c1a580299bdb80638d5">ee_put_float32</a>&#160;&#160;&#160;<a class="el" href="html/simpletools_8h.html#a10a9a5cd4767ffd7a82c9acd2b9485b2">ee_putFloat32</a></td></tr>
@@ -263,14 +263,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:a39f6cd6c7f7965e057926f92a9b2fa29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data to a synchronous serial device.  <a href="#a39f6cd6c7f7965e057926f92a9b2fa29"></a><br/></td></tr>
 <tr class="memitem:a0f02473c77ebed4ad04f829eff27985c"><td class="memItemLeft" align="right" valign="top">i2c *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a0f02473c77ebed4ad04f829eff27985c">i2c_newbus</a> (int sclPin, int sdaPin, int sclDrive)</td></tr>
 <tr class="memdesc:a0f02473c77ebed4ad04f829eff27985c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up a simple serial driver with transmit &amp; receive pins.  <a href="#a0f02473c77ebed4ad04f829eff27985c"></a><br/></td></tr>
-<tr class="memitem:a0912cea2daa74d8ed732536ddc7d63c5"><td class="memItemLeft" align="right" valign="top">HUBTEXT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a0912cea2daa74d8ed732536ddc7d63c5">i2c_out</a> (i2c *busID, int i2cSlaveAddr, int memAddr, int memAddrCount, const unsigned char *data, int dataCount)</td></tr>
-<tr class="memdesc:a0912cea2daa74d8ed732536ddc7d63c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data to device using I2C protocol.  <a href="#a0912cea2daa74d8ed732536ddc7d63c5"></a><br/></td></tr>
-<tr class="memitem:ab743a0f2e63766bb72a36644612e41b5"><td class="memItemLeft" align="right" valign="top">HUBTEXT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ab743a0f2e63766bb72a36644612e41b5">i2c_in</a> (i2c *busID, int i2cSlaveAddr, int memAddr, int memAddrCount, unsigned char *data, int dataCount)</td></tr>
-<tr class="memdesc:ab743a0f2e63766bb72a36644612e41b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive data from device using I2C protocol.  <a href="#ab743a0f2e63766bb72a36644612e41b5"></a><br/></td></tr>
-<tr class="memitem:aadd5b9e92e6c9896283a0b7f11e2fc3b"><td class="memItemLeft" align="right" valign="top">HUBTEXT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aadd5b9e92e6c9896283a0b7f11e2fc3b">i2c_busy</a> (i2c *busID, int i2cSlaveAddr)</td></tr>
-<tr class="memdesc:aadd5b9e92e6c9896283a0b7f11e2fc3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if I2C device is busy or responding.  <a href="#aadd5b9e92e6c9896283a0b7f11e2fc3b"></a><br/></td></tr>
-<tr class="memitem:ae28b7b668cbb58c164a8259f403b8d60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ae28b7b668cbb58c164a8259f403b8d60">ee_putByte</a> (char value, int addr)</td></tr>
-<tr class="memdesc:ae28b7b668cbb58c164a8259f403b8d60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a byte value at a certain address in the Propeller Chip's dedicated EEPROM.  <a href="#ae28b7b668cbb58c164a8259f403b8d60"></a><br/></td></tr>
+<tr class="memitem:a2d8c9b83ae2e87db69fb9138c6c57f57"><td class="memItemLeft" align="right" valign="top">HUBTEXT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a2d8c9b83ae2e87db69fb9138c6c57f57">i2c_out</a> (i2c *busID, int i2cAddr, int memAddr, int memAddrCount, const unsigned char *data, int dataCount)</td></tr>
+<tr class="memdesc:a2d8c9b83ae2e87db69fb9138c6c57f57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data to device using I2C protocol.  <a href="#a2d8c9b83ae2e87db69fb9138c6c57f57"></a><br/></td></tr>
+<tr class="memitem:adf4323fa7fc0f0bd7ba1163f1d8ab52a"><td class="memItemLeft" align="right" valign="top">HUBTEXT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#adf4323fa7fc0f0bd7ba1163f1d8ab52a">i2c_in</a> (i2c *busID, int i2cAddr, int memAddr, int memAddrCount, unsigned char *data, int dataCount)</td></tr>
+<tr class="memdesc:adf4323fa7fc0f0bd7ba1163f1d8ab52a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive data from device using I2C protocol.  <a href="#adf4323fa7fc0f0bd7ba1163f1d8ab52a"></a><br/></td></tr>
+<tr class="memitem:a7c7858c120d81da92771560bd50c54d6"><td class="memItemLeft" align="right" valign="top">HUBTEXT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a7c7858c120d81da92771560bd50c54d6">i2c_busy</a> (i2c *busID, int i2cAddr)</td></tr>
+<tr class="memdesc:a7c7858c120d81da92771560bd50c54d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if I2C device is busy or responding.  <a href="#a7c7858c120d81da92771560bd50c54d6"></a><br/></td></tr>
+<tr class="memitem:a593162b2f71e2ad23f0a09516cf9a7b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a593162b2f71e2ad23f0a09516cf9a7b4">ee_putByte</a> (unsigned char value, int addr)</td></tr>
+<tr class="memdesc:a593162b2f71e2ad23f0a09516cf9a7b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a byte value at a certain address in the Propeller Chip's dedicated EEPROM.  <a href="#a593162b2f71e2ad23f0a09516cf9a7b4"></a><br/></td></tr>
 <tr class="memitem:ac1042df969c1f5bffa816fdf068c4ed9"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ac1042df969c1f5bffa816fdf068c4ed9">ee_getByte</a> (int addr)</td></tr>
 <tr class="memdesc:ac1042df969c1f5bffa816fdf068c4ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a byte value from a certain address in the Propeller Chip's dedicated EEPROM.  <a href="#ac1042df969c1f5bffa816fdf068c4ed9"></a><br/></td></tr>
 <tr class="memitem:adf44a20755432a25076e28e94b809264"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#adf44a20755432a25076e28e94b809264">ee_putInt</a> (int value, int addr)</td></tr>
@@ -279,8 +279,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:ad5ba1e74fdbc69a0578425eb5e176461"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an int value from a certain address in the Propeller Chip's dedicated EEPROM. If you are fetching several int values, make sure to add 4 to the addr value with each successive call.  <a href="#ad5ba1e74fdbc69a0578425eb5e176461"></a><br/></td></tr>
 <tr class="memitem:ab958571c584ab8d846c3a8a2cb326109"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ab958571c584ab8d846c3a8a2cb326109">ee_putStr</a> (unsigned char *s, int n, int addr)</td></tr>
 <tr class="memdesc:ab958571c584ab8d846c3a8a2cb326109"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a string of byte values starting at a certain address in the Propeller Chip's dedicated EEPROM.  <a href="#ab958571c584ab8d846c3a8a2cb326109"></a><br/></td></tr>
-<tr class="memitem:af70a2b4d4595f5cf5d60e9c585ca216d"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#af70a2b4d4595f5cf5d60e9c585ca216d">ee_getStr</a> (unsigned char *s, int n, int addr)</td></tr>
-<tr class="memdesc:af70a2b4d4595f5cf5d60e9c585ca216d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch a string of byte values starting at a certain address in Propeller Chip's dedicated EEPROM.  <a href="#af70a2b4d4595f5cf5d60e9c585ca216d"></a><br/></td></tr>
+<tr class="memitem:a6e3fa8a82d1bc2be0828314652debe26"><td class="memItemLeft" align="right" valign="top">unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a6e3fa8a82d1bc2be0828314652debe26">ee_getStr</a> (unsigned char *s, int n, int addr)</td></tr>
+<tr class="memdesc:a6e3fa8a82d1bc2be0828314652debe26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch a string of byte values starting at a certain address in Propeller Chip's dedicated EEPROM.  <a href="#a6e3fa8a82d1bc2be0828314652debe26"></a><br/></td></tr>
 <tr class="memitem:a10a9a5cd4767ffd7a82c9acd2b9485b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a10a9a5cd4767ffd7a82c9acd2b9485b2">ee_putFloat32</a> (float value, int addr)</td></tr>
 <tr class="memdesc:a10a9a5cd4767ffd7a82c9acd2b9485b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a 32-bit precision floating point value at a certain address in the Propeller Chip's dedicated EEPROM. A 32-bit value occupies four bytes so if you are storing values in a sequence, make sure to add 4 to each addr parameter value.  <a href="#a10a9a5cd4767ffd7a82c9acd2b9485b2"></a><br/></td></tr>
 <tr class="memitem:a3da63e55d0799ab30686bf38a5f15d43"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a3da63e55d0799ab30686bf38a5f15d43">ee_getFloat32</a> (int addr)</td></tr>
@@ -291,23 +291,39 @@ Functions</h2></td></tr>
 <tr class="memdesc:a61783ad70f65edb523f1f467bc47cabb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restarts floating point coprocessor (which runs in a separate cog) after it has been shut down by stop_fpu_cog. This process is started automatically when an application that uses the simpletools library is launched. So the only time you would call it is after calling stop_fpu_cog in order to reclaim a cog for other uses. CAUTION: Do not try call simpletext library functions while the fpu cog is shut down, it could cause the application to hang.  <a href="#a61783ad70f65edb523f1f467bc47cabb"></a><br/></td></tr>
 <tr class="memitem:a9c5d06d96a66ec25c018b469e9c5e06b"><td class="memItemLeft" align="right" valign="top">int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a9c5d06d96a66ec25c018b469e9c5e06b">cog_run</a> (void(*function)(void *par), int stacksize)</td></tr>
 <tr class="memdesc:a9c5d06d96a66ec25c018b469e9c5e06b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run a function's code in the next available cog (processor).  <a href="#a9c5d06d96a66ec25c018b469e9c5e06b"></a><br/></td></tr>
+<tr class="memitem:ad260529b4817b8bc40d280053d921a9e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ad260529b4817b8bc40d280053d921a9e">cog_num</a> (int *coginfo)</td></tr>
+<tr class="memdesc:ad260529b4817b8bc40d280053d921a9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the cog ID.  <a href="#ad260529b4817b8bc40d280053d921a9e"></a><br/></td></tr>
 <tr class="memitem:a5b2cba6f29a9955c55ab239066e30e7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a5b2cba6f29a9955c55ab239066e30e7f">cog_end</a> (int *coginfo)</td></tr>
 <tr class="memdesc:a5b2cba6f29a9955c55ab239066e30e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">End function code running in another cog that was launched with cog_run.  <a href="#a5b2cba6f29a9955c55ab239066e30e7f"></a><br/></td></tr>
+<tr class="memitem:ac21155c6ac6136e0300141f0c1e059eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ac21155c6ac6136e0300141f0c1e059eb">endianSwap</a> (void *resultAddr, void *varAddr, int byteCount)</td></tr>
+<tr class="memdesc:ac21155c6ac6136e0300141f0c1e059eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Take bytes in one variable at varAddr, swap their order, and store them in another variable at resultAddr. This is useful for communication with peripherals that transmit/receive bytes in multi-byte values in reverse order from how the Propeller stores it in RAM.  <a href="#ac21155c6ac6136e0300141f0c1e059eb"></a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ac918f387bafbf5be5ae048cecae7a873"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac918f387bafbf5be5ae048cecae7a873"></a>
-long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ac918f387bafbf5be5ae048cecae7a873">iodt</a></td></tr>
-<tr class="memdesc:ac918f387bafbf5be5ae048cecae7a873"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock ticks in a time increment used by pulse_in, pulse_out, and rc_time. Default value is the number of system clock ticks in a microsecond = CLKFREQ/1000000. <br/></td></tr>
-<tr class="memitem:a47d0beb75b8f261c3690ffba50d5cda8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a47d0beb75b8f261c3690ffba50d5cda8"></a>
-long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a47d0beb75b8f261c3690ffba50d5cda8">t_timeout</a></td></tr>
-<tr class="memdesc:a47d0beb75b8f261c3690ffba50d5cda8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock ticks in a time increment used by pulse_in, pulse_out, and rc_time. Default value is the number of system clock ticks in 1/4 s = CLKFREQ/4. <br/></td></tr>
-<tr class="memitem:ac32bfd0f079f74e0b542acfe12858617"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac32bfd0f079f74e0b542acfe12858617"></a>
-long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ac32bfd0f079f74e0b542acfe12858617">pauseTicks</a></td></tr>
-<tr class="memdesc:ac32bfd0f079f74e0b542acfe12858617"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock ticks in a time increment used by pause function. Default value is the number of system clock ticks in 1/1000 s = CLKFREQ/1000. <br/></td></tr>
-<tr class="memitem:aae1cb6a158ee32bbdf3686eb12d96b46"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae1cb6a158ee32bbdf3686eb12d96b46"></a>
-long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aae1cb6a158ee32bbdf3686eb12d96b46">t_mark</a></td></tr>
-<tr class="memdesc:aae1cb6a158ee32bbdf3686eb12d96b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variable shared by mark and time_out functions. <br/></td></tr>
+<tr class="memitem:a1a8552078613643aa85fda8bd7c93076"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1a8552078613643aa85fda8bd7c93076"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a1a8552078613643aa85fda8bd7c93076">ms</a></td></tr>
+<tr class="memdesc:a1a8552078613643aa85fda8bd7c93076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propeller system clock ticks in 1 millisecond (ms). <br/></td></tr>
+<tr class="memitem:a513d04dc00f4a627b851ffd5b660d2d9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a513d04dc00f4a627b851ffd5b660d2d9"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a513d04dc00f4a627b851ffd5b660d2d9">us</a></td></tr>
+<tr class="memdesc:a513d04dc00f4a627b851ffd5b660d2d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propeller system clock ticks in 1 millisecond (us). <br/></td></tr>
+<tr class="memitem:ae2a61e72c47875aa221311bb395650e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae2a61e72c47875aa221311bb395650e4"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ae2a61e72c47875aa221311bb395650e4">msTicks</a></td></tr>
+<tr class="memdesc:ae2a61e72c47875aa221311bb395650e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propeller system clock ticks in 1 millisecond. Changing this value is not recommended because it can affect library performance. <br/></td></tr>
+<tr class="memitem:a7cead8e005c5373402a6e2196cd6d280"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7cead8e005c5373402a6e2196cd6d280"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a7cead8e005c5373402a6e2196cd6d280">usTicks</a></td></tr>
+<tr class="memdesc:a7cead8e005c5373402a6e2196cd6d280"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propeller system clock ticks in 1 microsecond. Changing this value is not recommended because it can affect library performance. <br/></td></tr>
+<tr class="memitem:ab0e2be4ce257abd58133fa68db6768d9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab0e2be4ce257abd58133fa68db6768d9"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ab0e2be4ce257abd58133fa68db6768d9">iodt</a></td></tr>
+<tr class="memdesc:ab0e2be4ce257abd58133fa68db6768d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock ticks in a time increment used by pulse_in, pulse_out, and rc_time. Default value is the number of system clock ticks in a microsecond = CLKFREQ/1000000. <br/></td></tr>
+<tr class="memitem:aaa7d96719963c00cd406e3aafc2cae7f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaa7d96719963c00cd406e3aafc2cae7f"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aaa7d96719963c00cd406e3aafc2cae7f">t_timeout</a></td></tr>
+<tr class="memdesc:aaa7d96719963c00cd406e3aafc2cae7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock ticks in a time increment used by pulse_in, pulse_out, and rc_time. Default value is the number of system clock ticks in 1/4 s = CLKFREQ/4. <br/></td></tr>
+<tr class="memitem:abbf588ecc6ad345e0a7e44484c9a82ed"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abbf588ecc6ad345e0a7e44484c9a82ed"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#abbf588ecc6ad345e0a7e44484c9a82ed">pauseTicks</a></td></tr>
+<tr class="memdesc:abbf588ecc6ad345e0a7e44484c9a82ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clock ticks in a time increment used by pause function. Default value is the number of system clock ticks in 1/1000 s = CLKFREQ/1000. <br/></td></tr>
+<tr class="memitem:a4a04a621277414e14b123c9bb61994b8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4a04a621277414e14b123c9bb61994b8"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a4a04a621277414e14b123c9bb61994b8">t_mark</a></td></tr>
+<tr class="memdesc:a4a04a621277414e14b123c9bb61994b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variable shared by mark and time_out functions. <br/></td></tr>
 <tr class="memitem:af4ec88c167cf4578da1ec0f46975f057"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af4ec88c167cf4578da1ec0f46975f057"></a>
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#af4ec88c167cf4578da1ec0f46975f057">buscnt</a></td></tr>
 <tr class="memdesc:af4ec88c167cf4578da1ec0f46975f057"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variable used by i2c_newbus. <br/></td></tr>
@@ -349,7 +365,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
  Revision 0.93 i2c_newbus now uses <br/>
  .../Learn/Simple Libraries/Protocol/simplei2c/<br/>
  Added:<br/>
- i2c_out, i2c_in to cover most common I2C slave applications EEPROM ee_get_* and ee_put_* changed to ee_get* and ee_put* where the * term is camel-case. <br/>
+ i2c_out, i2c_in to cover most common I2C applications EEPROM ee_get_* and ee_put_* changed to ee_get* and ee_put* where the * term is camel-case. <br/>
  <br/>
  Revision 0.94 Fixed bug in ee_put* that prevented contiguous data from crossing the EEPROM's address/128 buffer boundaries. Updated stack array to static in mstimer.c.<br/>
 <br/>
@@ -361,7 +377,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 <br/>
  Revision 0.97 Add cog_run and cog_end for simplified running of function code in other cogs. <br/>
 <br/>
- Revision 0.98 fpucog floating point coprocessor no longer self-starts by default. i2c_out and i2c_in char *regAddr parameter changed to int memAddr. itoa removed.<br/>
+ Revision 0.98 fpucog floating point coprocessor no longer self-starts by default. All floating point functionality is still supported, processing just happens in the same cog. i2c_out and i2c_in char *regAddr parameter changed to int memAddr. itoa removed, use sprint(charArray, "%d", intVal) to to make int to ASCII conversions. msTicks and usTicks global variables are pre-initialized to the number of system clock ticks in a millisecond and microsecond for convenience in library development. Variables named us and ms are initialized to the same values for user applications. Function endianSwap added to simplify communication with devices that send/receive byte data in big endian format.<br/>
 <br/>
  </p>
 </div><h2>Macro Definition Documentation</h2>
@@ -424,6 +440,31 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 
 </div>
 </div>
+<a class="anchor" id="ad260529b4817b8bc40d280053d921a9e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int cog_num </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>coginfo</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the cog ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*coginfo</td><td>the address returned by cog_run.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The cog ID number. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a9c5d06d96a66ec25c018b469e9c5e06b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -457,7 +498,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Address of memory set aside for the cog. Make sure to save this value in a variable if you intend to stop the process later with cog_end. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>*coginfo Address of memory set aside for the cog. Make sure to save this value in a variable if you intend to stop the process later with cog_end or check which cog the process was launched into with cog_num. </dd></dl>
 
 </div>
 </div>
@@ -666,12 +707,12 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 
 </div>
 </div>
-<a class="anchor" id="af70a2b4d4595f5cf5d60e9c585ca216d"></a>
+<a class="anchor" id="a6e3fa8a82d1bc2be0828314652debe26"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* ee_getStr </td>
+          <td class="memname">unsigned char* ee_getStr </td>
           <td>(</td>
           <td class="paramtype">unsigned char *&#160;</td>
           <td class="paramname"><em>s</em>, </td>
@@ -709,14 +750,14 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 
 </div>
 </div>
-<a class="anchor" id="ae28b7b668cbb58c164a8259f403b8d60"></a>
+<a class="anchor" id="a593162b2f71e2ad23f0a09516cf9a7b4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void ee_putByte </td>
           <td>(</td>
-          <td class="paramtype">char&#160;</td>
+          <td class="paramtype">unsigned char&#160;</td>
           <td class="paramname"><em>value</em>, </td>
         </tr>
         <tr>
@@ -851,6 +892,48 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
     <tr><td class="paramname">s</td><td>Address of a char array containing the string of bytes.</td></tr>
     <tr><td class="paramname">n</td><td>The number of bytes to copy from the array.</td></tr>
     <tr><td class="paramname">addr</td><td>The EEPROM address of the first byte in the string. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ac21155c6ac6136e0300141f0c1e059eb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void endianSwap </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>resultAddr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>varAddr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>byteCount</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Take bytes in one variable at varAddr, swap their order, and store them in another variable at resultAddr. This is useful for communication with peripherals that transmit/receive bytes in multi-byte values in reverse order from how the Propeller stores it in RAM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*resultAddr</td><td>Address of variable to store result. Make sure it's the same type as the varAddr parameter.</td></tr>
+    <tr><td class="paramname">*varAddr</td><td>Address of source variable. Accepts any variable type.</td></tr>
+    <tr><td class="paramname">*byteCount</td><td>Number of bytes in the variable. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1113,7 +1196,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 
 </div>
 </div>
-<a class="anchor" id="aadd5b9e92e6c9896283a0b7f11e2fc3b"></a>
+<a class="anchor" id="a7c7858c120d81da92771560bd50c54d6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1127,7 +1210,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>i2cSlaveAddr</em>&#160;</td>
+          <td class="paramname"><em>i2cAddr</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1141,7 +1224,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">*busID</td><td>I2C bus identifier. i2c_newbus returns this pointer.</td></tr>
-    <tr><td class="paramname">i2cSlaveAddr</td><td>7 bit I2C slave device address.</td></tr>
+    <tr><td class="paramname">i2cAddr</td><td>7 bit I2C device address.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1149,7 +1232,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 
 </div>
 </div>
-<a class="anchor" id="ab743a0f2e63766bb72a36644612e41b5"></a>
+<a class="anchor" id="adf4323fa7fc0f0bd7ba1163f1d8ab52a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1163,7 +1246,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>i2cSlaveAddr</em>, </td>
+          <td class="paramname"><em>i2cAddr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1202,7 +1285,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">*busID</td><td>I2C bus identifier. i2c_newbus returns this pointer.</td></tr>
-    <tr><td class="paramname">i2cSlaveAddr</td><td>7 bit I2C slave device address.</td></tr>
+    <tr><td class="paramname">i2cAddr</td><td>7 bit I2C device address.</td></tr>
     <tr><td class="paramname">memAddr</td><td>Value for setting memory address pointer inside the I2C device.</td></tr>
     <tr><td class="paramname">memAddrCount</td><td>Number of bytes to use for memAddr. This value can be zero for no register or memory address data, in which case memAddr can be set to NULL.</td></tr>
     <tr><td class="paramname">*data</td><td>Pointer to bytes set aside for receiving data from the I2C device.</td></tr>
@@ -1257,7 +1340,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 
 </div>
 </div>
-<a class="anchor" id="a0912cea2daa74d8ed732536ddc7d63c5"></a>
+<a class="anchor" id="a2d8c9b83ae2e87db69fb9138c6c57f57"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1271,7 +1354,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>i2cSlaveAddr</em>, </td>
+          <td class="paramname"><em>i2cAddr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1310,7 +1393,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">*busID</td><td>I2C bus identifier. i2c_newbus returns this pointer.</td></tr>
-    <tr><td class="paramname">i2cSlaveAddr</td><td>7 bit I2C slave device address.</td></tr>
+    <tr><td class="paramname">i2cAddr</td><td>7 bit I2C device address.</td></tr>
     <tr><td class="paramname">memAddr</td><td>Value for setting memory address pointer inside the I2C device.</td></tr>
     <tr><td class="paramname">memAddrCount</td><td>Number of bytes to use for memAddr. This value can be zero for no register or memory address data, in which case memAddr can be set to NULL.</td></tr>
     <tr><td class="paramname">*data</td><td>Pointer to bytes to send to the I2C device.</td></tr>
@@ -2190,7 +2273,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 3 2014 12:55:16 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Thu Apr 10 2014 10:52:48 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
