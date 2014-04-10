@@ -17,21 +17,21 @@
 #include "simpletools.h"
 #include "simplei2c.h"
 
-HUBTEXT int  i2c_out(i2c *busID, int i2cSlaveAddr, 
+HUBTEXT int  i2c_out(i2c *busID, int i2cAddr, 
                      int memAddr, int memAddrCount, 
                      const unsigned char *data, int dataCount)
 {
   int n  = 0;
-  i2cSlaveAddr <<= 1;
-  i2cSlaveAddr &= -2;
+  i2cAddr <<= 1;
+  i2cAddr &= -2;
   i2c_start(busID);
-  if(i2c_writeByte(busID, i2cSlaveAddr)) return n; else n++;
+  if(i2c_writeByte(busID, i2cAddr)) return n; else n++;
   int m;
   if(memAddrCount)
   {
-    if(memAddrCount > 0)
+    if(memAddrCount > 1)
     {
-      endianSwap(&m, &memAddr, 4);
+      endianSwap(&m, &memAddr, memAddrCount);
     }  
     else 
     {
@@ -46,9 +46,10 @@ HUBTEXT int  i2c_out(i2c *busID, int i2cSlaveAddr,
       n += i2c_writeData(busID, data, dataCount);
     else  
     {
+      dataCount = -dataCount;
       unsigned char temp[dataCount];
-      endianSwap(temp, (void*) data, -dataCount);
-      n += i2c_writeData(busID, temp, -dataCount);
+      endianSwap(temp, (void*) data, dataCount);
+      n += i2c_writeData(busID, temp, dataCount);
     }        
   }  
   i2c_stop(busID);

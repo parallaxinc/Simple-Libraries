@@ -17,11 +17,11 @@
 #include "simpletools.h"
 #include "simplei2c.h"
 
-HUBTEXT int i2c_busy(i2c *busID, int i2cSlaveAddr)
+HUBTEXT int i2c_busy(i2c *busID, int i2cAddr)
 {
-  i2cSlaveAddr <<= 1;
-  i2cSlaveAddr &= -2;
-  int status = i2c_poll(busID, i2cSlaveAddr);
+  i2cAddr <<= 1;
+  i2cAddr &= -2;
+  int status = i2c_poll(busID, i2cAddr);
   return status;
 }  
 

@@ -17,30 +17,30 @@
 #include "simpletools.h"
 #include "simplei2c.h"
 
-HUBTEXT int  i2c_in(i2c *busID, int i2cSlaveAddr, 
+HUBTEXT int  i2c_in(i2c *busID, int i2cAddr, 
                      int memAddr, int memAddrCount, 
                      unsigned char *data, int dataCount)
 {
   int n  = 0;
-  i2cSlaveAddr <<= 1;
-  i2cSlaveAddr &= -2;                                        // Clear i2cSlaveAddr.bit0 (write)
+  i2cAddr <<= 1;
+  i2cAddr &= -2;                                        // Clear i2cAddr.bit0 (write)
   i2c_start(busID);
-  if(i2c_writeByte(busID, i2cSlaveAddr)) return n; else n++;
+  if(i2c_writeByte(busID, i2cAddr)) return n; else n++;
   if(memAddrCount) 
   {
     int m;
     if(memAddrCount)
     {
-      if(memAddrCount > 0)
-        endianSwap(&m, &memAddr, 4);
+      if(memAddrCount > 1)
+        endianSwap(&m, &memAddr, memAddrCount);
       else 
         m = memAddr;
       n += i2c_writeData(busID, (unsigned char*) &m, abs(memAddrCount));
     }  
   }  
-  i2cSlaveAddr |= 1;                                       // Set i2cSlaveAddr.bit0 (read)
+  i2cAddr |= 1;                                       // Set i2cAddr.bit0 (read)
   i2c_start(busID);
-  if(i2c_writeByte(busID, i2cSlaveAddr)) return n; else n++;
+  if(i2c_writeByte(busID, i2cAddr)) return n; else n++;
   n += i2c_readData(busID, data, abs(dataCount));
   i2c_stop(busID);
   if(dataCount < 0)

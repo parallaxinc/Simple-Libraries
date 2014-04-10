@@ -65,7 +65,7 @@
  * Revision 0.93 i2c_newbus now uses @n
  *   .../Learn/Simple Libraries/Protocol/simplei2c/@n 
  * Added:@n
- *   i2c_out, i2c_in to cover most common I2C slave applications
+ *   i2c_out, i2c_in to cover most common I2C applications
  * EEPROM ee_get_* and ee_put_* changed to ee_get* and ee_put* where 
  * the * term is camel-case. @n @n
  * Revision 0.94 Fixed bug in ee_put* that prevented contiguous data
@@ -188,7 +188,7 @@ extern int eeInitFlag;
 
 #ifndef EEPROM_ADDR
 /**
- * @brief Propeller EEPROM I2C bus slave address
+ * @brief Propeller EEPROM I2C bus  address
  */
 #define EEPROM_ADDR	 0xA0 >> 1
 #endif
@@ -984,7 +984,7 @@ i2c *i2c_newbus(int sclPin, int sdaPin, int sclDrive);
  *
  * @param *busID I2C bus identifier.  i2c_newbus returns this pointer.
  *
- * @param i2cSlaveAddr 7 bit I2C slave device address.   
+ * @param i2cAddr 7 bit I2C device address.   
  *
  * @param memAddr Value for setting memory address pointer inside the I2C
  * device.
@@ -999,7 +999,7 @@ i2c *i2c_newbus(int sclPin, int sdaPin, int sclDrive);
  *
  * @returns total number of bytes written. Should be 1 + memAddrCount + dataCount.  
  */
-HUBTEXT int  i2c_out(i2c *busID, int i2cSlaveAddr, 
+HUBTEXT int  i2c_out(i2c *busID, int i2cAddr, 
                      int memAddr, int memAddrCount, 
                      const unsigned char *data, int dataCount);
 
@@ -1014,7 +1014,7 @@ HUBTEXT int  i2c_out(i2c *busID, int i2cSlaveAddr,
  *
  * @param *busID I2C bus identifier.  i2c_newbus returns this pointer.
  *
- * @param i2cSlaveAddr 7 bit I2C slave device address.   
+ * @param i2cAddr 7 bit I2C device address.   
  *
  * @param memAddr Value for setting memory address pointer inside the I2C
  * device.
@@ -1029,7 +1029,7 @@ HUBTEXT int  i2c_out(i2c *busID, int i2cSlaveAddr,
  *
  * @returns total number of bytes written. Should be 1 + memAddrCount + dataCount.  
  */
-HUBTEXT int  i2c_in(i2c *busID, int i2cSlaveAddr, 
+HUBTEXT int  i2c_in(i2c *busID, int i2cAddr, 
                     int memAddr, int memAddrCount, 
                     unsigned char *data, int dataCount);
 
@@ -1039,11 +1039,11 @@ HUBTEXT int  i2c_in(i2c *busID, int i2cSlaveAddr,
  *
  * @param *busID I2C bus identifier.  i2c_newbus returns this pointer.
  *
- * @param i2cSlaveAddr 7 bit I2C slave device address.   
+ * @param i2cAddr 7 bit I2C device address.   
  *
  * @returns 1 if busy, 0 if ready.  
  */
-HUBTEXT int i2c_busy(i2c *busID, int i2cSlaveAddr);
+HUBTEXT int i2c_busy(i2c *busID, int i2cAddr);
 
 
 /**
