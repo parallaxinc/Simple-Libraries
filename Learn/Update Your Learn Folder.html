@@ -48,7 +48,44 @@ learn@parallax.com</a>.
 <h2 style="font-family:verdana;">Update History</h2>
 
 <p>
-Updates 2/27/2013  
+Updates 4/11/2014  
+<br>
+<ul>
+<li> 
+The simpletools library no longer starts a floating point coprocessor at the start of the application.  All floating point functionality is still supported, processing just happens in the same cog.
+</li>
+<li> 
+i2c_out and i2c_in char *regAddr parameter changed to int memAddr.
+</li>
+<li> 
+itoa removed, use sprint(charArray, "%d", intVal) to make int to ASCII conversions.
+</li>
+<li> 
+st_msTicks and st_usTicks global variables are pre-initialized to the number of system clock ticks in a millisecond and microsecond for convenience in library development.
+</li>
+<li> 
+Variables named us and ms are initialized to the same values for user applications.
+</li>
+<li> 
+Function endianSwap added to simplify communication with devices that send/receive byte data in big endian format.
+</li>
+<li> 
+Digits versions of put/get and write/read added to simpletext library for transmitting and receiving values with fixed numbers of digits.  .
+</li>
+<li> 
+Floating point output functions in simpletext library updated to handle nan (not a number) and +/- inf (infinity).  
+</li>
+<li> 
+printi, dprinti, scani, dscani, sprinti, sscani functions added to simpletext library for supporting non-floating point with less program space. 
+</li>
+<li> 
+Multicore folder added to ...Documents\SimpleIDE\Learn\Examples\.
+</li>
+</ul>
+</p>  
+
+<p>
+Updates 2/27/2014  
 <br>
 <ul>
 <li> 
