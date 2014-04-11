@@ -20,14 +20,14 @@ int timeout(int time)                         // pause function definition
 {
   // If dt not initialized, set it up to 1 us.
   /*
-  if(iodt == 0)                               // If dt not initialized
+  if(st_iodt == 0)                               // If dt not initialized
   {
     set_io_dt(CLKFREQ/1000000);               // Set up timed I/O time increment
     set_io_timeout(CLKFREQ/4);                // Set up timeout
   }
   */
-  time *= iodt;                               // Calculate system clock ticks
-  if(CNT - t_mark < time)                     // Wait for system clock target
+  time *= st_iodt;                               // Calculate system clock ticks
+  if(CNT - st_mark < time)                     // Wait for system clock target
   {
     return 0;
   }

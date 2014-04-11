@@ -16,18 +16,18 @@
 
 #include "simpletools.h"                      // simpletools function prototypes
 
-i2c *eeprom;
-int eeInitFlag;
+i2c *st_eeprom;
+int st_eeInitFlag;
 
 void ee_init();
 
 char ee_getByte(int addr)
 {
-  if(!eeInitFlag) ee_init();
+  if(!st_eeInitFlag) ee_init();
   unsigned char value = 0;
   // const unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr&0xFF)};
-  // i2c_in(eeprom, 0xA0, addrArray, 2, &value, 1);
-  i2c_in(eeprom, 0x50, addr, 2, &value, 1);
+  // i2c_in(st_eeprom, 0xA0, addrArray, 2, &value, 1);
+  i2c_in(st_eeprom, 0x50, addr, 2, &value, 1);
   return value;
 }
 

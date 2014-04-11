@@ -19,14 +19,14 @@
 
 #define MAX_I2C_BUS 8
 
-unsigned int buscnt = 0;
+unsigned int st_buscnt = 0;
 
 static i2c list[MAX_I2C_BUS];
 
 i2c *i2c_newbus(int sclPin, int sdaPin, int sclDrive)
 {
-  i2c *busID = i2c_open(&list[buscnt++], sclPin, sdaPin, sclDrive);
-  busID = &list[buscnt-1];
+  i2c *busID = i2c_open(&list[st_buscnt++], sclPin, sdaPin, sclDrive);
+  busID = &list[st_buscnt-1];
   return busID;
 }  
 

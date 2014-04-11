@@ -19,7 +19,7 @@
 long pulse_in(int pin, int state)              // pulseIn function definition
 {
   /*
-  if(iodt == 0)
+  if(st_iodt == 0)
   {
     set_io_dt(CLKFREQ/1000000);
     set_io_timeout(CLKFREQ/4);
@@ -28,7 +28,7 @@ long pulse_in(int pin, int state)              // pulseIn function definition
   long tPulse;
   int ctr = ((8 + ((!state & 1) * 4)) << 26) + pin;
   input(pin);
-  long tf = t_timeout;
+  long tf = st_timeout;
   long t = CNT;
   while((get_state(pin) == state) && (CNT - t < tf));
   if(CTRA == 0)
@@ -39,7 +39,7 @@ long pulse_in(int pin, int state)              // pulseIn function definition
     while((PHSA == 0) && (CNT - t < tf));
     while((get_state(pin) == state) && (CNT - t < tf));
     CTRA = 0;
-    tPulse = PHSA/iodt;
+    tPulse = PHSA/st_iodt;
   }
   else if(CTRB == 0)
   {
@@ -49,7 +49,7 @@ long pulse_in(int pin, int state)              // pulseIn function definition
     while((PHSB == 0) && (CNT - t < tf));
     while((get_state(pin) == state) && (CNT - t < tf));
     CTRB = 0;
-    tPulse = PHSB/iodt;
+    tPulse = PHSB/st_iodt;
   }
   else
   {

@@ -19,13 +19,13 @@
 void pulse_out(int pin, int time)              // pulseOut function definition
 {
   /*
-  if(iodt == 0)
+  if(st_iodt == 0)
   {
     set_io_dt(CLKFREQ/1000000);
     set_io_timeout(CLKFREQ/4);
   }
   */
-  signed long phsVal = -time * iodt;
+  signed long phsVal = -time * st_iodt;
   //int ctr = 0;
   int frq = 1;
   int phs = 0;

@@ -19,24 +19,24 @@
 
 int ms;
 int us;
-int msTicks;
-int usTicks;
-int iodt;
-int t_timeout;
-int pauseTicks;
+int st_msTicks;
+int st_usTicks;
+int st_iodt;
+int st_timeout;
+int st_pauseTicks;
 
 __attribute__((constructor))                  // Flag for running at startup
 void timeTicksSetup()
 {
-  msTicks = CLKFREQ/1000;
-  usTicks = CLKFREQ/1000000;  
+  st_msTicks = CLKFREQ/1000;
+  st_usTicks = CLKFREQ/1000000;  
 
-  ms = msTicks;
-  us = usTicks;
+  ms = st_msTicks;
+  us = st_usTicks;
 
-  iodt = usTicks;
-  pauseTicks = msTicks;
-  t_timeout = 250*msTicks;
+  st_iodt = st_usTicks;
+  st_pauseTicks = st_msTicks;
+  st_timeout = 250*st_msTicks;
 }
 
 

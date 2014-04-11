@@ -19,17 +19,17 @@
 long count(int pin, long duration)            // count function definition
 {
   /*
-  if(!pauseTicks)                             // If global dt not initialized
+  if(!st_pauseTicks)                             // If global dt not initialized
   {
     //set_io_dt(CLKFREQ/1000000);             // Initialize dt
-    if(pauseTicks == 0) set_pause_dt(CLKFREQ/1000);
+    if(st_pauseTicks == 0) set_pause_dt(CLKFREQ/1000);
     set_io_timeout(CLKFREQ/4);                // Initialize timeout
   }
   */
   int state = 1;                              // Initialize state to 1
   long transitions;                           // Declare transitions var
   int ctr = (10 << 26) + pin;                 // Positive edge ctr config
-  long tf = duration * pauseTicks;            // Set timeout
+  long tf = duration * st_pauseTicks;            // Set timeout
   int t = CNT;                                // Mark current time
   // Wait until pin matches state or timeout.
   while((input(pin) == state) && (CNT - t < tf));

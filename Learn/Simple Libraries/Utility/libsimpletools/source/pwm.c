@@ -34,7 +34,7 @@ static int pwcog = 0;
 int pwm_start(unsigned int cycleMicroseconds)
 {
   //us = CLKFREQ/1000000;
-  tCycle = cycleMicroseconds * usTicks;
+  tCycle = cycleMicroseconds * st_usTicks;
   pwcog = cogstart(&pw, NULL, pwstack, sizeof(pwstack)) + 1;  
   return pwcog;
 }
@@ -45,13 +45,13 @@ void pwm_set(int pin, int channel, int tHigh)
   {
     ctra = NCO_PWM_1;
     ctra |= pin;
-    ticksA = tHigh * usTicks;
+    ticksA = tHigh * st_usTicks;
   }
   else
   {
     ctrb = NCO_PWM_1;
     ctrb |= pin;
-    ticksB = tHigh * usTicks;
+    ticksB = tHigh * st_usTicks;
   }
 }
 

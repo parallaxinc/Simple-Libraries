@@ -82,7 +82,7 @@
  * All floating point functionality is still supported, processing just happens in
  * the same cog.  i2c_out and i2c_in char *regAddr parameter changed to int memAddr. 
  * itoa removed, use sprint(charArray, "%d", intVal) to to make int to ASCII 
- * conversions.  msTicks and usTicks global variables are pre-initialized to the 
+ * conversions.  st_msTicks and st_usTicks global variables are pre-initialized to the 
  * number of system clock ticks in a millisecond and microsecond for convenience in
  * library development.  Variables named us and ms are initialized to the same values 
  * for user applications.  Function endianSwap added to simplify communication with 
@@ -128,53 +128,53 @@ extern int us;
  * @brief Propeller system clock ticks in 1 millisecond.  Changing this value is
  * not recommended because it can affect library performance.
  */
-extern int msTicks;
+extern int st_msTicks;
 
 
 /**
  * @brief Propeller system clock ticks in 1 microsecond.  Changing this value is
  * not recommended because it can affect library performance.
  */
-extern int usTicks;
+extern int st_usTicks;
 
 
 /**
  * @brief Clock ticks in a time increment used by pulse_in, pulse_out, and rc_time.
  * Default value is the number of system clock ticks in a microsecond = CLKFREQ/1000000.
  */
-extern int iodt;
+extern int st_iodt;
 
 /**
  * @brief Clock ticks in a time increment used by pulse_in, pulse_out, and rc_time.
  * Default value is the number of system clock ticks in 1/4 s = CLKFREQ/4.
  */
-extern int t_timeout;
+extern int st_timeout;
 
 /**
  * @brief Clock ticks in a time increment used by pause function.  Default value is the 
  * number of system clock ticks in 1/1000 s = CLKFREQ/1000.
  */
-extern int pauseTicks;
+extern int st_pauseTicks;
 
 /**
  * @brief Variable shared by mark and time_out functions.
  */
-extern int t_mark;
+extern int st_mark;
 
 /**
  * @brief Variable used by i2c_newbus.
  */
-extern unsigned int buscnt;
+extern unsigned int st_buscnt;
 
 /**
  * @brief The busID for the Propeller Activity Board's EEPROM bus.
  */
-extern i2c *eeprom;
+extern i2c *st_eeprom;
 
 /**
  * @brief Initialization flag used by ee_ functions.
  */
-extern int eeInitFlag;
+extern int st_eeInitFlag;
 
 //extern i2c *eeprom;
 //extern int dacCtrBits;

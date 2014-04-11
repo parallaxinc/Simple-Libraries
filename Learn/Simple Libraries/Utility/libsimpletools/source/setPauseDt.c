@@ -18,7 +18,7 @@
 
 void set_pause_dt(int clockticks)               // setPauseDt function definition
 {
-  pauseTicks = clockticks;
+  st_pauseTicks = clockticks;
 }
 
 /**
