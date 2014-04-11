@@ -335,7 +335,7 @@ void putDec(int value);
  *
  * @param value Number to print. 
  *
- * @param width Number of characters to print padded by zeros. 
+ * @param width Number of characters to print padded by zeroes. 
  */
 void putDecDigits(int value, int width);
 
@@ -363,7 +363,7 @@ void putHex(int value);
  *
  * @param value Number to print.
  * 
- * @param digits Number of hexadecimal characters to print padded by zeros. 
+ * @param digits Number of hexadecimal characters to print padded by zeroes. 
  */
 void putHexDigits(int value, int digits);
 
@@ -699,7 +699,7 @@ int printi(const char *format, ...) __attribute__((format (printf, 1, 2)));
  * Width and precision %n.p cause n digits to the integer to print, and
  * p digits to the decimal to print.
  *
- * @param format C printf comparable format string.
+ * @param *fmt C printf comparable format string.
  * 
  * @param ... Arguments where output will go and must be pointers.
  * 
