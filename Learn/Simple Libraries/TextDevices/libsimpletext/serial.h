@@ -1,8 +1,10 @@
 /**
- * @file SimpleSerial.h
- * Defines serial module
+ * @file serial.h
+ * Defines serial module - provides low level half duplex
+ * serial functions.  See simpletext.h for higher level
+ * functions.
  *
- * Copyright (c) 2013, Parallax Inc.
+ * Copyright (c) 2013, Parallax Inc., MIT Licence.
  * Written by Steve Denson
  * Symbol naming decided by Parallax
  */

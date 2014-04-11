@@ -612,29 +612,29 @@ int  writeStrDigits(text_t *device, char* str, int width);
  *
  * @details Format specifiers for print dprint, and sprint:
  *
- * - %%
+ * %%
  * Prints % sign to the output.
  *
- * - %b
+ * %b
  * Prints binary representation of the int parameter.
  * Note that %b is not an ANSI standard format specifier.
  *
- * - %c
+ * %c
  * Prints char representation of the int parameter.
  *
- * - %d
+ * %d
  * Prints decimal integer representation of the int parameter.
  *
- * - %f
+ * %f
  * Prints floating point representation of the float parameter.
  *
- * - %s
+ * %s
  * Prints string representation of the char* parameter.
  *
- * - %u
+ * %u
  * Prints unsigned integer representation of the int parameter.
  *
- * - %x
+ * %x
  * Prints hexadecimal integer representation of the int parameter.
  *
  * Width and precision %n.p cause n digits of the integer to print, and
@@ -834,9 +834,9 @@ int sprinti(char *buffer, const char *format, ...) __attribute__((format (printf
  *
  * @note See scan for format specifiers.
  *
- * @param buffer Pointer to memory where formatted output can be stored.
+ * @param *buffer Pointer to memory where formatted output can be stored.
  *
- * @param format C printf comparable format string.
+ * @param *fmt C printf comparable format string.
  *
  * @param ... Arguments where output will go and must be pointers.
  * 
