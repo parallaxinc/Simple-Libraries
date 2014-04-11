@@ -67,7 +67,7 @@ void serial_close(serial *device);
 
                          
 /**
- * @brief Receive a byte.  Waits until next byte is recieved.
+ * @brief Receive a byte.  Waits until next byte is received.
  *
  * @param device ID returned by serial_open.
  *

@@ -81,7 +81,7 @@
  * Revision 0.98 fpucog floating point coprocessor no longer self-starts by default.  
  * All floating point functionality is still supported, processing just happens in
  * the same cog.  i2c_out and i2c_in char *regAddr parameter changed to int memAddr. 
- * itoa removed, use sprint(charArray, "%d", intVal) to to make int to ASCII 
+ * itoa removed, use sprint(charArray, "%d", intVal) to make int to ASCII 
  * conversions.  st_msTicks and st_usTicks global variables are pre-initialized to the 
  * number of system clock ticks in a millisecond and microsecond for convenience in
  * library development.  Variables named us and ms are initialized to the same values 
