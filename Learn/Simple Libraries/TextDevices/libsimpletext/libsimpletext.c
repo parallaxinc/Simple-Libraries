@@ -21,7 +21,8 @@ int main(void)
   float fval = 355/113.0;
   float fval2 = 1.4;
   float e = 2.71828184590;
-
+  char bigtext[] = "abcdefghijklmnopqrstuvwxyz";
+  
   /*
    * global serial module pointer - can be local.
    */
@@ -33,6 +34,11 @@ int main(void)
   /* traditional hello message. */
   putln("Hello, world!");
 
+  putStrDigits(&bigtext[20],5);
+  putln("");
+  writeStrDigits(simpleterm_pointer(),&bigtext[4],5);
+  putln("");
+  
 #ifdef DIV0_NAN_TEST
   float fproblem;
   float f;

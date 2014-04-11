@@ -55,6 +55,7 @@ intprint.c
 dprinti.c
 sprinti.c
 printi.c
+putStrDigits.c
 >compiler=C
 >memtype=cog cog ram
 >optimize=-Os
