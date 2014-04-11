@@ -1,0 +1,18 @@
+Test SIRC Remote.c
+-I ./library/libsimplei2c
+-I ./library/libsimpletext
+-I ./library/libsimpletools
+-I ./library/libsirc
+-L ./library/libsimplei2c
+-L ./library/libsimpletext
+-L ./library/libsimpletools
+-L ./library/libsirc
+>-fno-exceptions
+>-lm
+>-m32bit-doubles
+>BOARD::ACTIVITYBOARD
+>compiler=C
+>defs::-std=c99
+>linker::-lsirc -lsimplei2c -lsimpletext -lsimpletools
+>memtype=cmm main ram compact
+>optimize=-Os

@@ -1,0 +1,13 @@
+libsirc.c
+>-create_library
+>-fno-exceptions
+>-lm
+>-m32bit-doubles
+>BOARD::ACTIVITYBOARD
+>compiler=C
+>defs::-std=c99
+>linker::-lsimpletools
+>memtype=xmmc external flash code main ram data
+>optimize=-Os
+sirc.c
+sirc.h
