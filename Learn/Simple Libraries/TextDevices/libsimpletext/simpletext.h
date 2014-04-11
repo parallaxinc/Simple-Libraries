@@ -405,6 +405,14 @@ int  putLine(const char* str);
  */
 int  putStr(const char* str);
 
+/**
+ * @brief Send a string on the transmit device.
+ * 
+ * @param str Null terminated string to send. 
+ * 
+ * @param width Number of characters to print padded by spaces. 
+ */
+int  putStrDigits(char* str, int width);
 
 /**
  * @brief Get binary number from the receive device.
