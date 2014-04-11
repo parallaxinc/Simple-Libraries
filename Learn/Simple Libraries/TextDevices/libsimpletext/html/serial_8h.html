@@ -17,7 +17,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">simpletext library
-   &#160;<span id="projectnumber">v0.8</span>
+   &#160;<span id="projectnumber">v0.98</span>
    </div>
    <div id="projectbrief">Compact variations of put/get write/read and print/scan for smaller program sizes</div>
   </td>
@@ -44,6 +44,7 @@
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
@@ -58,23 +59,37 @@
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structserial__info.html">serial_info</a></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a1f6901682bfd9a8d2d3ade66b1f77a49"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1f6901682bfd9a8d2d3ade66b1f77a49"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8h.html#a1f6901682bfd9a8d2d3ade66b1f77a49">SERIAL_MIN_PIN</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a1f6901682bfd9a8d2d3ade66b1f77a49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Min serial pin value. <br/></td></tr>
+<tr class="memitem:a3fb62732840f545f9a77f400497abfdf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3fb62732840f545f9a77f400497abfdf"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8h.html#a3fb62732840f545f9a77f400497abfdf">SERIAL_MAX_PIN</a>&#160;&#160;&#160;31</td></tr>
+<tr class="memdesc:a3fb62732840f545f9a77f400497abfdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max serial pin value. <br/></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:ae554d60fd6f9747c280657b31fc0c70f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae554d60fd6f9747c280657b31fc0c70f"></a>
 typedef struct <a class="el" href="structserial__info.html">serial_info</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Serial_t</b></td></tr>
 <tr class="memitem:ac7fcdbb56e46396f0cdff866387a0136"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac7fcdbb56e46396f0cdff866387a0136"></a>
-typedef <a class="el" href="structtext__struct.html">text_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>serial</b></td></tr>
+typedef <a class="el" href="structtext__struct.html">text_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8h.html#ac7fcdbb56e46396f0cdff866387a0136">serial</a></td></tr>
+<tr class="memdesc:ac7fcdbb56e46396f0cdff866387a0136"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes declarations like serial lcd to stand in for text_t lcd. Spelling is choice of Parallax education, not the author. <br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0b43532699509b3227d5deaa5dade7ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtext__struct.html">serial</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8h.html#a0b43532699509b3227d5deaa5dade7ba">serial_open</a> (int rxpin, int txpin, int mode, int baudrate)</td></tr>
-<tr class="memitem:a6b0f49d4a358ad92f648e6d2a11bfa6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8h.html#a6b0f49d4a358ad92f648e6d2a11bfa6a">serial_close</a> (<a class="el" href="structtext__struct.html">serial</a> *device)</td></tr>
-<tr class="memitem:a2d18567b35a0e4faef403aa7e87836d3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8h.html#a2d18567b35a0e4faef403aa7e87836d3">serial_rxChar</a> (<a class="el" href="structtext__struct.html">serial</a> *device)</td></tr>
-<tr class="memitem:a2afebd34fb247ef5eb958296a582dbcb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8h.html#a2afebd34fb247ef5eb958296a582dbcb">serial_txChar</a> (<a class="el" href="structtext__struct.html">serial</a> *device, int txbyte)</td></tr>
+<tr class="memitem:a0b43532699509b3227d5deaa5dade7ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="serial_8h.html#ac7fcdbb56e46396f0cdff866387a0136">serial</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8h.html#a0b43532699509b3227d5deaa5dade7ba">serial_open</a> (int rxpin, int txpin, int mode, int baudrate)</td></tr>
+<tr class="memdesc:a0b43532699509b3227d5deaa5dade7ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a simple serial connection.  <a href="#a0b43532699509b3227d5deaa5dade7ba"></a><br/></td></tr>
+<tr class="memitem:a6b0f49d4a358ad92f648e6d2a11bfa6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8h.html#a6b0f49d4a358ad92f648e6d2a11bfa6a">serial_close</a> (<a class="el" href="serial_8h.html#ac7fcdbb56e46396f0cdff866387a0136">serial</a> *device)</td></tr>
+<tr class="memdesc:a6b0f49d4a358ad92f648e6d2a11bfa6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close serial connection.  <a href="#a6b0f49d4a358ad92f648e6d2a11bfa6a"></a><br/></td></tr>
+<tr class="memitem:a2d18567b35a0e4faef403aa7e87836d3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8h.html#a2d18567b35a0e4faef403aa7e87836d3">serial_rxChar</a> (<a class="el" href="serial_8h.html#ac7fcdbb56e46396f0cdff866387a0136">serial</a> *device)</td></tr>
+<tr class="memdesc:a2d18567b35a0e4faef403aa7e87836d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive a byte. Waits until next byte is received.  <a href="#a2d18567b35a0e4faef403aa7e87836d3"></a><br/></td></tr>
+<tr class="memitem:a2afebd34fb247ef5eb958296a582dbcb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8h.html#a2afebd34fb247ef5eb958296a582dbcb">serial_txChar</a> (<a class="el" href="serial_8h.html#ac7fcdbb56e46396f0cdff866387a0136">serial</a> *device, int txbyte)</td></tr>
+<tr class="memdesc:a2afebd34fb247ef5eb958296a582dbcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a byte.  <a href="#a2afebd34fb247ef5eb958296a582dbcb"></a><br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Defines serial module</p>
-<p>Copyright (c) 2013, Parallax Inc. Written by Steve Denson Symbol naming decided by Parallax </p>
+<div class="textblock"><p>Defines serial module - provides low level half duplex serial functions. See <a class="el" href="simpletext_8h.html" title="This library provides a collection of functions for communicating with text devices such as SimpleIDE...">simpletext.h</a> for higher level functions.</p>
+<p>Copyright (c) 2013, Parallax Inc., MIT Licence. Written by Steve Denson Symbol naming decided by Parallax </p>
 </div><h2>Function Documentation</h2>
 <a class="anchor" id="a6b0f49d4a358ad92f648e6d2a11bfa6a"></a>
 <div class="memitem">
@@ -83,16 +98,17 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void serial_close </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtext__struct.html">serial</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="serial_8h.html#ac7fcdbb56e46396f0cdff866387a0136">serial</a> *&#160;</td>
           <td class="paramname"><em>device</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Close device. Equivalent to a stop function without stopping a cog. </p>
+
+<p>Close serial connection. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">device</td><td>is a previously open/started terminal device. </td></tr>
+    <tr><td class="paramname">device</td><td>A previously opened serial connection. </td></tr>
   </table>
   </dd>
 </dl>
@@ -104,7 +120,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structtext__struct.html">serial</a>* serial_open </td>
+          <td class="memname"><a class="el" href="serial_8h.html#ac7fcdbb56e46396f0cdff866387a0136">serial</a>* serial_open </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>rxpin</em>, </td>
@@ -134,17 +150,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Initializes the simple serial terminal. Equivalent to a start function which runs assembly in a cog.</p>
+
+<p>Open a simple serial connection. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rxpin</td><td>is pin number for receive input </td></tr>
-    <tr><td class="paramname">txpin</td><td>is pin number for transmit output </td></tr>
-    <tr><td class="paramname">mode</td><td>is unused mode field (for FdSerial compatibility) </td></tr>
-    <tr><td class="paramname">baudrate</td><td>is frequency of bits ... 115200, 57600, etc... </td></tr>
+    <tr><td class="paramname">rxpin</td><td>Serial input pin, receives serial data.</td></tr>
+    <tr><td class="paramname">txpin</td><td>Serial output pin, transmits serial data.</td></tr>
+    <tr><td class="paramname">mode</td><td>Unused mode field (for FdSerial compatibility)</td></tr>
+    <tr><td class="paramname">baudrate</td><td>Bit value transmit rate, 9600, 115200, etc...</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>device term pointer for use with other functions. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>device ID pointer for use with <a class="el" href="simpletext_8h.html" title="This library provides a collection of functions for communicating with text devices such as SimpleIDE...">simpletext.h</a> and <a class="el" href="serial_8h.html">serial.h</a> functions with text_t or serial. </dd></dl>
 
 </div>
 </div>
@@ -155,16 +172,17 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int serial_rxChar </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtext__struct.html">serial</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="serial_8h.html#ac7fcdbb56e46396f0cdff866387a0136">serial</a> *&#160;</td>
           <td class="paramname"><em>device</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Gets a byte from the receive queue if available. Function does not block. </p>
+
+<p>Receive a byte. Waits until next byte is received. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">device</td><td>is a previously open/started terminal device. </td></tr>
+    <tr><td class="paramname">device</td><td>ID returned by serial_open.</td></tr>
   </table>
   </dd>
 </dl>
@@ -179,7 +197,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int serial_txChar </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtext__struct.html">serial</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="serial_8h.html#ac7fcdbb56e46396f0cdff866387a0136">serial</a> *&#160;</td>
           <td class="paramname"><em>device</em>, </td>
         </tr>
         <tr>
@@ -195,22 +213,23 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sends a byte on the transmit queue. </p>
+
+<p>Send a byte. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">device</td><td>is a previously open/started terminal device. </td></tr>
-    <tr><td class="paramname">txbyte</td><td>is byte to send. </td></tr>
+    <tr><td class="paramname">device</td><td>is a previously open/started terminal device.</td></tr>
+    <tr><td class="paramname">device</td><td>ID returned by serial_open.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>waits for and returns received byte if mode is 8 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Byte that was transmitted. </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 15 2013 15:20:22 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Apr 11 2014 14:35:46 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

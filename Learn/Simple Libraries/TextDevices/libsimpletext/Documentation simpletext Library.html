@@ -55,7 +55,7 @@
 <p>This library provides a collection of functions for communicating with text devices such as SimpleIDE Terminal, serial peripheral devices, and even VGA displays.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;propeller.h&gt;</code><br/>
-<code>#include &quot;serial.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="html/serial_8h_source.html">serial.h</a>&quot;</code><br/>
 <code>#include &lt;stdarg.h&gt;</code><br/>
 </div>
 <p><a href="html/simpletext_8h_source.html">Go to the source code of this file.</a></p>
@@ -579,30 +579,14 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 
 <p>Print format "..." args to the default simple terminal device. The output is limited to 256 bytes. </p>
 <p>Format specifiers for print dprint, and sprint:</p>
-<ul>
-<li>%% Prints % sign to the output.</li>
-</ul>
-<ul>
-<li>b Prints binary representation of the int parameter. Note that b is not an ANSI standard format specifier.</li>
-</ul>
-<ul>
-<li>c Prints char representation of the int parameter.</li>
-</ul>
-<ul>
-<li>d Prints decimal integer representation of the int parameter.</li>
-</ul>
-<ul>
-<li>f Prints floating point representation of the float parameter.</li>
-</ul>
-<ul>
-<li>s Prints string representation of the char* parameter.</li>
-</ul>
-<ul>
-<li>u Prints unsigned integer representation of the int parameter.</li>
-</ul>
-<ul>
-<li>x Prints hexadecimal integer representation of the int parameter.</li>
-</ul>
+<p>%% Prints % sign to the output.</p>
+<p>b Prints binary representation of the int parameter. Note that b is not an ANSI standard format specifier.</p>
+<p>c Prints char representation of the int parameter.</p>
+<p>d Prints decimal integer representation of the int parameter.</p>
+<p>f Prints floating point representation of the float parameter.</p>
+<p>s Prints string representation of the char* parameter.</p>
+<p>u Prints unsigned integer representation of the int parameter.</p>
+<p>x Prints hexadecimal integer representation of the int parameter.</p>
 <p>Width and precision n.p cause n digits of the integer to print, and p digits of the decimal to print.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1419,8 +1403,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 <dl class="section note"><dt>Note</dt><dd>See scan for format specifiers.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">buffer</td><td>Pointer to memory where formatted output can be stored.</td></tr>
-    <tr><td class="paramname">format</td><td>C printf comparable format string.</td></tr>
+    <tr><td class="paramname">*buffer</td><td>Pointer to memory where formatted output can be stored.</td></tr>
+    <tr><td class="paramname">*fmt</td><td>C printf comparable format string.</td></tr>
     <tr><td class="paramname">...</td><td>Arguments where output will go and must be pointers.</td></tr>
   </table>
   </dd>
@@ -1938,7 +1922,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 10 2014 17:55:35 for simpletext library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Fri Apr 11 2014 14:35:46 for simpletext library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

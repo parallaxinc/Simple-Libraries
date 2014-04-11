@@ -1,4 +1,4 @@
-/*
+/**
  * @file writeStrDigits.c
  * Function to print a string of specified width to the pointer.
  *
@@ -11,12 +11,11 @@
 int writeStrDigits(text_t *p, char *str, int width)
 {
   int n;
-  char *tmp = str;
-  for(n = 0; !isalnum(*tmp); n++)
+  for(n = 0; isalnum(*(str+n)); n++)
     ;
   for( ; n < width; n++)
     writeChar(p, ' ');
-  while(*str) {
+  while(*str && width--) {
     if(*str == '\n')
       writeChar(p, '\r');
     writeChar(p, *str);
