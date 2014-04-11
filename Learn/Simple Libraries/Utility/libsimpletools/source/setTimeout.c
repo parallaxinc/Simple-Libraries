@@ -18,7 +18,7 @@
 
 void set_io_timeout(long clockTicks)          // setTimeout function definition
 {
-  t_timeout = clockTicks;
+  st_timeout = clockTicks;
 }
 
 /**

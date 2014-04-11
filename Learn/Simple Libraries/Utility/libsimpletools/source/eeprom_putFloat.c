@@ -1,5 +1,5 @@
 /**
- * @file eeprom.c
+ * @file putFloat.c
  *
  * @author Andy Lindsay
  *
@@ -16,8 +16,8 @@
 
 #include "simpletools.h"                      // simpletools function prototypes
 
-i2c *eeprom;
-int eeInitFlag;
+i2c *st_eeprom;
+int st_eeInitFlag;
 
 void ee_init();
 

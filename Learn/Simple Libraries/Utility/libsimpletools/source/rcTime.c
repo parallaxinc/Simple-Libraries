@@ -19,7 +19,7 @@
 long rc_time(int pin, int state)              // rcTime function definition
 {
   /*
-  if(iodt == 0)                               // If dt not initialized
+  if(st_iodt == 0)                               // If dt not initialized
   {
     set_io_dt(CLKFREQ/1000000);               // Set up timed I/O time increment
     set_io_timeout(CLKFREQ/4);                // Set up timeout
@@ -28,7 +28,7 @@ long rc_time(int pin, int state)              // rcTime function definition
   long tDecay;                                // Declare tDecay variable
   int ctr = ((8 + ((!state & 1) * 4)) << 26); // POS detector counter setup
   ctr += pin;                                 // Add pin to setup
-  long tf = t_timeout;                        // Set up timeout
+  long tf = st_timeout;                        // Set up timeout
   long t = CNT;                               // Mark current time
   if(CTRA == 0)                               // If CTRA unused
   {
@@ -39,7 +39,7 @@ long rc_time(int pin, int state)              // rcTime function definition
     // Wait for decay or timeout
     while((input(pin) == state) && (CNT - t <= tf));
     CTRA = 0;                                 // Stop the counter module
-    tDecay = PHSA/iodt;                       // Copy result to tDecay
+    tDecay = PHSA/st_iodt;                       // Copy result to tDecay
   }
   else if(CTRB == 0)                          // If CTRA used, try CTRB
   {
@@ -49,7 +49,7 @@ long rc_time(int pin, int state)              // rcTime function definition
     PHSB = 0;
     while((input(pin) == state) && (CNT - t <= tf));
     CTRB = 0;
-    tDecay = PHSB/iodt;
+    tDecay = PHSB/st_iodt;
   }
   else                                        // If CTRA & CTRB in use
   {

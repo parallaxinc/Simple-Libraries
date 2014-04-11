@@ -16,13 +16,13 @@
 
 #include "simpletools.h"                      // simpletools function prototypes
 
-i2c *eeprom;
-int eeInitFlag;
+i2c *st_eeprom;
+int st_eeInitFlag;
 
 void ee_init()
 {
-  eeprom = i2c_newbus(28, 29, 0);
-  eeInitFlag = 1;
+  st_eeprom = i2c_newbus(28, 29, 0);
+  st_eeInitFlag = 1;
 }
 
 /**

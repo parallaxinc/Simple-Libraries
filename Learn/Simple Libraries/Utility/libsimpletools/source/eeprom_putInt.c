@@ -16,8 +16,8 @@
 
 #include "simpletools.h"                      // simpletools function prototypes
 
-i2c *eeprom;
-int eeInitFlag;
+i2c *st_eeprom;
+int st_eeInitFlag;
 
 void ee_init();
 
@@ -28,7 +28,7 @@ void ee_putInt(int value, int addr)
   return;
 
   /*
-  if(!eeInitFlag) ee_init();
+  if(!st_eeInitFlag) ee_init();
 
   unsigned char val[4] = {(char) value, (char) (value >> 8), (char) (value >> 16), (char) (value >> 24)};
   unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr&0xFF)};
@@ -37,8 +37,8 @@ void ee_putInt(int value, int addr)
   int byteCnt = 128 - pageAddr;
   if(byteCnt > 4) byteCnt = 4;
 
-  int n = i2c_out(eeprom, 0xA0, addrArray, 2, val, byteCnt);
-  while(i2c_poll(eeprom, 0xA0));
+  int n = i2c_out(st_eeprom, 0xA0, addrArray, 2, val, byteCnt);
+  while(i2c_poll(st_eeprom, 0xA0));
 
   if(byteCnt < 4)
   {
@@ -47,8 +47,8 @@ void ee_putInt(int value, int addr)
     addr += offset;
     addrArray[0] = (char)(addr >> 8);
     addrArray[1] = (char)(addr & 0xFF);
-    n += i2c_out(eeprom, 0xA0, addrArray, 2, &val[offset], byteCnt);
-    while(i2c_poll(eeprom, 0xA0)); 
+    n += i2c_out(st_eeprom, 0xA0, addrArray, 2, &val[offset], byteCnt);
+    while(i2c_poll(st_eeprom, 0xA0)); 
   }
   */
 }

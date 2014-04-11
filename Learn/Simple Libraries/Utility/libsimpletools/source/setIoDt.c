@@ -1,5 +1,5 @@
 /**
- * @file setIoDt.c
+ * @file setst_iodt.c
  *
  * @author Andy Lindsay
  *
@@ -8,7 +8,7 @@
  * @copyright Copyright (C) Parallax, Inc. 2012.  See end of file for
  * terms of use (MIT License).
  *
- * @brief setIoDt function source, see simpletools.h for documentation.
+ * @brief setst_iodt function source, see simpletools.h for documentation.
  *
  * @detail Please submit bug reports, suggestions, and improvements to
  * this code to editor@parallax.com.
@@ -16,9 +16,9 @@
 
 #include "simpletools.h"                      // simpletools function prototypes
 
-void set_io_dt(long clockticks)                 // setIoDt function definition
+void set_io_dt(long clockticks)                 // setst_iodt function definition
 {
-  iodt = clockticks;
+  st_iodt = clockticks;
 }
 
 /**
