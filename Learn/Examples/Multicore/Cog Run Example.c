@@ -4,7 +4,7 @@
   Run function that blinks a light with another cog for 3 seconds, then end
   that process.
 
-  http://learn.parallax.com/propeller-c-multicore_approaches/simple-multicore
+  http://learn.parallax.com/propeller-c-multicore-approaches/simple-multicore
 */
 
 #include "simpletools.h"                      // Library include

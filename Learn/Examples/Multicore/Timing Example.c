@@ -7,7 +7,7 @@
    - Un-comment wiatcnt statements in blink function.
    - Run again, and note difference in system clock ticks per cycle.
 
-  http://learn.parallax.com/propeller-c-multicore_approaches/timing-example
+  http://learn.parallax.com/propeller-c-multicore-approaches/timing-example
 */
 
 #include "simpletools.h"                      // Library include

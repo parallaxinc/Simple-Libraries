@@ -4,7 +4,7 @@
   Main and blink functions share a lock.  The blink function prevents main
   from changing the value of t, except at the start of its low cycle.
 
-  http://learn.parallax.com/propeller-c-multicore_approaches/lock-example
+  http://learn.parallax.com/propeller-c-multicore-approaches/lock-example
 */
 
 #include "simpletools.h"                      // Library include
