@@ -57,7 +57,7 @@ sprinti.c
 printi.c
 putStrDigits.c
 >compiler=C
->memtype=cog cog ram
+>memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-Wall

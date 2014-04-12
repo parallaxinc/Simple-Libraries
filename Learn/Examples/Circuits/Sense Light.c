@@ -1,7 +1,5 @@
 /*
   Sense Light.side
-  
-  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
 
   Display light sensor levels.
   

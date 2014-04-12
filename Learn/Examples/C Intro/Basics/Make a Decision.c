@@ -1,7 +1,5 @@
 /*
   Make a Decision.c
-
-  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   If a condition is true, display a second message.
   

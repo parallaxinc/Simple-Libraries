@@ -1,8 +1,6 @@
 /*
   Blink Light with Simple Multicore.c   
 
-  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
-
   Multicore example for use with CMM or LMM memory models.
 
   http://learn.parallax.com/propeller-c-tutorials

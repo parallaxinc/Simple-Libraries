@@ -1,7 +1,5 @@
 /*
   Multicore Example.c
-
-  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Launch a function into another cog (processor) and display what it does
   to the global n variable over time. 

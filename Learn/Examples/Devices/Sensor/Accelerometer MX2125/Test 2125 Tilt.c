@@ -1,7 +1,5 @@
 /*
   Test 2125 Tilt.c
-
-  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Measure tilt.  Assumes MX2125 is being held horizontally and then tilted.   
   

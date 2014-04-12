@@ -1,7 +1,5 @@
 /*
   Function with Parameter.c
-
-  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Call a function that displays a value passed to it with a parameter.
   

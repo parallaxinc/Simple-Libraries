@@ -126,6 +126,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
 <tr class="memdesc:a373ca5ecddb535d3ef1f06db0f14cb18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print string + new line on the transmit debug port. This is an alias of putln.  <a href="#a373ca5ecddb535d3ef1f06db0f14cb18"></a><br/></td></tr>
 <tr class="memitem:a8af38dae7a814612c5df018b81e42c99"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletext_8h.html#a8af38dae7a814612c5df018b81e42c99">putStr</a> (const char *str)</td></tr>
 <tr class="memdesc:a8af38dae7a814612c5df018b81e42c99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print string to the debug port.  <a href="#a8af38dae7a814612c5df018b81e42c99"></a><br/></td></tr>
+<tr class="memitem:a61340388853b984efecaf9eba38c5e9c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletext_8h.html#a61340388853b984efecaf9eba38c5e9c">putStrDigits</a> (char *str, int width)</td></tr>
+<tr class="memdesc:a61340388853b984efecaf9eba38c5e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a string on the transmit device.  <a href="#a61340388853b984efecaf9eba38c5e9c"></a><br/></td></tr>
 <tr class="memitem:a29a70cf2c3a17a849e04bf57ea9e67f3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletext_8h.html#a29a70cf2c3a17a849e04bf57ea9e67f3">readBin</a> (<a class="el" href="html/structtext__struct.html">text_t</a> *device)</td></tr>
 <tr class="memdesc:a29a70cf2c3a17a849e04bf57ea9e67f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get binary number from the receive device.  <a href="#a29a70cf2c3a17a849e04bf57ea9e67f3"></a><br/></td></tr>
 <tr class="memitem:aed47e8c811d5d222f19942d8d1452b9a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletext_8h.html#aed47e8c811d5d222f19942d8d1452b9a">readChar</a> (<a class="el" href="html/structtext__struct.html">text_t</a> *device)</td></tr>
@@ -969,6 +971,41 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">*str</td><td>Null terminated string to send. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a61340388853b984efecaf9eba38c5e9c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int putStrDigits </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send a string on the transmit device. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>Null terminated string to send.</td></tr>
+    <tr><td class="paramname">width</td><td>Number of characters to print padded by spaces. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1922,7 +1959,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 11 2014 14:35:46 for simpletext library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Fri Apr 11 2014 19:01:39 for simpletext library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

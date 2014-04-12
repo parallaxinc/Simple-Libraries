@@ -1,7 +1,5 @@
 /*
   Count Transitions.c
-
-  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Flash P26 at 10 Hz for 10 seconds.  After 1 s, count transitions for 1 s
   and report the count.

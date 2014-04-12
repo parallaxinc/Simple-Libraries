@@ -1,7 +1,5 @@
 /*
   Standard Servo with Ramping.c
-
-  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Moves servo to 0, 90 and 180 degrees.  Uses ramping to gradually move the 
   servo to the target.
