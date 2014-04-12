@@ -1,8 +1,6 @@
 /*
   Repeat at Least Once.c
 
-  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
-
   You can use do...while to make sure a loop executes at least once, even
   if the condition it uses for repeating is not true.  This program shows 
   how it works by displaying n = n + 5 every half second while n <= 10.  The

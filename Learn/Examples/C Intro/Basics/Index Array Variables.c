@@ -1,7 +1,5 @@
 /*
   Index Array Variables.c
-
-  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
   
   Use a for loop to display all the elements in an array.
   

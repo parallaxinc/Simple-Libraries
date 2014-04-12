@@ -1,8 +1,6 @@
 /*
   Test WAV Volume.c
 
-  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
-
   Play back a .wav file and try a few different volume settings.   
   
   http://learn.parallax.com/propeller-c-simple-devices/play-wav-files

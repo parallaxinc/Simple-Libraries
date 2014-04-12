@@ -1,8 +1,6 @@
 /*
   Joystick.c
 
-  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
-
   Simple Propeller P8X32A Propeller C demo with the Parallax 2-axis Joystick
 
   http://learn.parallax.com/propeller-c-simple-devices/joystick   

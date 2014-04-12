@@ -1,8 +1,6 @@
 /*
   Two DC Motors 60 Percent.c
 
-  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
-
   Drive a pair of DC motors at 6/10 of full speed.
   http://learn.parallax.com/propeller-c-tutorials
 */

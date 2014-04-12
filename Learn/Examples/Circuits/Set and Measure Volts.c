@@ -1,8 +1,6 @@
 /*
   Set and Measure Volts.c
 
-  Version 0.94 for use with SimpleIDE 9.40 and its Simple Libraries
-
   Set D/A0 to 2.5 V and D/A1 to 1 V, and measure with A/D0 and A/D1.  
 
   http://learn.parallax.com/propeller-c-simple-circuits/set-volts
