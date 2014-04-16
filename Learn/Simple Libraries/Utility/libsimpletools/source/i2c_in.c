@@ -31,11 +31,16 @@ HUBTEXT int  i2c_in(i2c *busID, int i2cAddr,
     int m;
     if(memAddrCount)
     {
-      if(memAddrCount > 1)
+      if(memAddrCount > 0)
+      {
         endianSwap(&m, &memAddr, memAddrCount);
+      }  
       else 
+      {
         m = memAddr;
-      n += i2c_writeData(busID, (unsigned char*) &m, abs(memAddrCount));
+        memAddrCount = - memAddrCount;
+      }  
+      n += i2c_writeData(busID, (unsigned char*) &m, memAddrCount);
     }  
   }  
   i2cAddr |= 1;                                       // Set i2cAddr.bit0 (read)

@@ -2,7 +2,8 @@
   EEPROM Program Modes.side
 
   Use EEPROM to advance modes with each press/release of the reset button.
-  Also advances with each power-off, power-on cycle. 
+  Also advances with each power-off, power-on cycle.  Make sure to use 
+  SimpleIDE's Load EEPROM & Run button for this one.   
   
   http://learn.parallax.com/propeller-c-tutorials
 */
