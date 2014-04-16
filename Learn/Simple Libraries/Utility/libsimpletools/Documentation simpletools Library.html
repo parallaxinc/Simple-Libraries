@@ -220,11 +220,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a381e2d58c3d6a1f0fd8129bcc4726804"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a381e2d58c3d6a1f0fd8129bcc4726804">pause</a> (int time)</td></tr>
 <tr class="memdesc:a381e2d58c3d6a1f0fd8129bcc4726804"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delay cog from moving on to the next statement for a certain length of time.  <a href="#a381e2d58c3d6a1f0fd8129bcc4726804"></a><br/></td></tr>
 <tr class="memitem:afbfa1cfbdb01885472e3f64d26c09ed8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#afbfa1cfbdb01885472e3f64d26c09ed8">mark</a> (void)</td></tr>
-<tr class="memdesc:afbfa1cfbdb01885472e3f64d26c09ed8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the current time.  <a href="#afbfa1cfbdb01885472e3f64d26c09ed8"></a><br/></td></tr>
+<tr class="memdesc:afbfa1cfbdb01885472e3f64d26c09ed8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the current time (deprecated).  <a href="#afbfa1cfbdb01885472e3f64d26c09ed8"></a><br/></td></tr>
 <tr class="memitem:aba16632261a1faa89b62c8d7d11b45cc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aba16632261a1faa89b62c8d7d11b45cc">timeout</a> (int time)</td></tr>
-<tr class="memdesc:aba16632261a1faa89b62c8d7d11b45cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares the time against the time elapsed since mark.  <a href="#aba16632261a1faa89b62c8d7d11b45cc"></a><br/></td></tr>
+<tr class="memdesc:aba16632261a1faa89b62c8d7d11b45cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares the time against the time elapsed since mark (deprecated).  <a href="#aba16632261a1faa89b62c8d7d11b45cc"></a><br/></td></tr>
 <tr class="memitem:a14f739412d16800b58f14029279e5332"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a14f739412d16800b58f14029279e5332">wait</a> (int time)</td></tr>
-<tr class="memdesc:a14f739412d16800b58f14029279e5332"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits a certain number of time increments from the last call to mark or wait functions.  <a href="#a14f739412d16800b58f14029279e5332"></a><br/></td></tr>
+<tr class="memdesc:a14f739412d16800b58f14029279e5332"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits a certain number of time increments from the last call to mark or wait functions (deprecated).  <a href="#a14f739412d16800b58f14029279e5332"></a><br/></td></tr>
 <tr class="memitem:a04c171fd47bc9149c306576c349de680"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a04c171fd47bc9149c306576c349de680">set_pause_dt</a> (int clockticks)</td></tr>
 <tr class="memdesc:a04c171fd47bc9149c306576c349de680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set time increment for pause function.  <a href="#a04c171fd47bc9149c306576c349de680"></a><br/></td></tr>
 <tr class="memitem:a20a9d97de9777b12cfd9353a83ac21cb"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a20a9d97de9777b12cfd9353a83ac21cb">count</a> (int pin, long duration)</td></tr>
@@ -403,8 +403,8 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 <div class="line">ti = CNT;                                           <span class="comment">// Save start time</span></div>
 <div class="line"><a class="code" href="html/simpletools_8h.html#af9241e417ac6f468979cc60b0263d49f" title="Delay cog from moving on to the next statement for a certain number of system clock ticks...">pause_ticks</a>(pauseTicks);                            <span class="comment">// Call pause_ticks</span></div>
 <div class="line">tf = CNT;                                           <span class="comment">// Save end time</span></div>
-<div class="line">printf(<span class="stringliteral">&quot;pauseTicks = %d\n&quot;</span>, pauseTicks);            <span class="comment">// Display pauseTicks</span></div>
-<div class="line">printf(<span class="stringliteral">&quot;delayTicks = %d\n&quot;</span>, tf - ti);               <span class="comment">// Display measured</span></div>
+<div class="line">print(<span class="stringliteral">&quot;pauseTicks = %d\n&quot;</span>, pauseTicks);             <span class="comment">// Display pauseTicks</span></div>
+<div class="line">print(<span class="stringliteral">&quot;delayTicks = %d\n&quot;</span>, tf - ti);                <span class="comment">// Display measured</span></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pticks</td><td>the number of pause clock ticks. </td></tr>
@@ -1289,7 +1289,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
     <tr><td class="paramname">memAddr</td><td>Value for setting memory address pointer inside the I2C device.</td></tr>
     <tr><td class="paramname">memAddrCount</td><td>Number of bytes to use for memAddr. This value can be zero for no register or memory address data, in which case memAddr can be set to NULL.</td></tr>
     <tr><td class="paramname">*data</td><td>Pointer to bytes set aside for receiving data from the I2C device.</td></tr>
-    <tr><td class="paramname">dataCount</td><td>Number of bytes in data to send.</td></tr>
+    <tr><td class="paramname">dataCount</td><td>Number of bytes in data to send. Use a positive value to load data into result variable(s) least significant byte first, or a negative value for most significant byte first.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1397,7 +1397,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
     <tr><td class="paramname">memAddr</td><td>Value for setting memory address pointer inside the I2C device.</td></tr>
     <tr><td class="paramname">memAddrCount</td><td>Number of bytes to use for memAddr. This value can be zero for no register or memory address data, in which case memAddr can be set to NULL.</td></tr>
     <tr><td class="paramname">*data</td><td>Pointer to bytes to send to the I2C device.</td></tr>
-    <tr><td class="paramname">dataCount</td><td>Number of bytes in data to send.</td></tr>
+    <tr><td class="paramname">dataCount</td><td>Number of bytes in data to send. Use a positive value to transmit least significant byte first, or a negative value to transmit most significant byte first.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1470,9 +1470,12 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
       </table>
 </div><div class="memdoc">
 
-<p>Mark the current time. </p>
-<p>The timeout function uses the marked time to determine if a timeout has occurred. </p>
-
+<p>Mark the current time (deprecated). </p>
+<p>The timeout function uses the marked time to determine if a timeout has occurred.</p>
+<dl class="section note"><dt>Note</dt><dd>This function has been deprecated because it doesn't support use in more than one cog. Use this code instead:</dd></dl>
+<div class="fragment"><div class="line"><span class="comment">// CNT stores current number of system clock ticks elapsed.</span></div>
+<div class="line"><span class="keywordtype">int</span> t = CNT;           <span class="comment">// Mark current time by storing in variable</span></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a class="anchor" id="a381e2d58c3d6a1f0fd8129bcc4726804"></a>
@@ -2208,9 +2211,18 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
       </table>
 </div><div class="memdoc">
 
-<p>Compares the time against the time elapsed since mark. </p>
+<p>Compares the time against the time elapsed since mark (deprecated). </p>
 <p>The default time increment is 1 us, so timeout(2000) will return 1 if 2 ms or more has elapsed since mark, or 0 if it has not.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="section note"><dt>Note</dt><dd>This function has been deprecated because it doesn't support use in more than one cog. Use this code instead:</dd></dl>
+<div class="fragment"><div class="line"><span class="comment">// CLKFREQ stores number of system clock ticks in 1 second.</span></div>
+<div class="line"><span class="comment">// CNT stores current number of system clock ticks elapsed.</span></div>
+<div class="line"><span class="keywordtype">int</span> dt = CLKFREQ/2;    <span class="comment">// Pick a timeout, 1/2 a second in this case</span></div>
+<div class="line"><span class="keywordtype">int</span> t = CNT;           <span class="comment">// Mark current time by storing in variable</span></div>
+<div class="line"><span class="keywordflow">while</span>(CNT - t &lt; dt)    <span class="comment">// Repeat until timeout</span></div>
+<div class="line">{</div>
+<div class="line">  <span class="comment">// Add code repeated until time elapsed is larger than dt here.</span></div>
+<div class="line">}</div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">time</td><td>Number of time increments. </td></tr>
   </table>
@@ -2259,9 +2271,20 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
       </table>
 </div><div class="memdoc">
 
-<p>Waits a certain number of time increments from the last call to mark or wait functions. </p>
+<p>Waits a certain number of time increments from the last call to mark or wait functions (deprecated). </p>
 <p>The default time increment is 1 us, so wait(2000) will return wait until 2 us after the last call to mark or wait. This function automatically updates the marked time; you can call it repeatedly without having to call mark.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="section note"><dt>Note</dt><dd>This function has been deprecated because it doesn't support use in more than one cog. Use this code instead:</dd></dl>
+<div class="fragment"><div class="line"><span class="comment">// CLKFREQ stores number of system clock ticks in 1 second.</span></div>
+<div class="line"><span class="comment">// CNT stores current number of system clock ticks elapsed.</span></div>
+<div class="line"><span class="keywordtype">int</span> t = CNT;           <span class="comment">// Mark current time by storing in variable</span></div>
+<div class="line"><span class="keywordtype">int</span> dt = CLKFREQ/10;   <span class="comment">// Pick time increment, 1/10 second in this case</span></div>
+<div class="line"><span class="keywordflow">while</span>(1)               <span class="comment">// Repeat indefinitely</span></div>
+<div class="line">{</div>
+<div class="line">  <span class="comment">// Variable timed code here.  Must last less than dt.</span></div>
+<div class="line">  waitcnt(t += dt);</div>
+<div class="line">  <span class="comment">// Code that must start at precise intervals here.</span></div>
+<div class="line">}</div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">time</td><td>Number of time increments. </td></tr>
   </table>
@@ -2273,7 +2296,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 10 2014 17:36:46 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Wed Apr 16 2014 14:31:43 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

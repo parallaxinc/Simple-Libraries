@@ -18,7 +18,7 @@ int main()                                        // main function
   wav_play(techloop);                             // Pass to wav player
  
   wav_volume(6);                                  // Adjust volume
-  pause(3500);                                    // Play for 5 s
+  pause(3500);                                    // Play for 3.5 s
   wav_volume(4);                                  // Repeat twice more
   pause(2000);
   wav_volume(8);

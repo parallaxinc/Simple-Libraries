@@ -649,8 +649,8 @@ void pause(int time);
  *  ti = CNT;                                           // Save start time
  *  pause_ticks(pauseTicks);                            // Call pause_ticks
  *  tf = CNT;                                           // Save end time
- *  printf("pauseTicks = %d\n", pauseTicks);            // Display pauseTicks
- *  printf("delayTicks = %d\n", tf - ti);               // Display measured
+ *  print("pauseTicks = %d\n", pauseTicks);             // Display pauseTicks
+ *  print("delayTicks = %d\n", tf - ti);                // Display measured
  *  @endcode
  *
  * @param pticks the number of pause clock ticks.
@@ -658,18 +658,40 @@ void pause(int time);
 #define pause_ticks(pticks) __builtin_propeller_waitcnt(pticks+CNT, 0)
 
 /**
- * @brief Mark the current time.
+ * @brief Mark the current time (deprecated).
  *
  * @details The timeout function uses the marked time to determine if a timeout
- * has occurred.
+ * has occurred.  
+ * 
+ * @note This function has been deprecated because it doesn't support use in 
+ * more than one cog.  Use this code instead:
+ * 
+ * @code
+ * // CNT stores current number of system clock ticks elapsed.
+ * int t = CNT;           // Mark current time by storing in variable
+ * @endcode
  */
 void mark(void);
 
 /**
- * @brief Compares the time against the time elapsed since mark.
+ * @brief Compares the time against the time elapsed since mark (deprecated).
  *
  * @details The default time increment is 1 us, so timeout(2000) will return 1
  * if 2 ms or more has elapsed since mark, or 0 if it has not.
+ * 
+ * @note This function has been deprecated because it doesn't support use in 
+ * more than one cog.  Use this code instead:
+ * 
+ * @code
+ * // CLKFREQ stores number of system clock ticks in 1 second.
+ * // CNT stores current number of system clock ticks elapsed.
+ * int dt = CLKFREQ/2;    // Pick a timeout, 1/2 a second in this case
+ * int t = CNT;           // Mark current time by storing in variable
+ * while(CNT - t < dt)    // Repeat until timeout
+ * {
+ *   // Add code repeated until time elapsed is larger than dt here.
+ * }
+ * @endcode
  *
  * @param time Number of time increments.
  */
@@ -677,11 +699,27 @@ int timeout(int time);
 
 /**
  * @brief Waits a certain number of time increments from the last call to
- * mark or wait functions.
+ * mark or wait functions (deprecated).
  *
  * @details The default time increment is 1 us, so wait(2000) will return wait
  * until 2 us after the last call to mark or wait.  This function automatically 
  * updates the marked time; you can call it repeatedly without having to call mark.
+ * 
+ * @note This function has been deprecated because it doesn't support use in 
+ * more than one cog.  Use this code instead:
+ * 
+ * @code
+ * // CLKFREQ stores number of system clock ticks in 1 second.
+ * // CNT stores current number of system clock ticks elapsed.
+ * int t = CNT;           // Mark current time by storing in variable
+ * int dt = CLKFREQ/10;   // Pick time increment, 1/10 second in this case
+ * while(1)               // Repeat indefinitely
+ * {
+ *   // Variable timed code here.  Must last less than dt.
+ *   waitcnt(t += dt);
+ *   // Code that must start at precise intervals here.
+ * }
+ * @endcode
  *
  * @param time Number of time increments.
  */
@@ -995,7 +1033,9 @@ i2c *i2c_newbus(int sclPin, int sdaPin, int sclDrive);
  *
  * @param *data Pointer to bytes to send to the I2C device.
  *
- * @param dataCount Number of bytes in data to send.
+ * @param dataCount Number of bytes in data to send.  Use a positive value to transmit
+ * least significant byte first, or a negative value to transmit most significant 
+ * byte first.
  *
  * @returns total number of bytes written. Should be 1 + memAddrCount + dataCount.  
  */
@@ -1025,7 +1065,9 @@ HUBTEXT int  i2c_out(i2c *busID, int i2cAddr,
  *
  * @param *data Pointer to bytes set aside for receiving data from the I2C device.
  *
- * @param dataCount Number of bytes in data to send.
+ * @param dataCount Number of bytes in data to send.  Use a positive value to load data
+ * into result variable(s) least significant byte first, or a negative value for most 
+ * significant byte first.
  *
  * @returns total number of bytes written. Should be 1 + memAddrCount + dataCount.  
  */

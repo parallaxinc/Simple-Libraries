@@ -11,15 +11,15 @@
 
 int main(void)                                // main function
 {
-  int addr = 64000;                           // Pick EEPROM base address. 
+  int addr = 32769;                           // Pick EEPROM base address. 
 
-  ee_putInt(42, addr);                        // 42 -> EEPROM address 64000
-  int eeVal = ee_getInt(addr);                // EEPROM address 64000 -> eeVal
+  ee_putInt(42, addr);                        // 42 -> EEPROM address 32769
+  int eeVal = ee_getInt(addr);                // EEPROM address 32769 -> eeVal
   print("myVal = %d\n", eeVal);               // Display result
 
-  ee_putStr("hello!\n", 7, addr + 4);         // hello!\n -> EEPROM 64004..64010
-  char s[7];                                  // Character array to hold string
-  ee_getStr(s, 7, addr + 4);                  // EEPROM 64004..64010 -> s[0]..s[5]
+  ee_putStr("hello!\n", 8, addr + 4);         // hello!\n -> EEPROM 32773..32780
+  char s[8];                                  // Character array to hold string
+  ee_getStr(s, 8, addr + 4);                  // EEPROM 32773..32780 -> s[0]..s[7]
   print("s = %s", s);                         // Display s array
 }
 

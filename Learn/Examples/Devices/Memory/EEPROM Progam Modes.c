@@ -2,8 +2,11 @@
   EEPROM Program Modes.side
 
   Use EEPROM to advance modes with each press/release of the reset button.
-  Also advances with each power-off, power-on cycle.  Make sure to use 
-  SimpleIDE's Load EEPROM & Run button for this one.   
+  Also advances with each power-off, power-on cycle.  
+  
+  IMPORTANT: Make sure to use SimpleIDE's Load EEPROM & Run button.  The 
+  program has to be in EEPROM first.  After that, you can optionally use
+  the Run with Terminal button to view the print output.   
   
   http://learn.parallax.com/propeller-c-tutorials
 */
@@ -12,11 +15,13 @@
 
 int main(void)                                // main function code starts here
 {
-  int addr = 65535;                           // Highest EEPROM address least used
-  char mode = ee_get_byte(addr);              // Value at address 65535 -> mode
+  int addr = 32768;                           // Lowest user EEPROM address
+  char mode = ee_get_byte(addr);              // Value at address 32768 -> mode
   mode += 1;                                  // Add one
   mode %= 3;                                  // Modulus (remainder of mode / 3)
-  ee_put_byte(mode, addr);                    // New mode -> EEPROM addr 65535
+  ee_put_byte(mode, addr);                    // New mode -> EEPROM addr 32768
+
+  print("Startup mode = %d \n", mode);        // Display mode
 
   switch(mode)                                // Decide how the program behaves
   {
