@@ -289,165 +289,165 @@
 <div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;</div>
 <div class="line"><a name="l00658"></a><span class="lineno"><a class="code" href="simpletools_8h.html#af9241e417ac6f468979cc60b0263d49f">  658</a></span>&#160;<span class="preprocessor">#define pause_ticks(pticks) __builtin_propeller_waitcnt(pticks+CNT, 0)</span></div>
 <div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#afbfa1cfbdb01885472e3f64d26c09ed8" title="Mark the current time.">mark</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;</div>
-<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#aba16632261a1faa89b62c8d7d11b45cc" title="Compares the time against the time elapsed since mark.">timeout</a>(<span class="keywordtype">int</span> time);</div>
-<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;</div>
-<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a14f739412d16800b58f14029279e5332" title="Waits a certain number of time increments from the last call to mark or wait functions.">wait</a>(<span class="keywordtype">int</span> time);</div>
-<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;</div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a04c171fd47bc9149c306576c349de680" title="Set time increment for pause function.">set_pause_dt</a>(<span class="keywordtype">int</span> clockticks);</div>
-<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;</div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;<span class="keywordtype">long</span> <a class="code" href="simpletools_8h.html#a20a9d97de9777b12cfd9353a83ac21cb" title="Count number of low to high transitions an external input applies to an I/O pin over a certain period...">count</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">long</span> duration);</div>
-<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;</div>
-<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a7f87d0c6e5e644d9a2ad011e556de1e8" title="Set D/A voltage.">dac_ctr</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">int</span> channel, <span class="keywordtype">int</span> dacVal);</div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;</div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#af8ef60ed622a82bab16bea03cddc2340" title="Set D/A voltage resolution.">dac_ctr_res</a>(<span class="keywordtype">int</span> bits);</div>
-<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;</div>
-<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a37edfbadb336de010e4cfdecdeca6148" title="Stop the cog that&#39;s transmitting the DAC signal(s).">dac_ctr_stop</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;</div>
-<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a78d00871cfb358e7c1f4fea6fc5d07f5" title="Use same cog to send square wave of a certain frequency for a certain amount of time. For set and forget with another cog, try square_wave function instead.">freqout</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">int</span> msTime, <span class="keywordtype">int</span> frequency);</div>
-<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;</div>
-<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#a2ccfd8aa1b8c5e7d58ee2dbfa3ecebe5" title="Start pulse width modulation (PWM) process in another cog.">pwm_start</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> cycleMicroseconds);</div>
-<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;</div>
-<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a57f683188c3dd35ee0574ff349835682" title="Set a PWM signal&#39;s high time.">pwm_set</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">int</span> channel, <span class="keywordtype">int</span> tHigh);</div>
-<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;</div>
-<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#aec8f4f09d7d0222e947bea4b37fc33c2" title="Shut down PWM process and reclaim cog and I/O pins for other uses.">pwm_stop</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;</div>
-<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;<span class="keywordtype">long</span> <a class="code" href="simpletools_8h.html#ae251e0a94359068f5e56682311ef4201" title="Measure the duration of a pulse applied to an I/O pin.">pulse_in</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">int</span> state);</div>
-<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;</div>
-<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#af7d62062bce6f1cb4bc03006f8463ba5" title="Transmit a pulse with an I/O pin.">pulse_out</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">int</span> time);</div>
-<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;</div>
-<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;<span class="keywordtype">long</span> <a class="code" href="simpletools_8h.html#ad5f7522ca251c3cf3d7fd903fcdb5bbe" title="Set I/O pin to input and measure the time it takes a signal to transition from a start state to the o...">rc_time</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">int</span> state);</div>
-<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;</div>
-<div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a521dea91cf2ba911ff66d3074672316f" title="Make I/O pin transmit a repeated high/low signal at a certain frequency. High and low times are the s...">square_wave</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">int</span> channel, <span class="keywordtype">int</span> freq);</div>
-<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;</div>
-<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a6291bd6f5b751420d414cff05e720ec8" title="Stop the cog that&#39;s transmitting a square wave.">square_wave_stop</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;</div>
-<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a288d762194e0bad67f4f37ba43f57292" title="Sets the timeout value for the following timed I/O functions: pulse_in, rc_time.">set_io_timeout</a>(<span class="keywordtype">long</span> clockTicks);</div>
-<div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160;</div>
-<div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#ac4b081567b4d3d054382f88c777d740e" title="Sets the time increment for the following timed I/O functions: count, pulse_in, pulse_out, rc_time.">set_io_dt</a>(<span class="keywordtype">long</span> clockticks);</div>
-<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;</div>
-<div class="line"><a name="l00931"></a><span class="lineno">  931</span>&#160;</div>
-<div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#a4fca5193934cbc3b7fce7bfca131302d" title="Receive data from a synchronous serial device.">shift_in</a>(<span class="keywordtype">int</span> pinDat, <span class="keywordtype">int</span> pinClk, <span class="keywordtype">int</span> mode, <span class="keywordtype">int</span> bits);</div>
-<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;</div>
-<div class="line"><a name="l00954"></a><span class="lineno">  954</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a39f6cd6c7f7965e057926f92a9b2fa29" title="Send data to a synchronous serial device.">shift_out</a>(<span class="keywordtype">int</span> pinDat, <span class="keywordtype">int</span> pinClk, <span class="keywordtype">int</span> mode, <span class="keywordtype">int</span> bits, <span class="keywordtype">int</span> value);</div>
-<div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;</div>
-<div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;i2c *<a class="code" href="simpletools_8h.html#a0f02473c77ebed4ad04f829eff27985c" title="Set up a simple serial driver with transmit &amp; receive pins.">i2c_newbus</a>(<span class="keywordtype">int</span> sclPin, <span class="keywordtype">int</span> sdaPin, <span class="keywordtype">int</span> sclDrive);</div>
-<div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160;</div>
-<div class="line"><a name="l00976"></a><span class="lineno">  976</span>&#160;</div>
-<div class="line"><a name="l01002"></a><span class="lineno"> 1002</span>&#160;HUBTEXT <span class="keywordtype">int</span>  <a class="code" href="simpletools_8h.html#a2d8c9b83ae2e87db69fb9138c6c57f57" title="Send data to device using I2C protocol.">i2c_out</a>(i2c *busID, <span class="keywordtype">int</span> i2cAddr, </div>
-<div class="line"><a name="l01003"></a><span class="lineno"> 1003</span>&#160;                     <span class="keywordtype">int</span> memAddr, <span class="keywordtype">int</span> memAddrCount, </div>
-<div class="line"><a name="l01004"></a><span class="lineno"> 1004</span>&#160;                     <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data, <span class="keywordtype">int</span> dataCount);</div>
-<div class="line"><a name="l01005"></a><span class="lineno"> 1005</span>&#160;</div>
-<div class="line"><a name="l01006"></a><span class="lineno"> 1006</span>&#160;</div>
-<div class="line"><a name="l01032"></a><span class="lineno"> 1032</span>&#160;HUBTEXT <span class="keywordtype">int</span>  <a class="code" href="simpletools_8h.html#adf4323fa7fc0f0bd7ba1163f1d8ab52a" title="Receive data from device using I2C protocol.">i2c_in</a>(i2c *busID, <span class="keywordtype">int</span> i2cAddr, </div>
-<div class="line"><a name="l01033"></a><span class="lineno"> 1033</span>&#160;                    <span class="keywordtype">int</span> memAddr, <span class="keywordtype">int</span> memAddrCount, </div>
-<div class="line"><a name="l01034"></a><span class="lineno"> 1034</span>&#160;                    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data, <span class="keywordtype">int</span> dataCount);</div>
-<div class="line"><a name="l01035"></a><span class="lineno"> 1035</span>&#160;</div>
-<div class="line"><a name="l01036"></a><span class="lineno"> 1036</span>&#160;</div>
-<div class="line"><a name="l01046"></a><span class="lineno"> 1046</span>&#160;HUBTEXT <span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#a7c7858c120d81da92771560bd50c54d6" title="Check if I2C device is busy or responding.">i2c_busy</a>(i2c *busID, <span class="keywordtype">int</span> i2cAddr);</div>
-<div class="line"><a name="l01047"></a><span class="lineno"> 1047</span>&#160;</div>
-<div class="line"><a name="l01048"></a><span class="lineno"> 1048</span>&#160;</div>
-<div class="line"><a name="l01058"></a><span class="lineno"> 1058</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a593162b2f71e2ad23f0a09516cf9a7b4" title="Store a byte value at a certain address in the Propeller Chip&#39;s dedicated EEPROM.">ee_putByte</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> value, <span class="keywordtype">int</span> addr);</div>
-<div class="line"><a name="l01059"></a><span class="lineno"> 1059</span>&#160;</div>
-<div class="line"><a name="l01063"></a><span class="lineno"><a class="code" href="simpletools_8h.html#ac04aea26e16ed3b740d27bc03eed2db5"> 1063</a></span>&#160;<span class="preprocessor">#define ee_put_byte ee_putByte</span></div>
-<div class="line"><a name="l01064"></a><span class="lineno"> 1064</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l01065"></a><span class="lineno"> 1065</span>&#160;</div>
-<div class="line"><a name="l01075"></a><span class="lineno"> 1075</span>&#160;<span class="keywordtype">char</span> <a class="code" href="simpletools_8h.html#ac1042df969c1f5bffa816fdf068c4ed9" title="Get a byte value from a certain address in the Propeller Chip&#39;s dedicated EEPROM.">ee_getByte</a>(<span class="keywordtype">int</span> addr);</div>
-<div class="line"><a name="l01076"></a><span class="lineno"> 1076</span>&#160;</div>
-<div class="line"><a name="l01080"></a><span class="lineno"><a class="code" href="simpletools_8h.html#aae4945cabc87fb08d37fca7e0db20422"> 1080</a></span>&#160;<span class="preprocessor">#define ee_get_byte ee_getByte</span></div>
-<div class="line"><a name="l01081"></a><span class="lineno"> 1081</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l01082"></a><span class="lineno"> 1082</span>&#160;</div>
-<div class="line"><a name="l01092"></a><span class="lineno"> 1092</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#adf44a20755432a25076e28e94b809264" title="Store an int value at a certain address in the Propeller Chip&#39;s dedicated EEPROM. An int value occupi...">ee_putInt</a>(<span class="keywordtype">int</span> value, <span class="keywordtype">int</span> addr);</div>
-<div class="line"><a name="l01093"></a><span class="lineno"> 1093</span>&#160;</div>
-<div class="line"><a name="l01097"></a><span class="lineno"><a class="code" href="simpletools_8h.html#a1dd0c9e763b2c99590bde1206b8f49e0"> 1097</a></span>&#160;<span class="preprocessor">#define ee_put_int ee_putInt</span></div>
-<div class="line"><a name="l01098"></a><span class="lineno"> 1098</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l01099"></a><span class="lineno"> 1099</span>&#160;</div>
-<div class="line"><a name="l01109"></a><span class="lineno"> 1109</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#ad5ba1e74fdbc69a0578425eb5e176461" title="Get an int value from a certain address in the Propeller Chip&#39;s dedicated EEPROM. If you are fetching...">ee_getInt</a>(<span class="keywordtype">int</span> addr);</div>
-<div class="line"><a name="l01110"></a><span class="lineno"> 1110</span>&#160;</div>
-<div class="line"><a name="l01114"></a><span class="lineno"><a class="code" href="simpletools_8h.html#a6cbbc5e22a078c75b316d08fe6739509"> 1114</a></span>&#160;<span class="preprocessor">#define ee_get_int ee_getInt</span></div>
-<div class="line"><a name="l01115"></a><span class="lineno"> 1115</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l01116"></a><span class="lineno"> 1116</span>&#160;</div>
-<div class="line"><a name="l01127"></a><span class="lineno"> 1127</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#ab958571c584ab8d846c3a8a2cb326109" title="Store a string of byte values starting at a certain address in the Propeller Chip&#39;s dedicated EEPROM...">ee_putStr</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *s, <span class="keywordtype">int</span> n, <span class="keywordtype">int</span> addr);</div>
-<div class="line"><a name="l01128"></a><span class="lineno"> 1128</span>&#160;</div>
-<div class="line"><a name="l01132"></a><span class="lineno"><a class="code" href="simpletools_8h.html#a59386353f20e5a9688e189423fbcfc85"> 1132</a></span>&#160;<span class="preprocessor">#define ee_put_str ee_putStr</span></div>
-<div class="line"><a name="l01133"></a><span class="lineno"> 1133</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l01134"></a><span class="lineno"> 1134</span>&#160;</div>
-<div class="line"><a name="l01149"></a><span class="lineno"> 1149</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* <a class="code" href="simpletools_8h.html#a6e3fa8a82d1bc2be0828314652debe26" title="Fetch a string of byte values starting at a certain address in Propeller Chip&#39;s dedicated EEPROM...">ee_getStr</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* s, <span class="keywordtype">int</span> n, <span class="keywordtype">int</span> addr);</div>
-<div class="line"><a name="l01150"></a><span class="lineno"> 1150</span>&#160;</div>
-<div class="line"><a name="l01154"></a><span class="lineno"><a class="code" href="simpletools_8h.html#a2c2ae1a4f7d1f422c346687845979b7f"> 1154</a></span>&#160;<span class="preprocessor">#define ee_get_str ee_getStr</span></div>
-<div class="line"><a name="l01155"></a><span class="lineno"> 1155</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l01156"></a><span class="lineno"> 1156</span>&#160;</div>
-<div class="line"><a name="l01171"></a><span class="lineno"> 1171</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a10a9a5cd4767ffd7a82c9acd2b9485b2" title="Store a 32-bit precision floating point value at a certain address in the Propeller Chip&#39;s dedicated ...">ee_putFloat32</a>(<span class="keywordtype">float</span> value, <span class="keywordtype">int</span> addr);</div>
-<div class="line"><a name="l01172"></a><span class="lineno"> 1172</span>&#160;</div>
-<div class="line"><a name="l01176"></a><span class="lineno"><a class="code" href="simpletools_8h.html#a9d6e9570f4721c1a580299bdb80638d5"> 1176</a></span>&#160;<span class="preprocessor">#define ee_put_float32 ee_putFloat32</span></div>
-<div class="line"><a name="l01177"></a><span class="lineno"> 1177</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l01178"></a><span class="lineno"> 1178</span>&#160;</div>
-<div class="line"><a name="l01194"></a><span class="lineno"> 1194</span>&#160;<span class="keywordtype">float</span> <a class="code" href="simpletools_8h.html#a3da63e55d0799ab30686bf38a5f15d43" title="Fetch a 32-bit precision floating point value from a certain address in the Propeller Chip&#39;s dedicate...">ee_getFloat32</a>(<span class="keywordtype">int</span> addr);</div>
-<div class="line"><a name="l01195"></a><span class="lineno"> 1195</span>&#160;</div>
-<div class="line"><a name="l01209"></a><span class="lineno"> 1209</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#aa845f3e273a492072b625da584924f32" title="Mount an SD card with the minimal 4-pin interface.">sd_mount</a>(<span class="keywordtype">int</span> doPin, <span class="keywordtype">int</span> clkPin, <span class="keywordtype">int</span> diPin, <span class="keywordtype">int</span> csPin);</div>
-<div class="line"><a name="l01210"></a><span class="lineno"> 1210</span>&#160;</div>
-<div class="line"><a name="l01211"></a><span class="lineno"> 1211</span>&#160;</div>
-<div class="line"><a name="l01223"></a><span class="lineno"> 1223</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#a61783ad70f65edb523f1f467bc47cabb" title="Restarts floating point coprocessor (which runs in a separate cog) after it has been shut down by sto...">start_fpu_cog</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l01224"></a><span class="lineno"> 1224</span>&#160;</div>
-<div class="line"><a name="l01225"></a><span class="lineno"> 1225</span>&#160;</div>
-<div class="line"><a name="l01226"></a><span class="lineno"> 1226</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l01227"></a><span class="lineno"> 1227</span>&#160;<span class="comment"> * @brief Stop floating point coprocessing cog that is started</span></div>
-<div class="line"><a name="l01228"></a><span class="lineno"> 1228</span>&#160;<span class="comment"> * automatically when an application that uses the simpletools library </span></div>
-<div class="line"><a name="l01229"></a><span class="lineno"> 1229</span>&#160;<span class="comment"> * is launched.  When this function stops the cog running the floating </span></div>
-<div class="line"><a name="l01230"></a><span class="lineno"> 1230</span>&#160;<span class="comment"> * point coprocessor, it will save a cog, but disable certain floating </span></div>
-<div class="line"><a name="l01231"></a><span class="lineno"> 1231</span>&#160;<span class="comment"> * point functionalities until it is restarted by calling start_fpu_cog.</span></div>
-<div class="line"><a name="l01232"></a><span class="lineno"> 1232</span>&#160;<span class="comment"> * CAUTION: Do not try call simpletext library functions while the</span></div>
-<div class="line"><a name="l01233"></a><span class="lineno"> 1233</span>&#160;<span class="comment"> * fpu cog is shut down, it could cause the application to hang.</span></div>
-<div class="line"><a name="l01234"></a><span class="lineno"> 1234</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01235"></a><span class="lineno"> 1235</span>&#160;<span class="comment"> * @returns Nonzero if successful, or zero if no cogs available.</span></div>
-<div class="line"><a name="l01236"></a><span class="lineno"> 1236</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l01237"></a><span class="lineno"> 1237</span>&#160;<span class="comment">void stop_fpu_cog(void);</span></div>
-<div class="line"><a name="l01238"></a><span class="lineno"> 1238</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l01239"></a><span class="lineno"> 1239</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l01240"></a><span class="lineno"> 1240</span>&#160;</div>
-<div class="line"><a name="l01241"></a><span class="lineno"> 1241</span>&#160;</div>
-<div class="line"><a name="l01242"></a><span class="lineno"> 1242</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l01243"></a><span class="lineno"> 1243</span>&#160;<span class="comment"> * @brief Convert value to zero terminated text string.</span></div>
-<div class="line"><a name="l01244"></a><span class="lineno"> 1244</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01245"></a><span class="lineno"> 1245</span>&#160;<span class="comment"> * @details Given an int, a character array pointer and a base, this function</span></div>
-<div class="line"><a name="l01246"></a><span class="lineno"> 1246</span>&#160;<span class="comment"> *          converts the int into the characters that represent the value in</span></div>
-<div class="line"><a name="l01247"></a><span class="lineno"> 1247</span>&#160;<span class="comment"> *          the specified base.</span></div>
-<div class="line"><a name="l01248"></a><span class="lineno"> 1248</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01249"></a><span class="lineno"> 1249</span>&#160;<span class="comment"> * @param   i An integer value.</span></div>
-<div class="line"><a name="l01250"></a><span class="lineno"> 1250</span>&#160;<span class="comment"> * @param   b[] A character array pointer.</span></div>
-<div class="line"><a name="l01251"></a><span class="lineno"> 1251</span>&#160;<span class="comment"> * @param   base The number base for the character representation.</span></div>
-<div class="line"><a name="l01252"></a><span class="lineno"> 1252</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01253"></a><span class="lineno"> 1253</span>&#160;<span class="comment"> * @returns The character array address it received.</span></div>
-<div class="line"><a name="l01254"></a><span class="lineno"> 1254</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l01255"></a><span class="lineno"> 1255</span>&#160;<span class="comment">  char* itoa(int i, char b[], int base);</span></div>
-<div class="line"><a name="l01256"></a><span class="lineno"> 1256</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l01257"></a><span class="lineno"> 1257</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l01258"></a><span class="lineno"> 1258</span>&#160;</div>
-<div class="line"><a name="l01259"></a><span class="lineno"> 1259</span>&#160;</div>
-<div class="line"><a name="l01284"></a><span class="lineno"> 1284</span>&#160;<span class="keywordtype">int</span> *<a class="code" href="simpletools_8h.html#a9c5d06d96a66ec25c018b469e9c5e06b" title="Run a function&#39;s code in the next available cog (processor).">cog_run</a>(<span class="keywordtype">void</span> (*<span class="keyword">function</span>)(<span class="keywordtype">void</span> *par), <span class="keywordtype">int</span> stacksize);</div>
-<div class="line"><a name="l01285"></a><span class="lineno"> 1285</span>&#160;</div>
-<div class="line"><a name="l01286"></a><span class="lineno"> 1286</span>&#160;</div>
-<div class="line"><a name="l01294"></a><span class="lineno"> 1294</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#ad260529b4817b8bc40d280053d921a9e" title="Get the cog ID.">cog_num</a>(<span class="keywordtype">int</span> *coginfo);</div>
-<div class="line"><a name="l01295"></a><span class="lineno"> 1295</span>&#160;</div>
-<div class="line"><a name="l01296"></a><span class="lineno"> 1296</span>&#160;</div>
-<div class="line"><a name="l01306"></a><span class="lineno"> 1306</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a5b2cba6f29a9955c55ab239066e30e7f" title="End function code running in another cog that was launched with cog_run.">cog_end</a>(<span class="keywordtype">int</span> *coginfo);</div>
-<div class="line"><a name="l01307"></a><span class="lineno"> 1307</span>&#160;</div>
-<div class="line"><a name="l01308"></a><span class="lineno"> 1308</span>&#160;</div>
-<div class="line"><a name="l01322"></a><span class="lineno"> 1322</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#ac21155c6ac6136e0300141f0c1e059eb" title="Take bytes in one variable at varAddr, swap their order, and store them in another variable at result...">endianSwap</a>(<span class="keywordtype">void</span> *resultAddr, <span class="keywordtype">void</span> *varAddr, <span class="keywordtype">int</span> byteCount);</div>
-<div class="line"><a name="l01323"></a><span class="lineno"> 1323</span>&#160;</div>
-<div class="line"><a name="l01324"></a><span class="lineno"> 1324</span>&#160;</div>
-<div class="line"><a name="l01325"></a><span class="lineno"> 1325</span>&#160;<span class="preprocessor">#if defined(__cplusplus)</span></div>
-<div class="line"><a name="l01326"></a><span class="lineno"> 1326</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="line"><a name="l01327"></a><span class="lineno"> 1327</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01328"></a><span class="lineno"> 1328</span>&#160;<span class="preprocessor"></span><span class="comment">/* __cplusplus */</span>  </div>
-<div class="line"><a name="l01329"></a><span class="lineno"> 1329</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01330"></a><span class="lineno"> 1330</span>&#160;<span class="preprocessor"></span><span class="comment">/* SIMPLETOOLS_H */</span>  </div>
-<div class="line"><a name="l01331"></a><span class="lineno"> 1331</span>&#160;</div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#afbfa1cfbdb01885472e3f64d26c09ed8" title="Mark the current time (deprecated).">mark</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#aba16632261a1faa89b62c8d7d11b45cc" title="Compares the time against the time elapsed since mark (deprecated).">timeout</a>(<span class="keywordtype">int</span> time);</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a14f739412d16800b58f14029279e5332" title="Waits a certain number of time increments from the last call to mark or wait functions (deprecated)...">wait</a>(<span class="keywordtype">int</span> time);</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;</div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a04c171fd47bc9149c306576c349de680" title="Set time increment for pause function.">set_pause_dt</a>(<span class="keywordtype">int</span> clockticks);</div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;</div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;<span class="keywordtype">long</span> <a class="code" href="simpletools_8h.html#a20a9d97de9777b12cfd9353a83ac21cb" title="Count number of low to high transitions an external input applies to an I/O pin over a certain period...">count</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">long</span> duration);</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;</div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a7f87d0c6e5e644d9a2ad011e556de1e8" title="Set D/A voltage.">dac_ctr</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">int</span> channel, <span class="keywordtype">int</span> dacVal);</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;</div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#af8ef60ed622a82bab16bea03cddc2340" title="Set D/A voltage resolution.">dac_ctr_res</a>(<span class="keywordtype">int</span> bits);</div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;</div>
+<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a37edfbadb336de010e4cfdecdeca6148" title="Stop the cog that&#39;s transmitting the DAC signal(s).">dac_ctr_stop</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;</div>
+<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a78d00871cfb358e7c1f4fea6fc5d07f5" title="Use same cog to send square wave of a certain frequency for a certain amount of time. For set and forget with another cog, try square_wave function instead.">freqout</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">int</span> msTime, <span class="keywordtype">int</span> frequency);</div>
+<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;</div>
+<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#a2ccfd8aa1b8c5e7d58ee2dbfa3ecebe5" title="Start pulse width modulation (PWM) process in another cog.">pwm_start</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> cycleMicroseconds);</div>
+<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;</div>
+<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a57f683188c3dd35ee0574ff349835682" title="Set a PWM signal&#39;s high time.">pwm_set</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">int</span> channel, <span class="keywordtype">int</span> tHigh);</div>
+<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;</div>
+<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#aec8f4f09d7d0222e947bea4b37fc33c2" title="Shut down PWM process and reclaim cog and I/O pins for other uses.">pwm_stop</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;</div>
+<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;<span class="keywordtype">long</span> <a class="code" href="simpletools_8h.html#ae251e0a94359068f5e56682311ef4201" title="Measure the duration of a pulse applied to an I/O pin.">pulse_in</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">int</span> state);</div>
+<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;</div>
+<div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#af7d62062bce6f1cb4bc03006f8463ba5" title="Transmit a pulse with an I/O pin.">pulse_out</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">int</span> time);</div>
+<div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;</div>
+<div class="line"><a name="l00915"></a><span class="lineno">  915</span>&#160;<span class="keywordtype">long</span> <a class="code" href="simpletools_8h.html#ad5f7522ca251c3cf3d7fd903fcdb5bbe" title="Set I/O pin to input and measure the time it takes a signal to transition from a start state to the o...">rc_time</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">int</span> state);</div>
+<div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160;</div>
+<div class="line"><a name="l00935"></a><span class="lineno">  935</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a521dea91cf2ba911ff66d3074672316f" title="Make I/O pin transmit a repeated high/low signal at a certain frequency. High and low times are the s...">square_wave</a>(<span class="keywordtype">int</span> pin, <span class="keywordtype">int</span> channel, <span class="keywordtype">int</span> freq);</div>
+<div class="line"><a name="l00936"></a><span class="lineno">  936</span>&#160;</div>
+<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a6291bd6f5b751420d414cff05e720ec8" title="Stop the cog that&#39;s transmitting a square wave.">square_wave_stop</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;</div>
+<div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a288d762194e0bad67f4f37ba43f57292" title="Sets the timeout value for the following timed I/O functions: pulse_in, rc_time.">set_io_timeout</a>(<span class="keywordtype">long</span> clockTicks);</div>
+<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;</div>
+<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#ac4b081567b4d3d054382f88c777d740e" title="Sets the time increment for the following timed I/O functions: count, pulse_in, pulse_out, rc_time.">set_io_dt</a>(<span class="keywordtype">long</span> clockticks);</div>
+<div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160;</div>
+<div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;</div>
+<div class="line"><a name="l00981"></a><span class="lineno">  981</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#a4fca5193934cbc3b7fce7bfca131302d" title="Receive data from a synchronous serial device.">shift_in</a>(<span class="keywordtype">int</span> pinDat, <span class="keywordtype">int</span> pinClk, <span class="keywordtype">int</span> mode, <span class="keywordtype">int</span> bits);</div>
+<div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160;</div>
+<div class="line"><a name="l00992"></a><span class="lineno">  992</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a39f6cd6c7f7965e057926f92a9b2fa29" title="Send data to a synchronous serial device.">shift_out</a>(<span class="keywordtype">int</span> pinDat, <span class="keywordtype">int</span> pinClk, <span class="keywordtype">int</span> mode, <span class="keywordtype">int</span> bits, <span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00993"></a><span class="lineno">  993</span>&#160;</div>
+<div class="line"><a name="l01012"></a><span class="lineno"> 1012</span>&#160;i2c *<a class="code" href="simpletools_8h.html#a0f02473c77ebed4ad04f829eff27985c" title="Set up a simple serial driver with transmit &amp; receive pins.">i2c_newbus</a>(<span class="keywordtype">int</span> sclPin, <span class="keywordtype">int</span> sdaPin, <span class="keywordtype">int</span> sclDrive);</div>
+<div class="line"><a name="l01013"></a><span class="lineno"> 1013</span>&#160;</div>
+<div class="line"><a name="l01014"></a><span class="lineno"> 1014</span>&#160;</div>
+<div class="line"><a name="l01042"></a><span class="lineno"> 1042</span>&#160;HUBTEXT <span class="keywordtype">int</span>  <a class="code" href="simpletools_8h.html#a2d8c9b83ae2e87db69fb9138c6c57f57" title="Send data to device using I2C protocol.">i2c_out</a>(i2c *busID, <span class="keywordtype">int</span> i2cAddr, </div>
+<div class="line"><a name="l01043"></a><span class="lineno"> 1043</span>&#160;                     <span class="keywordtype">int</span> memAddr, <span class="keywordtype">int</span> memAddrCount, </div>
+<div class="line"><a name="l01044"></a><span class="lineno"> 1044</span>&#160;                     <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data, <span class="keywordtype">int</span> dataCount);</div>
+<div class="line"><a name="l01045"></a><span class="lineno"> 1045</span>&#160;</div>
+<div class="line"><a name="l01046"></a><span class="lineno"> 1046</span>&#160;</div>
+<div class="line"><a name="l01074"></a><span class="lineno"> 1074</span>&#160;HUBTEXT <span class="keywordtype">int</span>  <a class="code" href="simpletools_8h.html#adf4323fa7fc0f0bd7ba1163f1d8ab52a" title="Receive data from device using I2C protocol.">i2c_in</a>(i2c *busID, <span class="keywordtype">int</span> i2cAddr, </div>
+<div class="line"><a name="l01075"></a><span class="lineno"> 1075</span>&#160;                    <span class="keywordtype">int</span> memAddr, <span class="keywordtype">int</span> memAddrCount, </div>
+<div class="line"><a name="l01076"></a><span class="lineno"> 1076</span>&#160;                    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data, <span class="keywordtype">int</span> dataCount);</div>
+<div class="line"><a name="l01077"></a><span class="lineno"> 1077</span>&#160;</div>
+<div class="line"><a name="l01078"></a><span class="lineno"> 1078</span>&#160;</div>
+<div class="line"><a name="l01088"></a><span class="lineno"> 1088</span>&#160;HUBTEXT <span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#a7c7858c120d81da92771560bd50c54d6" title="Check if I2C device is busy or responding.">i2c_busy</a>(i2c *busID, <span class="keywordtype">int</span> i2cAddr);</div>
+<div class="line"><a name="l01089"></a><span class="lineno"> 1089</span>&#160;</div>
+<div class="line"><a name="l01090"></a><span class="lineno"> 1090</span>&#160;</div>
+<div class="line"><a name="l01100"></a><span class="lineno"> 1100</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a593162b2f71e2ad23f0a09516cf9a7b4" title="Store a byte value at a certain address in the Propeller Chip&#39;s dedicated EEPROM.">ee_putByte</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> value, <span class="keywordtype">int</span> addr);</div>
+<div class="line"><a name="l01101"></a><span class="lineno"> 1101</span>&#160;</div>
+<div class="line"><a name="l01105"></a><span class="lineno"><a class="code" href="simpletools_8h.html#ac04aea26e16ed3b740d27bc03eed2db5"> 1105</a></span>&#160;<span class="preprocessor">#define ee_put_byte ee_putByte</span></div>
+<div class="line"><a name="l01106"></a><span class="lineno"> 1106</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l01107"></a><span class="lineno"> 1107</span>&#160;</div>
+<div class="line"><a name="l01117"></a><span class="lineno"> 1117</span>&#160;<span class="keywordtype">char</span> <a class="code" href="simpletools_8h.html#ac1042df969c1f5bffa816fdf068c4ed9" title="Get a byte value from a certain address in the Propeller Chip&#39;s dedicated EEPROM.">ee_getByte</a>(<span class="keywordtype">int</span> addr);</div>
+<div class="line"><a name="l01118"></a><span class="lineno"> 1118</span>&#160;</div>
+<div class="line"><a name="l01122"></a><span class="lineno"><a class="code" href="simpletools_8h.html#aae4945cabc87fb08d37fca7e0db20422"> 1122</a></span>&#160;<span class="preprocessor">#define ee_get_byte ee_getByte</span></div>
+<div class="line"><a name="l01123"></a><span class="lineno"> 1123</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l01124"></a><span class="lineno"> 1124</span>&#160;</div>
+<div class="line"><a name="l01134"></a><span class="lineno"> 1134</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#adf44a20755432a25076e28e94b809264" title="Store an int value at a certain address in the Propeller Chip&#39;s dedicated EEPROM. An int value occupi...">ee_putInt</a>(<span class="keywordtype">int</span> value, <span class="keywordtype">int</span> addr);</div>
+<div class="line"><a name="l01135"></a><span class="lineno"> 1135</span>&#160;</div>
+<div class="line"><a name="l01139"></a><span class="lineno"><a class="code" href="simpletools_8h.html#a1dd0c9e763b2c99590bde1206b8f49e0"> 1139</a></span>&#160;<span class="preprocessor">#define ee_put_int ee_putInt</span></div>
+<div class="line"><a name="l01140"></a><span class="lineno"> 1140</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l01141"></a><span class="lineno"> 1141</span>&#160;</div>
+<div class="line"><a name="l01151"></a><span class="lineno"> 1151</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#ad5ba1e74fdbc69a0578425eb5e176461" title="Get an int value from a certain address in the Propeller Chip&#39;s dedicated EEPROM. If you are fetching...">ee_getInt</a>(<span class="keywordtype">int</span> addr);</div>
+<div class="line"><a name="l01152"></a><span class="lineno"> 1152</span>&#160;</div>
+<div class="line"><a name="l01156"></a><span class="lineno"><a class="code" href="simpletools_8h.html#a6cbbc5e22a078c75b316d08fe6739509"> 1156</a></span>&#160;<span class="preprocessor">#define ee_get_int ee_getInt</span></div>
+<div class="line"><a name="l01157"></a><span class="lineno"> 1157</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l01158"></a><span class="lineno"> 1158</span>&#160;</div>
+<div class="line"><a name="l01169"></a><span class="lineno"> 1169</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#ab958571c584ab8d846c3a8a2cb326109" title="Store a string of byte values starting at a certain address in the Propeller Chip&#39;s dedicated EEPROM...">ee_putStr</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *s, <span class="keywordtype">int</span> n, <span class="keywordtype">int</span> addr);</div>
+<div class="line"><a name="l01170"></a><span class="lineno"> 1170</span>&#160;</div>
+<div class="line"><a name="l01174"></a><span class="lineno"><a class="code" href="simpletools_8h.html#a59386353f20e5a9688e189423fbcfc85"> 1174</a></span>&#160;<span class="preprocessor">#define ee_put_str ee_putStr</span></div>
+<div class="line"><a name="l01175"></a><span class="lineno"> 1175</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l01176"></a><span class="lineno"> 1176</span>&#160;</div>
+<div class="line"><a name="l01191"></a><span class="lineno"> 1191</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* <a class="code" href="simpletools_8h.html#a6e3fa8a82d1bc2be0828314652debe26" title="Fetch a string of byte values starting at a certain address in Propeller Chip&#39;s dedicated EEPROM...">ee_getStr</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* s, <span class="keywordtype">int</span> n, <span class="keywordtype">int</span> addr);</div>
+<div class="line"><a name="l01192"></a><span class="lineno"> 1192</span>&#160;</div>
+<div class="line"><a name="l01196"></a><span class="lineno"><a class="code" href="simpletools_8h.html#a2c2ae1a4f7d1f422c346687845979b7f"> 1196</a></span>&#160;<span class="preprocessor">#define ee_get_str ee_getStr</span></div>
+<div class="line"><a name="l01197"></a><span class="lineno"> 1197</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l01198"></a><span class="lineno"> 1198</span>&#160;</div>
+<div class="line"><a name="l01213"></a><span class="lineno"> 1213</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a10a9a5cd4767ffd7a82c9acd2b9485b2" title="Store a 32-bit precision floating point value at a certain address in the Propeller Chip&#39;s dedicated ...">ee_putFloat32</a>(<span class="keywordtype">float</span> value, <span class="keywordtype">int</span> addr);</div>
+<div class="line"><a name="l01214"></a><span class="lineno"> 1214</span>&#160;</div>
+<div class="line"><a name="l01218"></a><span class="lineno"><a class="code" href="simpletools_8h.html#a9d6e9570f4721c1a580299bdb80638d5"> 1218</a></span>&#160;<span class="preprocessor">#define ee_put_float32 ee_putFloat32</span></div>
+<div class="line"><a name="l01219"></a><span class="lineno"> 1219</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l01220"></a><span class="lineno"> 1220</span>&#160;</div>
+<div class="line"><a name="l01236"></a><span class="lineno"> 1236</span>&#160;<span class="keywordtype">float</span> <a class="code" href="simpletools_8h.html#a3da63e55d0799ab30686bf38a5f15d43" title="Fetch a 32-bit precision floating point value from a certain address in the Propeller Chip&#39;s dedicate...">ee_getFloat32</a>(<span class="keywordtype">int</span> addr);</div>
+<div class="line"><a name="l01237"></a><span class="lineno"> 1237</span>&#160;</div>
+<div class="line"><a name="l01251"></a><span class="lineno"> 1251</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#aa845f3e273a492072b625da584924f32" title="Mount an SD card with the minimal 4-pin interface.">sd_mount</a>(<span class="keywordtype">int</span> doPin, <span class="keywordtype">int</span> clkPin, <span class="keywordtype">int</span> diPin, <span class="keywordtype">int</span> csPin);</div>
+<div class="line"><a name="l01252"></a><span class="lineno"> 1252</span>&#160;</div>
+<div class="line"><a name="l01253"></a><span class="lineno"> 1253</span>&#160;</div>
+<div class="line"><a name="l01265"></a><span class="lineno"> 1265</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#a61783ad70f65edb523f1f467bc47cabb" title="Restarts floating point coprocessor (which runs in a separate cog) after it has been shut down by sto...">start_fpu_cog</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l01266"></a><span class="lineno"> 1266</span>&#160;</div>
+<div class="line"><a name="l01267"></a><span class="lineno"> 1267</span>&#160;</div>
+<div class="line"><a name="l01268"></a><span class="lineno"> 1268</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l01269"></a><span class="lineno"> 1269</span>&#160;<span class="comment"> * @brief Stop floating point coprocessing cog that is started</span></div>
+<div class="line"><a name="l01270"></a><span class="lineno"> 1270</span>&#160;<span class="comment"> * automatically when an application that uses the simpletools library </span></div>
+<div class="line"><a name="l01271"></a><span class="lineno"> 1271</span>&#160;<span class="comment"> * is launched.  When this function stops the cog running the floating </span></div>
+<div class="line"><a name="l01272"></a><span class="lineno"> 1272</span>&#160;<span class="comment"> * point coprocessor, it will save a cog, but disable certain floating </span></div>
+<div class="line"><a name="l01273"></a><span class="lineno"> 1273</span>&#160;<span class="comment"> * point functionalities until it is restarted by calling start_fpu_cog.</span></div>
+<div class="line"><a name="l01274"></a><span class="lineno"> 1274</span>&#160;<span class="comment"> * CAUTION: Do not try call simpletext library functions while the</span></div>
+<div class="line"><a name="l01275"></a><span class="lineno"> 1275</span>&#160;<span class="comment"> * fpu cog is shut down, it could cause the application to hang.</span></div>
+<div class="line"><a name="l01276"></a><span class="lineno"> 1276</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01277"></a><span class="lineno"> 1277</span>&#160;<span class="comment"> * @returns Nonzero if successful, or zero if no cogs available.</span></div>
+<div class="line"><a name="l01278"></a><span class="lineno"> 1278</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l01279"></a><span class="lineno"> 1279</span>&#160;<span class="comment">void stop_fpu_cog(void);</span></div>
+<div class="line"><a name="l01280"></a><span class="lineno"> 1280</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l01281"></a><span class="lineno"> 1281</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l01282"></a><span class="lineno"> 1282</span>&#160;</div>
+<div class="line"><a name="l01283"></a><span class="lineno"> 1283</span>&#160;</div>
+<div class="line"><a name="l01284"></a><span class="lineno"> 1284</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l01285"></a><span class="lineno"> 1285</span>&#160;<span class="comment"> * @brief Convert value to zero terminated text string.</span></div>
+<div class="line"><a name="l01286"></a><span class="lineno"> 1286</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01287"></a><span class="lineno"> 1287</span>&#160;<span class="comment"> * @details Given an int, a character array pointer and a base, this function</span></div>
+<div class="line"><a name="l01288"></a><span class="lineno"> 1288</span>&#160;<span class="comment"> *          converts the int into the characters that represent the value in</span></div>
+<div class="line"><a name="l01289"></a><span class="lineno"> 1289</span>&#160;<span class="comment"> *          the specified base.</span></div>
+<div class="line"><a name="l01290"></a><span class="lineno"> 1290</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01291"></a><span class="lineno"> 1291</span>&#160;<span class="comment"> * @param   i An integer value.</span></div>
+<div class="line"><a name="l01292"></a><span class="lineno"> 1292</span>&#160;<span class="comment"> * @param   b[] A character array pointer.</span></div>
+<div class="line"><a name="l01293"></a><span class="lineno"> 1293</span>&#160;<span class="comment"> * @param   base The number base for the character representation.</span></div>
+<div class="line"><a name="l01294"></a><span class="lineno"> 1294</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01295"></a><span class="lineno"> 1295</span>&#160;<span class="comment"> * @returns The character array address it received.</span></div>
+<div class="line"><a name="l01296"></a><span class="lineno"> 1296</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l01297"></a><span class="lineno"> 1297</span>&#160;<span class="comment">  char* itoa(int i, char b[], int base);</span></div>
+<div class="line"><a name="l01298"></a><span class="lineno"> 1298</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l01299"></a><span class="lineno"> 1299</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l01300"></a><span class="lineno"> 1300</span>&#160;</div>
+<div class="line"><a name="l01301"></a><span class="lineno"> 1301</span>&#160;</div>
+<div class="line"><a name="l01326"></a><span class="lineno"> 1326</span>&#160;<span class="keywordtype">int</span> *<a class="code" href="simpletools_8h.html#a9c5d06d96a66ec25c018b469e9c5e06b" title="Run a function&#39;s code in the next available cog (processor).">cog_run</a>(<span class="keywordtype">void</span> (*<span class="keyword">function</span>)(<span class="keywordtype">void</span> *par), <span class="keywordtype">int</span> stacksize);</div>
+<div class="line"><a name="l01327"></a><span class="lineno"> 1327</span>&#160;</div>
+<div class="line"><a name="l01328"></a><span class="lineno"> 1328</span>&#160;</div>
+<div class="line"><a name="l01336"></a><span class="lineno"> 1336</span>&#160;<span class="keywordtype">int</span> <a class="code" href="simpletools_8h.html#ad260529b4817b8bc40d280053d921a9e" title="Get the cog ID.">cog_num</a>(<span class="keywordtype">int</span> *coginfo);</div>
+<div class="line"><a name="l01337"></a><span class="lineno"> 1337</span>&#160;</div>
+<div class="line"><a name="l01338"></a><span class="lineno"> 1338</span>&#160;</div>
+<div class="line"><a name="l01348"></a><span class="lineno"> 1348</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#a5b2cba6f29a9955c55ab239066e30e7f" title="End function code running in another cog that was launched with cog_run.">cog_end</a>(<span class="keywordtype">int</span> *coginfo);</div>
+<div class="line"><a name="l01349"></a><span class="lineno"> 1349</span>&#160;</div>
+<div class="line"><a name="l01350"></a><span class="lineno"> 1350</span>&#160;</div>
+<div class="line"><a name="l01364"></a><span class="lineno"> 1364</span>&#160;<span class="keywordtype">void</span> <a class="code" href="simpletools_8h.html#ac21155c6ac6136e0300141f0c1e059eb" title="Take bytes in one variable at varAddr, swap their order, and store them in another variable at result...">endianSwap</a>(<span class="keywordtype">void</span> *resultAddr, <span class="keywordtype">void</span> *varAddr, <span class="keywordtype">int</span> byteCount);</div>
+<div class="line"><a name="l01365"></a><span class="lineno"> 1365</span>&#160;</div>
+<div class="line"><a name="l01366"></a><span class="lineno"> 1366</span>&#160;</div>
+<div class="line"><a name="l01367"></a><span class="lineno"> 1367</span>&#160;<span class="preprocessor">#if defined(__cplusplus)</span></div>
+<div class="line"><a name="l01368"></a><span class="lineno"> 1368</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="line"><a name="l01369"></a><span class="lineno"> 1369</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01370"></a><span class="lineno"> 1370</span>&#160;<span class="preprocessor"></span><span class="comment">/* __cplusplus */</span>  </div>
+<div class="line"><a name="l01371"></a><span class="lineno"> 1371</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01372"></a><span class="lineno"> 1372</span>&#160;<span class="preprocessor"></span><span class="comment">/* SIMPLETOOLS_H */</span>  </div>
+<div class="line"><a name="l01373"></a><span class="lineno"> 1373</span>&#160;</div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 10 2014 17:36:46 for simpletools library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 16 2014 14:31:43 for simpletools library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

@@ -14,15 +14,14 @@
 
 int main()                                   
 {
-  pause(1000);                               
-
   mstime_start();
-  mark();
+  int dt = CLKFREQ;
+  int t = CNT;
   while(1)
   {
     int time = mstime_get();
     printf("time = %d\n", time);                    
-    wait(1000000);                               
+    waitcnt(t += dt);
   }    
 }
 
