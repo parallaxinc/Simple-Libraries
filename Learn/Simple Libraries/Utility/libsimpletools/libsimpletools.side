@@ -53,7 +53,7 @@ cognum.c -> source/cognum.c
 endianSwap.c -> source/endianSwap.c
 timeTicks.c -> source/timeTicks.c
 >compiler=C
->memtype=lmm main ram
+>memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-Wall

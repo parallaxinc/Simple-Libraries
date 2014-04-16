@@ -29,7 +29,7 @@ HUBTEXT int  i2c_out(i2c *busID, int i2cAddr,
   int m;
   if(memAddrCount)
   {
-    if(memAddrCount > 1)
+    if(memAddrCount > 0)
     {
       endianSwap(&m, &memAddr, memAddrCount);
     }  
