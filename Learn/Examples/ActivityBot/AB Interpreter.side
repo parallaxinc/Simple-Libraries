@@ -1,14 +1,4 @@
 AB Interpreter.c
--I library/libabdrive
--I library/libfdserial
--I library/libsimplei2c
--I library/libsimpletext
--I library/libsimpletools
--L library/libabdrive
--L library/libfdserial
--L library/libsimplei2c
--L library/libsimpletext
--L library/libsimpletools
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
@@ -16,5 +6,4 @@ AB Interpreter.c
 >-fno-exceptions
 >defs::-std=c99
 >-lm
->linker::-lfdserial -labdrive -lsimplei2c -lsimpletext -lsimpletools
 >BOARD::ACTIVITYBOARD
