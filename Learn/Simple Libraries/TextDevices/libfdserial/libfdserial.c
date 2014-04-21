@@ -80,12 +80,12 @@ int main(void)
   writeBin(term, ival);
 
   writeStr(term, "\n");
-  writeStrDigits(term, "Woot\n", 8);
-  writeDecDigits(term, ival, 8);
+  writeStrLen(term, "Woot\n", 8);
+  writeDecLen(term, ival, 8);
   writeChar(term, ' ');
-  writeHexDigits(term, ival, 8);
+  writeHexLen(term, ival, 8);
   writeChar(term, ' ');
-  writeBinDigits(term, ival, 8);
+  writeBinLen(term, ival, 8);
 
   writeLine(term, "");
   writeFloat(term, fval);
@@ -116,11 +116,11 @@ int main(void)
   writeChar(term, readChar(term));
 
   writeStr(term, "\nEnter a decimal number: ");
-  writeDecDigits(term, readDec(term),8);
+  writeDecLen(term, readDec(term),8);
   writeStr(term, "\nEnter a hexadecimal number: ");
-  writeHexDigits(term, readHex(term),8);
+  writeHexLen(term, readHex(term),8);
   writeStr(term, "\nEnter a binary number: ");
-  writeBinDigits(term, readBin(term),8);
+  writeBinLen(term, readBin(term),8);
   writeStr(term, "\nEnter a floating point number: ");
   writeFloatPrecision(term, readFloat(term), 8, 8);
 

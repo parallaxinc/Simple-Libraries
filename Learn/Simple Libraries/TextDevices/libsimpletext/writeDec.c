@@ -9,7 +9,7 @@
 
 void writeDec(text_t *device, int number)
 {
-  writeDecDigits(device, number, 0);
+  writeDecLen(device, number, 0);
 }
 
 /*

@@ -7,7 +7,7 @@
  */
 #include "simpletext.h"
 
-void writeHexDigits(text_t *p, int number, int digits)
+void writeHexLen(text_t *p, int number, int digits)
 {
   printNumber(p, number, 16, digits, ' ');
 }
