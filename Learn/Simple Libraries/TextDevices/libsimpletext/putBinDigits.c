@@ -7,7 +7,7 @@
  */
 #include "simpletext.h"
 
-void putBinDigits(int number, int digits)
+void putBinLen(int number, int digits)
 {
   extern text_t *dport_ptr;
   printNumber(dport_ptr, number, 2, digits, '0');

@@ -8,7 +8,7 @@
 #include <ctype.h>
 #include "simpletext.h"
 
-int writeStrDigits(text_t *p, char *str, int width)
+int writeStrLen(text_t *p, char *str, int width)
 {
   int n;
   for(n = 0; isalnum(*(str+n)); n++)

@@ -7,7 +7,7 @@
  */
 #include "simpletext.h"
 
-void putDecDigits(int val, int width)
+void putDecLen(int val, int width)
 {
   extern text_t *dport_ptr;
   if(val < 0) {

@@ -10,7 +10,7 @@
 void putDec(int number)
 {
   extern text_t *dport_ptr;
-  writeDecDigits(dport_ptr, number, 0);
+  writeDecLen(dport_ptr, number, 0);
 }
 
 /*

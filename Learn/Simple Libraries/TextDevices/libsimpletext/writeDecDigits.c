@@ -7,7 +7,7 @@
  */
 #include "simpletext.h"
 
-void writeDecDigits(text_t *p, int val, int width)
+void writeDecLen(text_t *p, int val, int width)
 {
   if(val < 0) {
     val = -val;

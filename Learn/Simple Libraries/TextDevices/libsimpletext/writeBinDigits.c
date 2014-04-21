@@ -7,7 +7,7 @@
  */
 #include "simpletext.h"
 
-void writeBinDigits(text_t *p, int number, int digits)
+void writeBinLen(text_t *p, int number, int digits)
 {
   printNumber(p, number, 2, digits, ' ');
 }

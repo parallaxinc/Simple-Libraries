@@ -7,7 +7,7 @@
  */
 #include "simpletext.h"
 
-void putHexDigits(int number, int digits)
+void putHexLen(int number, int digits)
 {
   extern text_t *dport_ptr;
   printNumber(dport_ptr, number, 16, digits, '0');

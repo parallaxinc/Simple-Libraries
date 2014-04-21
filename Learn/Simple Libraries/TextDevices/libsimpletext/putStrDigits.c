@@ -8,7 +8,7 @@
 #include <ctype.h>
 #include "simpletext.h"
 
-int putStrDigits(char *str, int width)
+int putStrLen(char *str, int width)
 {
   extern text_t *dport_ptr;
   int n;

@@ -34,9 +34,9 @@ int main(void)
   /* traditional hello message. */
   putln("Hello, world!");
 
-  putStrDigits(&bigtext[20],5);
+  putStrLen(&bigtext[20],5);
   putln("");
-  writeStrDigits(simpleterm_pointer(),&bigtext[4],5);
+  writeStrLen(simpleterm_pointer(),&bigtext[4],5);
   putln("");
   
 #ifdef DIV0_NAN_TEST
@@ -175,11 +175,11 @@ int main(void)
   writeChar(text, readChar(text));
 
   writeStr(text, "\nEnter a decimal number: ");
-  writeDecDigits(text, readDec(text),8);
+  writeDecLen(text, readDec(text),8);
   writeStr(text, "\nEnter a hexadecimal number: ");
-  writeHexDigits(text, readHex(text),8);
+  writeHexLen(text, readHex(text),8);
   writeStr(text, "\nEnter a binary number: ");
-  writeBinDigits(text, readBin(text),8);
+  writeBinLen(text, readBin(text),8);
   writeStr(text, "\nEnter a floating point number: ");
   writeFloatPrecision(text, readFloat(text),8,8);
 

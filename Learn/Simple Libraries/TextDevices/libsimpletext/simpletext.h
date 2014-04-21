@@ -311,7 +311,7 @@ void putBin(int value);
  * 
  * @param digits Number of characters to print. 
  */
-void putBinDigits(int value, int digits);
+void putBinLen(int value, int digits);
 
 
 /**
@@ -337,7 +337,7 @@ void putDec(int value);
  *
  * @param width Number of characters to print padded by zeroes. 
  */
-void putDecDigits(int value, int width);
+void putDecLen(int value, int width);
 
 
 /**
@@ -365,7 +365,7 @@ void putHex(int value);
  * 
  * @param digits Number of hexadecimal characters to print padded by zeroes. 
  */
-void putHexDigits(int value, int digits);
+void putHexLen(int value, int digits);
 
 
 /**
@@ -406,13 +406,13 @@ int  putLine(const char* str);
 int  putStr(const char* str);
 
 /**
- * @brief Send a string on the transmit device.
+ * @brief Send a string with a certain number of characters.
  * 
  * @param str Null terminated string to send. 
  * 
  * @param width Number of characters to print padded by spaces. 
  */
-int  putStrDigits(char* str, int width);
+int  putStrLen(char* str, int width);
 
 /**
  * @brief Get binary number from the receive device.
@@ -498,7 +498,7 @@ void writeBin(text_t *device, int value);
  * 
  * @param digits Number of characters to print. 
  */
-void writeBinDigits(text_t *device, int value, int digits);
+void writeBinLen(text_t *device, int value, int digits);
 
 
 /**
@@ -531,7 +531,7 @@ void writeDec(text_t *device, int value);
  * 
  * @param width Number of characters to print padded by spaces. 
  */
-void writeDecDigits(text_t *device, int value, int width);
+void writeDecLen(text_t *device, int value, int width);
 
 
 /**
@@ -564,7 +564,7 @@ void writeHex(text_t *device, int value);
  * 
  * @param digits Number of hexadecimal characters to print. 
  */
-void writeHexDigits(text_t *device, int value, int digits);
+void writeHexLen(text_t *device, int value, int digits);
 
 
 /**
@@ -611,7 +611,7 @@ int  writeStr(text_t *device, char* str);
  * 
  * @param width Number of characters to print padded by spaces. 
  */
-int  writeStrDigits(text_t *device, char* str, int width);
+int  writeStrLen(text_t *device, char* str, int width);
 
 
 /**
