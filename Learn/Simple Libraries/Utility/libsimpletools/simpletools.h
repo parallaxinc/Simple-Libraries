@@ -22,8 +22,6 @@
  * of simpletools, you may need to manually use the Add Simple Library button
  * to add .../SimpleIDE/Learn/Text Devices/libsimpletext.  
  *
- * <b><i>CONSTRUCTION ZONE:</i></b> This library is still preliminary, 
- * revisions pending.
  * @n @n dac_ctr, square_wave, and all pwm functions, are currently  
  * only supported by the LMM and CMM memory models.  
  *
@@ -124,6 +122,14 @@ extern int ms;
 extern int us;
 
 
+
+/**
+ * @name Private (used by simpletools library)
+ * @{
+ */
+
+
+
 /**
  * @brief Propeller system clock ticks in 1 millisecond.  Changing this value is
  * not recommended because it can affect library performance.
@@ -176,8 +182,12 @@ extern i2c *st_eeprom;
  */
 extern int st_eeInitFlag;
 
-//extern i2c *eeprom;
-//extern int dacCtrBits;
+
+/**
+ * @}
+ */
+
+ 
  
 #ifndef PI
 /**
@@ -186,12 +196,14 @@ extern int st_eeInitFlag;
 #define PI 3.141592653589793
 #endif
 
-#ifndef EEPROM_ADDR
+
+
 /**
- * @brief Propeller EEPROM I2C bus  address
+ * @name SimpleIDE Terminal Constants
+ * @{
  */
-#define EEPROM_ADDR	 0xA0 >> 1
-#endif
+
+
 
 /* Values for use with SimpleIDE Terminal */
 #ifndef HOME
@@ -332,7 +344,16 @@ extern int st_eeInitFlag;
 #endif
 
 
-// Values for use with shift_in
+
+/**
+ * @}
+ *
+ * @name SPI Constants for shift_in & shift_out
+ * @{
+ */
+
+
+
 #ifndef   MSBPRE     
 /**
  * @brief For use with shift_in.  Stands for most significant bit first, pre-clock.
@@ -376,7 +397,17 @@ extern int st_eeInitFlag;
 #define   MSBFIRST   1
 #endif
 
-// Counter module values
+
+
+/**
+ * @}
+ *
+ * @name Counter Module Constants
+ * @{
+ */
+
+
+
 #ifndef NCO_PWM_1
 /**
  * @brief Building block for configuring a cog's counter module to PWM mode.  
@@ -409,11 +440,90 @@ extern int st_eeInitFlag;
 #define DUTY_SE (0b110 << 26)
 #endif
 
-// Define types for simplified driver declarations
-//typedef FILE* serial;
-//typedef FILE* fdserial;
-//typedef FILE* sdcard;
-//typedef I2C* i2c;
+
+
+/**
+ * @}
+ *
+ * @name Reverse Compatibility Functions
+ * @{
+ */
+
+
+
+/**
+ * @brief ee_put_byte renamed ee_putByte.
+ */
+#define ee_put_byte ee_putByte
+
+
+/**
+ * @brief ee_get_byte renamed ee_getByte.
+ */
+#define ee_get_byte ee_getByte
+
+
+/**
+ * @brief ee_put_int renamed ee_putInt.
+ */
+#define ee_put_int ee_putInt
+
+
+/**
+ * @brief ee_get_int renamed ee_getInt.
+ */
+#define ee_get_int ee_getInt
+
+
+/**
+ * @brief ee_put_str renamed ee_putStr.
+ */
+#define ee_put_str ee_putStr
+
+
+/**
+ * @brief ee_get_str renamed ee_getStr.
+ */
+#define ee_get_str ee_getStr
+
+
+/**
+ * @brief ee_put_float32 renamed ee_putFloat32.
+ */
+#define ee_put_float32 ee_putFloat32
+
+
+/**
+ * @brief (Deprecated) Use waitcnt(CLKFREQ + CNT) for a delay that lasts 1 second,
+ * and use fractions of CLKFREQ for smaller numbers of system clock ticks.
+ */
+#define pause_ticks(pticks) __builtin_propeller_waitcnt(pticks+CNT, 0)
+
+
+
+/**
+ * @}
+ *
+ * @name Propeller EEPROM Address
+ * @{
+ */
+
+
+
+#ifndef EEPROM_ADDR
+/**
+ * @brief Propeller EEPROM I2C bus  address
+ */
+#define EEPROM_ADDR	 0x50
+#endif
+
+
+
+/**
+ * @}
+ */
+
+
 
 /**
  * @brief Set an I/O pin to output-high
@@ -427,6 +537,7 @@ extern int st_eeInitFlag;
  */
 void high(int pin);
 
+
 /**
  * @brief Set an I/O pin to output-low
  *
@@ -439,18 +550,6 @@ void high(int pin);
  */
 void low(int pin);
 
-/**
- * @brief Toggle the output state of the I/O pin.
- *
- * @details Change I/O pin's output state from low to high
- * or high to low.  This function assumes that some other
- * function has already set the I/O pin to output.
- *
- * @param pin I/O pin number.
- *
- * @returns The new pin state.
- */
-unsigned int toggle(int pin);
 
 /**
  * @brief Set an I/O pin to input
@@ -467,6 +566,29 @@ unsigned int toggle(int pin);
  */
 unsigned int input(int pin);
 
+
+
+/**
+ *
+ * @name More Individual I/O
+ * @{
+ */
+ 
+ 
+
+/**
+ * @brief Toggle the output state of the I/O pin.
+ *
+ * @details Change I/O pin's output state from low to high
+ * or high to low.  This function assumes that some other
+ * function has already set the I/O pin to output.
+ *
+ * @param pin I/O pin number.
+ *
+ * @returns The new pin state.
+ */
+unsigned int toggle(int pin);
+
 /**
  * @brief Reverse the direction of an I/O pin.
  *
@@ -479,6 +601,7 @@ unsigned int input(int pin);
  * @returns The new pin direction.
  */
 unsigned int reverse(int pin);
+
 
 /**
  * @brief Check the state of an I/O pin without
@@ -553,6 +676,17 @@ void set_direction(int pin, int direction);
  */
 void set_output(int pin, int state);
 
+
+
+/**
+ * @}
+ *
+ * @name Group I/O
+ * @{
+ */
+
+
+
 /**
  * @brief Get states of a contiguous group of I/O pins
  *
@@ -622,6 +756,19 @@ void set_directions(int endPin, int startPin, unsigned int pattern);
  */
 void set_outputs(int endPin, int startPin, unsigned int pattern);
 
+
+
+
+/**
+ * @}
+ *
+ * @name Timing
+ * @{
+ */
+
+
+
+
 /**
  * @brief Delay cog from moving on to the next statement for a certain length
  * of time.
@@ -635,97 +782,6 @@ void set_outputs(int endPin, int startPin, unsigned int pattern);
 void pause(int time);
 
 /**
- * @brief Delay cog from moving on to the next statement for a certain number
- * of system clock ticks.
- *
- * @details At 80 MHz, each clock tick is 12.5 ns.  Code overhead varies 
- * depending on memory model and optimization.  A simple test if you want a
- * certain number of clock ticks is:
- * 
- *  @code
- *  unsigned int ti, tf, us, pauseTicks;
- *  us = CLKFREQ/1000000;                               // 1 us worth of ticks
- *  pauseTicks = 50*us;                                 // 50 us of ticks
- *  ti = CNT;                                           // Save start time
- *  pause_ticks(pauseTicks);                            // Call pause_ticks
- *  tf = CNT;                                           // Save end time
- *  print("pauseTicks = %d\n", pauseTicks);             // Display pauseTicks
- *  print("delayTicks = %d\n", tf - ti);                // Display measured
- *  @endcode
- *
- * @param pticks the number of pause clock ticks.
- */
-#define pause_ticks(pticks) __builtin_propeller_waitcnt(pticks+CNT, 0)
-
-/**
- * @brief Mark the current time (deprecated).
- *
- * @details The timeout function uses the marked time to determine if a timeout
- * has occurred.  
- * 
- * @note This function has been deprecated because it doesn't support use in 
- * more than one cog.  Use this code instead:
- * 
- * @code
- * // CNT stores current number of system clock ticks elapsed.
- * int t = CNT;           // Mark current time by storing in variable
- * @endcode
- */
-void mark(void);
-
-/**
- * @brief Compares the time against the time elapsed since mark (deprecated).
- *
- * @details The default time increment is 1 us, so timeout(2000) will return 1
- * if 2 ms or more has elapsed since mark, or 0 if it has not.
- * 
- * @note This function has been deprecated because it doesn't support use in 
- * more than one cog.  Use this code instead:
- * 
- * @code
- * // CLKFREQ stores number of system clock ticks in 1 second.
- * // CNT stores current number of system clock ticks elapsed.
- * int dt = CLKFREQ/2;    // Pick a timeout, 1/2 a second in this case
- * int t = CNT;           // Mark current time by storing in variable
- * while(CNT - t < dt)    // Repeat until timeout
- * {
- *   // Add code repeated until time elapsed is larger than dt here.
- * }
- * @endcode
- *
- * @param time Number of time increments.
- */
-int timeout(int time);
-
-/**
- * @brief Waits a certain number of time increments from the last call to
- * mark or wait functions (deprecated).
- *
- * @details The default time increment is 1 us, so wait(2000) will return wait
- * until 2 us after the last call to mark or wait.  This function automatically 
- * updates the marked time; you can call it repeatedly without having to call mark.
- * 
- * @note This function has been deprecated because it doesn't support use in 
- * more than one cog.  Use this code instead:
- * 
- * @code
- * // CLKFREQ stores number of system clock ticks in 1 second.
- * // CNT stores current number of system clock ticks elapsed.
- * int t = CNT;           // Mark current time by storing in variable
- * int dt = CLKFREQ/10;   // Pick time increment, 1/10 second in this case
- * while(1)               // Repeat indefinitely
- * {
- *   // Variable timed code here.  Must last less than dt.
- *   waitcnt(t += dt);
- *   // Code that must start at precise intervals here.
- * }
- * @endcode
- *
- * @param time Number of time increments.
- */
-void wait(int time);
-
-/**
  * @brief Set time increment for pause function
  *
  * @details Default time increment for pause function is 1 ms.  This function
@@ -736,6 +792,19 @@ void wait(int time);
  * @param clockticks the number of clock ticks that pause(1) will delay.
  */
 void set_pause_dt(int clockticks);
+
+
+
+
+/**
+ * @}
+ *
+ * @name Timed I/O
+ * @{
+ */
+
+
+
 
 /**
  * @brief Count number of low to high transitions an external input applies to
@@ -889,7 +958,7 @@ long pulse_in(int pin, int state);
  * if it transmits a high signal before the call.  When the pulse is done, the pin
  * returns to whatever state it was in before the pulse.  If the pin was an input, it
  * will be changed to output and use whatever value was in the output register bit
- * for the pin.  This defaults to low on startup, but you can pre-set it while leaving
+ * for the pin.  This defaults to low on start-up, but you can pre-set it while leaving
  * the pin set to input with the set_output function (or check it with get_output).
  *
  * @param pin I/O pin number.
@@ -962,9 +1031,21 @@ void set_io_timeout(long clockTicks);
  * units is specified with set_io_dt(CLKFREQ/1000000).  For 2 microsecond units, use
  * set_io_dt(CLKFREQ/500000).
  *
- * @param clockticks Number of clocktics that represents one I/O time increment.
+ * @param clockticks Number of clock ticks that represents one I/O time increment.
  */
 void set_io_dt(long clockticks);
+
+
+
+
+/**
+ * @}
+ *
+ * @name SPI
+ * @{
+ */
+
+
 
 
 /**
@@ -990,6 +1071,19 @@ int shift_in(int pinDat, int pinClk, int mode, int bits);
 * @param value to transmit.
 */
 void shift_out(int pinDat, int pinClk, int mode, int bits, int value);
+
+
+
+
+/**
+ * @}
+ *
+ * @name I2C
+ * @{
+ */
+
+
+
 
 /**
  * @brief Set up a simple serial driver with transmit & receive pins.
@@ -1088,6 +1182,18 @@ HUBTEXT int  i2c_in(i2c *busID, int i2cAddr,
 HUBTEXT int i2c_busy(i2c *busID, int i2cAddr);
 
 
+
+
+/**
+ * @}
+ *
+ * @name Propeller EEPROM
+ * @{
+ */
+
+
+
+
 /**
  * @brief Store a byte value at a certain address in the Propeller Chip's
  * dedicated EEPROM.
@@ -1100,12 +1206,6 @@ HUBTEXT int i2c_busy(i2c *busID, int i2cAddr);
 void ee_putByte(unsigned char value, int addr);
 
 /**
- * @brief ee_put_byte renamed ee_putByte.
- */
-#define ee_put_byte ee_putByte
-
-
-/**
  * @brief Get a byte value from a certain address in the Propeller Chip's
  * dedicated EEPROM.
  *
@@ -1115,11 +1215,6 @@ void ee_putByte(unsigned char value, int addr);
  * by the addr parameter.
  */
 char ee_getByte(int addr);
-
-/**
- * @brief ee_get_byte renamed ee_getByte.
- */
-#define ee_get_byte ee_getByte
 
 
 /**
@@ -1134,12 +1229,6 @@ char ee_getByte(int addr);
 void ee_putInt(int value, int addr);
 
 /**
- * @brief ee_put_int renamed ee_putInt.
- */
-#define ee_put_int ee_putInt
-
-
-/**
  * @brief Get an int value from a certain address in the Propeller Chip's
  * dedicated EEPROM.  If you are fetching several int values, make sure to 
  * add 4 to the addr value with each successive call.
@@ -1149,12 +1238,6 @@ void ee_putInt(int value, int addr);
  * @returns value The int value stored by the EEPROM at the specified address.
  */
 int ee_getInt(int addr);
-
-/**
- * @brief ee_get_int renamed ee_getInt.
- */
-#define ee_get_int ee_getInt
-
 
 /**
  * @brief Store a string of byte values starting at a certain address in 
@@ -1167,12 +1250,6 @@ int ee_getInt(int addr);
  * @param addr The EEPROM address of the first byte in the string.
  */
 void ee_putStr(unsigned char *s, int n, int addr);
-
-/**
- * @brief ee_put_str renamed ee_putStr.
- */
-#define ee_put_str ee_putStr
-
 
 /**
  * @brief Fetch a string of byte values starting at a certain address in 
@@ -1191,12 +1268,6 @@ void ee_putStr(unsigned char *s, int n, int addr);
 unsigned char* ee_getStr(unsigned char* s, int n, int addr);
 
 /**
- * @brief ee_get_str renamed ee_getStr.
- */
-#define ee_get_str ee_getStr
-
-
-/**
  * @brief Store a 32-bit precision floating point value at a certain address
  * in the Propeller Chip's dedicated EEPROM.  A 32-bit value occupies four bytes
  * so if you are storing values in a sequence, make sure to add 4 to each addr
@@ -1211,12 +1282,6 @@ unsigned char* ee_getStr(unsigned char* s, int n, int addr);
  * @param addr The EEPROM address where the value is to be stored.
  */
 void ee_putFloat32(float value, int addr);
-
-/**
- * @brief ee_put_float32 renamed ee_putFloat32.
- */
-#define ee_put_float32 ee_putFloat32
-
 
 /**
  * @brief Fetch a 32-bit precision floating point value from a certain address
@@ -1235,6 +1300,20 @@ void ee_putFloat32(float value, int addr);
  */
 float ee_getFloat32(int addr);
 
+
+
+
+/**
+ * @}
+ *
+ * @name SD
+ * @{
+ */
+
+
+
+
+
 /**
  * @brief Mount an SD card with the minimal 4-pin interface.
  *
@@ -1251,52 +1330,18 @@ float ee_getFloat32(int addr);
 int sd_mount(int doPin, int clkPin, int diPin, int csPin);
 
 
+
+
+
 /**
- * @brief Restarts floating point coprocessor (which runs in a separate
- * cog) after it has been shut down by stop_fpu_cog.  This process is 
- * started automatically when an application that uses the simpletools
- * library is launched.  So the only time you would call it is after
- * calling stop_fpu_cog in order to reclaim a cog for other uses.  
- * CAUTION: Do not try call simpletext library functions while the
- * fpu cog is shut down, it could cause the application to hang.
+ * @}
  *
- * @returns Nonzero if successful, or zero if no cogs available.
- */
-int start_fpu_cog(void);
-
-
-/*
- * @brief Stop floating point coprocessing cog that is started
- * automatically when an application that uses the simpletools library 
- * is launched.  When this function stops the cog running the floating 
- * point coprocessor, it will save a cog, but disable certain floating 
- * point functionalities until it is restarted by calling start_fpu_cog.
- * CAUTION: Do not try call simpletext library functions while the
- * fpu cog is shut down, it could cause the application to hang.
- *
- * @returns Nonzero if successful, or zero if no cogs available.
-
-void stop_fpu_cog(void);
-
+ * @name Multicore
+ * @{
  */
 
 
-/*
- * @brief Convert value to zero terminated text string.
- *
- * @details Given an int, a character array pointer and a base, this function
- *          converts the int into the characters that represent the value in
- *          the specified base.
- *
- * @param   i An integer value.
- * @param   b[] A character array pointer.
- * @param   base The number base for the character representation.
- *
- * @returns The character array address it received.
 
-  char* itoa(int i, char b[], int base);
-
- */
 
 
 /**
@@ -1348,6 +1393,16 @@ int cog_num(int *coginfo);
 void cog_end(int *coginfo);
 
 
+
+/**
+ * @}
+ *
+ * @name Miscellaneous
+ * @{
+ */
+
+
+
 /**
  * @brief Take bytes in one variable at varAddr, swap their order, and store them 
  * in another variable at resultAddr.  This is useful for communication with peripherals
@@ -1363,6 +1418,92 @@ void cog_end(int *coginfo);
  */
 void endianSwap(void *resultAddr, void *varAddr, int byteCount);
 
+
+
+/**
+ * @}
+ *
+ * @name Deprecated
+ * @{
+ */
+
+
+
+/**
+ * @brief Mark the current time (deprecated).
+ *
+ * @details The timeout function uses the marked time to determine if a timeout
+ * has occurred.  
+ * 
+ * @note This function has been deprecated because it doesn't support use in 
+ * more than one cog.  Use this code instead:
+ * 
+ * @code
+ * // CNT stores current number of system clock ticks elapsed.
+ * int t = CNT;           // Mark current time by storing in variable
+ * @endcode
+ */
+void mark(void);
+
+/**
+ * @brief Compares the time against the time elapsed since mark (deprecated).
+ *
+ * @details The default time increment is 1 us, so timeout(2000) will return 1
+ * if 2 ms or more has elapsed since mark, or 0 if it has not.
+ * 
+ * @note This function has been deprecated because it doesn't support use in 
+ * more than one cog.  Use this code instead:
+ * 
+ * @code
+ * // CLKFREQ stores number of system clock ticks in 1 second.
+ * // CNT stores current number of system clock ticks elapsed.
+ * int dt = CLKFREQ/2;    // Pick a timeout, 1/2 a second in this case
+ * int t = CNT;           // Mark current time by storing in variable
+ * while(CNT - t < dt)    // Repeat until timeout
+ * {
+ *   // Add code repeated until time elapsed is larger than dt here.
+ * }
+ * @endcode
+ *
+ * @param time Number of time increments.
+ */
+int timeout(int time);
+
+/**
+ * @brief Waits a certain number of time increments from the last call to
+ * mark or wait functions (deprecated).
+ *
+ * @details The default time increment is 1 us, so wait(2000) will return wait
+ * until 2 us after the last call to mark or wait.  This function automatically 
+ * updates the marked time; you can call it repeatedly without having to call mark.
+ * 
+ * @note This function has been deprecated because it doesn't support use in 
+ * more than one cog.  Use this code instead:
+ * 
+ * @code
+ * // CLKFREQ stores number of system clock ticks in 1 second.
+ * // CNT stores current number of system clock ticks elapsed.
+ * int t = CNT;           // Mark current time by storing in variable
+ * int dt = CLKFREQ/10;   // Pick time increment, 1/10 second in this case
+ * while(1)               // Repeat indefinitely
+ * {
+ *   // Variable timed code here.  Must last less than dt.
+ *   waitcnt(t += dt);
+ *   // Code that must start at precise intervals here.
+ * }
+ * @endcode
+ *
+ * @param time Number of time increments.
+ */
+void wait(int time);
+
+
+
+/**
+ * @}
+ */
+ 
+ 
 
 #if defined(__cplusplus)
 }
