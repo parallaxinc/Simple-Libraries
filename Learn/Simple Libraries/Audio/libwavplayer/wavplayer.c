@@ -1,4 +1,4 @@
-/**
+/*
  * @file wavplayer.c
  *
  * @author Andy Lindsay

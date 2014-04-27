@@ -3,31 +3,44 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.9
- *
  * @copyright Copyright (C) Parallax, Inc. 2013.  See end of file for
  * terms of use (MIT License).
  *
- * @brief Control up to 14 servos in other cog.  For up to 28, add the 
+ * @brief Control up to 14 servos in another core.  For up to 28, add the 
  * servoAux library to your project.  Control the first 14 with servo_set,
  * servo_speed, servo_angle, and other servo_ function calls.  Control servos
  * 15 and up with the same function calls, but starting with servoAux_ instead
  * of servo_.  
- * @n @n Currently supports LMM and CMM memory models.  
- * @n    servo library launches a single cog for controlling 1st to 14th servos
- * @n    servoAux library launches an additional cog for controlling the 15th through
- *       28th servos
  *
- * @details This library automatically delivers 
- * control pulses to the servos every 20 ms, all you have to do is use the set 
- * method to pick the pin the servo is connected to and the duration of the 
- * control pulses.
+ * @details This library automatically delivers control pulses to up to 14 servos 
+ * every 20 ms.  All your code has to do is use servo_angle, servo_speed, or servo_set, 
+ * to pick the pin the servo is connected to and  set its angle (standard servo)
+ * or speed (continuous rotation servo).  
  *
+ * @note
  * Parallax standard servos have a position range from approximately 0 to 180
  * degrees.  
  *
- * @n Please submit bug reports, suggestions, and improvements to
- * this code to editor@parallax.com.
+ * @par Core Usage
+ * Launches 1 core that controls up to 14 servos on the first call to 
+ * servo_set, servo_angle or servo_speed.  Additional calls to any of these functions
+ * will not launch more cores.  Additional servos are controlled by supplying different
+ * pin arguments to these functions.  For example, servo_angle(12, 900) followed by 
+ * servo_angle(13, 300) will cause the other core sending servo control signals to set
+ * a servo connected to P12 to 90 degrees, and a servo connected to P13 to 30 degrees.
+ * If servo_angle(12, 900) was the first call to this library, it would automatically
+ * launch a core before making that core send control signals to the servo connected to
+ * P12.  The servo_angle(13, 300) call would cause the same core controlling the P12 
+ * servo to also send control signals to a servo connected to P13. 
+ *
+ * @par Memory Models
+ * Use with CMM or LMM. 
+ *
+ * @version v0.90 
+ *
+ * @par Help Improve this Library
+ * Please submit bug reports, suggestions, and improvements to this code to
+ * editor@parallax.com.
  */
 
 #ifndef servo_H

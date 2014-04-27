@@ -3,14 +3,26 @@
  *
  * @author Steve Denson
  *
- * @version 0.85
- *
  * @copyright
- * Copyright (c) 2008-2013, Steve Denson
- * See end of file for terms of use.
+ * Copyright (c) 2008-2013, Steve Denson, all Rights MIT Licensed.
  *
  * @brief Full Duplex Serial adapter API definition.
+ * 
+ * @par Core Usage 
+ * Each call to fdserial_open launches an additional cog that can support
+ * an additional UART communication process.
+ *
+ * @par Memory Models
+ * Use with CMM, LMM, or XMMC. 
+ *
+ * @version 0.85
+ *
+ * @par Help Improve this Library
+ * Please submit bug reports, suggestions, and improvements to this code to
+ * editor@parallax.com.
  */
+ 
+ 
 #ifndef __FDSerial_H
 #define __FDSerial_H
 

@@ -18,8 +18,21 @@
  * <br>
  * Calibration instructions that accompany the example code are included in the tutorial.
  *
- * Please submit bug reports, suggestions, and improvements to
- * this code to editor@parallax.com.
+ * @par Core Usage
+ * A call to cal_activityBot launches 2 additional cores, and self-terminates the
+ * application when done.  
+ *
+ * @par EEPROM Usage
+ * Writes to addresses 63418..65470. 
+ *
+ * @par Memory Models
+ * Use with CMM. 
+ *
+ * @version v0.90 
+ *
+ * @par Help Improve this Library
+ * Please submit bug reports, suggestions, and improvements to this code to
+ * editor@parallax.com.
  */
 
 #ifndef ABCALIBRATE_H

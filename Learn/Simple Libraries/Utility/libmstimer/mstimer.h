@@ -10,7 +10,24 @@
  *
  * @brief Tracks milliseconds elapsed in another cog.  This is part of
  * a tutorial on adding a Simple Library to the project.
+ *
+ * @par Core Usage 
+ * A call to mstime_start will launch 1 additional core.  Additional calls to
+ * mstime_start will only shut down and then re-launch the process, but will not
+ * take additional cores.
+ *
+ * @par Memory Models
+ * Use with CMM or LMM. 
+ *
+ * @version
+ * 0.5
+ *
+ * @par Help Improve this Library
+ * Please submit bug reports, suggestions, and improvements to this code to
+ * editor@parallax.com.
  */
+
+ 
 
 #ifndef MSTIMER_H
 #define MSTIMER_H

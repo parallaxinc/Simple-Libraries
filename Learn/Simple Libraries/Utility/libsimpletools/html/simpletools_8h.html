@@ -76,7 +76,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>This library provides convenience functions for a variety of microcontroller I/O, timing, conversion, and communication tasks. This library also includes (and you can call functions from) <a href="../../../Text%20Devices/libsimpletext/
+<p>This library provides convenient functions for a variety of microcontroller I/O, timing, conversion, and communication tasks. This library also includes (and you can call functions from) <a href="../../../Text%20Devices/libsimpletext/
 Documentation%20simpletext%20Library.html" target="blank">simpletext</a> and <a href="../../../Text%20Devices/libsimpletext/
 Documentation%20serial%20Library.html" target="blank">serial</a>.  
 <a href="#details">More...</a></p>
@@ -222,8 +222,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a4d9825708f3b6cae156e4e5f1e1647f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an I/O pin to output-high.  <a href="#a4d9825708f3b6cae156e4e5f1e1647f6"></a><br/></td></tr>
 <tr class="memitem:ab6b4677f42acfb2273127492d13a7e05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#ab6b4677f42acfb2273127492d13a7e05">low</a> (int pin)</td></tr>
 <tr class="memdesc:ab6b4677f42acfb2273127492d13a7e05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an I/O pin to output-low.  <a href="#ab6b4677f42acfb2273127492d13a7e05"></a><br/></td></tr>
-<tr class="memitem:a2a78b7cb5f06e6fb893e78d2cfa36367"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a2a78b7cb5f06e6fb893e78d2cfa36367">input</a> (int pin)</td></tr>
-<tr class="memdesc:a2a78b7cb5f06e6fb893e78d2cfa36367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an I/O pin to input.  <a href="#a2a78b7cb5f06e6fb893e78d2cfa36367"></a><br/></td></tr>
+<tr class="memitem:af2b2c5f5c8559b5f2957239f2c2e663d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#af2b2c5f5c8559b5f2957239f2c2e663d">input</a> (int pin)</td></tr>
+<tr class="memdesc:af2b2c5f5c8559b5f2957239f2c2e663d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an I/O pin to input and return 1 if pin detects a high signal, or 0 if it detects low.  <a href="#af2b2c5f5c8559b5f2957239f2c2e663d"></a><br/></td></tr>
 <tr><td colspan="2"><div class="groupHeader">More Individual I/O</div></td></tr>
 <tr class="memitem:ac00aa846d252ba311694febd1100bd11"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#ac00aa846d252ba311694febd1100bd11">toggle</a> (int pin)</td></tr>
 <tr class="memdesc:ac00aa846d252ba311694febd1100bd11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle the output state of the I/O pin.  <a href="#ac00aa846d252ba311694febd1100bd11"></a><br/></td></tr>
@@ -317,9 +317,9 @@ Functions</h2></td></tr>
 <tr class="memdesc:a10a9a5cd4767ffd7a82c9acd2b9485b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a 32-bit precision floating point value at a certain address in the Propeller Chip's dedicated EEPROM. A 32-bit value occupies four bytes so if you are storing values in a sequence, make sure to add 4 to each addr parameter value.  <a href="#a10a9a5cd4767ffd7a82c9acd2b9485b2"></a><br/></td></tr>
 <tr class="memitem:a3da63e55d0799ab30686bf38a5f15d43"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a3da63e55d0799ab30686bf38a5f15d43">ee_getFloat32</a> (int addr)</td></tr>
 <tr class="memdesc:a3da63e55d0799ab30686bf38a5f15d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch a 32-bit precision floating point value from a certain address in the Propeller Chip's dedicated EEPROM. A 32-bit value occupies four bytes so if you are fetching values in a sequence, make sure to add 4 to each addr parameter value.  <a href="#a3da63e55d0799ab30686bf38a5f15d43"></a><br/></td></tr>
-<tr><td colspan="2"><div class="groupHeader">SD</div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">SD Card</div></td></tr>
 <tr class="memitem:aa845f3e273a492072b625da584924f32"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#aa845f3e273a492072b625da584924f32">sd_mount</a> (int doPin, int clkPin, int diPin, int csPin)</td></tr>
-<tr class="memdesc:aa845f3e273a492072b625da584924f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mount an SD card with the minimal 4-pin interface.  <a href="#aa845f3e273a492072b625da584924f32"></a><br/></td></tr>
+<tr class="memdesc:aa845f3e273a492072b625da584924f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mount an SD card with the minimal 4-pin interface. For <a href="http://learn.parallax.com" target="_blank">Parallax Learn Site</a> examples, see: <a href="http://learn.parallax.com/propeller-c-simple-devices/sd-card-data" target="_blank">SD Card Data</a> and <a href="http://learn.parallax.com/propeller-c-simple-devices/play-wav-files" target="_blank">Play WAV Files</a>.  <a href="#aa845f3e273a492072b625da584924f32"></a><br/></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Multicore</div></td></tr>
 <tr class="memitem:a9c5d06d96a66ec25c018b469e9c5e06b"><td class="memItemLeft" align="right" valign="top">int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletools_8h.html#a9c5d06d96a66ec25c018b469e9c5e06b">cog_run</a> (void(*function)(void *par), int stacksize)</td></tr>
 <tr class="memdesc:a9c5d06d96a66ec25c018b469e9c5e06b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run a function's code in the next available cog (processor).  <a href="#a9c5d06d96a66ec25c018b469e9c5e06b"></a><br/></td></tr>
@@ -376,17 +376,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpl
 <tr class="memdesc:a493e381735ceb4e0d7914d91d3f0c7af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization flag used by ee_ functions. <br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>This library provides convenience functions for a variety of microcontroller I/O, timing, conversion, and communication tasks. This library also includes (and you can call functions from) <a href="../../../Text%20Devices/libsimpletext/
+<div class="textblock"><p>This library provides convenient functions for a variety of microcontroller I/O, timing, conversion, and communication tasks. This library also includes (and you can call functions from) <a href="../../../Text%20Devices/libsimpletext/
 Documentation%20simpletext%20Library.html" target="blank">simpletext</a> and <a href="../../../Text%20Devices/libsimpletext/
 Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 <dl class="section author"><dt>Author</dt><dd>Andy Lindsay</dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.97 (see details for more info)</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax, Inc. 2014. All Rights MIT Licensed.</dd></dl>
-<p><b>NOTE:</b> If you want to update old projects to work with this version of simpletools, you may need to manually use the Add Simple Library button to add .../SimpleIDE/Learn/Text Devices/libsimpletext.</p>
-<p><br/>
- <br/>
- dac_ctr, square_wave, and all pwm functions, are currently only supported by the LMM and CMM memory models.</p>
-<p>This (under development) library provides a set of introductory functions that simplify:</p>
+<p>This library provides a set of introductory functions that simplify:</p>
 <ul>
 <li>I/O control - convenient I/O pin monitoring and control functions </li>
 <li>Timing - Delays, timeouts </li>
@@ -399,28 +394,30 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 </ul>
 <p>Applications include: monitoring, control and communication with simple peripherals, like lights, buttons, dials, motors, peripheral integrated circuits and prototyping with simple systems that use pulse, or serial communication. (A few examples from the very large list of devices includes: servos, ultrasonic distance sensors, accelerometers, serial liquid crystal, display, etc.)</p>
 <p>Intended use: Accompanies introductory electronics, robotics and programming lessons and projects on learn.parallax.com. After these lessons, bridge lessons will be added to familiarize the programmer with standard practices used by the community for adding libraries to support and endless variety of peripherals and applications.</p>
-<p>Revision 0.91 shift_in function pre-clock mode bug fixed. <br/>
- <br/>
- Revision 0.92 Simpletext functionality incorporated for use of character and string I/O with both terminal and peripheral devices. Simple Text folder replaces PropGCC serial driver support for simple and full duplex serial peripherals. <br/>
- <br/>
- Revision 0.93 i2c_newbus now uses <br/>
+<dl class="section user"><dt>Core Usage</dt><dd>Any of these functions, if called, will launch a process into another cog and leave it launched for set it/forget it processes:</dd></dl>
+<dl class="section user"><dt>Core Usage</dt><dd><ul>
+<li>cog_run (1 cog per call) </li>
+<li>squareWave (1 cog) </li>
+<li>pwm (1 cog) </li>
+<li>dac (1 cog)</li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>Memory Models</dt><dd>Use with CMM, LMM.</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.98 fpucog floating point coprocessor no longer self-starts by default. All floating point functionality is still supported, processing just happens in the same cog. i2c_out and i2c_in char regAddr parameter changed to int memAddr. itoa removed, use sprint(charArray, "%d", intVal) to make int to ASCII conversions. st_msTicks and st_usTicks global variables are pre-initialized to the number of system clock ticks in a millisecond and microsecond for convenience in library development. Variables named us and ms are initialized to the same values for user applications. Function endianSwap added to simplify communication with devices that send/receive byte data in big endian format. </dd></dl>
+<dl class="section user"><dt></dt><dd>0.97 Add cog_run and cog_end for simplified running of functioncode in other cogs. </dd></dl>
+<dl class="section user"><dt></dt><dd>0.96.1 Add documentation for start_fpu_cog and stop_fpu_cog. </dd></dl>
+<dl class="section user"><dt></dt><dd>0.96 ee_putStr updated to support 128 byte page writes. More corrections to ee_put for contiguous data crossing address/128 boundary. </dd></dl>
+<dl class="section user"><dt></dt><dd>0.95 square_wave bug that prevented output frequency changes (fixed). </dd></dl>
+<dl class="section user"><dt></dt><dd>0.94 Fixed bug in ee_put* that prevented contiguous data from crossing the EEPROM's address/128 buffer boundaries. Updated stack array to static in mstimer.c. </dd></dl>
+<dl class="section user"><dt></dt><dd>0.93 i2c_newbus now uses <br/>
  .../Learn/Simple Libraries/Protocol/simplei2c/<br/>
  Added:<br/>
- i2c_out, i2c_in to cover most common I2C applications EEPROM ee_get_* and ee_put_* changed to ee_get* and ee_put* where the * term is camel-case. <br/>
+ i2c_out, i2c_in to cover most common I2C applications EEPROM ee_get_* and ee_put_* changed to ee_get* and ee_put* where the * term is camel-case. </dd></dl>
+<dl class="section user"><dt></dt><dd>0.92 Simpletext functionality incorporated for use of character and string I/O with both terminal and peripheral devices. Simple Text folder replaces PropGCC serial driver support for simple and full duplex serial peripherals. </dd></dl>
+<dl class="section user"><dt></dt><dd>0.91 shift_in function pre-clock mode bug fixed. <br/>
  <br/>
- Revision 0.94 Fixed bug in ee_put* that prevented contiguous data from crossing the EEPROM's address/128 buffer boundaries. Updated stack array to static in mstimer.c.<br/>
-<br/>
- Revision 0.95 square_wave bug that prevented output frequency changes (fixed). <br/>
-<br/>
- Revision 0.96 ee_putStr updated to support 128 byte page writes. More corrections to ee_put* for contiguous data crossing address/128 boundary. <br/>
-<br/>
- Revision 0.96.1 Add documentation for start_fpu_cog and stop_fpu_cog. <br/>
-<br/>
- Revision 0.97 Add cog_run and cog_end for simplified running of function code in other cogs. <br/>
-<br/>
- Revision 0.98 fpucog floating point coprocessor no longer self-starts by default. All floating point functionality is still supported, processing just happens in the same cog. i2c_out and i2c_in char *regAddr parameter changed to int memAddr. itoa removed, use sprint(charArray, "%d", intVal) to make int to ASCII conversions. st_msTicks and st_usTicks global variables are pre-initialized to the number of system clock ticks in a millisecond and microsecond for convenience in library development. Variables named us and ms are initialized to the same values for user applications. Function endianSwap added to simplify communication with devices that send/receive byte data in big endian format.<br/>
-<br/>
- </p>
+</dd></dl>
+<dl class="section user"><dt>Help Improve this Library</dt><dd>Please submit bug reports, suggestions, and improvements to this code to <a href="#" onclick="location.href='mai'+'lto:'+'edi'+'to'+'r@p'+'ar'+'all'+'ax'+'.co'+'m'; return false;">edito<span style="display: none;">.nosp@m.</span>r@pa<span style="display: none;">.nosp@m.</span>ralla<span style="display: none;">.nosp@m.</span>x.co<span style="display: none;">.nosp@m.</span>m</a>. </dd></dl>
 
 <p>Definition in file <a class="el" href="simpletools_8h_source.html">simpletools.h</a>.</p>
 </div><h2>Function Documentation</h2>
@@ -1414,12 +1411,12 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 
 </div>
 </div>
-<a class="anchor" id="a2a78b7cb5f06e6fb893e78d2cfa36367"></a>
+<a class="anchor" id="af2b2c5f5c8559b5f2957239f2c2e663d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int input </td>
+          <td class="memname">int input </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>pin</em></td><td>)</td>
@@ -1428,7 +1425,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
       </table>
 </div><div class="memdoc">
 
-<p>Set an I/O pin to input. </p>
+<p>Set an I/O pin to input and return 1 if pin detects a high signal, or 0 if it detects low. </p>
 <p>This function makes the Propeller connect the I/O pin to its input buffer so that it can return the binary value of the voltage applied by an external circuit.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1436,7 +1433,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>1 or 0 to indicate high or low signal received. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>1 to indicate high (above 1.65 V) received or 0 to indicate low (below 1.65 V) received. </dd></dl>
 
 </div>
 </div>
@@ -1772,7 +1769,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
       </table>
 </div><div class="memdoc">
 
-<p>Mount an SD card with the minimal 4-pin interface. </p>
+<p>Mount an SD card with the minimal 4-pin interface. For <a href="http://learn.parallax.com" target="_blank">Parallax Learn Site</a> examples, see: <a href="http://learn.parallax.com/propeller-c-simple-devices/sd-card-data" target="_blank">SD Card Data</a> and <a href="http://learn.parallax.com/propeller-c-simple-devices/play-wav-files" target="_blank">Play WAV Files</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">doPin</td><td>The SD card's data out pin.</td></tr>
@@ -2286,7 +2283,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 24 2014 18:15:07 for simpletools library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Apr 27 2014 14:48:07 for simpletools library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

@@ -3,38 +3,8 @@
  *
  * @author Andy Lindsay
  *
- * @copyright Copyright (C) Parallax, Inc. 2013.  See end of file for
- * terms of use (MIT License).
- *
- * @version 0.5.5
- *
- * @b v0.5.5
- * @li drive_getTicksCalc
- * @li drive_getTicks
- * @li drive_open
- * @li drive_encoderPins
- * @li drive_servoPins
- * @li Values outside interpolation table ranges do not result in
- * rotation halt. 
- * @li Turning off feedback now allows full servo speed operation
- *
- * @b v0.5.1
- * @li Trim enabled by default.
- * @li Clear trim settings during calibration. (v0.5.1)
- * @li Make trim for a direction mutually exclusive to one side. (v0.5.1)
- *
- * @b To-Do
- * @li Make ramp go to percentage of full speed
- * @li Corrrect error in start string verification
- * @li Make sure that control system's compensation cannot cause the servo signal to cross
- * its direction boundary  
- * @li drive_distance
- * @li drive_getSpeedCalc
- * @li drive_getSpeedActual
- * @li Code comments
- * @li Reduce calibration array elements to 16-bit
- * @li Condense left/right duplicate code
- * @li Remove other variables
+ * @copyright 
+ * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
  *
  * @brief This library takes care of encoder monitoring and servo signalling, 
  * and provides a simple set of functions for making the ActivityBot go certain
@@ -47,8 +17,48 @@
  * http://learn.parallax.com/activitybot/navigation-basics
  * <br>
  * <br>
- * Please submit bug reports, suggestions, and improvements to
- * this code to editor@parallax.com.
+ *
+ * @par Core Usage
+ * A single additional core takes care of ActivityBot encoder monitoring, control system
+ * algorithm execution and servo control.
+ *
+ * @par EEPROM Usage
+ * Reads from addresses 63418..65470. 
+ *
+ * @par Memory Models
+ * Use with CMM. 
+ *
+ * @version 0.5.5
+ * @li drive_getTicksCalc
+ * @li drive_getTicks
+ * @li drive_open
+ * @li drive_encoderPins
+ * @li drive_servoPins
+ * @li Values outside interpolation table ranges do not result in
+ * rotation halt. 
+ * @li Turning off feedback now allows full servo speed operation
+ *
+ * @version 0.5.1
+ * @li Trim enabled by default.
+ * @li Clear trim settings during calibration. (v0.5.1)
+ * @li Make trim for a direction mutually exclusive to one side. (v0.5.1)
+ *
+ * @todo
+ * @li Make ramp go to percentage of full speed
+ * @li Correct error in start string verification
+ * @li Make sure that control system's compensation cannot cause the servo signal to cross
+ * its direction boundary  
+ * @li drive_distance
+ * @li drive_getSpeedCalc
+ * @li drive_getSpeedActual
+ * @li Code comments
+ * @li Reduce calibration array elements to 16-bit
+ * @li Condense left/right duplicate code
+ * @li Remove other variables
+ *
+ * @par Help Improve this Library
+ * Please submit bug reports, suggestions, and improvements to this code to
+ * editor@parallax.com.
  */
 
 #ifndef ABDRIVE_H
