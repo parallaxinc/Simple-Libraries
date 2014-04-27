@@ -57,9 +57,9 @@
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad30088144fae1e5358b3ed39078d2921"><td class="memItemLeft" align="right" valign="top"><a class="el" href="vgatext_8h.html#a82cc606df7336adc2345333c1cf7f50a">vgatext</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vgatext_8c.html#ad30088144fae1e5358b3ed39078d2921">vgatext_open</a> (int basepin)</td></tr>
+<tr class="memitem:ad30088144fae1e5358b3ed39078d2921"><td class="memItemLeft" align="right" valign="top">vgatext *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vgatext_8c.html#ad30088144fae1e5358b3ed39078d2921">vgatext_open</a> (int basepin)</td></tr>
 <tr class="memdesc:ad30088144fae1e5358b3ed39078d2921"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a VGA connection. This function launches VGA driver code into the next available cog.  <a href="#ad30088144fae1e5358b3ed39078d2921"></a><br/></td></tr>
-<tr class="memitem:a49bd4dde84c57dbb1aaa530981cfdd94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vgatext_8c.html#a49bd4dde84c57dbb1aaa530981cfdd94">vgatext_close</a> (<a class="el" href="vgatext_8h.html#a82cc606df7336adc2345333c1cf7f50a">vgatext</a> *device)</td></tr>
+<tr class="memitem:a49bd4dde84c57dbb1aaa530981cfdd94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vgatext_8c.html#a49bd4dde84c57dbb1aaa530981cfdd94">vgatext_close</a> (vgatext *device)</td></tr>
 <tr class="memdesc:a49bd4dde84c57dbb1aaa530981cfdd94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close VGA connection, stop and recover cog running VGA code and memory that was allocated.  <a href="#a49bd4dde84c57dbb1aaa530981cfdd94"></a><br/></td></tr>
 <tr class="memitem:a4788f4727e33d6c0ebbd93b5541a30e1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4788f4727e33d6c0ebbd93b5541a30e1"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>vgatext_start</b> (volatile <a class="el" href="vgatext_8h.html#a8a2a734ac1d15bf697ed37f3b1fdc9a5">vgatextdev_t</a> *vga, int basepin)</td></tr>
@@ -69,7 +69,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>vgatext_stop</b> (int
 <tr class="memdesc:ae0d61875a933c4c59e595fce743e5ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the palette using a character array. This overrides the default color palette.  <a href="#ae0d61875a933c4c59e595fce743e5ac3"></a><br/></td></tr>
 <tr class="memitem:ad5ef1f24f3786bda40c40983c5e8773e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vgatext_8c.html#ad5ef1f24f3786bda40c40983c5e8773e">vgatext_out</a> (int c)</td></tr>
 <tr class="memdesc:ad5ef1f24f3786bda40c40983c5e8773e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints a character at current cursor position or performs a screen function based on the following table:  <a href="#ad5ef1f24f3786bda40c40983c5e8773e"></a><br/></td></tr>
-<tr class="memitem:a97539a2c7df0afe2dd6d583556959160"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vgatext_8c.html#a97539a2c7df0afe2dd6d583556959160">vgatext_putchar</a> (<a class="el" href="vgatext_8h.html#a82cc606df7336adc2345333c1cf7f50a">vgatext</a> *vga, int c)</td></tr>
+<tr class="memitem:a97539a2c7df0afe2dd6d583556959160"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vgatext_8c.html#a97539a2c7df0afe2dd6d583556959160">vgatext_putchar</a> (vgatext *vga, int c)</td></tr>
 <tr class="memdesc:a97539a2c7df0afe2dd6d583556959160"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print character to screen.  <a href="#a97539a2c7df0afe2dd6d583556959160"></a><br/></td></tr>
 <tr class="memitem:a35fc60122fd4800ba0e3fa313bbc8501"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a35fc60122fd4800ba0e3fa313bbc8501"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vgatext_8c.html#a35fc60122fd4800ba0e3fa313bbc8501">vgatext_clear</a> (void)</td></tr>
@@ -121,7 +121,7 @@ HUBDATA short&#160;</td><td class="memItemRight" valign="bottom"><b>gVgaScreen</
         <tr>
           <td class="memname">void vgatext_close </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="vgatext_8h.html#a82cc606df7336adc2345333c1cf7f50a">vgatext</a> *&#160;</td>
+          <td class="paramtype">vgatext *&#160;</td>
           <td class="paramname"><em>device</em></td><td>)</td>
           <td></td>
         </tr>
@@ -238,7 +238,7 @@ HUBDATA short&#160;</td><td class="memItemRight" valign="bottom"><b>gVgaScreen</
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="vgatext_8h.html#a82cc606df7336adc2345333c1cf7f50a">vgatext</a>* vgatext_open </td>
+          <td class="memname">vgatext* vgatext_open </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>basepin</em></td><td>)</td>
@@ -319,7 +319,7 @@ HUBDATA short&#160;</td><td class="memItemRight" valign="bottom"><b>gVgaScreen</
         <tr>
           <td class="memname">int vgatext_putchar </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="vgatext_8h.html#a82cc606df7336adc2345333c1cf7f50a">vgatext</a> *&#160;</td>
+          <td class="paramtype">vgatext *&#160;</td>
           <td class="paramname"><em>vga</em>, </td>
         </tr>
         <tr>
@@ -550,7 +550,7 @@ HUBDATA short&#160;</td><td class="memItemRight" valign="bottom"><b>gVgaScreen</
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 13 2014 20:57:17 for vgatext library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Apr 27 2014 14:20:56 for vgatext library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

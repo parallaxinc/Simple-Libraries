@@ -52,6 +52,9 @@
 <div class="title">vgatext.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>VGA_Text native device driver interface.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;simpletext.h&quot;</code><br/>
 </div>
 <p><a href="html/vgatext_8h_source.html">Go to the source code of this file.</a></p>
@@ -104,7 +107,8 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a82cc606df7336adc2345333c1cf7f50a"><td class="memItemLeft" align="right" valign="top">typedef text_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/vgatext_8h.html#a82cc606df7336adc2345333c1cf7f50a">vgatext</a></td></tr>
+<tr class="memitem:a82cc606df7336adc2345333c1cf7f50a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a82cc606df7336adc2345333c1cf7f50a"></a>
+typedef text_t&#160;</td><td class="memItemRight" valign="bottom"><b>vgatext</b></td></tr>
 <tr class="memitem:a8a2a734ac1d15bf697ed37f3b1fdc9a5"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="html/struct__vga__text__struct.html">_vga_text_struct</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/vgatext_8h.html#a8a2a734ac1d15bf697ed37f3b1fdc9a5">vgatextdev_t</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="enum-members"></a>
@@ -120,13 +124,13 @@ Functions</h2></td></tr>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>vgatext_start</b> (volatile <a class="el" href="html/vgatext_8h.html#a8a2a734ac1d15bf697ed37f3b1fdc9a5">vgatextdev_t</a> *vga, int basepin)</td></tr>
 <tr class="memitem:a2d51f96d59740960145c201cb12fe695"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2d51f96d59740960145c201cb12fe695"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>vgatext_stop</b> (int id)</td></tr>
-<tr class="memitem:ad30088144fae1e5358b3ed39078d2921"><td class="memItemLeft" align="right" valign="top"><a class="el" href="html/vgatext_8h.html#a82cc606df7336adc2345333c1cf7f50a">vgatext</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/vgatext_8h.html#ad30088144fae1e5358b3ed39078d2921">vgatext_open</a> (int basepin)</td></tr>
+<tr class="memitem:ad30088144fae1e5358b3ed39078d2921"><td class="memItemLeft" align="right" valign="top">vgatext *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/vgatext_8h.html#ad30088144fae1e5358b3ed39078d2921">vgatext_open</a> (int basepin)</td></tr>
 <tr class="memdesc:ad30088144fae1e5358b3ed39078d2921"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a VGA connection. This function launches VGA driver code into the next available cog.  <a href="#ad30088144fae1e5358b3ed39078d2921"></a><br/></td></tr>
-<tr class="memitem:a49bd4dde84c57dbb1aaa530981cfdd94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/vgatext_8h.html#a49bd4dde84c57dbb1aaa530981cfdd94">vgatext_close</a> (<a class="el" href="html/vgatext_8h.html#a82cc606df7336adc2345333c1cf7f50a">vgatext</a> *device)</td></tr>
+<tr class="memitem:a49bd4dde84c57dbb1aaa530981cfdd94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/vgatext_8h.html#a49bd4dde84c57dbb1aaa530981cfdd94">vgatext_close</a> (vgatext *device)</td></tr>
 <tr class="memdesc:a49bd4dde84c57dbb1aaa530981cfdd94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close VGA connection, stop and recover cog running VGA code and memory that was allocated.  <a href="#a49bd4dde84c57dbb1aaa530981cfdd94"></a><br/></td></tr>
 <tr class="memitem:ad5ef1f24f3786bda40c40983c5e8773e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/vgatext_8h.html#ad5ef1f24f3786bda40c40983c5e8773e">vgatext_out</a> (int c)</td></tr>
 <tr class="memdesc:ad5ef1f24f3786bda40c40983c5e8773e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints a character at current cursor position or performs a screen function based on the following table:  <a href="#ad5ef1f24f3786bda40c40983c5e8773e"></a><br/></td></tr>
-<tr class="memitem:a97539a2c7df0afe2dd6d583556959160"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/vgatext_8h.html#a97539a2c7df0afe2dd6d583556959160">vgatext_putchar</a> (<a class="el" href="html/vgatext_8h.html#a82cc606df7336adc2345333c1cf7f50a">vgatext</a> *vga, int c)</td></tr>
+<tr class="memitem:a97539a2c7df0afe2dd6d583556959160"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/vgatext_8h.html#a97539a2c7df0afe2dd6d583556959160">vgatext_putchar</a> (vgatext *vga, int c)</td></tr>
 <tr class="memdesc:a97539a2c7df0afe2dd6d583556959160"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print character to screen.  <a href="#a97539a2c7df0afe2dd6d583556959160"></a><br/></td></tr>
 <tr class="memitem:a548c619aafd2f0e3052f13a3b1890fbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/vgatext_8h.html#a548c619aafd2f0e3052f13a3b1890fbd">vgatext_setColorPalette</a> (char *palette)</td></tr>
 <tr class="memdesc:a548c619aafd2f0e3052f13a3b1890fbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the palette using a character array. This overrides the default color palette.  <a href="#a548c619aafd2f0e3052f13a3b1890fbd"></a><br/></td></tr>
@@ -161,8 +165,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
 <tr class="memdesc:a5a024507655d35ab124d23fa82cbf7d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get screen height.  <a href="#a5a024507655d35ab124d23fa82cbf7d6"></a><br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>VGA_Text native device driver interface</p>
-<p>Copyright (c) 2013, Parallax Inc Written by Steve Denson See end of file for terms of use. </p>
+<div class="textblock"><p>VGA_Text native device driver interface. </p>
+<dl class="section author"><dt>Author</dt><dd>Steve Denson</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax Inc. 2014. All Rights MIT Licensed, see end of file.</dd></dl>
+<dl class="section user"><dt>Core Usage </dt><dd>A call to vgatext_open will launch 1 additional core that supplies signaling necessary for displaying text with a VGA display.</dd></dl>
+<dl class="section user"><dt>Memory Models</dt><dd>Use with CMM, LMM, XMM.</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>v0.90</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Currently setting individual character foreground/background colors does not work. Setting a screen palette is OK with setColorPalette(&amp;gpalette[VGA_TEXT_PAL_MAGENTA_BLACK]);</dd></dl>
+<dl class="section user"><dt>Help Improve this Library</dt><dd>Please submit bug reports, suggestions, and improvements to this code to <a href="#" onclick="location.href='mai'+'lto:'+'edi'+'to'+'r@p'+'ar'+'all'+'ax'+'.co'+'m'; return false;">edito<span style="display: none;">.nosp@m.</span>r@pa<span style="display: none;">.nosp@m.</span>ralla<span style="display: none;">.nosp@m.</span>x.co<span style="display: none;">.nosp@m.</span>m</a>. </dd></dl>
 </div><h2>Macro Definition Documentation</h2>
 <a class="anchor" id="ab308563c0796736af501ca2bcb0890a1"></a>
 <div class="memitem">
@@ -243,19 +253,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
 </div>
 </div>
 <h2>Typedef Documentation</h2>
-<a class="anchor" id="a82cc606df7336adc2345333c1cf7f50a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef text_t <a class="el" href="html/vgatext_8h.html#a82cc606df7336adc2345333c1cf7f50a">vgatext</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>NOTE: Currently setting individual character foreground/background colors do not work. Setting a screen palette is ok though i.e. setColorPalette(&amp;gpalette[VGA_TEXT_PAL_MAGENTA_BLACK]); </p>
-
-</div>
-</div>
 <a class="anchor" id="a8a2a734ac1d15bf697ed37f3b1fdc9a5"></a>
 <div class="memitem">
 <div class="memproto">
@@ -291,7 +288,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
         <tr>
           <td class="memname">void vgatext_close </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="html/vgatext_8h.html#a82cc606df7336adc2345333c1cf7f50a">vgatext</a> *&#160;</td>
+          <td class="paramtype">vgatext *&#160;</td>
           <td class="paramname"><em>device</em></td><td>)</td>
           <td></td>
         </tr>
@@ -408,7 +405,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="html/vgatext_8h.html#a82cc606df7336adc2345333c1cf7f50a">vgatext</a>* vgatext_open </td>
+          <td class="memname">vgatext* vgatext_open </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>basepin</em></td><td>)</td>
@@ -489,7 +486,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
         <tr>
           <td class="memname">int vgatext_putchar </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="html/vgatext_8h.html#a82cc606df7336adc2345333c1cf7f50a">vgatext</a> *&#160;</td>
+          <td class="paramtype">vgatext *&#160;</td>
           <td class="paramname"><em>vga</em>, </td>
         </tr>
         <tr>
@@ -696,7 +693,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 13 2014 20:57:17 for vgatext library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Sun Apr 27 2014 14:20:56 for vgatext library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

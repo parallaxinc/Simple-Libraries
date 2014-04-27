@@ -1,16 +1,29 @@
 /**
  * @file vgatext.h
- * VGA_Text native device driver interface
  *
- * Copyright (c) 2013, Parallax Inc
- * Written by Steve Denson
- * See end of file for terms of use.
- */
- 
-/**
- * NOTE: Currently setting individual character foreground/background
- * colors do not work. Setting a screen palette is ok though i.e.
+ * @author Steve Denson
+ *
+ * @copyright
+ * Copyright (C) Parallax Inc. 2014. All Rights MIT Licensed, see end of file.
+ *
+ * @brief VGA_Text native device driver interface.
+ *
+ * @par Core Usage 
+ * A call to vgatext_open will launch 1 additional core that supplies signaling 
+ * necessary for displaying text with a VGA display. 
+ *
+ * @par Memory Models
+ * Use with CMM, LMM, XMM. 
+ *
+ * @version v0.90 
+ *
+ * @note Currently setting individual character foreground/background
+ * colors does not work. Setting a screen palette is OK with
  * setColorPalette(&gpalette[VGA_TEXT_PAL_MAGENTA_BLACK]);
+ *
+ * @par Help Improve this Library
+ * Please submit bug reports, suggestions, and improvements to this code to
+ * editor@parallax.com.
  */
  
 #ifndef __VGATEXT_H
@@ -321,27 +334,25 @@ int vgatext_getRows(void);
 //__VGATEXT_H
 
 
-/*
-+--------------------------------------------------------------------
-|  TERMS OF USE: MIT License
-+--------------------------------------------------------------------
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files
-(the "Software"), to deal in the Software without restriction,
-including without limitation the rights to use, copy, modify, merge,
-publish, distribute, sublicense, and/or sell copies of the Software,
-and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+/**
+ * TERMS OF USE: MIT License
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ */
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-+------------------------------------------------------------------
-*/

@@ -8,9 +8,17 @@
  * @copyright
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
  *
- * @brief Measure ADC124S021 for signal recording and measurements.  For the voltmeter
- * version, check out the DC version of this library: adcACpropab
+ * @brief Measure ADC124S021 for signal recording and measurements.  
+ * For the voltmeter version, check out the DC version of this library: 
+ * adcACpropab.
  *
+ * @par Core Usage 
+ * A call to adc_start will launch 1 additional core that repeatedly updates ADC
+ * measurements. 
+ *
+ * @par Help Improve this Library
+ * Please submit bug reports, suggestions, and improvements to this code to
+ * editor@parallax.com.
  */
 
 #ifndef PROPAB_ADC_AC_H

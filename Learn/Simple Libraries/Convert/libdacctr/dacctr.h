@@ -29,6 +29,10 @@
  *   // Call dac_set whenever you want to change the voltage
  * @endcode
  *
+ * @par Core Usage 
+ * A call to either dac_start will launch 1 additional core that repeatedly
+ * updates DAC outputs. 
+ *
  * <b>Example in another cog:</b>
  *
  * @code
@@ -47,6 +51,10 @@
  *   int myCog = dac_start(mem, 44100, &cogDac, NULL);
  *
  *  @endcode
+ *
+ * @par Help Improve this Library
+ * Please submit bug reports, suggestions, and improvements to this code to
+ * editor@parallax.com.
  */
 
 #ifndef DACCTR_H

@@ -3,21 +3,32 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.90
- *
  * @copyright
- * Copyright (C) Parallax, Inc. 2012. All Rights MIT Licensed.
+ * Copyright (C) Parallax Inc. 2012. All Rights MIT Licensed.
  *
  * @brief Plays 16-bit, 32ksps, mono .wav files in the root directory 
  * of a microSD card.
  *
- * @n Currently supports LMM and CMM memory models. 
+ * @par Core Usage
+ * sd_mount - 1, wav_play - 2.
+ * @n The wav_play function only uses 2 cores while a file is playing, and stops
+ * them again when the file ends, playback stops, or to start playing a different
+ * file. 
  *
- * @details v0.90 
+ * @par Memory Models
+ * Use with CMM or LMM. 
+ *
+ * @version v0.90 
  * @li Clicks between tracks removed
  * @li Bug that prevented later tracks in a sequence from being played 
  * is fixed 
+ *
+ * @par Help Improve this Library
+ * Please submit bug reports, suggestions, and improvements to this code to
+ * editor@parallax.com.
  */
+ 
+ 
 #ifndef WAVPLAYER_H
 #define WAVPLAYER_H
 
@@ -70,7 +81,6 @@ void wav_close(void);
 /* __cplusplus */  
 #endif
 /* WAVPLAYER_H */  
-
 
 /**
  * TERMS OF USE: MIT License

@@ -3,12 +3,10 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.97 (see details for more info)
- *
  * @copyright
  * Copyright (C) Parallax, Inc. 2014. All Rights MIT Licensed.
  *
- * @brief This library provides convenience functions 
+ * @brief This library provides convenient functions 
  * for a variety of microcontroller I/O, timing, conversion, and  
  * communication tasks.  This library also includes (and you can 
  * call functions from) 
@@ -18,15 +16,7 @@
  * <a target="blank" href="../../../Text%20Devices/libsimpletext/
  * Documentation%20serial%20Library.html">serial</a>.  
  *
- * <b>NOTE:</b> If you want to update old projects to work with this version
- * of simpletools, you may need to manually use the Add Simple Library button
- * to add .../SimpleIDE/Learn/Text Devices/libsimpletext.  
- *
- * @n @n dac_ctr, square_wave, and all pwm functions, are currently  
- * only supported by the LMM and CMM memory models.  
- *
- * @details This (under development) library provides a set of
- * introductory functions that simplify:
+ * @details This library provides a set of introductory functions that simplify:
  *  
  * @li I/O control - convenient I/O pin monitoring and control functions
  * @li Timing - Delays, timeouts
@@ -55,36 +45,60 @@
  * adding libraries to support and endless variety of peripherals
  * and applications.
  *
- * Revision 0.91 shift_in function pre-clock mode bug fixed. @n @n
- * Revision 0.92 Simpletext functionality incorporated for use of
- * character and string I/O with both terminal and peripheral devices.
- * Simple Text folder replaces PropGCC serial driver support for simple
- * and full duplex serial peripherals. @n @n
- * Revision 0.93 i2c_newbus now uses @n
- *   .../Learn/Simple Libraries/Protocol/simplei2c/@n 
- * Added:@n
- *   i2c_out, i2c_in to cover most common I2C applications
- * EEPROM ee_get_* and ee_put_* changed to ee_get* and ee_put* where 
- * the * term is camel-case. @n @n
- * Revision 0.94 Fixed bug in ee_put* that prevented contiguous data
- * from crossing the EEPROM's address/128 buffer boundaries.  Updated
- * stack array to static in mstimer.c.@n@n
- * Revision 0.95 square_wave bug that prevented output frequency changes
- * (fixed). @n@n
- * Revision 0.96 ee_putStr updated to support 128 byte page writes.  More
- * corrections to ee_put* for contiguous data crossing address/128 boundary. @n@n
- * Revision 0.96.1 Add documentation for start_fpu_cog and stop_fpu_cog. @n@n
- * Revision 0.97 Add cog_run and cog_end for simplified running of function
- * code in other cogs. @n@n
- * Revision 0.98 fpucog floating point coprocessor no longer self-starts by default.  
+ * @par Core Usage
+ * Any of these functions, if called, will launch a process into another cog and
+ * leave it launched for set it/forget it processes:
+ * 
+ * @par Core Usage
+ * @li cog_run (1 cog per call)
+ * @li squareWave (1 cog)
+ * @li pwm (1 cog)
+ * @li dac (1 cog)
+ *
+ * @par Memory Models
+ * Use with CMM, LMM.
+ * 
+ * @version
+ * 0.98 fpucog floating point coprocessor no longer self-starts by default.  
  * All floating point functionality is still supported, processing just happens in
- * the same cog.  i2c_out and i2c_in char *regAddr parameter changed to int memAddr. 
+ * the same cog.  i2c_out and i2c_in char regAddr parameter changed to int memAddr. 
  * itoa removed, use sprint(charArray, "%d", intVal) to make int to ASCII 
  * conversions.  st_msTicks and st_usTicks global variables are pre-initialized to the 
  * number of system clock ticks in a millisecond and microsecond for convenience in
  * library development.  Variables named us and ms are initialized to the same values 
  * for user applications.  Function endianSwap added to simplify communication with 
- * devices that send/receive byte data in big endian format.@n@n
+ * devices that send/receive byte data in big endian format.
+ * @par
+ * 0.97 Add cog_run and cog_end for simplified running of functioncode in other cogs.
+ * @par
+ * 0.96.1 Add documentation for start_fpu_cog and stop_fpu_cog.
+ * @par
+ * 0.96 ee_putStr updated to support 128 byte page writes.  More corrections to ee_put
+ * for contiguous data crossing address/128 boundary.
+ * @par
+ * 0.95 square_wave bug that prevented output frequency changes
+ * (fixed).
+ * @par
+ * 0.94 Fixed bug in ee_put* that prevented contiguous data from crossing the EEPROM's 
+ * address/128 buffer boundaries.  Updated stack array to static in mstimer.c.
+ * @par
+ * 0.93 i2c_newbus now uses @n
+ *   .../Learn/Simple Libraries/Protocol/simplei2c/@n 
+ * Added:@n
+ *   i2c_out, i2c_in to cover most common I2C applications
+ * EEPROM ee_get_* and ee_put_* changed to ee_get* and ee_put* where 
+ * the * term is camel-case.
+ * @par
+ * 0.92 Simpletext functionality incorporated for use of
+ * character and string I/O with both terminal and peripheral devices.
+ * Simple Text folder replaces PropGCC serial driver support for simple
+ * and full duplex serial peripherals.
+ * @par
+ * 0.91 shift_in function pre-clock mode bug fixed. @n @n
+ * 
+ * @par Help Improve this Library
+ * Please submit bug reports, suggestions, and improvements to this code to
+ * editor@parallax.com.
  */
 
 #ifndef SIMPLETOOLS_H
@@ -552,19 +566,20 @@ void low(int pin);
 
 
 /**
- * @brief Set an I/O pin to input
+ * @brief Set an I/O pin to input and return 1 if pin
+ * detects a high signal, or 0 if it detects low.
  *
  * @details This function makes the Propeller
  * connect the I/O pin to its input buffer
  * so that it can return the binary value of the
- * voltage applied by an external circuit.
+ * voltage applied by an external circuit.  
  *
  * @param pin Number of the I/O pin to set to input.
  *
- * @returns 1 or 0 to indicate high or low signal
- * received.
+ * @returns 1 to indicate high (above 1.65 V) received 
+ * or 0 to indicate low (below 1.65 V) received.
  */
-unsigned int input(int pin);
+int input(int pin);
 
 
 
@@ -1302,20 +1317,18 @@ float ee_getFloat32(int addr);
 
 
 
-
 /**
  * @}
  *
- * @name SD
+ * @name SD Card
  * @{
  */
 
 
 
-
-
 /**
- * @brief Mount an SD card with the minimal 4-pin interface.
+ * @brief Mount an SD card with the minimal 4-pin interface.  For <a href="http://learn.parallax.com" target="_blank">Parallax Learn Site</a>
+ * examples, see: <a href="http://learn.parallax.com/propeller-c-simple-devices/sd-card-data" target="_blank">SD Card Data</a> and <a href="http://learn.parallax.com/propeller-c-simple-devices/play-wav-files" target="_blank">Play WAV Files</a>.
  *
  * @param doPin The SD card's data out pin.
  *
@@ -1328,8 +1341,6 @@ float ee_getFloat32(int addr);
  * @returns status 0 if successful, or an error code.
  */
 int sd_mount(int doPin, int clkPin, int diPin, int csPin);
-
-
 
 
 

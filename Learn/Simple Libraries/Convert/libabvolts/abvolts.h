@@ -3,14 +3,29 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.5
- *
  * @copyright
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
  *
  * @brief Functions for setting voltages with D/A0, D/A1 outputs and measuring 
  * voltages with A/D0...A/D3 inputs.
  * 
+ * @par Core Usage 
+ * A call to either da_volts or da_out will launch 1 additional core. 
+ * Both functions rely on code running in that additional core.  More calls to 
+ * either function will not result in more cores being launched.
+ *
+ * @par EEPROM Usage
+ * da_setupScale writes to addresses 63400..63416. 
+ *
+ * @par Memory Models
+ * Use with CMM or LMM. 
+ *
+ * @version
+ * 0.5
+ *
+ * @par Help Improve this Library
+ * Please submit bug reports, suggestions, and improvements to this code to
+ * editor@parallax.com.
  */
 
 #ifndef PROPAB_ABVOLTS_H

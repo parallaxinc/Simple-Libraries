@@ -48,11 +48,7 @@
 </div><!--header-->
 <div class="contents">
 
-<p>Control up to 14 servos in other cog. For up to 28, add the servoAux library to your project. Control the first 14 with servo_set, servo_speed, servo_angle, and other servo_ function calls. Control servos 15 and up with the same function calls, but starting with servoAux_ instead of servo_. <br/>
- <br/>
- Currently supports LMM and CMM memory models. <br/>
- servo library launches a single cog for controlling 1st to 14th servos <br/>
- servoAux library launches an additional cog for controlling the 15th through 28th servos.  
+<p>Control up to 14 servos in another core. For up to 28, add the servoAux library to your project. Control the first 14 with servo_set, servo_speed, servo_angle, and other servo_ function calls. Control servos 15 and up with the same function calls, but starting with servoAux_ instead of servo_.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;simpletools.h&quot;</code><br/>
 </div>
@@ -77,18 +73,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 <tr class="memdesc:a703779e60ba1f5ef6757afde71ee05b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the servo process and takes over a cog.  <a href="#a703779e60ba1f5ef6757afde71ee05b4"></a><br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Control up to 14 servos in other cog. For up to 28, add the servoAux library to your project. Control the first 14 with servo_set, servo_speed, servo_angle, and other servo_ function calls. Control servos 15 and up with the same function calls, but starting with servoAux_ instead of servo_. <br/>
- <br/>
- Currently supports LMM and CMM memory models. <br/>
- servo library launches a single cog for controlling 1st to 14th servos <br/>
- servoAux library launches an additional cog for controlling the 15th through 28th servos. </p>
+<div class="textblock"><p>Control up to 14 servos in another core. For up to 28, add the servoAux library to your project. Control the first 14 with servo_set, servo_speed, servo_angle, and other servo_ function calls. Control servos 15 and up with the same function calls, but starting with servoAux_ instead of servo_. </p>
 <dl class="section author"><dt>Author</dt><dd>Andy Lindsay</dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.9</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax, Inc. 2013. See end of file for terms of use (MIT License).</dd></dl>
-<p>This library automatically delivers control pulses to the servos every 20 ms, all you have to do is use the set method to pick the pin the servo is connected to and the duration of the control pulses.</p>
-<p>Parallax standard servos have a position range from approximately 0 to 180 degrees.</p>
-<p><br/>
- Please submit bug reports, suggestions, and improvements to this code to <a href="#" onclick="location.href='mai'+'lto:'+'edi'+'to'+'r@p'+'ar'+'all'+'ax'+'.co'+'m'; return false;">edito<span style="display: none;">.nosp@m.</span>r@pa<span style="display: none;">.nosp@m.</span>ralla<span style="display: none;">.nosp@m.</span>x.co<span style="display: none;">.nosp@m.</span>m</a>. </p>
+<p>This library automatically delivers control pulses to up to 14 servos every 20 ms. All your code has to do is use servo_angle, servo_speed, or servo_set, to pick the pin the servo is connected to and set its angle (standard servo) or speed (continuous rotation servo).</p>
+<dl class="section note"><dt>Note</dt><dd>Parallax standard servos have a position range from approximately 0 to 180 degrees.</dd></dl>
+<dl class="section user"><dt>Core Usage</dt><dd>Launches 1 core that controls up to 14 servos on the first call to servo_set, servo_angle or servo_speed. Additional calls to any of these functions will not launch more cores. Additional servos are controlled by supplying different pin arguments to these functions. For example, servo_angle(12, 900) followed by servo_angle(13, 300) will cause the other core sending servo control signals to set a servo connected to P12 to 90 degrees, and a servo connected to P13 to 30 degrees. If servo_angle(12, 900) was the first call to this library, it would automatically launch a core before making that core send control signals to the servo connected to P12. The servo_angle(13, 300) call would cause the same core controlling the P12 servo to also send control signals to a servo connected to P13.</dd></dl>
+<dl class="section user"><dt>Memory Models</dt><dd>Use with CMM or LMM.</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>v0.90</dd></dl>
+<dl class="section user"><dt>Help Improve this Library</dt><dd>Please submit bug reports, suggestions, and improvements to this code to <a href="#" onclick="location.href='mai'+'lto:'+'edi'+'to'+'r@p'+'ar'+'all'+'ax'+'.co'+'m'; return false;">edito<span style="display: none;">.nosp@m.</span>r@pa<span style="display: none;">.nosp@m.</span>ralla<span style="display: none;">.nosp@m.</span>x.co<span style="display: none;">.nosp@m.</span>m</a>. </dd></dl>
 </div><h2>Function Documentation</h2>
 <a class="anchor" id="a75027a62be20a7317d7148cf3fa377e7"></a>
 <div class="memitem">
@@ -309,7 +302,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serv
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 14 2013 10:29:28 for Servo Library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Apr 27 2014 14:23:25 for Servo Library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

@@ -16,7 +16,7 @@
 
 #include "simpletools.h"                      // simpletools function prototypes
 
-unsigned int input(int pin)                   // input function definition
+int input(int pin)                            // input function definition
 {
   int mask = 1 << pin;                        // Set up mask
   DIRA &= ~mask;                              // AND DIRA with NOT mask
