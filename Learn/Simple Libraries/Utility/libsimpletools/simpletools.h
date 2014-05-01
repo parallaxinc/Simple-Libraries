@@ -1,5 +1,4 @@
-/**                                                                             
- * @file simpletools.h
+/**                                                                            * @file simpletools.h
  *
  * @author Andy Lindsay
  *
@@ -46,10 +45,9 @@
  * and applications.
  *
  * @par Core Usage
- * Any of these functions, if called, will launch a process into another cog and
- * leave it launched for set it/forget it processes:
+ * Any of these functions, if called, will launch a process into another cog
+ * and leave it launched for set it/forget it processes:
  * 
- * @par Core Usage
  * @li cog_run (1 cog per call)
  * @li squareWave (1 cog)
  * @li pwm (1 cog)

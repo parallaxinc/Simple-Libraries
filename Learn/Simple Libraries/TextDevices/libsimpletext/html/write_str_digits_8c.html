@@ -15,6 +15,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="ParallaxLogo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">simpletext library
    &#160;<span id="projectnumber">v0.98</span>
@@ -53,19 +54,19 @@
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9a72604dff8bebba99bf22269505b5ce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="write_str_digits_8c.html#a9a72604dff8bebba99bf22269505b5ce">writeStrDigits</a> (<a class="el" href="structtext__struct.html">text_t</a> *p, char *str, int width)</td></tr>
-<tr class="memdesc:a9a72604dff8bebba99bf22269505b5ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a string on the transmit device.  <a href="#a9a72604dff8bebba99bf22269505b5ce"></a><br/></td></tr>
+<tr class="memitem:aa3e0237aa486ab99f747c3c31f5d30c6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="write_str_digits_8c.html#aa3e0237aa486ab99f747c3c31f5d30c6">writeStrLen</a> (<a class="el" href="structtext__struct.html">text_t</a> *p, char *str, int width)</td></tr>
+<tr class="memdesc:aa3e0237aa486ab99f747c3c31f5d30c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a string to the device.  <a href="#aa3e0237aa486ab99f747c3c31f5d30c6"></a><br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Function to print a string of specified width to the pointer.</p>
 <p>Copyright (c) 2013, Parallax Inc. Written by Steve Denson </p>
 </div><h2>Function Documentation</h2>
-<a class="anchor" id="a9a72604dff8bebba99bf22269505b5ce"></a>
+<a class="anchor" id="aa3e0237aa486ab99f747c3c31f5d30c6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int writeStrDigits </td>
+          <td class="memname">int writeStrLen </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structtext__struct.html">text_t</a> *&#160;</td>
           <td class="paramname"><em>device</em>, </td>
@@ -90,10 +91,10 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Send a string on the transmit device. </p>
+<p>Send a string to the device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">device</td><td>previously open/started terminal device.</td></tr>
+    <tr><td class="paramname">*device</td><td>Connection identifier to serial, fdserial, or other text_t compatible device that has been opened.</td></tr>
     <tr><td class="paramname">str</td><td>Null terminated string to send.</td></tr>
     <tr><td class="paramname">width</td><td>Number of characters to print padded by spaces. </td></tr>
   </table>
@@ -105,7 +106,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 11 2014 19:01:39 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 1 2014 15:54:50 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
