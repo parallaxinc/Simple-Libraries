@@ -15,6 +15,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="ParallaxLogo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">fdserial library
    &#160;<span id="projectnumber">v0.85</span>
@@ -52,7 +53,7 @@
 </div><!--header-->
 <div class="contents">
 
-<p>Full Duplex Serial adapter API definition.  
+<p>This library supports creating and managing one or more full duplex serial connections with peripheral devices. The pointer returned when a connection is opened can be used to identify the connection for other calls with fdserial parameter types in this library. The identifier can also be used to identify the serial connection for higher level formatted text transmit/receive functions with text_t parameter types in the simpletext library.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;simpletext.h&quot;</code><br/>
 </div>
@@ -66,14 +67,10 @@ Data Structures</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:a789aa62de9bdf0d0de6eb469a9c19929"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#a789aa62de9bdf0d0de6eb469a9c19929">FDSERIAL_BUFF_MASK</a>&#160;&#160;&#160;0x3f</td></tr>
 <tr class="memitem:ae4f8e954fdb298e5542041b519886f96"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#ae4f8e954fdb298e5542041b519886f96">FDSERIAL_MODE_NONE</a>&#160;&#160;&#160;0</td></tr>
-<tr class="memitem:a85a1da7cfe12cfd1a482d8ea389cb8fe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a85a1da7cfe12cfd1a482d8ea389cb8fe"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>FDSERIAL_MODE_INVERT_RX</b>&#160;&#160;&#160;1</td></tr>
-<tr class="memitem:ac545f59a82c44cfc8e1fc95259ac1b67"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac545f59a82c44cfc8e1fc95259ac1b67"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>FDSERIAL_MODE_INVERT_TX</b>&#160;&#160;&#160;2</td></tr>
-<tr class="memitem:a4b7a94f05080b651dcaf97e0451288f9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4b7a94f05080b651dcaf97e0451288f9"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>FDSERIAL_MODE_OPENDRAIN_TX</b>&#160;&#160;&#160;4</td></tr>
-<tr class="memitem:a09f65faf46d0585453cf70301926b002"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a09f65faf46d0585453cf70301926b002"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>FDSERIAL_MODE_IGNORE_TX_ECHO</b>&#160;&#160;&#160;8</td></tr>
+<tr class="memitem:a85a1da7cfe12cfd1a482d8ea389cb8fe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#a85a1da7cfe12cfd1a482d8ea389cb8fe">FDSERIAL_MODE_INVERT_RX</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:ac545f59a82c44cfc8e1fc95259ac1b67"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#ac545f59a82c44cfc8e1fc95259ac1b67">FDSERIAL_MODE_INVERT_TX</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memitem:a4b7a94f05080b651dcaf97e0451288f9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#a4b7a94f05080b651dcaf97e0451288f9">FDSERIAL_MODE_OPENDRAIN_TX</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memitem:a09f65faf46d0585453cf70301926b002"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#a09f65faf46d0585453cf70301926b002">FDSERIAL_MODE_IGNORE_TX_ECHO</a>&#160;&#160;&#160;8</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -84,32 +81,30 @@ typedef text_t&#160;</td><td class="memItemRight" valign="bottom"><b>fdserial</b
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a43ff539c64dfbb0f2f95403a4c746788"><td class="memItemLeft" align="right" valign="top">fdserial *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#a43ff539c64dfbb0f2f95403a4c746788">fdserial_open</a> (int rxpin, int txpin, int mode, int baudrate)</td></tr>
-<tr class="memdesc:a43ff539c64dfbb0f2f95403a4c746788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes and starts native assembly driver in a cog.  <a href="#a43ff539c64dfbb0f2f95403a4c746788"></a><br/></td></tr>
-<tr class="memitem:a985817e84fdaf4720c9e03ec77ad8806"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a985817e84fdaf4720c9e03ec77ad8806"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#a985817e84fdaf4720c9e03ec77ad8806">fdserial_close</a> (fdserial *term)</td></tr>
-<tr class="memdesc:a985817e84fdaf4720c9e03ec77ad8806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop stops the cog running the native assembly driver. <br/></td></tr>
+<tr class="memdesc:a43ff539c64dfbb0f2f95403a4c746788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a full duplex serial connection.  <a href="#a43ff539c64dfbb0f2f95403a4c746788"></a><br/></td></tr>
+<tr class="memitem:a985817e84fdaf4720c9e03ec77ad8806"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#a985817e84fdaf4720c9e03ec77ad8806">fdserial_close</a> (fdserial *term)</td></tr>
+<tr class="memdesc:a985817e84fdaf4720c9e03ec77ad8806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop stops the cog running the native assembly driver.  <a href="#a985817e84fdaf4720c9e03ec77ad8806"></a><br/></td></tr>
 <tr class="memitem:a5a0fddf660282e5cc10ffff2e6e87070"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#a5a0fddf660282e5cc10ffff2e6e87070">fdserial_rxCheck</a> (fdserial *term)</td></tr>
-<tr class="memdesc:a5a0fddf660282e5cc10ffff2e6e87070"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a byte from the receive queue if available function does not block.  <a href="#a5a0fddf660282e5cc10ffff2e6e87070"></a><br/></td></tr>
-<tr class="memitem:a0846a23f9d70fd3384a2568ca2985b05"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0846a23f9d70fd3384a2568ca2985b05"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#a0846a23f9d70fd3384a2568ca2985b05">fdserial_rxFlush</a> (fdserial *term)</td></tr>
-<tr class="memdesc:a0846a23f9d70fd3384a2568ca2985b05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empties the receive queue. <br/></td></tr>
+<tr class="memdesc:a5a0fddf660282e5cc10ffff2e6e87070"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a byte from the receive buffer if available, but does not wait if there's nothing in the buffer.  <a href="#a5a0fddf660282e5cc10ffff2e6e87070"></a><br/></td></tr>
+<tr class="memitem:a0846a23f9d70fd3384a2568ca2985b05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#a0846a23f9d70fd3384a2568ca2985b05">fdserial_rxFlush</a> (fdserial *term)</td></tr>
+<tr class="memdesc:a0846a23f9d70fd3384a2568ca2985b05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empties the receive buffer.  <a href="#a0846a23f9d70fd3384a2568ca2985b05"></a><br/></td></tr>
 <tr class="memitem:ab14338477b0b96e671aed748e20ecf5e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#ab14338477b0b96e671aed748e20ecf5e">fdserial_rxReady</a> (fdserial *term)</td></tr>
-<tr class="memdesc:ab14338477b0b96e671aed748e20ecf5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find out if a byte is ready in the receive buffer. The function does not block.  <a href="#ab14338477b0b96e671aed748e20ecf5e"></a><br/></td></tr>
+<tr class="memdesc:ab14338477b0b96e671aed748e20ecf5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a byte is ready in the receive buffer.  <a href="#ab14338477b0b96e671aed748e20ecf5e"></a><br/></td></tr>
 <tr class="memitem:ab41cd8a59d375344432807d09039656e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#ab41cd8a59d375344432807d09039656e">fdserial_rxTime</a> (fdserial *term, int ms)</td></tr>
-<tr class="memdesc:ab41cd8a59d375344432807d09039656e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a byte from the receive queue if available by timeout function blocks if no recieve for ms timeout.  <a href="#ab41cd8a59d375344432807d09039656e"></a><br/></td></tr>
+<tr class="memdesc:ab41cd8a59d375344432807d09039656e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a byte from the receive buffer if available, or wait for up to timeout ms to receive a byte.  <a href="#ab41cd8a59d375344432807d09039656e"></a><br/></td></tr>
 <tr class="memitem:afde60905b34d7f6c9b338bf08e843fe0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#afde60905b34d7f6c9b338bf08e843fe0">fdserial_rxChar</a> (fdserial *term)</td></tr>
-<tr class="memdesc:afde60905b34d7f6c9b338bf08e843fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits for a byte from the receive queue. blocks until somehting is ready.  <a href="#afde60905b34d7f6c9b338bf08e843fe0"></a><br/></td></tr>
+<tr class="memdesc:afde60905b34d7f6c9b338bf08e843fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a byte from the receive buffer, or if it's emtpy, wait until a byte is received.  <a href="#afde60905b34d7f6c9b338bf08e843fe0"></a><br/></td></tr>
 <tr class="memitem:a1205e361a4088556d4347cdc0d78079b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#a1205e361a4088556d4347cdc0d78079b">fdserial_txChar</a> (fdserial *term, int txbyte)</td></tr>
-<tr class="memdesc:a1205e361a4088556d4347cdc0d78079b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a byte on the transmit queue.  <a href="#a1205e361a4088556d4347cdc0d78079b"></a><br/></td></tr>
+<tr class="memdesc:a1205e361a4088556d4347cdc0d78079b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a byte by adding it to the transmit buffer.  <a href="#a1205e361a4088556d4347cdc0d78079b"></a><br/></td></tr>
 <tr class="memitem:a284f42357a5f6b00e1bad4b41d64a56f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#a284f42357a5f6b00e1bad4b41d64a56f">fdserial_txEmpty</a> (fdserial *term)</td></tr>
-<tr class="memdesc:a284f42357a5f6b00e1bad4b41d64a56f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find out if the tx queue is empty.  <a href="#a284f42357a5f6b00e1bad4b41d64a56f"></a><br/></td></tr>
+<tr class="memdesc:a284f42357a5f6b00e1bad4b41d64a56f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the transmit buffer is empty.  <a href="#a284f42357a5f6b00e1bad4b41d64a56f"></a><br/></td></tr>
 <tr class="memitem:acaa268b11daa24a466cf953e54c7dab2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acaa268b11daa24a466cf953e54c7dab2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/fdserial_8h.html#acaa268b11daa24a466cf953e54c7dab2">fdserial_txFlush</a> (fdserial *term)</td></tr>
-<tr class="memdesc:acaa268b11daa24a466cf953e54c7dab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flush the transmit queue. <br/></td></tr>
+<tr class="memdesc:acaa268b11daa24a466cf953e54c7dab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove any bytes that might be waiting in the transmit buffer. <br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Full Duplex Serial adapter API definition. </p>
-<dl class="section author"><dt>Author</dt><dd>Steve Denson</dd></dl>
+<div class="textblock"><p>This library supports creating and managing one or more full duplex serial connections with peripheral devices. The pointer returned when a connection is opened can be used to identify the connection for other calls with fdserial parameter types in this library. The identifier can also be used to identify the serial connection for higher level formatted text transmit/receive functions with text_t parameter types in the simpletext library. </p>
+<dl class="section author"><dt>Author</dt><dd>Steve Denson, with naming conventions supplied by Parallax.</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2008-2013, Steve Denson, all Rights MIT Licensed.</dd></dl>
 <dl class="section user"><dt>Core Usage </dt><dd>Each call to fdserial_open launches an additional cog that can support an additional UART communication process.</dd></dl>
 <dl class="section user"><dt>Memory Models</dt><dd>Use with CMM, LMM, or XMMC.</dd></dl>
@@ -125,7 +120,46 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Defines buffer length. hard coded in asm driver ... s/b bigger </p>
+<p>Defines buffer length. hard coded into asm driver ... s/b bigger </p>
+
+</div>
+</div>
+<a class="anchor" id="a09f65faf46d0585453cf70301926b002"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FDSERIAL_MODE_IGNORE_TX_ECHO&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Mode bit 3 can be set to 1 to ignore copy of txpin's signal if received by rxpin. </p>
+
+</div>
+</div>
+<a class="anchor" id="a85a1da7cfe12cfd1a482d8ea389cb8fe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FDSERIAL_MODE_INVERT_RX&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Mode bit 0 can be set to 1 for inverted signal to rxpin. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac545f59a82c44cfc8e1fc95259ac1b67"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FDSERIAL_MODE_INVERT_TX&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Mode bit 1 can be set to 1 for inverted signal from txpin. </p>
 
 </div>
 </div>
@@ -138,7 +172,20 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Defines mode bits mode bit 0 = invert rx mode bit 1 = invert tx mode bit 2 = open-drain/source tx mode bit 3 = ignore tx echo on rx </p>
+<p>All mode bits set to 0 for non-inverted asynchronous serial communication. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4b7a94f05080b651dcaf97e0451288f9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FDSERIAL_MODE_OPENDRAIN_TX&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Mode bit 2 can be set to 1 to open collector/drain txpin communication with a pull-up resistor on the line. </p>
 
 </div>
 </div>
@@ -152,11 +199,35 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Defines fdserial interface struct 9 contiguous longs + buffers </p>
+<p>Defines fdserial interface struct of 9 contiguous longs + buffers </p>
 
 </div>
 </div>
 <h2>Function Documentation</h2>
+<a class="anchor" id="a985817e84fdaf4720c9e03ec77ad8806"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fdserial_close </td>
+          <td>(</td>
+          <td class="paramtype">fdserial *&#160;</td>
+          <td class="paramname"><em>term</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stop stops the cog running the native assembly driver. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*term</td><td>Device ID returned by fdserial_open. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a43ff539c64dfbb0f2f95403a4c746788"></a>
 <div class="memitem">
 <div class="memproto">
@@ -193,17 +264,17 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
       </table>
 </div><div class="memdoc">
 
-<p>Initializes and starts native assembly driver in a cog. </p>
+<p>Open a full duplex serial connection. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rxpin</td><td>is pin number for receive input </td></tr>
-    <tr><td class="paramname">txpin</td><td>is pin number for transmit output </td></tr>
-    <tr><td class="paramname">mode</td><td>is interface mode </td></tr>
-    <tr><td class="paramname">baudrate</td><td>is frequency of bits ... 115200, 57600, etc... </td></tr>
+    <tr><td class="paramname">rxpin</td><td>Serial receive input pin number.</td></tr>
+    <tr><td class="paramname">txpin</td><td>Serial transmit output pin number.</td></tr>
+    <tr><td class="paramname">mode</td><td>Set/clear bits to define mode: mode bit 0 = invert rx mode bit 1 = invert tx mode bit 2 = open-drain/source tx mode bit 3 = ignore tx echo on rx</td></tr>
+    <tr><td class="paramname">baudrate</td><td>Rate binary values are transmitted, like 115200, 57600,..., 9600 etc.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>non-zero on success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>fdserial pointer for use as an identifier for fdserial and simpletext library functions that have fdserial or text_t parameter types. </dd></dl>
 
 </div>
 </div>
@@ -221,8 +292,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
       </table>
 </div><div class="memdoc">
 
-<p>Waits for a byte from the receive queue. blocks until somehting is ready. </p>
-<dl class="section return"><dt>Returns</dt><dd>received byte. </dd></dl>
+<p>Get a byte from the receive buffer, or if it's emtpy, wait until a byte is received. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*term</td><td>Device ID returned by fdserial_open.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Oldest byte (0 to 255) in receive buffer </p>
 
 </div>
 </div>
@@ -240,8 +317,38 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
       </table>
 </div><div class="memdoc">
 
-<p>Gets a byte from the receive queue if available function does not block. </p>
-<dl class="section return"><dt>Returns</dt><dd>receive byte 0 to 0xff or -1 if none available </dd></dl>
+<p>Gets a byte from the receive buffer if available, but does not wait if there's nothing in the buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*term</td><td>Device ID returned by fdserial_open.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Oldest byte (0 to 255) in receive buffer, or -1 if buffer is empty. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0846a23f9d70fd3384a2568ca2985b05"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fdserial_rxFlush </td>
+          <td>(</td>
+          <td class="paramtype">fdserial *&#160;</td>
+          <td class="paramname"><em>term</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Empties the receive buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*term</td><td>Device ID returned by fdserial_open. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -259,8 +366,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
       </table>
 </div><div class="memdoc">
 
-<p>Find out if a byte is ready in the receive buffer. The function does not block. </p>
-<dl class="section return"><dt>Returns</dt><dd>non-zero if byte ready. Does not return received byte. </dd></dl>
+<p>Check if a byte is ready in the receive buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*term</td><td>Device ID returned by fdserial_open.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Non-zero if one or more bytes are waiting in the receive buffer, or 0 if it's empty. </dd></dl>
 
 </div>
 </div>
@@ -288,10 +401,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
       </table>
 </div><div class="memdoc">
 
-<p>Gets a byte from the receive queue if available by timeout function blocks if no recieve for ms timeout. </p>
+<p>Gets a byte from the receive buffer if available, or wait for up to timeout ms to receive a byte. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ms</td><td>is number of milliseconds to wait for a char </td></tr>
+    <tr><td class="paramname">*term</td><td>Device ID returned by fdserial_open.</td></tr>
+    <tr><td class="paramname">ms</td><td>is number of milliseconds to wait for a char</td></tr>
   </table>
   </dd>
 </dl>
@@ -323,14 +437,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
       </table>
 </div><div class="memdoc">
 
-<p>Sends a byte on the transmit queue. </p>
+<p>Send a byte by adding it to the transmit buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">txbyte</td><td>is byte to send. </td></tr>
+    <tr><td class="paramname">*term</td><td>Device ID returned by fdserial_open.</td></tr>
+    <tr><td class="paramname">txbyte</td><td>is byte to send.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>waits for and returns received byte if mode is 8 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The byte that was sent, or returns the byte that was received if mode bit 3 was set in the fdserial_open call. </dd></dl>
 
 </div>
 </div>
@@ -348,15 +463,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
       </table>
 </div><div class="memdoc">
 
-<p>Find out if the tx queue is empty. </p>
-<dl class="section return"><dt>Returns</dt><dd>non-zero if tx buffer is empty. </dd></dl>
+<p>Check if the transmit buffer is empty. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*term</td><td>Device ID returned by fdserial_open.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>non-zero if transmit buffer is empty. </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Apr 27 2014 14:40:16 for fdserial library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Thu May 1 2014 15:45:31 for fdserial library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

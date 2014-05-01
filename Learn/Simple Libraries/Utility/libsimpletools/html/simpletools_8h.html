@@ -379,7 +379,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpl
 <div class="textblock"><p>This library provides convenient functions for a variety of microcontroller I/O, timing, conversion, and communication tasks. This library also includes (and you can call functions from) <a href="../../../Text%20Devices/libsimpletext/
 Documentation%20simpletext%20Library.html" target="blank">simpletext</a> and <a href="../../../Text%20Devices/libsimpletext/
 Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
-<dl class="section author"><dt>Author</dt><dd>Andy Lindsay</dd></dl>
+<pre class="fragment">                                                                        * 
+</pre><dl class="section author"><dt>Author</dt><dd>Andy Lindsay</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax, Inc. 2014. All Rights MIT Licensed.</dd></dl>
 <p>This library provides a set of introductory functions that simplify:</p>
 <ul>
@@ -395,13 +396,12 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 <p>Applications include: monitoring, control and communication with simple peripherals, like lights, buttons, dials, motors, peripheral integrated circuits and prototyping with simple systems that use pulse, or serial communication. (A few examples from the very large list of devices includes: servos, ultrasonic distance sensors, accelerometers, serial liquid crystal, display, etc.)</p>
 <p>Intended use: Accompanies introductory electronics, robotics and programming lessons and projects on learn.parallax.com. After these lessons, bridge lessons will be added to familiarize the programmer with standard practices used by the community for adding libraries to support and endless variety of peripherals and applications.</p>
 <dl class="section user"><dt>Core Usage</dt><dd>Any of these functions, if called, will launch a process into another cog and leave it launched for set it/forget it processes:</dd></dl>
-<dl class="section user"><dt>Core Usage</dt><dd><ul>
+<ul>
 <li>cog_run (1 cog per call) </li>
 <li>squareWave (1 cog) </li>
 <li>pwm (1 cog) </li>
 <li>dac (1 cog)</li>
 </ul>
-</dd></dl>
 <dl class="section user"><dt>Memory Models</dt><dd>Use with CMM, LMM.</dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.98 fpucog floating point coprocessor no longer self-starts by default. All floating point functionality is still supported, processing just happens in the same cog. i2c_out and i2c_in char regAddr parameter changed to int memAddr. itoa removed, use sprint(charArray, "%d", intVal) to make int to ASCII conversions. st_msTicks and st_usTicks global variables are pre-initialized to the number of system clock ticks in a millisecond and microsecond for convenience in library development. Variables named us and ms are initialized to the same values for user applications. Function endianSwap added to simplify communication with devices that send/receive byte data in big endian format. </dd></dl>
 <dl class="section user"><dt></dt><dd>0.97 Add cog_run and cog_end for simplified running of functioncode in other cogs. </dd></dl>
@@ -2283,7 +2283,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Apr 27 2014 14:48:07 for simpletools library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 1 2014 15:40:30 for simpletools library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
