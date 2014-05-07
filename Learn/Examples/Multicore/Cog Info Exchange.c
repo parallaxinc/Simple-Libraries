@@ -1,11 +1,11 @@
 /*
-  Cog Info Exhcange.c
-  
+  Cog Info Exchange.c
+ 
   Example of two cogs exchanging information with a volatile global variable.
   The main function in cog 0 changes the value; and it affects the blink function's
   rate running in cog 1.
 
-  http://learn.parallax.com/propeller-c-multicore-approaches/cog-info-exchange
+  http://learn.parallax.com/propeller-c-multicore-approaches
 */
 
 #include "simpletools.h"                      // Library include

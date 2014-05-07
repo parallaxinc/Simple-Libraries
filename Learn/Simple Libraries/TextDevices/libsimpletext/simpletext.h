@@ -219,53 +219,7 @@ typedef struct text_struct
 
 typedef text_t terminal;
 
-
-/**
- * @brief Reopens the SimpleIDE Terminal connection if it was closed
- * previously.  The SimpleIDE Terminal connection transmits on P30 and
- * receives on P31 at 115200 bps.  The port is a simple serial driver
- * running in the same cog, and does not buffer bytes.
- *
- * @returns 0 if port is already open, else returns term pointer.
- */
-terminal *simpleterm_open(void);
-
-
-/**
- * @brief Closes the SimpleIDE Terminal connection in one cog so that it can
- * be opened in another cog with simpleterm_open, fdserial_open(30, 31, 0,
- * 115200), or some other driver.
- */
-void      simpleterm_close(void);
-
-
-/**
- * @brief Get default device pointer to SimpleIDE Terminal.
- *
- * @returns terminal* Pointer to SimpleIDE Terminal device.
- */
-terminal *simpleterm_pointer(void);
-
-
-/**
- * @brief Sets default debug port device.  Make sure to open a connection to
- * the device before calling the function.
- * 
- * @param *ptr Device ID pointer to serial, fdserial, or other text_t device.
- */
-static inline void simpleterm_set(text_t *ptr)
-{
-  extern text_t *dport_ptr;
-  simpleterm_close();
-  dport_ptr = ptr;
-}
-
-
-/**
- * @name Output to Terminal
- * @{
- */
-
+ 
 /**
  * @brief Print format "..." args to the default simple terminal device.
  * The output is limited to 256 bytes.
@@ -307,6 +261,243 @@ static inline void simpleterm_set(text_t *ptr)
  * @returns Number of bytes placed into the buffer.
  */
 int print(const char *format, ...) __attribute__((format (printf, 1, 2)));
+
+
+/**
+ * @brief Convert formatted simple terminal input to the "..." args.
+ * The input is limited to 256 bytes.
+ *
+ * @details Format specifiers for scan, dscan, and sscan:
+ *
+ * - %%
+ * Scan % sign to the input.
+ *
+ * - %b
+ * Scans binary representation to the int parameter.
+ * Note: %b is not an ANSI standard format specifier.
+ *
+ * - %c
+ * Scans char representation to a char parameter.
+ *
+ * - %d
+ * Scans integer representation to an int parameter.
+ *
+ * - %f
+ * Scans floating point representation to a float parameter.
+ *
+ * - %s
+ * Scans string representation to a char* parameter.
+ *
+ * - %u
+ * Scans unsigned integer representation to an unsigned int parameter.
+ *
+ * - %x
+ * Scans hexadecimal integer representation to the int parameter.
+ *
+ * Width and precision %n.p cause n integer digits to scan to the left
+ * of the decimal point, p digits to the right.
+ *
+ * @param *fmt C printf comparable format string.
+ * 
+ * @param ... Arguments where output will go and must be pointers.
+ * 
+ * @returns Number of bytes placed into the buffer.
+ */
+int scan(const char *fmt, ...) __attribute__((format (printf, 1, 2)));
+ 
+ 
+/**
+ * @brief Print format "..." args to the output buffer.
+ * The output buffer *must be* big enough for the output.
+ *
+ * @note See print for format specifiers.
+ *
+ * @param buffer Pointer to memory where formatted output can be stored.
+ * 
+ * @param *format is a C printf comparable format string.
+ * 
+ * @param ... is the arguments to use with the format string.
+ * 
+ * @returns the number of bytes placed into the buffer.
+ */
+int sprint(char *buffer, const char *format, ...) __attribute__((format (printf, 2, 3)));
+
+
+/**
+ * @brief Convert formatted buffer to the "..." args.
+ *
+ * @note See scan for format specifiers.
+ *
+ * @param *buffer Pointer to memory where formatted output can be stored.
+ *
+ * @param *fmt C printf comparable format string.
+ *
+ * @param ... Arguments where output will go and must be pointers.
+ * 
+ * @returns Number of bytes placed into the buffer.
+ */
+int sscan(const char *buffer, const char *fmt, ...) __attribute__((format (printf, 2, 3)));
+
+
+/**
+ * @name Print/Scan for Device Communication
+ * @{
+ */
+
+
+/**
+ * @brief Print format "..." args to the device
+ * The output is limited to 256 bytes.
+ *
+ * @note See print for format specifiers.
+ * 
+ * @param *device Connection identifier to  serial, fdserial, or other text_t
+ * compatible device that has been opened.
+ * 
+ * @param format C printf comparable format string.
+ * 
+ * @param ... Arguments to use with the format string.
+ * 
+ * @returns Number of bytes placed into the buffer.
+ */
+int dprint(text_t* device, const char *format, ...) __attribute__((format (printf, 2, 3)));
+
+
+/**
+ * @brief Convert formatted device input to the "..." args.
+ * The input is limited to 256 bytes.
+ *
+ * @note See scan for format specifiers.
+ * 
+ * @param *device Connection identifier to  serial, fdserial, or other text_t
+ * compatible device that has been opened.
+ * 
+ * @param *fmt C printf comparable format string.
+ * 
+ * @param ... Arguments where output will go and must be pointers.
+ * 
+ * @returns Number of bytes placed into the buffer.
+ */
+int dscan(text_t* device, const char *fmt, ...) __attribute__((format (printf, 2, 3)));
+
+
+/**
+ * @name Integer-Only Versions
+ * For reduced program sizes if no floating point values are printed/scanned.
+ * @{
+ */
+
+
+/**
+ * @brief Print integer and char only format "..." args to the default simple 
+ * terminal device.  This version does not support floating point.  The
+ * output is limited to 256 bytes.
+ *
+ * @note See print for format specifiers except %f.
+ *
+ * @param format C printf comparable format string.
+ * 
+ * @param ... Arguments to use with the format string.
+ * 
+ * @returns Number of bytes placed into the buffer.
+ */
+int printi(const char *format, ...) __attribute__((format (printf, 1, 2)));
+
+
+/**
+ * @brief Convert formatted simple terminal input to the "..." args.
+ * This version does not provide floating point conversions.
+ * The input is limited to 256 bytes.
+ *
+ * @note See scan for format specifiers.
+ *
+ * @param *fmt C printf comparable format string.
+ * 
+ * @param ... Arguments where output will go and must be pointers.
+ * 
+ * @returns Number of bytes placed into the buffer.
+ */
+int scani(const char *fmt, ...) __attribute__((format (printf, 1, 2)));
+
+
+/**
+ * @brief Print integer and char only format "..." args to the default
+ * simple terminal device.
+ * This version does not support floating point.
+ * The output is limited to 256 bytes.
+ *
+ * @note See print for format specifiers except %f.
+ * 
+ * @param *device Connection identifier to  serial, fdserial, or other text_t
+ * compatible device that has been opened.
+ * 
+ * @param format C printf comparable format string.
+ * 
+ * @param ... Arguments to use with the format string.
+ * 
+ * @returns Number of bytes placed into the buffer.
+ */
+int dprinti(text_t* device, const char *format, ...) __attribute__((format (printf, 2, 3)));
+
+
+/**
+ * @brief Convert formatted device input to the "..." args.
+ * This version does not provide floating point conversions.
+ * The input is limited to 256 bytes.
+ *
+ * @note See scan for format specifiers.
+ * 
+ * @param *device Connection identifier to  serial, fdserial, or other text_t
+ * compatible device that has been opened.
+ * 
+ * @param *fmt C printf comparable format string.
+ * 
+ * @param ... Arguments where output will go and must be pointers.
+ * 
+ * @returns Number of bytes placed into the buffer.
+ */
+int dscani(text_t* device, const char *fmt, ...) __attribute__((format (printf, 2, 3)));
+
+
+/**
+ * @brief Print integer and char only format "..." args to the default
+ * simple terminal device.  This version does not support floating point.
+ * The output is limited to 256 bytes.
+ *
+ * @note See print for format specifiers except %f.
+ *
+ * @param buffer Pointer to memory where formatted output can be stored.
+ * 
+ * @param *format C printf comparable format string.
+ * 
+ * @param ... Arguments to use with the format string.
+ * 
+ * @returns Number of bytes placed into the buffer.
+ */
+int sprinti(char *buffer, const char *format, ...) __attribute__((format (printf, 2, 3)));
+
+
+/**
+ * @brief Convert formatted buffer to the "..." args.
+ * This version does not provide floating point conversions.
+ *
+ * @note See scan for format specifiers.
+ *
+ * @param buffer Pointer to memory where formatted output can be stored.
+ * 
+ * @param format C printf comparable format string.
+ * 
+ * @param ... Arguments where output will go and must be pointers.
+ * 
+ * @returns Number of bytes placed into the buffer.
+ */
+int sscani(const char *buffer, const char *fmt, ...) __attribute__((format (printf, 2, 3)));
+
+ 
+/**
+ * @name Output to Terminal
+ * @{
+ */
 
 
 /**
@@ -432,86 +623,11 @@ int  putLine(const char* str);
 
 
 /**
- * @brief Print integer and char only format "..." args to the default simple 
- * terminal device.  This version does not support floating point.  The
- * output is limited to 256 bytes.
- *
- * @note See print for format specifiers except %f.
- *
- * @param format C printf comparable format string.
- * 
- * @param ... Arguments to use with the format string.
- * 
- * @returns Number of bytes placed into the buffer.
- */
-int printi(const char *format, ...) __attribute__((format (printf, 1, 2)));
-
- 
-/**
  * @}
  *
  * @name Input from Terminal
  * @{
  */
-
-
-/**
- * @brief Convert formatted simple terminal input to the "..." args.
- * The input is limited to 256 bytes.
- *
- * @details Format specifiers for scan, dscan, and sscan:
- *
- * - %%
- * Scan % sign to the input.
- *
- * - %b
- * Scans binary representation to the int parameter.
- * Note: %b is not an ANSI standard format specifier.
- *
- * - %c
- * Scans char representation to a char parameter.
- *
- * - %d
- * Scans integer representation to an int parameter.
- *
- * - %f
- * Scans floating point representation to a float parameter.
- *
- * - %s
- * Scans string representation to a char* parameter.
- *
- * - %u
- * Scans unsigned integer representation to an unsigned int parameter.
- *
- * - %x
- * Scans hexadecimal integer representation to the int parameter.
- *
- * Width and precision %n.p cause n integer digits to scan to the left
- * of the decimal point, p digits to the right.
- *
- * @param *fmt C printf comparable format string.
- * 
- * @param ... Arguments where output will go and must be pointers.
- * 
- * @returns Number of bytes placed into the buffer.
- */
-int scan(const char *fmt, ...) __attribute__((format (printf, 1, 2)));
-
-
-/**
- * @brief Convert formatted simple terminal input to the "..." args.
- * This version does not provide floating point conversions.
- * The input is limited to 256 bytes.
- *
- * @note See scan for format specifiers.
- *
- * @param *fmt C printf comparable format string.
- * 
- * @param ... Arguments where output will go and must be pointers.
- * 
- * @returns Number of bytes placed into the buffer.
- */
-int scani(const char *fmt, ...) __attribute__((format (printf, 1, 2)));
 
 
 /**
@@ -573,24 +689,6 @@ char *getStr(char *buffer, int max);
  * @name Output to Device
  * @{
  */
-
-
-/**
- * @brief Print format "..." args to the device
- * The output is limited to 256 bytes.
- *
- * @note See print for format specifiers.
- * 
- * @param *device Connection identifier to  serial, fdserial, or other text_t
- * compatible device that has been opened.
- * 
- * @param format C printf comparable format string.
- * 
- * @param ... Arguments to use with the format string.
- * 
- * @returns Number of bytes placed into the buffer.
- */
-int dprint(text_t* device, const char *format, ...) __attribute__((format (printf, 2, 3)));
 
 
 /**
@@ -742,26 +840,6 @@ void writeHexLen(text_t *device, int value, int digits);
  * @param str Null terminated string to send. 
  */
 int  writeLine(text_t *device, char* str);
-
-
-/**
- * @brief Print integer and char only format "..." args to the default
- * simple terminal device.
- * This version does not support floating point.
- * The output is limited to 256 bytes.
- *
- * @note See print for format specifiers except %f.
- * 
- * @param *device Connection identifier to  serial, fdserial, or other text_t
- * compatible device that has been opened.
- * 
- * @param format C printf comparable format string.
- * 
- * @param ... Arguments to use with the format string.
- * 
- * @returns Number of bytes placed into the buffer.
- */
-int dprinti(text_t* device, const char *format, ...) __attribute__((format (printf, 2, 3)));
  
  
 /**
@@ -770,24 +848,6 @@ int dprinti(text_t* device, const char *format, ...) __attribute__((format (prin
  * @name Input from Device
  * @{
  */
-
-
-/**
- * @brief Convert formatted device input to the "..." args.
- * The input is limited to 256 bytes.
- *
- * @note See scan for format specifiers.
- * 
- * @param *device Connection identifier to  serial, fdserial, or other text_t
- * compatible device that has been opened.
- * 
- * @param *fmt C printf comparable format string.
- * 
- * @param ... Arguments where output will go and must be pointers.
- * 
- * @returns Number of bytes placed into the buffer.
- */
-int dscan(text_t* device, const char *fmt, ...) __attribute__((format (printf, 2, 3)));
 
 
 /**
@@ -861,106 +921,63 @@ int  readHex(text_t *device);
 
 
 /**
- * @brief Convert formatted device input to the "..." args.
- * This version does not provide floating point conversions.
- * The input is limited to 256 bytes.
- *
- * @note See scan for format specifiers.
- * 
- * @param *device Connection identifier to  serial, fdserial, or other text_t
- * compatible device that has been opened.
- * 
- * @param *fmt C printf comparable format string.
- * 
- * @param ... Arguments where output will go and must be pointers.
- * 
- * @returns Number of bytes placed into the buffer.
- */
-int dscani(text_t* device, const char *fmt, ...) __attribute__((format (printf, 2, 3)));
-
- 
-/**
  * @}
  *
- * @name String to String
+ * @name For Passing Terminal Control between Cogs
  * @{
  */
  
  
 /**
- * @brief Print format "..." args to the output buffer.
- * The output buffer *must be* big enough for the output.
+ * @brief Reopens the SimpleIDE Terminal connection if it was closed
+ * previously.  The SimpleIDE Terminal connection transmits on P30 and
+ * receives on P31 at 115200 bps.  The port is a simple serial driver
+ * running in the same cog, and does not buffer bytes.
  *
- * @note See print for format specifiers.
- *
- * @param buffer Pointer to memory where formatted output can be stored.
- * 
- * @param *format is a C printf comparable format string.
- * 
- * @param ... is the arguments to use with the format string.
- * 
- * @returns the number of bytes placed into the buffer.
+ * @returns 0 if port is already open, else returns term pointer.
  */
-int sprint(char *buffer, const char *format, ...) __attribute__((format (printf, 2, 3)));
+terminal *simpleterm_open(void);
 
 
 /**
- * @brief Convert formatted buffer to the "..." args.
- *
- * @note See scan for format specifiers.
- *
- * @param *buffer Pointer to memory where formatted output can be stored.
- *
- * @param *fmt C printf comparable format string.
- *
- * @param ... Arguments where output will go and must be pointers.
- * 
- * @returns Number of bytes placed into the buffer.
+ * @brief Closes the SimpleIDE Terminal connection in one cog so that it can
+ * be opened in another cog with simpleterm_open, fdserial_open(30, 31, 0,
+ * 115200), or some other driver.
  */
-int sscan(const char *buffer, const char *fmt, ...) __attribute__((format (printf, 2, 3)));
+void      simpleterm_close(void);
 
 
 /**
- * @brief Print integer and char only format "..." args to the default
- * simple terminal device.  This version does not support floating point.
- * The output is limited to 256 bytes.
+ * @brief Get default device pointer to SimpleIDE Terminal.
  *
- * @note See print for format specifiers except %f.
- *
- * @param buffer Pointer to memory where formatted output can be stored.
- * 
- * @param *format C printf comparable format string.
- * 
- * @param ... Arguments to use with the format string.
- * 
- * @returns Number of bytes placed into the buffer.
+ * @returns terminal* Pointer to SimpleIDE Terminal device.
  */
-int sprinti(char *buffer, const char *format, ...) __attribute__((format (printf, 2, 3)));
+terminal *simpleterm_pointer(void);
 
 
 /**
- * @brief Convert formatted buffer to the "..." args.
- * This version does not provide floating point conversions.
- *
- * @note See scan for format specifiers.
- *
- * @param buffer Pointer to memory where formatted output can be stored.
+ * @brief Sets default debug port device.  Make sure to open a connection to
+ * the device before calling the function.
  * 
- * @param format C printf comparable format string.
- * 
- * @param ... Arguments where output will go and must be pointers.
- * 
- * @returns Number of bytes placed into the buffer.
+ * @param *ptr Device ID pointer to serial, fdserial, or other text_t device.
  */
-int sscani(const char *buffer, const char *fmt, ...) __attribute__((format (printf, 2, 3)));
+static inline void simpleterm_set(text_t *ptr)
+{
+  extern text_t *dport_ptr;
+  simpleterm_close();
+  dport_ptr = ptr;
+}
 
  
  /**
- * @}
- */
+  * @}
+  */
 
  
- /*  API not intended for public use */
+ /*  
+  * @cond
+  * API not intended for public use 
+  */
 int   printNumber(text_t *p, unsigned long u, int base, int width, int fill_char);
 char* _safe_gets(text_t *term, char* origBuf, int count);
 const char* _scanf_getf(const char *str, float* dst);
@@ -978,6 +995,11 @@ int   _intsprnt(const char *fmt, va_list args, char *obuf);
 
 char* float2string(float f, char *s, int width, int precision);
 float string2float(char *s, char **end);
+
+ /*  
+  * @endcond
+  * API not intended for public use 
+  */
 
 #ifdef __cplusplus
 }

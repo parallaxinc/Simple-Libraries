@@ -1,4 +1,4 @@
-Lock Example.c
+Cog Info Exchange.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

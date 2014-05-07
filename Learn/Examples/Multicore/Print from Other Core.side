@@ -1,4 +1,4 @@
-Cog Info Exhcange.c
+Print from Other Core.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
