@@ -34,10 +34,10 @@ int main(void)                                      // main function
   
     if(fp)                                          // Nonzero file pinter?  
     {                                               // Good, continue.
-    print("First 21 chars in test.txt:\n");         // Display heading
-    fread(s, 1, 21, fp);                            // Read 21 characters
-    print("%s", s);                                 // Display them
-    print("\n");                                    // With a newline at the end.
+      print("First 21 chars in test.txt:\n");       // Display heading
+      fread(s, 1, 21, fp);                          // Read 21 characters
+      print("%s", s);                               // Display them
+      print("\n");                                  // With a newline at the end.
     }
     else                                            // Zero file pointer?
     {                                               // Bad, print error.

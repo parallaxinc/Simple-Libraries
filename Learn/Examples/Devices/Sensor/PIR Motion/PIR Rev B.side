@@ -1,4 +1,4 @@
-Process Instances from One Function.c
+PIR Rev B.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

@@ -84,44 +84,37 @@ typedef struct <a class="el" href="structtext__struct.html">text_struct</a>&#160
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a42689adab52188c9dc4c0c911064bb85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="simpletext_8h.html#ad35b10758e25df566cdeba60ab213ea8">terminal</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a42689adab52188c9dc4c0c911064bb85">simpleterm_open</a> (void)</td></tr>
-<tr class="memdesc:a42689adab52188c9dc4c0c911064bb85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reopens the SimpleIDE Terminal connection if it was closed previously. The SimpleIDE Terminal connection transmits on P30 and receives on P31 at 115200 bps. The port is a simple serial driver running in the same cog, and does not buffer bytes.  <a href="#a42689adab52188c9dc4c0c911064bb85"></a><br/></td></tr>
-<tr class="memitem:a10d47f4137a33b7aea2f06457dbbf91c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a10d47f4137a33b7aea2f06457dbbf91c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a10d47f4137a33b7aea2f06457dbbf91c">simpleterm_close</a> (void)</td></tr>
-<tr class="memdesc:a10d47f4137a33b7aea2f06457dbbf91c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the SimpleIDE Terminal connection in one cog so that it can be opened in another cog with simpleterm_open, fdserial_open(30, 31, 0, 115200), or some other driver. <br/></td></tr>
-<tr class="memitem:a0fea43036e7b042d7d2e0083ff1178de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="simpletext_8h.html#ad35b10758e25df566cdeba60ab213ea8">terminal</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a0fea43036e7b042d7d2e0083ff1178de">simpleterm_pointer</a> (void)</td></tr>
-<tr class="memdesc:a0fea43036e7b042d7d2e0083ff1178de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get default device pointer to SimpleIDE Terminal.  <a href="#a0fea43036e7b042d7d2e0083ff1178de"></a><br/></td></tr>
-<tr class="memitem:a4c527f0bdb52c0b8cb59bcb3eeb20abc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4c527f0bdb52c0b8cb59bcb3eeb20abc"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>printNumber</b> (<a class="el" href="structtext__struct.html">text_t</a> *p, unsigned long u, int base, int width, int fill_char)</td></tr>
-<tr class="memitem:a1507b800e5e210861225883172d3ab7a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1507b800e5e210861225883172d3ab7a"></a>
-char *&#160;</td><td class="memItemRight" valign="bottom"><b>_safe_gets</b> (<a class="el" href="structtext__struct.html">text_t</a> *term, char *origBuf, int count)</td></tr>
-<tr class="memitem:a15c279e6b7201a0edcdcc195af91c758"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a15c279e6b7201a0edcdcc195af91c758"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><b>_scanf_getf</b> (const char *str, float *dst)</td></tr>
-<tr class="memitem:ac7d0858ff8d7db985f6a674a2fc3b879"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac7d0858ff8d7db985f6a674a2fc3b879"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><b>_scanf_getl</b> (const char *str, int *dst, int base, unsigned width, int isSigned)</td></tr>
-<tr class="memitem:a00d55840e0b58ccd72c0a09639d2e1d0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a00d55840e0b58ccd72c0a09639d2e1d0"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>SPUTC</b> (int c, char *buf)</td></tr>
-<tr class="memitem:ae694280c6c1f6880c85c8c81ab1caa4b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae694280c6c1f6880c85c8c81ab1caa4b"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>SPUTS</b> (char *s, char *obuf)</td></tr>
-<tr class="memitem:ac54358e89ead5ef14d3eec7b894a198f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac54358e89ead5ef14d3eec7b894a198f"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>SPUTL</b> (unsigned long u, int base, int width, int fill_char, char *obuf)</td></tr>
-<tr class="memitem:a6c3639f8cb013b7f8546d8e767e2f58d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6c3639f8cb013b7f8546d8e767e2f58d"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>_doscanf</b> (const char *str, const char *fmt, va_list args)</td></tr>
-<tr class="memitem:a1a8fdd413948cde0c51e1bf8b664716d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1a8fdd413948cde0c51e1bf8b664716d"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>_intscanf</b> (const char *str, const char *fmt, va_list args)</td></tr>
-<tr class="memitem:a57b465e3353c9941f9df6c23dd632def"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a57b465e3353c9941f9df6c23dd632def"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>_dosprnt</b> (const char *fmt, va_list args, char *obuf)</td></tr>
-<tr class="memitem:ac5690ec5155048d4780e9649c4494bd0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac5690ec5155048d4780e9649c4494bd0"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>_intsprnt</b> (const char *fmt, va_list args, char *obuf)</td></tr>
-<tr class="memitem:ab8e04b59c3e0637c0d08caf50a8a420e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab8e04b59c3e0637c0d08caf50a8a420e"></a>
-char *&#160;</td><td class="memItemRight" valign="bottom"><b>float2string</b> (float f, char *s, int width, int precision)</td></tr>
-<tr class="memitem:ac9754b16c2756a3f20e287781e87c153"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac9754b16c2756a3f20e287781e87c153"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (char *s, char **end)</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Output to Terminal</div></td></tr>
 <tr class="memitem:af086b772271172b0289d5965cdef9e20"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#af086b772271172b0289d5965cdef9e20">print</a> (const char *format,...) __attribute__((format(printf</td></tr>
 <tr class="memdesc:af086b772271172b0289d5965cdef9e20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print format "..." args to the default simple terminal device. The output is limited to 256 bytes.  <a href="#af086b772271172b0289d5965cdef9e20"></a><br/></td></tr>
-<tr class="memitem:a11f0056ea0d60bea2f2a9543b11edb90"><td class="memItemLeft" align="right" valign="top">int void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a11f0056ea0d60bea2f2a9543b11edb90">putChar</a> (char c)</td></tr>
-<tr class="memdesc:a11f0056ea0d60bea2f2a9543b11edb90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a char to the debug port.  <a href="#a11f0056ea0d60bea2f2a9543b11edb90"></a><br/></td></tr>
+<tr class="memitem:af1c813a7c25deaa62b5495f9f7171c04"><td class="memItemLeft" align="right" valign="top">int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#af1c813a7c25deaa62b5495f9f7171c04">scan</a> (const char *fmt,...) __attribute__((format(printf</td></tr>
+<tr class="memdesc:af1c813a7c25deaa62b5495f9f7171c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert formatted simple terminal input to the "..." args. The input is limited to 256 bytes.  <a href="#af1c813a7c25deaa62b5495f9f7171c04"></a><br/></td></tr>
+<tr class="memitem:ab8ac62b89454c17d396c1f16ebf976e0"><td class="memItemLeft" align="right" valign="top">int int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#ab8ac62b89454c17d396c1f16ebf976e0">sprint</a> (char *buffer, const char *format,...) __attribute__((format(printf</td></tr>
+<tr class="memdesc:ab8ac62b89454c17d396c1f16ebf976e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print format "..." args to the output buffer. The output buffer <em>must be</em> big enough for the output.  <a href="#ab8ac62b89454c17d396c1f16ebf976e0"></a><br/></td></tr>
+<tr class="memitem:aa9b2897dfac4409b92e825d9c260b6ae"><td class="memItemLeft" align="right" valign="top">int int int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#aa9b2897dfac4409b92e825d9c260b6ae">sscan</a> (const char *buffer, const char *fmt,...) __attribute__((format(printf</td></tr>
+<tr class="memdesc:aa9b2897dfac4409b92e825d9c260b6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert formatted buffer to the "..." args.  <a href="#aa9b2897dfac4409b92e825d9c260b6ae"></a><br/></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Print/Scan for Device Communication</div></td></tr>
+<tr class="memitem:ac42f8633dc5b482da52d77f3c88d8fd4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#ac42f8633dc5b482da52d77f3c88d8fd4">dprint</a> (<a class="el" href="structtext__struct.html">text_t</a> *device, const char *format,...) __attribute__((format(printf</td></tr>
+<tr class="memdesc:ac42f8633dc5b482da52d77f3c88d8fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print format "..." args to the device The output is limited to 256 bytes.  <a href="#ac42f8633dc5b482da52d77f3c88d8fd4"></a><br/></td></tr>
+<tr class="memitem:a7e2276e155ee40c015ee72c9f35a8f2a"><td class="memItemLeft" align="right" valign="top">int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a7e2276e155ee40c015ee72c9f35a8f2a">dscan</a> (<a class="el" href="structtext__struct.html">text_t</a> *device, const char *fmt,...) __attribute__((format(printf</td></tr>
+<tr class="memdesc:a7e2276e155ee40c015ee72c9f35a8f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert formatted device input to the "..." args. The input is limited to 256 bytes.  <a href="#a7e2276e155ee40c015ee72c9f35a8f2a"></a><br/></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Integer-Only Versions</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>For reduced program sizes if no floating point values are printed/scanned. </p>
+</div></td></tr>
+<tr class="memitem:ae4f73a59a7d271c2d9dfa3819d4790a7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#ae4f73a59a7d271c2d9dfa3819d4790a7">printi</a> (const char *format,...) __attribute__((format(printf</td></tr>
+<tr class="memdesc:ae4f73a59a7d271c2d9dfa3819d4790a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print integer and char only format "..." args to the default simple terminal device. This version does not support floating point. The output is limited to 256 bytes.  <a href="#ae4f73a59a7d271c2d9dfa3819d4790a7"></a><br/></td></tr>
+<tr class="memitem:abfbaca0d415d2960c111a7d44ff20e0f"><td class="memItemLeft" align="right" valign="top">int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#abfbaca0d415d2960c111a7d44ff20e0f">scani</a> (const char *fmt,...) __attribute__((format(printf</td></tr>
+<tr class="memdesc:abfbaca0d415d2960c111a7d44ff20e0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert formatted simple terminal input to the "..." args. This version does not provide floating point conversions. The input is limited to 256 bytes.  <a href="#abfbaca0d415d2960c111a7d44ff20e0f"></a><br/></td></tr>
+<tr class="memitem:a29d2a4a89f162b7769ced315fb533aae"><td class="memItemLeft" align="right" valign="top">int int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a29d2a4a89f162b7769ced315fb533aae">dprinti</a> (<a class="el" href="structtext__struct.html">text_t</a> *device, const char *format,...) __attribute__((format(printf</td></tr>
+<tr class="memdesc:a29d2a4a89f162b7769ced315fb533aae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print integer and char only format "..." args to the default simple terminal device. This version does not support floating point. The output is limited to 256 bytes.  <a href="#a29d2a4a89f162b7769ced315fb533aae"></a><br/></td></tr>
+<tr class="memitem:ad72c8bdb4ca389dda44459e60021e06e"><td class="memItemLeft" align="right" valign="top">int int int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#ad72c8bdb4ca389dda44459e60021e06e">dscani</a> (<a class="el" href="structtext__struct.html">text_t</a> *device, const char *fmt,...) __attribute__((format(printf</td></tr>
+<tr class="memdesc:ad72c8bdb4ca389dda44459e60021e06e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert formatted device input to the "..." args. This version does not provide floating point conversions. The input is limited to 256 bytes.  <a href="#ad72c8bdb4ca389dda44459e60021e06e"></a><br/></td></tr>
+<tr class="memitem:a085b95e2375d55962090fcb32dc7a924"><td class="memItemLeft" align="right" valign="top">int int int int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a085b95e2375d55962090fcb32dc7a924">sprinti</a> (char *buffer, const char *format,...) __attribute__((format(printf</td></tr>
+<tr class="memdesc:a085b95e2375d55962090fcb32dc7a924"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print integer and char only format "..." args to the default simple terminal device. This version does not support floating point. The output is limited to 256 bytes.  <a href="#a085b95e2375d55962090fcb32dc7a924"></a><br/></td></tr>
+<tr class="memitem:ae204c319600df7d668bf7e54c2711487"><td class="memItemLeft" align="right" valign="top">int int int int int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#ae204c319600df7d668bf7e54c2711487">sscani</a> (const char *buffer, const char *fmt,...) __attribute__((format(printf</td></tr>
+<tr class="memdesc:ae204c319600df7d668bf7e54c2711487"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert formatted buffer to the "..." args. This version does not provide floating point conversions.  <a href="#ae204c319600df7d668bf7e54c2711487"></a><br/></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Output to Terminal</div></td></tr>
+<tr class="memitem:aaac5dd9e012b5fa09707361d1785a7da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#aaac5dd9e012b5fa09707361d1785a7da">putChar</a> (char c)</td></tr>
+<tr class="memdesc:aaac5dd9e012b5fa09707361d1785a7da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a char to the debug port.  <a href="#aaac5dd9e012b5fa09707361d1785a7da"></a><br/></td></tr>
 <tr class="memitem:a8af38dae7a814612c5df018b81e42c99"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a8af38dae7a814612c5df018b81e42c99">putStr</a> (const char *str)</td></tr>
 <tr class="memdesc:a8af38dae7a814612c5df018b81e42c99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print string to the debug port.  <a href="#a8af38dae7a814612c5df018b81e42c99"></a><br/></td></tr>
 <tr class="memitem:a2a362ae9cbc38202603c9066bff9259f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a2a362ae9cbc38202603c9066bff9259f">putDec</a> (int value)</td></tr>
@@ -146,15 +139,9 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 <tr class="memdesc:abd5d3671569673e611b8d916bd90a29f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print string + new line on the transmit debug port.  <a href="#abd5d3671569673e611b8d916bd90a29f"></a><br/></td></tr>
 <tr class="memitem:a373ca5ecddb535d3ef1f06db0f14cb18"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a373ca5ecddb535d3ef1f06db0f14cb18">putLine</a> (const char *str)</td></tr>
 <tr class="memdesc:a373ca5ecddb535d3ef1f06db0f14cb18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print string + new line on the transmit debug port. This is an alias of putln.  <a href="#a373ca5ecddb535d3ef1f06db0f14cb18"></a><br/></td></tr>
-<tr class="memitem:ae4f73a59a7d271c2d9dfa3819d4790a7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#ae4f73a59a7d271c2d9dfa3819d4790a7">printi</a> (const char *format,...) __attribute__((format(printf</td></tr>
-<tr class="memdesc:ae4f73a59a7d271c2d9dfa3819d4790a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print integer and char only format "..." args to the default simple terminal device. This version does not support floating point. The output is limited to 256 bytes.  <a href="#ae4f73a59a7d271c2d9dfa3819d4790a7"></a><br/></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Input from Terminal</div></td></tr>
-<tr class="memitem:a43003cccc162041f9ebd54094a0dc747"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a43003cccc162041f9ebd54094a0dc747">scan</a> (const char *fmt,...) __attribute__((format(printf</td></tr>
-<tr class="memdesc:a43003cccc162041f9ebd54094a0dc747"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert formatted simple terminal input to the "..." args. The input is limited to 256 bytes.  <a href="#a43003cccc162041f9ebd54094a0dc747"></a><br/></td></tr>
-<tr class="memitem:abfbaca0d415d2960c111a7d44ff20e0f"><td class="memItemLeft" align="right" valign="top">int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#abfbaca0d415d2960c111a7d44ff20e0f">scani</a> (const char *fmt,...) __attribute__((format(printf</td></tr>
-<tr class="memdesc:abfbaca0d415d2960c111a7d44ff20e0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert formatted simple terminal input to the "..." args. This version does not provide floating point conversions. The input is limited to 256 bytes.  <a href="#abfbaca0d415d2960c111a7d44ff20e0f"></a><br/></td></tr>
-<tr class="memitem:a5f54ecd8167948b663445835c77b66bb"><td class="memItemLeft" align="right" valign="top">int int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a5f54ecd8167948b663445835c77b66bb">getBin</a> (void)</td></tr>
-<tr class="memdesc:a5f54ecd8167948b663445835c77b66bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get binary number from the debug port.  <a href="#a5f54ecd8167948b663445835c77b66bb"></a><br/></td></tr>
+<tr class="memitem:ac006c7eebe6635e95aa23d683ac5bde6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#ac006c7eebe6635e95aa23d683ac5bde6">getBin</a> (void)</td></tr>
+<tr class="memdesc:ac006c7eebe6635e95aa23d683ac5bde6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get binary number from the debug port.  <a href="#ac006c7eebe6635e95aa23d683ac5bde6"></a><br/></td></tr>
 <tr class="memitem:a5d9c66ab4e542cc2d427c25061382810"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a5d9c66ab4e542cc2d427c25061382810">getChar</a> (void)</td></tr>
 <tr class="memdesc:a5d9c66ab4e542cc2d427c25061382810"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get char from the debug port.  <a href="#a5d9c66ab4e542cc2d427c25061382810"></a><br/></td></tr>
 <tr class="memitem:a085417fd0363883644810216d5d98fed"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a085417fd0363883644810216d5d98fed">getDec</a> (void)</td></tr>
@@ -166,10 +153,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 <tr class="memitem:a3bcb1d4e5f5e536005a59a52f33d82ef"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a3bcb1d4e5f5e536005a59a52f33d82ef">getStr</a> (char *buffer, int max)</td></tr>
 <tr class="memdesc:a3bcb1d4e5f5e536005a59a52f33d82ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get string of chars from the debug port.  <a href="#a3bcb1d4e5f5e536005a59a52f33d82ef"></a><br/></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Output to Device</div></td></tr>
-<tr class="memitem:ac42f8633dc5b482da52d77f3c88d8fd4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#ac42f8633dc5b482da52d77f3c88d8fd4">dprint</a> (<a class="el" href="structtext__struct.html">text_t</a> *device, const char *format,...) __attribute__((format(printf</td></tr>
-<tr class="memdesc:ac42f8633dc5b482da52d77f3c88d8fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print format "..." args to the device The output is limited to 256 bytes.  <a href="#ac42f8633dc5b482da52d77f3c88d8fd4"></a><br/></td></tr>
-<tr class="memitem:ad65acc341f93c1390dbf4da4d13dda30"><td class="memItemLeft" align="right" valign="top">int void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#ad65acc341f93c1390dbf4da4d13dda30">writeChar</a> (<a class="el" href="structtext__struct.html">text_t</a> *device, char c)</td></tr>
-<tr class="memdesc:ad65acc341f93c1390dbf4da4d13dda30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a character to the device.  <a href="#ad65acc341f93c1390dbf4da4d13dda30"></a><br/></td></tr>
+<tr class="memitem:ae9d1767fa9ed4a518f5a59094ba5be6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#ae9d1767fa9ed4a518f5a59094ba5be6e">writeChar</a> (<a class="el" href="structtext__struct.html">text_t</a> *device, char c)</td></tr>
+<tr class="memdesc:ae9d1767fa9ed4a518f5a59094ba5be6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a character to the device.  <a href="#ae9d1767fa9ed4a518f5a59094ba5be6e"></a><br/></td></tr>
 <tr class="memitem:a09ddb1f539f4366e090339f560db5c40"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a09ddb1f539f4366e090339f560db5c40">writeStr</a> (<a class="el" href="structtext__struct.html">text_t</a> *device, char *str)</td></tr>
 <tr class="memdesc:a09ddb1f539f4366e090339f560db5c40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a string to the device.  <a href="#a09ddb1f539f4366e090339f560db5c40"></a><br/></td></tr>
 <tr class="memitem:a8f885a7ef3acb7ee064178b904144639"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a8f885a7ef3acb7ee064178b904144639">writeDec</a> (<a class="el" href="structtext__struct.html">text_t</a> *device, int value)</td></tr>
@@ -192,13 +177,9 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 <tr class="memdesc:ad017faa653149a6e35a21cf7a54a9816"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print string representation of a hexadecimal number to output device with a fixed number of digits.  <a href="#ad017faa653149a6e35a21cf7a54a9816"></a><br/></td></tr>
 <tr class="memitem:a349427549117b712ed2e5e96c4f11709"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a349427549117b712ed2e5e96c4f11709">writeLine</a> (<a class="el" href="structtext__struct.html">text_t</a> *device, char *str)</td></tr>
 <tr class="memdesc:a349427549117b712ed2e5e96c4f11709"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a string + new line to the device.  <a href="#a349427549117b712ed2e5e96c4f11709"></a><br/></td></tr>
-<tr class="memitem:aa0f6705481ac976f58f5d5543c0e3bad"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#aa0f6705481ac976f58f5d5543c0e3bad">dprinti</a> (<a class="el" href="structtext__struct.html">text_t</a> *device, const char *format,...) __attribute__((format(printf</td></tr>
-<tr class="memdesc:aa0f6705481ac976f58f5d5543c0e3bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print integer and char only format "..." args to the default simple terminal device. This version does not support floating point. The output is limited to 256 bytes.  <a href="#aa0f6705481ac976f58f5d5543c0e3bad"></a><br/></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Input from Device</div></td></tr>
-<tr class="memitem:a3c75bb6dc9c011a87eeb3dc828c01492"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a3c75bb6dc9c011a87eeb3dc828c01492">dscan</a> (<a class="el" href="structtext__struct.html">text_t</a> *device, const char *fmt,...) __attribute__((format(printf</td></tr>
-<tr class="memdesc:a3c75bb6dc9c011a87eeb3dc828c01492"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert formatted device input to the "..." args. The input is limited to 256 bytes.  <a href="#a3c75bb6dc9c011a87eeb3dc828c01492"></a><br/></td></tr>
-<tr class="memitem:aef250907ebbf6da51dfae192cb903159"><td class="memItemLeft" align="right" valign="top">int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#aef250907ebbf6da51dfae192cb903159">readChar</a> (<a class="el" href="structtext__struct.html">text_t</a> *device)</td></tr>
-<tr class="memdesc:aef250907ebbf6da51dfae192cb903159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get char from the device.  <a href="#aef250907ebbf6da51dfae192cb903159"></a><br/></td></tr>
+<tr class="memitem:aed47e8c811d5d222f19942d8d1452b9a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#aed47e8c811d5d222f19942d8d1452b9a">readChar</a> (<a class="el" href="structtext__struct.html">text_t</a> *device)</td></tr>
+<tr class="memdesc:aed47e8c811d5d222f19942d8d1452b9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get char from the device.  <a href="#aed47e8c811d5d222f19942d8d1452b9a"></a><br/></td></tr>
 <tr class="memitem:abc94d79d182da5d8fd4459719989e071"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#abc94d79d182da5d8fd4459719989e071">readStr</a> (<a class="el" href="structtext__struct.html">text_t</a> *device, char *buffer, int max)</td></tr>
 <tr class="memdesc:abc94d79d182da5d8fd4459719989e071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get string of chars from the device.  <a href="#abc94d79d182da5d8fd4459719989e071"></a><br/></td></tr>
 <tr class="memitem:a02a4d6497cad21cc279c26e3063e3fee"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a02a4d6497cad21cc279c26e3063e3fee">readDec</a> (<a class="el" href="structtext__struct.html">text_t</a> *device)</td></tr>
@@ -209,17 +190,14 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 <tr class="memdesc:a29a70cf2c3a17a849e04bf57ea9e67f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get binary number from the device.  <a href="#a29a70cf2c3a17a849e04bf57ea9e67f3"></a><br/></td></tr>
 <tr class="memitem:a38304603d50eef0e022bc19f8e8d05aa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a38304603d50eef0e022bc19f8e8d05aa">readHex</a> (<a class="el" href="structtext__struct.html">text_t</a> *device)</td></tr>
 <tr class="memdesc:a38304603d50eef0e022bc19f8e8d05aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get hexadecimal number from the device.  <a href="#a38304603d50eef0e022bc19f8e8d05aa"></a><br/></td></tr>
-<tr class="memitem:ab5a46db082aae8160ac6f6b7da1b952e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#ab5a46db082aae8160ac6f6b7da1b952e">dscani</a> (<a class="el" href="structtext__struct.html">text_t</a> *device, const char *fmt,...) __attribute__((format(printf</td></tr>
-<tr class="memdesc:ab5a46db082aae8160ac6f6b7da1b952e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert formatted device input to the "..." args. This version does not provide floating point conversions. The input is limited to 256 bytes.  <a href="#ab5a46db082aae8160ac6f6b7da1b952e"></a><br/></td></tr>
-<tr><td colspan="2"><div class="groupHeader">String to String</div></td></tr>
-<tr class="memitem:a3db8d0285498a1c1a2001a053a041a1c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a3db8d0285498a1c1a2001a053a041a1c">sprint</a> (char *buffer, const char *format,...) __attribute__((format(printf</td></tr>
-<tr class="memdesc:a3db8d0285498a1c1a2001a053a041a1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print format "..." args to the output buffer. The output buffer <em>must be</em> big enough for the output.  <a href="#a3db8d0285498a1c1a2001a053a041a1c"></a><br/></td></tr>
-<tr class="memitem:a9bca59a8d029a8cc3fa88875ac1c9afd"><td class="memItemLeft" align="right" valign="top">int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a9bca59a8d029a8cc3fa88875ac1c9afd">sscan</a> (const char *buffer, const char *fmt,...) __attribute__((format(printf</td></tr>
-<tr class="memdesc:a9bca59a8d029a8cc3fa88875ac1c9afd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert formatted buffer to the "..." args.  <a href="#a9bca59a8d029a8cc3fa88875ac1c9afd"></a><br/></td></tr>
-<tr class="memitem:a69300fa494e72d321f2e55204d34e603"><td class="memItemLeft" align="right" valign="top">int int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a69300fa494e72d321f2e55204d34e603">sprinti</a> (char *buffer, const char *format,...) __attribute__((format(printf</td></tr>
-<tr class="memdesc:a69300fa494e72d321f2e55204d34e603"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print integer and char only format "..." args to the default simple terminal device. This version does not support floating point. The output is limited to 256 bytes.  <a href="#a69300fa494e72d321f2e55204d34e603"></a><br/></td></tr>
-<tr class="memitem:ad23de85683cfd5f62c846280d63e6a70"><td class="memItemLeft" align="right" valign="top">int int int int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#ad23de85683cfd5f62c846280d63e6a70">sscani</a> (const char *buffer, const char *fmt,...) __attribute__((format(printf</td></tr>
-<tr class="memdesc:ad23de85683cfd5f62c846280d63e6a70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert formatted buffer to the "..." args. This version does not provide floating point conversions.  <a href="#ad23de85683cfd5f62c846280d63e6a70"></a><br/></td></tr>
+<tr><td colspan="2"><div class="groupHeader">For Passing Terminal Control between Cogs</div></td></tr>
+<tr class="memitem:a42689adab52188c9dc4c0c911064bb85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="simpletext_8h.html#ad35b10758e25df566cdeba60ab213ea8">terminal</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a42689adab52188c9dc4c0c911064bb85">simpleterm_open</a> (void)</td></tr>
+<tr class="memdesc:a42689adab52188c9dc4c0c911064bb85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reopens the SimpleIDE Terminal connection if it was closed previously. The SimpleIDE Terminal connection transmits on P30 and receives on P31 at 115200 bps. The port is a simple serial driver running in the same cog, and does not buffer bytes.  <a href="#a42689adab52188c9dc4c0c911064bb85"></a><br/></td></tr>
+<tr class="memitem:a10d47f4137a33b7aea2f06457dbbf91c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a10d47f4137a33b7aea2f06457dbbf91c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a10d47f4137a33b7aea2f06457dbbf91c">simpleterm_close</a> (void)</td></tr>
+<tr class="memdesc:a10d47f4137a33b7aea2f06457dbbf91c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the SimpleIDE Terminal connection in one cog so that it can be opened in another cog with simpleterm_open, fdserial_open(30, 31, 0, 115200), or some other driver. <br/></td></tr>
+<tr class="memitem:a0fea43036e7b042d7d2e0083ff1178de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="simpletext_8h.html#ad35b10758e25df566cdeba60ab213ea8">terminal</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simpletext_8h.html#a0fea43036e7b042d7d2e0083ff1178de">simpleterm_pointer</a> (void)</td></tr>
+<tr class="memdesc:a0fea43036e7b042d7d2e0083ff1178de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get default device pointer to SimpleIDE Terminal.  <a href="#a0fea43036e7b042d7d2e0083ff1178de"></a><br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>This library provides a collection of functions for communicating with text devices such as SimpleIDE Terminal, serial peripheral devices, and even VGA displays. Libraries like serial, fdserial, and vgatext return pointer/identifiers that can be used with this library's dprint, dscan, and write/read function parameters that have text_t types. The identifier allows the application's code to specify which connection to use for sending and receiving formatted text. </p>
@@ -296,12 +274,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 
 </div>
 </div>
-<a class="anchor" id="aa0f6705481ac976f58f5d5543c0e3bad"></a>
+<a class="anchor" id="a29d2a4a89f162b7769ced315fb533aae"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int dprinti </td>
+          <td class="memname">int int int dprinti </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structtext__struct.html">text_t</a> *&#160;</td>
           <td class="paramname"><em>device</em>, </td>
@@ -340,12 +318,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 
 </div>
 </div>
-<a class="anchor" id="a3c75bb6dc9c011a87eeb3dc828c01492"></a>
+<a class="anchor" id="a7e2276e155ee40c015ee72c9f35a8f2a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int dscan </td>
+          <td class="memname">int int dscan </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structtext__struct.html">text_t</a> *&#160;</td>
           <td class="paramname"><em>device</em>, </td>
@@ -384,12 +362,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 
 </div>
 </div>
-<a class="anchor" id="ab5a46db082aae8160ac6f6b7da1b952e"></a>
+<a class="anchor" id="ad72c8bdb4ca389dda44459e60021e06e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int dscani </td>
+          <td class="memname">int int int int dscani </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structtext__struct.html">text_t</a> *&#160;</td>
           <td class="paramname"><em>device</em>, </td>
@@ -428,12 +406,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 
 </div>
 </div>
-<a class="anchor" id="a5f54ecd8167948b663445835c77b66bb"></a>
+<a class="anchor" id="ac006c7eebe6635e95aa23d683ac5bde6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int int int getBin </td>
+          <td class="memname">int getBin </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -701,12 +679,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 
 </div>
 </div>
-<a class="anchor" id="a11f0056ea0d60bea2f2a9543b11edb90"></a>
+<a class="anchor" id="aaac5dd9e012b5fa09707361d1785a7da"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int void putChar </td>
+          <td class="memname">void putChar </td>
           <td>(</td>
           <td class="paramtype">char&#160;</td>
           <td class="paramname"><em>c</em></td><td>)</td>
@@ -1041,12 +1019,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 
 </div>
 </div>
-<a class="anchor" id="aef250907ebbf6da51dfae192cb903159"></a>
+<a class="anchor" id="aed47e8c811d5d222f19942d8d1452b9a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int int readChar </td>
+          <td class="memname">int readChar </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structtext__struct.html">text_t</a> *&#160;</td>
           <td class="paramname"><em>device</em></td><td>)</td>
@@ -1184,12 +1162,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 
 </div>
 </div>
-<a class="anchor" id="a43003cccc162041f9ebd54094a0dc747"></a>
+<a class="anchor" id="af1c813a7c25deaa62b5495f9f7171c04"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int scan </td>
+          <td class="memname">int int scan </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>fmt</em>, </td>
@@ -1322,12 +1300,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 
 </div>
 </div>
-<a class="anchor" id="a3db8d0285498a1c1a2001a053a041a1c"></a>
+<a class="anchor" id="ab8ac62b89454c17d396c1f16ebf976e0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int sprint </td>
+          <td class="memname">int int int sprint </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>buffer</em>, </td>
@@ -1366,12 +1344,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 
 </div>
 </div>
-<a class="anchor" id="a69300fa494e72d321f2e55204d34e603"></a>
+<a class="anchor" id="a085b95e2375d55962090fcb32dc7a924"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int int int sprinti </td>
+          <td class="memname">int int int int int sprinti </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>buffer</em>, </td>
@@ -1410,12 +1388,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 
 </div>
 </div>
-<a class="anchor" id="a9bca59a8d029a8cc3fa88875ac1c9afd"></a>
+<a class="anchor" id="aa9b2897dfac4409b92e825d9c260b6ae"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int int sscan </td>
+          <td class="memname">int int int int sscan </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>buffer</em>, </td>
@@ -1454,12 +1432,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 
 </div>
 </div>
-<a class="anchor" id="ad23de85683cfd5f62c846280d63e6a70"></a>
+<a class="anchor" id="ae204c319600df7d668bf7e54c2711487"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int int int int sscani </td>
+          <td class="memname">int int int int int int sscani </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>buffer</em>, </td>
@@ -1575,12 +1553,12 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 
 </div>
 </div>
-<a class="anchor" id="ad65acc341f93c1390dbf4da4d13dda30"></a>
+<a class="anchor" id="ae9d1767fa9ed4a518f5a59094ba5be6e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int void writeChar </td>
+          <td class="memname">void writeChar </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structtext__struct.html">text_t</a> *&#160;</td>
           <td class="paramname"><em>device</em>, </td>
@@ -1963,7 +1941,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>string2float</b> (ch
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu May 1 2014 15:54:50 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed May 7 2014 14:26:44 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
