@@ -1,4 +1,5 @@
-/**                                                                            * @file simpletools.h
+/**
+ * @file simpletools.h
  *
  * @author Andy Lindsay
  *
