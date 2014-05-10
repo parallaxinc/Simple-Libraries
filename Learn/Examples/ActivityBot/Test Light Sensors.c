@@ -2,7 +2,6 @@
   Test Light Sensors.c
 
   http://learn.parallax.com/activitybot
-
 */
 
 #include "simpletools.h"

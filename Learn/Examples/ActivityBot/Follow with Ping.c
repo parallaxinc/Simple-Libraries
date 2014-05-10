@@ -4,7 +4,6 @@
   Maintain a constant distance between ActivityBot and object.
 
   http://learn.parallax.com/activitybot
-
 */
 
 #include "simpletools.h"                      // Include simpletools header

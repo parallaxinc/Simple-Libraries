@@ -1,8 +1,9 @@
 /*
   Whiskers Push Bot.c
+  
   Push the whiskers to make the ActivityBot back up.
+  
   http://learn.parallax.com/activitybot
-
 */
 
 #include "simpletools.h"                      // Include simpletools header

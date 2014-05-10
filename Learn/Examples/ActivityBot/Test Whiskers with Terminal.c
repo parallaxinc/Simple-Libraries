@@ -1,8 +1,7 @@
 /*
   Test Whiskers with Terminal.c
  
-  Display whisker states in terminal.  1 = not pressed, 0 = pressed.
- 
+  Display whisker states in terminal.  1 = not pressed, 0 = pressed. 
 */
 
 #include "simpletools.h"                      // Include simpletools header

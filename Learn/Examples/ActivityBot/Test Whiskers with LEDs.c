@@ -4,7 +4,6 @@
   Display whisker states in terminal.  1 = not pressed, 0 = pressed.
 
   http://learn.parallax.com/activitybot
-
 */
 
 #include "simpletools.h"                      // Include simpletools header

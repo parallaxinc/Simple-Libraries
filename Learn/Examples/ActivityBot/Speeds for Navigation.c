@@ -1,9 +1,7 @@
 /* 
-
   Speeds for Navigation.c
 
   http://learn.parallax.com/activitybot
-
 */
 
 

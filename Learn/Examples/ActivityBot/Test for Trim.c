@@ -1,13 +1,10 @@
 /* 
-
   Test for Trim.c
 
   Test and adjust trim for servos and encoders
 
   http://learn.parallax.com/activitybot
-
 */
-
 
 #include "simpletools.h"
 #include "abdrive.h"
