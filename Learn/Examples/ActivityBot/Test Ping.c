@@ -4,7 +4,6 @@
   Test the PING))) sensor before using it to navigate with the ActivityBot.
 
   http://learn.parallax.com/activitybot
-
 */
 
 #include "simpletools.h"                      // Include simpletools header

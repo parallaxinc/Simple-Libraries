@@ -4,7 +4,6 @@
   Detect obstacles in the ActivityBot's path, and turn a random direction to avoid them.
 
   http://learn.parallax.com/activitybot
-
 */
 
 #include "simpletools.h"                      // Include simpletools header
