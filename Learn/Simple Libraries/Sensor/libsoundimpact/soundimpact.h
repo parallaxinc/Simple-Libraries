@@ -3,17 +3,28 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.5
- *
  * @copyright
- * Copyright (C) Parallax, Inc. 2012. All Rights MIT Licensed.
+ * Copyright (C) Parallax, Inc. 2014. All Rights MIT Licensed.
  *
  * @brief Monitor sound impact occurrences from another cog. @n@n IMPORTANT: This library
  * is only for making monitoring from another cog more convenient.  Your application 
  * does not need this to check the sensor's output state.  For that, all you need is: @n@n
  * int state = input(pin); @n@n The value of pin should be Propeller I/O connected to sensor's 
  * SIG pin.  The sensor returns a 1 to state if an impact is detected, or 0 if not.
+ *
+ * @par Core Usage
+ * Each call to soundImpact_run launches a monitoring loop into another core so that it.
+ * track the number of sound impacts during a certain time.  The sensor can also be 
+ * monitored without launching another core by simply checking its output state.  See
+ * ...Documents/SimpleIDE/Learn/Examples/Devices/Sensor/Sound Impact for examples of both
+ * approaches.
+ *
+ * @par Memory Models
+ * Use with CMM or LMM. 
+ *
+ * @version 0.5
  */
+ 
 
 #ifndef SOUNDIMPACT_H
 #define SOUNDIMPACT_H
