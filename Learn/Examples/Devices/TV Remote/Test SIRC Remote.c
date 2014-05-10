@@ -6,7 +6,6 @@
   Connect 38 kHz IR receiver to Propeller P10
   Decodes button presses on Sony-compatible IR remote 
   Run with Terminal 
-
 */
 
 #include "simpletools.h"                      // Libraries included
