@@ -28,6 +28,9 @@
  * @par Memory Models
  * Use with CMM. 
  *
+ * @version 0.5.6
+ * @li Adjust drive_servoPins and drive_encoderPins documentation.
+ *
  * @version 0.5.5
  * @li drive_getTicksCalc
  * @li drive_getTicks
@@ -209,6 +212,9 @@ void drive_displayInterpolation(void);
  * encoder and P15 for right encoder.  Stores values in EEPROM, so you only
  * need to call this function at the start of one program.  Programs that are 
  * after that will get the values from EEPROM.
+ * 
+ * @important This function should be called first, before any 
+ * adbrive control functions (drive_speed, drive_goto, etc).
  *
  * @param encPinLeft I/O pin number for the left encoder signal connection.
  *
@@ -222,6 +228,9 @@ void drive_encoderPins(int encPinLeft, int encPinRight);
  * servo and P13 for right servo.  Stores values in EEPROM, so you only
  * need to call this function at the start of one program.  Programs that are 
  * after that will get the values from EEPROM.
+ * 
+ * @important This function should be called first, before any 
+ * adbrive control functions (drive_speed, drive_goto, etc).
  *
  * @param servoPinLeft I/O pin number for the left servo signal connection.
  *

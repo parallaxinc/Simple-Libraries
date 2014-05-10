@@ -13,9 +13,6 @@
 
 int main()
 {
-  servo_pins(12, 13);
-  encoder_pins(14, 15);
-
   high(26);
   high(27);
   cal_activityBot();
