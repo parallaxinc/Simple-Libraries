@@ -3,12 +3,18 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.5
- *
  * @copyright
- * Copyright (C) Parallax, Inc. 2012. All Rights MIT Licensed.
+ * Copyright (C) Parallax, Inc. 2014. All Rights MIT Licensed.
  *
  * @brief Simplifies reading Parallax Serial RFID Card Reader.
+ *
+ * @par Core Usage
+ * Each call to rfid_open launches a serial communication process into another core.
+ *
+ * @par Memory Models
+ * Use with CMM or LMM. 
+ *
+ * @version 0.5
  */
 
 
@@ -25,6 +31,7 @@ extern "C" {
 
 
 /**
+ * @cond
  * Defines rfidser interface struct
  * 9 contiguous ints + buffers
  */
@@ -48,6 +55,10 @@ typedef struct rfid_struct
  * Defines rfidser interface as a text_t type for use with simpletext functions.  
  */
 typedef text_t rfidser;
+
+/**
+ * @endcond
+ */
 
 
 /**
@@ -73,8 +84,7 @@ void rfidser_close(rfidser *device);
 
 
 /**
- * @brief End RFID reading process and recover cog and stack memory for other 
- * purposes.
+ * @brief Reset the RFID reader.
  *
  * @param *device Device identifier returned by rfid_open.
  */
