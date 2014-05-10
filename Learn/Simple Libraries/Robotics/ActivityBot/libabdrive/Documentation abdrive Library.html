@@ -17,7 +17,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">abdrive library
-   &#160;<span id="projectnumber">v0.5.5</span>
+   &#160;<span id="projectnumber">v0.5.6</span>
    </div>
    <div id="projectbrief">Differential servo and encoder drive library for the Parallax ActivityBot</div>
   </td>
@@ -153,7 +153,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/
 <dl class="section user"><dt>Core Usage</dt><dd>A single additional core takes care of ActivityBot encoder monitoring, control system algorithm execution and servo control.</dd></dl>
 <dl class="section user"><dt>EEPROM Usage</dt><dd>Reads from addresses 63418..65470.</dd></dl>
 <dl class="section user"><dt>Memory Models</dt><dd>Use with CMM.</dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.5.5 <ul>
+<dl class="section version"><dt>Version</dt><dd>0.5.6 <ul>
+<li>Adjust drive_servoPins and drive_encoderPins documentation.</li>
+</ul>
+</dd>
+<dd>
+0.5.5 <ul>
 <li>drive_getTicksCalc </li>
 <li>drive_getTicks </li>
 <li>drive_open </li>
@@ -245,6 +250,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/
 </div><div class="memdoc">
 
 <p>Set encoder pins to values other than the default P14 for left encoder and P15 for right encoder. Stores values in EEPROM, so you only need to call this function at the start of one program. Programs that are after that will get the values from EEPROM. </p>
+<p>This function should be called first, before any adbrive control functions (drive_speed, drive_goto, etc).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">encPinLeft</td><td>I/O pin number for the left encoder signal connection.</td></tr>
@@ -490,6 +496,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/
 </div><div class="memdoc">
 
 <p>Set servo pins to values other than the default P12 for left servo and P13 for right servo. Stores values in EEPROM, so you only need to call this function at the start of one program. Programs that are after that will get the values from EEPROM. </p>
+<p>This function should be called first, before any adbrive control functions (drive_speed, drive_goto, etc).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">servoPinLeft</td><td>I/O pin number for the left servo signal connection.</td></tr>
@@ -672,7 +679,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Apr 27 2014 14:37:37 for abdrive library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Fri May 9 2014 20:51:47 for abdrive library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

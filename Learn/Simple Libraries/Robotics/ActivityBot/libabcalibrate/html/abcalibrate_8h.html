@@ -17,7 +17,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">abcalibrate library
-   &#160;<span id="projectnumber">v0.5</span>
+   &#160;<span id="projectnumber">v0.91</span>
    </div>
    <div id="projectbrief">Self calibration library for the Parallax ActivityBot</div>
   </td>
@@ -82,7 +82,11 @@ Macros</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:ac9ab7c546b32e656be219d7d103dd4cf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac9ab7c546b32e656be219d7d103dd4cf"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abcalibrate_8h.html#ac9ab7c546b32e656be219d7d103dd4cf">cal_activityBot</a> ()</td></tr>
-<tr class="memdesc:ac9ab7c546b32e656be219d7d103dd4cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the ActivityBot calibratino function. Let it run until the P26 and P27 lights turn off. It'll take about 1 minute, 20 seconds. <br/></td></tr>
+<tr class="memdesc:ac9ab7c546b32e656be219d7d103dd4cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the ActivityBot calibration function. Let it run until the P26 and P27 lights turn off. It'll take about 1 minute, 20 seconds. <br/></td></tr>
+<tr class="memitem:a30918a1e8ea3756a4eca311bfa0c8841"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abcalibrate_8h.html#a30918a1e8ea3756a4eca311bfa0c8841">cal_servoPins</a> (int servoPinLeft, int servoPinRight)</td></tr>
+<tr class="memdesc:a30918a1e8ea3756a4eca311bfa0c8841"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ActivityBot's servo pin connections to something other than the default P12 (left servo) and P13 (right servo). This function stores values in EEPROM where the abdrive library can access them. So, the abdrive library will expect the servos to be connected to the I/O pins specified by the servoPinLeft and servoPinRight parameters.  <a href="#a30918a1e8ea3756a4eca311bfa0c8841"></a><br/></td></tr>
+<tr class="memitem:a23081fedfb3154740f03629aa48b657f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abcalibrate_8h.html#a23081fedfb3154740f03629aa48b657f">cal_encoderPins</a> (int encPinLeft, int encPinRight)</td></tr>
+<tr class="memdesc:a23081fedfb3154740f03629aa48b657f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ActivityBot's servo pin connections to something other than the default P14 (left encoder) and P15 (right encoder). This function stores values in EEPROM where the abdrive library can access them. So, the abdrive library will expect the encoders to be connected to the I/O pins specified by the encPinLeft and encPinRight parameters.  <a href="#a23081fedfb3154740f03629aa48b657f"></a><br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>This library has a function you can call to calibrate your ActivityBot. Example code that uses this library to calibrate the ActivityBot is here: <br/>
@@ -91,17 +95,92 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abca
  <br/>
  Calibration instructions that accompany the example code are included in the tutorial. </p>
 <dl class="section author"><dt>Author</dt><dd>Andy Lindsay</dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.5</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax, Inc. 2013. See end of file for terms of use (MIT License).</dd></dl>
 <dl class="section user"><dt>Core Usage</dt><dd>A call to cal_activityBot launches 2 additional cores, and self-terminates the application when done.</dd></dl>
 <dl class="section user"><dt>EEPROM Usage</dt><dd>Writes to addresses 63418..65470.</dd></dl>
 <dl class="section user"><dt>Memory Models</dt><dd>Use with CMM.</dd></dl>
-<dl class="section version"><dt>Version</dt><dd>v0.90</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.91 <ul>
+<li>add cal_servoPins and cal_encoderPins to change from default I/O connections to ActivityBot servos and encoders. Values used will persist in EEPROM and be used by the abdrive library.</li>
+</ul>
+</dd>
+<dd>
+v0.90</dd></dl>
 <dl class="section user"><dt>Help Improve this Library</dt><dd>Please submit bug reports, suggestions, and improvements to this code to <a href="#" onclick="location.href='mai'+'lto:'+'edi'+'to'+'r@p'+'ar'+'all'+'ax'+'.co'+'m'; return false;">edito<span style="display: none;">.nosp@m.</span>r@pa<span style="display: none;">.nosp@m.</span>ralla<span style="display: none;">.nosp@m.</span>x.co<span style="display: none;">.nosp@m.</span>m</a>. </dd></dl>
-</div></div><!-- contents -->
+</div><h2>Function Documentation</h2>
+<a class="anchor" id="a23081fedfb3154740f03629aa48b657f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cal_encoderPins </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>encPinLeft</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>encPinRight</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the ActivityBot's servo pin connections to something other than the default P14 (left encoder) and P15 (right encoder). This function stores values in EEPROM where the abdrive library can access them. So, the abdrive library will expect the encoders to be connected to the I/O pins specified by the encPinLeft and encPinRight parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">encPinLeft</td><td>Number of I/O pin connected to the left encoder.</td></tr>
+    <tr><td class="paramname">encPinRight</td><td>Number of I/O pin connected to the right encoder. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a30918a1e8ea3756a4eca311bfa0c8841"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cal_servoPins </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>servoPinLeft</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>servoPinRight</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the ActivityBot's servo pin connections to something other than the default P12 (left servo) and P13 (right servo). This function stores values in EEPROM where the abdrive library can access them. So, the abdrive library will expect the servos to be connected to the I/O pins specified by the servoPinLeft and servoPinRight parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">servoPinLeft</td><td>Number of I/O pin connected to the left servo.</td></tr>
+    <tr><td class="paramname">servoPinRight</td><td>Number of I/O pin connected to the right servo. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Apr 27 2014 14:29:58 for abcalibrate library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri May 9 2014 20:55:26 for abcalibrate library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

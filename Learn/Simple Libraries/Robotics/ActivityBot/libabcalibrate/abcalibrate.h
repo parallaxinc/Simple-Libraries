@@ -3,8 +3,6 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.5
- *
  * @copyright Copyright (C) Parallax, Inc. 2013.  See end of file for
  * terms of use (MIT License).
  *
@@ -28,6 +26,11 @@
  * @par Memory Models
  * Use with CMM. 
  *
+ * @version 0.91
+ * @li add cal_servoPins and cal_encoderPins to change from default
+ * I/O connections to ActivityBot servos and encoders.  Values used
+ * will persist in EEPROM and be used by the abdrive library.
+ * 
  * @version v0.90 
  *
  * @par Help Improve this Library
@@ -80,10 +83,39 @@ extern "C" {
 #endif
 
 /**
- * @brief Run the ActivityBot calibratino function.  Let it run until the
+ * @brief Run the ActivityBot calibration function.  Let it run until the
  * P26 and P27 lights turn off.  It'll take about 1 minute, 20 seconds.
  */ 
 void cal_activityBot();
+
+/**
+ * @brief Set the ActivityBot's servo pin connections to something
+ * other than the default P12 (left servo) and P13 (right servo).
+ * This function stores values in EEPROM where the abdrive library
+ * can access them.  So, the abdrive library will expect the 
+ * servos to be connected to the I/O pins specified by the 
+ * servoPinLeft and servoPinRight parameters.
+ * 
+ * @param servoPinLeft Number of I/O pin connected to the left servo.
+ * 
+ * @param servoPinRight Number of I/O pin connected to the right servo.
+ */ 
+void cal_servoPins(int servoPinLeft, int servoPinRight);
+
+/**
+ * @brief Set the ActivityBot's servo pin connections to something
+ * other than the default P14 (left encoder) and P15 (right encoder).
+ * This function stores values in EEPROM where the abdrive library
+ * can access them.  So, the abdrive library will expect the 
+ * encoders to be connected to the I/O pins specified by the 
+ * encPinLeft and encPinRight parameters.
+ * 
+ * @param encPinLeft Number of I/O pin connected to the left encoder.
+ * 
+ * @param encPinRight Number of I/O pin connected to the right encoder.
+ */ 
+void cal_encoderPins(int encPinLeft, int encPinRight);
+
 
 #if defined(__cplusplus)
 }

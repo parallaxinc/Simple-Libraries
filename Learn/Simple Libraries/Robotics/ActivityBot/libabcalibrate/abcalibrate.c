@@ -19,8 +19,6 @@ void cal_drive_setramp(int left, int right);
 void cal_drive_sleep();
 void cal_drive_stop();
 void cal_drive_display(void);
-void encoder_pins(int encPinLeft, int encPinRight);
-void servo_pins(int servoPinLeft, int servoPinRight);
 
 
 static int ticksRprev;
@@ -35,7 +33,7 @@ volatile int ticksR;
 volatile int tcL;
 volatile int tcR;
 
-static int us;
+int us;
 
 static int eeAddr;
 
@@ -772,20 +770,30 @@ void cal_encoders(void *par)
 
 
 
-//To-do: Make write to EEPROM
-void servo_pins(int servoPinLeft, int servoPinRight)          // drivePins function
+void cal_servoPins(int servoPinLeft, int servoPinRight)          // drivePins function
 {
   sPinL = servoPinLeft;                                       // Local to global assignments
   sPinR = servoPinRight;
-  if(!us) us = CLKFREQ/1000000; 
+
+  int eeAddr = _ActivityBot_EE_Start_  + _ActivityBot_EE_Pins_;
+  unsigned char pinInfo[8] = {'s', 'p', 'L', 12, ' ', 'R', 13, ' '};  
+  pinInfo[3] = (char) servoPinLeft;
+  pinInfo[6] = (char) servoPinRight;
+  ee_putStr(pinInfo, 8, eeAddr);
 }
 
 
 //To-do: Make write to EEPROM
-void encoder_pins(int encPinLeft, int encPinRight)          // drivePins function
+void cal_encoderPins(int encPinLeft, int encPinRight)          // drivePins function
 {
   ePinL = encPinLeft;
   ePinR = encPinRight;
-  if(!us) us = CLKFREQ/1000000; 
+
+  int eeAddr = 8 + _ActivityBot_EE_Start_  + _ActivityBot_EE_Pins_;
+  unsigned char pinInfo[8] = {'e', 'p', 'L', 14, ' ', 'R', 15, ' '};  
+  pinInfo[3] = (char) encPinLeft;
+  pinInfo[6] = (char) encPinRight;
+
+  ee_putStr(pinInfo, 8, eeAddr);
 }
 
