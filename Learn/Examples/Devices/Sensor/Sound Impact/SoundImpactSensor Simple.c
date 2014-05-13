@@ -25,7 +25,7 @@ int main()                                        // Main function
     }
     else                                          // Sensor low (not detected)
     {
-      print("Waiting four sound...%c", CLREOL);   // Display waiting message
+      print("Waiting for sound...%c", CLREOL);    // Display waiting message
     }
     pause(50);                                    // Slow down for terminal
   }  
