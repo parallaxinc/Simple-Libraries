@@ -75,10 +75,10 @@ rfidser *rfid_open(int soutPin, int enablePin);
 
 
 /**
- * @brief End sound impact tracking process and recovers cog and stack memory
+ * @brief End RFID card monitoring/reading process and recover cog and stack memory
  * for other purposes.
  *
- * @param device device identifier .
+ * @param device device identifier.
  */
 void rfidser_close(rfidser *device);
 
