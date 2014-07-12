@@ -29,6 +29,15 @@ int main(void)
   /* traditional hello message. */
   writeStr(term, "Hello fdserial!\n\n");
 
+  writeStr(term, "Press keys for 10 seconds to enter chars in buffer.");
+  waitcnt(CLKFREQ*10+CNT);
+
+  writeStr(term, "\nKeys pressed ");
+  writeDec(term,fdserial_rxAvailable(term));
+  writeLine(term, " times.");
+  fdserial_rxFlush(term);
+  writeLine(term, "");
+  
   writeFloatPrecision(term, e, 8, 8);
   writeStr(term, "\n");
   writeFloatPrecision(term, e, 8, 2);
