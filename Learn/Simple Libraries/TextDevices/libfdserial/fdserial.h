@@ -168,6 +168,20 @@ int  fdserial_rxTime(fdserial *term, int ms);
 int  fdserial_rxChar(fdserial *term);
 
 /**
+ * @brief Get number of bytes available in the receive buffer,
+ * however queue overflows can not be detected at this time.
+ * @returns less than 1 if no bytes are available.
+ */
+int  fdserial_rxAvailable(fdserial *term);
+
+/**
+ * @brief Get a byte from the receive buffer without changing the pointers.
+ * The function does not block.
+ * @returns non-zero if a valid byte is available.
+ */
+int  fdserial_rxPeek(fdserial *term);
+
+/**
  * @brief Send a byte by adding it to the transmit buffer.
  * 
  * @param *term Device ID returned by fdserial_open. 

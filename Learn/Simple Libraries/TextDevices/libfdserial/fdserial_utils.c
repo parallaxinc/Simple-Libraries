@@ -53,6 +53,51 @@ void fdserial_txFlush(fdserial *term)
   while(!fdserial_txEmpty(term));
 }
 
+/*
+ * Get a byte from the receive buffer without changing the pointers.
+ * The function does not block.
+ * returns non-zero if a valid byte is available.
+ */
+int  fdserial_rxPeek(fdserial *term)
+{
+  int rc = 0;
+  volatile fdserial_st* fdp = (fdserial_st*) term->devst;
+  volatile char* rxbuf = (volatile char*) fdp->buffptr;  // rx buff starts at offset 0
+
+  if(fdp->rx_tail != fdp->rx_head) {
+      rc = rxbuf[fdp->rx_tail];
+  }
+  return rc;
+}
+
+/*
+ * Get number of bytes available in the receive buffer.
+ * Queue overflows can not be detected.
+ * The function does not block.
+ * returns less than 1 if no bytes are available.
+ */
+int  fdserial_rxAvailable(fdserial *term)
+{
+  int rc = 0;
+  volatile fdserial_st* fdp = (fdserial_st*) term->devst;
+  volatile char* rxbuf = (volatile char*) fdp->buffptr;  // rx buff starts at offset 0
+
+  if(fdp->rx_tail == fdp->rx_head) {
+      rc = 0;
+  }
+  else {
+      if(fdp->rx_head > fdp->rx_tail) {
+          rc = fdp->rx_head - fdp->rx_tail;
+      }
+      else {
+          // [.....H.........T....]
+          rc = FDSERIAL_BUFF_MASK+1;
+          rc -= fdp->rx_tail; // buffer size - tail mark
+          rc += fdp->rx_head; // plus head mark
+      }                    
+  }      
+  return rc;
+}
 
 /*
 +--------------------------------------------------------------------

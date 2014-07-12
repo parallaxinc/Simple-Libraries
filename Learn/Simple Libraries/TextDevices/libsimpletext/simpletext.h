@@ -962,10 +962,19 @@ void      simpleterm_close(void);
  */
 terminal *simpleterm_reopen(int rx, int tx, int mode, int baud);
 
-/*
- * function simpleterm_set() was removed because the port needs to be
- * closed before it can be reopened to avoid unwanted behavior - Steve.
+/**
+ * @brief Sets default debug port device. Make sure to open a connection to
+ * the device before calling the function. This function may cause bad character
+ * output in some cases. Please use the simpleterm_reopen() function instead.
+ *
+ * @param *ptr Device ID pointer to serial, fdserial, or other text_t device.
  */
+static inline void simpleterm_set(text_t *ptr)
+{
+  extern text_t *dport_ptr;
+  simpleterm_close();
+  dport_ptr = ptr;
+}
 
 /**
  * @brief Get default device pointer to SimpleIDE Terminal.
