@@ -9,6 +9,8 @@
 #include <propeller.h>
 #include "serial.h"
 
+extern HUBDATA terminal *dport_ptr;
+
 serial *serial_open(int rxpin, int txpin, int mode, int baudrate)
 {
   Serial_t *serptr;
@@ -28,7 +30,7 @@ serial *serial_open(int rxpin, int txpin, int mode, int baudrate)
   //memset(text, 0, sizeof(text_t));
   serptr = (Serial_t*) malloc(sizeof(Serial_t));
   text->devst = serptr;
-  //memset((char*)serptr, 0, sizeof(Serial_t));
+  memset((char*)serptr, 0, sizeof(Serial_t));
   
   text->txChar    = serial_txChar;     /* required for terminal to work */
   text->rxChar    = serial_rxChar;     /* required for terminal to work */
@@ -38,8 +40,7 @@ serial *serial_open(int rxpin, int txpin, int mode, int baudrate)
   serptr->mode    = mode;
   serptr->baud    = baudrate;
   serptr->ticks   = CLKFREQ/baudrate; /* baud from clkfreq (cpu clock typically 80000000 for 5M*pll16x) */
-
-  waitcnt(4*CLKFREQ/5+CNT);
+     
   return text;
 }
 

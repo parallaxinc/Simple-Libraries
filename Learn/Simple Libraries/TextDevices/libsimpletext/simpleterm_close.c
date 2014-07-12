@@ -7,19 +7,22 @@
  */
 #include "serial.h"
 
+extern HUBDATA terminal *dport_ptr;
+
 void simpleterm_close()
 {
   extern text_t *dport_ptr;
   if(!dport_ptr)
     return;
-#ifdef SIMPLESERIAL_TERM
   serial_close(dport_ptr);
-#else
-  OUTA &= ~(1 << 30);
-  DIRA &= ~(1 << 30);
-  DIRA &= ~(1 << 31);
-#endif
   dport_ptr = 0;
+}
+
+terminal *simpleterm_reopen(int rx, int tx, int mode, int baud)
+{
+  simpleterm_close();
+  dport_ptr = serial_open(rx,tx,mode,baud);
+  return dport_ptr;
 }
 
 /*

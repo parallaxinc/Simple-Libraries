@@ -22,7 +22,6 @@ int _intsprnt(const char *fmt, va_list args, char *obuf)
   long l_arg;
   int width;
   int precision;
-  char fstr[20];
 
   char *buf = obuf;
   while( (c = *fmt++) != 0 ) {

@@ -11,10 +11,9 @@
 /*
  * SimpleTerm uses global pointers for IO - it is the default debug module.
  * Functions like putChar, putDec, putLine are default IO and use the globals.
+ * Removed confusing #ifdef. Startup delay moved from serial_open to here.
  */
 HUBDATA terminal *dport_ptr = 0;
-HUBDATA terminal debug_port;
-Serial_t         debug_serial;
 
 __attribute__((constructor))
 terminal *simpleterm_open(void)
@@ -22,35 +21,10 @@ terminal *simpleterm_open(void)
   if(dport_ptr != 0)
     return dport_ptr;
 
-#ifdef SIMPLESERIAL_TERM
   dport_ptr = serial_open(31,30,0,115200);
+  waitcnt(CLKFREQ+CNT);
   return dport_ptr;
-#else
-  int txpin = 30;
-  int rxpin = 31;
-
-  /* set pins first for boards that can misbehave intentionally like the Quickstart */
-  DIRA |=  (1<<txpin);
-  OUTA |=  (1<<txpin);
-  DIRA &= ~(1<<rxpin);
-
-  debug_port.devst     = &debug_serial;
-  
-  debug_port.txChar    = serial_txChar;     /* required for terminal to work */
-  debug_port.rxChar    = serial_rxChar;     /* required for terminal to work */
-
-  debug_serial.rx_pin  = rxpin; /* recieve pin */
-  debug_serial.tx_pin  = txpin; /* transmit pin*/
-  debug_serial.mode    = 0;
-  debug_serial.baud    = 115200;
-  debug_serial.ticks   = CLKFREQ/115200; /* baud from clkfreq (cpu clock typically 80000000 for 5M*pll16x) */
-
-  waitcnt(CLKFREQ/2+CNT);
-  dport_ptr = &debug_port;
-  return &debug_port;
-#endif
 }
-
 
 /**
  * Get the SimpleTerm default text_t pointer
