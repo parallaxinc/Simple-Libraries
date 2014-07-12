@@ -39,6 +39,10 @@ int main(void)
   writeStrLen(simpleterm_pointer(),&bigtext[4],5);
   putln("");
   
+  putLine("Reopen test");
+  simpleterm_reopen(31,30,0,115200);
+  putLine("Reopen Ok.");
+  
 #ifdef DIV0_NAN_TEST
   float fproblem;
   float f;

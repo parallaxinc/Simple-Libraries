@@ -938,7 +938,6 @@ int  readHex(text_t *device);
  */
 terminal *simpleterm_open(void);
 
-
 /**
  * @brief Closes the SimpleIDE Terminal connection in one cog so that it can
  * be opened in another cog with simpleterm_open, fdserial_open(30, 31, 0,
@@ -946,6 +945,27 @@ terminal *simpleterm_open(void);
  */
 void      simpleterm_close(void);
 
+/**
+ * @brief Gracefully closes and reopens simple terminal.
+ *
+ * @param rxpin Serial input pin, receives serial data.
+ * 
+ * @param txpin Serial output pin, transmits serial data.
+ * 
+ * @param mode Unused mode field (for FdSerial compatibility)
+ * 
+ * @param baudrate Bit value transmit rate, 9600, 115200, etc...
+ *
+ * @returns simpleterm pointer for use as an identifier for serial 
+ * and simpletext library functions that have serial or text_t 
+ * parameter types.  
+ */
+terminal *simpleterm_reopen(int rx, int tx, int mode, int baud);
+
+/*
+ * function simpleterm_set() was removed because the port needs to be
+ * closed before it can be reopened to avoid unwanted behavior - Steve.
+ */
 
 /**
  * @brief Get default device pointer to SimpleIDE Terminal.
@@ -953,20 +973,6 @@ void      simpleterm_close(void);
  * @returns terminal* Pointer to SimpleIDE Terminal device.
  */
 terminal *simpleterm_pointer(void);
-
-
-/**
- * @brief Sets default debug port device.  Make sure to open a connection to
- * the device before calling the function.
- * 
- * @param *ptr Device ID pointer to serial, fdserial, or other text_t device.
- */
-static inline void simpleterm_set(text_t *ptr)
-{
-  extern text_t *dport_ptr;
-  simpleterm_close();
-  dport_ptr = ptr;
-}
 
  
  /**
