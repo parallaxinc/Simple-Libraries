@@ -18,10 +18,10 @@ void simpleterm_close()
   dport_ptr = 0;
 }
 
-terminal *simpleterm_reopen(int rx, int tx, int mode, int baud)
+terminal *simpleterm_reopen(int rxpin, int txpin, int mode, int baud)
 {
   simpleterm_close();
-  dport_ptr = serial_open(rx,tx,mode,baud);
+  dport_ptr = serial_open(rxpin, txpin, mode, baud);
   return dport_ptr;
 }
 

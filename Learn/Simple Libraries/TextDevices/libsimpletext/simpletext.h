@@ -34,7 +34,7 @@
  * @par Memory Models
  * Use with CMM, LMM, or XMMC. 
  *
- * @version 0.98 Digits versions of put/get and write/read added for
+ * @version 0.99 Digits versions of put/get and write/read added for
  * transmitting and receiving values with fixed numbers of digits.  Floating
  * point output functions updated to handle nan (not a number) and +/- inf
  * (infinity).  printi, dprinti, scani, dscani, sprinti, sscani functions
@@ -57,20 +57,30 @@ extern "C"
 #error "This library requires 32bit doubles"
 #endif
 
+/// @cond doxygen_skip
 #define TERM_NAME_LEN 20
 #define TERM_COG_LEN  7
+/// @endcond
 
+/**
+ * @brief Structure that contains data used by simple text device libraries.
+ */
 typedef struct text_struct
 {
-  int  (*rxChar)(struct text_struct *p);         // Required for terminal
-  int  (*txChar)(struct text_struct *p, int ch); // required for terminal
-  int  cogid[TERM_COG_LEN];                      // Pointer to cog(s)  
-  volatile void *devst;                          // Device info struct pointer
+  /** Pointer to text device library's character receiving function. */
+  int  (*rxChar)(struct text_struct *p);         
+  /** Pointer to text device library's character transmitting function. */
+  int  (*txChar)(struct text_struct *p, int ch); 
+  /** Pointer to text device library's cog variable(s). */      
+  int  cogid[TERM_COG_LEN];                      
+  /** Pointer to text device library's info. */ 
+  volatile void *devst;                          
 } text_t;
 
+/// @cond  doxygen_skip
 #define getStopCOGID(id) ((id)-(1))
 #define setStopCOGID(id) ((id)+(1))
-
+/// @endcond
 /**
  * By default the terminal will use simple serial for input/output
  * It can be overloaded.
@@ -485,7 +495,7 @@ int sprinti(char *buffer, const char *format, ...) __attribute__((format (printf
  *
  * @param buffer Pointer to memory where formatted output can be stored.
  * 
- * @param format C printf comparable format string.
+ * @param *fmt C printf comparable format string.
  * 
  * @param ... Arguments where output will go and must be pointers.
  * 
@@ -923,7 +933,7 @@ int  readHex(text_t *device);
 /**
  * @}
  *
- * @name For Passing Terminal Control between Cogs
+ * @name For Passing Terminal Control between Cogs and/or Devices
  * @{
  */
  
@@ -946,26 +956,32 @@ terminal *simpleterm_open(void);
 void      simpleterm_close(void);
 
 /**
- * @brief Gracefully closes and reopens simple terminal.
+ * @brief Closes and the simple terminal connection, and reopens it in the 
+ * calling cog.  Depending on the parameters used, it can also be used to
+ * switch from one terminal device to another.
  *
- * @param rxpin Serial input pin, receives serial data.
+ * @param rxpin Serial input pin, receives serial data.  The default on start-
+ * up is P31 for receiving characters from the host computer's terminal.
  * 
- * @param txpin Serial output pin, transmits serial data.
+ * @param txpin Serial output pin, transmits serial data.  The default on 
+ * start-up is P30 for sending characters to the host computer's terminal.
  * 
- * @param mode Unused mode field (for FdSerial compatibility)
+ * @param mode Unused mode field (for fdserial compatibility).  
  * 
- * @param baudrate Bit value transmit rate, 9600, 115200, etc...
+ * @param baud Bit value transmit rate, 9600, 31250, etc...  The default
+ * on start-up is 115200.
  *
  * @returns simpleterm pointer for use as an identifier for serial 
  * and simpletext library functions that have serial or text_t 
  * parameter types.  
  */
-terminal *simpleterm_reopen(int rx, int tx, int mode, int baud);
+terminal *simpleterm_reopen(int rxpin, int txpin, int mode, int baud);
 
 /**
  * @brief Sets default debug port device. Make sure to open a connection to
- * the device before calling the function. This function may cause bad character
- * output in some cases. Please use the simpleterm_reopen() function instead.
+ * the device before calling the function. Please use the simpleterm_reopen() 
+ * is recommended because this function may cause bad character output in some 
+ * cases.
  *
  * @param *ptr Device ID pointer to serial, fdserial, or other text_t device.
  */

@@ -49,13 +49,16 @@ extern "C"
  */ 
 #define SERIAL_MAX_PIN 31
 
+/**
+ * @brief Defines serial interface structure of 9 contiguous int variables.
+ */
 typedef struct serial_info
 {
-  int rx_pin;
-  int tx_pin;
-  int mode;
-  int baud;
-  int ticks;
+  /** Character receive pin. */ int rx_pin;
+  /** Character transmit pin. */ int tx_pin;
+  /** Mode value (not used). */ int mode;
+  /** Baud rate. */ int baud;
+  /** Clock ticks for a 1/baud rate period. */ int ticks;
 } Serial_t;
 
 /**
@@ -85,7 +88,7 @@ serial *serial_open(int rxpin, int txpin, int mode, int baudrate);
 /**
  * @brief Close serial connection.  
  *
- * @param Identifier returned by serial_open.
+ * @param *device Identifier returned by serial_open.
  */
 void serial_close(serial *device);
 
@@ -93,7 +96,7 @@ void serial_close(serial *device);
 /**
  * @brief Receive a byte.  Waits until next byte is received.
  *
- * @param Identifier returned by serial_open.
+ * @param *device Identifier returned by serial_open.
  *
  * @returns receive byte 0 to 0xff or -1 if none available 
  */
@@ -103,9 +106,9 @@ int  serial_rxChar(serial *device);
 /**
  * @brief Send a byte.
  * 
- * @param device is a previously open/started serial device.
+ * @param *device is a previously open/started serial device.
  * 
- * @param Identifier returned by serial_open.
+ * @param txbyte The byte to send.
  * 
  * @returns Byte that was transmitted. 
  */

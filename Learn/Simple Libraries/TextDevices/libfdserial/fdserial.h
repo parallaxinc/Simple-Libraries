@@ -21,7 +21,7 @@
  * @par Memory Models
  * Use with CMM, LMM, or XMMC. 
  *
- * @version 0.85
+ * @version 0.86
  *
  * @par Help Improve this Library
  * Please submit bug reports, suggestions, and improvements to this code to
@@ -39,6 +39,13 @@ extern "C"
 {
 #endif
 
+/**
+ * @brief Defines text_t data type as fdserial to allow declarations like 
+ * fdserial *MyDevice.  After storing the value returned by fdserial_start
+ * in MyDevice, it can be passed as an identifying parameter to fdserial 
+ * and simpletext library functions that have fdserial or text_t parameter 
+ * types.
+ */
 typedef text_t fdserial;
 
 /**
@@ -73,19 +80,19 @@ typedef text_t fdserial;
 #define FDSERIAL_MODE_IGNORE_TX_ECHO 8
 
 /**
- * Defines fdserial interface struct of 9 contiguous longs + buffers
+ * @brief Defines fdserial interface structure of 9 contiguous longs + buffers.
  */
 typedef struct fdserial_struct
 {
-    int  rx_head;   /* receive buffer head */
-    int  rx_tail;   /* receive buffer tail */
-    int  tx_head;   /* transmit buffer head */
-    int  tx_tail;   /* transmit buffer tail */
-    int  rx_pin;    /* recieve pin */
-    int  tx_pin;    /* transmit pin */
-    int  mode;      /* interface mode */
-    int  ticks;     /* clkfreq / baud */
-    char *buffptr;  /* pointer to rx buffer */
+    /** receive buffer head */  int  rx_head;   
+    /** receive buffer tail */  int  rx_tail;   
+    /** transmit buffer head */ int  tx_head;   
+    /** transmit buffer tail */ int  tx_tail;
+    /** receive pin */          int  rx_pin;    
+    /** transmit pin */         int  tx_pin;    
+    /** interface mode */       int  mode;      
+    /** clkfreq / baud */       int  ticks;     
+    /** pointer to rx buffer */ char *buffptr;   
 } fdserial_st;
 
 /**
@@ -168,11 +175,15 @@ int  fdserial_rxTime(fdserial *term, int ms);
 int  fdserial_rxChar(fdserial *term);
 
 /**
- * @brief Get number of bytes available in the receive buffer,
- * however queue overflows can not be detected at this time.
- * @returns less than 1 if no bytes are available.
+ * @brief Get number of bytes available in the receive buffer without receiving
+ * any.  NOTE: This function is not designed for detecting buffer overflow, just
+ * for reporting how many bytes have accumulated in the input buffer.
+ *
+ * @param *term Device ID returned by fdserial_open. 
+ * 
+ * @returns Number of bytes available.
  */
-int  fdserial_rxAvailable(fdserial *term);
+int  fdserial_rxCount(fdserial *term);
 
 /**
  * @brief Get a byte from the receive buffer without changing the pointers.

@@ -18,7 +18,7 @@
   <td id="projectlogo"><img alt="Logo" src="ParallaxLogo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">simpletext library
-   &#160;<span id="projectnumber">v0.98</span>
+   &#160;<span id="projectnumber">v0.99</span>
    </div>
    <div id="projectbrief">Compact variations of put/get write/read and print/scan for smaller program sizes</div>
   </td>
@@ -62,40 +62,35 @@
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00050"></a><span class="lineno"><a class="code" href="serial_8h.html#a3fb62732840f545f9a77f400497abfdf">   50</a></span>&#160;<span class="preprocessor">#define SERIAL_MAX_PIN 31</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="code" href="structserial__info.html">   52</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structserial__info.html">serial_info</a></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;{</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">int</span> rx_pin;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordtype">int</span> tx_pin;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordtype">int</span> mode;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordtype">int</span> baud;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordtype">int</span> ticks;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <a class="code" href="structserial__info.html">Serial_t</a>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="code" href="serial_8h.html#ac7fcdbb56e46396f0cdff866387a0136">   65</a></span>&#160;<span class="keyword">typedef</span> <a class="code" href="structtext__struct.html">text_t</a> <a class="code" href="serial_8h.html#ac7fcdbb56e46396f0cdff866387a0136" title="Makes declarations like serial lcd to stand in for text_t lcd. Spelling is choice of Parallax educati...">serial</a>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;serial *<a class="code" href="serial_8h.html#a0b43532699509b3227d5deaa5dade7ba" title="Open a simple (half duplex) serial connection.">serial_open</a>(<span class="keywordtype">int</span> rxpin, <span class="keywordtype">int</span> txpin, <span class="keywordtype">int</span> mode, <span class="keywordtype">int</span> baudrate);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keywordtype">void</span> <a class="code" href="serial_8h.html#a6b0f49d4a358ad92f648e6d2a11bfa6a" title="Close serial connection.">serial_close</a>(serial *device);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                         </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="serial_8h.html#a2d18567b35a0e4faef403aa7e87836d3" title="Receive a byte. Waits until next byte is received.">serial_rxChar</a>(serial *device);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="serial_8h.html#a2afebd34fb247ef5eb958296a582dbcb" title="Send a byte.">serial_txChar</a>(serial *device, <span class="keywordtype">int</span> txbyte);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor"></span><span class="comment">/* __SERIAL_H */</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="code" href="structserial__info.html">   55</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structserial__info.html" title="Defines serial interface structure of 9 contiguous int variables.">serial_info</a></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;{ <span class="keywordtype">int</span> <a class="code" href="structserial__info.html#a219fb0cecab94c438944338382716e4d">rx_pin</a>; <span class="keywordtype">int</span> <a class="code" href="structserial__info.html#a10401260df6ab61a4519575c27d3e5c7">tx_pin</a>; <span class="keywordtype">int</span> <a class="code" href="structserial__info.html#a1ea5d0cb93f22f7d0fdf804bd68c3326">mode</a>; <span class="keywordtype">int</span> <a class="code" href="structserial__info.html#a4858bb3109a37110e12bd7765d6f18ee">baud</a>; <span class="keywordtype">int</span> <a class="code" href="structserial__info.html#a8d0065299615176169ceac2c65f38365">ticks</a>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <a class="code" href="serial_8h.html#ae554d60fd6f9747c280657b31fc0c70f" title="Defines serial interface structure of 9 contiguous int variables.">Serial_t</a>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="code" href="serial_8h.html#ac7fcdbb56e46396f0cdff866387a0136">   68</a></span>&#160;<span class="keyword">typedef</span> <a class="code" href="structtext__struct.html" title="Structure that contains data used by simple text device libraries.">text_t</a> <a class="code" href="serial_8h.html#ac7fcdbb56e46396f0cdff866387a0136" title="Makes declarations like serial lcd to stand in for text_t lcd. Spelling is choice of Parallax educati...">serial</a>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;serial *<a class="code" href="serial_8h.html#a0b43532699509b3227d5deaa5dade7ba" title="Open a simple (half duplex) serial connection.">serial_open</a>(<span class="keywordtype">int</span> rxpin, <span class="keywordtype">int</span> txpin, <span class="keywordtype">int</span> mode, <span class="keywordtype">int</span> baudrate);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keywordtype">void</span> <a class="code" href="serial_8h.html#a6b0f49d4a358ad92f648e6d2a11bfa6a" title="Close serial connection.">serial_close</a>(serial *device);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                         </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="serial_8h.html#a2d18567b35a0e4faef403aa7e87836d3" title="Receive a byte. Waits until next byte is received.">serial_rxChar</a>(serial *device);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keywordtype">int</span>  <a class="code" href="serial_8h.html#a2afebd34fb247ef5eb958296a582dbcb" title="Send a byte.">serial_txChar</a>(serial *device, <span class="keywordtype">int</span> txbyte);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor"></span><span class="comment">/* __SERIAL_H */</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 7 2014 14:26:44 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 17 2014 20:04:11 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
