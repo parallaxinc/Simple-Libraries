@@ -48,6 +48,20 @@ learn@parallax.com</a>.
 <h2 style="font-family:verdana;">Update History</h2>
 
 <p>
+Updates 8/17/2014  
+<br>
+<ul>
+<li> 
+Added rxCount and rxPeek functions to the fdserial library.
+</li>
+<li> 
+Updated delay built into simpletools library that ensures Windows machines cannot mistake the Propeller for a plug and play serial device.  This can happen if the Windows machine receives serial bytes within 0.7 seconds after the device is connected.  This delay now only occurs at application start-up, not every time the terminal process is restarted.
+</li>
+</ul>
+</p>  
+
+
+<p>
 Updates 6/4/2014  
 <br>
 <ul>

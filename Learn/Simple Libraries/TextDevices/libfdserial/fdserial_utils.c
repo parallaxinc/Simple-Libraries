@@ -76,7 +76,7 @@ int  fdserial_rxPeek(fdserial *term)
  * The function does not block.
  * returns less than 1 if no bytes are available.
  */
-int  fdserial_rxAvailable(fdserial *term)
+int  fdserial_rxCount(fdserial *term)
 {
   int rc = 0;
   volatile fdserial_st* fdp = (fdserial_st*) term->devst;

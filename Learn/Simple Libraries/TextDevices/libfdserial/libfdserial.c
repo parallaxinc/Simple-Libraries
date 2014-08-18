@@ -33,7 +33,7 @@ int main(void)
   waitcnt(CLKFREQ*10+CNT);
 
   writeStr(term, "\nKeys pressed ");
-  writeDec(term,fdserial_rxAvailable(term));
+  writeDec(term,fdserial_rxCount(term));
   writeLine(term, " times.");
   fdserial_rxFlush(term);
   writeLine(term, "");
