@@ -29,7 +29,7 @@ int shift_in(int pinDat, int pinClk, int mode, int bits)
       vi = bits - 1;
       vf = -1;
       inc = -1;
-      value |= (input(pinDat) << bits);
+      //value |= (input(pinDat) << bits);
       break;
     case LSBPRE:
       vi = 0;
