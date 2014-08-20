@@ -53,7 +53,7 @@ source/toggle.c
 source/wait.c
 simpletools.h
 >compiler=C
->memtype=xmmc external flash code main ram data
+>memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-Wall
