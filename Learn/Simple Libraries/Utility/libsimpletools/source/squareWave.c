@@ -50,7 +50,7 @@ void square_wave(int pin, int channel, int freq)
     {
       pin = -pin;
       ctra = 0;
-      frqb = 0;
+      frqa = 0;
     }
   }
   else 
@@ -75,6 +75,10 @@ void square_wave_stop(void)
   {
     cogstop(cog - 1);
     cog = 0;
+    ctra = 0;
+    ctrb = 0;
+    frqa = 0;
+    frqb = 0;
   }  
 }
 

@@ -1,6 +1,21 @@
 libsimpletools.c
+source/addfiledriver.c
+source/cogrun.c
+source/cogend.c
+source/cognum.c
 source/count.c
 source/dac.c
+source/eeprom_init.c
+source/eeprom_getByte.c
+source/eeprom_getFloat.c
+source/eeprom_getInt.c
+source/eeprom_getStr.c
+source/eeprom_putByte.c
+source/eeprom_putFloat.c
+source/eeprom_putInt.c
+source/eeprom_putStr.c
+source/endianSwap.c
+source/freqout.c
 source/getDirection.c
 source/getOutput.c
 source/getOutputs.c
@@ -8,6 +23,10 @@ source/getState.c
 source/getStates.c
 source/getDirections.c
 source/high.c
+source/i2c_busy.c
+source/i2c_init.c
+source/i2c_in.c
+source/i2c_out.c
 source/input.c
 source/low.c
 source/mark.c
@@ -17,6 +36,7 @@ source/pulseOut.c
 source/pwm.c
 source/rcTime.c
 source/reverse.c
+source/sddriverconfig.c
 source/setDirection.c
 source/setDirections.c
 source/setIoDt.c
@@ -28,32 +48,12 @@ source/shiftIn.c
 source/shiftOut.c
 source/squareWave.c
 source/timeout.c
+source/timeTicks.c
 source/toggle.c
 source/wait.c
-source/addfiledriver.c
-source/sddriverconfig.c
 simpletools.h
-freqout.c -> source/freqout.c
-i2c_init.c -> source/i2c_init.c
-i2c_in.c -> source/i2c_in.c
-i2c_out.c -> source/i2c_out.c
-eeprom_init.c -> source/eeprom_init.c
-eeprom_getByte.c -> source/eeprom_getByte.c
-eeprom_getFloat.c -> source/eeprom_getFloat.c
-eeprom_getInt.c -> source/eeprom_getInt.c
-eeprom_getStr.c -> source/eeprom_getStr.c
-eeprom_putByte.c -> source/eeprom_putByte.c
-eeprom_putFloat.c -> source/eeprom_putFloat.c
-eeprom_putInt.c -> source/eeprom_putInt.c
-eeprom_putStr.c -> source/eeprom_putStr.c
-cogrun.c -> source/cogrun.c
-cogend.c -> source/cogend.c
-i2c_busy.c -> source/i2c_busy.c
-cognum.c -> source/cognum.c
-endianSwap.c -> source/endianSwap.c
-timeTicks.c -> source/timeTicks.c
 >compiler=C
->memtype=cmm main ram compact
+>memtype=xmmc external flash code main ram data
 >optimize=-Os
 >-m32bit-doubles
 >-Wall
