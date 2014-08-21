@@ -4,7 +4,7 @@
   Run function that blinks a light with another cog continuously.
   Shut down that other cog from main routine.
 
-  http://learn.parallax.com/propeller-c-multicore-approaches
+  http://learn.parallax.com/multicore-approaches
 */
 
 #include "simpletools.h"                       // Library include
