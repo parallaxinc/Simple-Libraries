@@ -3,7 +3,7 @@
   
   Run function that blinks a light with another cog continuously.
 
-  http://learn.parallax.com/propeller-c-multicore-approaches
+  http://learn.parallax.com/multicore-approaches
 */
 
 #include "simpletools.h"                      // Library include
