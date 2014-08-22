@@ -3,7 +3,7 @@
  *
  * @author Andy Lindsay
  *
- * @version dev003
+ * @version 0.87
  *
  * @copyright Copyright (C) Parallax, Inc. 2013.  See end of file for
  * terms of use (MIT License).

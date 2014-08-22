@@ -20,8 +20,7 @@
  * @par Memory Models
  * Use with CMM or LMM. 
  *
- * @version
- * 0.5
+ * @version 0.50
  *
  * @par Help Improve this Library
  * Please submit bug reports, suggestions, and improvements to this code to
