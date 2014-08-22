@@ -17,7 +17,7 @@
  * @par Memory Models
  * Use with CMM or LMM.
  *
- * @version 0.5
+ * @version 0.50
  */
 
 #ifndef __SIMPLE_NMEA_PARSER__

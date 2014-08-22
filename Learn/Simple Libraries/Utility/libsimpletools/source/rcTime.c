@@ -1,9 +1,9 @@
 /**
  * @file rcTime.c
  *
- * @author Andy Lindsay  <<< modified but not saved>>>
+ * @author Andy Lindsay
  *
- * @version dev001
+ * @version 0.85
  *
  * @copyright Copyright (C) Parallax, Inc. 2012.  See end of file for
  * terms of use (MIT License).

@@ -4,7 +4,7 @@
  * @copyright
  * Copyright (C) Parallax, Inc. 2014. All Rights MIT Licensed.
  *
- * @version 0.5
+ * @version 0.50
  */
 
 #include "gps.h"
