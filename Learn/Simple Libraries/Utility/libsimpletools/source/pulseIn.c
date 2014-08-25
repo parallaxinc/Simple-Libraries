@@ -1,4 +1,4 @@
-/**
+/*
  * @file pulseIn.c
  *
  * @author Andy Lindsay

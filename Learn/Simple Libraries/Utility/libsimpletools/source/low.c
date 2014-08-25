@@ -1,4 +1,4 @@
-/**
+/*
  * @file low.c
  *
  * @author Andy Lindsay

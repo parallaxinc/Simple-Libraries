@@ -1,4 +1,4 @@
-/**
+/*
  * @file setst_iodt.c
  *
  * @author Andy Lindsay

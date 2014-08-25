@@ -1,4 +1,4 @@
-/**
+/*
  * @file input.c
  *
  * @author Andy Lindsay

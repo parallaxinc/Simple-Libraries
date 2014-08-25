@@ -1,4 +1,4 @@
-/**
+/*
  * @file getState.c
  *
  * @author Andy Lindsay

@@ -1,4 +1,4 @@
-/**
+/*
  * @file mark.c
  *
  * @author Andy Lindsay

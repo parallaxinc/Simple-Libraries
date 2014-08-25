@@ -1,4 +1,4 @@
-/**
+/*
  * @file shiftOut.c
  *
  * @author Andy Lindsay

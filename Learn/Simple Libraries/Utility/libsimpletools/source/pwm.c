@@ -1,4 +1,4 @@
-/**
+/*
  * @file pwm.c
  *
  * @author Andy Lindsay

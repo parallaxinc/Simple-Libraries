@@ -1,4 +1,4 @@
-/**
+/*
  * @file eeprom.c
  *
  * @author Andy Lindsay

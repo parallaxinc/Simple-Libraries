@@ -1,4 +1,4 @@
-/**
+/*
  * @file timeout.c
  *
  * @author Andy Lindsay

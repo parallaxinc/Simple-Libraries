@@ -1,4 +1,4 @@
-/**
+/*
  * @file getOutput.c
  *
  * @author Andy Lindsay

@@ -1,4 +1,4 @@
-/**
+/*
  * @file putFloat.c
  *
  * @author Andy Lindsay

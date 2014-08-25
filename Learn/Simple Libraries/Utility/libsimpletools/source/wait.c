@@ -1,4 +1,4 @@
-/**
+/*
  * @file wait.c
  *
  * @author Andy Lindsay

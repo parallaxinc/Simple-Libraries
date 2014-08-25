@@ -1,4 +1,4 @@
-/**
+/*
  * @file dac.c
  *
  * @author Andy Lindsay

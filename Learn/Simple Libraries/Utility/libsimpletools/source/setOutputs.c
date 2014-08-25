@@ -1,4 +1,4 @@
-/**
+/*
  * @file setOutputs.c
  *
  * @author Andy Lindsay

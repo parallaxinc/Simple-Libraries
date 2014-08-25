@@ -1,4 +1,4 @@
-/**
+/*
  * @file rcTime.c
  *
  * @author Andy Lindsay

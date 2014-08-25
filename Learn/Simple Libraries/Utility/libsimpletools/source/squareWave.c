@@ -1,4 +1,4 @@
-/**
+/*
  * @file squareWave.c
  *
  * @author Andy Lindsay

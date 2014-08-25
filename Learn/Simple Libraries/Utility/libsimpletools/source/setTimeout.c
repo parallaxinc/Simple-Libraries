@@ -1,4 +1,4 @@
-/**
+/*
  * @file setTimeout.c
  *
  * @author Andy Lindsay
