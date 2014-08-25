@@ -1,4 +1,4 @@
-/**
+/*
  * @file reverse.c
  *
  * @author Andy Lindsay

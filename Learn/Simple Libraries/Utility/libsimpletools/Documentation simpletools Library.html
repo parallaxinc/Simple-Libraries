@@ -18,7 +18,7 @@
   <td id="projectlogo"><img alt="Logo" src="ParallaxLogo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">simpletools library
-   &#160;<span id="projectnumber">v0.98</span>
+   &#160;<span id="projectnumber">v0.98.1</span>
    </div>
    <div id="projectbrief">Collection of convenience functions for common microcontroller tasks</div>
   </td>
@@ -280,6 +280,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a10a9a5cd4767ffd7a82c9acd2b9485b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store a 32-bit precision floating point value at a certain address in the Propeller Chip's dedicated EEPROM. A 32-bit value occupies four bytes so if you are storing values in a sequence, make sure to add 4 to each addr parameter value.  <a href="#a10a9a5cd4767ffd7a82c9acd2b9485b2"></a><br/></td></tr>
 <tr class="memitem:a3da63e55d0799ab30686bf38a5f15d43"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a3da63e55d0799ab30686bf38a5f15d43">ee_getFloat32</a> (int addr)</td></tr>
 <tr class="memdesc:a3da63e55d0799ab30686bf38a5f15d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch a 32-bit precision floating point value from a certain address in the Propeller Chip's dedicated EEPROM. A 32-bit value occupies four bytes so if you are fetching values in a sequence, make sure to add 4 to each addr parameter value.  <a href="#a3da63e55d0799ab30686bf38a5f15d43"></a><br/></td></tr>
+<tr class="memitem:a3faa206c9a2381e34baf4473028df149"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a3faa206c9a2381e34baf4473028df149">ee_config</a> (int sclPin, int sdaPin, int sclDrive)</td></tr>
+<tr class="memdesc:a3faa206c9a2381e34baf4473028df149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional function for setting a custom EEPROM configuration. Other ee_ functions automatically check if the EEPROM has been initialized, and if not, they use default settings equivalent to ee_config(28, 29, 0). This function can be called before any other ee_ functions to replace those defaults with custom settings.  <a href="#a3faa206c9a2381e34baf4473028df149"></a><br/></td></tr>
 <tr><td colspan="2"><div class="groupHeader">SD Card</div></td></tr>
 <tr class="memitem:aa845f3e273a492072b625da584924f32"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aa845f3e273a492072b625da584924f32">sd_mount</a> (int doPin, int clkPin, int diPin, int csPin)</td></tr>
 <tr class="memdesc:aa845f3e273a492072b625da584924f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mount an SD card with the minimal 4-pin interface. For <a href="html/http://learn.parallax.com" target="_blank">Parallax Learn Site</a> examples, see: <a href="html/http://learn.parallax.com/propeller-c-simple-devices/sd-card-data" target="_blank">SD Card Data</a> and <a href="html/http://learn.parallax.com/propeller-c-simple-devices/play-wav-files" target="_blank">Play WAV Files</a>.  <a href="#aa845f3e273a492072b625da584924f32"></a><br/></td></tr>
@@ -596,6 +598,49 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 
 <p>Stop the cog that's transmitting the DAC signal(s). </p>
 <p>Stops any signals, lets go of any I/O pins, and reclaims the cog for other uses. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3faa206c9a2381e34baf4473028df149"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ee_config </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sclPin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sdaPin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sclDrive</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Optional function for setting a custom EEPROM configuration. Other ee_ functions automatically check if the EEPROM has been initialized, and if not, they use default settings equivalent to ee_config(28, 29, 0). This function can be called before any other ee_ functions to replace those defaults with custom settings. </p>
+<dl class="section warning"><dt>Warning</dt><dd>: If you're going to call this function, make sure to do it before calling any other ee_ functions. If one ee_ function gets called before this, it'll set up defaults, and this function cannot override them after they have been set.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sclPin</td><td>Propeller I/O pin connected to the EEPROM's SCL (serial clock) pin.</td></tr>
+    <tr><td class="paramname">sdaPin</td><td>Propeller I/O pin connected to the EEPROM's SDA (serial data) pin.</td></tr>
+    <tr><td class="paramname">sclDrive</td><td>Use 0 for standard design where the SCL pin has a pull-up resistor, or 1 if it does not have a pull-up and needs to be driven. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2245,7 +2290,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 7 2014 14:45:01 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Mon Aug 25 2014 11:07:07 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

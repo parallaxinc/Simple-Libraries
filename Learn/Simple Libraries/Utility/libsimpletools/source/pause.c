@@ -1,4 +1,4 @@
-/**
+/*
  * @file pause.c
  *
  * @author Andy Lindsay

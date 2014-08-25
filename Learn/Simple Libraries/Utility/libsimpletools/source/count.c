@@ -1,4 +1,4 @@
-/**
+/*
  * @file count.c
  *
  * @author Andy Lindsay

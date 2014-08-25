@@ -6,6 +6,7 @@ source/cognum.c
 source/count.c
 source/dac.c
 source/eeprom_init.c
+source/eeprom_initSclDrive.c
 source/eeprom_getByte.c
 source/eeprom_getFloat.c
 source/eeprom_getInt.c
@@ -53,7 +54,7 @@ source/toggle.c
 source/wait.c
 simpletools.h
 >compiler=C
->memtype=cmm main ram compact
+>memtype=lmm main ram
 >optimize=-Os
 >-m32bit-doubles
 >-Wall

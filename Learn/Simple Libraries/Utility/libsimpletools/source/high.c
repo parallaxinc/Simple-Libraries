@@ -1,4 +1,4 @@
-/**
+/*
  * @file high.c
  *
  * @author Andy Lindsay

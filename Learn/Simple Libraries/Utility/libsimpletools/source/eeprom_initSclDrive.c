@@ -1,11 +1,11 @@
 /*
- * @file eeprom.c
+ * @file eeprom_initDrive.c
  *
  * @author Andy Lindsay
  *
- * @version 0.87
+ * @version 0.50
  *
- * @copyright Copyright (C) Parallax, Inc. 2013.  See end of file for
+ * @copyright Copyright (C) Parallax, Inc. 2014.  See end of file for
  * terms of use (MIT License).
  *
  * @brief eeprom functions source, see simpletools.h for documentation.
@@ -19,16 +19,10 @@
 i2c *st_eeprom;
 int st_eeInitFlag;
 
-void ee_init();
-
-void ee_putByte(unsigned char value, int addr)
+void ee_config(int sclPin, int sdaPin, int sclDrive)
 {
-  if(!st_eeInitFlag) ee_init();
-  // unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr&0xFF)};
-  // int n = i2c_out(st_eeprom, 0xA0, addrArray, 2, &value, 1);
-  // int n = i2c_out(st_eeprom, 0x50, addr, 2, &value, 1);
-  i2c_out(st_eeprom, 0x50, addr, 2, &value, 1);
-  while(i2c_poll(st_eeprom, 0xA0)); 
+  st_eeprom = i2c_newbus(sclPin, sdaPin, sclDrive);
+  st_eeInitFlag = 1;
 }
 
 /**

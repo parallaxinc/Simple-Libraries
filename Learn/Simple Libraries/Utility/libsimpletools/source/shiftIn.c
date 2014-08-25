@@ -1,4 +1,4 @@
-/**
+/*
  * @file shiftIn.c
  *
  * @author Andy Lindsay

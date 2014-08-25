@@ -1314,6 +1314,29 @@ void ee_putFloat32(float value, int addr);
  */
 float ee_getFloat32(int addr);
 
+/**
+ * @brief Optional function for setting a custom EEPROM configuration.  Other
+ * ee_ functions automatically check if the EEPROM has been initialized, and 
+ * if not, they use default settings equivalent to ee_config(28, 29, 0).  This
+ * function can be called before any other ee_ functions to replace those 
+ * defaults with custom settings.    
+ *
+ * @warning: If you're going to call this function, make sure to do it before
+ * calling any other ee_ functions.  If one ee_ function gets called before this,
+ * it'll set up defaults, and this function cannot override them after they have
+ * been set.
+ *
+ * @param sclPin Propeller I/O pin connected to the EEPROM's SCL (serial
+ * clock) pin.
+ *
+ * @param sdaPin Propeller I/O pin connected to the EEPROM's SDA (serial
+ * data) pin.
+ *
+ * @param sclDrive Use 0 for standard design where the SCL pin has a pull-up
+ * resistor, or 1 if it does not have a pull-up and needs to be driven.
+ */
+void ee_config(int sclPin, int sdaPin, int sclDrive);
+
 
 
 /**

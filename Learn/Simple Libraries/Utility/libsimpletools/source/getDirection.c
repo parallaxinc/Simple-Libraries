@@ -1,4 +1,4 @@
-/**
+/*
  * @file getDirection.c
  *
  * @author Andy Lindsay

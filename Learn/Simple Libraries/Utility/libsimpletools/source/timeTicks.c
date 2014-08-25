@@ -1,4 +1,4 @@
-/**
+/*
  * @file timeTicks.c
  *
  * @author Andy Lindsay

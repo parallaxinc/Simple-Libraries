@@ -1,4 +1,4 @@
-/**
+/*
  * @file pulseOut.c
  *
  * @author Andy Lindsay
