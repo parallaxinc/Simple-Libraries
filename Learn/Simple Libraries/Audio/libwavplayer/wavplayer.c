@@ -36,8 +36,8 @@ static volatile unsigned int settingUp = 0;
 static volatile unsigned int volume = 0;
 static volatile const unsigned int BUF_SIZE = 512;
 
-static unsigned int stack[(160 + (50 * 4)) / 4];
-static unsigned int stack2[(160 + (200 * 4)) / 4];
+static unsigned int stack[44 + 28];
+static unsigned int stack2[44 + 128];
 
 void play(void);
 void wav_reader(void *par);
