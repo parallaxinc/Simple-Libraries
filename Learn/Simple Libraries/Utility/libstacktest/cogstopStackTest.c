@@ -46,7 +46,7 @@ int cogstop_stackTest(int cog, void *stack)
     }    
     n++;  
   }    
-  
+  if(stacksize < 0) stacksize = 0;
   return stacksize; 
 }
 
