@@ -54,7 +54,7 @@ source/toggle.c
 source/wait.c
 simpletools.h
 >compiler=C
->memtype=lmm main ram
+>memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-Wall

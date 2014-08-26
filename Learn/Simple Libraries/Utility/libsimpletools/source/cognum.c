@@ -14,7 +14,7 @@
 
 int cog_num(int *coginfo)
 {
-  int cog = *coginfo;
+  int cog = *coginfo - 1;
   return cog;
 }
 
