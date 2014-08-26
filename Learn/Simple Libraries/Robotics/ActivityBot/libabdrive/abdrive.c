@@ -83,7 +83,7 @@ static volatile int cntrRval;
 
 static int cog = 0;
 //static int servoCog2 = 0;
-static unsigned int stack[(160 + (125 * 4)) / 4];
+static unsigned int stack[44 + 52];
 //static unsigned int servoStack[(160 + (150 * 4)) / 4];
 
 

@@ -1,6 +1,4 @@
 libabdrive.c
-abdrive.c -> abdrive.c
-abdrive.h -> abdrive.h
 trimset.c
 goto.c
 getticks.c
@@ -8,6 +6,8 @@ servoPins.c
 ramp.c
 debug.c
 Display.c
+abdrive.c
+abdrive.h
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
