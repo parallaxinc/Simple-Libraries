@@ -685,7 +685,7 @@ void cal_drive_speeds(int left, int right)        // driveSpeeds function
   */
   if(!cog)
   {
-    cog = 1 + cogstart(&cal_encoders, NULL, stack, sizeof(stack));
+    cog = 1 + cogstart(cal_encoders, NULL, stack, sizeof(stack));
   }
 }
 

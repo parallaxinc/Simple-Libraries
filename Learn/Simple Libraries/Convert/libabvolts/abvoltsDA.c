@@ -34,7 +34,7 @@ void da_out(int channel, int daVal)
 
   if(!cog)
   {
-    cog = cogstart(&da_ctr_cog, NULL,
+    cog = cogstart(da_ctr_cog, NULL,
                   stack, sizeof(stack)) + 1;
   }
 

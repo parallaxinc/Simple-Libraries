@@ -22,7 +22,7 @@ int gps_open(int gpsSin, int gpsSout, int gps_baud)   // Open reader, start read
 {
 
   gps_stopping = 0;
-  gps_cog = cogstart(&gps_run, NULL, gps_stack, sizeof(gps_stack));
+  gps_cog = cogstart(gps_run, NULL, gps_stack, sizeof(gps_stack));
 
   if(gps_cog < 0)
   {

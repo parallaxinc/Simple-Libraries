@@ -21,7 +21,7 @@ void ms_timer(void *par);
 int mstime_start()
 {
   mstime_stop();
-  cog = 1 + cogstart(&ms_timer, NULL, stack, sizeof(stack));
+  cog = 1 + cogstart(ms_timer, NULL, stack, sizeof(stack));
 }
 
 void mstime_stop()

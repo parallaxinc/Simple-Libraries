@@ -191,7 +191,7 @@ int servo_start(void)                                // Take cog & start servo p
   lockID = locknew();                                // Check out a lock
   if(lockID == -1) return -1;                        // Return -2 if no locks
   servo_stop();                                      // Stop in case cog is running
-  servoCog = cogstart(&servo, NULL, stack,           // Launch servo into new cog
+  servoCog = cogstart(servo, NULL, stack,           // Launch servo into new cog
              sizeof(stack)) + 1;
   return servoCog;
 }

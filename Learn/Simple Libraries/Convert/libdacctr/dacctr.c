@@ -68,7 +68,7 @@ int dac_start(dacmem mem, int sampleRate, dac* da0, dac* da1)
     da1->daCh = 1;
     if(da1->daBitX < 0) da1->daBitX = - da1->daBitX;
   }
-  int mycog = cogstart(&dac_loop, &temp, mem.stack, sizeof(mem.stack));
+  int mycog = cogstart(dac_loop, &temp, mem.stack, sizeof(mem.stack));
   if(da0) while(da0->daCog == -1);
   if(da1) while(da1->daCog == -1); 
   printf("done!\n");
