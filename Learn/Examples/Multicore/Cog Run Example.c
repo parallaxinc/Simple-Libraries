@@ -12,7 +12,7 @@ void blink();                                 // Forward declaration
 
 int main()                                    // Main function
 {
-  cog_run(&blink, 10);                        // Run blink in other cog
+  cog_run(blink, 128);                        // Run blink in other cog
 }
 
 void blink()                                  // Blink function for other cog

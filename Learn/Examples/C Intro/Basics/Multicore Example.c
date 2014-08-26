@@ -12,7 +12,7 @@
 void adder(void *par);                        // Forward declaration
 
 static volatile int t, n;                     // Global vars for cogs to share
-unsigned int stack[40 + 25];                  // Stack vars for other cog
+unsigned int stack[44 + 128];                 // Stack vars for other cog
 
 int main()                                    // main function
 {
@@ -20,7 +20,7 @@ int main()                                    // main function
   n = 5000;
 
   // Launch adder function into another cog (processor).
-  cogstart(&adder, NULL, stack, sizeof(stack));
+  cogstart(adder, NULL, stack, sizeof(stack));
 
   // Watch what the other cog is doing to the value of n.
   while(1)

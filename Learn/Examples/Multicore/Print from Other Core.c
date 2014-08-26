@@ -16,7 +16,7 @@ int main()                                  // Main function
   print("Cog 0 has the Talking Stick first... \n");   
 
   simpleterm_close();                       // Close SimpleIDE Terminal for this core
-  otherCog = cog_run(&other, 10);           // Run other function in another core
+  otherCog = cog_run(other, 128);           // Run other function in another core
 }
 
 void other()                                // other function definition
