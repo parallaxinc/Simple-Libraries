@@ -63,6 +63,7 @@ int cog_endStackTest(int *coginfo)
     cogstop(cog);
     free(coginfo); 
   }   
+  if(stacksize < 0) stacksize = 0;
   return stacksize; 
 }
 
