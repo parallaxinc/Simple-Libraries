@@ -17,7 +17,7 @@ volatile int dt;                              // Declare dt for both cogs
 int main()                                    // Main function
 {
   dt = 100;                                   // Set value of dt to 100
-  cog = cog_run(&blink, 10);                  // Run blink in other cog
+  cog = cog_run(blink, 128);                  // Run blink in other cog
   pause(2000);                                // Let run for 2 s
 
   dt = 50;                                    // Update value of dt

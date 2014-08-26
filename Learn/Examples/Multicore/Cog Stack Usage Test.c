@@ -30,7 +30,7 @@ void myCog()                                 // Function running in other cog
   int n = 0;                                 // Initialize counting variable
   while(1)                                   // Function's loop
   {
-    array[n%elements] = n++;                 // Add 1 to array element add 1
+    array[n % elements] = n++;               // Add 1 to array cell, add 1 to n
     pause(10);                               // Wait 10 ms before repeat
   }
 }

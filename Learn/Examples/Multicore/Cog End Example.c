@@ -13,7 +13,7 @@ void blink();                                  // Forward declaration
 
 int main()                                     // Main function
 {
-  int *cog = cog_run(&blink, 10);              // Run blink in other cog
+  int *cog = cog_run(blink, 128);              // Run blink in other cog
   pause(3000);                                 // Wait while other cog blinks LED
   cog_end(cog);                                        
 }
