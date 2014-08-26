@@ -37,7 +37,7 @@ int int_fraction(int a, int b, int shift);
 
 void square_wave(int pin, int channel, int freq)
 {
-  if(!cog)     cog = cogstart(&square_wave_cog, NULL,
+  if(!cog)     cog = cogstart(square_wave_cog, NULL,
                    stack, sizeof(stack)) + 1;
 
   int ctr, frq;

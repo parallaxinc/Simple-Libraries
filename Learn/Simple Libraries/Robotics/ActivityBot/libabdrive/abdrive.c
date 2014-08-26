@@ -409,7 +409,7 @@ void set_drive_speed(int left, int right)
   if(!cog)
   {
     /////printf("\n\n!!!!! Starting COG !!!!!!\n\n");
-    cog = 1 + cogstart(&encoders, NULL, stack, sizeof(stack)-1);
+    cog = 1 + cogstart(encoders, NULL, stack, sizeof(stack)-1);
   }  
 }
 

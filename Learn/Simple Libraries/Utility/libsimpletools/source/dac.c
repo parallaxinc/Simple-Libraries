@@ -38,7 +38,7 @@ void dac_ctr(int pin, int channel, int dacVal)
   if(dacCtrBits == 0) dacCtrBits = 8;
   int dacBitX = 32 - dacCtrBits;
   
-  if(!cog) cog = cogstart(&dac_ctr_cog, NULL,
+  if(!cog) cog = cogstart(dac_ctr_cog, NULL,
                           stack, sizeof(stack)) + 1;
   if(!channel)
   {

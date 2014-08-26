@@ -35,7 +35,7 @@ int pwm_start(unsigned int cycleMicroseconds)
 {
   //us = CLKFREQ/1000000;
   tCycle = cycleMicroseconds * st_usTicks;
-  pwcog = cogstart(&pw, NULL, pwstack, sizeof(pwstack)) + 1;  
+  pwcog = cogstart(pw, NULL, pwstack, sizeof(pwstack)) + 1;  
   return pwcog;
 }
 

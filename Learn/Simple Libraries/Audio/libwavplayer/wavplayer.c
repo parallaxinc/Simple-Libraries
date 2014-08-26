@@ -58,7 +58,7 @@ void wav_play(const char* wavFilename)
   if(!volume) wav_volume(7);
   wav_stop();
   track = wavFilename;
-  cog2 = cogstart(&wav_reader, NULL, stack2, sizeof(stack2)) + 1;
+  cog2 = cogstart(wav_reader, NULL, stack2, sizeof(stack2)) + 1;
   waitcnt(CLKFREQ/20 + CNT);
   //while(1);
 }
@@ -188,7 +188,7 @@ void wav_reader(void *par)
     fread(wavDacBufferH, 1, 512, fp);
        
     if(!cog)
-      cog = cogstart(&audio_dac, NULL, stack, sizeof(stack)) + 1;
+      cog = cogstart(audio_dac, NULL, stack, sizeof(stack)) + 1;
     
     int reps = (fileSize-1)/1024;
     playing = 1;
