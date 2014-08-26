@@ -16,7 +16,7 @@
 
 int cog_endStackTest(int *coginfo)
 {
-  int cog = *coginfo;
+  int cog = *coginfo - 1;
   int *addr = coginfo; 
   int stacksize = 0;
 
@@ -53,16 +53,21 @@ int cog_endStackTest(int *coginfo)
   
   //print("stacksize = %d ints\n", stacksize);
 
-  if(cog == cogid())
+  if(cog > -1)
   {
-    free(coginfo); 
-    cogstop(cog);
-  }
-  else
-  {
-    cogstop(cog);
-    free(coginfo); 
-  }   
+    if(cog == cogid())
+    {
+      free(coginfo); 
+      cogstop(cog);
+    }
+    else
+    {
+      cogstop(cog);
+      free(coginfo); 
+    }    
+  }    
+  *coginfo = 0;
+
   if(stacksize < 0) stacksize = 0;
   return stacksize; 
 }

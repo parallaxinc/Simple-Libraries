@@ -41,11 +41,11 @@ int *cog_runStackTest(void (*function)(void *par), int stacksize)
     n++;
   }
 
-  *addr = cogstart(function, NULL, addr + cogRunTestOverhead/sizeof(int), stackBytes - cogRunTestOverhead);
-  if(*addr == -1)
+  *addr = 1 + cogstart(function, NULL, addr + cogRunTestOverhead/sizeof(int), stackBytes - cogRunTestOverhead);
+  if(*addr == 0)
   {
     free(addr);
-    return (int*) -1;
+    return (int*) 0;
   }
 
   //print("\n\n---[ cog_run ]--- \n\n");

@@ -14,17 +14,21 @@
 
 void cog_end(int *coginfo)
 {
-  int cog = *coginfo;
-  if(cog == cogid())
+  int cog = *coginfo - 1;
+  if(cog > -1)
   {
-    free(coginfo); 
-    cogstop(cog);
-  }
-  else
-  {
-    cogstop(cog);
-    free(coginfo); 
+    if(cog == cogid())
+    {
+      free(coginfo); 
+      cogstop(cog);
+    }
+    else
+    {
+      cogstop(cog);
+      free(coginfo); 
+    }    
   }    
+  *coginfo = 0;
 }
 
 
