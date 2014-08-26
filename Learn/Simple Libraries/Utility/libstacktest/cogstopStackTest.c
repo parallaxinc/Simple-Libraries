@@ -15,6 +15,7 @@
 
 int cogstop_stackTest(int cog, void *stack)
 {
+  cogstop(cog);
   int *addr = (int*)stack; 
   int stacksize = 0;
 
