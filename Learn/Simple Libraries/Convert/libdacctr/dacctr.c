@@ -50,7 +50,7 @@ int dac_start(dacmem mem, int sampleRate, dac* da0, dac* da1)
 {
   daca temp;
   
-  printf("%d   %d\n", da0, da1);
+  // print("%d   %d\n", da0, da1);
   
   temp.daDt = CLKFREQ/sampleRate;
   
@@ -71,7 +71,7 @@ int dac_start(dacmem mem, int sampleRate, dac* da0, dac* da1)
   int mycog = cogstart(dac_loop, &temp, mem.stack, sizeof(mem.stack));
   if(da0) while(da0->daCog == -1);
   if(da1) while(da1->daCog == -1); 
-  printf("done!\n");
+  // print("done!\n");
   return mycog;
 }
 

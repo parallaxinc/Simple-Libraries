@@ -63,8 +63,8 @@ void square_wave(int pin, int channel, int freq)
       ctrb = 0;
       frqb = 0;
     }
-    //printf("ctrb = %s\n", itoa(ctrb, s, 2));
-    //printf("frqb = %s\n", itoa(frqb, s, 2));
+    //print("ctrb = %s\n", itoa(ctrb, s, 2));
+    //print("frqb = %s\n", itoa(frqb, s, 2));
   }  
 }
 

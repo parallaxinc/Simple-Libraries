@@ -694,8 +694,8 @@ void cal_drive_display(void)
 {
   static int ticksLprev;
   static int ticksRprev;
-  //printf("ticksL = %d, ticksR = %d\n",
-  //        ticksL - ticksLprev, ticksR - ticksRprev);
+  //print("ticksL = %d, ticksR = %d\n",
+  //       ticksL - ticksLprev, ticksR - ticksRprev);
   ticksLprev = ticksL;
   ticksRprev = ticksR;
 }

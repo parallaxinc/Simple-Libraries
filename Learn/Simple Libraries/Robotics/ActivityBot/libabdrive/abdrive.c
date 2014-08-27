@@ -300,7 +300,7 @@ void interpolate(int *ltmp, int *rtmp)
   int left = *ltmp;
   int right = *rtmp;
 
-  /////printf("\netpsL = %d, etpsR = %d\n\n", etpsL, etpsR);
+  /////print("\netpsL = %d, etpsR = %d\n\n", etpsL, etpsR);
 
   int listep;
   int limit;
@@ -408,7 +408,7 @@ void set_drive_speed(int left, int right)
 
   if(!cog)
   {
-    /////printf("\n\n!!!!! Starting COG !!!!!!\n\n");
+    /////print("\n\n!!!!! Starting COG !!!!!!\n\n");
     cog = 1 + cogstart(encoders, NULL, stack, sizeof(stack)-1);
   }  
 }

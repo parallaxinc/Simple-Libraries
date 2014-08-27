@@ -19,8 +19,8 @@ int add_driver(_Driver *driverAddr)
   {
     if(_driverlist[i] == 0) break;
   }
-  //printf("i = %d", i);
-  //printf("\n");
+  //print("i = %d", i);
+  //print("\n");
   _driverlist[i] = driverAddr;
   return i;
 }
