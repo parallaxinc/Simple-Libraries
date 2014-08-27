@@ -20,7 +20,7 @@
 void pulse_outCtr(int pin, int time);                 // pulseOut function definition
 
 
-static unsigned int stack[(160 + (64 * 4)) / 4];      // Stack          
+static unsigned int stack[44 + 24];                   // Stack
 
 static volatile int p[14] = {-1, -1, -1, -1,          // I/O pins
                      -1, -1, -1, -1, -1, -1, 

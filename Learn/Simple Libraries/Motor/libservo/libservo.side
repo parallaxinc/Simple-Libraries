@@ -1,6 +1,6 @@
 libservo.c
-servo.h -> servo.h
-servo.c -> servo.c
+servo.c
+servo.h
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
