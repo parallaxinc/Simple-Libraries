@@ -20,7 +20,7 @@
 void pulse_outCtrAux(int pin, int time);             // Forward declaration
 
 
-static unsigned int stack[(160 + (64 * 4)) / 4];     // Stack          
+static unsigned int stack[44 + 24];                   // Stack
 
 static volatile int p[14] = {-1, -1, -1, -1,         // I/O pins
                      -1, -1, -1, -1, -1, -1, 
