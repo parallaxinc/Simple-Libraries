@@ -24,7 +24,7 @@
 #define CTR_PLL (0b10 << 26);
 #endif
 
-static unsigned int stack[(160 + (50*4)) / 4];       
+static unsigned int stack[44 + 20];       
 
 static volatile unsigned int cog = 0;
 static volatile int ctra, ctrb, frqa, frqb;
