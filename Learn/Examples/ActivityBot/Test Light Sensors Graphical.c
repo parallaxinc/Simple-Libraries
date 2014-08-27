@@ -14,7 +14,7 @@ int main()
   print("lightLeft   lightRight  ndiff\n\n\n\n");
   print("|------------------------|------------------------|\n");              
   print("-100                     0                      100\n");
-  char s[51] = {"                                                   "};
+  char s[51] = {"                                                  "};
 
   while(1)
   {
