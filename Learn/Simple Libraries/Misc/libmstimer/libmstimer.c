@@ -20,7 +20,7 @@ int main()
   while(1)
   {
     int time = mstime_get();
-    printf("time = %d\n", time);                    
+    print("time = %d\n", time);                    
     waitcnt(t += dt);
   }    
 }

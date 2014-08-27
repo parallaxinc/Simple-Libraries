@@ -24,8 +24,8 @@ int main()
     int angle = mx_rotation(5, 6);
     int xtilt = mx_tilt_x(5);
     
-    printf("%cx = %d, y = %d, angle = %d, x tilt = %d%c\n", 
-            HOME, x, y, angle, xtilt, CLREOL);
+    print("%cx = %d, y = %d, angle = %d, x tilt = %d%c\n", 
+           HOME, x, y, angle, xtilt, CLREOL);
     pause(200);    
   }
 */    

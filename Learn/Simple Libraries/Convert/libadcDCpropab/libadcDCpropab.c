@@ -24,11 +24,11 @@ int main()                                    // Main function
     if(i == 4)                                // After index = 3
     {
       i = 0;                                  // Reset to zero
-      printf("%c", HOME);                     // Cursor home
+      print("%c", HOME);                      // Cursor home
     }  
-    printf("adc[%d] = %d%c\n", i,             // Display raw ADC
+    print("adc[%d] = %d%c\n", i,              // Display raw ADC
             adc_in(i), CLREOL); 
-    printf("volts[%d] = %f%c\n\n",            // Display volts
+    print("volts[%d] = %f%c\n\n",             // Display volts
            i, adc_volts(i), CLREOL); 
     i++;                                      // Add 1 to index
     pause(100);                               // Wait 1/10 s

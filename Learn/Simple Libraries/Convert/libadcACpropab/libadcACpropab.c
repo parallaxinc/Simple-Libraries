@@ -27,7 +27,7 @@ int main()                                    // Main function
   int i = 0;                                  // Index variable
   while(1)                                    // Loop repeats indefinitely
   {
-    printf("adcVal[%d] = %d%c\n", i,          // Display raw ADC
+    print("adcVal[%d] = %d%c\n", i,          // Display raw ADC
             adcVal[i], CLREOL); 
     pause(100);                               // Wait 1/10 s
 
@@ -35,7 +35,7 @@ int main()                                    // Main function
     if(i == 4)                                // After index = 3
     {
       i = 0;                                  // Reset to zero
-      printf("%c", HOME);                     // Cursor home
+      print("%c", HOME);                     // Cursor home
     }  
   }
 }

@@ -97,7 +97,7 @@ typedef struct DacAddr
 
 typedef struct DacCogMemory
 {
-  unsigned int stack[(160 + 200) / 4];
+  unsigned int stack[44 + 20];
 } dacmem;
 
 /**

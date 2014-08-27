@@ -28,11 +28,11 @@ int sd_mount(int doPin, int clkPin, int diPin, int csPin)
   uint32_t mountErr = dfs_mount(mountParams);
   if (mountErr)
   {
-      //printf("Mount error: %d\n", mountErr);
+      //print("Mount error: %d\n", mountErr);
       return mountErr;
   }
 
-//  printf("done.\n\n");
+//  print("done.\n\n");
   add_driver(&_FileDriver);
   
   return 0;

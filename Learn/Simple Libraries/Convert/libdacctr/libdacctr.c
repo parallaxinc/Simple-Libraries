@@ -45,7 +45,7 @@ int main()
   //int myCog = dac_start(mem, 44100, 0, &p3dac);
   //int myCog = dac_start(mem, 44100, &p4dac, 0);
   //int myCog = dac_start(mem, 44100, 0, &p4dac);
-  //printf("tf = %d  tf = %d, swap = %d\n", tf, ti, swap);
+  //print("tf = %d  tf = %d, swap = %d\n", tf, ti, swap);
   
   //pause(10);
   
@@ -55,7 +55,7 @@ int main()
   
   pause(10);
   
-  //printf("p4dac.daCog = %d, p3dac.daCog = %d\n", p4dac.daCog, p3dac.daCog);
+  //print("p4dac.daCog = %d, p3dac.daCog = %d\n", p4dac.daCog, p3dac.daCog);
   
   ta = CNT;
   while(1)
