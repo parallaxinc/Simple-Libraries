@@ -22,7 +22,7 @@ void dac_ctr_cog(void *par);
 #define DUTY_SE (0b110 << 26)
 #endif
 
-static unsigned int stack[(160 + (50*4)) / 4];       
+static unsigned int stack[44 + 16];       
 
 static int dacCtrBits;
 static unsigned int cog;
