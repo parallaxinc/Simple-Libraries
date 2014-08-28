@@ -1,5 +1,5 @@
 /*
-  EEPROM Data.side
+  EEPROM Data.c
 
   Write values and text to the Proepller Chip's dedicated EEPROM, and then
   read back and display.

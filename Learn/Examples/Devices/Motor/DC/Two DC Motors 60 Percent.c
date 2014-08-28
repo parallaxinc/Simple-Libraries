@@ -2,6 +2,7 @@
   Two DC Motors 60 Percent.c
 
   Drive a pair of DC motors at 6/10 of full speed.
+  
   http://learn.parallax.com/propeller-c-tutorials
 */
 
@@ -13,7 +14,7 @@ int main()
   set_outputs(5, 2, 0b0000);
   set_directions(5, 2, 0b1111);
 
-  // Start PWM process.  Period 1 ms, Freq 1 kHz
+  // Start PWM process.  Frequency = 1 kHz -> pulse period = 1 ms.
   pwm_start(1000);                            
   
   // Turn motors counterclockwise for 3 s.

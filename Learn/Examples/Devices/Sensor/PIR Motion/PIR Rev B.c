@@ -1,7 +1,7 @@
 /*
   PIR Rev B.c
   
-  http://learn.parallax.com/propeller-c-simple-devices
+  http://learn.parallax.com/propeller-c-simple-devices/pir-motion-sensor
 
   Connect:
     OUT to P5

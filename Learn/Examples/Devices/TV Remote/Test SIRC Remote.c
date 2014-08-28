@@ -1,7 +1,7 @@
 /*
   Test SIRC Remote.c
 
-  http://learn.parallax.com/propeller-c-tutorials
+  http://learn.parallax.com/propeller-c-simple-devices/ir-receiver-and-remote
 
   Connect 38 kHz IR receiver to Propeller P10
   Decodes button presses on Sony-compatible IR remote 

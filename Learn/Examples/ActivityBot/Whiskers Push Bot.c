@@ -3,7 +3,7 @@
   
   Push the whiskers to make the ActivityBot back up.
   
-  http://learn.parallax.com/activitybot
+  http://learn.parallax.com/activitybot/whisker-wheel-response
 */
 
 #include "simpletools.h"                      // Include simpletools header

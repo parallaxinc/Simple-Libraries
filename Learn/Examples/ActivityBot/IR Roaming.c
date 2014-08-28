@@ -3,7 +3,7 @@
 
   Use IR LED and IR receiver pairs as object detectors for robot roaming.
 
-  http://learn.parallax.com/activitybot
+  http://learn.parallax.com/activitybot/roaming-infrared-flashlights
 */
 
 #include "simpletools.h"                        // Library includes

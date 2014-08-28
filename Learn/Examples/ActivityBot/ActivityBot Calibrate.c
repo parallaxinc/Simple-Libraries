@@ -3,7 +3,7 @@
 
   Calibrate the ActivityBot's servos and encoders
 
-  http://learn.parallax.com/activitybot
+  http://learn.parallax.com/activitybot/calibrate-your-activitybot
 */
 
 #include "simpletools.h"

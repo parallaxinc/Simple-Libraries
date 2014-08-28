@@ -1,7 +1,7 @@
 /* 
   Forward Stop Face Right.c
 
-  http://learn.parallax.com/activitybot
+  http://learn.parallax.com/activitybot/go-certain-distances
 */
 
 #include "simpletools.h"

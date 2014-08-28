@@ -5,7 +5,7 @@
   and executes maneuvers. Requires abdrive 0.5.5 from
   ActivityBot library 2013-10-31 or later.
 
-  http://learn.parallax.com/activitybot
+  http://learn.parallax.com/activitybot/text-file-maneuver-list
 */
 
 #include "simpletools.h"                     // Library includes

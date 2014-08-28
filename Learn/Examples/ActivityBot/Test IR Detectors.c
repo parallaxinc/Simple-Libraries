@@ -3,7 +3,7 @@
 
   Test IR LEDs and IR receivers used together as object detectors.
 
-  http://learn.parallax.com/activitybot
+  http://learn.parallax.com/activitybot/test-ir-sensor-circuits
 */
 
 #include "simpletools.h"                        // Include simpletools

@@ -1,7 +1,10 @@
 /* 
   Speeds for Navigation.c
+  
+  Navigate by making your ActivityBot go certain speeds for certain amounts
+  of time.
 
-  http://learn.parallax.com/activitybot
+  http://learn.parallax.com/activitybot/set-certain-speeds
 */
 
 

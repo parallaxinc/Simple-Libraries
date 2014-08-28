@@ -3,8 +3,7 @@
   
   Test the Parallax MMA7455L 3 Axis Accelerometer module.
 
-  http://learn.parallax.com/propeller-c-simple-devices/mma7455-three-
-  axis-accelerometer
+  http://learn.parallax.com/propeller-c-simple-devices/mma7455-three-axis-accelerometer
 */
 
 #include "simpletools.h"                      // Include simpletools header

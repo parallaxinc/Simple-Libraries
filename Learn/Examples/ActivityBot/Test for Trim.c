@@ -3,7 +3,7 @@
 
   Test and adjust trim for servos and encoders
 
-  http://learn.parallax.com/activitybot
+  http://learn.parallax.com/activitybot/test-and-tune-your-activitybot
 */
 
 #include "simpletools.h"
