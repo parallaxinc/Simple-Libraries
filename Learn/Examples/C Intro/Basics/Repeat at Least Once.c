@@ -10,7 +10,7 @@
   done!"), n will store 5 because the code in the do...loop was executed
   once.
   
-  http://learn.parallax.com/propeller-c-tutorials
+  http://learn.parallax.com/propeller-c-start-simple
 */
 
 #include "simpletools.h"                      // Include simpletools header

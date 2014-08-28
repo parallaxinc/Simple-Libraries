@@ -3,7 +3,7 @@
   
   Measure X and Y-axis acceleration with Memsic 2125 accelerometer.
   
-  learn.parallax.com/propeller-c-simple-devices/tilt-and-acceleration-mx2125
+  http://learn.parallax.com/propeller-c-simple-devices/tilt-and-acceleration-mx2125
 */
 
 #include "simpletools.h"                      // Include simpletools header

@@ -1,7 +1,7 @@
 /*
   Test Light Sensors Graphical.c
 
-  http://learn.parallax.com/activitybot
+  http://learn.parallax.com/activitybot/using-measurements
 */
 
 #include "simpletools.h"

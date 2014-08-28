@@ -4,7 +4,7 @@
   Go forward until object detected by whisker(s).  Then, back up, turn
   and go a new direction.
 
-  http://learn.parallax.com/activitybot
+  http://learn.parallax.com/activitybot/roaming-whiskers
 */
 
 #include "simpletools.h"                        // Include simpletools library

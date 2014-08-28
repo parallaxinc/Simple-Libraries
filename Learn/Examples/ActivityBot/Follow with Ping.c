@@ -3,7 +3,7 @@
 
   Maintain a constant distance between ActivityBot and object.
 
-  http://learn.parallax.com/activitybot
+  http://learn.parallax.com/activitybot/follow-objects-ultrasound
 */
 
 #include "simpletools.h"                      // Include simpletools header

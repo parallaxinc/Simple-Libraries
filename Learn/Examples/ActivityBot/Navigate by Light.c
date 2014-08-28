@@ -1,7 +1,7 @@
 /*
   Navigate by Light.c
 
-  http://learn.parallax.com/activitybot
+  http://learn.parallax.com/activitybot/roaming-light-sensors
 */
 
 #include "simpletools.h"

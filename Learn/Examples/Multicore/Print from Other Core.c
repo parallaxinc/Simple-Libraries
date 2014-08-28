@@ -3,7 +3,7 @@
   
   Use print statement in a function running in a different cog.
 
-  http://learn.parallax.com/multicore-approaches
+  http://learn.parallax.com/multicore-approaches/print-different-core
 */
 
 #include "simpletools.h"                    // Library include

@@ -1,5 +1,5 @@
 /*
-  EEPROM Program Modes.side
+  EEPROM Program Modes.c
 
   Use EEPROM to advance modes with each press/release of the reset button.
   Also advances with each power-off, power-on cycle.  

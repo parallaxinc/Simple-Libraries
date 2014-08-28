@@ -3,7 +3,7 @@
  
   Display whisker states in terminal.  1 = not pressed, 0 = pressed.
 
-  http://learn.parallax.com/activitybot
+  http://learn.parallax.com/activitybot/add-whisker-indicator-lights
 */
 
 #include "simpletools.h"                      // Include simpletools header

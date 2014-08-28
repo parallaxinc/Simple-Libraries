@@ -1,7 +1,7 @@
 /*
   Test Light Sensors.c
 
-  http://learn.parallax.com/activitybot
+  http://learn.parallax.com/activitybot/build-light-sensor-circuits
 */
 
 #include "simpletools.h"

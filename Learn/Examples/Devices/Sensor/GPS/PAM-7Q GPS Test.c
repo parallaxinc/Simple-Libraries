@@ -4,7 +4,7 @@
   Test PAM-7Q GPS module by detecting and displaying GPS fix status, latitude
   and longitude measurements.
   
-  http://learn.parallax.com/propeller-c-simple-devices/sense-global-position
+  http://learn.parallax.com/propeller-c-simple-devices/
 */
 
 #include "simpletools.h"                      // Include libraries

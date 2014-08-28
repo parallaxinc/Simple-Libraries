@@ -7,7 +7,7 @@
   If not, encoders are not seeing wheel spokes.
   Go to Extras/Troubleshooting section of tutorial.
 
-  http://learn.parallax.com/activitybot
+  http://learn.parallax.com/activitybot/test-encoder-connections
 */
 
 #include "simpletools.h"

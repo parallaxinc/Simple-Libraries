@@ -3,7 +3,7 @@
   
   Measure rotation.  Assumes MX2125 is being held vertically and rotated.   
   
-  learn.parallax.com/propeller-c-simple-devices/tilt-and-acceleration-mx2125
+  http://learn.parallax.com/propeller-c-simple-devices/tilt-and-acceleration-mx2125
 */
 
 #include "simpletools.h"                      // Include simpletools header

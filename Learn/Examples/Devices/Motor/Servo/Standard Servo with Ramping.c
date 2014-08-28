@@ -4,7 +4,7 @@
   Moves servo to 0, 90 and 180 degrees.  Uses ramping to gradually move the 
   servo to the target.
   
-  learn.parallax.com/propeller-c-tutorials  
+  http://learn.parallax.com/propeller-c-simple-devices/standard-servo
 */
 
 #include "simpletools.h"                      // Include simpletools header

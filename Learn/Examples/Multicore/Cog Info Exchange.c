@@ -5,7 +5,7 @@
   The main function in cog 0 changes the value; and it affects the blink function's
   rate running in cog 1.
 
-  http://learn.parallax.com/multicore-approaches
+  http://learn.parallax.com/multicore-approaches/cores-sharing-data
 */
 
 #include "simpletools.h"                      // Library include

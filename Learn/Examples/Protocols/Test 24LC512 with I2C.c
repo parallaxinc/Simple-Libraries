@@ -3,7 +3,7 @@
 
   Test writes data to I2C EEPROM, then reads it back and displays it.   
   
-  http://learn.parallax.com/propeller-c-simple-protocols
+  http://learn.parallax.com/propeller-c-simple-protocols/diy-i2c
 */
 
 #include "simpletools.h"                      // Include simpletools header
