@@ -4,6 +4,11 @@
   Test PAM-7Q GPS module by detecting and displaying GPS fix status, latitude
   and longitude measurements.
   
+  VDD -- 3.3V
+  TXD -> P11
+  RXD <- P10
+  GND -- GND
+  
   http://learn.parallax.com/propeller-c-simple-devices/
 */
 
