@@ -32,7 +32,7 @@ int main(void)                                // main function
     s[31] = '\n';                             
     val = i * 10;                             // Emulate sensor reading
     sprint(s, "i = %d , val = %d ", i, val);  // Data to s array as characters
-    fwrite(s, 32, 1, fp);                     // Write line to file
+    fwrite(s, 1, 32, fp);                     // Write line to file
   }  
   
   fclose(fp);                                 // Close file
@@ -45,7 +45,7 @@ int main(void)                                // main function
   for(int i = -5; i < 15; i++)                // go back through
   {
     memset(s, '\0', 32);                      // All characters to zero
-    fread(s, 32, 1, fp);                      // Read the string
+    fread(s, 1, 32, fp);                      // Read the string
     sscan(s, "i = %d , val = %d ", &idx, &val);  // String values -> variables
     print("idx = %d, val = %d \n", idx, val);    // Print variables
   }  
