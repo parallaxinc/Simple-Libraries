@@ -36,6 +36,10 @@
  * @par Memory Models
  * Use with CMM or LMM. 
  *
+ * @version v0.91
+ * Add servo_disable, make servo, servo_start, and servo_Pulse private, and fix lock 
+ * bug that can occur if the process is stopped and then restarted. 
+ *
  * @version v0.90 
  *
  * @par Help Improve this Library
@@ -51,6 +55,7 @@ extern "C" {
 #endif
 
 #include "simpletools.h"
+
 
 /**
  * @brief Set Parallax Standard Servo to angle from 0 to 180 in tenths of
@@ -77,6 +82,7 @@ extern "C" {
  */
 int servo_angle(int pin, int degreeTenths);
 
+
 /**
  * @brief Set Parallax Continuous Rotation servo speed.
  *
@@ -102,6 +108,7 @@ int servo_angle(int pin, int degreeTenths);
  */
 int servo_speed(int pin, int speed);
 
+
 /**
  * @brief Set the maximum change in control signal a servo will change
  * in a given 20 ms time period.
@@ -121,6 +128,7 @@ int servo_speed(int pin, int speed);
  * @returns pin if successful, -4 if pin not found.
  */
 int servo_setramp(int pin, int stepSize);
+
 
 /**
  * @brief Sets servo control signal to servo connected to a given pin for 
@@ -163,6 +171,7 @@ int servo_setramp(int pin, int stepSize);
  */
 int servo_set(int pin, int time);
 
+
 /**
  * @brief Reports the number of microseconds of the pulse most recently sent
  * to a given servo.
@@ -175,22 +184,34 @@ int servo_set(int pin, int time);
  */
 int servo_get(int pin);
 
+
+/**
+ * @brief Temporarily or permanently disable a servo by stopping its control 
+ * signals, setting its I/O pin to input, and removing its settings from the servo
+ * library code's control list.  To re-enable a servo's position/speed control, 
+ * simply call servo_angle, servo_speed, or servo_set.  Make sure to use the I/O 
+ * pin of the servo you want to "wake back up".  If the servo had ramp settings,
+ * they will have to be restored too.
+ * 
+ * @details This function can be useful for an application that has to make the
+ * servo "relax", but either stopping its position or speed control.  It also 
+ * opens up another entry in the servo control list for applications that use
+ * more than 14 servos, but only use 14 or fewer at any given time.  For 
+ * applications that need to use more than 14 servos, add the servoAux library.
+ * 
+ * @param pin Number of the I/O pin the servo is connected to.
+ *
+ * @returns pin number = success, -1 = no cogs available, -2 = no locks available,
+ * -3 = all 14 servo slots already filled.
+ */
+int servo_disable(int pin);
+
+
 /**
  * @brief Stops the servo process and frees a cog.
  */
 void servo_stop(void);
 
-/**
- * @brief Starts the servo process and takes over a cog.
- *
- * @details You do not need to call this function from your code because
- * the servo_set function calls it if it detects that the servo cog has not
- * been started.
- *
- * @returns 1..8 if successful.  0 if no available cogs, -1 if no available
- * locks.
- */
-int servo_start(void);
 
 #if defined(__cplusplus)
 }

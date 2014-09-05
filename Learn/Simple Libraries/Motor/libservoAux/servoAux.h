@@ -36,6 +36,10 @@
  * @par Memory Models
  * Use with CMM or LMM. 
  *
+ * @version v0.91
+ * Add servo_disable, make servoAux, servoAux_start, and servoAux_Pulse private, and fix lock 
+ * bug that can occur if the process is stopped and then restarted. 
+ *
  * @version v0.90 
  *
  * @par Help Improve this Library
@@ -175,22 +179,35 @@ int servoAux_set(int pin, int time);
  */
 int servoAux_get(int pin);
 
+
+/**
+ * @brief Temporarily or permanently disable a servo by stopping its control 
+ * signals, setting its I/O pin to input, and removing its settings from the servo
+ * library code's control list.  To re-enable a servo's position/speed control, 
+ * simply call servoAux_angle, servoAux_speed, or servoAux_set.  Make sure to use 
+ * the I/O pin of the servo you want to "wake back up".  If the servo had ramp 
+ * settings, they will have to be restored too.
+ * 
+ * @details This function can be useful for an application that has to make the
+ * servo "relax", but either stopping its position or speed control.  It also 
+ * opens up another entry in the servo control list for applications that use
+ * more than 28 servos (assuming the application also uses the servo library
+ * for the first 14 servos and this for the second 14), but only use 28 or 
+ * fewer at any given time.  
+ * 
+ * @param pin Number of the I/O pin the servo is connected to.
+ *
+ * @returns pin number = success, -1 = no cogs available, -2 = no locks available,
+ * -3 = all 14 servo slots already filled.
+ */
+int servoAux_disable(int pin);
+
+
 /**
  * @brief Stops the servo process and frees a cog.
  */
 void servoAux_stop(void);
 
-/**
- * @brief Starts the servo process and takes over a cog.
- *
- * @details You do not need to call this function from your code because
- * the servoAux_set function calls it if it detects that the servo cog has not
- * been started.
- *
- * @returns 1..8 if successful.  0 if no available cogs, -1 if no available
- * locks.
- */
-int servoAux_start(void);
 
 #if defined(__cplusplus)
 }

@@ -14,12 +14,18 @@
  * this code to editor@parallax.com.
  */
 
+
 #include "simpletools.h"
 #include "servoAux.h"
 
-void pulse_outCtrAux(int pin, int time);             // Forward declaration
+
+static void pulse_outCtrAux(int pin, int time);      // Forward declaration
+static int servoAux_start(void);
+static void servoAux(void *par); 
 
 
+static volatile unsigned int servoAuxCog = 0;        // Cog initialized to zero
+static volatile unsigned int lockID;                 // Lock ID 
 static unsigned int stack[44 + 24];                   // Stack
 
 static volatile int p[14] = {-1, -1, -1, -1,         // I/O pins
@@ -35,10 +41,6 @@ static volatile int r[14] = {2000, 2000, 2000, 2000, // Step sizes initialized t
                      2000, 2000, 2000, 2000, 2000, 
                      2000, 2000, 2000, 2000, 2000};
 
-static volatile unsigned int servoAuxCog = 0;        // Cog initialized to zero
-static volatile unsigned int lockID;                 // Lock ID 
-
-void servoAux(void *par);                            // Function prototype for servoAux
 
 int servoAux_angle(int pin, int degreeTenths)        // Set continuous rotation speed
 {
@@ -50,7 +52,7 @@ int servoAux_speed(int pin, int speed)               // Set continuous rotation 
   return servoAux_set(pin, speed + 1500);            // Add center pulse width to speed
 }
 
-int servoAux_set(int pin, int time)                  // Set pulse width to servo on pin 
+int servoAux_set(int pin, int time)           // Set pulse width to servo on pin 
 {
   if(servoAuxCog == 0)                               // If cog not started
   {
@@ -92,6 +94,7 @@ int servoAux_set(int pin, int time)                  // Set pulse width to servo
   }
 }
 
+
 int servoAux_setRamp(int pin, int stepSize)          // Set ramp step for a servo
 {
   int s = sizeof(p)/sizeof(int);                     // Get array size
@@ -110,6 +113,7 @@ int servoAux_setRamp(int pin, int stepSize)          // Set ramp step for a serv
   return -4;                                         // Return -1, pin not found
 }
 
+
 int servoAux_get(int pin)                            // Get servo position
 {
   int s = sizeof(p)/sizeof(int);                     // Get size of servo arrays
@@ -124,7 +128,8 @@ int servoAux_get(int pin)                            // Get servo position
   return -4;                                         // No pin match?  Return -4
 }
 
-void servoAux(void *par)                             // servo process in other cog
+
+static void servoAux(void *par)                             // servo process in other cog
 {
   int dtpw = (CLKFREQ/1000000)*2500;
   int pw = CNT;
@@ -146,6 +151,8 @@ void servoAux(void *par)                             // servo process in other c
         input(p[i]);                                 // Set I/O pin to input
         p[i] = -1;                                   // Remove from list
         t[i] = -1;
+        tp[i] = -1;
+        r[i] = 2000;
       }
       if(p[i] != -1)                                 // If servo entry in pin array
       {
@@ -166,15 +173,16 @@ void servoAux(void *par)                             // servo process in other c
       }
       if(i%2)
       {
-         while((CNT - pw) <= dtpw);
+         while((CNT - pw) <= dtpw);                  // Wait for servo pulse window to close
          pw += dtpw;
       }
     }
     lockclr(lockID);                                 // Clear the lock
-    while((CNT - pw) <= dtpw);
+    while((CNT - pw) <= dtpw);                       // Wait for 20 ms since first pulse
     pw += dtpw;
   }
 }
+
 
 void servoAux_stop(void)                             // Stop servo process, free a cog
 {
@@ -182,23 +190,36 @@ void servoAux_stop(void)                             // Stop servo process, free
   {
     cogstop(servoAuxCog-1);                          // Stop it
     servoAuxCog = 0;                                 // Remember that it's stopped
+    lockclr(lockID);
     lockret(lockID);                                 // Return the lock
   }
 }
 
-int servoAux_start(void)                             // Take cog & start servo process
+/*
+ * @brief Starts the servo process and takes over a cog.
+ *
+ * @details You do not need to call this function from your code because
+ * the servoAux_set function calls it if it detects that the servo cog has not
+ * been started.
+ *
+ * @returns 1..8 if successful.  0 if no available cogs, -1 if no available
+ * locks.
+ */
+static int servoAux_start(void)                      // Take cog & start servo process
 {
   lockID = locknew();                                // Check out a lock
-  if(lockID == -1) return -1;                        // Return -2 if no locks
+  if(lockID == -1) return -1;                        // Return -1 if no locks
+  else lockclr(lockID);
   servoAux_stop();                                   // Stop in case cog is running
-  servoAuxCog = cogstart(servoAux, NULL, stack,     // Launch servo into new cog
+  servoAuxCog = cogstart(servoAux, NULL, stack,      // Launch servo into new cog
              sizeof(stack)) + 1;
   return servoAuxCog;
 }
 
+
 static int ta = 0, tb = 0, dta = 0, dtb = 0;
 
-void pulse_outCtrAux(int pin, int time)              
+static void pulse_outCtrAux(int pin, int time)              
 {
   /*
   if(st_iodt == 0)

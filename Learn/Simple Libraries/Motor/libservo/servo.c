@@ -14,12 +14,18 @@
  * this code to editor@parallax.com.
  */
 
+
 #include "simpletools.h"
 #include "servo.h"
 
-void pulse_outCtr(int pin, int time);                 // pulseOut function definition
+
+static void pulse_outCtr(int pin, int time);          // pulseOut function definition
+static int servo_start(void);                         // Function prototype for servo_start
+static void servo(void *par);                         // Function prototype for servo
 
 
+static volatile unsigned int servoCog = 0;            // Cog initialozed to zero
+static volatile unsigned int lockID;                  // Lock ID 
 static unsigned int stack[44 + 24];                   // Stack
 
 static volatile int p[14] = {-1, -1, -1, -1,          // I/O pins
@@ -35,20 +41,18 @@ static volatile int r[14] = {2000, 2000, 2000, 2000,  // Step sizes initialized 
                      2000, 2000, 2000, 2000, 2000, 
                      2000, 2000, 2000, 2000, 2000};
 
-static volatile unsigned int servoCog = 0;            // Cog initialozed to zero
-static volatile unsigned int lockID;                  // Lock ID 
-
-void servo(void *par);                                // Function prototype for servo
 
 int servo_angle(int pin, int degreeTenths)            // Set continuous rotation speed
 {
   return servo_set(pin, degreeTenths + 500);          // Add center pulse width to speed
 }
 
+
 int servo_speed(int pin, int speed)                   // Set continuous rotation speed
 {
   return servo_set(pin, speed + 1500);                // Add center pulse width to speed
 }
+
 
 int servo_set(int pin, int time)                      // Set pulse width to servo on pin 
 {
@@ -92,6 +96,7 @@ int servo_set(int pin, int time)                      // Set pulse width to serv
   }
 }
 
+
 int servo_setramp(int pin, int stepSize)             // Set ramp step for a servo
 {
   int s = sizeof(p)/sizeof(int);                     // Get array size
@@ -110,6 +115,7 @@ int servo_setramp(int pin, int stepSize)             // Set ramp step for a serv
   return -4;                                         // Return -1, pin not found
 }
 
+
 int servo_get(int pin)                               // Get servo position
 {
   int s = sizeof(p)/sizeof(int);                     // Get size of servo arrays
@@ -124,7 +130,17 @@ int servo_get(int pin)                               // Get servo position
   return -4;                                         // No pin match?  Return -4
 }
 
-void servo(void *par)                                // servo process in other cog
+
+int servo_disable(int pin)
+{
+  // 0 to time param causes servo funciton running 
+  // in the other cog to disable the servo
+  int result = servo_set(pin, 0);                    
+  return result;
+}
+  
+
+static void servo(void *par)                         // servo process in other cog
 {
   int dtpw = (CLKFREQ/1000000)*2500;
   int pw = CNT;
@@ -135,7 +151,6 @@ void servo(void *par)                                // servo process in other c
 
   int s = sizeof(p)/sizeof(int);                     // Get size of servo array
   int i;                                             // Local index variable
-  //mark();                                            // Mark the current time
   while(1)                                           // servo control loop
   {
     while(lockset(lockID));                          // Set the lock 
@@ -146,6 +161,8 @@ void servo(void *par)                                // servo process in other c
         input(p[i]);                                 // Set I/O pin to input
         p[i] = -1;                                   // Remove from list
         t[i] = -1;
+        tp[i] = -1;
+        r[i] = 2000;
       }
       if(p[i] != -1)                                 // If servo entry in pin array
       {
@@ -166,15 +183,16 @@ void servo(void *par)                                // servo process in other c
       }
       if(i%2)
       {
-         while((CNT - pw) <= dtpw);
+         while((CNT - pw) <= dtpw);                  // Wait for servo pulse window to close
          pw += dtpw;
       }
     }
     lockclr(lockID);                                 // Clear the lock
-    while((CNT - pw) <= dtpw);
+    while((CNT - pw) <= dtpw);                       // Wait for 20 ms since first pulse
     pw += dtpw;
   }
 }
+
 
 void servo_stop(void)                                // Stop servo process, free a cog
 {
@@ -182,23 +200,37 @@ void servo_stop(void)                                // Stop servo process, free
   {
     cogstop(servoCog-1);                             // Stop it
     servoCog = 0;                                    // Remember that it's stopped
+    lockclr(lockID);
     lockret(lockID);                                 // Return the lock
   }
 }
 
-int servo_start(void)                                // Take cog & start servo process
+
+/*
+ * @brief Starts the servo process and takes over a cog.
+ *
+ * @details You do not need to call this function from your code because
+ * the servo_set function calls it if it detects that the servo cog has not
+ * been started.
+ *
+ * @returns 1..8 if successful.  0 if no available cogs, -1 if no available
+ * locks.
+ */
+static int servo_start(void)                         // Take cog & start servo process
 {
-  lockID = locknew();                                // Check out a lock
-  if(lockID == -1) return -1;                        // Return -2 if no locks
+  lockID = locknew();                              // Check out a lock
+  if(lockID == -1) return -1;                        // Return -1 if no locks
+  else lockclr(lockID);
   servo_stop();                                      // Stop in case cog is running
-  servoCog = cogstart(servo, NULL, stack,           // Launch servo into new cog
+  servoCog = cogstart(servo, NULL, stack,            // Launch servo into new cog
              sizeof(stack)) + 1;
   return servoCog;
 }
 
+
 static int ta = 0, tb = 0, dta = 0, dtb = 0;
 
-void pulse_outCtr(int pin, int time)                 // pulseOut function definition
+static void pulse_outCtr(int pin, int time)           // pulseOut function definition
 {
   /*
   if(st_iodt == 0)
