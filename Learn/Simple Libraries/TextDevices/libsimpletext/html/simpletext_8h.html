@@ -18,7 +18,7 @@
   <td id="projectlogo"><img alt="Logo" src="ParallaxLogo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">simpletext library
-   &#160;<span id="projectnumber">v0.99</span>
+   &#160;<span id="projectnumber">v0.99.1</span>
    </div>
    <div id="projectbrief">Compact variations of put/get write/read and print/scan for smaller program sizes</div>
   </td>
@@ -206,7 +206,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simp
 </ul>
 <dl class="section user"><dt>Core Usage </dt><dd>Functions in this library do not use any additional cores; however, the device driver library that returns a text_t pointer for use with this library might. For example, fdserial and vgatext each take launch a core. Check the device driver library's documentation for details.</dd></dl>
 <dl class="section user"><dt>Memory Models</dt><dd>Use with CMM, LMM, or XMMC.</dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.99 Digits versions of put/get and write/read added for transmitting and receiving values with fixed numbers of digits. Floating point output functions updated to handle nan (not a number) and +/- inf (infinity). printi, dprinti, scani, dscani, sprinti, sscani functions added for supporting non-floating point with less program space. functions with Len in their names added for transmitting strings and values represented with a fixed number of characters. </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.99.1 Correct scan function %s formatting flag bugs.</dd>
+<dd>
+0.99 Digits versions of put/get and write/read added for transmitting and receiving values with fixed numbers of digits. Floating point output functions updated to handle nan (not a number) and +/- inf (infinity). printi, dprinti, scani, dscani, sprinti, sscani functions added for supporting non-floating point with less program space. functions with Len in their names added for transmitting strings and values represented with a fixed number of characters. </dd></dl>
 </div><h2>Typedef Documentation</h2>
 <a class="anchor" id="ad35b10758e25df566cdeba60ab213ea8"></a>
 <div class="memitem">
@@ -1983,7 +1985,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="simp
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 17 2014 20:04:11 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 18 2014 19:16:38 for simpletext library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

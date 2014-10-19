@@ -85,6 +85,7 @@ const char* _scanf_getl(const char *str, int* dst, int base, unsigned width, int
   else
     *dst = num;
 
+  str--;
   return str;
 }
 

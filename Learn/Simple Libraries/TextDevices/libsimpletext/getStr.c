@@ -19,12 +19,12 @@
 char* getStr(char* buf, int max)
 {
   extern text_t *dport_ptr;
-  return (_safe_gets(dport_ptr, buf, max-1));
+  return (_safe_gets(dport_ptr, buf, max));
 }
 
 char* readStr(text_t *text, char* buf, int max)
 {
-  return (_safe_gets(text, buf, max-1));
+  return (_safe_gets(text, buf, max));
 }
 
 

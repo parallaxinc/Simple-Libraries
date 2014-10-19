@@ -28,7 +28,7 @@ static const char* trim(const char* str)
 
 static const char* _scanf_gets(const char *str, char* dst, unsigned width, int gettingChars) 
 {
-    while (width-- && (gettingChars || !isspace(*str)))
+    while (width-- && *str && (gettingChars || !isspace(*str)))
         *dst++ = *str++;
 
     if (!gettingChars)
@@ -44,7 +44,7 @@ int _doscanf(const char* str, const char *fmt, va_list args)
   int fch;
   while (str && *str && (fch = *fmt++))
   {
-    int width;
+    int width = -1;
     int base = 16;
     int isWhiteSpaceOK = 0;
     int done = 0;

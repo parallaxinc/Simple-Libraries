@@ -8,7 +8,7 @@
 
 int scan(const char *fmt, ...) 
 {
-  char str[256]; 
+  char str[257];
   va_list args;
   getStr(str, 256);
   va_start(args, fmt);
