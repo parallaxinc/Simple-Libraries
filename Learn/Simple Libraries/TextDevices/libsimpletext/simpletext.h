@@ -34,6 +34,8 @@
  * @par Memory Models
  * Use with CMM, LMM, or XMMC. 
  *
+ * @version 0.99.1 Correct scan function %s formatting flag bugs.
+
  * @version 0.99 Digits versions of put/get and write/read added for
  * transmitting and receiving values with fixed numbers of digits.  Floating
  * point output functions updated to handle nan (not a number) and +/- inf

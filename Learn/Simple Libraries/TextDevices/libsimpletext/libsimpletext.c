@@ -8,7 +8,10 @@
 
 #include "serial.h"
 
-//#define MORETESTING
+#define MORETESTING
+
+void scanner(int repeat);
+void dumpstack(int vaddr);
 
 int main(void)
 {
@@ -33,6 +36,8 @@ int main(void)
 
   /* traditional hello message. */
   putln("Hello, world!");
+  
+  // scanner(0);
 
   putStrLen(&bigtext[20],5);
   putln("");
@@ -203,6 +208,52 @@ int main(void)
   return 0;
 }
 
+
+void scanner(int repeat)
+{
+  char c1, buf[5], c2;
+  do 
+  {
+    c1 = '.';
+    c2 = '-';
+    putStr("Enter chars: ");
+    getStr(buf,4);
+    putStr(buf);
+    putChar(c1);
+    putChar(c2);
+    //
+    putStr("\nEnter chars: ");
+    scan("%s", buf);
+    putChar(c1);
+    putChar(' ');
+    putChar(c2);
+    putChar(' ');
+    putLine(buf);
+    //
+    putStr("\nEnter chars: ");
+    scan("%c %c %2s", &c1, &c2, buf);
+    putChar(c1);
+    putChar(' ');
+    putChar(c2);
+    putChar(' ');
+    putLine(buf);
+  } 
+  while(repeat);
+  putLine("\nScanner Done.");
+}
+
+
+void dumpstack(int vaddr)
+{
+  extern int _stack_end;
+  int n = &n;
+  printi("Local %x\n", &n);
+  printi("vaddr *%x = %x\n", &vaddr, vaddr);
+  for(; n < &_stack_end; n+=4) 
+  {
+    printi("stk[%x] %x\n", n, *(unsigned int*)n);
+  }  
+}
 
 
 /*

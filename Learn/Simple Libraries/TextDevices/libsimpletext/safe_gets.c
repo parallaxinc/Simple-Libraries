@@ -19,7 +19,7 @@
 char* _safe_gets(text_t *text, char* origBuf, int count)
 {
   char* buf = origBuf;
-  while (--count > 0)
+  while (count-- > 0)
   {
       int ch = text->rxChar(text);
 

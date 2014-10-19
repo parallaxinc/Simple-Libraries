@@ -15,7 +15,7 @@ int getHex(void)
 int readHex(text_t *text)
 {
   int rc = 0;
-  char buf[12];
+  char buf[13];
   char *str = _safe_gets(text, buf, 12);
   if(*str)
     _scanf_getl(str, &rc, 16, 9, 0); /* not signed */
