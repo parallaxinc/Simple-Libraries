@@ -6,10 +6,10 @@
  * @copyright
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
  *
- * @brief Signals ADC124S021 chip.  Current rate is about 70 ksps.  I'm hoping to 
+ * @brief Signals ADC124S021 chip.  Current rate is about 70 ksps.  I'm hoping to
  * clean it up and get closer to 100 in this COGC version.  Will probably use ASM
  * to squeeze some more out of it.
- * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
+ * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions
  * pending, not for release.
  */
 
@@ -18,28 +18,28 @@
 
 #define clockfreq (*(int*) 0)
 
-static _COGMEM AdcMailbox_st *mbox;
-static _COGMEM int* addr;
-static _COGMEM int* ptr;
-static _COGMEM chNow, chThen;
-static _COGMEM dout, din, clk, cs, mask;
-static _COGMEM ndout, ndin, nclk, ncs;
-static _COGMEM val, i, doutval, dinval, state;
-
-_NAKED 
+_NAKED
 void main(void)
 {
+  AdcMailbox_st *mbox;
+  unsigned int* addr;
+  unsigned int* ptr;
+  int chNow, chThen;
+  int dout, din, clk, cs, mask;
+  int ndout, ndin, nclk, ncs;
+  int val, i, doutval, dinval, state;
+
   mbox = (AdcMailbox_st*) PAR;
-  dout = (1 << mbox->dout); 
-  ndout = ~dout; 
+  dout = (1 << mbox->dout);
+  ndout = ~dout;
   doutval = mbox->dout;
-  din = (1 << mbox->din); 
-  ndin = ~din; 
+  din = (1 << mbox->din);
+  ndin = ~din;
   dinval = mbox->din;
-  clk = (1 << mbox->clk); 
-  nclk = ~clk; 
-  cs = (1 << mbox->cs); 
-  ncs = ~cs; 
+  clk = (1 << mbox->clk);
+  nclk = ~clk;
+  cs = (1 << mbox->cs);
+  ncs = ~cs;
   mask = mbox->mask;
   addr = mbox->addr;
   OUTA |= cs;                                 // high(cs);
@@ -52,7 +52,7 @@ void main(void)
   OUTA &= ncs;                                // low(cs);
   DIRA |= (1 << 26);
   OUTA &= ~(1 << 26);
- 
+
   chNow = mbox->stidx;
   chThen = mbox->stidx;
 
@@ -73,14 +73,14 @@ void main(void)
           OUTA |= din;
         }
         else
-        { 
+        {
           OUTA &= ndin;
         }
         state = INA;                          //   val = val + (get_state(dout) & 1);
         state &= dout;
         state = state >> doutval;
         val += state;
-      }                                       
+      }
       chNow >>= 12;
       ptr = addr + chThen;
       *ptr = val;
@@ -91,6 +91,9 @@ void main(void)
     OUTA ^= (1 << 26);
   }
 }
+
+extern unsigned int _load_start_adcACpropab_cog[];
+const unsigned int *adcACpropab_code = _load_start_adcACpropab_cog;
 
 /**
  * TERMS OF USE: MIT License
