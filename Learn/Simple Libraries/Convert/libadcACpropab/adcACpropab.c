@@ -7,7 +7,7 @@
  * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
  *
  * @brief Launch ADC124S021 process into cogc cog.
- * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions 
+ * @n @n <b><i>CONSTRUCTION ZONE:</i></b> This library is preliminary, major revisions
  * pending, not for release.
  */
 
@@ -15,7 +15,7 @@
 #include "adcACpropab.h"
 
 static int cog = 0;
-static AdcBox_st adcbox;  
+static AdcBox_st adcbox;
 
 int adc_start(int doPin, int diPin, int clkPin, int csPin, int pattern, int* arrayAddr)
 {
@@ -36,10 +36,10 @@ int adc_start(int doPin, int diPin, int clkPin, int csPin, int pattern, int* arr
   }
   adcbox.mailbox.stidx = i;
 
-  extern unsigned int _load_start_adcACpropab_cog[];
-  cog = cognew(_load_start_adcACpropab_cog, &adcbox.mailbox) + 1;
+  extern const unsigned int *adcACpropab_code;
+  cog = cognew(adcACpropab_code, &adcbox.mailbox) + 1;
 
-  int temp; 
+  int temp;
   while(1)
   {
     if(*(arrayAddr+i) != -1) return cog;
