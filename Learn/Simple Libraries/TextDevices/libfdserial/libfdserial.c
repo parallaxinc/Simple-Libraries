@@ -47,7 +47,7 @@ int main(void)
   sprint(buffer, "%2d %4d %6d %8d %10d %15d", 2, 4, 6, 8, 10, 15);
   writeLine(term, buffer);
   writeStr(term, "Hex      ");
-  sscan(buffer, "%2x %4x %6x %8x %10x %15x", 2, 4, 6, 8, 10, 15);
+  sprint(buffer, "%2x %4x %6x %8x %10x %15x", 2, 4, 6, 8, 10, 15);
   writeLine(term, buffer);
   writeStr(term, "Binary   ");
   sprint(buffer, "%2b %4b %6b %8b %10b %15b", 2, 4, 6, 8, 10, 15);
