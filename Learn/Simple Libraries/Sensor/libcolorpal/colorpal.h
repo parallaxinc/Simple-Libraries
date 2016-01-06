@@ -11,6 +11,7 @@
  * @brief Simplifies reading Parallax ColorPAL sensor.
  */
 
+#include "fdserial.h"
 
 #ifndef COLORPAL_H
 #define COLORPAL_H
@@ -21,15 +22,23 @@ extern "C" {
 
 
 /**
- * Defines instance of colorpal_t settings for serial communication.
+ * @cond
+ * Defines rfidser interface struct
+ * 9 contiguous ints + buffers
  */
-typedef struct colorpal_serinfo
+typedef struct colorPal_st
 {
-  int rx_pin;
-  int tx_pin;
-  int mode;
-  int baud;
-  int ticks;
+    int  rx_head;   /* receive queue head */
+    int  rx_tail;   /* receive queue tail */
+    int  tx_head;   /* transmit queue head */
+    int  tx_tail;   /* transmit queue tail */
+    int  rx_pin;    /* recieve pin */
+    int  tx_pin;    /* transmit pin */
+    int  mode;      /* interface mode */
+    int  ticks;     /* clkfreq / baud */
+    char *buffptr;  /* pointer to rx buffer */
+    //char *idstr;
+    //int  en;
 } colorPal_t;
 
 
@@ -38,6 +47,11 @@ typedef struct colorpal_serinfo
  * accept text_t parameters.
  */
 typedef text_t colorPal;
+
+
+/**
+ * @endcond
+ */
 
 
 /**
@@ -50,7 +64,6 @@ typedef text_t colorPal;
  * functions with text_t parameter in simpletext library. 
  */
 colorPal *colorPal_open(int sioPin);
-
 
 /**
  * @brief Close a connection and recover all memory set aside for the ColorPal 
