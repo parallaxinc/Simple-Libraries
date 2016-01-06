@@ -11,7 +11,7 @@ ws2812_start.c
 ws2812b_start.c
 ws2812_stop.c
 >compiler=C
->memtype=lmm main ram
+>memtype=cmm main ram compact
 >optimize=-Os
 >-fno-exceptions
 >-create_library

@@ -16,7 +16,8 @@
 
 void ws2812_close(ws2812_t *state)
 {
-    ws2812_close(state);
+    while(state->command);
+    ws2812_stop(state);
     free(state);
 }
 
