@@ -3,7 +3,7 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.50
+ * @version 0.55
  *
  * @copyright
  * Copyright (C) Parallax, Inc. 2012. All Rights MIT Licensed.
@@ -14,9 +14,11 @@
 
 #include "simpletools.h"
 #include "colorpal.h"
+#include "fdserial.h"
 
-void colorPal_reset(colorPal *device);
-void colorPal_init(colorPal *device);
+//void colorPal_reset(colorPal *device);
+//void colorPal_init(colorPal *device);
+
 
 void colorPal_reset(colorPal *device)
 {
@@ -33,19 +35,20 @@ void colorPal_reset(colorPal *device)
 
 void colorPal_init(colorPal *device)
 {
-
   colorPal_t *cp = (colorPal_t*) device->devst;
 
   colorPal_reset(device);
   dprint(device, "=(00 $ m)!");
-  pause(10);
-  low(cp->rx_pin);
+  //pause(10);
+  //low(cp->rx_pin);
 }
 
 
 void colorPal_getRGB(colorPal *device, int *r, int *g, int *b)
 {
   char rs[4], gs[4], bs[4];
+
+  fdserial_rxFlush(device);
 
   while(readChar(device) != '$');
 
@@ -64,62 +67,89 @@ void colorPal_getRGB(colorPal *device, int *r, int *g, int *b)
   {
     bs[i] = readChar(device);
   }
+
+  //print("rs = %s, gs = %s, bs = %s\n", rs, gs, bs);
+  
   sscan(rs, "%x", r);
   sscan(gs, "%x", g);
   sscan(bs, "%x", b);
 }
 
 
-serial *colorPal_open(int sioPin)
+colorPal *colorPal_open(int sioPin)
 {
-  int rxpin = sioPin;
-  int txpin = rxpin;
   int mode = 0b1100;
-  int baudrate = 2400;
+  int baudrate = 4800;
+  int txpin = sioPin;
+  int rxpin = sioPin;
 
-  colorPal_t *cpptr;
+  extern int binary_pst_dat_start[];
 
-  text_t* text = (text_t*) malloc(sizeof(text_t));
+  colorPal_t *colpalptr;
 
-  // set pins first for boards that can misbehave intentionally like the Quickstart
-  if(txpin >= SERIAL_MIN_PIN && txpin <= SERIAL_MAX_PIN) {
-    DIRA |=  (1<<txpin);
-    OUTA |=  (1<<txpin);
+  //char* idstr = (char*) malloc(12);
+  //memset(idstr, 0, 12);
+
+  /* can't use array instead of malloc because it would go out of scope. */
+  char* bufptr = (char*) malloc(2*(FDSERIAL_BUFF_MASK+1));
+  colorPal* term = (colorPal*) malloc(sizeof(colorPal));
+  memset(term, 0, sizeof(colorPal));
+
+  colpalptr = (void*) malloc(sizeof(colorPal_t));
+  term->devst = colpalptr;
+  memset((char*)colpalptr, 0, sizeof(colorPal_t));
+
+  if(rxpin == 31 && txpin == 30) {
+    simpleterm_close();
   }
-  if(rxpin >= SERIAL_MIN_PIN && rxpin <= SERIAL_MAX_PIN) {
-    DIRA &= ~(1<<rxpin);
+
+  /* required for terminal to work */
+  term->txChar  = fdserial_txChar;
+  term->rxChar  = fdserial_rxChar;
+
+  colpalptr->rx_pin = rxpin;  /* recieve pin */
+  colpalptr->tx_pin = txpin;  /* transmit pin */
+  colpalptr->mode   = mode;   /* interface mode */
+  //colpalptr->en     = enablePin;  /* interface mode */
+
+  /* baud from clkfreq (cpu clock typically 80000000 for 5M*pll16x) */
+  colpalptr->ticks   = CLKFREQ/baudrate;
+  colpalptr->buffptr = bufptr; /* receive and transmit buffer */
+  //colpalptr->idstr   = idstr; 
+
+
+  /* now start the kernel */
+#if defined(__PROPELLER_USE_XMM__)
+  { unsigned int buffer[2048];
+    memcpy(buffer, binary_pst_dat_start, 2048);
+    term->cogid[0] = cognew(buffer, (void*)colopalptr) + 1;
   }
+#else
+  term->cogid[0] = setStopCOGID(cognew((void*)binary_pst_dat_start, (void*)colpalptr));
+#endif
 
-  //memset(text, 0, sizeof(text_t));
-  cpptr = (colorPal_t*) malloc(sizeof(colorPal_t));
-  text->devst = cpptr;
-  //memset((char*)serptr, 0, sizeof(Serial_t));
-  
-  text->txChar    = serial_txChar;     /* required for terminal to work */
-  text->rxChar    = serial_rxChar;     /* required for terminal to work */
+  waitcnt(CLKFREQ/10+CNT); // give cog chance to load
 
-  cpptr->rx_pin  = rxpin; /* recieve pin */
-  cpptr->tx_pin  = txpin; /* transmit pin*/
-  cpptr->mode    = mode;
-  cpptr->baud    = baudrate;
-  cpptr->ticks   = CLKFREQ/baudrate; /* baud from clkfreq (cpu clock typically 80000000 for 5M*pll16x) */
+  colorPal_init(term);
 
-  waitcnt(4*CLKFREQ/5+CNT);
-  colorPal_init(text);
-
-  return text;
+  return term;
 }
 
 
 void colorPal_close(colorPal *device)
 {
-  if(!device)
-    return;
-  colorPal_t *cp = (colorPal_t*) device->devst;
-  OUTA &= ~(1 << cp->tx_pin);
-  DIRA &= ~(1 << cp->tx_pin);
-  DIRA &= ~(1 << cp->rx_pin);
-  free((void*)device->devst);
+  int id = device->cogid[0];
+  colorPal_t *colpalptr = (colorPal_t*) device->devst;
+
+  while(fdserial_rxCheck(device) >= 0)
+      ; // clear out queue by receiving all available 
+  fdserial_txFlush(device);
+
+  if(id > 0) cogstop(getStopCOGID(id));
+  
+  free((void*)colpalptr->buffptr);
+  //free((void*)colpalptr->idstr);
+  free((void*)colpalptr);
   free(device);
   device = 0;
 }

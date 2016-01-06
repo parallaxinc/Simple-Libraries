@@ -18,7 +18,7 @@ int main()
   while(1)
   {
     colorPal_getRGB(cpal, &r, &g, &b);
-    print("r = %04d g = %04d b = %04d\n", 
+    print("r = %03x g = %03x b = %03x\n", 
            r,       g,       b);    
     pause(1000);
   }
