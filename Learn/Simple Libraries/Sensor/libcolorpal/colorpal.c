@@ -118,15 +118,17 @@ colorPal *colorPal_open(int sioPin)
   //colpalptr->idstr   = idstr; 
 
 
-  /* now start the kernel */
+/*
+  // now start the kernel 
 #if defined(__PROPELLER_USE_XMM__)
   { unsigned int buffer[2048];
     memcpy(buffer, binary_pst_dat_start, 2048);
     term->cogid[0] = cognew(buffer, (void*)colopalptr) + 1;
   }
 #else
+*/
   term->cogid[0] = setStopCOGID(cognew((void*)binary_pst_dat_start, (void*)colpalptr));
-#endif
+//#endif
 
   waitcnt(CLKFREQ/10+CNT); // give cog chance to load
 
