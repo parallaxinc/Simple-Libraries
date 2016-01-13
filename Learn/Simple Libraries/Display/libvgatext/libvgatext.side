@@ -3,7 +3,7 @@ VGA.spin
 vgatext.c
 vgatext.h
 >compiler=C
->memtype=lmm main ram
+>memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-Wall

@@ -32,7 +32,7 @@
  * Check the device driver library's documentation for details.  
  *
  * @par Memory Models
- * Use with CMM, LMM, or XMMC. 
+ * Use with CMM or LMM. 
  *
  * @version 0.99.1 Correct scan function %s formatting flag bugs.
 

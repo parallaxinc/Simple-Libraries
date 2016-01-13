@@ -55,7 +55,7 @@
  * @li dac (1 cog)
  *
  * @par Memory Models
- * Use with CMM, LMM.
+ * Use with CMM or LMM.
  * 
  * @version
  * 0.98 fpucog floating point coprocessor no longer self-starts by default.  

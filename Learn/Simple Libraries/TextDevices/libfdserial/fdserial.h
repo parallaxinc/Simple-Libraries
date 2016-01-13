@@ -19,7 +19,7 @@
  * an additional UART communication process.
  *
  * @par Memory Models
- * Use with CMM, LMM, or XMMC. 
+ * Use with CMM or LMM. 
  *
  * @version 0.86
  *

@@ -205,7 +205,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html
 <li>Supports format values from buffer comparable to sscanf (scanBuffFormat and sscan).</li>
 </ul>
 <dl class="section user"><dt>Core Usage </dt><dd>Functions in this library do not use any additional cores; however, the device driver library that returns a text_t pointer for use with this library might. For example, fdserial and vgatext each take launch a core. Check the device driver library's documentation for details.</dd></dl>
-<dl class="section user"><dt>Memory Models</dt><dd>Use with CMM, LMM, or XMMC.</dd></dl>
+<dl class="section user"><dt>Memory Models</dt><dd>Use with CMM or LMM.</dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.99.1 Correct scan function %s formatting flag bugs.</dd>
 <dd>
 0.99 Digits versions of put/get and write/read added for transmitting and receiving values with fixed numbers of digits. Floating point output functions updated to handle nan (not a number) and +/- inf (infinity). printi, dprinti, scani, dscani, sprinti, sscani functions added for supporting non-floating point with less program space. functions with Len in their names added for transmitting strings and values represented with a fixed number of characters. </dd></dl>

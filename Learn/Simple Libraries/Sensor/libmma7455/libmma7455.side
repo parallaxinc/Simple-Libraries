@@ -10,7 +10,7 @@ setMode.c
 gRangec.c
 setOffset.c
 >compiler=C
->memtype=lmm main ram
+>memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions
