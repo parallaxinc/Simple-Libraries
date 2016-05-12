@@ -9,4 +9,4 @@ abcalibrate.h -> abcalibrate.h
 >defs::-std=c99
 >-lm
 >-create_library
->BOARD::PROPBOE
+>BOARD::ACTIVITYBOARD
