@@ -20,9 +20,14 @@
 // Draw a triangle
 void oledc_drawTriangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned int color)
 {
-  oledc_drawLine(x0, y0, x1, y1, color);
-  oledc_drawLine(x1, y1, x2, y2, color);
-  oledc_drawLine(x2, y2, x0, y0, color);
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+  
+  oledc_drawLinePrimative(x0, y0, x1, y1, color);
+  oledc_drawLinePrimative(x1, y1, x2, y2, color);
+  oledc_drawLinePrimative(x2, y2, x0, y0, color);
+  
+  oledc_screenLockClr();
 }
 
 // Parts of this file are from the Adafruit GFX arduino library

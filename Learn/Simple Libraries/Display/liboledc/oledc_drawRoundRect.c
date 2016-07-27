@@ -20,16 +20,26 @@
 // Draw a rounded rectangle
 void oledc_drawRoundRect(int x, int y, int w, int h, int r, unsigned int color)
 {
-  // smarter version
-  oledc_drawFastHLine(x + r  , y    , w - 2 * r, color); // Top
-  oledc_drawFastHLine(x + r  , y + h - 1, w - 2 * r, color); // Bottom
-  oledc_drawFastVLine(x    , y + r  , h - 2 * r, color); // Left
-  oledc_drawFastVLine(x + w - 1, y + r  , h - 2 * r, color); // Right
+  int sMin = w;
+  if(h < w) sMin = h;
+  if(r >= sMin/2) r = sMin/2 - 1;
+  
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+
+  // draw straight portions of the rectangle's sides
+  oledc_drawLinePrimative(x + r,     y,         x - r + w - 1, y,             color);
+  oledc_drawLinePrimative(x + r,     y + h - 1, x - r + w - 1, y + h - 1,     color);
+  oledc_drawLinePrimative(x,         y + r ,    x,             y - r + h - 1, color);
+  oledc_drawLinePrimative(x + w - 1, y + r ,    x + w - 1,     y - r + h - 1, color);
+
   // draw four corners
   oledc_drawCircleHelper(x + r    , y + r    , r, 1, color);
   oledc_drawCircleHelper(x + w - r - 1, y + r    , r, 2, color);
   oledc_drawCircleHelper(x + w - r - 1, y + h - r - 1, r, 4, color);
   oledc_drawCircleHelper(x + r    , y + h - r - 1, r, 8, color);
+
+  oledc_screenLockClr();
 }
 
 // Parts of this file are from the Adafruit GFX arduino library

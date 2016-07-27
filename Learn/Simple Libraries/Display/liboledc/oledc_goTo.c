@@ -17,17 +17,18 @@
 
 #include "oledc.h"
 
-void oledc_goTo(int x, int y) {
-  if ((x >= TFTWIDTH) || (y >= TFTHEIGHT)) return;
+char oledc_goTo(int x, int y) {
+  if ((x >= TFTWIDTH) || (y >= TFTHEIGHT) || (x < 0) || (y < 0)) return 0;
 
   // set x and y coordinates
-  oledc_writeCommand(SSD1331_CMD_SETCOLUMN);
-  oledc_writeCommand(x);
-  oledc_writeCommand(TFTWIDTH - 1);
+  oledc_writeCommand(SSD1331_CMD_SETCOLUMN, 0);
+  oledc_writeCommand(x, 0);
+  oledc_writeCommand(TFTWIDTH - 1, 0);
 
-  oledc_writeCommand(SSD1331_CMD_SETROW);
-  oledc_writeCommand(y);
-  oledc_writeCommand(TFTHEIGHT - 1);
+  oledc_writeCommand(SSD1331_CMD_SETROW, 0);
+  oledc_writeCommand(y, 0);
+  oledc_writeCommand(TFTHEIGHT - 1, 0);
+  return 1;
 }
 
 // Parts of this file are from the Adafruit GFX arduino library

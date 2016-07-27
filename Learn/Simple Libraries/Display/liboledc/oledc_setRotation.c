@@ -21,7 +21,11 @@ char TFTROTATION = 2;
 int _width;
 int _height;
 
-void oledc_setRotation(char x) {
+void oledc_setRotation(char x) 
+{
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+
   TFTROTATION = (x & 3);
   switch (TFTROTATION) {
     case 0:
@@ -35,6 +39,7 @@ void oledc_setRotation(char x) {
       _height = TFTWIDTH;
       break;
   }
+  oledc_screenLockClr();
 }
 
 // Parts of this file are from the Adafruit GFX arduino library

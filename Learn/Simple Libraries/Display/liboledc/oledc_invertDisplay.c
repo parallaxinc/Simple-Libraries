@@ -20,14 +20,20 @@
 char TFTINVERTED;
 
 void oledc_invertDisplay() {
+
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+
   if (TFTINVERTED)
   {
-    oledc_writeCommand(SSD1331_CMD_NORMALDISPLAY);
+    oledc_writeCommand(SSD1331_CMD_NORMALDISPLAY, 0);
     TFTINVERTED = 0;
   } else {
-    oledc_writeCommand(SSD1331_CMD_INVERTDISPLAY);
+    oledc_writeCommand(SSD1331_CMD_INVERTDISPLAY, 0);
     TFTINVERTED = 1;
   }
+  
+  oledc_screenLockClr();
 }
 
 /**

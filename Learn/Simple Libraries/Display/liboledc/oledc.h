@@ -8,10 +8,18 @@
  * @copyright Copyright (C) Parallax, Inc. 2016.  See end of file for
  * terms of use (MIT License).
  *
- * @brief 0.96-inch RGB OLED driver source header file.
+ * @brief This is a driver that allows the Propeller Multicore Microcontroller to 
+ * draw text, shapes, and bitmap files on the 0.96-inch RGB OLED (Parallax Part #28087).
  *
- * @detail Please submit bug reports, suggestions, and improvements to
- * this code to editor@parallax.com.
+ * @detail This high-speed driver allows the Propeller Multicore Microcontroller to 
+ * draw pixels, lines, circles, recatngles, rounded rectagles, triangles, formatted text 
+ * in multiple fonts, bitmap images stored on an SD card on a 0.95-inch OLED screen. 
+ * At Parallax, we would like to thank Adafruit Industries as parts of this library 
+ * were dervied from the Adafruit GFX library for Arduino.  Please submit bug reports, 
+ * suggestions, and improvements to this code to editor@parallax.com.
+ * 
+ * @note This library uses one cog.  If fonts are installed, they occupy EEPROM addresses
+ * 40576 to 63359.
  */
 
 #ifndef OLEDC_H                               // Prevents duplicate
@@ -23,7 +31,9 @@ extern "C" {                                  // Compile for C
 
 
 #include <propeller.h>
+#include <stdlib.h>
 
+// Named Colors
 #define WHITE                     0xFFFF
 #define PINK                      0xFD59
 #define MAGENTA                   0xC9D4
@@ -58,23 +68,29 @@ extern "C" {                                  // Compile for C
 #define DARKGRAY                  0x3186
 #define BLACK                     0x0000
 
+// Font size and face
+#define SMALL           1
+#define MEDIUM          2
+#define LARGE           3
 
-#define SMALL    1
-#define MEDIUM   2
-#define LARGE    3
+#define FONT_SANS       0
+#define FONT_SERIF      1
+#define FONT_SCRIPT     2
+#define FONT_BUBBLE     3
+
 
 
 
 /**
  * @brief Initializes the OLED screen by setting up it's SPI and control pins.
  *
- * @param CS which pin is connected to the Chip Select pin, marked "CS".
- *
- * @param RS which pin is connected to the Read Status pin, marked "D/C".
- *
  * @param SID which pin is connected to the Serial Data In pin, marked "DIN".
  * 
  * @param SCLK which pin is connected to the Serial Clock pin, marked "CLK".
+ *
+ * @param CS which pin is connected to the Chip Select pin, marked "CS".
+ *
+ * @param RS which pin is connected to the Read Status pin, marked "D/C".
  *
  * @param RST which pin is connected to the Reset pin, marked "RST".
  *
@@ -82,7 +98,7 @@ extern "C" {                                  // Compile for C
  * (1) means the pins are pointed to the left, (2) means the pins are pointed down and
  * (3) means the pins are pointed to the right.
  */
-void oledc_init(char CS, char RS, char SID, char SCLK, char RST, char screen_rotation);
+void oledc_init(char SID, char SCLK, char CS, char RS, char RST, char screen_rotation);
 
 /**
  * @brief Generates a 2-byte (16-bit) color code (RRRRRGGGGGGBBBBB format) for use with the OLED screen.
@@ -309,9 +325,16 @@ void oledc_bitmap(char *imgdir, int x0, int y0);
  * @brief Sets the size of the font to be used. Range is from 1 to 3.  
  * Size (1) is 5x7 (6x8 spacing) pixels, size (2) is 11x15 (12x16 spacing) 
  * pixels and size (3) is 15x23 (16x24 spacing) pixels.
- * 
  */
 void oledc_setTextSize(char s);
+
+/**
+ * @brief Sets the font face to be used. Range is from 0 to 3.  
+ * Font face (0) is a sans-serif (console) font, face (1) is serif (typewriter) 
+ * font, face (2) is a script (handwriting) font and face (3) is a
+ * bubble (outline/cartoon) font.
+ */
+void oledc_setTextFont(char f);
 
 /**
  * @brief Sets the color of the font and the color of the background 
@@ -348,6 +371,24 @@ void oledc_setCursor(int x, int y, char size);
  */
 int  oledc_print(const char *fmt, ...);
 
+/**
+ * @brief Prints a number to the screen starting at the cursor position. Output is limited to 64 bytes.
+ *
+ * @param d Number to be printed to the screen.  The number can be either a floating point decimal or an integer.
+ * 
+ * @param r The number base to display the number in (for integers); HEX, BIN, OCT, and DEC are acceptable values. 
+ * or the number of decimals to display following the decimal point (for floating point numbers).
+ * Negative numbers in bases other than DEC (10) will display "Err".
+ */
+void oledc_drawNumber(float d, int r);
+
+/**
+ * @brief Prints a string of text to the screen starting at the cursor position. Output is limited to 64 bytes.
+ *
+ * @param *myString Text to display on the screen.
+ */
+void oledc_drawText(char *myString);
+                    
 /**
  *@brief Returns the current horizontal position of the cursor, measured from the left side of the screen in pixels.
  */
@@ -392,6 +433,17 @@ void oledc_clear(int x0, int y0, int w, int h);
  * @param y2 Vertical coordinate where the copied box is to be pasted.
  */
 void oledc_copy(int x0, int y0, int w, int h, int x2, int y2);
+
+/**
+ * @brief Turn the display off without changing it's contents (make it sleep).
+ */
+void oledc_sleep();
+
+/**
+ * @brief Turn the display back on if it was put to sleep.  Whatever the screen was 
+ * displaying on the screen before it was put to sleep will return.
+ */
+void oledc_wake();
 
 /**
  * @brief Returns the screen's orientation. (0) means the pins are pointed upwards, 
@@ -464,9 +516,15 @@ int  oledc_isScrolling();
 #define absv(x) ((x)<0 ? -(x) : (x))
 
 // Timing Delays
-#define SSD1331_DELAYS_HWFILL         25
-#define SSD1331_DELAYS_HWLINE         10
-#define SSD1331_DELAYS_HWPIXEL        10
+//#define SSD1331_DELAYS_HWFILL         25
+//#define SSD1331_DELAYS_HWLINE         10
+//#define SSD1331_DELAYS_HWPIXEL        10
+
+// Radix Constants
+#define HEX            -16
+#define OCT            -8
+#define BIN            -2
+#define DEC            -10
 
 // SSD1331 Commands
 #define SSD1331_CMD_DRAWLINE        0x21
@@ -506,25 +564,44 @@ int  oledc_isScrolling();
 #define TFTWIDTH  96
 #define TFTHEIGHT 64
 
-extern char font_lg_index[95];
-extern char font_lg_zeroMap[658];
-extern char oled_font_lg[3100];
-extern char oled_font_med[2090];
+//extern char font_lg_index[95];
+//extern char font_lg_zeroMap[658];
+//extern char oled_font_lg[3000];
+//extern char oled_font_med[2090];
 
 /**
  * @brief Low-level driver for sending a byte to the OLED screen.
  */
-void oledc_spiWrite(char c);
+void oledc_spiWrite(char c, char dc);
 
 /**
- * @brief Sets up the screen to recieve pixel data
+ * @brief Launched into a cog to handle the pin-level interface with the screen.
  */
-void oledc_writeData(char d);
+void oledc_startup();
 
 /**
  * @brief Sets up the screen to recieve commands
+ * 
+ * @param c Byte of data to shift out
+ * 
+ * @param dc Pin state for the D/C pin on the OLED screen (0 = Command, 1 = Data).
  */
-void oledc_writeCommand(char c);
+void oledc_writeCommand(char c, char dc);
+
+/**
+ * @brief Returns the status of the SPI communication lockout so multiple cogs don't try to write to it at the same time
+ */
+char oledc_screenLock();
+
+/**
+ * @brief Sets the SPI communication lockout
+ */
+void oledc_screenLockSet();
+
+/**
+ * @brief Clears the SPI communication lockout
+ */
+void oledc_screenLockClr();
 
 /**
  *@brief Prints single ASCII-encoded characters to the screen. Characters 32 (space) to 126 (~) are rendered.  All other characters are rendered as a box. 
@@ -584,10 +661,11 @@ void oledc_drawCharLarge(int x, int y, unsigned char c, unsigned int color, unsi
  * 
  * @details Sets the pixel according to the absolute (raw) position - it does not account for the rotation setting. 
  */
-void oledc_goTo(int x, int y);
+char oledc_goTo(int x, int y);
 
 /**
  * @brief Helper function used to draw circles and rectangles with rounded corners
+ returns
  */
 void oledc_drawCircleHelper( int x0, int y0, int r, char cornername, unsigned int color);
 
@@ -596,6 +674,46 @@ void oledc_drawCircleHelper( int x0, int y0, int r, char cornername, unsigned in
  */
 void oledc_fillCircleHelper(int x0, int y0, int r, char cornername, int delta, unsigned int color);
 
+/**
+ * @brief Draws a single pixel on the screen in the specified color.
+ * 
+ * @param x Horizontal coordinate of the pixel, counted from the left side of the screen.
+ * 
+ * @param y Vertical coordinate of the pixel, counted down from the top of the screen.
+ * 
+ * @param color Color of the pixel, in r5g6b5 format.
+ */
+void oledc_drawPixelPrimative(int x, int y, unsigned int color);
+
+/**
+ * @brief Draws a line on the screen in the specified color.
+ * 
+ * @param x0 Starting horizontal coordinate of the line, counted from the left side of the screen.
+ * 
+ * @param y0 Starting vertical coordinate of the line, counted down from the top of the screen.
+ *
+ * @param x1 Ending horizontal coordinate of the line.
+ *
+ * @param y1 Ending vertical coordinate of the line.
+ * 
+ * @param color Color of the pixel, in r5g6b5 format.
+ */
+void oledc_drawLinePrimative(int x0, int y0, int x1, int y1, unsigned int color);
+
+/**
+ * @brief Draws a filled rectangle on the screen in the specified color.
+ *
+ * @param x Starting horizontal coordinate of the rectangle, counted from the left side of the screen.
+ * 
+ * @param y Starting vertical coordinate of the rectangle, counted down from the top of the screen.
+ *
+ * @param w Width of the rectangle.
+ *
+ * @param h Height of the rectangle.
+ * 
+ * @param color Color of the rectangle, in r5g6b5 format.
+ */
+void oledc_fillRectPrimative(int x, int y, int w, int h, unsigned int color);
 
 /**
  * @}  // /Private

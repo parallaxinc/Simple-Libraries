@@ -19,8 +19,13 @@
 
 void oledc_fillCircle(int x0, int y0, int r, unsigned int color)
 {
-  oledc_drawFastVLine(x0, y0 - r, 2 * r + 1, color);
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+  
+  oledc_drawLinePrimative(x0, y0 - r, x0, y0 + r, color);
   oledc_fillCircleHelper(x0, y0, r, 3, 0, color);
+  
+  oledc_screenLockClr();
 }
 
 // Parts of this file are from the Adafruit GFX arduino library

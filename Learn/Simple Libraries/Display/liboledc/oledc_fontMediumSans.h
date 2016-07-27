@@ -115,7 +115,6 @@ const char oledc_font_med[] = {
 
 
 
-
 /**
  * TERMS OF USE: MIT License
  *

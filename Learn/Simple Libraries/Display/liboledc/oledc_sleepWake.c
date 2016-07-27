@@ -1,5 +1,5 @@
 /*
- * @file oledc_clear.c
+ * @file oledc_scrollStop.c
  *
  * @author Matthew Matz
  *
@@ -8,7 +8,7 @@
  * @copyright Copyright (C) Parallax, Inc. 2016.  See end of file for
  * terms of use (MIT License).
  *
- * @brief 0.96-inch RGB OLED display driver component, see oledc_h. for documentation.
+ * @brief 0.96-inch RGB OLED display bitmap driver, see oledc_h. for documentation.
  *
  * @detail Please submit bug reports, suggestions, and improvements to
  * this code to editor@parallax.com.
@@ -17,67 +17,27 @@
 
 #include "oledc.h"
 
-char TFTROTATION;
 
-void oledc_clear(int x0, int y0, int w, int h) 
+void oledc_sleep() 
 {
   while(oledc_screenLock());  
   oledc_screenLockSet();
 
-  int x1 = x0 + w - 1;
-  int y1 = y0 + h - 1;
+  oledc_writeCommand(SSD1331_CMD_DISPLAYOFF, 0);     //--turn off oled panel
 
-  // check rotation, move pixel around if necessary
-  switch (TFTROTATION) {
-    case 1:
-      gfx_swap(x0, y0);
-      gfx_swap(x1, y1);
-      x0 = TFTWIDTH - x0 - 1;
-      x1 = TFTWIDTH - x1 - 1;
-      gfx_swap(x0, x1);
-      break;
-    case 2:
-      x0 = TFTWIDTH - x0 - 1;
-      y0 = TFTHEIGHT - y0 - 1;
-      x1 = TFTWIDTH - x1 - 1;
-      y1 = TFTHEIGHT - y1 - 1;
-      gfx_swap(x0, x1);
-      gfx_swap(y0, y1);
-      break;
-    case 3:
-      gfx_swap(x0, y0);
-      gfx_swap(x1, y1);
-      y0 = TFTHEIGHT - y0 - 1;
-      y1 = TFTHEIGHT - y1 - 1;
-      gfx_swap(y0, y1);
-      break;
-  }
+  oledc_screenLockClr();
+}  
 
-  // Boundary check
-  if ((y0 >= TFTHEIGHT) && (y1 >= TFTHEIGHT))
-    return;
-  if ((x0 >= TFTWIDTH) && (x1 >= TFTWIDTH))
-    return;
-  if (x0 >= TFTWIDTH)
-    x0 = TFTWIDTH - 1;
-  if (y0 >= TFTHEIGHT)
-    y0 = TFTHEIGHT - 1;
-  if (x1 >= TFTWIDTH)
-    x1 = TFTWIDTH - 1;
-  if (y1 >= TFTHEIGHT)
-    y1 = TFTHEIGHT - 1;
 
-  oledc_writeCommand(SSD1331_CMD_CLEAR, 0);
-  oledc_writeCommand(x0, 0);
-  oledc_writeCommand(y0, 0);
-  oledc_writeCommand(x1, 0);
-  oledc_writeCommand(y1, 0);
-  
-  int _tMark = CNT + (CLKFREQ / 2000);
-  while(_tMark > CNT);                          // Wait for system clock target
+void oledc_wake() 
+{
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
 
-  oledc_screenLockClr();  
-}
+  oledc_writeCommand(SSD1331_CMD_DISPLAYON, 0);      //--turn on oled panel
+
+  oledc_screenLockClr();
+}  
 
 /**
  * TERMS OF USE: MIT License
@@ -100,3 +60,4 @@ void oledc_clear(int x0, int y0, int w, int h)
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+

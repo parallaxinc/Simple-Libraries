@@ -37,22 +37,23 @@ void oledc_drawCircleHelper( int x0, int y0, int r, char cornername, unsigned in
     ddF_x += 2;
     f     += ddF_x;
     if (cornername & 0x4) {
-      oledc_drawPixel(x0 + x, y0 + y, color);
-      oledc_drawPixel(x0 + y, y0 + x, color);
+      oledc_drawPixelPrimative(x0 + x, y0 + y, color);
+      oledc_drawPixelPrimative(x0 + y, y0 + x, color);
     }
     if (cornername & 0x2) {
-      oledc_drawPixel(x0 + x, y0 - y, color);
-      oledc_drawPixel(x0 + y, y0 - x, color);
+      oledc_drawPixelPrimative(x0 + x, y0 - y, color);
+      oledc_drawPixelPrimative(x0 + y, y0 - x, color);
     }
     if (cornername & 0x8) {
-      oledc_drawPixel(x0 - y, y0 + x, color);
-      oledc_drawPixel(x0 - x, y0 + y, color);
+      oledc_drawPixelPrimative(x0 - y, y0 + x, color);
+      oledc_drawPixelPrimative(x0 - x, y0 + y, color);
     }
     if (cornername & 0x1) {
-      oledc_drawPixel(x0 - y, y0 - x, color);
-      oledc_drawPixel(x0 - x, y0 - y, color);
+      oledc_drawPixelPrimative(x0 - y, y0 - x, color);
+      oledc_drawPixelPrimative(x0 - x, y0 - y, color);
     }
   }
+
 }
 
 // Parts of this file are from the Adafruit GFX arduino library

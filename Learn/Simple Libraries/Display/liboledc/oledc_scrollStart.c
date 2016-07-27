@@ -23,7 +23,10 @@ char TFTSCROLLING;
 
 void oledc_scrollStart(char h, char v) 
 {
-  if(TFTSCROLLING) oledc_writeCommand(SSD1331_CMD_SCROLLSTOP);
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+  
+  if(TFTSCROLLING) oledc_writeCommand(SSD1331_CMD_SCROLLSTOP, 0);   
 
   // check rotation, move pixel around if necessary
   switch (TFTROTATION) {
@@ -40,25 +43,26 @@ void oledc_scrollStart(char h, char v)
       break;
   }
 
-  
   if(v < 0) v = _width + v;
   if(h < 0) h = _height + h;
   if(v > _width/2) v = _width/2;
   if(h > _height/2) h = _height/2;
   
-  oledc_writeCommand(SSD1331_CMD_SCROLLSETUP);
+  oledc_writeCommand(SSD1331_CMD_SCROLLSETUP, 0);
   
-  oledc_writeCommand(h);
-  oledc_writeCommand(0);
-  oledc_writeCommand(_height);    
-  oledc_writeCommand(v); 
-  oledc_writeCommand(0);   // speed?
+  oledc_writeCommand(h, 0);
+  oledc_writeCommand(0, 0);
+  oledc_writeCommand(_height, 0);    
+  oledc_writeCommand(v, 0); 
+  oledc_writeCommand(0, 0);   // speed?
 
-  unsigned int HW_pause = SSD1331_DELAYS_HWLINE * (CLKFREQ/100000);
-  waitcnt(HW_pause+CNT);                          // Wait for system clock target
+  int _tMark = CNT + (CLKFREQ / 10000);
+  while(_tMark > CNT);                          // Wait for system clock target
 
-  oledc_writeCommand(SSD1331_CMD_SCROLLSTART);
+  oledc_writeCommand(SSD1331_CMD_SCROLLSTART, 0);
   TFTSCROLLING = 1;
+  
+  oledc_screenLockClr();
 }  
 
 

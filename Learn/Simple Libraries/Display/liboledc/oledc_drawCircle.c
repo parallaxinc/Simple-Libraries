@@ -26,10 +26,13 @@ void oledc_drawCircle(int x0, int y0, int r, unsigned int color)
   int x = 0;
   int y = r;
 
-  oledc_drawPixel(x0  , y0 + r, color);
-  oledc_drawPixel(x0  , y0 - r, color);
-  oledc_drawPixel(x0 + r, y0  , color);
-  oledc_drawPixel(x0 - r, y0  , color);
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+
+  oledc_drawPixelPrimative(x0  , y0 + r, color);
+  oledc_drawPixelPrimative(x0  , y0 - r, color);
+  oledc_drawPixelPrimative(x0 + r, y0  , color);
+  oledc_drawPixelPrimative(x0 - r, y0  , color);
 
   while (x < y)
   {
@@ -42,15 +45,17 @@ void oledc_drawCircle(int x0, int y0, int r, unsigned int color)
     ddF_x += 2;
     f += ddF_x;
 
-    oledc_drawPixel(x0 + x, y0 + y, color);
-    oledc_drawPixel(x0 - x, y0 + y, color);
-    oledc_drawPixel(x0 + x, y0 - y, color);
-    oledc_drawPixel(x0 - x, y0 - y, color);
-    oledc_drawPixel(x0 + y, y0 + x, color);
-    oledc_drawPixel(x0 - y, y0 + x, color);
-    oledc_drawPixel(x0 + y, y0 - x, color);
-    oledc_drawPixel(x0 - y, y0 - x, color);
+    oledc_drawPixelPrimative(x0 + x, y0 + y, color);
+    oledc_drawPixelPrimative(x0 - x, y0 + y, color);
+    oledc_drawPixelPrimative(x0 + x, y0 - y, color);
+    oledc_drawPixelPrimative(x0 - x, y0 - y, color);
+    oledc_drawPixelPrimative(x0 + y, y0 + x, color);
+    oledc_drawPixelPrimative(x0 - y, y0 + x, color);
+    oledc_drawPixelPrimative(x0 + y, y0 - x, color);
+    oledc_drawPixelPrimative(x0 - y, y0 - x, color);
   }
+
+  oledc_screenLockClr();
 }
 
 // Parts of this file are from the Adafruit GFX arduino library

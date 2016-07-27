@@ -19,43 +19,54 @@
 
 // ------------------- low level pin interface --------------------
 char _cs, _rs, _rst, _sid, _sclk;
+char _screenLock;
 
-__attribute__((fcache))
-void oledc_spiWrite(char c) {
+//char _byteReadyFlag, _byteToSend, _byteType;   // For multicore support when enabled
 
-  unsigned int mask = 1 << _sclk;             // Set up mask
-  OUTA &= ~mask;                              // Pin output state to low
-  OUTA &= ~(1 << _cs);
+__attribute__((fcache))                    // allows function to run directly from cog ram, 10x+ speed increase
+void oledc_spiWrite(char c, char dc) {
+  
+  // Conditionally set _rs (Source: https://graphics.stanford.edu/~seander/bithacks.html)
+  unsigned int mask = (-(dc & 1) ^ OUTA) & (1 << _rs);  
+  OUTA ^= mask;
+   
+  OUTA &= ~(1 << _cs);    
+  mask = 1 << _sclk;                                    // Set up mask
+  OUTA &= ~mask;                                        // Pin output state to low
+  DIRA |= mask;                                         // Pin direction to output
 
   for (int i = 7; i >= 0 ; i--)
   {
     mask = 1 << _sid;
-    if (((c >> i) & 1) == 0)
-    {
-      OUTA &= (~mask);
-    }
-    else
-    {
-      OUTA |= mask;
-    }
+    if ((c >> i) & 1)  OUTA |= mask;
+    else               OUTA &= (~mask);
     mask = 1 << _sclk;
     OUTA ^= mask;
     OUTA ^= mask;
   }
   OUTA |= 1 << _cs;
-  //int mark = CNT + 1000;
-  //waitcnt(mark);
 }
 
-void oledc_writeCommand(char c) {
-  OUTA &= ~(1 << _rs);
-  oledc_spiWrite(c);
+void oledc_writeCommand(char c, char dc) {
+  oledc_spiWrite(c, dc);
+  
+  //while(byteReadyFlag);
+  //_byteToSend = c;
+  //_byteType = dc;
+  //_byteReadyFlag = 1; 
 }
 
-void oledc_writeData(char c) {
-  OUTA |= 1 << _rs;
-  oledc_spiWrite(c);
-}
+char oledc_screenLock() {
+  return _screenLock;
+}  
+
+void oledc_screenLockSet() {
+  _screenLock = 1;
+}  
+
+void oledc_screenLockClr() {
+  _screenLock = 0;
+}  
 
 
 /**
@@ -79,3 +90,80 @@ void oledc_writeData(char c) {
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+
+
+
+
+
+///////////////////////// DRAFT MULTICORE VERSION /////////////////////////////////////////
+
+/*
+
+//__attribute__((fcache))
+void oledc_spiWrite(void *par) {
+
+DIRA |= 1<<27;
+DIRA |= 1<<26;
+
+  while(1)
+  {
+    while(!_byteReadyFlag);
+
+    if(_byteType)  
+    {
+      OUTA |= 1 << _rs; 
+      OUTA |= 1 << 26;
+      OUTA &= ~(1 << 27);
+    }      
+    else 
+    {
+              OUTA &= ~(1 << _rs);
+      OUTA |= 1 << 27;
+      OUTA &= ~(1 << 26);
+            }              
+        
+
+    unsigned int mask = 1 << _sclk;             // Set up mask
+    OUTA &= ~mask;                              // Pin output state to low
+    OUTA &= ~(1 << _cs);
+  
+    for (char i = 7; i >= 0 ; i--)
+    {
+      mask = 1 << _sid;
+      if (((_byteToSend >> i) & 1) == 0)
+      {
+        OUTA &= (~mask);
+      }
+      else
+      {
+        OUTA |= mask;
+      }
+      mask = 1 << _sclk;
+      OUTA ^= mask;
+      OUTA ^= mask;
+    }
+    
+    OUTA |= 1 << _cs;
+
+    _byteReadyFlag = 0;
+  }    
+}
+
+void oledc_writeCommand(char c) {
+  //oledc_spiWrite(c, 0);
+  while(_byteReadyFlag);
+  _byteToSend = c;
+  _byteType = 0;
+  _byteReadyFlag = 1;
+}
+
+void oledc_writeData(char c) {
+  //oledc_spiWrite(c, 1);
+  while(_byteReadyFlag);
+  _byteType = 1;
+  _byteToSend = c;
+  _byteReadyFlag = 1;
+}
+
+
+*/

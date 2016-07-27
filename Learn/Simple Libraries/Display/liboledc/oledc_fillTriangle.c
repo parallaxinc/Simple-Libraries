@@ -20,8 +20,10 @@
 // Draw a filled triangle
 void oledc_fillTriangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned int color)
 {
-
   int a, b, y, last;
+
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
 
   // Sort coordinates by Y order (y2 >= y1 >= y0)
   if (y0 > y1) {
@@ -40,7 +42,7 @@ void oledc_fillTriangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned
     else if (x1 > b) b = x1;
     if (x2 < a)      a = x2;
     else if (x2 > b) b = x2;
-    oledc_drawFastHLine(a, y0, b - a + 1, color);
+    oledc_drawLinePrimative(a, y0, b, y0, color);
     return;
   }
 
@@ -73,7 +75,7 @@ void oledc_fillTriangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned
     b = x0 + (x2 - x0) * (y - y0) / (y2 - y0);
     */
     if (a > b) gfx_swap(a, b);
-    oledc_drawFastHLine(a, y, b - a + 1, color);
+    oledc_drawLinePrimative(a, y, b, y, color);
   }
 
   // For lower part of triangle, find scanline crossings for segments
@@ -90,8 +92,10 @@ void oledc_fillTriangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned
     b = x0 + (x2 - x0) * (y - y0) / (y2 - y0);
     */
     if (a > b) gfx_swap(a, b);
-    oledc_drawFastHLine(a, y, b - a + 1, color);
+    oledc_drawLinePrimative(a, y, b, y, color);
   }
+  
+  oledc_screenLockClr();
 }
 
 // Parts of this file are from the Adafruit GFX arduino library

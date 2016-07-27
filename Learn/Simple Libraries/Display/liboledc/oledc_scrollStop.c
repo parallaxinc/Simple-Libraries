@@ -21,8 +21,13 @@ char TFTSCROLLING;
 
 void oledc_scrollStop() 
 {
-  oledc_writeCommand(SSD1331_CMD_SCROLLSTOP);
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+
+  oledc_writeCommand(SSD1331_CMD_SCROLLSTOP, 0);
   TFTSCROLLING = 0;
+
+  oledc_screenLockClr();
 }  
 
 /**

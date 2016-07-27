@@ -20,9 +20,8 @@
 char TFTROTATION;
 int _width, _height;
 
-void oledc_fillRect(int x0, int y0, int w, int h, unsigned int color)
+void oledc_fillRectPrimative(int x0, int y0, int w, int h, unsigned int color)
 {
-  
   if (w < 0 || h < 0) return;
   
   if (x0 < 0) x0 = 0;
@@ -61,27 +60,37 @@ void oledc_fillRect(int x0, int y0, int w, int h, unsigned int color)
       break;
   }
 
-
-  unsigned int HW_pause = SSD1331_DELAYS_HWFILL * (CLKFREQ/100000);
-
-  oledc_writeCommand(SSD1331_CMD_FILL);
-  oledc_writeCommand(1);
+  oledc_writeCommand(SSD1331_CMD_FILL, 0);
+  oledc_writeCommand(1, 0);
   
-  oledc_writeCommand(SSD1331_CMD_DRAWRECT);
-  oledc_writeCommand(x0);
-  oledc_writeCommand(y0);
-  oledc_writeCommand(x1);
-  oledc_writeCommand(y1);
+  oledc_writeCommand(SSD1331_CMD_DRAWRECT, 0);
+  oledc_writeCommand(x0, 0);
+  oledc_writeCommand(y0, 0);
+  oledc_writeCommand(x1, 0);
+  oledc_writeCommand(y1, 0);
 
-  oledc_writeCommand((color >> 11) << 1);
-  oledc_writeCommand((color >> 5) & 0x3F);
-  oledc_writeCommand((color << 1) & 0x3F);
-  oledc_writeCommand((color >> 11) << 1);
-  oledc_writeCommand((color >> 5) & 0x3F);
-  oledc_writeCommand((color << 1) & 0x3F);
+  oledc_writeCommand((color >> 11) << 1, 0);
+  oledc_writeCommand((color >> 5) & 0x3F, 0);
+  oledc_writeCommand((color << 1) & 0x3F, 0);
+  oledc_writeCommand((color >> 11) << 1, 0);
+  oledc_writeCommand((color >> 5) & 0x3F, 0);
+  oledc_writeCommand((color << 1) & 0x3F, 0);
 
-  waitcnt(HW_pause+CNT);                          // Wait for system clock target
+  int _tMark = CNT + (CLKFREQ / 4000);
+  while(_tMark > CNT);                          // Wait for system clock target
+  
 }
+
+
+void oledc_fillRect(int x0, int y0, int w, int h, unsigned int color)
+{
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+  
+  oledc_fillRectPrimative(x0, y0, w, h, color);
+
+  oledc_screenLockClr();
+}  
 
 // Parts of this file are from the Adafruit GFX arduino library
 

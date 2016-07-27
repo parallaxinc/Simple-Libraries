@@ -1,5 +1,4 @@
 liboledc.c
-oledc_.h
 oledc_bitmap.c
 oledc_clear.c
 oledc_color565.c
@@ -33,8 +32,11 @@ oledc_setRotation.c
 oledc_setText.c
 oledc_spiWrite.c
 oledc_write.c
+oledc.h
+oledc_drawText.c
+oledc_sleepWake.c
 >compiler=C
->memtype=lmm main ram
+>memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions

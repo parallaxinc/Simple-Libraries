@@ -47,12 +47,12 @@ void oledc_fillCircleHelper(int x0, int y0, int r, char cornername, int delta, u
     if(y0 - y + xD > _height) xD = _height - y0 + y; 
          
     if (cornername & 0x1) {
-      oledc_drawFastVLine(x0 + x, y0 - y, yD, color);
-      oledc_drawFastVLine(x0 + y, y0 - x, xD, color);
+      oledc_drawLinePrimative(x0 + x, y0 - y, x0 + x, y0 - y + yD - 1, color);
+      oledc_drawLinePrimative(x0 + y, y0 - x, x0 + y, y0 - x + xD - 1, color);
     }
     if (cornername & 0x2) {
-      oledc_drawFastVLine(x0 - x, y0 - y, yD, color);
-      oledc_drawFastVLine(x0 - y, y0 - x, xD, color);
+      oledc_drawLinePrimative(x0 - x, y0 - y, x0 - x, y0 - y + yD - 1, color);
+      oledc_drawLinePrimative(x0 - y, y0 - x, x0 - y, y0 - x + xD - 1, color);
     }
   }
 }

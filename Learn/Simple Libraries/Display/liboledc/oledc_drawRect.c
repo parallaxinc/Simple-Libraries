@@ -23,6 +23,9 @@ int _width, _height;
 void oledc_drawRect(int x, int y, int w, int h, unsigned int color)
 {
 
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+  
   if (w < 0 || h < 0) return;
 
   if (x < 0) x = 0;
@@ -30,11 +33,12 @@ void oledc_drawRect(int x, int y, int w, int h, unsigned int color)
   if (y < 0) y = 0;
   if (y >= _height) y = (_height-1);
   
-  oledc_drawFastHLine(x, y, w, color);
-  oledc_drawFastHLine(x, y + h - 1, w, color);
-  oledc_drawFastVLine(x, y, h, color);
-  oledc_drawFastVLine(x + w - 1, y, h, color);
+  if(y >= 0 && y < _height)                     oledc_drawLinePrimative(x, y, x + w - 1, y, color);
+  if((y + h - 1) >= 0 && (y + h - 1) < _height) oledc_drawLinePrimative(x, y + h - 1, x + w - 1, y + h - 1, color);
+  if(x >= 0 && x < _width)                      oledc_drawLinePrimative(x, y, x, y + h - 1, color);
+  if((x + w - 1) >= 0 && (x + w - 1) < _width)  oledc_drawLinePrimative(x + w - 1, y, x + w - 1, y + h - 1, color);
 
+  oledc_screenLockClr();
 }
 
 // Parts of this file are from the Adafruit GFX arduino library

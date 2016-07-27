@@ -19,14 +19,22 @@
 
 void oledc_drawFastVLine(int x, int y, int h, unsigned int color)
 {
-  // Update in subclasses if desired!
-  oledc_drawLine(x, y, x, y + h - 1, color);
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+  
+  oledc_drawLinePrimative(x, y, x, y + h - 1, color);
+  
+  oledc_screenLockClr();
 }
 
 void oledc_drawFastHLine(int x, int y, int w, unsigned int color)
 {
-  // Update in subclasses if desired!
-  oledc_drawLine(x, y, x + w - 1, y, color);
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+
+  oledc_drawLinePrimative(x, y, x + w - 1, y, color);
+  
+  oledc_screenLockClr();
 }
 
 // Parts of this file are from the Adafruit GFX arduino library

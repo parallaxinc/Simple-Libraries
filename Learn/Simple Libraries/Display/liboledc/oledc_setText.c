@@ -19,23 +19,17 @@
 
 char wrap;
 unsigned int textsize, textcolor, textbgcolor;
-
+int _font[5];
 
 void oledc_setTextSize(char s) {
-  textsize = s;
-  if(s < 1) textsize = 1;
-  
-/*
-#ifndef OLED_FONT_LARGE
-  #ifndef OLED_FONT_MEDIUM
-  textsize = 1;
-  #else
-  if(s > 2) textsize = 2;
-  #endif
-#else
-*/
-  if(s > 3) textsize = 3;
-//#endif
+  if(_font[0] == 0) 
+  {
+    textsize = 1;
+  } else {
+    textsize = s;
+    if(s < 1) textsize = 1;
+    if(s > 3) textsize = 3;
+  }    
 }
 
 void oledc_setTextColor(unsigned int c, unsigned int b) {
@@ -46,6 +40,38 @@ void oledc_setTextColor(unsigned int c, unsigned int b) {
 void oledc_setTextWrap(char w) {
   wrap = w;
 }
+
+void oledc_setTextFont(char f) {
+  
+  if( f == 3 )        // Bubble
+  {
+    _font[1] = 44544;	
+    _font[2] = 44416;	
+    _font[3] = 43648;	
+    _font[4] = 40576;	
+  }
+  else if ( f == 2 )  // Serif
+  {      
+	 _font[1] = 50048;
+	 _font[2] = 49920;
+	 _font[3] = 49152;
+	 _font[4] = 46720;
+  }
+  else if ( f == 1 )  // Script
+  {      
+    _font[1] = 55552;
+    _font[2] = 55424;
+    _font[3] = 54656;
+    _font[4] = 52224;
+  }
+  else                // Sans
+  {      
+    _font[1] = 61184;
+    _font[2] = 61056;
+    _font[3] = 60288;
+    _font[4] = 57728;
+  }    
+}  
 
 // Parts of this file are from the Adafruit GFX arduino library
 

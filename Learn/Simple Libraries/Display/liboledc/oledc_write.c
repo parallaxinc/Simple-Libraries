@@ -54,7 +54,7 @@ void oledc_write(char c) {
 
       if (c == 32)
       {
-        if (textcolor != textbgcolor) oledc_fillRect(cursor_x, cursor_y, textsize * 6, textsize * 8, textbgcolor);
+        if (textcolor != textbgcolor) oledc_fillRect(cursor_x, cursor_y, textsize * 6, textsize * 8 + 1, textbgcolor);
       } else {    
         if (textsize == 1) oledc_drawCharSmall(cursor_x, cursor_y, c, textcolor, textbgcolor);
 //#ifdef OLED_FONT_MEDIUM

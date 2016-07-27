@@ -20,12 +20,21 @@
 // Draw a filled rounded rectangle
 void oledc_fillRoundRect(int x, int y, int w, int h, int r, unsigned int color)
 {
+  int sMin = w;
+  if(h < w) sMin = h;
+  if(r >= sMin/2) r = sMin/2 - 1;
+  
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+  
   // smarter version
-  oledc_fillRect(x + r, y, w - 2 * r, h, color);
+  oledc_fillRectPrimative(x + r, y, w - 2 * r, h, color);
 
   // draw four corners
-  oledc_fillCircleHelper(x + w - r - 1, y + r, r, 1, h - 2 * r - 1, color);
-  oledc_fillCircleHelper(x + r    , y + r, r, 2, h - 2 * r - 1, color);
+  oledc_fillCircleHelper(x - r + w - 1, y + r, r, 1, h - 2 * r - 1, color);
+  oledc_fillCircleHelper(x + r,         y + r, r, 2, h - 2 * r - 1, color);
+
+  oledc_screenLockClr();
 }
 
 

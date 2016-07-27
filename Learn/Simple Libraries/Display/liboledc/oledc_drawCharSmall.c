@@ -118,6 +118,10 @@ const char oledc_font_sm[] = {
 void oledc_drawCharSmall(int x, int y, unsigned char c, unsigned int color, unsigned int bg) 
 {
   c -= 33;
+
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+
   for (char i = 0; i < 6; i++ ) 
   {
     int li;
@@ -127,16 +131,18 @@ void oledc_drawCharSmall(int x, int y, unsigned char c, unsigned int color, unsi
 
     for (char j = 0; j < 8; j++, li >>= 1) 
     {
-      if (li & 0x1)          oledc_drawPixel(x + i, y + j, color);
-      else if (bg != color)  oledc_drawPixel(x + i, y + j, bg);
+      if (li & 0x1)          oledc_drawPixelPrimative(x + i, y + j, color);
+      else if (bg != color)  oledc_drawPixelPrimative(x + i, y + j, bg);
     }
     
     if (bg != color)
     {
-      oledc_drawFastVLine(x + 6, y, 8, bg);
-      oledc_drawFastHLine(x, y + 8, 7, bg);
+      oledc_drawLinePrimative(x + 6, y, x + 6, y + 7, bg);
+      oledc_drawLinePrimative(x, y + 8, x + 6, y + 8, bg);
     }          
   }
+
+  oledc_screenLockClr();
 }
 
 

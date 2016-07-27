@@ -20,9 +20,13 @@
 char TFTROTATION;
 int _width, _height;
 
-void oledc_drawPixel(int x, int y, unsigned int color)
+void oledc_drawPixelPrimative(int x, int y, unsigned int color)
 {
-  if ((x < 0) || (x >= _width) || (y < 0) || (y >= _height)) return;
+  if ((x < 0) || (x >= _width) || (y < 0) || (y >= _height)) 
+  {
+    oledc_screenLockClr();
+    return;
+  }    
 
   // check rotation, move pixel around if necessary
   switch (TFTROTATION) {
@@ -42,12 +46,22 @@ void oledc_drawPixel(int x, int y, unsigned int color)
 
   oledc_goTo(x, y);
   
-  //unsigned int HW_pause = SSD1331_DELAYS_HWPIXEL * (CLKFREQ/100000);
-  //waitcnt(HW_pause+CNT);                          // Wait for system clock target
-
-  oledc_writeData(color >> 8);
-  oledc_writeData(color);
+  oledc_writeCommand(color >> 8, 1);
+  oledc_writeCommand(color, 1);
 }
+
+
+void oledc_drawPixel(int x, int y, unsigned int color)
+{
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+
+  oledc_drawPixelPrimative(x, y, color);
+  
+  oledc_screenLockClr();
+}
+
+
 
 // Parts of this file are from the Adafruit GFX arduino library
 

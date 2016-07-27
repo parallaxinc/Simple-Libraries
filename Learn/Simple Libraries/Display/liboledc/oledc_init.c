@@ -16,28 +16,133 @@
 
 
 #include "oledc.h"
+#include "simpletools.h"
 
-char _cs, _rs, _rst, _sid, _sclk;
+volatile char _cs, _rs, _rst, _sid, _sclk;
 
-char TFTROTATION;
-char TFTINVERTED = 0;
-int textsize = 1;
-char TFTSCROLLING = 0;
-unsigned int textcolor = 0xFFFF;
-unsigned int textbgcolor = 0xFFFF;
-char wrap = 1;
-int cursor_y = 0;
-int cursor_x = 0;
-int _width, _height;
+volatile char _screenLock = 0;
+volatile char TFTROTATION;
+volatile char TFTINVERTED = 0;
+volatile int textsize = 1;
+volatile char TFTSCROLLING = 0;
+volatile unsigned int textcolor = 0xFFFF;
+volatile unsigned int textbgcolor = 0xFFFF;
+volatile char wrap = 1;
+volatile int cursor_y = 0;
+volatile int cursor_x = 0;
+volatile int _width, _height;
+volatile int _font[5];
+volatile char _byteReadyFlag, _byteToSend, _byteType;   // For multicore support when enabled
 
 
-void oledc_init(char cs, char rs, char sid, char sclk, char rst, char screen_rotation) {
+//unsigned int stack[128];                  // For Multicore support when enabled - Stack vars for other cog
+
+
+i2c *eeBus;                                   // I2C bus ID
+
+void oledc_init(char sid, char sclk, char cs, char rs, char rst, char screen_rotation) {
   
   _cs = cs;
   _rs = rs;
   _sid = sid;
   _sclk = sclk;
   _rst = rst;
+  
+  //cogstart(oledc_startup, NULL, stack, sizeof(stack));   // for multicore support when enabled, need to diable the pin interface in oledc_init
+
+  // set pin directions
+  DIRA |= 1 << _rs;
+  DIRA |= 1 << _sclk;
+  DIRA |= 1 << _sid;
+
+  // Toggle RST low to reset; CS low so it'll listen to us
+  OUTA &= ~(1 << _cs);
+  DIRA |= 1 << _cs;
+
+  // Default to command mode;
+  OUTA &= ~(1 << _rs);
+
+  if(_rst >= 0 && _rst < 32)
+  {
+    OUTA |= 1 << _rst;
+    DIRA |= 1 << _rst;
+    waitcnt(CLKFREQ / 2 + CNT);                      // Wait for system clock target
+    OUTA &= ~(1 << _rst);
+    waitcnt(CLKFREQ / 2 + CNT);                      // Wait for system clock target
+    OUTA |= 1 << _rst;
+    waitcnt(CLKFREQ / 2 + CNT);                      // Wait for system clock target
+  }  
+  
+  
+
+  // Initialization Sequence
+  oledc_writeCommand(SSD1331_CMD_DISPLAYOFF, 0);     // 0xAE
+  oledc_writeCommand(SSD1331_CMD_SETREMAP, 0);       // 0xA0
+  oledc_writeCommand(0x72, 0);                       // RGB Color
+  oledc_writeCommand(SSD1331_CMD_STARTLINE, 0);      // 0xA1
+  oledc_writeCommand(0x00, 0);
+  oledc_writeCommand(SSD1331_CMD_DISPLAYOFFSET, 0);  // 0xA2
+  oledc_writeCommand(0x00, 0);
+  oledc_writeCommand(SSD1331_CMD_NORMALDISPLAY, 0);  // 0xA4
+  oledc_writeCommand(SSD1331_CMD_SETMULTIPLEX, 0);   // 0xA8
+  oledc_writeCommand(0x3F, 0);                       // 0x3F 1/64 duty
+  oledc_writeCommand(SSD1331_CMD_SETMASTER, 0);      // 0xAD
+  oledc_writeCommand(0x8E, 0);
+  oledc_writeCommand(SSD1331_CMD_POWERMODE, 0);      // 0xB0
+  oledc_writeCommand(0x0B, 0);
+  oledc_writeCommand(SSD1331_CMD_PRECHARGE, 0);      // 0xB1
+  oledc_writeCommand(0x31, 0);
+  oledc_writeCommand(SSD1331_CMD_CLOCKDIV, 0);       // 0xB3
+  oledc_writeCommand(0xF0, 0);                       // 7:4 = Oscillator Frequency, 3:0 = CLK Div Ratio (A[3:0]+1 = 1..16)
+  oledc_writeCommand(SSD1331_CMD_PRECHARGEA, 0);     // 0x8A
+  oledc_writeCommand(0x64, 0);
+  oledc_writeCommand(SSD1331_CMD_PRECHARGEB, 0);     // 0x8B
+  oledc_writeCommand(0x78, 0);
+  oledc_writeCommand(SSD1331_CMD_PRECHARGEA, 0);     // 0x8C
+  oledc_writeCommand(0x64, 0);
+  oledc_writeCommand(SSD1331_CMD_PRECHARGELEVEL, 0); // 0xBB
+  oledc_writeCommand(0x3A, 0);
+  oledc_writeCommand(SSD1331_CMD_VCOMH, 0);          // 0xBE
+  oledc_writeCommand(0x3E, 0);
+  oledc_writeCommand(SSD1331_CMD_MASTERCURRENT, 0);  // 0x87
+  oledc_writeCommand(0x06, 0);
+  oledc_writeCommand(SSD1331_CMD_CONTRASTA, 0);      // 0x81
+  oledc_writeCommand(0x91, 0);
+  oledc_writeCommand(SSD1331_CMD_CONTRASTB, 0);      // 0x82
+  oledc_writeCommand(0x50, 0);
+  oledc_writeCommand(SSD1331_CMD_CONTRASTC, 0);      // 0x83
+  oledc_writeCommand(0x7D, 0);
+  oledc_writeCommand(SSD1331_CMD_DISPLAYON, 0);      //--turn on oled panel
+  
+  oledc_setRotation(screen_rotation);
+  TFTROTATION = screen_rotation & 3;
+
+  eeBus = i2c_newbus(28, 29, 0);           // Set up I2C bus, get bus ID
+  
+  //check if fonts are installed in EEPROM, and set the default font if they are
+  _font[0] = 0;
+  char testStr[] = {0,0,0,0,0,0};  
+  i2c_in(eeBus, 0b1010000, 43640, 2, testStr, 6);
+  if(testStr[0] == 'f' && 
+     testStr[1] == 'o' && 
+     testStr[2] == 'n' && 
+     testStr[3] == 't' && 
+     testStr[4] == 's' && 
+     testStr[5] == '!') _font[0] = 1;
+          
+  // Set a default font by setting EEPROM addresses
+    _font[1] = 61184;
+    _font[2] = 61056;
+    _font[3] = 60288;
+    _font[4] = 57728;
+
+
+  oledc_clear(0,0,_width,_height);  
+}
+
+
+
+void oledc_startup() {
   
   // set pin directions
   DIRA |= 1 << _rs;
@@ -48,59 +153,28 @@ void oledc_init(char cs, char rs, char sid, char sclk, char rst, char screen_rot
   OUTA &= ~(1 << _cs);
   DIRA |= 1 << _cs;
 
-  OUTA |= 1 << _rst;
-  DIRA |= 1 << _rst;
-  waitcnt(CLKFREQ / 2 + CNT);                      // Wait for system clock target
-  OUTA &= ~(1 << _rst);
-  waitcnt(CLKFREQ / 2 + CNT);                      // Wait for system clock target
-  OUTA |= 1 << _rst;
-  waitcnt(CLKFREQ / 2 + CNT);                      // Wait for system clock target
+  // Default to command mode;
+  OUTA &= ~(1 << _rs);
 
-  // Initialization Sequence
-  oledc_writeCommand(SSD1331_CMD_DISPLAYOFF);    // 0xAE
-  oledc_writeCommand(SSD1331_CMD_SETREMAP);  // 0xA0
-  oledc_writeCommand(0x72);        // RGB Color
-  oledc_writeCommand(SSD1331_CMD_STARTLINE);   // 0xA1
-  oledc_writeCommand(0x0);
-  oledc_writeCommand(SSD1331_CMD_DISPLAYOFFSET);   // 0xA2
-  oledc_writeCommand(0x0);
-  oledc_writeCommand(SSD1331_CMD_NORMALDISPLAY);   // 0xA4
-  oledc_writeCommand(SSD1331_CMD_SETMULTIPLEX);  // 0xA8
-  oledc_writeCommand(0x3F);        // 0x3F 1/64 duty
-  oledc_writeCommand(SSD1331_CMD_SETMASTER);   // 0xAD
-  oledc_writeCommand(0x8E);
-  oledc_writeCommand(SSD1331_CMD_POWERMODE);   // 0xB0
-  oledc_writeCommand(0x0B);
-  oledc_writeCommand(SSD1331_CMD_PRECHARGE);   // 0xB1
-  oledc_writeCommand(0x31);
-  oledc_writeCommand(SSD1331_CMD_CLOCKDIV);    // 0xB3
-  oledc_writeCommand(0xF0);  // 7:4 = Oscillator Frequency, 3:0 = CLK Div Ratio (A[3:0]+1 = 1..16)
-  oledc_writeCommand(SSD1331_CMD_PRECHARGEA);    // 0x8A
-  oledc_writeCommand(0x64);
-  oledc_writeCommand(SSD1331_CMD_PRECHARGEB);    // 0x8B
-  oledc_writeCommand(0x78);
-  oledc_writeCommand(SSD1331_CMD_PRECHARGEA);    // 0x8C
-  oledc_writeCommand(0x64);
-  oledc_writeCommand(SSD1331_CMD_PRECHARGELEVEL);    // 0xBB
-  oledc_writeCommand(0x3A);
-  oledc_writeCommand(SSD1331_CMD_VCOMH);     // 0xBE
-  oledc_writeCommand(0x3E);
-  oledc_writeCommand(SSD1331_CMD_MASTERCURRENT);   // 0x87
-  oledc_writeCommand(0x06);
-  oledc_writeCommand(SSD1331_CMD_CONTRASTA);   // 0x81
-  oledc_writeCommand(0x91);
-  oledc_writeCommand(SSD1331_CMD_CONTRASTB);   // 0x82
-  oledc_writeCommand(0x50);
-  oledc_writeCommand(SSD1331_CMD_CONTRASTC);   // 0x83
-  oledc_writeCommand(0x7D);
-  oledc_writeCommand(SSD1331_CMD_DISPLAYON); //--turn on oled panel
+  if(_rst >= 0 && _rst < 32)
+  {
+    OUTA |= 1 << _rst;
+    DIRA |= 1 << _rst;
+    waitcnt(CLKFREQ / 2 + CNT);                      // Wait for system clock target
+    OUTA &= ~(1 << _rst);
+    waitcnt(CLKFREQ / 2 + CNT);                      // Wait for system clock target
+    OUTA |= 1 << _rst;
+    waitcnt(CLKFREQ / 2 + CNT);                      // Wait for system clock target
+  }  
   
-  oledc_setRotation(screen_rotation);
-  TFTROTATION = screen_rotation & 3;
-  
-  oledc_clear(0,0,_width,_height);
-  
-}
+  while(1)
+  {
+    while(!_byteReadyFlag);
+    oledc_spiWrite(_byteToSend, _byteType);    
+    _byteReadyFlag = 0;
+  }    
+}  
+
 
 // Parts of this file are from the Adafruit GFX arduino library
 

@@ -16,31 +16,46 @@
 
 
 #include "oledc.h"
+#include "simpletools.h"
 
-char oledc_font_med[2090];
+int _font[5];
+
+i2c *eeBus;                                   // I2C bus ID
+
 
 void oledc_drawCharMedium(int x, int y, unsigned char c, unsigned int color, unsigned int bg) 
 {
   c -= 33;
+
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
+  
+  char oledc_font_med[22];
+  i2c_in(eeBus, 0b1010000, (_font[1] + ((unsigned int) c) * 22), 2, oledc_font_med, 22);
+
+  for(int xy = 0; xy < 22; xy++) if(oledc_font_med[xy] == 0xEA) oledc_font_med[xy] = 0x19; 
+  
   for (char i = 0; i < 22; i += 2 ) 
   {
     int li;
     
-    if (i < 22) li = (oledc_font_med[c * 22 + i] << 8) | oledc_font_med[c * 22 + i + 1];
+    if (i < 22) li = (oledc_font_med[i] << 8) | oledc_font_med[i+1];
     else        li = 0x0;
 
     for (char j = 0; j < 16; j++, li >>= 1) 
     {
-      if (li & 0x1)          oledc_drawPixel(x + i / 2, y + j, color);
-      else if (bg != color)  oledc_drawPixel(x + i / 2, y + j, bg);
+      if (li & 0x1)          oledc_drawPixelPrimative(x + i / 2, y + j, color);
+      else if (bg != color)  oledc_drawPixelPrimative(x + i / 2, y + j, bg);
     }
     
     if (bg != color)
     {
-      oledc_drawFastVLine(x + 11, y, 17, bg);
-      oledc_drawFastHLine(x, y + 16, 11, bg);
+      oledc_drawLinePrimative(x + 11, y, x + 11, y + 16, bg);
+      oledc_drawLinePrimative(x, y + 16, x + 10, y + 16, bg);
     }      
   }
+  
+  oledc_screenLockClr();
 } 
 
 

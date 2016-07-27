@@ -18,7 +18,10 @@
 
 char TFTROTATION;
 
-void oledc_copy(int x0, int y0, int w, int h, int x2, int y2) {
+void oledc_copy(int x0, int y0, int w, int h, int x2, int y2) 
+{
+  while(oledc_screenLock());  
+  oledc_screenLockSet();
 
   int x1 = x0 + w - 1;
   int y1 = y0 + h - 1;
@@ -69,13 +72,18 @@ void oledc_copy(int x0, int y0, int w, int h, int x2, int y2) {
   if (y2 >= TFTHEIGHT)
     y2 = TFTHEIGHT - 1;
 
-  oledc_writeCommand(SSD1331_CMD_COPY);
-  oledc_writeCommand(x0);
-  oledc_writeCommand(y0);
-  oledc_writeCommand(x1);
-  oledc_writeCommand(y1);
-  oledc_writeCommand(x2);
-  oledc_writeCommand(y2);
+  oledc_writeCommand(SSD1331_CMD_COPY, 0);
+  oledc_writeCommand(x0, 0);
+  oledc_writeCommand(y0, 0);
+  oledc_writeCommand(x1, 0);
+  oledc_writeCommand(y1, 0);
+  oledc_writeCommand(x2, 0);
+  oledc_writeCommand(y2, 0);
+
+  int _tMark = CNT + (CLKFREQ / 2000);
+  while(_tMark > CNT);                          // Wait for system clock target
+
+  oledc_screenLockClr();
 }
 
 // Parts of this file are from the Adafruit GFX arduino library
