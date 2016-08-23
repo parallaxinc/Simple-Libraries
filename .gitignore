@@ -1,0 +1,6 @@
+#Simple-Libraries Exclusions
+.DS_Store
+*.o
+*.binary
+*.elf
+*.bak

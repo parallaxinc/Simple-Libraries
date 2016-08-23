@@ -2,11 +2,11 @@ libabcalibrate.c
 abcalibrate.c -> abcalibrate.c
 abcalibrate.h -> abcalibrate.h
 >compiler=C
->memtype=lmm main ram
+>memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-fno-exceptions
 >defs::-std=c99
 >-lm
 >-create_library
->BOARD::PROPBOE
+>BOARD::ACTIVITYBOARD

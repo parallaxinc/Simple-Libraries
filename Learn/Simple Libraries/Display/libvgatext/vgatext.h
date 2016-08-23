@@ -13,7 +13,7 @@
  * necessary for displaying text with a VGA display. 
  *
  * @par Memory Models
- * Use with CMM, LMM, XMM. 
+ * Use with CMM or LMM. 
  *
  * @version v0.90 
  *
