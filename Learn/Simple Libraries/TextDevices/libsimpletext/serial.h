@@ -19,7 +19,7 @@
  * gets copied to unused memory within the cog that calls serial_open.
  *
  * @par Memory Models
- * Use with CMM, LMM, or XMMC. 
+ * Use with CMM or LMM. 
  *
  * @version 0.85
  *

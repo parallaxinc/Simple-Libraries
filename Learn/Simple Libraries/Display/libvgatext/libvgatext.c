@@ -41,14 +41,14 @@ int main(void)
     writeStr(vga,"Hello World!\r");
     vgatext_setY(vgatext_getY()+1);
     writeStr(vga,"Decimal ");
-    writeDecDigits(vga,ii,4);
+    writeDecLen(vga,ii,4);
     vgatext_setY(vgatext_getY()+1);
 
     for(jj = 10; jj < 24; jj++) {
         vgatext_setColors((jj-10));
         vgatext_setXY(jj, jj % VGA_TEXT_ROWS);
         writeStr(vga,"0x");
-        writeHexDigits(vga,ii++,2);
+        writeHexLen(vga,ii++,2);
     }
 
     vgatext_setColors(VGA_TEXT_CYAN_BLUE);
