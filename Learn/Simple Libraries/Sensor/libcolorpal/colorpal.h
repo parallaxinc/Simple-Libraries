@@ -87,6 +87,23 @@ void colorPal_close(colorPal *device);
  */
 void colorPal_getRGB(colorPal *device, int *r, int *g, int *b);
 
+// ColorPal RRGGBB converter
+
+/**
+ * @brief Supplies 8-bit white balanced approximations of ColorPal sensor's 
+ * 12-bit values.  Note: The rgb parameters are values, not pointers like
+ * they are in the colorPal_getRGB function.
+ *
+ * @param @r 12-bit red value from ColorPal
+ * 
+ * @param @g 12-bit green value from ColorPal
+ * 
+ * @param @b 12-bit blue value from ColorPal
+ * 
+ * @returns an int with 3 8-bit color bytes in 00rrggbb format.
+ */
+unsigned int colorPalRRGGBB( int r, int g, int b );
+
 
 #if defined(__cplusplus)
 }
