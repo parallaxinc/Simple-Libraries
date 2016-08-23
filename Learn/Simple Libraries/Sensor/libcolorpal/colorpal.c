@@ -156,6 +156,28 @@ void colorPal_close(colorPal *device)
   device = 0;
 }
 
+// ColorPal RRGGBB converter
+
+/*
+ * Takes the 12-bit red, green, and blue outputs from a ColorPal
+ * sensor and generates an approximate RRGGBB (24-bit) output
+ * compatible with HTML color codes and some RGB leds.
+ */
+
+unsigned int colorPalRRGGBB( int r, int g, int b )
+{
+
+  r = 21 * r / 11 - 65 - ( r * r / 415  );
+  g = 48 * g / 17 - 70 - ( g * g / 170  );
+  b = 8  * b / 9  - 30 - ( b * b / 1680 );
+
+  if( r < 0 ) r = 0; if( r > 255 ) r = 255;
+  if( g < 0 ) g = 0; if( g > 255 ) g = 255;
+  if( b < 0 ) b = 0; if( b > 255 ) b = 255;
+
+  return ((r & 0xFF) << 16 | (b & 0xFF) << 8 | (b & 0xFF));
+}
+
 
 /**
  * TERMS OF USE: MIT License
