@@ -69,9 +69,9 @@ extern "C" {                                  // Compile for C
 #define BLACK                     0x0000
 
 // Font size and face
-#define SMALL           1
-#define MEDIUM          2
-#define LARGE           3
+#define FONT_SMALL	1
+#define FONT_MEDIUM     2
+#define FONT_LARGE      3
 
 #define FONT_SANS       0
 #define FONT_SERIF      1
