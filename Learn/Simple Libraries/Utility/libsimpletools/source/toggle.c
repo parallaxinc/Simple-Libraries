@@ -20,6 +20,7 @@ unsigned int toggle(int pin)                  // toggle function definition
 {
   int mask = 1 << pin;
   OUTA ^= mask;
+  DIRA |= mask;
   return (OUTA >> pin) & 1;
 }
 
