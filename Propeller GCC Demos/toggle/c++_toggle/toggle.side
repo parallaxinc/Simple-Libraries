@@ -1,7 +1,0 @@
-toggle.cc
->compiler=C++
->memtype=cog
->optimize=-O2
->-fno-exceptions
->-fno-rtti
->BOARD::HUB

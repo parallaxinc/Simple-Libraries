@@ -1,9 +1,0 @@
-Blank Simple C++ Project.cpp
->compiler=C++
->memtype=cmm main ram compact
->optimize=-Os
->-m32bit-doubles
->-fno-exceptions
->-fno-rtti
->-ltiny
->BOARD::ACTIVITYBOARD
