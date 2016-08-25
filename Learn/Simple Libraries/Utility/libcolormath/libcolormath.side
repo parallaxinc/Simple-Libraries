@@ -1,0 +1,15 @@
+libcolorMath.c
+colorMath.h
+compareRRGGBB.c
+get8bitColor.c
+getColorRRGGBB.c
+remapColor.c
+>compiler=C
+>memtype=lmm main ram
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>defs::-std=c99
+>-lm
+>-create_library
+>BOARD::ACTIVITYBOARD
