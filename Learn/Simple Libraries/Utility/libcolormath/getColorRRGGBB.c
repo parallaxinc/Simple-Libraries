@@ -13,7 +13,7 @@
 
 
 
-#include "colormath.h"
+#include "colorMath.h"
 
 
 int getColorRRGGBB(int r, int g, int b)

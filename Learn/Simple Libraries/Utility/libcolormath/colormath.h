@@ -1,5 +1,5 @@
 /*
- * @file colormath.h
+ * @file colorMath.h
  *
  * @author Matthew Matz
  *
@@ -14,8 +14,8 @@
  * this code to editor@parallax.com.
  */
 
-#ifndef colormath_H                           // Prevents duplicate
-#define colormath_H                           // declarations
+#ifndef COLORMATH_H                           // Prevents duplicate
+#define COLORMATH_H                           // declarations
 
 #if defined(__cplusplus)                      // If compiling for C++
 extern "C" {                                  // Compile for C
@@ -94,7 +94,7 @@ int remapColor(int c, char *f1, char *f2);
 /* __cplusplus */
 
 #endif                                        // End prevent duplicate forward
-/* colormath_H */                             // declarations block    
+/* COLORMATH_H */                             // declarations block    
 
 
 

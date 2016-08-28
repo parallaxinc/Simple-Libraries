@@ -13,7 +13,7 @@
 
 
 
-#include "colormath.h"
+#include "colorMath.h"
 
 
 int compareRRGGBB(int c1, int c2) 

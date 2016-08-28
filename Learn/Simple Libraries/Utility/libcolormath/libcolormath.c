@@ -1,5 +1,5 @@
 /*
- * @file libcolormath.c
+ * @file libcolorMath.c
  *
  * @author Matthew Matz
  *
@@ -13,11 +13,8 @@
 
 
 
-#include "colormath.h"
+#include "colorMath.h"
 
-
-
-//#include "simpletools.h"
 
 int main()
 {
