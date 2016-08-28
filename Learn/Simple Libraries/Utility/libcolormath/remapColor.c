@@ -13,7 +13,7 @@
 
 
 
-#include "colorMath.h"
+#include "colormath.h"
 
 
 int remapColor(int c, char *f1, char *f2)

@@ -13,7 +13,7 @@
 
 
 
-#include "colorMath.h"
+#include "colormath.h"
 
 
 int get8bitColor(int c, char *i)

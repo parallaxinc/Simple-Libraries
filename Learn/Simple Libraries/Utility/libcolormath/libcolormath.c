@@ -13,7 +13,7 @@
 
 
 
-#include "colorMath.h"
+#include "colormath.h"
 
 
 int main()
