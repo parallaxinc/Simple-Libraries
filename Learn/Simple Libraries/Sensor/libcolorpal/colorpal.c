@@ -175,7 +175,7 @@ unsigned int colorPalRRGGBB( int r, int g, int b )
   if( g < 0 ) g = 0; if( g > 255 ) g = 255;
   if( b < 0 ) b = 0; if( b > 255 ) b = 255;
 
-  return ((r & 0xFF) << 16 | (b & 0xFF) << 8 | (b & 0xFF));
+  return ((r & 0xFF) << 16 | (g & 0xFF) << 8 | (b & 0xFF));
 }
 
 
