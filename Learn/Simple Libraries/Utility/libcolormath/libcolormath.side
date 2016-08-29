@@ -1,5 +1,5 @@
-libcolorMath.c
-colorMath.h
+libcolormath.c
+colormath.h
 compareRRGGBB.c
 get8bitColor.c
 getColorRRGGBB.c
