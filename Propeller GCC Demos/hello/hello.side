@@ -1,7 +1,0 @@
-hello.c
->compiler=C
->memtype=lmm main ram
->optimize=-Os
->-fno-exceptions
->-ltiny
->BOARD::C3

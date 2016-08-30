@@ -1,6 +1,0 @@
-forward = 192
-left = 64
-right = 128
-left = 64
-backward = 192
-end
