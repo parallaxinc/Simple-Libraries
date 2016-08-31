@@ -24,28 +24,12 @@ void putChar(char c)
 
 #include "simpletext.h"
 
-volatile char st_cursorPosition = 0;
-
 void putChar(char c)
 {
   extern text_t *dport_ptr;
-  if((c == '\n') && (st_cursorPosition == 0))
-  {
+  if(c == '\n')
     dport_ptr->txChar(dport_ptr, '\r');
-  }
-  else
-  {
-    st_cursorPosition--;
-  }        
   dport_ptr->txChar(dport_ptr, c);
-
-  if(c == 2 || c == 14 || c == 15)
-  {
-    if(c > 2)
-      st_cursorPosition = 1;
-    else
-      st_cursorPosition = 2;
-  }            
 }
 
 /*

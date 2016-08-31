@@ -18,7 +18,7 @@
   <td id="projectlogo"><img alt="Logo" src="ParallaxLogo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">simpletools library
-   &#160;<span id="projectnumber">v0.98.1</span>
+   &#160;<span id="projectnumber">v0.98.2</span>
    </div>
    <div id="projectbrief">Collection of convenience functions for common microcontroller tasks</div>
   </td>
@@ -39,8 +39,8 @@
 </div><!--header-->
 <div class="contents">
 
-<p>This library provides convenient functions for a variety of microcontroller I/O, timing, conversion, and communication tasks. This library also includes (and you can call functions from) <a href="html/../../../Text%20Devices/libsimpletext/
-Documentation%20simpletext%20Library.html" target="blank">simpletext</a> and <a href="html/../../../Text%20Devices/libsimpletext/
+<p>This library provides convenient functions for a variety of microcontroller I/O, timing, conversion, and communication tasks. This library also includes (and you can call functions from) <a href="html/html/../../../Text%20Devices/libsimpletext/
+Documentation%20simpletext%20Library.html" target="blank">simpletext</a> and <a href="html/html/../../../Text%20Devices/libsimpletext/
 Documentation%20serial%20Library.html" target="blank">serial</a>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;propeller.h&gt;</code><br/>
@@ -284,7 +284,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a3faa206c9a2381e34baf4473028df149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional function for setting a custom EEPROM configuration. Other ee_ functions automatically check if the EEPROM has been initialized, and if not, they use default settings equivalent to ee_config(28, 29, 0). This function can be called before any other ee_ functions to replace those defaults with custom settings.  <a href="#a3faa206c9a2381e34baf4473028df149"></a><br/></td></tr>
 <tr><td colspan="2"><div class="groupHeader">SD Card</div></td></tr>
 <tr class="memitem:aa845f3e273a492072b625da584924f32"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#aa845f3e273a492072b625da584924f32">sd_mount</a> (int doPin, int clkPin, int diPin, int csPin)</td></tr>
-<tr class="memdesc:aa845f3e273a492072b625da584924f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mount an SD card with the minimal 4-pin interface. For <a href="html/http://learn.parallax.com" target="_blank">Parallax Learn Site</a> examples, see: <a href="html/http://learn.parallax.com/propeller-c-simple-devices/sd-card-data" target="_blank">SD Card Data</a> and <a href="html/http://learn.parallax.com/propeller-c-simple-devices/play-wav-files" target="_blank">Play WAV Files</a>.  <a href="#aa845f3e273a492072b625da584924f32"></a><br/></td></tr>
+<tr class="memdesc:aa845f3e273a492072b625da584924f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mount an SD card with the minimal 4-pin interface. For <a href="html/html/http://learn.parallax.com" target="_blank">Parallax Learn Site</a> examples, see: <a href="html/html/http://learn.parallax.com/propeller-c-simple-devices/sd-card-data" target="_blank">SD Card Data</a> and <a href="html/html/http://learn.parallax.com/propeller-c-simple-devices/play-wav-files" target="_blank">Play WAV Files</a>.  <a href="#aa845f3e273a492072b625da584924f32"></a><br/></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Multicore</div></td></tr>
 <tr class="memitem:a9c5d06d96a66ec25c018b469e9c5e06b"><td class="memItemLeft" align="right" valign="top">int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a9c5d06d96a66ec25c018b469e9c5e06b">cog_run</a> (void(*function)(void *par), int stacksize)</td></tr>
 <tr class="memdesc:a9c5d06d96a66ec25c018b469e9c5e06b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run a function's code in the next available cog (processor).  <a href="#a9c5d06d96a66ec25c018b469e9c5e06b"></a><br/></td></tr>
@@ -292,6 +292,9 @@ Functions</h2></td></tr>
 <tr class="memdesc:ad260529b4817b8bc40d280053d921a9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the cog ID.  <a href="#ad260529b4817b8bc40d280053d921a9e"></a><br/></td></tr>
 <tr class="memitem:a5b2cba6f29a9955c55ab239066e30e7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a5b2cba6f29a9955c55ab239066e30e7f">cog_end</a> (int *coginfo)</td></tr>
 <tr class="memdesc:a5b2cba6f29a9955c55ab239066e30e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">End function code running in another cog that was launched with cog_run.  <a href="#a5b2cba6f29a9955c55ab239066e30e7f"></a><br/></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Terminal Control</div></td></tr>
+<tr class="memitem:a2d5010e62531065fa13124e23dbfb176"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#a2d5010e62531065fa13124e23dbfb176">term_cmd</a> (int termConst,...)</td></tr>
+<tr class="memdesc:a2d5010e62531065fa13124e23dbfb176"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a command to SimpleIDE Terminal. Examples of commands include HOME, CLS, BKSP, CRSRXY, and others. All sixteen are listed in the SimpleIDE Terminal Constants section above. Click the term_cmd link to go to the details section and see parameter descriptions and code examples.  <a href="#a2d5010e62531065fa13124e23dbfb176"></a><br/></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Miscellaneous</div></td></tr>
 <tr class="memitem:ac21155c6ac6136e0300141f0c1e059eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/simpletools_8h.html#ac21155c6ac6136e0300141f0c1e059eb">endianSwap</a> (void *resultAddr, void *varAddr, int byteCount)</td></tr>
 <tr class="memdesc:ac21155c6ac6136e0300141f0c1e059eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Take bytes in one variable at varAddr, swap their order, and store them in another variable at resultAddr. This is useful for communication with peripherals that transmit/receive bytes in multi-byte values in reverse order from how the Propeller stores it in RAM.  <a href="#ac21155c6ac6136e0300141f0c1e059eb"></a><br/></td></tr>
@@ -341,11 +344,11 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/
 <tr class="memdesc:a493e381735ceb4e0d7914d91d3f0c7af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization flag used by ee_ functions. <br/></td></tr>
 </table>
 <a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>This library provides convenient functions for a variety of microcontroller I/O, timing, conversion, and communication tasks. This library also includes (and you can call functions from) <a href="html/../../../Text%20Devices/libsimpletext/
-Documentation%20simpletext%20Library.html" target="blank">simpletext</a> and <a href="html/../../../Text%20Devices/libsimpletext/
+<div class="textblock"><p>This library provides convenient functions for a variety of microcontroller I/O, timing, conversion, and communication tasks. This library also includes (and you can call functions from) <a href="html/html/../../../Text%20Devices/libsimpletext/
+Documentation%20simpletext%20Library.html" target="blank">simpletext</a> and <a href="html/html/../../../Text%20Devices/libsimpletext/
 Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 <dl class="section author"><dt>Author</dt><dd>Andy Lindsay</dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax, Inc. 2014. All Rights MIT Licensed.</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) Parallax, Inc. 2016. All Rights MIT Licensed.</dd></dl>
 <p>This library provides a set of introductory functions that simplify:</p>
 <ul>
 <li>I/O control - convenient I/O pin monitoring and control functions </li>
@@ -367,7 +370,8 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 <li>dac (1 cog)</li>
 </ul>
 <dl class="section user"><dt>Memory Models</dt><dd>Use with CMM or LMM.</dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.98 fpucog floating point coprocessor no longer self-starts by default. All floating point functionality is still supported, processing just happens in the same cog. i2c_out and i2c_in char regAddr parameter changed to int memAddr. itoa removed, use sprint(charArray, "%d", intVal) to make int to ASCII conversions. st_msTicks and st_usTicks global variables are pre-initialized to the number of system clock ticks in a millisecond and microsecond for convenience in library development. Variables named us and ms are initialized to the same values for user applications. Function endianSwap added to simplify communication with devices that send/receive byte data in big endian format. </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.98.2 Add term_cmd function for SimpleIDE Terminal cursor, screen, and audio control. </dd></dl>
+<dl class="section user"><dt></dt><dd>0.98 fpucog floating point coprocessor no longer self-starts by default. All floating point functionality is still supported, processing just happens in the same cog. i2c_out and i2c_in char regAddr parameter changed to int memAddr. itoa removed, use sprint(charArray, "%d", intVal) to make int to ASCII conversions. st_msTicks and st_usTicks global variables are pre-initialized to the number of system clock ticks in a millisecond and microsecond for convenience in library development. Variables named us and ms are initialized to the same values for user applications. Function endianSwap added to simplify communication with devices that send/receive byte data in big endian format. </dd></dl>
 <dl class="section user"><dt></dt><dd>0.97 Add cog_run and cog_end for simplified running of functioncode in other cogs. </dd></dl>
 <dl class="section user"><dt></dt><dd>0.96.1 Add documentation for start_fpu_cog and stop_fpu_cog. </dd></dl>
 <dl class="section user"><dt></dt><dd>0.96 ee_putStr updated to support 128 byte page writes. More corrections to ee_put for contiguous data crossing address/128 boundary. </dd></dl>
@@ -1776,7 +1780,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
       </table>
 </div><div class="memdoc">
 
-<p>Mount an SD card with the minimal 4-pin interface. For <a href="html/http://learn.parallax.com" target="_blank">Parallax Learn Site</a> examples, see: <a href="html/http://learn.parallax.com/propeller-c-simple-devices/sd-card-data" target="_blank">SD Card Data</a> and <a href="html/http://learn.parallax.com/propeller-c-simple-devices/play-wav-files" target="_blank">Play WAV Files</a>. </p>
+<p>Mount an SD card with the minimal 4-pin interface. For <a href="html/html/http://learn.parallax.com" target="_blank">Parallax Learn Site</a> examples, see: <a href="html/html/http://learn.parallax.com/propeller-c-simple-devices/sd-card-data" target="_blank">SD Card Data</a> and <a href="html/html/http://learn.parallax.com/propeller-c-simple-devices/play-wav-files" target="_blank">Play WAV Files</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">doPin</td><td>The SD card's data out pin.</td></tr>
@@ -2191,6 +2195,52 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 
 </div>
 </div>
+<a class="anchor" id="a2d5010e62531065fa13124e23dbfb176"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void term_cmd </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>termConst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send a command to SimpleIDE Terminal. Examples of commands include HOME, CLS, BKSP, CRSRXY, and others. All sixteen are listed in the SimpleIDE Terminal Constants section above. Click the term_cmd link to go to the details section and see parameter descriptions and code examples. </p>
+<div class="fragment"><div class="line"><span class="comment">// Examples</span></div>
+<div class="line"><a class="code" href="html/simpletools_8h.html#a2d5010e62531065fa13124e23dbfb176" title="Send a command to SimpleIDE Terminal. Examples of commands include HOME, CLS, BKSP, CRSRXY, and others. All sixteen are listed in the SimpleIDE Terminal Constants section above. Click the term_cmd link to go to the details section and see parameter descriptions and code examples.">term_cmd</a>(<a class="code" href="html/simpletools_8h.html#a0e26ea2db1b570d1a6fe1ac180ef4541" title="HOME character (1) sends SimpleIDE Terminal&#39;s cursor to top-left &quot;home&quot; position.">HOME</a>);          <span class="comment">// Cursor -&gt; home (0, 0) position</span></div>
+<div class="line"><a class="code" href="html/simpletools_8h.html#a2d5010e62531065fa13124e23dbfb176" title="Send a command to SimpleIDE Terminal. Examples of commands include HOME, CLS, BKSP, CRSRXY, and others. All sixteen are listed in the SimpleIDE Terminal Constants section above. Click the term_cmd link to go to the details section and see parameter descriptions and code examples.">term_cmd</a>(<a class="code" href="html/simpletools_8h.html#ada59561816893aa39c4aa41f1043c554" title="CLS character (16) clears SimpleIDE&#39;s screen, erasing all characters and placing the cursor in the to...">CLS</a>);           <span class="comment">// Clear screen and send cursor HOME</span></div>
+<div class="line"><a class="code" href="html/simpletools_8h.html#a2d5010e62531065fa13124e23dbfb176" title="Send a command to SimpleIDE Terminal. Examples of commands include HOME, CLS, BKSP, CRSRXY, and others. All sixteen are listed in the SimpleIDE Terminal Constants section above. Click the term_cmd link to go to the details section and see parameter descriptions and code examples.">term_cmd</a>(<a class="code" href="html/simpletools_8h.html#a4f41e5dc4d1d256277cb259077da1fc6" title="BKSP character (8) sends the SimpleIDE Terminal&#39;s cursor one column (space) to the left of its curren...">BKSP</a>);          <span class="comment">// Backspace one character</span></div>
+<div class="line"><span class="comment">// Position cursor 4 spaces from left and 2 rows down from top.</span></div>
+<div class="line"><a class="code" href="html/simpletools_8h.html#a2d5010e62531065fa13124e23dbfb176" title="Send a command to SimpleIDE Terminal. Examples of commands include HOME, CLS, BKSP, CRSRXY, and others. All sixteen are listed in the SimpleIDE Terminal Constants section above. Click the term_cmd link to go to the details section and see parameter descriptions and code examples.">term_cmd</a>(<a class="code" href="html/simpletools_8h.html#afa53bcf09725cf1948b70eaaa229a3d1" title="CRSRXY character (2) sends cursor to a certain number of spaces over (X) and returns (Y) down from Si...">CRSRXY</a>, 4, 2);  </div>
+<div class="line"><span class="comment">// Position cursor 4 spaces from left, but do not change row.</span></div>
+<div class="line"><a class="code" href="html/simpletools_8h.html#a2d5010e62531065fa13124e23dbfb176" title="Send a command to SimpleIDE Terminal. Examples of commands include HOME, CLS, BKSP, CRSRXY, and others. All sixteen are listed in the SimpleIDE Terminal Constants section above. Click the term_cmd link to go to the details section and see parameter descriptions and code examples.">term_cmd</a>(<a class="code" href="html/simpletools_8h.html#a3cf3d7ff85aa894ae161d3f7ced308f1" title="CRSRX character (14) positions SimpleIDE Terminal&#39;s cursor X characters from the its left edge...">CRSRX</a>, 4);  </div>
+<div class="line"><span class="comment">// Position cursor 2 rows from top, but do not change spaces</span></div>
+<div class="line"><span class="comment">// from left.</span></div>
+<div class="line"><a class="code" href="html/simpletools_8h.html#a2d5010e62531065fa13124e23dbfb176" title="Send a command to SimpleIDE Terminal. Examples of commands include HOME, CLS, BKSP, CRSRXY, and others. All sixteen are listed in the SimpleIDE Terminal Constants section above. Click the term_cmd link to go to the details section and see parameter descriptions and code examples.">term_cmd</a>(<a class="code" href="html/simpletools_8h.html#af522fc6b22b3ec6d30fa9e5462d925e5" title="CRSRY character (15) sends SimpleIDE Terminal&#39;s cursor Y rows to the from its top edge...">CRSRY</a>, 2);  </div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">termConst</td><td>One of the sixteen terminal control constants listed in the SimpleIDE Terminal Constants part of the Macros section above.</td></tr>
+    <tr><td class="paramname">...</td><td>No additional parameters are required for CLS, HOME, and most of the others. Only CRSRXY requires two additional parameters, and CRSRX and CRSRY require a single additional parameter. If CRSRXY is used, arguments for x (spaces from left) and y (linefeeds from top) are required. If CRSRX is used, only the x value is required, and if CRSRY is used, only the y value is required. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="aba16632261a1faa89b62c8d7d11b45cc"></a>
 <div class="memitem">
 <div class="memproto">
@@ -2290,7 +2340,7 @@ Documentation%20serial%20Library.html" target="blank">serial</a>. </p>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 25 2014 11:07:07 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
+Generated on Wed Aug 31 2016 11:44:06 for simpletools library by &#160;<a href="html/http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
