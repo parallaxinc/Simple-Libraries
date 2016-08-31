@@ -4,16 +4,16 @@
  * @author Andy Lindsay
  *
  * @copyright
- * Copyright (C) Parallax, Inc. 2014. All Rights MIT Licensed.
+ * Copyright (C) Parallax, Inc. 2016. All Rights MIT Licensed.
  *
  * @brief This library provides convenient functions 
  * for a variety of microcontroller I/O, timing, conversion, and  
  * communication tasks.  This library also includes (and you can 
  * call functions from) 
- * <a target="blank" href="../../../Text%20Devices/libsimpletext/
+ * <a target="blank" href="html/../../../Text%20Devices/libsimpletext/
  * Documentation%20simpletext%20Library.html">simpletext</a> 
  * and
- * <a target="blank" href="../../../Text%20Devices/libsimpletext/
+ * <a target="blank" href="html/../../../Text%20Devices/libsimpletext/
  * Documentation%20serial%20Library.html">serial</a>.  
  *
  * @details This library provides a set of introductory functions that simplify:
@@ -58,6 +58,9 @@
  * Use with CMM or LMM.
  * 
  * @version
+ * 0.98.2 Add term_cmd function for SimpleIDE Terminal cursor, screen, and audio
+ * control.  
+ * @par
  * 0.98 fpucog floating point coprocessor no longer self-starts by default.  
  * All floating point functionality is still supported, processing just happens in
  * the same cog.  i2c_out and i2c_in char regAddr parameter changed to int memAddr. 
@@ -1349,8 +1352,8 @@ void ee_config(int sclPin, int sdaPin, int sclDrive);
 
 
 /**
- * @brief Mount an SD card with the minimal 4-pin interface.  For <a href="http://learn.parallax.com" target="_blank">Parallax Learn Site</a>
- * examples, see: <a href="http://learn.parallax.com/propeller-c-simple-devices/sd-card-data" target="_blank">SD Card Data</a> and <a href="http://learn.parallax.com/propeller-c-simple-devices/play-wav-files" target="_blank">Play WAV Files</a>.
+ * @brief Mount an SD card with the minimal 4-pin interface.  For <a href="html/http://learn.parallax.com" target="_blank">Parallax Learn Site</a>
+ * examples, see: <a href="html/http://learn.parallax.com/propeller-c-simple-devices/sd-card-data" target="_blank">SD Card Data</a> and <a href="html/http://learn.parallax.com/propeller-c-simple-devices/play-wav-files" target="_blank">Play WAV Files</a>.
  *
  * @param doPin The SD card's data out pin.
  *
@@ -1424,6 +1427,52 @@ int cog_num(int *coginfo);
  * @param *coginfo the address returned by cog_run.
  */
 void cog_end(int *coginfo);
+
+
+
+/**
+ * @}
+ *
+ * @name Terminal Control
+ * @{
+ */
+
+
+
+/**
+  @brief Send a command to SimpleIDE Terminal.  Examples of commands
+  include HOME, CLS, BKSP, CRSRXY, and others.  All sixteen are listed
+  in the SimpleIDE Terminal Constants section above.  Click the term_cmd
+  link to go to the details section and see parameter descriptions and
+  code examples.  
+  
+  @code
+    // Examples
+    term_cmd(HOME);          // Cursor -> home (0, 0) position
+    term_cmd(CLS);           // Clear screen and send cursor HOME
+    term_cmd(BKSP);          // Backspace one character
+    // Position cursor 4 spaces from left and 2 rows down from top.
+    term_cmd(CRSRXY, 4, 2);  
+    // Position cursor 4 spaces from left, but do not change row.
+    term_cmd(CRSRX, 4);  
+    // Position cursor 2 rows from top, but do not change spaces
+    // from left.
+    term_cmd(CRSRY, 2);  
+  @endcode
+  
+  @param termConst One of the sixteen terminal control 
+  constants listed in the SimpleIDE Terminal Constants 
+  part of the Macros section above.
+  
+  @param ... No additional parameters are required for
+  CLS, HOME, and most of the others.  Only CRSRXY requires
+  two additional parameters, and CRSRX and CRSRY require
+  a single additional parameter.  If CRSRXY is used, 
+  arguments for  x (spaces from left) and y (linefeeds from 
+  top) are required.  If CRSRX is used, only the x value is 
+  required, and if CRSRY is used, only the y value is required.
+*/
+void term_cmd(int termConst, ...); 
 
 
 

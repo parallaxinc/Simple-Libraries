@@ -48,6 +48,7 @@ source/setTimeout.c
 source/shiftIn.c
 source/shiftOut.c
 source/squareWave.c
+source/term_cmd.c
 source/timeout.c
 source/timeTicks.c
 source/toggle.c
