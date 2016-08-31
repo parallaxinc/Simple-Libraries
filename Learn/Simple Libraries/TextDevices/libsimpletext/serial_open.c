@@ -20,8 +20,8 @@ serial *serial_open(int rxpin, int txpin, int mode, int baudrate)
 
   /* set pins first for boards that can misbehave intentionally like the Quickstart */
   if(txpin >= SERIAL_MIN_PIN && txpin <= SERIAL_MAX_PIN) {
-    DIRA |=  (1<<txpin);
     OUTA |=  (1<<txpin);
+    DIRA |=  (1<<txpin);
   }
   if(rxpin >= SERIAL_MIN_PIN && rxpin <= SERIAL_MAX_PIN) {
     DIRA &= ~(1<<rxpin);

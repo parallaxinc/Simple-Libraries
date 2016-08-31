@@ -18,7 +18,7 @@
 
 int compareRRGGBB(int c1, int c2) 
 {
-  return 255 - ((abs((c1 & 0xFF0000) >> 16 - (c2 & 0xFF0000) >> 16) + abs((c1 & 0xFF00) >> 8 - (c2 & 0xFF00) >> 8) + abs(c1 & 0xFF - c2 & 0xFF)) / 3);
+  return 255 - ((abs(((c1 & 0xFF0000) >> 16) - ((c2 & 0xFF0000) >> 16)) + abs(((c1 & 0xFF00) >> 8) - ((c2 & 0xFF00) >> 8)) + abs((c1 & 0xFF) - (c2 & 0xFF))) / 3);
 }
 
 
