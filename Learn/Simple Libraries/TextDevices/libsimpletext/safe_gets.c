@@ -27,9 +27,10 @@ char* _safe_gets(text_t *text, char* origBuf, int count)
       {
           if (buf > origBuf)
           {
-              text->txChar(text, '\010');
-              text->txChar(text, ' ');
-              text->txChar(text, '\010');
+	      /* These are EVIL - for now */
+              // text->txChar(text, '\010');
+              // text->txChar(text, ' ');
+              // text->txChar(text, '\010');
               count += 1;
               buf--;
           }
@@ -37,9 +38,12 @@ char* _safe_gets(text_t *text, char* origBuf, int count)
           continue;
       }
 
-      text->txChar(text, ch);
-      if (ch == '\r')
-          text->txChar(text, '\n');
+      /*
+       *  More EVIL 
+       *  text->txChar(text, ch);
+       * if (ch == '\r')
+       *   text->txChar(text, '\n');
+      */
 
       if (ch == '\r' || ch == '\n')
           break;
