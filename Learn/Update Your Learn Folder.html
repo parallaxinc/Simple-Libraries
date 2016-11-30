@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+
+<body style="font-family:verdana">
+
+<p>
+<a href="http://learn.parallax.com" target="_blank">
+<img border="0" alt="LearnSite" src="Simple%20Libraries/Utility/libsimpletools/LearnHeading.png" width="526" height="91">
+</a>
+</p>
+
+<h2 style="font-family:verdana;">Get the Latest Learn Folder</h2>
+
+<p>
+More examples and libraries get added to the Learn folder all the time.  So make sure to 
+download the latest before getting started. Just go to:
+</p>  
+
+<p>
+<font color="white">___</font><a href="http://learn.parallax.com/propeller-c-set-simpleide/update-your-learn-folder" target="_blank">http://learn.parallax.com/propeller-c-set-simpleide/update-your-learn-folder</a>.
+</p>
+
+<p>
+From there, just follow the instructions with red checkmarks.  Then, you'll be equipped with latest example programs and libraries for use with the tutorials on:
+</p>
+
+<p>
+<font color="white">___</font><a href="http://learn.parallax.com/propeller-c-tutorials" target="_blank">http://learn.parallax.com/propeller-c-tutorials</a>.
+</p>
+
+<p>
+For more info on the Propeller C Education program, go here:
+</p>
+
+<p>
+<font color="white">___</font><a href="http://learn.parallax.com/propeller-c" target="_blank">http://learn.parallax.com/propeller-c</a>. 
+</p>
+
+<p>
+For info on this Learn folder's Simple Libraries, go here: <a href="Simple%20Libraries%20Index.html" target="_blank">Simple Libraries Folder Index</a>
+</p>
+
+<p>
+Typos, comments, or suggestions? Email: <a href="mailto:learn@parallax.com">
+learn@parallax.com</a>.
+</p>
+
+
+
+<h2 style="font-family:verdana;">Update History</h2>
+
+<p>
+Update 11/29/2016
+
+<ul>
+<li> 
+Add S3 library and one example program.   
+</li>
+
+<li> 
+Move Arlo and ActivityBot example programs to .../SimpleIDE/Learn/Examples/Robots/.   
+</li>
+
+</ul>
+</p>  
+
+<p>
+Update 11/21/2016 
+
+<ul>
+<li> 
+IMU sensor library and examples added to Learn folder.   
+</li>
+
+</ul>
+</p>  
+
+<p>
+Update 11/14/2016
+
+<ul>
+<li> 
+Add Arlo library and example programs to Learn Folder.   
+</li>
+
+</ul>
+</p>  
+
+<p>
+Update 9/23/2016   
+
+<ul>
+<li> 
+Fix two fonts in oledc_fontLoader.c.   
+</li>
+
+</ul>
+</p>  
+
+Update 8/26/2016  
+
+<ul>
+<li> 
+Add oledc library for Parallax Part #28087 - 0.95 inch 96x64 RGB  display module to ...SimpleIDE\Learn\Simple Libraries\Display.   
+</li>
+
+<li> 
+Add colorPalRRGGBB funciton to convert 12-bit values
+to 8-bit for use with color picking software.   
+</li>
+
+<li> 
+Modify simpletools toggle function to set direction of pin
+to output whenever called.
+</li>
+
+</ul>
+</p>  
+
+<p>
+Update 5/12/2016  
+
+<ul>
+<li> 
+Add servo centering example to ActivityBot.   
+</li>
+
+<li> 
+WS2812 library and examples added.  (Part ID: 28085 and 28086 at www.parallax.com.)   
+</li>
+
+<li> 
+ColorPal library update (Part ID: 28380 at www.parallax.com.).   
+</li>
+
+<li> 
+Add examples and libraries for the Parallax Hackable Electronic Badge Part IDs: 
+20000, 20100, and 20200 at www.parallax.com.   
+</li>
+
+<li> 
+Allow cogc function to be linked via static archive.   
+</li>
+
+<li> 
+Add core (Cog) and EEPROM usage to library documentation.   
+</li>
+
+<li> 
+Remove XMM folders from Simple Libraries.   
+</li>
+
+<li> 
+Correct scan function's %s formatting flab behavior.   
+</li>
+
+</ul>
+</p>  
+
+<p>
+Update 10/18/2014  
+<br>
+<ul>
+<li> 
+Correct simpletext scan function %s formatting flag bugs.   
+</li>
+</ul>
+</p>  
+
+
+<p>
+Updates 9/5/2014  
+<br>
+<ul>
+<li> 
+Fix cog stop/restart bug in servo library and add feature for disabling individual
+servos.
+</li>
+<li> 
+Add example named SD for Text Files and Back to Variables to ...Documents\SimpleIDE\Learn\Examples\Devices\Memory.  It writes data as text to a .txt file on an SD card, then reads it back and converts the text data back to variable data for use by the program.  This makes it convenient to view with either a text editor on a computer, or in the program with the SimpleIDE terminal.
+</li>
+</ul>
+</p>  
+
+
+<p>
+Updates 8/26/2014  
+<br>
+<ul>
+<li> 
+Stack usage reduced in abdrive, servo, wavplayer, and some other Simple Libraries that launch Propeller C functions into other cores.
+</li>
+<li> 
+Added stacktest library and example to Learn folder.
+</li>
+<li> 
+Moved mstimer library from Util to Misc.
+</li>
+<li> 
+Added ee_config function to simpletools library for overriding default EEPROM settings.
+</li>
+<li> 
+Added GPS library and code example to Learn folder.
+</li>
+<li> 
+Added rxCount and rxPeek functions to the fdserial library.
+</li>
+<li> 
+Added html documentation for propeller.h and cog.h.
+</li>
+<li> 
+Updated delay built into simpletools library that ensures Windows machines cannot mistake the Propeller for a plug and play serial device.  This can happen if the Windows machine receives serial bytes within 0.7 seconds after the device is connected.  This delay now only occurs at application start-up, not every time the terminal process is restarted.
+</li>
+<li> 
+Fixed bug in square_wave function.
+</li>
+<li> 
+Fixed shift_in MSBPRE bug that added an n+1 bit to the result.
+</li>
+</ul>
+</p>  
+
+
+<p>
+Updates 6/4/2014  
+<br>
+<ul>
+<li> 
+Corrections to Documentation rfidser Library.html.
+</li>
+</ul>
+</p>  
+
+
+<p>
+Updates 5/9/2014  
+<br>
+<ul>
+<li> 
+Added to Learn\Examples\Devices\Sensor: ColorPAL, RFID Serial, Sound Impact, PIR Motion.
+</li>
+<li> 
+Added to Learn\Simple Libraries\Sensor: libcolorpal, librfidser, libsoundimpact.
+</li>
+<li> 
+Added cal_servoPins and cal_encoderPins to abcalibrate library to change from 
+default I/O connections to ActivityBot servos and encoders.  Values used will 
+persist in EEPROM and be used by the abdrive library.
+</li>
+</ul>
+</p>  
+
+<p>
+Updates 5/1/2014  
+<br>
+<ul>
+<li> 
+The simpletools library no longer starts a floating point coprocessor at the start of the application.  All floating point functionality is still supported, processing just happens in the same cog.
+</li>
+<li> 
+i2c_out and i2c_in char *regAddr parameter changed to int memAddr.
+</li>
+<li> 
+itoa removed, use sprint(charArray, "%d", intVal) to make int to ASCII conversions.
+</li>
+<li> 
+st_msTicks and st_usTicks global variables are pre-initialized to the number of system clock ticks in a millisecond and microsecond for convenience in library development.
+</li>
+<li> 
+Variables named us and ms are initialized to the same values for user applications.
+</li>
+<li> 
+Function endianSwap added to simplify communication with devices that send/receive byte data in big endian format.
+</li>
+<li> 
+Digits versions of put/get and write/read added to simpletext library for transmitting and receiving values with fixed numbers of digits.  .
+</li>
+<li> 
+Floating point output functions in simpletext library updated to handle nan (not a number) and +/- inf (infinity).  
+</li>
+<li> 
+printi, dprinti, scani, dscani, sprinti, sscani functions added to simpletext library for supporting non-floating point with less program space. 
+</li>
+<li> 
+Multicore folder added to ...Documents\SimpleIDE\Learn\Examples\.
+</li>
+<li> 
+New Protocols and Multicore folders in ...Documents\SimpleIDE\Examples\.
+</li>
+<li> 
+New TV Remote and 3-Axis Accelerometer libraries and examples in ...Documents\SimpleIDE\Examples\Simple Devices\.
+</li>
+<li> 
+Subcategories added to Functions lists simpletools and simpletext HTML API docs.
+</li>
+</ul>
+</p>  
+
+<p>
+Updates 2/27/2014  
+<br>
+<ul>
+<li> 
+abvolts library added.  This library is for introductory tutorials and has been added to the Learn folder for community testing and feedback.
+</li>
+</ul>
+</p>  
+
+<p>
+Updates 2/13/2014  
+<br>
+<ul>
+<li> 
+cog_run and cog_end functions added to libsimpletools to streamline
+launching function code into another cog.
+</li>
+<li> 
+vgatext library modified to work with the simpletext library.  You can now
+use any simpletext output call with a text_t parameter to dsipaly text messages with the
+VGA.  See the <a href="http://learn.parallax.com/propeller-c-simple-devices/vga-text-display" target="_blank">VGA Text Display</a> activity for examples.
+</li>
+<li> 
+\Robotics\ActivityBot folder added to ...Learn\Simple Libraries.
+</li>
+<li> 
+ActivityBot folder added to ...Learn\Examples.
+</li>
+</ul>
+</p>  
+
+<p>
+Updates 11/6/2013  
+<br>
+<ul>
+<li> 
+start_fpu_cog and stop_fpu_cog documentation added to libsimpletools.
+</li>
+</ul>
+</p>  
+
+<p>
+Updates 11/1/2013  
+<br>
+<ul>
+<li> 
+ee_putStr updated to support 128 byte page writes.
+</li>
+</ul>
+<ul>
+<li> 
+More corrections to ee_put* for contiguous data crossing address/128 boundary.
+</li>
+</ul>
+</p>  
+
+<p>
+Updates 10/31/2013  
+<br>
+<ul>
+<li> 
+wav player click between tracks eliminated, and bug in support for playing sequences of tracks fixed.
+</li>
+</ul>
+<ul>
+<li> 
+simpletools square_wave bug that prevented frequency changes fixed.
+</li>
+</ul>
+</p>  
+
+<p>
+Updates 9/4/2013  
+<br>
+<ul>
+<li> 
+ee_put* Fixed bug that prevented contiguous data crossing address/128 boundary.
+</li>
+</ul>
+<ul>
+<li> 
+Updated stack array to static in mstimer.c.
+</li>
+</ul>
+</p>  
+
+<p>
+Updates 7/9/2013  
+<br>
+<ul>
+<li> 
+i2c_in and i2c_out functions added to simpletools library.
+</li>
+<br>
+<li> 
+simplei2c library added with basic i2c building blocks that were used to create the simpletools library's i2c_in and i2c_out functions.
+</li>
+<br>
+<li> 
+EEPROM and compass libraries now use i2c_in and i2c_out instead of two different Propeller GCC I2C variants, which reduces program memory requirements.  
+</li>
+</ul>
+</p>  
+</ul>
+
+<p>
+Updates 6/15/2013  
+<br>
+<ul>
+<li> 
+Folder added.../SimpleIDE/Learn/Simple Libraries/Text Devices.  In addition to libraries that support communication with text based hardware devices, this folder has libsimpletext, which has compact functions for sending and receiving text to/from Simple Terminal and other devices.
+</li>
+<br>
+<li> 
+All sser_ and fdser_ functions removed from libsimpletools.
+</li>
+<br>
+<li> 
+libsimpletools now includes simpletext from Text Devices.  In addition to replacing sser_ functions, it has a variety of print/scan put/get and read/write functions for communicating with Simple Terminal and other serial devices.  fdser_ functions are replaced by using the Add Simple Library button to add libfdserial from the Text Devices folder.  
+</li>
+<br>
+<li> 
+7-segment LED examples added to ...SimpleIDE/Learn/Examples/Circuits.  
+</li>
+<br>
+<li> 
+A 0.8 second delay was added to the first serial message sent to Simple Terminal by functions in the simpletext library.  This prevents Windows machines from potentially mistaking the serial message as legacy serial peripheral identifying strings.  Since the delay is now automatic, all pause(1000) calls were removed from the start of example programs.
+</li>
+<br>
+<li> 
+All example programs updated to use print from simpletext in place of printf from stdio.  This significantly reduces the program size penalty for displaying floating point types.  
+</li>
+</ul>
+</p>  
+</ul>
+
+<p>
+First Release 5/7/2013  
+</p>  
+
+</body>
+</html> 
+
+
