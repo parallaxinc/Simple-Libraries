@@ -1,3 +1,12 @@
+/*
+  This file just verifies basic functionality of the library.
+  For lots of C code examples, start by creating a Scribbler 
+  Robot Blockly project at http://blockly.parallax.com.  Then, 
+  click View and select Propeller C.  Note: If the View menu 
+  only offers Spin as an alternate option to the blocks, then 
+  the feature has not yet been implemented.
+*/ 
+
 #include "simpletools.h"
 #include "s3.h"
 
