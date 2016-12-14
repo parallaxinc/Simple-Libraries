@@ -405,7 +405,7 @@ int32_t s3_simpleObstacle(int32_t Condition, int32_t Location)
     }
     break;
   }
-  -(!result);
+  !(result);
   return result;
 }
 
@@ -461,7 +461,7 @@ int32_t s3_simpleLine(int32_t Condition, int32_t Location, int32_t Color)
       }
     }
   }
-  -(!result);
+  !(result);
   return result;
 }
 
@@ -505,7 +505,7 @@ int32_t s3_simpleLight(int32_t Condition, int32_t Location)
       }
     }
   }
-  -(!result);
+  !(result);
   return result;
 }
 
@@ -537,13 +537,13 @@ int32_t s3_simpleStalled(int32_t Condition)
     break;
   case S3_IS_NOT:
     self->WasStalled = scribbler_stalled();
-    return -(!self->WasStalled);
+    return !(self->WasStalled);
     break;
   case S3_WAS:
     return self->WasStalled;
     break;
   case S3_WAS_NOT:
-    return -(!self->WasStalled);
+    return !(self->WasStalled);
     break;
   }
 }
@@ -557,13 +557,13 @@ int32_t s3_simpleButton(int32_t Condition)
     break;
   case S3_IS_NOT:
     self->WasButton = scribbler_button_press();
-    return -(!self->WasButton);
+    return !(self->WasButton);
     break;
   case S3_WAS:
     return self->WasButton;
     break;
   case S3_WAS_NOT:
-    return -(!self->WasButton);
+    return !(self->WasButton);
     break;
   }
 }
@@ -577,13 +577,13 @@ int32_t s3_simpleRandom(int32_t Condition)
     break;
   case S3_IS_NOT:
     self->WasRandom = s3_booleanRandom(self);
-    return -(!self->WasRandom);
+    return !(self->WasRandom);
     break;
   case S3_WAS:
     return self->WasRandom;
     break;
   case S3_WAS_NOT:
-    return -(!self->WasRandom);
+    return !(self->WasRandom);
     break;
   }
 }
