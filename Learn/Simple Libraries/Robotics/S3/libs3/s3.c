@@ -85,9 +85,6 @@ static  int32_t s3_readBarWidth();
 s3 S3;
 s3 *self;
 
-// Serial        : "FullDuplexSerial"
-// ServoDriver   : "Servo32v7"
-// ---[Start of Program]---------------------------------------------------------
 void s3_setup()
 {
   self = &S3;
@@ -103,17 +100,6 @@ void s3_setup()
   _waitcnt((CNT + 10000000));
 }
 
-/* 
-Pub SerialStart(BaudRate)
-
-  Serial.Start(31, 30, 0, BaudRate)
-  waitcnt(80_000_000 + cnt)
- */
-/* 
-Pub ServoStart
-
-  ServoDriver.Start
- */
 static void s3_obstacler()
 {
   int32_t	side, ObstacleThld;
@@ -376,37 +362,38 @@ int32_t s3_readObstacle(int32_t Side)
 int32_t s3_simpleObstacle(int32_t Condition, int32_t Location)
 {
   int32_t result = 0;
+  char obsL, obsR;
+  
   if ((Condition == S3_IS) || (Condition == S3_IS_NOT)) {
-    self->WasObs[S3_LEFT] = self->obs[S3_LEFT];
-    self->WasObs[S3_RIGHT] = self->obs[S3_RIGHT];
-  }
-  if ((Condition == S3_IS) || (Condition == S3_WAS)) {
-    result = -1;
-  }
+    obsL = self->obs[S3_LEFT];
+    obsR = self->obs[S3_RIGHT];
+    
+    self->WasObs[S3_LEFT] = obsL;
+    self->WasObs[S3_RIGHT] = obsR;
+    
+  } else if ((Condition == S3_WAS) || (Condition == S3_WAS_NOT)) {
+    obsL = self->WasObs[S3_LEFT];
+    obsR = self->WasObs[S3_RIGHT];
+  }    
+  
   switch(Location) {
-  case S3_CENTER:
-    if ((self->WasObs[S3_LEFT]) && (self->WasObs[S3_RIGHT])) {
-      return result;
-    }
-    break;
-  case S3_LEFT:
-    if ((self->WasObs[S3_LEFT]) && (!(self->WasObs[S3_RIGHT]))) {
-      return result;
-    }
-    break;
-  case S3_RIGHT:
-    if ((!(self->WasObs[S3_LEFT])) && (self->WasObs[S3_RIGHT])) {
-      return result;
-    }
-    break;
-  case S3_DETECTED:
-    if ((self->WasObs[S3_LEFT]) || (self->WasObs[S3_RIGHT])) {
-      return result;
-    }
-    break;
+    case S3_CENTER:
+      if (obsL && obsR) result = 1;
+      break;
+    case S3_LEFT:
+      if (obsL && !obsR) result = 1;
+      break;
+    case S3_RIGHT:
+      if (obsR && !obsL) result = 1;
+      break;
+    case S3_DETECTED:
+      if (obsL || obsR) result = 1;
+      break;
   }
-  !(result);
-  return result;
+
+  if ((Condition == S3_WAS_NOT) || (Condition == S3_IS_NOT)) result = !result;
+  
+  return result;    
 }
 
 int32_t s3_lineSensor(int32_t Side)
@@ -429,39 +416,37 @@ int32_t s3_simpleLine(int32_t Condition, int32_t Location, int32_t Color)
     self->WasLine[S3_LEFT] = scribbler_line_sensor(S3_LEFT, (-1));
     self->WasLine[S3_RIGHT] = scribbler_line_sensor(S3_RIGHT, (-1));
   }
-  if ((Condition == S3_IS) || (Condition == S3_WAS)) {
-    result = -1;
-  }
   if ((abs((self->WasLine[S3_LEFT] - self->WasLine[S3_RIGHT]))) < 30) {
     // Low difference, not on an edge
     if ((self->WasLine[S3_LEFT] + self->WasLine[S3_RIGHT]) < 60) {
       // Average reading is dark
       if ((Color == S3_BLACK) && ((Location == S3_CENTER) || (Location == S3_DETECTED))) {
-        return result;
+        result = 1;
       }
     } else {
       if ((Color == S3_WHITE) && ((Location == S3_CENTER) || (Location == S3_DETECTED))) {
         // Average reading is light
-        return result;
+        result = 1;
       }
     }
   } else {
     // Over an edge
     if (Location == S3_DETECTED) {
-      return result;
+      result = 1;
     } else {
       if ((self->WasLine[S3_LEFT] > self->WasLine[S3_RIGHT]) && (((Location == S3_LEFT) && (Color == S3_BLACK)) || ((Location == S3_RIGHT) && (Color == S3_WHITE)))) {
         // Left is brighter
-        return result;
+          result = 1;
       } else {
         if ((self->WasLine[S3_RIGHT] > self->WasLine[S3_LEFT]) && (((Location == S3_LEFT) && (Color == S3_WHITE)) || ((Location == S3_RIGHT) && (Color == S3_BLACK)))) {
           // Right is brighter
-          return result;
+          result = 1;
         }
       }
     }
   }
-  !(result);
+  if ((Condition == S3_IS_NOT) || (Condition == S3_WAS_NOT)) result = !result;
+
   return result;
 }
 
@@ -481,31 +466,29 @@ int32_t s3_simpleLight(int32_t Condition, int32_t Location)
     self->WasLight[S3_RIGHT] = scribbler_light_sensor(S3_RIGHT);
     self->WasLight[S3_CENTER] = scribbler_light_sensor(S3_CENTER);
   }
-  if ((Condition == S3_IS) || (Condition == S3_WAS)) {
-    result = -1;
-  }
   if (((self->WasLight[S3_LEFT] > (self->WasLight[S3_RIGHT] + 50)) && (self->WasLight[S3_LEFT] > (self->WasLight[S3_CENTER] + 50))) || ((self->WasLight[S3_LEFT] > ((self->WasLight[S3_RIGHT] * 3) / 2)) && (self->WasLight[S3_LEFT] > ((self->WasLight[S3_CENTER] * 3) / 2)))) {
     if (Location == S3_LEFT) {
-      return result;
+      result = 1;
     }
   } else {
     if (((self->WasLight[S3_RIGHT] > (self->WasLight[S3_LEFT] + 50)) && (self->WasLight[S3_RIGHT] > (self->WasLight[S3_CENTER] + 50))) || ((self->WasLight[S3_RIGHT] > ((self->WasLight[S3_LEFT] * 3) / 2)) && (self->WasLight[S3_RIGHT] > ((self->WasLight[S3_CENTER] * 3) / 2)))) {
       if (Location == S3_RIGHT) {
-        return result;
+        result = 1;
       }
     } else {
       if (((self->WasLight[S3_CENTER] > (self->WasLight[S3_LEFT] + 50)) && (self->WasLight[S3_CENTER] > (self->WasLight[S3_RIGHT] + 50))) || ((self->WasLight[S3_CENTER] > ((self->WasLight[S3_LEFT] * 3) / 2)) && (self->WasLight[S3_CENTER] > ((self->WasLight[S3_RIGHT] * 3) / 2)))) {
         if (Location == S3_CENTER) {
-          return result;
+          result = 1;
         }
       } else {
         if ((Location == S3_DETECTED) && (((self->WasLight[S3_LEFT] + self->WasLight[S3_CENTER]) + self->WasLight[S3_RIGHT]) > 50)) {
-          return result;
+          result = 1;
         }
       }
     }
   }
-  !(result);
+  if ((Condition == S3_IS_NOT) || (Condition == S3_WAS_NOT)) result = !result;
+
   return result;
 }
 
@@ -646,38 +629,6 @@ int32_t s3_runWithoutResult(int32_t input)
   return input;
 }
 
-/* 
-Pub SerialStr(StringPointer)
-
-  Serial.Str(StringPointer)
-
-
-Pub SerialDec(Number)
-
-  Serial.Dec(Number)
-
-
-Pub SerialChar(Character)
-
-  Serial.Tx(Character)
-
-
-Pub SerialPositionX(Position)
-
-  Serial.Tx(PX)
-  Serial.Tx(Position)
-
-
-Pub SerialPositionY(Position)
-
-  Serial.Tx(PY)
-  Serial.Tx(Position)
-
-
-Pub SerialCharIn
-
-  return Serial.RxCheck
- */
 int32_t s3_ping(int32_t Pin)
 {
   int32_t	MaxLoops, StartCnt, EndCnt;
@@ -713,18 +664,3 @@ int32_t s3_ping(int32_t Pin)
   }
   return result;
 }
-
-/* 
-Pub Servo(Pin, Angle)
-
-  ifnot 0 =< Pin and Pin =< 5
-    return 0
-
-  Angle := (0 #> Angle <# 180) * 2_000 / 180 + 500
-ServoDriver.Set(Pin, Angle)
-
-
-Pub ServoStop(Pin)
-
-  ServoDriver.Set(Pin, 0)
- */
