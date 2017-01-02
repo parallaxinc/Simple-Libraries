@@ -29,7 +29,7 @@ void imu_readTemp(int *temperature)
   *temperature = (int) tempT;
 }
 
-void immu_readTempCalculated(float *temperature, char tempUnit)
+void imu_readTempCalculated(float *temperature, char tempUnit)
 {
   int tempTemp;
   imu_readTemp(&tempTemp);

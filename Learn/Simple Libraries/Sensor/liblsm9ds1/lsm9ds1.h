@@ -594,15 +594,9 @@ void imu_setGyroInterrupt(char axis, float threshold, char duration, char overUn
  * magnetic field strengths crossing the threshold in both positive and negative directions.  The threshold 
  * can be up to 50% of the full scale value.
  * 
- * @param overPos If set (1), the interrupt triggers when the magnetic field strength is larger than 
- * the threshold in the positive direction.
- * 
- * @param underNeg If set (1), the interrupt triggers when the magnetic field strength is larger (more negative) than 
- * the threshold in the negative direction.
- * 
  * @param lowHigh When the interrupt is triggered, sets the INT_M pin high (1) or low (0).
  */
-void imu_setMagInterrupt(char axis, float threshold, char overPos, char underNeg, char lowHigh);
+void imu_setMagInterrupt(char axis, float threshold, char lowHigh);
 
 
 
