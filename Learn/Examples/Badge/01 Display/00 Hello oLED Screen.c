@@ -1,6 +1,6 @@
 /*
    Hello oLED Screen.c
-   Displays hello message in Parallax eBadge oLED screen with
+   Displays “hello” message in Parallax eBadge oLED screen with
    oledprint function.
 */
 
