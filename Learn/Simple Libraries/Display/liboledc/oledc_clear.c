@@ -54,18 +54,14 @@ void oledc_clear(int x0, int y0, int w, int h)
   }
 
   // Boundary check
-  if ((y0 >= TFTHEIGHT) && (y1 >= TFTHEIGHT))
+  if ((y0 >= TFTHEIGHT) || (y1 < 0) || (x0 >= TFTWIDTH) || (x1 < 0)) {
+    oledc_screenLockClr(); 
     return;
-  if ((x0 >= TFTWIDTH) && (x1 >= TFTWIDTH))
-    return;
-  if (x0 >= TFTWIDTH)
-    x0 = TFTWIDTH - 1;
-  if (y0 >= TFTHEIGHT)
-    y0 = TFTHEIGHT - 1;
-  if (x1 >= TFTWIDTH)
-    x1 = TFTWIDTH - 1;
-  if (y1 >= TFTHEIGHT)
-    y1 = TFTHEIGHT - 1;
+  }     
+  if (x0 < 0) x0 = 0;
+  if (y0 < 0) y0 = 0;
+  if (x1 >= TFTWIDTH)  x1 = TFTWIDTH - 1;
+  if (y1 >= TFTHEIGHT) y1 = TFTHEIGHT - 1;
 
   oledc_writeCommand(SSD1331_CMD_CLEAR, 0);
   oledc_writeCommand(x0, 0);
