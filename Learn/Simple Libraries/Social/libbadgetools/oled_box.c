@@ -25,7 +25,7 @@ void boxFilled(int32_t x0, int32_t y0, int32_t x1, int32_t y1, int32_t c)
     x0 = x1;
     x1 = temp;
   }    
-  for(int idx = y0; idx < y1; idx++) line(x0, idx, x1, idx, c);    
+  for(int idx = y0; idx <= y1; idx++) line(x0, idx, x1, idx, c);    
   if (self->AutoUpdate) screen_update();
 }
 
