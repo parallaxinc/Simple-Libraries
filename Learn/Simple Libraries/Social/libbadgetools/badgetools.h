@@ -876,6 +876,105 @@ void line( int x0, int y0, int x1, int y1, int c);
 void box( int x0, int y0, int x1, int y1, int c);
 
 /**
+ * @brief Plot a filled box on the oLED screen.  
+ *
+ * @param x0 The x coordinate of one corner of the box.  Measured as a 
+ * number of pixels from left side of screen.  The value increases 
+ * from 0 (left) to 127 (right).  
+ *
+ * @param y0 The y coordinate of one corner of the box.  Measured as a 
+ * number of pixels from the top of the screen.  The value increases 
+ * from 0 (top) to 63 (bottom).  
+ *
+ * @param x1 The x coordinate of a corner diagonal from the first corner.  
+ *
+ * @param y1 The y coordinate of the corner diagonal from the first corner.  
+ * 
+ * @param c The pixel color 1 for white, 0 for black.
+ */
+void boxFilled( int x0, int y0, int x1, int y1, int c);
+
+/**
+ * @brief Plot a triangle on the oLED screen.  
+ *
+ * @param x0 The x coordinate of one corner of the triangle.  Measured as a 
+ * number of pixels from left side of screen.  The value increases 
+ * from 0 (left) to 127 (right).  
+ *
+ * @param y0 The y coordinate of one corner of the triangle.  Measured as a 
+ * number of pixels from the top of the screen.  The value increases 
+ * from 0 (top) to 63 (bottom).  
+ *
+ * @param x1 The x coordinate of the second corner.  
+ *
+ * @param y1 The y coordinate of the second corner.  
+ * 
+ * @param x2 The x coordinate of the third corner.  
+ *
+ * @param y2 The y coordinate of the third corner.  
+ * 
+ * @param c The pixel color 1 for white, 0 for black.
+ */
+void triangle( int x0, int y0, int x1, int y1, int x2, int y2, int c);
+
+/**
+ * @brief Plot a filled triangle on the oLED screen.  
+ *
+ * @param x0 The x coordinate of one corner of the triangle.  Measured as a 
+ * number of pixels from left side of screen.  The value increases 
+ * from 0 (left) to 127 (right).  
+ *
+ * @param y0 The y coordinate of one corner of the triangle.  Measured as a 
+ * number of pixels from the top of the screen.  The value increases 
+ * from 0 (top) to 63 (bottom).  
+ *
+ * @param x1 The x coordinate of the second corner.  
+ *
+ * @param y1 The y coordinate of the second corner.  
+ * 
+ * @param x2 The x coordinate of the third corner.  
+ *
+ * @param y2 The y coordinate of the third corner.  
+ * 
+ * @param c The pixel color 1 for white, 0 for black.
+ */
+void triangleFilled( int x0, int y0, int x1, int y1, int x2, int y2, int c);
+
+/**
+ * @brief Plot a circle on the oLED screen.  
+ *
+ * @param x0 The x coordinate of the center of the circle.  Measured as a 
+ * number of pixels from left side of screen.  The value increases 
+ * from 0 (left) to 127 (right).  
+ *
+ * @param y0 The y coordinate of the center of the circle.  Measured as a 
+ * number of pixels from the top of the screen.  The value increases 
+ * from 0 (top) to 63 (bottom).  
+ *
+ * @param r The radius of the circle.  
+ * 
+ * @param c The pixel color 1 for white, 0 for black.
+ */
+void circle( int x0, int y0, int r, int c);
+
+/**
+ * @brief Plot a filled circle on the oLED screen.  
+ *
+ * @param x0 The x coordinate of the center of the circle.  Measured as a 
+ * number of pixels from left side of screen.  The value increases 
+ * from 0 (left) to 127 (right).  
+ *
+ * @param y0 The y coordinate of the center of the circle.  Measured as a 
+ * number of pixels from the top of the screen.  The value increases 
+ * from 0 (top) to 63 (bottom).  
+ *
+ * @param r The radius of the circle.  
+ * 
+ * @param c The pixel color 1 for white, 0 for black.
+ */
+void circleFilled( int x0, int y0, int r, int c);
+
+/**
  * @brief Place a shape defined by a char array of pixels on the oLED
  * display.  See 11 Shapes to Display.side for example.
  *
