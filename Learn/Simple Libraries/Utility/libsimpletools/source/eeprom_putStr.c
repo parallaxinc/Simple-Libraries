@@ -27,11 +27,12 @@ void ee_putStr(unsigned char *s, int n, int addr)
   //unsigned char addrArray[2];
   if(!st_eeInitFlag) ee_init();
 
+  if(n == 0) n = strlen(s) + 1;
+
   while(n > 0)
   {
     //addrArray[0] = (char)(addr >> 8);
     //addrArray[1] = (char)(addr&0xFF);
-
     int pageAddr = addr % 128;
     int byteCnt = 128 - pageAddr;
     if(byteCnt > n) byteCnt = n;

@@ -26,8 +26,19 @@ unsigned char* ee_get_str(unsigned char *s, int n, int addr)
   if(!st_eeInitFlag) ee_init();
   // const unsigned char addrArray[] = {(char)(addr >> 8), (char)(addr&0xFF)};
   // i2c_in(st_eeprom, 0xA0, addrArray, 2, s, n);
-  i2c_in(st_eeprom, 0x50, addr, 2, s, n);
-  return s;
+  if(n != 0) {
+    i2c_in(st_eeprom, 0x50, addr, 2, s, n);
+  } else {
+    int i;
+    while(i < 128) {
+      char b[1];
+      i2c_in(st_eeprom, 0x50, addr + i, 2, b, 1);
+      s[i] = b[0];
+      if(b[0] == 0) break;
+      i++;
+    }
+    if(i >= 128) s[127] = 0;
+  }  return s;
 }
 
 /**
