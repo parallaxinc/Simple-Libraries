@@ -165,9 +165,12 @@ void imu_calibrateAG();
  * @brief Calibrates the Magnetometer on the LSM9DS1 IMU module.
  *
  * @details This is a function accumulates samples from the magnetometer, averages
- * them, and then passes the biases back to the LSM9DS1
- * for subtraction from all subsequent data.  Results in a more accurate measurement in general and can
- * remove errors due to imprecise or varying initial placement.
+ * them, and then passes the biases back to the LSM9DS1 for subtraction from
+ * all subsequent data.  Results in a more accurate measurement in general and can
+ * remove errors due to imprecise or varying initial placement.  The calibration 
+ * function uses the accelerometer to verify that each of the 3 axes has been pointed 
+ * straight up and straight down slowly enough to get good magnetometer readings in 
+ * each dimension.
  *
  * @note Mag Calibration values ARE stored in the LSM9DS1 and variables that can be retireved and set using other
  * functions in this library.
