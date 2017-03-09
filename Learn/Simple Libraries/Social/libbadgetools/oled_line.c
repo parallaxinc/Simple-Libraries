@@ -6,54 +6,50 @@ volatile screen *self;
 
 void line(int32_t x0, int32_t y0, int32_t x1, int32_t y1, int32_t c)
 {
-  int32_t _parm__0015[12];
-  _parm__0015[0] = x0;
-  _parm__0015[1] = y0;
-  _parm__0015[2] = x1;
-  _parm__0015[3] = y1;
-  _parm__0015[4] = c;
-  // Draws a line on the screen
-  // Adapted/converted from psuedo-code found on Wikipedia:
-  // http://en.wikipedia.org/wiki/Bresenham's_line_algorithm      
-  _parm__0015[5] = -((abs((_parm__0015[3] - _parm__0015[1]))) > (abs((_parm__0015[2] - _parm__0015[0]))));
-  if (_parm__0015[5]) {
-    screen_swap((int32_t)(&_parm__0015[0]), (int32_t)(&_parm__0015[1]));
-    screen_swap((int32_t)(&_parm__0015[2]), (int32_t)(&_parm__0015[3]));
-  }
-  if (_parm__0015[0] > _parm__0015[2]) {
-    screen_swap((int32_t)(&_parm__0015[0]), (int32_t)(&_parm__0015[2]));
-    screen_swap((int32_t)(&_parm__0015[1]), (int32_t)(&_parm__0015[3]));
-  }
-  _parm__0015[6] = _parm__0015[2] - _parm__0015[0];
-  _parm__0015[7] = abs((_parm__0015[3] - _parm__0015[1]));
-  _parm__0015[8] = _parm__0015[6] << 1;
-  _parm__0015[10] = _parm__0015[1];
-  if (_parm__0015[1] < _parm__0015[3]) {
-    _parm__0015[9] = 1;
-  } else {
-    _parm__0015[9] = -1;
-  }
+  int dx = x1-x0;
+  signed char ix = (dx > 0) - (dx < 0);
+  dx = abs(dx) << 1;
+
+  int dy = y1 - y0;
+  signed char iy = (dy > 0) - (dy < 0);
+  dy = abs(dy) << 1;
+
+  point( x0, y0, c);
+
+  if( dx >= dy )
   {
-    int32_t _limit__0041 = _parm__0015[2];
-    int32_t _step__0042 = 1;
-    _parm__0015[11] = _parm__0015[0];
-    if (_parm__0015[11] >= _limit__0041) _step__0042 = -_step__0042;
-    do {
-      if (_parm__0015[5]) {
-        point(_parm__0015[10], _parm__0015[11], _parm__0015[4]);
-      } else {
-        point(_parm__0015[11], _parm__0015[10], _parm__0015[4]);
+    int err = dy - (dx >> 1);
+    while(x0 != x1)
+    {
+      if( (err >= 0) && (err || (ix > 0)) )
+      {
+        err -= dx;
+        y0 += iy;
       }
-      _parm__0015[8] = _parm__0015[8] - _parm__0015[7];
-      if (_parm__0015[8] < 0) {
-        _parm__0015[10] = _parm__0015[10] + _parm__0015[9];
-        _parm__0015[8] = _parm__0015[8] + _parm__0015[6];
-      }
-      _parm__0015[11] = _parm__0015[11] + _step__0042;
-    } while (((_step__0042 > 0) && (_parm__0015[11] <= _limit__0041)) || ((_step__0042 < 0) && (_parm__0015[11] >= _limit__0041)));
+
+      err += dy;
+      x0 += ix;
+      point( x0, y0, c );
+    }
   }
+  else
+  {
+    int err = dx - (dy >> 1);
+    while(y0 != y1)
+    {
+      if( (err >= 0) && (err || (iy > 0)) )
+      {
+        err -= dy;
+        x0 += ix;
+      }
+
+      err += dx;
+      y0 += iy;
+      point( x0, y0, c );
+    }
+  }
+
   if (self->AutoUpdate) screen_update();
-  //return 0;
 }
 
 /*
