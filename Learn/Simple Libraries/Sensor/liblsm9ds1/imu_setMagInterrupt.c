@@ -5,20 +5,16 @@
 int __pinM;
 float __mRes;
 
-void imu_setMagInterrupt(char axis, float threshold, char overPos, char underNeg, char lowHigh)
+void imu_setMagInterrupt(char axis, float threshold, char lowHigh)
 {
   
-  overPos &= 0x01;
-  underNeg &= 0x01;
   lowHigh &= 0x01;
   
   unsigned char tempCfgValue = 0x00;
-  imu_SPIreadBytes(__pinM, INT_CFG_M, &tempCfgValue, 1);
   tempCfgValue |= (lowHigh << 2);
   tempCfgValue |= 0x03;
 
   unsigned char tempSrcValue = 0x00;
-  imu_SPIreadBytes(__pinM, INT_SRC_M, &tempSrcValue, 1);
 
   int magThs = 0;
   unsigned char magThsL = 0, magThsH = 0;
@@ -37,32 +33,18 @@ void imu_setMagInterrupt(char axis, float threshold, char overPos, char underNeg
   {
     case X_AXIS:
       tempCfgValue |= (1 << 7);
-      tempSrcValue |= (overPos << 7);
-      tempSrcValue |= (underNeg << 4);
       break;
     case Y_AXIS:
       tempCfgValue |= (1 << 6);
-      tempSrcValue |= (overPos << 6);
-      tempSrcValue |= (underNeg << 3);
       break;
     case Z_AXIS:
       tempCfgValue |= (1 << 5);
-      tempSrcValue |= (overPos << 5);
-      tempSrcValue |= (underNeg << 2);
       break;
     default:
       tempCfgValue |= (0b11100000);
-      tempSrcValue |= (overPos << 7);
-      tempSrcValue |= (underNeg << 4);
-      tempSrcValue |= (overPos << 6);
-      tempSrcValue |= (underNeg << 3);
-      tempSrcValue |= (overPos << 5);
-      tempSrcValue |= (underNeg << 2);
       break;
   }
  
-  imu_SPIwriteByte(__pinM, INT_CFG_M, tempCfgValue);
-  imu_SPIwriteByte(__pinM, INT_SRC_M, tempSrcValue);
-  
+  imu_SPIwriteByte(__pinM, INT_CFG_M, tempCfgValue);  
 }  
 

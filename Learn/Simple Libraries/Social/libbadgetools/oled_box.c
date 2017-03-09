@@ -14,6 +14,21 @@ void box(int32_t x0, int32_t y0, int32_t x1, int32_t y1, int32_t c)
   if (self->AutoUpdate) screen_update();
 }
 
+void boxFilled(int32_t x0, int32_t y0, int32_t x1, int32_t y1, int32_t c)
+{
+  // Draw a box formed by the coordinates of a diagonal line
+  if(y0 > y1) {
+    int temp = y0;
+    y0 = y1;
+    y1 = temp;
+    temp = x0;
+    x0 = x1;
+    x1 = temp;
+  }    
+  for(int idx = y0; idx <= y1; idx++) line(x0, idx, x1, idx, c);    
+  if (self->AutoUpdate) screen_update();
+}
+
 /*
   TERMS OF USE: MIT License
  
