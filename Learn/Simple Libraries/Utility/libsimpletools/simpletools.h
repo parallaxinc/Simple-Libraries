@@ -58,6 +58,7 @@
  * Use with CMM or LMM.
  * 
  * @version
+ * 0.98.3 Integrated MCP3X02 support with function "spi_adc" and wrapper functions "MCP3202_getVolts" and "MCP3002_getVolts"
  * 0.98.2 Add term_cmd function for SimpleIDE Terminal cursor, screen, and audio
  * control.  
  * @par
@@ -124,7 +125,7 @@ extern "C" {
 #include <sys/sd.h>
 #include <math.h>
 #include "simplei2c.h"
-
+#include "spi_adc.h"
 
 /**
  * @brief Propeller system clock ticks in 1 millisecond (ms).
