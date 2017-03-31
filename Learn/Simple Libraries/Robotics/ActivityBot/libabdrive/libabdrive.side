@@ -1,13 +1,14 @@
 libabdrive.c
 trimset.c
-goto.c
 getticks.c
 servoPins.c
-ramp.c
-debug.c
-Display.c
 abdrive.c
 abdrive.h
+Display.c
+monitor.c
+ramp.c
+goto.c
+debug.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
@@ -15,5 +16,6 @@ abdrive.h
 >-Wall
 >-fno-exceptions
 >defs::-std=c99
+>-lm
 >-create_library
 >BOARD::PROPBOE

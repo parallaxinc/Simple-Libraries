@@ -76,12 +76,12 @@ void drive_displayControlSystem(int start, int end)
 #endif // interactive_development_mode
 
 
-#ifndef interactive_development_mode
+#ifdef interactive_development_mode
 fdserial *xbee;
 #endif
 
 
-#ifndef interactive_development_mode
+#ifdef interactive_development_mode
 void drive_record(int startStop)
 {
   abd_record = startStop;

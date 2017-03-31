@@ -1,3 +1,5 @@
+//#define _monitor_
+
 /**
  * @file abdrive.h
  *
@@ -122,6 +124,10 @@ extern "C" {
 #define AB_LEFT -1
 #endif
 
+// NEW Constants
+#define SIDE_LEFT 0
+#define SIDE_RIGHT 1
+#define SIDE_BOTH 2
 
 #ifndef AB_FORWARD
 #define AB_FORWARD 1
@@ -146,6 +152,22 @@ extern "C" {
  */
 #define ON  1
 #endif
+
+void monitor_start(int monitorReps);
+void monitor_stop();
+
+
+// When blocking set to 0, returns value that corresponds to the 0, 1, 2 status of a manueuver.  
+// In addition to SIDE_LEFT and SIDE_RIGHT, it the side parameter can receive SIDE_BOTH, and 
+// returns the sum of both sides.  When that is 0, the maneuver has been completed.  
+int drive_gotoStatus(int side);
+           
+// Set mode to 1 or ON for blocking execution of drive_goto. 
+void drive_gotoMode(int mode);
+
+// Default not set yet.  I'm imagining that it'll be 400 ticks/second-squared, which evaluates to 
+// (8 ticks/s)/50th of s -> which is equivalent to call drive_setRampStep(8, 8).  
+void drive_setAcceleration(int ticksPerSecondSquared);
 
 
 /**
@@ -251,19 +273,6 @@ void drive_speed(int left, int right);
 
 
 /**
- * @brief Ramp up to the specified wheel speeds.  It works almost the same as
- * drive_speed, except that it steps up the speed every 50th of a second.  The
- * default ramping rate is 4 ticks per 50th of a second.  This function will 
- * make your program wait while it ramps.
- *
- * @param left Left wheel speed in ticks per second.
- *
- * @param right Left wheel speed in ticks per second.
- */
-void drive_ramp(int left, int right);
-
-
-/**
  * @brief This funciton allows your code to ask for a speed repeatedly in a loop, 
  * but each time your code asks for that speed, it takes a step toward the speed.
  * This helps cushon sudden maneuvers in sensor navigation, where the conditions
@@ -276,6 +285,7 @@ void drive_ramp(int left, int right);
  */
 void drive_rampStep(int left, int right);
 
+
 /**
  * @brief Overrides the default 4 ticks/second per 50th of a second for ramping.
  *
@@ -283,18 +293,6 @@ void drive_rampStep(int left, int right);
  * a second
  */
 void drive_setRampStep(int stepsize);
-
-
-/**
- * @brief Make the ActivityBot wheels roll certain encoder tick distances.  An 
- * encoder tick is 1/64th of a wheel turn and makes the wheel roll 3.25 mm.  
- * NOT YET IMPLEMENTED, use drive_goto instead.
- *
- * @param left Left wheel encoder tick distance.
- *
- * @param right Right wheel encoder tick distance.
- */
-void drive_distance(int left, int right);
 
 
 /**
@@ -357,20 +355,6 @@ void drive_getTicks(int *left, int *right);
  * @param *left Pointer to variable to receive the calculated left distance.  
  *
  * @param *right Pointer to variable to receive the calculated right distance.  
- */
-void drive_getTicksCalc(int *left, int *right);
-
-
-/**
- * @brief Get the calculate number of ticks the encoders should have traveled.  Distance
- * is in ticks.  The wheel has 64 encoder ticks, each accounting for 3.25 mm of distance.
- *
- * @details The system updates the predicted distance 400 times per second, based on the
- * speed the wheels should be going.
- *
- * @param *left Pointer to variable to receive the calcualted left distance.  
- *
- * @param *right Pointer to variable to receive the calcualted right distance.  
  */
 void drive_getTicksCalc(int *left, int *right);
 
