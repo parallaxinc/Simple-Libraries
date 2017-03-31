@@ -9,6 +9,15 @@
 #include "fdserial.h"
 #include <string.h>
 
+
+
+//#define test_t_interval
+#ifdef test_t_interval
+  volatile int rec_t[8000 / 4];
+#endif
+
+
+
 /*
   #ifdef interactive_development_mode
   dprint(xbee, "B After ramp distRampL = %d\n", distRampL);
@@ -28,7 +37,11 @@ void servos_diffDrive(void);
 void drive_record(int startStop);
 void drive_displayControlSystem(int start, int end);
 void set_drive_speed(int left, int right);
+void interpolate2(int *ltmp, int *rtmp);
+void drive_rampStep2(int left, int right);
 
+
+volatile char abd_str[128];
 
 // drive_trimset
 volatile int abd_trimFL, abd_trimFR, abd_trimBL, abd_trimBR, abd_trimticksF, abd_trimticksB;
@@ -36,28 +49,65 @@ volatile int abd_trimticksF = 0;
 volatile int abd_trimticksB = 0;
 int abd_eeAddr;
 
+volatile int abd_aL;                                        // Acceleration in ticks/(s^2)
+volatile int abd_aR;
+
+volatile int abd_speedLold;
+volatile int abd_speedRold;
+volatile int abd_stopCtrL;
+volatile int abd_stopCtrR;
+volatile int abd_stopPulseRepsL = 8;
+volatile int abd_stopPulseRepsR = 8;
+
 // drive_goto
-volatile int abd_ticksL = 0;
+volatile int abd_ticksL = 0;                                // Measured distance left/right
 volatile int abd_ticksR = 0;
-volatile int abd_speedL;      // Requested servo speed left
-volatile int abd_speedR;      // Requested servo speed right
-int abd_rampStep = 4;
-int abd_speedLimit = 128;
+volatile int abd_speedLT;                                   // Target speed left/right
+volatile int abd_speedRT;                                   
+volatile int abd_speedL;                                    // Current requested speed
+volatile int abd_speedR;                                   
+
+volatile int abd_ticksLi;
+volatile int abd_ticksLf;
+
+volatile int abd_ticksRi;
+volatile int abd_ticksRf;
+
+volatile int abd_gotoFlagL;
+volatile int abd_gotoFlagR;
+//volatile int abd_ticksGuardL;
+//volatile int abd_ticksGuardR;
+
+
+volatile int abd_rampStep = 8;
+volatile int abd_rampStepL = 8;
+volatile int abd_rampStepR = 8;
+volatile int abd_speedLimit = 128;
+volatile int abd_speedLimitTemp = 0;
+volatile int abd_speedLimitL;
+volatile int abd_speedLimitR;
+volatile int abd_ticksGuardL;
+volatile int abd_ticksGuardR;
+
+
 volatile int abd_zeroDelay = ON;
-volatile int abd_dlc;      // distance left calculated
-volatile int abd_drc;      // distance right calculated
+
+volatile int abd_dlc;                                      // distance left calculated
+volatile int abd_drc;                                      // distance right calculated
 volatile int abd_dlca = 0;                                 // distance left calculated (accumulated)
 volatile int abd_drca = 0;                                 // distance right calculated (accumulated)
-volatile int abd_dsr = 400;
+volatile int abd_dsr = 400;                                // Distance sampling rate
+
+
 volatile int abd_edL;                                      // error distance left
 volatile int abd_edR;                                      // error distance right
 volatile int abd_pL;                                       // proportional left
 volatile int abd_pR;                                       // proportional right
-volatile int abd_iL;                                   // integral left
-volatile int abd_iR;                                   // integral right
-volatile int abd_eaL = 0;
+volatile int abd_iL;                                       // integral left
+volatile int abd_iR;                                       // integral right
+volatile int abd_eaL = 0;                                  // Accumulated errors L/R
 volatile int abd_eaR = 0;
-volatile unsigned int _servoPulseReps;
+volatile unsigned int _servoPulseReps;                     // Servo pulse counter
 
 // servoPins
 volatile int abd_sPinL = 12, abd_sPinR = 13;   // Global variables
@@ -83,7 +133,8 @@ static volatile int cntrRval;
 
 static int cog = 0;
 //static int servoCog2 = 0;
-static unsigned int stack[44 + 52];
+//static unsigned int stack[44 + 252];
+static unsigned int stack[44 + 352];
 //static unsigned int servoStack[(160 + (150 * 4)) / 4];
 
 
@@ -96,7 +147,8 @@ static int r = 0;
 static volatile int trimctr = 0;
 static volatile int dca, trimticks;
 
-static volatile int leftPrev, rightPrev;
+static volatile int leftPrev;
+static volatile int  rightPrev;
 
 static volatile int kp[6];
 
@@ -118,8 +170,8 @@ static volatile int* pwR;
 static volatile int* spdL;
 static volatile int* spdR;
 
-static volatile int etpsR;    // encoder ticks per second requested right
-static volatile int etpsL;    // encoder ticks per second requested right
+//static volatile int etpsR;    // encoder ticks per second requested right
+//static volatile int etpsL;    // encoder ticks per second requested right
 
 static volatile int pcount;
 static volatile unsigned int _sprOld;
@@ -140,9 +192,58 @@ static volatile int phsRr;
 static int trimFunction = 1;
 static int encoderFeedback = 1;
 
-static int speedLprev = 0, speedRprev = 0;
+static volatile int speedLprev = 0;
+static volatile int speedRprev = 0;
 
-int xbee_setup = 0;
+volatile int nudgeIncL = 5;
+volatile int nudgeIncR = 5;
+
+volatile int abd_nudgeCtrL;
+volatile int abd_nudgeCtrR;
+volatile int abd_nudgeIncL;
+volatile int abd_nudgeIncR;
+volatile int abd_distErrorL;
+volatile int abd_distErrorR;
+
+volatile int signL;
+volatile int signR;
+
+volatile int abd_distL;
+volatile int abd_distR;
+
+volatile int abd_ditherAL;
+volatile int abd_ditherAR;
+volatile int abd_ditherALa;
+volatile int abd_ditherARa;
+volatile int abd_ditherALd;
+volatile int abd_ditherARd;
+volatile int abd_ditherALp;
+volatile int abd_ditherARp;
+
+volatile int abd_ditherVL;
+volatile int abd_ditherVR;
+volatile int abd_ditherVLa;
+volatile int abd_ditherVRa;
+volatile int abd_ditherVLd;
+volatile int abd_ditherVRd;
+volatile int abd_ditherVLp;
+volatile int abd_ditherVRp;
+
+volatile int abd_blockGoto = 1;
+
+volatile int abd_speedLi;
+volatile int abd_speedRi;
+volatile int abd_speedLd;
+volatile int abd_speedRd;
+volatile int abd_dvFlagL;
+volatile int abd_dvFlagR;
+volatile int abd_dvFlagL;
+volatile int abd_dvFlagR;
+volatile int abd_dvFlagL;
+volatile int abd_dvFlagR;
+
+
+//int xbee_setup = 0;
 
 
 int drive_open()
@@ -176,11 +277,45 @@ void drive_setRampStep(int stepsize)
 }
 
 
+void drive_setAcceleration(int ticksPerSecSq)
+{
+  abd_rampStep = ticksPerSecSq/50;
+}
+
+void drive_gotoMode(int mode)
+{
+  abd_blockGoto = mode;
+}  
+
+
 void drive_feedback(int enabled)
 {
   encoderFeedback = enabled;
 }
 
+
+int drive_gotoStatus(int side)
+{
+  if(side == SIDE_LEFT)
+  {
+    return abd_gotoFlagL;
+  }
+  else if(side == SIDE_RIGHT)
+  {
+    return abd_gotoFlagR;
+  }
+  else
+  {
+    return abd_gotoFlagL + abd_gotoFlagR;
+  }    
+}  
+
+/*
+void drive_gotoMode(int mode)
+{
+  
+}  
+*/
 
 void drive_trim(int enabled)
 {
@@ -293,8 +428,7 @@ void interpolation_table_setup()
   abd_intTabSetup = 1;
 }
 
-
-void interpolate(int *ltmp, int *rtmp)
+void interpolate2(int *ltmp, int *rtmp)
 {
   
   int left = *ltmp;
@@ -383,7 +517,7 @@ void interpolate(int *ltmp, int *rtmp)
 
 void set_drive_speed(int left, int right)
 {
-  
+  // ??? Is this necessary ??? //
   if(encoderFeedback)
   {
     if(left > abd_speedLimit) left = abd_speedLimit;
@@ -392,25 +526,190 @@ void set_drive_speed(int left, int right)
     if(right < -abd_speedLimit) right = -abd_speedLimit;
   }
 
-  int leftTemp = left;
-  int rightTemp = right;
+  // ??? Set initial speeds ??? //
+  //abd_speedLi = abd_speedLT;
+  //abd_speedRi = abd_speedRT;
+  abd_speedLi = abd_speedL;
+  abd_speedRi = abd_speedR;
+  
+  abd_speedLT = left;
+  abd_speedRT = right;
+  /*
+  sprint(
+        abd_str, "\rvL%d, rspdLimL=%d, rmpStpL=%d dthrAL=%d, dthrVL=%d | "\
+        "vR%d, spdLimR=%d, rmpStpR=%d dthrAR=%d, dthrVR=%d\r\r",
+        abd_speedLT, abd_speedLimitL, abd_rampStepL, abd_ditherAL, abd_ditherVL,
+        abd_speedRT, abd_speedLimitR, abd_rampStepR, abd_ditherAR, abd_ditherVR
+        ); 
+  */      
+  abd_speedLd = abd_speedLT - abd_speedLi;
+  abd_speedRd = abd_speedRT - abd_speedRi;
+  
+  
+  
+  /*
+  abd_rampStepL = abd_rampStep;
+  abd_rampStepR = abd_rampStep;
+  */
+  
+  // ??? Is this necessary, does it cause bugs ??? //
+  abd_speedLimitL = abd_speedLimit;
+  abd_speedLimitR = abd_speedLimit;
+  
+  /*
+  abd_ditherAL = 0;
+  abd_ditherAR = 0;
+  */
 
-  interpolate(&leftTemp, &rightTemp);
 
-  etpsL = left;
-  etpsR = right;
 
-  ssiL = leftTemp;
-  ssiR = -rightTemp;
 
-  abd_speedL = left;
-  abd_speedR = right;
+  abd_ditherALa = 0;
+  abd_ditherARa = 0;
+  abd_ditherALd = 0;
+  abd_ditherARd = 0;
+  abd_ditherALp = 0;
+  abd_ditherARp = 0;
+  
+  abd_ditherVLa = 0;
+  abd_ditherVRa = 0;
+  abd_ditherVLd = 0;
+  abd_ditherVRd = 0;
+  abd_ditherVLp = 0;
+  abd_ditherVRp = 0;
+  
+  abd_gotoFlagL = 0;
+  abd_gotoFlagR = 0;
+  abd_dvFlagL = 1;
+  abd_dvFlagR = 1;
+
+
+
+
+  abd_speedLimitR = abd_speedLimit;
+  abd_speedLimitL = abd_speedLimit;
+  abd_rampStepL = abd_rampStep;
+  abd_rampStepR = abd_rampStep;
+  abd_ditherAL = 0;
+  abd_ditherVL = 0;
+  abd_ditherAR = 0;
+  abd_ditherVR = 0;
+
+
+
+
+  if(abs(abd_speedRd) > abs(abd_speedLd))
+  {
+    //abd_speedLimitL = abd_speedLimit * abs(abd_speedLd) / abs(abd_speedRd);
+    abd_rampStepL = abd_rampStep * abs(abd_speedLd) / abs(abd_speedRd);
+
+    abd_ditherAL = (abd_rampStep * abd_speedLd) % abs(abd_speedRd);
+    abd_ditherAL *= 50;
+    abd_ditherAL /= abs(abd_speedRd);
+    abd_ditherAL = abs(abd_ditherAL);
+  }          
+  //else if(abs(abd_distL) > abs(abd_distR))
+  else if(abs(abd_speedLd) > abs(abd_speedRd))
+  {
+    //abd_speedLimitR = abd_speedLimit * abs(abd_distR) / abs(abd_distL);
+    abd_rampStepR = abd_rampStep * abs(abd_speedRd) / abs(abd_speedLd);
+
+    abd_ditherAR = (abd_rampStep * abd_speedRd) % abs(abd_speedLd);
+    abd_ditherAR *= 50;
+    abd_ditherAR /= abs(abd_speedLd);
+    abd_ditherAR = abs(abd_ditherAR);
+    //print("ditherAR = %d, ditherVR = %d\r", abd_ditherAR, abd_ditherVR);  
+  }
+  /*
+  else
+  {
+    //abd_speedLimitR = abd_speedLimit;
+    //abd_speedLimitL = abd_speedLimit;
+    abd_rampStepL = abd_rampStep;
+    abd_rampStepR = abd_rampStep;
+    abd_ditherAL = 0;
+    abd_ditherVL = 0;
+    abd_ditherAR = 0;
+    abd_ditherVR = 0;
+    //print("ditherAL = %d, ditherVL = %d\r", abd_ditherAL, abd_ditherVL);  
+    //print("ditherAR = %d, ditherVR = %d\r", abd_ditherAR, abd_ditherVR);  
+  }   
+  */
+  
+  //abd_ditherVL = 0;
+  //abd_ditherVR = 0;
+
+
+  /*
+  abd_ditherALa = 0;
+  abd_ditherARa = 0;
+  abd_ditherALd = 0;
+  abd_ditherARd = 0;
+  abd_ditherALp = 0;
+  abd_ditherARp = 0;
+  
+  abd_ditherVLa = 0;
+  abd_ditherVRa = 0;
+  abd_ditherVLd = 0;
+  abd_ditherVRd = 0;
+  abd_ditherVLp = 0;
+  abd_ditherVRp = 0;
+  
+  abd_gotoFlagL = 0;
+  abd_gotoFlagR = 0;
+  abd_dvFlagL = 1;
+  abd_dvFlagR = 1;
+  */
+
+  /*
+    abd_speedLimitL = abd_speedLimit * abd_distL / abs(abd_distR);
+    abd_rampStepL = abd_rampStep * abd_distL / abs(abd_distR);
+  */
+  #ifdef _monitor_
+  sprint(
+        abd_str, "\rvL%d, rspdLimL=%d, rmpStpL=%d dthrAL=%d, dthrVL=%d | "\
+        "vR%d, spdLimR=%d, rmpStpR=%d dthrAR=%d, dthrVR=%d\r\r",
+        abd_speedLT, abd_speedLimitL, abd_rampStepL, abd_ditherAL, abd_ditherVL,
+        abd_speedRT, abd_speedLimitR, abd_rampStepR, abd_ditherAR, abd_ditherVR
+        );
+  #endif       
 
   if(!cog)
   {
     /////print("\n\n!!!!! Starting COG !!!!!!\n\n");
     cog = 1 + cogstart(encoders, NULL, stack, sizeof(stack)-1);
+  }
+
+  //
+  if(abd_stopCtrL || abd_stopCtrR)
+  {
+    while(abd_stopCtrL || abd_stopCtrR);
+  }        
+  //int n = _servoPulseReps + 6;
+  int n = _servoPulseReps + 6;
+  while(_servoPulseReps != n);
+  if(abd_stopCtrL || abd_stopCtrR)
+  {
+    while(abd_stopCtrL || abd_stopCtrR);
+  }        
+  //
+  
+  /*
+  if(abd_stopCtrL || abd_stopCtrR)
+  {
+    while(abd_stopCtrL || abd_stopCtrR);
   }  
+  */
+  /*      
+  int n = _servoPulseReps + 6;
+  while(_servoPulseReps != n)
+  {
+    if(abd_stopCtrL || abd_stopCtrR)
+    {
+      while(abd_stopCtrL || abd_stopCtrR);
+    }        
+  } 
+  */   
 }
 
 
@@ -420,38 +719,205 @@ void drive_speed(int left, int right)        // driveSpeeds function
   {
     interpolation_table_setup();
     set_drive_speed(0, 0);
-    //pause(40);
+    //pause(100);
   }
   
-  //
-  if(abd_zeroDelay == ON)
+  if((left != speedLprev) || (right != speedRprev))
   {
-    if((speedLprev > 0 && left <= 0) || (speedLprev < 0 && left >= 0) || (speedRprev > 0 && right <= 0) || (speedRprev < 0 && right >= 0))
-    {
-      int tempLeftZ = left;
-      int tempRightZ = right;
-      if((speedLprev > 0 && left <= 0) || (speedLprev < 0 && left >= 0))
-      {
-        tempLeftZ = 0;
-      } 
-      if((speedRprev > 0 && right <= 0) || (speedRprev < 0 && right >= 0))
-      {
-        tempRightZ = 0;
-      } 
-      set_drive_speed(tempLeftZ, tempRightZ);
-      speedLprev = tempLeftZ;
-      speedRprev = tempRightZ;
-      pause(120); 
-    }
+  
+    set_drive_speed(left, right);
+    
+    //speedLprev = abd_speedLT;
+    //speedRprev = abd_speedRT;
+  }    
+
+  //speedLprev = abd_speedL;
+  //speedRprev = abd_speedR;
+
+  //speedLprev = left;
+  //speedRprev = right;
+  
+  speedLprev = abd_speedLT;
+  speedRprev = abd_speedRT;
+}
+
+
+void drive_goto(int left, int right)
+{
+  
+  if(abd_speedLimit > 64) 
+  {
+    abd_speedLimitTemp = abd_speedLimit;
+    abd_speedLimit = 64;
+  }    
+
+  //sprint("\r\r\rdrive_goto(%d, %d)\r\r", left, right);
+  if(!abd_intTabSetup)
+  {
+    interpolation_table_setup();
+    set_drive_speed(0, 0);
   }
+  
+  abd_distL = left;
+  abd_distR = right;
 
-  //_sprNext = _servoPulseReps;
-  //while((_sprNext+1) >= _servoPulseReps);
+  if(abs(abd_ticksLf - abd_ticksL) < 6)
+  {
+    abd_ticksLi = abd_ticksLf;
+  }
+  else
+  {
+    abd_ticksLi = abd_ticksL;
+  }        
 
-  set_drive_speed(left, right);
+  if(abs(abd_ticksRf - abd_ticksR) < 6)
+  {
+    abd_ticksRi = abd_ticksRf;
+  }
+  else
+  {
+    abd_ticksRi = abd_ticksR;
+  }        
 
-  speedLprev = abd_speedL;
-  speedRprev = abd_speedR;
+  //abd_ticksRi = abd_ticksR;
+  abd_ticksLf = abd_ticksLi + left;
+  abd_ticksRf = abd_ticksRi + right;
+  
+  
+  
+  
+  
+  
+    /*
+    abd_speedLimitR = abd_speedLimit;
+    abd_speedLimitL = abd_speedLimit;
+    abd_rampStepL = abd_rampStep;
+    abd_rampStepR = abd_rampStep;
+    abd_ditherAL = 0;
+    abd_ditherVL = 0;
+    abd_ditherAR = 0;
+    abd_ditherVR = 0;
+    */
+  
+  
+  
+    abd_speedLimitR = abd_speedLimit;
+    abd_speedLimitL = abd_speedLimit;
+    abd_rampStepL = abd_rampStep;
+    abd_rampStepR = abd_rampStep;
+    abd_ditherAL = 0;
+    abd_ditherVL = 0;
+    abd_ditherAR = 0;
+    abd_ditherVR = 0;
+  
+  
+        
+  if(abs(abd_distR) > abs(abd_distL))
+  {
+    abd_speedLimitL = abd_speedLimit * abs(abd_distL) / abs(abd_distR);
+    abd_rampStepL = abd_rampStep * abs(abd_distL) / abs(abd_distR);
+
+    abd_ditherAL = (abd_rampStep * abd_distL) % abs(abd_distR);
+    abd_ditherAL *= 50;
+    abd_ditherAL /= abs(abd_distR);
+    abd_ditherAL = abs(abd_ditherAL);
+
+    abd_ditherVL = (abd_speedLimit * abd_distL) % abs(abd_distR);
+    abd_ditherVL *= 50;
+    abd_ditherVL /= abs(abd_distR);
+    abd_ditherVL = abs(abd_ditherVL);
+    //print("ditherAL = %d, ditherVL = %d\r", abd_ditherAL, abd_ditherVL);  
+  }          
+  else if(abs(abd_distL) > abs(abd_distR))
+  {
+    abd_speedLimitR = abd_speedLimit * abs(abd_distR) / abs(abd_distL);
+    abd_rampStepR = abd_rampStep * abs(abd_distR) / abs(abd_distL);
+
+    abd_ditherAR = (abd_rampStep * abd_distR) % abs(abd_distL);
+    abd_ditherAR *= 50;
+    abd_ditherAR /= abs(abd_distL);
+    abd_ditherAR = abs(abd_ditherAR);
+    abd_ditherVR = (abd_speedLimit * abd_distR) % abs(abd_distL);
+    abd_ditherVR *= 50;
+    abd_ditherVR /= abs(abd_distL);
+    abd_ditherVR = abs(abd_ditherVR);
+    //print("ditherAR = %d, ditherVR = %d\r", abd_ditherAR, abd_ditherVR);  
+  }
+  //
+  else
+  {
+    abd_speedLimitR = abd_speedLimit;
+    abd_speedLimitL = abd_speedLimit;
+    abd_rampStepL = abd_rampStep;
+    abd_rampStepR = abd_rampStep;
+    abd_ditherAL = 0;
+    abd_ditherVL = 0;
+    abd_ditherAR = 0;
+    abd_ditherVR = 0;
+    //print("ditherAL = %d, ditherVL = %d\r", abd_ditherAL, abd_ditherVL);  
+    //print("ditherAR = %d, ditherVR = %d\r", abd_ditherAR, abd_ditherVR);  
+  }
+  //   
+  
+  abd_ditherALa = 0;
+  abd_ditherARa = 0;
+  abd_ditherALd = 0;
+  abd_ditherARd = 0;
+  abd_ditherALp = 0;
+  abd_ditherARp = 0;
+  
+  abd_ditherVLa = 0;
+  abd_ditherVRa = 0;
+  abd_ditherVLd = 0;
+  abd_ditherVRd = 0;
+  abd_ditherVLp = 0;
+  abd_ditherVRp = 0;
+  
+  abd_gotoFlagL = 1;
+  abd_gotoFlagR = 1;
+  abd_dvFlagL = 0;
+  abd_dvFlagR = 0;
+  
+  abd_ticksGuardL = 0;
+  abd_ticksGuardR = 0;
+
+  /*
+    abd_speedLimitL = abd_speedLimit * abd_distL / abs(abd_distR);
+    abd_rampStepL = abd_rampStep * abd_distL / abs(abd_distR);
+  */
+  
+  //
+  #ifdef _monitor         
+  if(abd_blockGoto == 1)
+  {
+    sprint(abd_str, "\r\rddL%d, spdLimL=%d, rmpStpL=%d dthrAL=%d, dthrVL=%d | "\
+          "ddR%d, spdLimL=%d, rmpStpL=%d dthrAL=%d, dthrVL=%d\r\r",
+          left, abd_speedLimitL, abd_rampStepL, abd_ditherAL, abd_ditherVL,
+          right, abd_speedLimitR, abd_rampStepR, abd_ditherAR, abd_ditherVR
+          );// 
+  }         
+  #endif      
+        
+  if(abd_blockGoto == 1)
+  {
+    //19 while((abd_gotoFlagL != 0) || (abd_gotoFlagR != 0));
+    while((abd_gotoFlagL != 0) || (abd_gotoFlagR != 0) || (abd_stopCtrL > 0) || (abd_stopCtrR > 0));
+    pause(40); //19
+    while((abd_gotoFlagL != 0) || (abd_gotoFlagR != 0) || (abd_stopCtrL > 0) || (abd_stopCtrR > 0)); //19
+  } 
+  #ifdef _monitor         
+  sprint(abd_str, "\r\rddL%d, spdLimL=%d, rmpStpL=%d dthrAL=%d, dthrVL=%d | "\
+        "ddR%d, spdLimR=%d, rmpStpR=%d dthrAR=%d, dthrVR=%d\r\r",
+        left, abd_speedLimitL, abd_rampStepL, abd_ditherAL, abd_ditherVL,
+        right, abd_speedLimitR, abd_rampStepR, abd_ditherAR, abd_ditherVR
+        );// 
+  #endif 
+  
+  if(abd_speedLimitTemp != 0) 
+  {
+    abd_speedLimit = abd_speedLimitTemp;
+    abd_speedLimitTemp = 0;
+  }    
 }
 
 
@@ -471,7 +937,7 @@ void encoders(void *par)
 
   int tempL = 0;
   int tempR = 0;
-  interpolate(&tempL, &tempR);  
+  interpolate2(&tempL, &tempR);  
 
   PHSA = 0;
   PHSB = 0;
@@ -541,9 +1007,15 @@ void encoders(void *par)
   int maxIR = 0;
   int maxIL = 0;
 
+  #ifdef test_t_interval
+  int n = 0;
+  #endif
+
+  // Main control system loop.
+
   while(1)
-  {
-    // Left encoder
+  {  
+    // Measure left encoder ticks
     if(((INA >> abd_ePinL) & 1) != stateL)
     {
       stateL = (~stateL) & 1;
@@ -570,7 +1042,7 @@ void encoders(void *par)
       }
     }
     
-    // Right encoder
+    // Measure right encoder ticks
     if(((INA >> abd_ePinR) & 1) != stateR)
     {
       stateR = (~stateR) & 1;
@@ -596,21 +1068,39 @@ void encoders(void *par)
         abd_ticksR += zdirR;
       }
     }
+ 
 
     // Calculated distance accumulator
-    if((td - CNT) > tdst) 
-    {
-  
-      td += tdst;                                 // Reset sample timer         '
 
-      abd_dlca += etpsL;                              // + velocityL for dt
-      abd_drca += etpsR;                              // + velocityR for dt
+    if((td - CNT) >= tdst) 
+    {
+      td += tdst;                                     // Reset sample timer         '
       
-      //dlca -= 70*(edL - edR);
+      #ifdef test_t_interval
+        if( (n*4) < (sizeof(rec_t)-8) )
+          rec_t[n++] = CNT;  
+      #endif
+
+      //  Every sampling rate x per second d*c is the calculated distance:
+      //    accumulator add number ot ticks per second you want the wheel to turn
+      //    calculated = accumulator / sampling rate
+      //  In other words, if you are adding the number of ticks per second you want
+      //  at a rate of 400x/second, you'll need to divide that accumulated value by
+      //  400.
+
+      // distance calculated (accumulated) += encoder ticks per second requested  
+      //abd_dlca += etpsL;                              // + velocityL for dt
+      //abd_drca += etpsR;                              // + velocityR for dt
+      abd_dlca += abd_speedL;                              // + velocityL for dt
+      abd_drca += abd_speedR;                              // + velocityR for dt
       
-      abd_dlc = abd_dlca/abd_dsr;                             // ticks expected
+      // distance calculated = distance calculated (accumulated) / sampling rate
+      abd_dlc = abd_dlca/abd_dsr;                     // ticks expected
       abd_drc = abd_drca/abd_dsr;                             
 
+
+      // Adjust for trim
+      
       //#define test_trim_settings_new
       //#ifdef test_trim_settings_new
       if(trimFunction)
@@ -652,22 +1142,11 @@ void encoders(void *par)
           abd_drca += (abd_trimBR*inc);
         }
       }
-      //#endif // test_trim_settings_new3
     }
       
-    //#define no_control 
 
-    // wait until 15 ms into servo control cycle
-    //if(_servoPulseReps != _sprOld)
 
-    /*
-    if((CNT - t) >= dt1 && (oneshot == 0))
-    {
-      oneshot = 1;
-      _servoPulseReps++;
-    }
-    */
-
+    // Calculate and deliver servo pulses. 
     if((CNT - t) >= (dt1 + dt2))
     {
       t+=(dt1+dt2);
@@ -675,11 +1154,222 @@ void encoders(void *par)
       //pulseTime = CNT;
       _sprOld = _servoPulseReps;
       pcount++;
+
+
+      // Dither on acceleration and velocity coefficients for the sake of not
+      // using floating point.  *d terms spend a certain number of 50ths at a 
+      // value of 1 proportional to the truncation loss during integer division.
+      if((abd_gotoFlagL != 0) || (abd_gotoFlagR != 0)
+          || (abd_dvFlagL != 0) || (abd_dvFlagR != 0))
+      {
+        abd_ditherALa += abd_ditherAL;
+        abd_ditherALd = (abd_ditherALa/50) - (abd_ditherALp/50);
+        abd_ditherALp = abd_ditherALa;
+        
+        abd_ditherARa += abd_ditherAR;
+        abd_ditherARd = (abd_ditherARa/50) - (abd_ditherARp/50);
+        abd_ditherARp = abd_ditherARa;
+      }
+
+      if((abd_gotoFlagL != 0) || (abd_gotoFlagR != 0))
+      {
+        abd_ditherVLa += abd_ditherVL;
+        abd_ditherVLd = (abd_ditherVLa/50) - (abd_ditherVLp/50);
+        abd_ditherVLp = abd_ditherVLa;
+        
+        abd_ditherVRa += abd_ditherVR;
+        abd_ditherVRd = (abd_ditherVRa/50) - (abd_ditherVRp/50);
+        abd_ditherVRp = abd_ditherVRa;
+      }
+
+
+      // Set velocities if executing a goto
+      if(abd_gotoFlagL == 1)
+      {
+        // Calculate velocity and acceleration based on distance remaining.
+        if(abd_speedL != 0)
+        {
+          // dist = v^2 / 2a
+          // !!!!! Dithering needs to be absent from abd_speedL here !!!!!!
+          //abd_ticksGuardL = (abd_speedL * abs(abd_speedL)) / (100 * abd_rampStepL);
+          abd_ticksGuardL = (abd_speedL * abs(abd_speedL)) / (100 * abd_rampStepL);
+          //abd_ticksGuardL = abd_speedL/abd_rampStepL;
+        }          
+        //if(abs(abd_ticksLf - abd_ticksL) > abs(abd_ticksGuardL))    //18
+        if(abs(abd_ticksLf - abd_ticksL) > ((abs(abd_ticksGuardL) + abs(abd_ditherVLd))))   //18
+        {
+          if(abd_ticksLf > abd_ticksL)
+          {
+            abd_speedLT = abd_speedLimitL + abd_ditherVLd;
+          }
+          else if(abd_ticksLf < abd_ticksL)
+          {
+            abd_speedLT = -abd_speedLimitL - abd_ditherVLd;
+          }
+        }            
+        else
+        {
+          abd_speedLT = 0;
+          abd_gotoFlagL = 2;
+        }          
+      }
+
+      if(abd_gotoFlagR == 1)
+      {
+        // Calculate velocity and acceleration based on distance remaining.
+        if(abd_speedR != 0)
+        {
+          // dist = v^2 / 2a
+          // !!!!! Dithering needs to be absent from abd_speedR here !!!!!!
+          //abd_ticksGuardR = (abd_speedR * abs(abd_speedR)) / (100 * abd_rampStepR);
+          abd_ticksGuardR = (abd_speedR * abs(abd_speedR)) / (100 * abd_rampStepR);
+          //abd_ticksGuardR = abd_speedR / abd_rampStepR;
+        }          
+        // if(abs(abd_ticksRf - abd_ticksR) > (abs(abd_ticksGuardR)) //18
+        if(abs(abd_ticksRf - abd_ticksR) > (abs(abd_ticksGuardR) + (abs(abd_ditherVRd))))  //18 
+        {
+          if(abd_ticksRf > abd_ticksR)
+          {
+            abd_speedRT = abd_speedLimitR + abd_ditherVRd;
+          }
+          else if(abd_ticksRf < abd_ticksR)
+          {
+            abd_speedRT = -abd_speedLimitR - abd_ditherVRd;
+          }
+        }            
+        else
+        {
+          abd_speedRT = 0;
+          abd_gotoFlagR = 2;
+        }          
+      }
+
+
+
+      // Nudge to final position
+      //if((abd_gotoFlagL == 2) && (abd_stopCtrL == 0) && (abd_speedL == 0)) //18
+      if((((abd_gotoFlagL == 2) && (abd_stopCtrL == 0) && (abd_speedL == 0) && (abd_speedLold == abd_speedL))) || (((abd_gotoFlagL == 3) && (abd_stopCtrL == 0))))
+      {
+        abd_distErrorL = abd_ticksLf - abd_ticksL;
+        if(abd_distErrorL == 0)
+        {
+          abd_gotoFlagL = 0;
+          abd_nudgeCtrL = 0;
+          abd_speedL = 0; //18
+        }
+        else
+        { 
+          abd_nudgeCtrL++;
+          signL = abs(abd_distErrorL) / abd_distErrorL;
+          //abd_speedL = signL * (abd_nudgeIncL + (2 * abd_nudgeCtrL));
+          //abd_speedL = signL * (10);
+          //abd_speedL = signL * (abd_rampStepL + (abd_rampStepL * abs(abd_distErrorL)));
+          //abd_speedL = signL * 35;
+          //19 abd_speedL = (signL * 10) + (signL * abd_rampStepL);
+          abd_speedL = (signL * 10);
+          abd_gotoFlagL = 3; //18
+        }          
+      }
+        
+      //18 if((abd_gotoFlagR == 2) && (abd_stopCtrR == 0) && (abd_speedR == 0))
+      if((((abd_gotoFlagR == 2) && (abd_stopCtrR == 0) && (abd_speedR == 0) && (abd_speedRold == abd_speedR))) || (((abd_gotoFlagR == 3) && (abd_stopCtrR == 0))))
+      {
+        abd_distErrorR = abd_ticksRf - abd_ticksR;
+        if(abd_distErrorR == 0)
+        {
+          abd_gotoFlagR = 0;
+          abd_nudgeCtrR = 0;
+          abd_speedR = 0; //18
+        }
+        else
+        { 
+          abd_nudgeCtrR++;
+          int signR = abs(abd_distErrorR) / abd_distErrorR;
+          //abd_speedR = signR * (abd_nudgeIncR + (2 * abd_nudgeCtrR));
+          //abd_speedR = signR * (abd_rampStepR + (abd_rampStepR * abs(abd_distErrorR)));
+          //abd_speedR = signR * 35;
+          //19 abd_speedR = (signR * 10) + (signR * abd_rampStepR);
+          abd_speedR = (signR * 10);
+          abd_gotoFlagR = 3; //18
+        }          
+      }
+
+
+      // Clamp encoded speed
+      if(abd_speedLT > abd_speedLimit) abd_speedLT = abd_speedLimit;
+      if(abd_speedLT < -abd_speedLimit) abd_speedLT = -abd_speedLimit;
+      if(abd_speedRT > abd_speedLimit) abd_speedRT = abd_speedLimit;
+      if(abd_speedRT < -abd_speedLimit) abd_speedRT = -abd_speedLimit;
+
+
+      // If new abd_speedLT/RT set point, calculate abd_speedL/R step toward each 
+      // abd_speedLT/RT in steps.
+      //18 if(abd_stopCtrL == 0)
+      if((abd_stopCtrL == 0) && (abd_gotoFlagL != 3))
+      {
+        if(abd_speedLT > (abd_speedL + abd_rampStepL))
+        {
+          abd_speedL = abd_speedL + abd_rampStepL + abd_ditherALd;
+        }          
+        else if(abd_speedLT < (abd_speedL - abd_rampStep)) 
+        {
+          abd_speedL = abd_speedL - abd_rampStepL - abd_ditherALd;
+        }          
+        else abd_speedL = abd_speedLT;
+      }    
       
-      // Distance controller
-      // #if 1
+      //18 if(abd_stopCtrR == 0)
+      if((abd_stopCtrR == 0) && (abd_gotoFlagR != 3))
+      {
+        //if(abd_speedRT > (abd_speedR + abd_rampStep + abd_ditherARd)) 
+        if(abd_speedRT > (abd_speedR + abd_rampStepR)) 
+        {
+          abd_speedR = abd_speedR + abd_rampStepR + abd_ditherARd;
+        }          
+        //else if(abd_speedRT < (abd_speedR - abd_rampStep - abd_ditherARd)) 
+        else if(abd_speedRT < (abd_speedR - abd_rampStepR)) 
+        {
+          abd_speedR = abd_speedR - abd_rampStepR - abd_ditherARd;
+          //abd_speedR = abd_speedR - abd_rampStepR;// - abd_ditherARd;
+        }          
+        else
+        {
+          abd_speedR = abd_speedRT;
+          //if(abd_speedRT == 128) high(26);
+        }          
+        
+        //sprint(abd_str, "else");
+      }  
+            
+      
+      if( (abd_speedLold != abd_speedL) && (abd_speedL == 0) )
+      {
+        abd_stopCtrL = abd_stopPulseRepsL;
+      }        
+
+      if( (abd_speedRold != abd_speedR) && (abd_speedR == 0) )
+      {
+        abd_stopCtrR = abd_stopPulseRepsR;
+      }   
+      
+      abd_speedLold = abd_speedL;     
+      abd_speedRold = abd_speedR;
+
+      // Figure out next drive setting
+      int leftTemp  = abd_speedL;
+      int rightTemp = abd_speedR;
+
+      interpolate2(&leftTemp, &rightTemp);
+
+      ssiL = leftTemp;                      // servo speed interpolated
+      ssiR = -rightTemp;
+
+
+      // Calculate distance error, then respond with PI control.
+      // Distance is accumulated at 400 Hz
       if(encoderFeedback)
       {
+        // Error ticks = calculated - measured 
         abd_edL = abd_dlc - abd_ticksL;
         abd_eaL += abd_edL;
         if(abd_speedL != 0)
@@ -695,28 +1385,31 @@ void encoders(void *par)
             abd_pL = abd_edL * (-3+(abd_speedL/10));  
             if(abd_edL>0)abd_iL-=1; else if(abd_edL<0) abd_iL+=1;
           }
+
           maxIL = abd_speedL;
           if(maxIL < 0) maxIL = -maxIL;
           if(abd_iL > maxIL) abd_iL = maxIL;
           if(abd_iL < -maxIL) abd_iL = -maxIL;
-          //iL = 0;
+
           if(abd_speedL > 0)
             driveL = abd_iL + abd_pL + ssiL + 1500;
-            //if(driveL < cntrLval + 1500) driveL = cntrLval + 1500;   
           if(abd_speedL < 0)
             driveL = -abd_iL - abd_pL + ssiL + 1500;
-            //if(driveL > cntrLval + 1500) driveL = cntrLval + 1500;   
         }
         else
         {
           driveL = ssiL + 1500;
           abd_iL = 0;
         }
+
+        // Error ticks = calculated - measured 
         abd_edR = abd_drc - abd_ticksR;
         abd_eaR += abd_edR;
+        
+        // Control system calcs
         if(abd_speedR != 0)
         {
-          //iR += edR;
+          // Calculate proportional and integral terms
           if(abd_speedR > 0)
           {
             abd_pR = abd_edR * (3+(abd_speedR/10));  
@@ -727,33 +1420,30 @@ void encoders(void *par)
             abd_pR = abd_edR * (-3+(abd_speedR/10));  
             if(abd_edR>0)abd_iR-=1; else if(abd_edR<0) abd_iR+=1;
           }
+
+          // Clamp integral term
           maxIR = abd_speedR;
           if(maxIR < 0) maxIR = - maxIR;
           if(abd_iR > maxIR) abd_iR = maxIR;
           if(abd_iR < -maxIR) abd_iR = -maxIR;
-          //iR = 0;
+
+          // servoDrive = (servo speed interpolated + 1500) +/- integral +/- proportionial
           if(abd_speedR > 0)
             driveR = -abd_iR - abd_pR + ssiR + 1500;
-            //if(driveR > 1500 - cntrRval) driveR = 1500 - cntrRval;
           if(abd_speedR < 0)
             driveR = abd_iR + abd_pR + ssiR + 1500;
-            //if(driveR < 1500 - cntrRval) driveR = 1500 - cntrRval;
         }
         else
         {
           driveR = ssiR + 1500;
           abd_iR = 0;
         }
-        //#if 1
-        //if(encoderFeedback)
-        //{
+
         phsLr = driveL; 
         phsRr = driveR; 
-        //}
-        //#endif
-        // #endif
+
       }
-      else
+      else // if(!encoder_feedback)
       {
         phsLr = ssiL + 1500;
         phsRr = ssiR + 1500;
@@ -761,10 +1451,47 @@ void encoders(void *par)
 
       phsL = phsLr;
       phsR = phsRr;
-      PHSA = -phsL*abd_us;
-      PHSB = -phsR*abd_us;
+      
+      if(abd_speedL != 0)
+      {
+        PHSA = -phsL*abd_us;
+      }        
+      else
+      {
+        PHSA = 0;
+        if(abd_stopCtrL > 0)
+          abd_stopCtrL--;
+        if(abd_stopCtrL == 0)
+        {
+          abd_edL = 0;
+          //abd_dlc = 0;
+          abd_eaL = 0;
+          abd_dlc = abd_ticksL;
+          abd_dlca = abd_dlc * 400;
+          //abd_gotoFlagL = 0;
+        }           
+      }         
+      if(abd_speedR != 0)
+      {
+        PHSB = -phsR*abd_us;
+      }        
+      else
+      {
+        PHSB = 0;  
+        if(abd_stopCtrR > 0)
+          abd_stopCtrR--;
+        if(abd_stopCtrR == 0)
+        {
+          abd_edR = 0;
+          //abd_drc = 0;
+          abd_eaR = 0;
+          abd_drc = abd_ticksR;
+          abd_drca = abd_drc * 400;
+          //abd_gotoFlagR = 0;
+        }           
+      }
+              
       _servoPulseReps++;
-
 
       //if(record)
       #ifdef interactive_development_mode
@@ -790,5 +1517,7 @@ void encoders(void *par)
     }
   }
 }
+
+
 
 

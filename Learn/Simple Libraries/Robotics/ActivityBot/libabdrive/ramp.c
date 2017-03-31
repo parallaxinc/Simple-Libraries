@@ -13,6 +13,8 @@ int abd_intTabSetup;
 //static int step = 6;
 void drive_rampStep(int left, int right)
 {
+  drive_speed(left, right);
+  /*
   int leftTemp, rightTemp;
   int sprOld = _servoPulseReps;
 
@@ -27,12 +29,15 @@ void drive_rampStep(int left, int right)
   drive_speed(leftTemp, rightTemp);
   while(sprOld >= _servoPulseReps);
   sprOld = _servoPulseReps;
+  */
 }
 
 
 //static int step = 6;
 void drive_ramp(int left, int right)
 {
+  drive_speed(left, right);
+  /*
   if(!abd_intTabSetup)
   {
     interpolation_table_setup();
@@ -44,5 +49,6 @@ void drive_ramp(int left, int right)
   {
     drive_rampStep(left, right);
   }
+  */
 }
 

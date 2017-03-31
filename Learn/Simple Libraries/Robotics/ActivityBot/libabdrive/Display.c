@@ -17,7 +17,7 @@ int abd_spdrR[120];
 int abd_spdmR[120];
 
 
-#ifndef interactive_development_mode
+//#ifdef interactive_development_mode
 void drive_displayInterpolation(void)
 {
   if(!abd_intTabSetup) interpolation_table_setup();
@@ -43,10 +43,10 @@ void drive_displayInterpolation(void)
   //getchar();  
   //#endif
 }
-#endif // interactive_development_mode
+//#endif // interactive_development_mode
 
 
-#ifndef interactive_development_mode
+//#ifdef interactive_development_mode
 void drive_trimDisplay(void)
 {
   if(!abd_intTabSetup) interpolation_table_setup();
@@ -54,6 +54,6 @@ void drive_trimDisplay(void)
   print("trimFL %d, trimFR %d, trimBL %d, trimBR %d, trimticksF %d, trimticksB %d\n",
          abd_trimFL, abd_trimFR, abd_trimBL, abd_trimBR, abd_trimticksF, abd_trimticksB);
 }
-#endif // interactive_development_mode
+//#endif // interactive_development_mode
 
 

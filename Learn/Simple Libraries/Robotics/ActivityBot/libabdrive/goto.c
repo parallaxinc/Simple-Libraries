@@ -1,11 +1,13 @@
 #include "abdrive.h"
+/*
+void interpolation_table_setup();
+void set_drive_speed(int left, int right);
+
 
 volatile int abd_ticksL;
 volatile int abd_ticksR;
 volatile int abd_speedL;      // Requested servo speed left
 volatile int abd_speedR;      // Requested servo speed right
-int abd_rampStep;
-int abd_speedLimit;
 volatile int abd_zeroDelay;
 volatile int abd_dlc;      // distance left calculated
 volatile int abd_drc;      // distance right calculated
@@ -21,14 +23,61 @@ volatile int abd_iR;                                   // integral right
 volatile int abd_eaL;
 volatile int abd_eaR;
 volatile unsigned int _servoPulseReps;
+int abd_intTabSetup;
 
+
+volatile int abd_ticksLi;
+volatile int abd_ticksLf;
+
+volatile int abd_ticksRi;
+volatile int abd_ticksRf;
+
+volatile int abd_gotoFlagL;
+volatile int abd_gotoFlagR;
+
+volatile int abd_ticksGuardL;
+volatile int abd_ticksGuardR;
+
+volatile int abd_rampStep;
+volatile int abd_rampStepL;
+volatile int abd_rampStepR;
+volatile int abd_speedLimit;
+*/
+
+/*
 // To-do: What if current speed > speedLimit?
 void drive_goto(int left, int right)
 {
-  int ticksLstart = abd_ticksL;
-  int ticksRstart = abd_ticksR;
-  int ticksLtarget = ticksLstart + left;
-  int ticksRtarget = ticksRstart + right;
+  if(!abd_intTabSetup)
+  {
+    interpolation_table_setup();
+    set_drive_speed(0, 0);
+    //pause(40);
+  }
+
+  abd_ticksLi = abd_ticksL;
+  abd_ticksRi = abd_ticksR;
+  abd_ticksLf = abd_ticksLi + left;
+  abd_ticksRf = abd_ticksRi + right;
+  
+  //abd_ticksGuardL = (abs(abd_speedL) * abd_speedL) / (2 * abd_rampStepL);
+  //abd_ticksGuardR = (abs(abd_speedR) * abd_speedR) / (2 * abd_rampStepR);
+
+  //abd_ticksGuardL = sqrt((abd_speedLimit * abd_speedLimit) / (2 * abd_rampStepL));
+  //if(left < 0) abd_ticksGuardL = -abd_ticksGuardL;
+  //abd_ticksGuardL *= (left/abs(left));
+  //abd_ticksGuardR = sqrt((abd_speedLimit * abd_speedLimit) / (2 * abd_rampStepR));
+  //if(right < 0) abd_ticksGuardR = -abd_ticksGuardR;
+  //abd_ticksGuardL *= (right/abs(right));
+  
+  abd_gotoFlagL = 1;
+  abd_gotoFlagR = 1;
+}
+*/
+
+/*
+
+  
   int distRampL = 0, distRampR = 0, rampClampL = 0, rampClampR = 0, distCruiseL = 0;
   //int tCruiseR;// = 0;
   //int tCruiseL;// = 0;
@@ -99,7 +148,8 @@ void drive_goto(int left, int right)
     dprint(xbee, "F After ramp distRampR = %d\n", distRampR);
     #endif
   }
-  /*
+  
+  #if 0
   dprint(xbee, "distRampL = %d\n", distRampL);
   dprint(xbee, "distCruiseL = %d\n", distCruiseL);
   dprint(xbee, "distCruiseL + distRampL = %d\n", distCruiseL + distRampL);
@@ -109,7 +159,7 @@ void drive_goto(int left, int right)
   dprint(xbee, "distCruiseR = %d\n", distCruiseR);
   dprint(xbee, "distCruiseR + distRampR = %d\n", distCruiseR + distRampR);
   dprint(xbee, "rampClampR = %d\n\n", rampClampR);
-  */
+  #endif
 
   // Distance to ramp down if already going forward
   if(left < 0)
@@ -300,6 +350,5 @@ void drive_goto(int left, int right)
 
   abd_zeroDelay = ON;
   //
-}
 
-
+*/
