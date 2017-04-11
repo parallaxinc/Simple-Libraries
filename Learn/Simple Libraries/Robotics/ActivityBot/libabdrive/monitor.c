@@ -1,7 +1,8 @@
 #include "abdrive.h"
 
-void interpolation_table_setup();
+//void interpolation_table_setup();
 
+//int abd_intTabSetup;
 
 #ifdef _monitor_
   volatile char abd_str[128];
@@ -12,8 +13,10 @@ void interpolation_table_setup();
   volatile int rec_t[8000 / 4];
 #endif
 
+//volatile int abd_sampleCount;
 
 volatile int abd_record;               // Record values to an array
+
 
 void drive_com(int arrayLcnt, int arrayRcnt, 
                int centerL, int centerR, 
@@ -39,16 +42,12 @@ volatile int abd_zeroDelay;
 volatile int abd_us;
 volatile int abd_intTabSetup;
 
-//static int cog;
 //static int servoCog2 = 0;
-//static unsigned int stack[44 + 252];
 //static unsigned int stack[44 + 352];
+//static int cog;
+//static unsigned int stack[44 + 252];
 //static unsigned int servoStack[(160 + (150 * 4)) / 4];
 
-//int abd_spdrL[120];
-//int abd_spdmL[120];
-//int abd_spdrR[120];
-//int abd_spdmR[120];
 short abd_spdrL[120];
 short abd_spdmL[120];
 short abd_spdrR[120];
@@ -59,17 +58,17 @@ volatile int r;
 
 int abd_eeAddr;
 
-//static volatile int trimctr;
-//static volatile int dca, trimticks;
+static volatile int trimctr;
+static volatile int dca, trimticks;
 
 static volatile int kp[6];
 
 static volatile int ridx;
 
-//static volatile int *pwL;
-//static volatile int *pwR;
-//static volatile int *spdL;
-//static volatile int *spdR;
+volatile short *pwL;
+volatile short *pwR;
+volatile short *spdL;
+volatile short *spdR;
 
 static volatile int pcount;
 static volatile unsigned int _sprOld;
@@ -83,16 +82,16 @@ static volatile int phs[2];
 static volatile int phsr[2];
 
 //static int trimFunction;
-//static int encoderFeedback;
+volatile int encoderFeedback;
 
 volatile int abd_blockGoto;
 
 // drive_trimset
-//volatile int abd_trimF[2];
-//volatile int abd_trimB[2];
+volatile int abd_trimF[2];
+volatile int abd_trimB[2];
 
-//volatile int abd_trimticksF;
-//volatile int abd_trimticksB;
+volatile int abd_trimticksF;
+volatile int abd_trimticksB;
 
 volatile int abd_speedOld[2];
 volatile int abd_stopCtr[2];
@@ -179,54 +178,114 @@ volatile int abd_speedi[2];
 volatile int abd_speedd[2];
 volatile int abd_dvFlag[2];
 
+volatile int abd_sampleCount;
+
+#ifdef _monitor_
+volatile int abd_reps;
+void monitor(void *par);
+static int cog;
+static unsigned int stack[44 + 128];
 
 
-
-
-
-
-//#ifdef interactive_development_mode
-void drive_displayInterpolation(void)
+void monitor_start(int monitorReps)
 {
-  //
-  if(!abd_intTabSetup) interpolation_table_setup();
- 
-  print("=== LEFT SERVO ===\n\n");
-  print("Table Entries = %d\nZero Speed Index = %d\n\n", abd_elCnt[ABD_L], abd_cntrIdx[ABD_L]);
-  print("Index\tServo Drive\tEncoder Ticks/Second\n");
-  print("-----\t-----------\t--------------------\n");
-  for(int r = 0; r < abd_elCnt[ABD_L]; r++)
-  {
-    print("%d\t%d\t\t%d\n", r, abd_spdrL[r], abd_spdmL[r]);
-  }
-  
-  print("\n\n=== RIGHT SERVO ===\n\n");
-  print("Table Entries = %d\nZero Speed Index = %d\n\n",  abd_elCnt[ABD_R], abd_cntrIdx[ABD_R]);
-  print("Index\tServo Drive\tEncoder Ticks/Second\n");
-  print("-----\t-----------\t--------------------\n");
-  for(int r = 0; r < abd_elCnt[ABD_R]; r++)
-  {
-    print("%d\t%d\t\t%d\n", r, abd_spdrR[r], abd_spdmR[r]);
-  }
-  
-  //getchar();  
-  //#endif
-  //
+  abd_reps = monitorReps;
+  cog = 1 + cogstart(monitor, NULL, stack, sizeof(stack)-1);
+  simpleterm_close();
+  pause(10);
 }
-//#endif // interactive_development_mode
+
+void monitor_stop()
+{
+  cogstop(cog - 1);
+}
+//
+void monitor(void *par)
+{
+  low(26);
+  low(27);
+  pause(100);
+  simpleterm_open();
+  int n = _servoPulseReps;
+  while(n < abd_reps)
+  {
+    while(1)
+    { 
+      if(n != _servoPulseReps)
+      {
+        n = _servoPulseReps;
+        break;
+      }
+    }      
+    if(abd_str[0])
+    {
+      print("%s", abd_str);
+      abd_str[0] = 0;
+    }                
+    print("n%d\r"\
+        "dLf%d dLc%d dL%d sLT%d sL%d tgL%d gtfL%d scL%d"\
+        " | "\
+        "dRf%d dRc%d dR%d sRT%d sR%d tgR%d gtfR%d scR%d\r"\
+        "rsl%d dald%d | rsr%d dalr%d\r",
+        _servoPulseReps, 
+        abd_ticksf[ABD_L], abd_dc[ABD_L], abd_ticks[ABD_L], abd_speedT[ABD_L], abd_speed[ABD_L], abd_ticksGuard[ABD_L], abd_gotoFlag[ABD_L], abd_stopCtr[ABD_L], 
+        abd_ticksf[ABD_R], abd_dc[ABD_R], abd_ticks[ABD_R], abd_speedT[ABD_R], abd_speed[ABD_R], abd_ticksGuard[ABD_R], abd_gotoFlag[ABD_R], abd_stopCtr[ABD_R], 
+        abd_rampStep[ABD_L], abd_ditherAd[ABD_L], abd_rampStep[ABD_R], abd_ditherAd[ABD_R]);
+    if(n >= abd_reps) cogstop(cog);    
+  }    
+}      
+//
+
+
+
+
 
 /*
-//#ifdef interactive_development_mode
-void drive_trimDisplay(void)
+void monitor(void *par)
 {
-  //
-  if(!abd_intTabSetup) interpolation_table_setup();
+  int t = CNT;
+  int dt = 0;
+  low(26);
+  low(27);
+  pause(100);
+  simpleterm_open();
+  int n = _servoPulseReps;
+  int m = 0;
+  while(_servoPulseReps < abd_reps)
+  {
+    while(1)
+    { 
+      if(m != abd_sampleCount)
+      {
+        m = abd_sampleCount;
+        dt = CNT - t;
+        dt = 80000000 / dt;
+        t = CNT;
+        break;
+      }
+    }   
+    //   
+    //if(abd_str[0])
+   // {
+   //   print("%s", abd_str);
+   //   abd_str[0] = 0;
+   // } 
+    //               
+//    print("%d %d %d %d\r",
+//        m, dt, abd_ticks[ABD_L], abd_ticks[ABD_R] );
 
-  print("trimFL %d, trimFR %d, trimBL %d, trimBR %d, trimticksF %d, trimticksB %d\n",
-         abd_trimF[L], abd_trimF[R], abd_trimB[L], abd_trimB[R], abd_trimticksF, abd_trimticksB);
-  //       
-}
-//#endif // interactive_development_mode
+    //if((dt < 700) || (dt > 900)) putChar('!');
+    //if(dt < 750 || dt > 850) putChar(13);
+
+    print("%d", dt/100);
+    if(n >= abd_reps) cogstop(cog);    
+  }    
+}      
 */
 
 
+
+
+
+
+#endif
