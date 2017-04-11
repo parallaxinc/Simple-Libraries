@@ -50,6 +50,77 @@ learn@parallax.com</a>.
 <h2 style="font-family:verdana;">Update History</h2>
 
 <p>
+Update 4/11/2017
+<br>
+<b>
+Update abdrive library to 0.9.82:
+</b>
+
+<ul>
+<li>
+Move most control logic into the control system cog.
+</li>
+
+
+<li>
+Arc support with drive_goto(left, right), where left != right.
+</li>
+
+
+<li>
+Background target calculation for better acceleration/deceleration.
+</li>
+
+
+<li>
+drive_acceleration(forGotoOrSpeed, ticksPerSecondSquared).
+</li>
+
+
+<li>
+drive_ramp can be interrupted with a new direction.
+</li>
+
+
+<li>
+drive_goto can be interrupted after calling drive_gotoMode(0).
+</li>
+
+
+<li>
+drive_gotoStatus added for monitoring when a maneuver is finished.
+</li>
+
+
+<li>
+All acceleration (a.k.a. ramping) is done in the background.
+</li>
+
+
+<li>
+Sampling rate increased from 400 to 800 Hz.
+</li>
+
+
+<li>
+Default speed for drive_goto set to 64 ticks per second with a default acceleration of 200 ticks per second.
+</li>
+
+
+<li>
+Default speed limit for drive_speed is 128 ticks per second, with a default acceleration of 600 ticks/second squared.
+</li>
+
+
+<li>
+Trim support was removed.
+</li>
+
+
+</ul>
+</p>  
+
+<p>
 Update 1/22/2017
 
 <ul>
