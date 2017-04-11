@@ -6,9 +6,9 @@
  * @author Andy Lindsay
  *
  * @copyright 
- * Copyright (C) Parallax, Inc. 2013. All Rights MIT Licensed.
+ * Copyright (C) Parallax, Inc. 2017. All Rights MIT Licensed.
  *
- * @brief This library takes care of encoder monitoring and servo signalling, 
+ * @brief This library takes care of encoder monitoring and servo signaling, 
  * and provides a simple set of functions for making the ActivityBot go certain
  * distances and speeds.
  * <br>
@@ -30,10 +30,26 @@
  * @par Memory Models
  * Use with CMM. 
  *
+ * @version 0.9.82
+ * @li Move most control logic into the control system cog.
+ * @li Arc support with drive_goto(left, right), where left != right.
+ * @li Background target calculation for better acceleration/deceleration.
+ * @li drive_acceleration(forGotoOrSpeed, ticksPerSecondSquared).
+ * @li drive_ramp can be interrupted with a new direction.
+ * @li drive_goto can be interrupted after calling drive_gotoMode(0).
+ * @li drive_gotoStatus added for monitoring when a maneuver is finished.
+ * @li All acceleration (a.k.a. ramping) is done in the background.
+ * @li Sampling rate increased from 400 to 800 Hz.
+ * @li Default speed for drive_goto set to 64 ticks per second with 
+ * a default acceleration of 200 ticks per second.
+ * @li Default speed limit for drive_speed is 128 ticks per second, 
+ * with a default acceleration of 600 ticks/second squared.
+ * @li Trim support was removed.
+ *
  * @version 0.5.6
  * @li Adjust drive_servoPins and drive_encoderPins documentation.
  *
- * @version 0.5.5
+ * @version 0.5.4
  * @li drive_getTicksCalc
  * @li drive_getTicks
  * @li drive_open
@@ -48,26 +64,15 @@
  * @li Clear trim settings during calibration. (v0.5.1)
  * @li Make trim for a direction mutually exclusive to one side. (v0.5.1)
  *
- * @todo
- * @li Make ramp go to percentage of full speed
- * @li Correct error in start string verification
- * @li Make sure that control system's compensation cannot cause the servo signal to cross
- * its direction boundary  
- * @li drive_distance
- * @li drive_getSpeedCalc
- * @li drive_getSpeedActual
- * @li Code comments
- * @li Reduce calibration array elements to 16-bit
- * @li Condense left/right duplicate code
- * @li Remove other variables
- *
- * @par Help Improve this Library
+* @par Help Improve this Library
  * Please submit bug reports, suggestions, and improvements to this code to
  * editor@parallax.com.
  */
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #ifndef ABDRIVE_H
 #define ABDRIVE_H
+#endif
 
 #if defined(__cplusplus)
 extern "C" {
@@ -76,13 +81,69 @@ extern "C" {
 #include "simpletools.h"
 #include "simpletext.h"
 #include "fdserial.h"
+#ifndef ABD_RAMP_STEP 
+/**
+ *
+ * @brief This default corresponds 600 ticks/second^2 acceleration and 
+ * can be adjusted with the drive_setAcceleration function.
+ */
+#define ABD_RAMP_STEP 12
+#endif
 
-/*
- #ifndef interactive_development_mode
- #define interactive_development_mode
- void display_control_sys(int start, int end);
- #endif
-*/
+
+#ifndef ABD_SPEED_LIMIT
+/**
+ *
+ * @brief The default drive_speed limit is +/-128 ticks/second.  This can 
+ * be adjusted at runtime with the drive_setSpeed and drive_setMaxVelocity 
+ * functions. 
+ */
+#define ABD_SPEED_LIMIT 128
+#endif
+
+
+#ifndef ABD_GOTO_SPEED_LIMIT
+/**
+ *
+ * @brief This default defines the speed limit when the drive_goto function
+ * is called and can be adjusted with the drive_setMaxVelocity function. 
+ */
+#define ABD_GOTO_SPEED_LIMIT 64
+#endif
+
+
+#ifndef ABD_GOTO_RAMP_STEP
+/**
+ *
+ * @brief This default corresponds 200 ticks/second^2 acceleration and 
+ * can be adjusted with the drive_setAcceleration function.
+ */
+#define ABD_GOTO_RAMP_STEP 4
+#endif
+
+
+#ifndef ABD_NUDGE_SPEED 
+/**
+ *
+ * @brief Ticks per second to nudge to the final position do complete a drive_goto
+ * call.
+ */
+#define ABD_NUDGE_SPEED 4
+#endif
+
+
+#ifndef ABD_STOP_50ths 
+/**
+ *
+ * @brief This is the number of 50ths of a second that the ActivityBot
+ * delays when it crosses the zero speed threshold when executing 
+ * drive_goto calls.
+ */
+#define ABD_STOP_50ths 5
+#endif
+
+
+
 
 #ifndef _ActivityBot_EE_Start_
 /**
@@ -92,21 +153,6 @@ extern "C" {
 #define _ActivityBot_EE_Start_ 63418
 #endif
 
-#ifndef _ActivityBot_EE_Pins_
-#define _ActivityBot_EE_Pins_ 12
-#endif
-
-#ifndef _ActivityBot_EE_Trims_
-#define _ActivityBot_EE_Trims_ 28
-#endif
-
-#ifndef _ActivityBot_EE_Left_
-#define _ActivityBot_EE_Left_ 52
-#endif
-
-#ifndef _ActivityBot_EE_Right_
-#define _ActivityBot_EE_Right_ 1052
-#endif
 
 #ifndef _ActivityBot_EE_End_
 /**
@@ -116,26 +162,28 @@ extern "C" {
 #define _ActivityBot_EE_End_ 63418 + 2052
 #endif
 
-#ifndef AB_RIGHT  
-#define AB_RIGHT  1
+
+#ifndef FOR_GOTO
+/**
+ *
+ * @brief This constant can be used in place of 0 to tell drive_setAcceleration 
+ * and drive_setMaxVelocity to set maximum velocity/acceleration for calls to 
+ * drive_goto.
+ */
+#define FOR_GOTO 1
 #endif
 
-#ifndef AB_LEFT
-#define AB_LEFT -1
+
+#ifndef FOR_SPEED
+/**
+ *
+ * @brief This constant can be used in place of 0 to tell drive_setAcceleration 
+ * and drive_setMaxVelocity to set maximum velocity/acceleration for calls to 
+ * drive_speed.
+ */
+#define FOR_SPEED 0
 #endif
 
-// NEW Constants
-#define SIDE_LEFT 0
-#define SIDE_RIGHT 1
-#define SIDE_BOTH 2
-
-#ifndef AB_FORWARD
-#define AB_FORWARD 1
-#endif
-
-#ifndef AB_BACKWARD
-#define AB_BACKWARD -1
-#endif
 
 #ifndef OFF
 /**
@@ -153,112 +201,56 @@ extern "C" {
 #define ON  1
 #endif
 
-void monitor_start(int monitorReps);
-void monitor_stop();
+
+#ifndef SIDE_LEFT
+/**
+ *
+ * @brief Parameter option for drive_gotoStatus(int side).
+ */
+#define SIDE_LEFT 0
+#endif
 
 
-// When blocking set to 0, returns value that corresponds to the 0, 1, 2 status of a manueuver.  
-// In addition to SIDE_LEFT and SIDE_RIGHT, it the side parameter can receive SIDE_BOTH, and 
-// returns the sum of both sides.  When that is 0, the maneuver has been completed.  
-int drive_gotoStatus(int side);
-           
-// Set mode to 1 or ON for blocking execution of drive_goto. 
-void drive_gotoMode(int mode);
+#ifndef SIDE_RIGHT
+/**
+ *
+ * @brief Parameter option for drive_gotoStatus(int side).
+ */
+#define SIDE_RIGHT 1
+#endif
 
-// Default not set yet.  I'm imagining that it'll be 400 ticks/second-squared, which evaluates to 
-// (8 ticks/s)/50th of s -> which is equivalent to call drive_setRampStep(8, 8).  
-void drive_setAcceleration(int ticksPerSecondSquared);
+
+#ifndef SIDE_BOTH
+/**
+ *
+ * @brief Parameter option for drive_gotoStatus(int side).
+ */
+#define SIDE_BOTH 2
+#endif
+
 
 
 /**
- * @brief Enables or disables encoder feedback for speed control.  
- *
- * @param enabled Set to 1 to enable feedback (default) or 0 to disable.
+ * @}
  */
-void drive_feedback(int enabled);                      
+
 
 
 /**
- * @brief Enables or disables drive trim which can be used to compensate for
- * mechanical wheel alignment errors  
+ * @brief Make each wheel go a particular distance.  Recommended for straight forward,
+ * backward, turns, pivots, and curves/arcs.  This function ramps up to full speed if 
+ * the distance is long enough.  It holds that speed until it needs to 
+ * ramp down.  After ramping down it applies compensation.  By default, this function
+ * does not return until the maneuver has completed. 
  *
- * @param enabled Set to 1 to enable trim (default) or 0 to disable.
+ * @param distLeft Left wheel distance in ticks (spoke to space and space to spoke
+ * transitions).  Each "tick" transition is 1/64th of a wheel revolution, causing the
+ * wheel to roll approximately 3.25 mm.
+ *
+ * @param distRight Right wheel distance in ticks.
  */
-void drive_trim(int enabled);
+void drive_goto(int distLeft, int distRight);
 
-
-/**
- * @brief Stores trim values to EEPROM.
- *
- * @details Trim values can compensate for mechanical wheel alignment errors. 
- * When you set the ActivityBot's trim, you are telling it to make a certain
- * wheel turn an extra tick per certain number of ticks.  For example, you
- * can use this to make the right wheel turn 1 extra tick per every 64 ticks.
- * It will actually just expect to see an encoder transition 1/64th of a tick
- * sooner with every tick. 
- *
- * @param direction Selects to set the trim for a given direction.  Use
- * AB_FORWARD OR AB_BACKWARD.
- *
- * @param side Selects the side to make one more or less ticks per number of
- * ticks.  Use AB_LEFT or AB_RIGHT to select the left or right wheel.
- *
- * @param value Number of ticks that should elapse before the extra tick will
- * have accumulated.  Use a negative number if you want a given wheel to go
- * one less tick per number of ticks instead of one more tick.  
- */
-void drive_trimSet(int direction, int side, int value);
-
-
-/**
- * @brief Display the trim settings
- *
- * @details Displays most recent direction, side, and value settings from the
- * most recent call to drive_trimSet.
- */
-void drive_trimDisplay(void);
-
-
-/**
- * @brief Displays the interopolation table stored in EEPROM by the calibration
- * step.  For more info, see:
- *<br>
- *<br> http://learn.parallax.com/activitybot/test-and-tune-your-activitybot.
- *<br>
- */
-void drive_displayInterpolation(void);
-
-
-/**
- * @brief Set encoder pins to values other than the default P14 for left 
- * encoder and P15 for right encoder.  Stores values in EEPROM, so you only
- * need to call this function at the start of one program.  Programs that are 
- * after that will get the values from EEPROM.
- * 
- * @important This function should be called first, before any 
- * adbrive control functions (drive_speed, drive_goto, etc).
- *
- * @param encPinLeft I/O pin number for the left encoder signal connection.
- *
- * @param encPinRight I/O pin number for the right encoder signal connection.
- */
-void drive_encoderPins(int encPinLeft, int encPinRight);
-
-
-/**
- * @brief Set servo pins to values other than the default P12 for left 
- * servo and P13 for right servo.  Stores values in EEPROM, so you only
- * need to call this function at the start of one program.  Programs that are 
- * after that will get the values from EEPROM.
- * 
- * @important This function should be called first, before any 
- * adbrive control functions (drive_speed, drive_goto, etc).
- *
- * @param servoPinLeft I/O pin number for the left servo signal connection.
- *
- * @param servoPinRight I/O pin number for the right servo signal connection.
- */
-void drive_servoPins(int servoPinLeft, int servoPinRight);
 
 
 /**
@@ -273,69 +265,6 @@ void drive_speed(int left, int right);
 
 
 /**
- * @brief This funciton allows your code to ask for a speed repeatedly in a loop, 
- * but each time your code asks for that speed, it takes a step toward the speed.
- * This helps cushon sudden maneuvers in sensor navigation, where the conditions
- * might change more rapidly than you would want your ActivityBot's speed to 
- * change.
- * 
- * @param left Left wheel speed in ticks per second.
- *
- * @param right Left wheel speed in ticks per second.
- */
-void drive_rampStep(int left, int right);
-
-
-/**
- * @brief Overrides the default 4 ticks/second per 50th of a second for ramping.
- *
- * @param stepsize The size of each step in ticks/second to change every 50th of
- * a second
- */
-void drive_setRampStep(int stepsize);
-
-
-/**
- * @brief Stop the servo/encoder system.  This is useful for reclaiming a processor 
- * for other tasks.
- */
-void drive_close(void);
-
-
-
-/**
- * @brief Start or restart the servo/encoder system.  
- */
-int  drive_open();
-
-
-/**
- * @brief Modifies the default maxiumum top speed for use with encoders.  The default
- * is 128 ticks/second = 2 revolutions per second (RPS).  This is the full speed that
- * drive_distance and drive_goto use.  This value can currently be reduced, but not 
- * increased.  Speeds faster than 128 ticks per second are "open loop" meaning the control
- * system does not use the encoders to correct distance/speed. 
- *
- * @param speed Maximum cruising speed for drive_distance and drive_goto.
- */
-void drive_setMaxSpeed(int speed);
-
-
-/**
- * @brief Make each wheel go a particular distance.  Recommended for straight forward,
- * backward, turns and pivots.  Not recommended for curves.  This function ramps up to
- * full speed if the distance is long enough.  It holds that speed until it needs to 
- * ramp down.  After ramping down it applies compensation.  This function is primarily a 
- * convenience for dead reckoning, and does not return until the maneuver has completed. 
- *
- * @param distLeft Left wheel distance.
- *
- * @param distRight Right wheel distance.
- */
-void drive_goto(int distLeft, int distRight);
-
-
-/**
  * @brief Get the measured number of ticks the have traveled. 
  *
  * @details The system samples the encoders at 400 times per second.
@@ -345,6 +274,23 @@ void drive_goto(int distLeft, int distRight);
  * @param *right Pointer to variable to receive the measured right distance.  
  */
 void drive_getTicks(int *left, int *right);
+
+
+
+/**
+ * @name More Info
+ * @{
+ */
+
+
+/**
+ * @brief Displays the interpolation table stored in EEPROM by the calibration
+ * step.  For more info, see:
+ *<br>
+ *<br> http://learn.parallax.com/activitybot/test-and-tune-your-activitybot.
+ *<br>
+ */
+void drive_displayInterpolation(void);
 
 
 /**
@@ -359,10 +305,273 @@ void drive_getTicks(int *left, int *right);
 void drive_getTicksCalc(int *left, int *right);
 
 
+/**
+ * @brief Can be used after drive_gotoMode(OFF) to check if a maneuver
+ * has been completed.  
+ *
+ * @param side with options of SIDE_LEFT, SIDE_RIGHT, or SIDE_BOTH.
+ * 
+ * @returns value that corresponds to the 0, 1, 2 status of a maneuver
+ */
+int drive_gotoStatus(int side);
+
+
+/**
+ * @}
+ *
+ * @name Settings
+ * @{
+ */
+
+
+/**
+ * @brief Set encoder pins to values other than the default P14 for left 
+ * encoder and P15 for right encoder.  Stores values in EEPROM, so you only
+ * need to call this function at the start of one program.  Programs that are 
+ * after that will get the values from EEPROM.
+ * 
+ * IMPORTANT This function should be called first, before any 
+ * adbrive control functions (drive_speed, drive_goto, etc).
+ *
+ * @param encPinLeft I/O pin number for the left encoder signal connection.
+ *
+ * @param encPinRight I/O pin number for the right encoder signal connection.
+ */
+void drive_encoderPins(int encPinLeft, int encPinRight);
+
+
+/**
+ * @brief Enables or disables encoder feedback for speed control.  
+ *
+ * @param enabled Set to 1 to enable feedback (default) or 0 to disable.
+ */
+void drive_feedback(int enabled);                      
+
+
+/**
+ * @brief Set the mode (blocking or interruptible) of the drive_goto call.
+ * For calls in interruptible mode, sufficient time must be allowed for
+ * the maneuver to complete.  The drive_gotoStatus function can be polled 
+ * to find when a maneuver is done.  
+ *
+ * @param mode interruptible  (0) or blocking (1).  By default the drive_goto
+ * function blocks until the maneuver has completed.
+ */
+void drive_gotoMode(int mode);
+
+
+/**
+ * @brief Set servo pins to values other than the default P12 for left 
+ * servo and P13 for right servo.  Stores values in EEPROM, so you only
+ * need to call this function at the start of one program.  Programs that are 
+ * after that will get the values from EEPROM.
+ * 
+ * IMPORTANT This function should be called first, before any 
+ * adbrive control functions (drive_speed, drive_goto, etc).
+ *
+ * @param servoPinLeft I/O pin number for the left servo signal connection.
+ *
+ * @param servoPinRight I/O pin number for the right servo signal connection.
+ */
+void drive_servoPins(int servoPinLeft, int servoPinRight);
+
+
+/**
+ * @brief Set the acceleration used by either drive_goto or drive_speed.  
+ *
+ * @param forGotoOrSpeed can be set to FOR_SPEED (0) or FOR_GOTO (1).
+ *
+ * @param ticksPerSecSq The ticks per second squared value to set the acceleration
+ * speed and goto calls use.  The default is 600 for drive_speed and 200 for 
+ * drive_goto.  Use increments of 50.
+ */
+void drive_setAcceleration(int forGotoOrSpeed, int ticksPerSecSq);
+
+
+/**
+ * @brief Modifies the default maximum top speed for use with encoders.  The default
+ * is 128 ticks/second = 2 revolutions per second (RPS).  This is the full speed that
+ * drive_distance and drive_goto use.  This value can currently be reduced, but not 
+ * increased.  Speeds faster than 128 ticks per second are "open loop" meaning the control
+ * system does not use the encoders to correct distance/speed. 
+ *
+ * @param speed Maximum cruising speed for drive_distance and drive_goto.
+ */
+void drive_setMaxSpeed(int speed);
+
+
+/**
+ * @brief Set the maximum velocity used by either drive_goto or drive_speed.  
+ *
+ * @param forGotoOrSpeed can be set to FOR_SPEED (0) or FOR_GOTO (1).
+ *
+ * @param ticksPerSec The ticks per second value that limits the top velocity,
+ * regardless of what calls to drive_speed ask for.  The default is 128 for 
+ * drive_speed and 64 for drive_goto.
+ */
+void drive_setMaxVelocity(int forGotoOrSpeed, int ticksPerSec);
+
+
+
+/**
+ * @}
+ *
+ * @name Deprecated
+ * @{
+ */
+
+
+
+/**
+ * @brief Overrides the default 12 ticks/second per 50th of a second for ramping.
+ *
+ * @param stepsize The size of each step in ticks/second to change every 50th of
+ * a second
+ */
+void drive_setRampStep(int stepsize);
+
+
+/**
+ * @brief This function allows your code to ask for a speed repeatedly in a loop, 
+ * but each time your code asks for that speed, it takes a step toward the speed.
+ * This helps cushion sudden maneuvers in sensor navigation, where the conditions
+ * might change more rapidly than you would want your ActivityBot's speed to 
+ * change.  (Note: This is now built into drive_speed.)
+ * 
+ * @param left Left wheel speed in ticks per second.
+ *
+ * @param right Left wheel speed in ticks per second.
+ */
+void drive_rampStep(int left, int right);
+
+/**
+ * @brief This function ramps up to a given speed and blocks execution until the
+ * speed is reached.  In practice, a call to drive_speed followed by a pause to 
+ * reach the desired speed will have the same affect but does not have practical
+ * applications.
+ * 
+ * @param left Left wheel speed in ticks per second.
+ *
+ * @param right Left wheel speed in ticks per second.
+ */
+
+void drive_ramp(int left, int right);
+
+/**
+ * @}
+ */
+
+
 /*
   void drive_getSpeedCalc(int *left, int *right);
   void drive_getSpeedActual(int *left, int *right);
 */
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
+/* =========================================================================== */
+//                        PRIVATE FUNCTIONS/MACROS
+/* =========================================================================== */
+
+/**
+ * @name Private (used by abdrive library)
+ * @{
+ */
+
+#ifndef _ActivityBot_EE_Pins_
+#define _ActivityBot_EE_Pins_ 12
+#endif
+
+#ifndef _ActivityBot_EE_Trims_
+#define _ActivityBot_EE_Trims_ 28
+#endif
+
+#ifndef _ActivityBot_EE_Left_
+#define _ActivityBot_EE_Left_ 52
+#endif
+
+#ifndef _ActivityBot_EE_Right_
+#define _ActivityBot_EE_Right_ 1052
+#endif
+
+#ifndef ABD_L 
+#define ABD_L 0
+#endif
+
+#ifndef ABD_R 
+#define ABD_R 1
+#endif
+
+#ifndef ABD_B 
+#define ABD_B 2
+#endif
+
+#ifndef ABD_T 
+#define ABD_T 3
+#endif
+
+
+#ifndef ABD_FOR_BOTH
+#define ABD_FOR_BOTH 2
+#endif
+
+#ifndef AB_RIGHT  
+#define AB_RIGHT  1
+#endif
+
+#ifndef AB_LEFT
+#define AB_LEFT -1
+#endif
+
+/*
+ #ifndef interactive_development_mode
+ #define interactive_development_mode
+ void display_control_sys(int start, int end);
+ #endif
+*/
+
+#ifdef _monitor_
+void monitor_start(int monitorReps);
+void monitor_stop();
+#endif
+
+#ifndef AB_RIGHT  
+#define AB_RIGHT  1
+#endif
+
+#ifndef AB_LEFT
+#define AB_LEFT -1
+#endif
+
+#ifndef AB_FORWARD
+/**
+ *
+ * @brief Text.
+ */
+#define AB_FORWARD 1
+#endif
+
+#ifndef AB_BACKWARD
+/**
+ *
+ * @brief Text.
+ */
+#define AB_BACKWARD -1
+#endif
+
+void monitor_start(int monitorReps);
+void monitor_stop(void);
+
+
+/**
+ * @}  // /Private
+ */
+
+#endif // DOXYGEN_SHOULD_SKIP_THIS
+
+
+
+
 
 #if defined(__cplusplus)
 }
