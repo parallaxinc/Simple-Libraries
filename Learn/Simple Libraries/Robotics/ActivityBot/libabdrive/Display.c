@@ -190,6 +190,8 @@ void drive_displayInterpolation(void)
 {
   //
   if(!abd_intTabSetup) interpolation_table_setup();
+  
+  print("\rINTERPOLATION TABLE DATA\r\r");
  
   print("=== LEFT SERVO ===\n\n");
   print("Table Entries = %d\nZero Speed Index = %d\n\n", abd_elCnt[ABD_L], abd_cntrIdx[ABD_L]);

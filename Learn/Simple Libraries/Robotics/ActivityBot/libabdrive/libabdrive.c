@@ -7,32 +7,21 @@
 
   http://learn.parallax.com/activitybot/go-certain-distances
 */
-/*  MONITOR
-    print("n%d\r"\
-        "dLf%d dLc%d dL%d sLT%d sL%d tgL%d gtfL%d scL%d"\
-        " | "\
-        "dRf%d dRc%d dR%d sRT%d sR%d tgR%d gtfR%d scR%d\r"\
-        "rsl%d dald%d | rsr%d dalr%d\r",
-        _servoPulseReps, 
-        abd_ticksLf, abd_dlc, abd_ticksL, abd_speedLT, abd_speedL, abd_ticksGuardL, abd_gotoFlagL, abd_stopCtrL, 
-        abd_ticksRf, abd_drc, abd_ticksR, abd_speedRT, abd_speedR, abd_ticksGuardR, abd_gotoFlagR, abd_stopCtrR, 
-        abd_rampStepL, abd_ditherALd, abd_rampStepR, abd_ditherARd);
-*/ 
-
-/*
-    sprint(abd_str, "\r\rddL%d, spdLimL=%d, rmpStpL=%d dthrAL=%d, dthrVL=%d | "\
-          "ddR%d, spdLimL=%d, rmpStpL=%d dthrAL=%d, dthrVL=%d\r\r",
-          left, abd_speedLimitL, abd_rampStepL, abd_ditherAL, abd_ditherVL,
-          right, abd_speedLimitR, abd_rampStepR, abd_ditherAR, abd_ditherVR
-          );// 
-*/
 
 #include "simpletools.h"
 #include "abdrive.h"
 
+//void drive_calibrationResults(void);
+
 int main()                    
 {
   print("%c", CLS);
+  
+  drive_calibrationResults();
+  //drive_speed(0, 0);
+
+  while(1);
+  
   //while(1);
   //drive_setMaxSpeed(64);
   #ifdef _monitor_
@@ -79,22 +68,31 @@ int main()
   
   
   pause(1000);
-  
+  /*
   
   #ifdef _monitor_
   monitor_stop();
   #endif
   
   while(1);
-  
+  */
   
   drive_speed(128, 128);
-  pause(1000);
-  drive_speed(-128, -128);
-  pause(1300);
-  drive_speed(0, 0);
+  pause(2000);
   
-  pause(1000);
+  drive_speed(-128, -128);
+  pause(2000);
+  //drive_speed(0, 0);
+  
+  //pause(1000);
+  
+  int left = 0;
+  int right = 0;
+  drive_getTicks(&left, &right);
+  drive_goto(-left, -right);
+  
+  pause(1500);
+  
 
   drive_speed(128, 96);
   pause(1000);
