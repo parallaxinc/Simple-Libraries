@@ -16,13 +16,13 @@ goto.c
 rampStep.c
 ramp.c
 encoderLeds.c
+calibrationResults.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-Wall
 >-fno-exceptions
->-enable_pruning
 >defs::-std=c99
 >-create_library
 >BOARD::PROPBOE
