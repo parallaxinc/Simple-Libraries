@@ -69,10 +69,10 @@
  * editor@parallax.com.
  */
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
+//#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #ifndef ABDRIVE_H
 #define ABDRIVE_H
-#endif
+//#endif
 
 #if defined(__cplusplus)
 extern "C" {
@@ -274,6 +274,22 @@ void drive_speed(int left, int right);
  * @param *right Pointer to variable to receive the measured right distance.  
  */
 void drive_getTicks(int *left, int *right);
+
+
+/**
+ * @brief Uses the calibration settings to find common circuit mistakes that 
+ * prevent the ActivityBot from operating normally.  This function will
+ * either display a success message or information about one or more problems.
+ * Make sure to re-run the ActivityBot calibration after fixing each problem.
+ * Do not try to continue with any of the ActivityBot tutorials until you have 
+ * run the calibration, and then run a program with this function call and it
+ * displays a message that the ActivitiyBot has been successfully calibrated.
+ * <br><br> Instructions: (BlocklyProp)
+ * <br>     http://learn.parallax.com/blockly/calibrate-your-activitybot
+ * <br><br> Instructions: (Propeller C)
+ * <br>     http://learn.parallax.com/activitybot/test-and-tune-your-activitybot
+ */
+void drive_calibrationResults(void);
 
 
 
