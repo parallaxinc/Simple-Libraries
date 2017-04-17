@@ -1,3 +1,5 @@
+//#define _monitor_
+
 /*
   abdrive.c library source
 */
@@ -9,200 +11,196 @@
 #include "fdserial.h"
 #include <string.h>
 
-/*
-  #ifdef interactive_development_mode
-  dprint(xbee, "B After ramp distRampL = %d\n", distRampL);
-  #endif
-*/
 
+#ifdef _monitor_
+  volatile char abd_str[128];
+#endif
+
+
+//#define test_t_interval
+#ifdef test_t_interval
+  volatile int rec_t[8000 / 4];
+#endif
+
+volatile int abd_sampleCount = 0;
+
+
+//volatile int abd_record = 0;               // Record values to an array
+
+int abd_abs(int value)
+{
+  if(value < 0) value = -value;
+  return value;
+}  
 
 void drive_com(int arrayLcnt, int arrayRcnt, 
                int centerL, int centerR, 
-               int* pwAddrL, int* pwAddrR, 
-               int* spdAddrL, int* spdAddrR);
-void drive_set(int left, int right);
-void encoders(void *par);
-void interpolate(int* ltmp, int* rtmp);
+               short *pwAddrL, short *pwAddrR, 
+               short *spdAddrL, short *spdAddrR);
+//void drive_set(int left, int right);
+void abd_encoders(void *par);
+//void interpolate(int* ltmp, int* rtmp);
 void interpolation_table_setup();
-void servos_diffDrive(void);
-void drive_record(int startStop);
-void drive_displayControlSystem(int start, int end);
+//void servos_diffDrive(void);
+//void drive_record(int startStop);
+//void drive_displayControlSystem(int start, int end);
 void set_drive_speed(int left, int right);
+void interpolate2(int *ltmp, int *rtmp);
+//void drive_rampStep2(int left, int right);
+void abd_sample(void);
 
 
-// drive_trimset
-volatile int abd_trimFL, abd_trimFR, abd_trimBL, abd_trimBR, abd_trimticksF, abd_trimticksB;
-volatile int abd_trimticksF = 0;
-volatile int abd_trimticksB = 0;
-int abd_eeAddr;
-
-// drive_goto
-volatile int abd_ticksL = 0;
-volatile int abd_ticksR = 0;
-volatile int abd_speedL;      // Requested servo speed left
-volatile int abd_speedR;      // Requested servo speed right
-int abd_rampStep = 4;
-int abd_speedLimit = 128;
+// Servo pulse counter
+volatile unsigned int _servoPulseReps;                     
+volatile int abd_dsr = 800;                                // Distance sampling rate
 volatile int abd_zeroDelay = ON;
-volatile int abd_dlc;      // distance left calculated
-volatile int abd_drc;      // distance right calculated
-volatile int abd_dlca = 0;                                 // distance left calculated (accumulated)
-volatile int abd_drca = 0;                                 // distance right calculated (accumulated)
-volatile int abd_dsr = 400;
-volatile int abd_edL;                                      // error distance left
-volatile int abd_edR;                                      // error distance right
-volatile int abd_pL;                                       // proportional left
-volatile int abd_pR;                                       // proportional right
-volatile int abd_iL;                                   // integral left
-volatile int abd_iR;                                   // integral right
-volatile int abd_eaL = 0;
-volatile int abd_eaR = 0;
-volatile unsigned int _servoPulseReps;
-
-// servoPins
-volatile int abd_sPinL = 12, abd_sPinR = 13;   // Global variables
-volatile int abd_ePinL = 14, abd_ePinR = 15;
 volatile int abd_us;
-int abd_intTabSetup = 0;
+volatile int abd_intTabSetup = 0;
 
-// debug
-volatile int abd_record = 0;               // Record values to an array
+volatile int abd_cog = 0;
+unsigned int abd_stack[44 + 128];
 
-// display
-volatile int abd_elCntL;
-volatile int abd_elCntR;
-volatile int abd_cntrLidx;
-volatile int abd_cntrRidx;
-int abd_spdrL[120];
-int abd_spdmL[120];
-int abd_spdrR[120];
-int abd_spdmR[120];
+short abd_spdrL[120];
+short abd_spdmL[120];
+short abd_spdrR[120];
+short abd_spdmR[120];
 
-static volatile int cntrLval;
-static volatile int cntrRval;
-
-static int cog = 0;
-//static int servoCog2 = 0;
-static unsigned int stack[44 + 52];
-//static unsigned int servoStack[(160 + (150 * 4)) / 4];
-
-
-//static int a = 0;
 static int r = 0;
 
-//static int intTabSetup = 0;
-//static int eeStarted = 0;
-
-static volatile int trimctr = 0;
-static volatile int dca, trimticks;
-
-static volatile int leftPrev, rightPrev;
+int abd_eeAddr;
 
 static volatile int kp[6];
 
-static volatile int tcL;
-static volatile int tcR;
-static volatile int tiL;
-
-
 static volatile int ridx = 0;
 
-
-static volatile int tiR;
-
-static volatile int stateL;
-static volatile int stateR;
-
-static volatile int* pwL;
-static volatile int* pwR;
-static volatile int* spdL;
-static volatile int* spdR;
-
-static volatile int etpsR;    // encoder ticks per second requested right
-static volatile int etpsL;    // encoder ticks per second requested right
+static volatile short *pwL;
+static volatile short *pwR;
+static volatile short *spdL;
+static volatile short *spdR;
 
 static volatile int pcount;
 static volatile unsigned int _sprOld;
-static volatile unsigned int _sprNext;
+
+static volatile int phs[2];
+
+static volatile int phsr[2] = {0, 0};
+
+volatile int encoderFeedback = 1;
+
+volatile int abd_blockGoto = 1;
+
+volatile int abd_speedOld[2];
+volatile int abd_stopCtr[2];
+
+volatile int abd_stopPulseReps[2] = {ABD_STOP_50ths, ABD_STOP_50ths};
+// Measured distance left/right
+volatile int abd_ticks[2]= {0, 0};                                
+// Target speed left/right
+volatile int abd_speedT[2] = {0, 0};                                   
+// Current requested speed
+volatile int abd_speed[2];   
+
+                                 
+volatile int abd_ticksi[2];
 
 
-static volatile int ssiL; // servo speeed interpolated left
-static volatile int ssiR; // servo speeed interpolated right
-
-static volatile int driveL;
-static volatile int driveR;
-
-static volatile int phsL;
-static volatile int phsR;
-static volatile int phsLr;
-static volatile int phsRr;
-
-static int trimFunction = 1;
-static int encoderFeedback = 1;
-
-static int speedLprev = 0, speedRprev = 0;
-
-int xbee_setup = 0;
+volatile int abd_ticksf[2];
 
 
-int drive_open()
-{
-  if(!abd_intTabSetup)
-  {
-    interpolation_table_setup();
-    set_drive_speed(0, 0);
-  }
-  return cog;
-}
+volatile int abd_gotoFlag[2] = {0, 0};
 
-void drive_close()
-{
-  if(cog)
-  {
-    cogstop(cog - 1);
-    cog = 0;
-  }
-}
+volatile int abd_speedLimit[4] = {ABD_SPEED_LIMIT, ABD_SPEED_LIMIT, ABD_SPEED_LIMIT, ABD_SPEED_LIMIT};
+volatile int abd_rampStep[3] = {ABD_RAMP_STEP, ABD_RAMP_STEP, ABD_RAMP_STEP};
 
-void drive_setMaxSpeed(int maxTicksPerSec)
-{
-  abd_speedLimit = maxTicksPerSec;
-}
+volatile int abd_gotoSpeedLimit[4] = {ABD_GOTO_SPEED_LIMIT, ABD_GOTO_SPEED_LIMIT, ABD_GOTO_SPEED_LIMIT};
+volatile int abd_gotoRampStep[3] = {ABD_GOTO_RAMP_STEP, ABD_GOTO_RAMP_STEP, ABD_GOTO_RAMP_STEP};
 
+volatile int abd_ticksGuard[2] = {0, 0};
 
-void drive_setRampStep(int stepsize)
-{
-  abd_rampStep = stepsize;
-}
+// distance calculated
+volatile int abd_dc[2];                                      
+
+// distance calculated (accumulated)
+volatile int abd_dca[2] = {0, 0};                                 
+
+// error distance 
+volatile int abd_ed[2];                                      
+
+// proportional
+volatile int abd_p[2];
+
+// integral
+volatile int abd_i[2];
+
+// Accumulated errors L/R
+volatile int abd_ea[2] = {0, 0};                                  
 
 
-void drive_feedback(int enabled)
-{
-  encoderFeedback = enabled;
-}
+// servoPins
+volatile int abd_sPin[2] = {12, 13};
+
+// Encoder Pins 
+volatile int abd_ePin[2] = {14, 15};
+
+// display
+volatile int abd_elCnt[2];    // ?????? Instance count different
+volatile int abd_cntrIdx[2];
 
 
-void drive_trim(int enabled)
-{
-  trimFunction = enabled;
-}
+// Center values
+static volatile int cntrVal[2];
+static volatile int ti[2];
+static volatile int state[2];
+static volatile int stateNow[2];
+static volatile int statePrev[2];
+// servo speeed interpolated
+static volatile int ssi[2];
+static volatile int drive[2];
+
+static volatile int speedPrev[2] = {0, 0};
+volatile int abd_nudgeCtr[2];
+volatile int abd_nudgeInc[2];   // ??? remove ???
+volatile int abd_distError[2];
+
+volatile int sign[2];
+volatile int abd_dist[2];
+
+volatile int abd_ditherA[2];
+volatile int abd_ditherAa[2];
+volatile int abd_ditherAd[2];
+volatile int abd_ditherAp[2];
+
+volatile int abd_ditherV[2];
+volatile int abd_ditherVa[2];
+volatile int abd_ditherVd[2];
+volatile int abd_ditherVp[2];
+
+volatile int abd_speedi[2];
+volatile int abd_speedd[2];
+volatile int abd_dvFlag[2] = {0, 0};
+
+//volatile int abd_gotoFlagTemp;
+
+volatile  int abd_zdir[2] = {0, 0};
+volatile unsigned  int abd_tdst;                       // time of distance sample
+volatile unsigned int abd_td;                          // time of distance
 
 
 void drive_com(int arrayLcnt, int arrayRcnt, 
                int centerL, int centerR, 
-               int* pwAddrL, int* pwAddrR, 
-               int* spdAddrL, int* spdAddrR)
+               short* pwAddrL, short* pwAddrR, 
+               short* spdAddrL, short* spdAddrR)
 {
-  abd_elCntL = arrayLcnt;
-  abd_elCntR = arrayRcnt;
-  abd_cntrLidx = centerL;
-  abd_cntrRidx = centerR;
+  abd_elCnt[ABD_L] = arrayLcnt;
+  abd_elCnt[ABD_R] = arrayRcnt;
+  abd_cntrIdx[ABD_L] = centerL;
+  abd_cntrIdx[ABD_R] = centerR;
   pwL = pwAddrL;
   pwR = pwAddrR;
   spdL = spdAddrL;
   spdR = spdAddrR;
-  cntrLval = pwAddrL[abd_cntrLidx];
-  cntrRval = pwAddrR[abd_cntrRidx];
+  cntrVal[ABD_L] = pwAddrL[abd_cntrIdx[ABD_L]];
+  cntrVal[ABD_R] = pwAddrR[abd_cntrIdx[ABD_R]];
 }
 
 
@@ -210,21 +208,9 @@ void interpolation_table_setup()
 {
   if(!abd_us) abd_us = CLKFREQ/1000000; 
 
-  //ee_putStr("ActivjtyBot", 12, _ActivityBot_EE_Start_);
-  //putStr("hello");
-
   unsigned char str[12];
   ee_getStr(str, 12, _ActivityBot_EE_Start_);
   ee_getStr(str, 12, _ActivityBot_EE_Start_);
-
-  /*
-  if(strcmp(str, "ActivityBot"))
-  {
-    putStr("Calibrate your ActivityBot first!\n");
-    putStr("For info, go to learn.parallax.com/ActivityBot/Calibrate-Your-ActivityBot\n");
-    //drive_feedback(0);
-  }
-  */
 
   abd_eeAddr = _ActivityBot_EE_Start_ + _ActivityBot_EE_Left_;
   //print("left abd_eeAddr = %d\n", abd_eeAddr);
@@ -234,9 +220,11 @@ void interpolation_table_setup()
   abd_eeAddr += 4;
   for(r = 0; r < cntL; r++)
   {
-    abd_spdrL[r] = ee_getInt(abd_eeAddr);
+    //abd_spdrL[r] = ee_getInt(abd_eeAddr);
+    abd_spdrL[r] = (short) ee_getInt(abd_eeAddr);
     abd_eeAddr+=4;
-    abd_spdmL[r] = ee_getInt(abd_eeAddr);
+    //abd_spdmL[r] = ee_getInt(abd_eeAddr);
+    abd_spdmL[r] = (short) ee_getInt(abd_eeAddr);
     abd_eeAddr += 4;  
   }
   abd_spdmL[cntL - 1] = 1000;
@@ -250,24 +238,15 @@ void interpolation_table_setup()
   abd_eeAddr += 4;
   for(r = 0; r < cntR; r++)
   {
-    abd_spdrR[r] = ee_getInt(abd_eeAddr);
+    abd_spdrR[r] = (short) ee_getInt(abd_eeAddr);
     abd_eeAddr+=4;
-    abd_spdmR[r] = ee_getInt(abd_eeAddr);
+    abd_spdmR[r] = (short) ee_getInt(abd_eeAddr);
     abd_eeAddr += 4;  
   } 
   abd_spdmR[cntR - 1] = 1000;
   abd_spdmR[0] = 1000;
 
   drive_com(cntL, cntR, zstartL, zstartR, abd_spdrL, abd_spdrR, abd_spdmL, abd_spdmR);
-
-  abd_eeAddr      =  _ActivityBot_EE_Start_ + _ActivityBot_EE_Trims_;
-  //print("trims abd_eeAddr = %d\n", abd_eeAddr);
-  abd_trimFL      =  ee_getInt(abd_eeAddr +  0);
-  abd_trimFR      =  ee_getInt(abd_eeAddr +  4);
-  abd_trimBL      =  ee_getInt(abd_eeAddr +  8);
-  abd_trimBR      =  ee_getInt(abd_eeAddr + 12);
-  abd_trimticksF  =  ee_getInt(abd_eeAddr + 16);
-  abd_trimticksB  =  ee_getInt(abd_eeAddr + 20);
 
   int eeAddr = _ActivityBot_EE_Start_  + _ActivityBot_EE_Pins_;
   unsigned char pinInfo[16];
@@ -277,39 +256,36 @@ void interpolation_table_setup()
 
   if(pinInfo[0] == 's' && pinInfo[1] == 'p' && pinInfo[2] == 'L' && pinInfo[5] == 'R')
   {
-    abd_sPinL = (int) pinInfo[3];
-    abd_sPinR = (int) pinInfo[6];
+    abd_sPin[ABD_L] = (int) pinInfo[3];
+    abd_sPin[ABD_R] = (int) pinInfo[6];
   }
     
   if(pinInfo[8] == 'e' && pinInfo[9] == 'p' && pinInfo[10] == 'L' && pinInfo[13] == 'R')
   {
-    abd_ePinL = (int) pinInfo[11];
-    abd_ePinR = (int) pinInfo[14];
+    abd_ePin[ABD_L] = (int) pinInfo[11];
+    abd_ePin[ABD_R] = (int) pinInfo[14];
   }
-
-  //print("abd_spinL = %d, abd_sPinR = %d, abd_epinL = %d, abd_ePinR = %d\n", 
-  //       abd_sPinL,      abd_sPinR,      abd_ePinL,      abd_ePinR); 
 
   abd_intTabSetup = 1;
 }
 
 
-void interpolate(int *ltmp, int *rtmp)
+void interpolate2(int *ltmp, int *rtmp)
 {
   
-  int left = *ltmp;
-  int right = *rtmp;
+  short left = (short) *ltmp;
+  short right = (short) *rtmp;
 
   /////print("\netpsL = %d, etpsR = %d\n\n", etpsL, etpsR);
 
   int listep;
   int limit;
-  int lookupval;
+  short lookupval;
 
   if(left > 0)
   {
     listep = 1;
-    limit = abd_elCntL;
+    limit = abd_elCnt[ABD_L];
     lookupval = left;
   }
   else
@@ -319,9 +295,11 @@ void interpolate(int *ltmp, int *rtmp)
     lookupval = -left;
   }
 
-  int rprev = abd_cntrLidx;
+  int rprev = abd_cntrIdx[ABD_L];
 
-  for(int r = abd_cntrLidx; r != limit; r+=listep)
+      if((CNT - abd_tdst) >= abd_td) abd_sample();
+
+  for(int r = abd_cntrIdx[ABD_L]; r != limit; r+=listep)
   {
     if(spdL[r] == lookupval)
     {
@@ -330,21 +308,17 @@ void interpolate(int *ltmp, int *rtmp)
     }
     if((spdL[rprev] < lookupval) && (spdL[r] > lookupval))
     {
-      int x = ((pwL[r]-pwL[rprev])*(lookupval-spdL[rprev]))/(spdL[r]-spdL[rprev]); 
+      short x = ((pwL[r]-pwL[rprev])*(lookupval-spdL[rprev]))/(spdL[r]-spdL[rprev]); 
       left = pwL[rprev] + x; 
       break;
     }
     rprev = r;
   }
-  //if(r >= elCntL) left = pwL[elCntL];                    // 2013.08.17
-  //if(r <= 0) left = pwL[0];                              // 2013.08.17
-  //if(r >= elCntL) left = *ltmp;                    // 2013.08.17
-  //if(r <= 0) left = *ltmp;                              // 2013.08.17
 
   if(right > 0)
   {
     listep = 1;
-    limit = abd_elCntL;
+    limit = abd_elCnt[ABD_L];
     lookupval = right;
   }
   else
@@ -354,9 +328,11 @@ void interpolate(int *ltmp, int *rtmp)
     lookupval = -right;
   }
 
-  rprev = abd_cntrRidx;
+  rprev = abd_cntrIdx[ABD_R];
 
-  for(int r = abd_cntrRidx; r != limit; r+=listep)
+  if((CNT - abd_tdst) >= abd_td) abd_sample();
+
+  for(int r = abd_cntrIdx[ABD_R]; r != limit; r+=listep)
   {
     if(spdR[r] == lookupval)
     {
@@ -365,430 +341,394 @@ void interpolate(int *ltmp, int *rtmp)
     }
     if((spdR[rprev] < lookupval) && (spdR[r] > lookupval))
     {
-      int x = ((pwR[r]-pwR[rprev])*(lookupval-spdR[rprev]))/(spdR[r]-spdR[rprev]); 
+      short x = ((pwR[r]-pwR[rprev])*(lookupval-spdR[rprev]))/(spdR[r]-spdR[rprev]); 
       right = pwR[rprev] + x; 
       break;
     }
     rprev = r;
   }
-  //if(r >= elCntR) right = pwR[elCntR];                    // 2013.08.17
-  //if(r <= 0) right = pwR[0];                              // 2013.08.17
-  //if(r >= elCntR) right = *rtmp;                          // 2013.08.17
-  //if(r <= 0) right = *rtmp;                               // 2013.08.17
 
-  *ltmp = left;
-  *rtmp = right;
+  if((CNT - abd_tdst) >= abd_td) abd_sample();
+
+  *ltmp = (int) left;
+  *rtmp = (int) right;
 }
 
 
-void set_drive_speed(int left, int right)
-{
-  
-  if(encoderFeedback)
-  {
-    if(left > abd_speedLimit) left = abd_speedLimit;
-    if(left < -abd_speedLimit) left = -abd_speedLimit;
-    if(right > abd_speedLimit) right = abd_speedLimit;
-    if(right < -abd_speedLimit) right = -abd_speedLimit;
-  }
-
-  int leftTemp = left;
-  int rightTemp = right;
-
-  interpolate(&leftTemp, &rightTemp);
-
-  etpsL = left;
-  etpsR = right;
-
-  ssiL = leftTemp;
-  ssiR = -rightTemp;
-
-  abd_speedL = left;
-  abd_speedR = right;
-
-  if(!cog)
-  {
-    /////print("\n\n!!!!! Starting COG !!!!!!\n\n");
-    cog = 1 + cogstart(encoders, NULL, stack, sizeof(stack)-1);
-  }  
-}
-
-
-void drive_speed(int left, int right)        // driveSpeeds function
-{
-  if(!abd_intTabSetup)
-  {
-    interpolation_table_setup();
-    set_drive_speed(0, 0);
-    //pause(40);
-  }
-  
-  //
-  if(abd_zeroDelay == ON)
-  {
-    if((speedLprev > 0 && left <= 0) || (speedLprev < 0 && left >= 0) || (speedRprev > 0 && right <= 0) || (speedRprev < 0 && right >= 0))
-    {
-      int tempLeftZ = left;
-      int tempRightZ = right;
-      if((speedLprev > 0 && left <= 0) || (speedLprev < 0 && left >= 0))
-      {
-        tempLeftZ = 0;
-      } 
-      if((speedRprev > 0 && right <= 0) || (speedRprev < 0 && right >= 0))
-      {
-        tempRightZ = 0;
-      } 
-      set_drive_speed(tempLeftZ, tempRightZ);
-      speedLprev = tempLeftZ;
-      speedRprev = tempRightZ;
-      pause(120); 
-    }
-  }
-
-  //_sprNext = _servoPulseReps;
-  //while((_sprNext+1) >= _servoPulseReps);
-
-  set_drive_speed(left, right);
-
-  speedLprev = abd_speedL;
-  speedRprev = abd_speedR;
-}
-
-
-void encoders(void *par)
+void abd_encoders(void *par)
 {
 
   _servoPulseReps = 0;
-  //int oneshot = 0;
 
-  OUTA &= ~(1 << abd_sPinL); 
-  OUTA &= ~(1 << abd_sPinR); 
-  DIRA |= 1 << abd_sPinL; 
-  DIRA |= 1 << abd_sPinR; 
+  OUTA &= ~(1 << abd_sPin[ABD_L]); 
+  OUTA &= ~(1 << abd_sPin[ABD_R]); 
+  DIRA |= 1 << abd_sPin[ABD_L]; 
+  DIRA |= 1 << abd_sPin[ABD_R]; 
 
   pause(20);
   //pause(1);
 
-  int tempL = 0;
-  int tempR = 0;
-  interpolate(&tempL, &tempR);  
+  int temp[2] = {0, 0};
+  interpolate2(&temp[ABD_L], &temp[ABD_R]);  
 
   PHSA = 0;
   PHSB = 0;
   FRQA = 1;
   FRQB = 1;
-  CTRA  = abd_sPinL | (4 << 26);
-  CTRB  = abd_sPinR | (4 << 26);
+  CTRA  = abd_sPin[ABD_L] | (4 << 26);
+  CTRB  = abd_sPin[ABD_R] | (4 << 26);
    
-  phsL = (1500 + tempL);
-  phsR = (1500 - tempR);
-  phsLr = phsL;
-  phsRr = phsR;
+  phs[ABD_L] = (1500 + temp[ABD_L]);
+  phs[ABD_R] = (1500 - temp[ABD_R]);
+  
+  phsr[ABD_L] = phs[ABD_L];
+  phsr[ABD_R] = phs[ABD_R];
 
   int t = CNT;
   int dt1 = 13*(CLKFREQ/1000);
   int dt2 = 7*(CLKFREQ/1000);
 
-  phsL = phsLr;
-  phsR = phsRr;
-  PHSA = -phsL*abd_us;
-  PHSB = -phsR*abd_us;
-  //waitcnt(t+=dt1);
-  //waitcnt(t+=dt);
+  phs[ABD_L] = phsr[ABD_L];
+  phs[ABD_R] = phsr[ABD_R];
+  PHSA = -phs[ABD_L]*abd_us;
+  PHSB = -phs[ABD_R]*abd_us;
   _servoPulseReps++;
-  //waitcnt(t+=dt2);
-  //while(1);
-  //t+=(dt1+dt2);
   low(12);
   low(13);
 
   pause(20);
-  //pause(1);
-  PHSA = -phsL*abd_us;
-  PHSB = -phsR*abd_us;
+  PHSA = -phs[ABD_L]*abd_us;
+  PHSB = -phs[ABD_R]*abd_us;
 
   t+=(dt1+dt2);
 
-
-  int inc = 0;
-  int diff = 0;
-  int trimAccum = 0;
-
-  int zdirL = 0;
-  int zdirR = 0;
-
-  stateL = (INA >> abd_ePinL) & 1;
-  stateR = (INA >> abd_ePinR) & 1;
+  stateNow[ABD_L] = (INA >> abd_ePin[ABD_L]) & 1;
+  statePrev[ABD_L] = stateNow[ABD_L];
+  state[ABD_L] = stateNow[ABD_L];
+  stateNow[ABD_R] = (INA >> abd_ePin[ABD_R]) & 1;
+  statePrev[ABD_R] = stateNow[ABD_R];
+  state[ABD_R] = stateNow[ABD_R];
 
   while(!_servoPulseReps);
 
-  //int dsrL = 400;                                // distance sample rate
-  //int dsrR = 394;                                // distance sample rate
-  int tdst = CLKFREQ/abd_dsr;                       // time of distance sample
-  int td = CNT + tdst;                          // time of distance
-  //int tdsn = 0;                                 // time of distance sample number
+  abd_tdst = CLKFREQ/abd_dsr;                       // time of distance sample
+  abd_td = CNT + abd_tdst;                          // time of distance
   _sprOld = _servoPulseReps;
 
-  abd_edL = 0;                                      // error distance left
-  abd_edR = 0;                                      // error distance right
+  abd_ed[ABD_L] = 0;                                      // error distance left
+  abd_ed[ABD_R] = 0;                                      // error distance right
 
-  abd_pL = 0;                                       // proportional left
-  abd_pR = 0;                                       // proportional right
+  abd_p[ABD_L] = 0;                                       // proportional left
+  abd_p[ABD_R] = 0;                                       // proportional right
 
-  abd_iL = 0;                                   // integral left
-  abd_iR = 0;                                   // integral right
+  abd_i[ABD_L] = 0;                                   // integral left
+  abd_i[ABD_R] = 0;                                   // integral right
 
-  int maxIR = 0;
+  //int maxIR = 0;
   int maxIL = 0;
 
+  #ifdef test_t_interval
+  int n = 0;
+  #endif
+
+  // Main control system loop.
+
   while(1)
-  {
-    // Left encoder
-    if(((INA >> abd_ePinL) & 1) != stateL)
-    {
-      stateL = (~stateL) & 1;
-      if(stateL == 1) 
-      {
-        if((CNT - tiL) > (CLKFREQ/400))
-        {
-          tiL = CNT;
-        }  
-      }
-      if(phsL > cntrLval + 1500)
-      {
-        abd_ticksL++;
-        zdirL = 1;
-      }
-      else if(phsL < cntrLval + 1500)
-      {
-        abd_ticksL--;
-        zdirL = -1;
-      }
-      else
-      {
-        abd_ticksL += zdirL;
-      }
-    }
-    
-    // Right encoder
-    if(((INA >> abd_ePinR) & 1) != stateR)
-    {
-      stateR = (~stateR) & 1;
-      if(stateR == 1) 
-      {
-        if((CNT - tiR) > (CLKFREQ/400))
-        {
-          tiR = CNT;
-        }  
-      }
-      if(phsR < 1500 - cntrRval)
-      {
-        abd_ticksR++;
-        zdirR = 1;
-      }
-      else if(phsR > 1500 - cntrRval)
-      {
-        abd_ticksR--;
-        zdirR = -1;
-      }
-      else
-      {
-        abd_ticksR += zdirR;
-      }
-    }
+  {  
+    if((CNT - abd_tdst) >= abd_td) abd_sample();
 
-    // Calculated distance accumulator
-    if((td - CNT) > tdst) 
-    {
-  
-      td += tdst;                                 // Reset sample timer         '
-
-      abd_dlca += etpsL;                              // + velocityL for dt
-      abd_drca += etpsR;                              // + velocityR for dt
-      
-      //dlca -= 70*(edL - edR);
-      
-      abd_dlc = abd_dlca/abd_dsr;                             // ticks expected
-      abd_drc = abd_drca/abd_dsr;                             
-
-      //#define test_trim_settings_new
-      //#ifdef test_trim_settings_new
-      if(trimFunction)
-      {
-        if((((abd_speedL > 0)&&abd_trimFL))||((abd_speedR > 0)&&(abd_trimFR)))
-        {
-          trimticks = abd_trimticksF;
-          dca = abd_dlca*abd_trimFL + abd_drca*abd_trimFR;
-        }
-        else if((((abd_speedL < 0)&&abd_trimBL))||((abd_speedR < 0)&&(abd_trimBR)))
-        {
-          trimticks = abd_trimticksB;
-          dca = abd_dlca*abd_trimBL + abd_drca*abd_trimBR;
-        }
-        if((((abd_speedL > 0)&&abd_trimFL))||((abd_speedR > 0)&&(abd_trimFR)))
-        {
-          if(dca >= trimAccum)
-          {
-            diff = dca - trimAccum;
-            inc = diff/trimticks;
-            dca += inc;
-            trimAccum += inc;
-            trimAccum += (inc*trimticks);         
-          }
-          abd_dlca += (abd_trimFL*inc);
-          abd_drca += (abd_trimFR*inc);
-        }
-        else if((((abd_speedL < 0)&&abd_trimBL))||((abd_speedR < 0)&&(abd_trimBR)))
-        {
-          if(dca <= trimAccum)
-          {
-            diff = dca - trimAccum;
-            inc = diff/trimticks;
-            dca += inc;
-            trimAccum += inc;
-            trimAccum += (inc*trimticks);         
-          }
-          abd_dlca += (abd_trimBL*inc);
-          abd_drca += (abd_trimBR*inc);
-        }
-      }
-      //#endif // test_trim_settings_new3
-    }
-      
-    //#define no_control 
-
-    // wait until 15 ms into servo control cycle
-    //if(_servoPulseReps != _sprOld)
-
-    /*
-    if((CNT - t) >= dt1 && (oneshot == 0))
-    {
-      oneshot = 1;
-      _servoPulseReps++;
-    }
-    */
-
+    // Calculate and deliver servo pulses. 
     if((CNT - t) >= (dt1 + dt2))
     {
       t+=(dt1+dt2);
-      //oneshot = 0;
-      //pulseTime = CNT;
       _sprOld = _servoPulseReps;
       pcount++;
+
+      for(int lr = 0; lr <= 1; lr++)
+      {  
+        if((CNT - abd_tdst) >= abd_td) abd_sample();
+
+        input(14);
+
+        if((abd_gotoFlag[ABD_L] != 0) || (abd_gotoFlag[ABD_R] != 0)
+        || (abd_dvFlag[ABD_L] != 0) || (abd_dvFlag[ABD_R] != 0))
+        {
+          abd_ditherAa[lr] += abd_ditherA[lr];
+          abd_ditherAd[lr] = (abd_ditherAa[lr]/50) - (abd_ditherAp[lr]/50);
+          abd_ditherAp[lr] = abd_ditherAa[lr];
+        }
+
+        if((abd_gotoFlag[ABD_L] != 0) || (abd_gotoFlag[ABD_R] != 0))
+        {
+          abd_ditherVa[lr] += abd_ditherV[lr];
+          abd_ditherVd[lr] = (abd_ditherVa[lr]/50) - (abd_ditherVp[lr]/50);
+          abd_ditherVp[lr] = abd_ditherVa[lr];
+        }
+        
+        // Set velocities if executing a goto
+        if(abd_gotoFlag[lr] == 1)
+        {
+          // Calculate velocity and acceleration based on distance remaining.
+          if(abd_speed[lr] != 0)
+          {
+            abd_ticksGuard[lr] = (abd_speed[lr] * abd_abs(abd_speed[lr])) / (100 * abd_rampStep[lr]);
+          }          
+          if(abd_abs(abd_ticksf[lr] - abd_ticks[lr]) > ((abd_abs(abd_ticksGuard[lr]) + abd_abs(abd_ditherVd[lr]))))   //18
+          {
+            if(abd_ticksf[lr] > abd_ticks[lr])
+            {
+              abd_speedT[lr] = abd_speedLimit[lr] + abd_ditherVd[lr];
+            }
+            else if(abd_ticksf[lr] < abd_ticks[lr])
+            {
+              abd_speedT[lr] = -abd_speedLimit[lr] - abd_ditherVd[lr];
+            }
+          }            
+          else
+          {
+            if((CNT - abd_tdst) >= abd_td) abd_sample();
+            abd_speedT[lr] = 0;
+            abd_gotoFlag[lr] = 2;
+          }          
+        }
+
+        if((CNT - abd_tdst) >= abd_td) abd_sample();
+
+        
+        // Nudge to final position
+        if((((abd_gotoFlag[lr] == 2) && (abd_stopCtr[lr] == 0) && (abd_speed[lr] == 0) && (abd_speedOld[lr] == abd_speed[lr]))) 
+        || (((abd_gotoFlag[lr] == 3) && (abd_stopCtr[lr] == 0))))
+        {
+          if((CNT - abd_tdst) >= abd_td) abd_sample();
+
+          abd_distError[lr] = abd_ticksf[lr] - abd_ticks[lr];
+          if(abd_distError[lr] == 0)
+          {
+            abd_gotoFlag[lr] = 0;
+            abd_nudgeCtr[lr] = 0;
+            abd_speed[lr] = 0; //18
+          }
+          else
+          { 
+            abd_nudgeCtr[lr]++;
+            sign[lr] = abd_abs(abd_distError[lr]) / abd_distError[lr];
+            abd_speed[lr] = (sign[lr] * ABD_NUDGE_SPEED);
+            abd_gotoFlag[lr] = 3; //18
+          }          
+        }
+        
+        // Clamp encoded speed
+        if(abd_speedT[lr] > abd_speedLimit[ABD_B]) abd_speedT[lr] = abd_speedLimit[ABD_B];
+        if(abd_speedT[lr] < -abd_speedLimit[ABD_B]) abd_speedT[lr] = -abd_speedLimit[ABD_B];
+
+        if((CNT - abd_tdst) >= abd_td) abd_sample();
+
+        // If new abd_speedT[ABD_L]/RT set point, calculate abd_speed[ABD_L]/R step toward each 
+        // abd_speedT[ABD_L]/RT in steps.
+        if((abd_stopCtr[lr] == 0) && (abd_gotoFlag[lr] != 3))
+        {
+          if(abd_speedT[lr] > (abd_speed[lr] + abd_rampStep[lr]))
+          {
+            abd_speed[lr] = abd_speed[lr] + abd_rampStep[lr] + abd_ditherAd[lr];
+          }          
+          //else if(abd_speedT[lr] < (abd_speed[lr] - abd_rampStep[ABD_B])) 
+          else if(abd_speedT[lr] < (abd_speed[lr] - abd_rampStep[lr])) 
+          {
+            abd_speed[lr] = abd_speed[lr] - abd_rampStep[lr] - abd_ditherAd[lr];
+          }          
+          else abd_speed[lr] = abd_speedT[lr];
+        }  
+
+        // This would force a stop on any direction change, even in velocity mode.
+        // It seemed to decrease performance, so it is commented for now.  
+        /*
+        if( ((abd_speedOld[lr] < 0) && (abd_speed[lr] > 0)) || ((abd_speedOld[lr] > 0) && (abd_speed[lr] < 0)) )
+        {
+          abd_speed[lr] = 0;
+        } 
+        */       
+
+        if( (abd_speedOld[lr] != abd_speed[lr]) && (abd_speed[lr] == 0) )
+        {
+          abd_stopCtr[lr] = abd_stopPulseReps[lr];
+        }        
+
+        abd_speedOld[lr] = abd_speed[lr];     
+        temp[lr] = abd_speed[lr];
+        
+      }  // for(int lr = 0; lr <= 1; lr++)
+
+      if((CNT - abd_tdst) >= abd_td) abd_sample();
+         
+      interpolate2(&temp[ABD_L], &temp[ABD_R]);
       
-      // Distance controller
-      // #if 1
-      if(encoderFeedback)
-      {
-        abd_edL = abd_dlc - abd_ticksL;
-        abd_eaL += abd_edL;
-        if(abd_speedL != 0)
-        {
-          //iL += edL;
-          if(abd_speedL > 0)
-          {
-            abd_pL = abd_edL * (3+(abd_speedL/10));  
-            if(abd_edL>0)abd_iL+=1; else if(abd_edL<0) abd_iL-=1;
-          }
-          else if(abd_speedL < 0)
-          {
-            abd_pL = abd_edL * (-3+(abd_speedL/10));  
-            if(abd_edL>0)abd_iL-=1; else if(abd_edL<0) abd_iL+=1;
-          }
-          maxIL = abd_speedL;
-          if(maxIL < 0) maxIL = -maxIL;
-          if(abd_iL > maxIL) abd_iL = maxIL;
-          if(abd_iL < -maxIL) abd_iL = -maxIL;
-          //iL = 0;
-          if(abd_speedL > 0)
-            driveL = abd_iL + abd_pL + ssiL + 1500;
-            //if(driveL < cntrLval + 1500) driveL = cntrLval + 1500;   
-          if(abd_speedL < 0)
-            driveL = -abd_iL - abd_pL + ssiL + 1500;
-            //if(driveL > cntrLval + 1500) driveL = cntrLval + 1500;   
-        }
-        else
-        {
-          driveL = ssiL + 1500;
-          abd_iL = 0;
-        }
-        abd_edR = abd_drc - abd_ticksR;
-        abd_eaR += abd_edR;
-        if(abd_speedR != 0)
-        {
-          //iR += edR;
-          if(abd_speedR > 0)
-          {
-            abd_pR = abd_edR * (3+(abd_speedR/10));  
-            if(abd_edR>0)abd_iR+=1; else if(abd_edR<0) abd_iR-=1;
-          }
-          else if(abd_speedR < 0)
-          {
-            abd_pR = abd_edR * (-3+(abd_speedR/10));  
-            if(abd_edR>0)abd_iR-=1; else if(abd_edR<0) abd_iR+=1;
-          }
-          maxIR = abd_speedR;
-          if(maxIR < 0) maxIR = - maxIR;
-          if(abd_iR > maxIR) abd_iR = maxIR;
-          if(abd_iR < -maxIR) abd_iR = -maxIR;
-          //iR = 0;
-          if(abd_speedR > 0)
-            driveR = -abd_iR - abd_pR + ssiR + 1500;
-            //if(driveR > 1500 - cntrRval) driveR = 1500 - cntrRval;
-          if(abd_speedR < 0)
-            driveR = abd_iR + abd_pR + ssiR + 1500;
-            //if(driveR < 1500 - cntrRval) driveR = 1500 - cntrRval;
-        }
-        else
-        {
-          driveR = ssiR + 1500;
-          abd_iR = 0;
-        }
-        //#if 1
-        //if(encoderFeedback)
-        //{
-        phsLr = driveL; 
-        phsRr = driveR; 
-        //}
-        //#endif
-        // #endif
-      }
-      else
-      {
-        phsLr = ssiL + 1500;
-        phsRr = ssiR + 1500;
-      }
+      if((CNT - abd_tdst) >= abd_td) abd_sample();
 
-      phsL = phsLr;
-      phsR = phsRr;
-      PHSA = -phsL*abd_us;
-      PHSB = -phsR*abd_us;
+      ssi[ABD_L] = temp[ABD_L];
+      ssi[ABD_R] = -temp[ABD_R];
+
+      // Calculate distance error, then respond with PI control.
+      // Distance is accumulated at 400 Hz
+      for(int lr = ABD_L; lr <= ABD_R; lr++)
+      {
+    
+        if((CNT - abd_tdst) >= abd_td) abd_sample();
+
+        if(encoderFeedback)
+        {
+          input(14);
+          // Error ticks = calculated - measured 
+          abd_ed[lr] = abd_dc[lr] - abd_ticks[lr];
+          abd_ea[lr] += abd_ed[lr];
+          if(abd_speed[lr] != 0)
+          {
+            //iL += edL;
+            if(abd_speed[lr] > 0)
+            {
+              abd_p[lr] = abd_ed[lr] * (3+(abd_speed[lr]/10));  
+              if(abd_ed[lr]>0)abd_i[lr]+=1; else if(abd_ed[lr]<0) abd_i[lr]-=1;
+            }
+            else if(abd_speed[lr] < 0)
+            {
+              abd_p[lr] = abd_ed[lr] * (-3+(abd_speed[lr]/10));  
+              if(abd_ed[lr]>0)abd_i[lr]-=1; else if(abd_ed[lr]<0) abd_i[lr]+=1;
+            }
+
+            if((CNT - abd_tdst) >= abd_td) abd_sample();
+  
+            maxIL = abd_speed[lr];
+            if(maxIL < 0) maxIL = -maxIL;
+            if(abd_i[lr] > maxIL) abd_i[lr] = maxIL;
+            if(abd_i[lr] < -maxIL) abd_i[lr] = -maxIL;
+  
+            int tsign;
+            if(lr == ABD_L) {tsign = 1;} else {tsign = -1;}
+          
+            if(abd_speed[lr] > 0)
+              drive[lr] = (tsign * abd_i[lr]) + (tsign * abd_p[lr]) + ssi[lr] + 1500;
+            if(abd_speed[lr] < 0)
+              drive[lr] = (tsign * (-abd_i[lr])) - (tsign * abd_p[lr]) + ssi[lr] + 1500;
+          }
+          else
+          {
+            drive[lr] = ssi[lr] + 1500;
+            abd_i[lr] = 0;
+          }
+
+          phsr[lr] = drive[lr]; 
+        }  
+        else // if(!encoder_feedback)
+        {
+          phsr[lr] = ssi[lr] + 1500;
+        }
+
+        phs[lr] = phsr[lr];
+
+        if(abd_speed[lr] != 0)
+        {
+          if(lr == ABD_L)
+          {
+            PHSA = -phs[lr]*abd_us;
+          }            
+          else
+          {
+            PHSB = -phs[lr]*abd_us;  
+          }            
+        }        
+        else
+        {
+          if(lr == ABD_L)
+          {
+            PHSA = 0;
+          }            
+          else
+          {
+            PHSB = 0;  
+          }            
+          if(abd_stopCtr[lr] > 0)
+            abd_stopCtr[lr]--;
+          if(abd_stopCtr[lr] == 0)
+          {
+            abd_ed[lr] = 0;
+            //abd_dc[lr] = 0;
+            abd_ea[lr] = 0;
+            abd_dc[lr] = abd_ticks[lr];
+            //abd_dca[lr] = abd_dc[lr] * 400;
+            abd_dca[lr] = abd_dc[lr] * abd_dsr;
+            //abd_gotoFlag[ABD_ABD_L] = 0;
+          }           
+        }         
+      }  //for etc        
       _servoPulseReps++;
-
-
-      //if(record)
-      #ifdef interactive_development_mode
-      if(record)
-      {
-        //rv[ridx] = dlc;
-        rv[ridx+0] = speedL;
-        rv[ridx+1] = dlc;
-        rv[ridx+2] = ticksL;
-        rv[ridx+3] = edL;
-        rv[ridx+4] = pL;
-        rv[ridx+5] = iL;
-        //rv[ridx+5] = phsLr;
-        rv[ridx+6] = drc;
-        rv[ridx+7] = ticksR;
-        rv[ridx+8] = edR;
-        rv[ridx+9] = pR;
-        rv[ridx+10] = iR;
-        //rv[ridx+10] = phsRr;
-        ridx += 11;
-      }
-      #endif // interactive_development_mode
     }
   }
 }
 
 
+
+
+void abd_sample(void)
+{
+  abd_td += abd_tdst;                                     // Reset sample timer         '
+  abd_sampleCount++;
+  
+  for(int rl = ABD_L; rl <= ABD_R; rl++)
+  {
+    stateNow[rl] = ((INA >> abd_ePin[rl]) & 1);
+    if( (stateNow[rl] == statePrev[rl]) && (state[rl] != stateNow[rl]) )
+    {
+      state[rl] = stateNow[rl];
+      statePrev[rl] = stateNow[rl];
+      //if( ((rl == ABD_L) && (phs[rl] == 0)) || ((rl == ABD_R) && (phs[rl] == 0)) )
+      if( ((rl == ABD_L) && (PHSA == 0)) || ((rl == ABD_R) && (PHSB == 0)) )
+      {
+        abd_ticks[rl] += abd_zdir[rl];
+      }          
+      //if(phs[rl] > cntrVal[rl] + 1500)
+      else if( ( (rl == ABD_L) && (phs[rl] > (cntrVal[rl] + 1500)) ) || ((rl == ABD_R) && (phs[rl] < (1500 - cntrVal[rl]))) )
+      {
+        abd_ticks[rl]++;
+        abd_zdir[rl] = 1;
+      }
+      //else if(phs[rl] < cntrVal[rl] + 1500)
+      else if( ( (rl == ABD_L) && (phs[rl] < (cntrVal[rl] + 1500)) ) || ((rl == ABD_R) && (phs[rl] > (1500 - cntrVal[rl]))) )
+      {
+        abd_ticks[rl]--;
+        abd_zdir[rl] = -1;
+      }
+      else
+      {
+        abd_ticks[rl] += abd_zdir[rl];
+      }
+      //
+    }
+    else
+    {
+      statePrev[rl] = stateNow[rl];
+    }      
+  }
+
+  // Calculated distance accumulator
+
+  #ifdef test_t_interval
+    if( (n*4) < (sizeof(rec_t)-8) )
+      rec_t[n++] = CNT;  
+  #endif
+
+  //  Every sampling rate x per second d*c is the calculated distance:
+  //    accumulator add number ot ticks per second you want the wheel to turn
+  //    calculated = accumulator / sampling rate
+  //  In other words, if you are adding the number of ticks per second you want
+  //  at a rate of 400x/second, you'll need to divide that accumulated value by
+  //  400.
+
+  // distance calculated (accumulated) += encoder ticks per second requested  
+  //abd_dca[ABD_L] += etpsL;                              // + velocityL for dt
+  //abd_dca[ABD_R] += etpsR;                              // + velocityR for dt
+  abd_dca[ABD_L] += abd_speed[ABD_L];                              // + velocityL for dt
+  abd_dca[ABD_R] += abd_speed[ABD_R];                              // + velocityR for dt
+  
+  // distance calculated = distance calculated (accumulated) / sampling rate
+  abd_dc[ABD_L] = abd_dca[ABD_L]/abd_dsr;                     // ticks expected
+  abd_dc[ABD_R] = abd_dca[ABD_R]/abd_dsr;                             
+}

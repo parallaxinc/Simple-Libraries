@@ -1,6 +1,8 @@
 #include "abdrive.h"
 
-void interpolation_table_setup();
+//void interpolation_table_setup();
+
+//int abd_intTabSetup;
 
 #ifdef _monitor_
   volatile char abd_str[128];
@@ -11,6 +13,7 @@ void interpolation_table_setup();
   volatile int rec_t[8000 / 4];
 #endif
 
+//volatile int abd_sampleCount;
 
 volatile int abd_record;               // Record values to an array
 
@@ -39,16 +42,16 @@ volatile int abd_zeroDelay;
 volatile int abd_us;
 volatile int abd_intTabSetup;
 
-//static int cog;
 //static int servoCog2 = 0;
-//static unsigned int stack[44 + 252];
 //static unsigned int stack[44 + 352];
+//static int cog;
+//static unsigned int stack[44 + 252];
 //static unsigned int servoStack[(160 + (150 * 4)) / 4];
 
-int abd_spdrL[120];
-int abd_spdmL[120];
-int abd_spdrR[120];
-int abd_spdmR[120];
+short abd_spdrL[120];
+short abd_spdmL[120];
+short abd_spdrR[120];
+short abd_spdmR[120];
 
 //static int a = 0;
 volatile int r;
@@ -62,10 +65,10 @@ static volatile int kp[6];
 
 static volatile int ridx;
 
-//static volatile int *pwL;
-//static volatile int *pwR;
-//static volatile int *spdL;
-//static volatile int *spdR;
+volatile short *pwL;
+volatile short *pwR;
+volatile short *spdL;
+volatile short *spdR;
 
 static volatile int pcount;
 static volatile unsigned int _sprOld;
@@ -79,7 +82,7 @@ static volatile int phs[2];
 static volatile int phsr[2];
 
 //static int trimFunction;
-//static int encoderFeedback;
+volatile int encoderFeedback;
 
 volatile int abd_blockGoto;
 
@@ -175,62 +178,114 @@ volatile int abd_speedi[2];
 volatile int abd_speedd[2];
 volatile int abd_dvFlag[2];
 
+volatile int abd_sampleCount;
+
+#ifdef _monitor_
+volatile int abd_reps;
+void monitor(void *par);
+static int cog;
+static unsigned int stack[44 + 128];
 
 
-void interpolation_table_setup(void);
-
-volatile int abd_sPinL, abd_sPinR;   // Global variables
-volatile int abd_ePinL, abd_ePinR;
-volatile int abd_us;
-volatile int abd_intTabSetup;
-
-
-void drive_servoPins(int servoPinLeft, int servoPinRight)          // drivePins function
+void monitor_start(int monitorReps)
 {
-  //abd_sPinL = servoPinLeft;                                       // Local to global assignments
-  //abd_sPinR = servoPinRight;
-  //if(!abd_us) abd_us = CLKFREQ/1000000; 
+  abd_reps = monitorReps;
+  cog = 1 + cogstart(monitor, NULL, stack, sizeof(stack)-1);
+  simpleterm_close();
+  pause(10);
+}
 
-  int eeAddr = _ActivityBot_EE_Start_  + _ActivityBot_EE_Pins_;
-  unsigned char pinInfo[8] = {'s', 'p', 'L', 12, ' ', 'R', 13, ' '};  
-  pinInfo[3] = (char) servoPinLeft;
-  pinInfo[6] = (char) servoPinRight;
-
-  ee_putStr(pinInfo, 8, eeAddr);
-  /*
-  if(!abd_intTabSetup)
+void monitor_stop()
+{
+  cogstop(cog - 1);
+}
+//
+void monitor(void *par)
+{
+  low(26);
+  low(27);
+  pause(100);
+  simpleterm_open();
+  int n = _servoPulseReps;
+  while(n < abd_reps)
   {
-    interpolation_table_setup();
-  }
-  */
-}
+    while(1)
+    { 
+      if(n != _servoPulseReps)
+      {
+        n = _servoPulseReps;
+        break;
+      }
+    }      
+    if(abd_str[0])
+    {
+      print("%s", abd_str);
+      abd_str[0] = 0;
+    }                
+    print("n%d\r"\
+        "dLf%d dLc%d dL%d sLT%d sL%d tgL%d gtfL%d scL%d"\
+        " | "\
+        "dRf%d dRc%d dR%d sRT%d sR%d tgR%d gtfR%d scR%d\r"\
+        "rsl%d dald%d | rsr%d dalr%d\r",
+        _servoPulseReps, 
+        abd_ticksf[ABD_L], abd_dc[ABD_L], abd_ticks[ABD_L], abd_speedT[ABD_L], abd_speed[ABD_L], abd_ticksGuard[ABD_L], abd_gotoFlag[ABD_L], abd_stopCtr[ABD_L], 
+        abd_ticksf[ABD_R], abd_dc[ABD_R], abd_ticks[ABD_R], abd_speedT[ABD_R], abd_speed[ABD_R], abd_ticksGuard[ABD_R], abd_gotoFlag[ABD_R], abd_stopCtr[ABD_R], 
+        abd_rampStep[ABD_L], abd_ditherAd[ABD_L], abd_rampStep[ABD_R], abd_ditherAd[ABD_R]);
+    if(n >= abd_reps) cogstop(cog);    
+  }    
+}      
+//
 
-void drive_encoderPins(int encPinLeft, int encPinRight)          // drivePins function
+
+
+
+
+/*
+void monitor(void *par)
 {
-  //abd_ePinL = encPinLeft;
-  //abd_ePinR = encPinRight;
-  //if(!abd_us) abd_us = CLKFREQ/1000000; 
-
-  int eeAddr = 8 + _ActivityBot_EE_Start_  + _ActivityBot_EE_Pins_;
-  unsigned char pinInfo[8] = {'e', 'p', 'L', 14, ' ', 'R', 15, ' '};  
-  pinInfo[3] = (char) encPinLeft;
-  pinInfo[6] = (char) encPinRight;
-
-  ee_putStr(pinInfo, 8, eeAddr);
-
-  /*
-  if(!abd_intTabSetup)
+  int t = CNT;
+  int dt = 0;
+  low(26);
+  low(27);
+  pause(100);
+  simpleterm_open();
+  int n = _servoPulseReps;
+  int m = 0;
+  while(_servoPulseReps < abd_reps)
   {
-    interpolation_table_setup();
-  }
-  */
-}
+    while(1)
+    { 
+      if(m != abd_sampleCount)
+      {
+        m = abd_sampleCount;
+        dt = CNT - t;
+        dt = 80000000 / dt;
+        t = CNT;
+        break;
+      }
+    }   
+    //   
+    //if(abd_str[0])
+   // {
+   //   print("%s", abd_str);
+   //   abd_str[0] = 0;
+   // } 
+    //               
+//    print("%d %d %d %d\r",
+//        m, dt, abd_ticks[ABD_L], abd_ticks[ABD_R] );
 
-void drive_pins(int servoPinLeft, int servoPinRight, int encPinLeft, int encPinRight)          // drivePins function
-{
-  drive_servoPins(servoPinLeft, servoPinRight);
-  drive_encoderPins(encPinLeft, encPinRight);
-}
+    //if((dt < 700) || (dt > 900)) putChar('!');
+    //if(dt < 750 || dt > 850) putChar(13);
+
+    print("%d", dt/100);
+    if(n >= abd_reps) cogstop(cog);    
+  }    
+}      
+*/
 
 
 
+
+
+
+#endif
