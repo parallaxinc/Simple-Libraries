@@ -37,6 +37,15 @@ int abd_abs(int value);
 
 void drive_goto(int left, int right)
 {
+  // Patch to prevent certain combinations of initial speeds 
+  // from putting drive_goto into a mode that doesn't terminate.
+  //
+  if( (abd_dvFlag[ABD_L] == 1) || (abd_dvFlag[ABD_R] == 1))
+  {
+    drive_speed(0, 0);
+  } 
+  //   
+  
   int rampStepSave = abd_rampStep[ABD_B];
   abd_rampStep[ABD_B] = abd_gotoRampStep[ABD_B];
 

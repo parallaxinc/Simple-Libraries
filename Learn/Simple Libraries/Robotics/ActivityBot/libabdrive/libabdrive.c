@@ -9,6 +9,7 @@
 */
 
 #include "simpletools.h"
+#include "abcalibrate.h"
 #include "abdrive.h"
 
 //void drive_calibrationResults(void);
@@ -16,8 +17,23 @@
 int main()                    
 {
   print("%c", CLS);
+
+  //  
+  print("Calibration...\r\r");
+  cal_servoPins(12, 13);
+  cal_encoderPins(14, 15);
+ 
+  high(26);
+  high(27);
+  cal_activityBot();
+  low(26);
+  low(27);
+  //
   
-  drive_calibrationResults();
+  drive_displayInterpolation();
+
+  //drive_calibrationResults();
+
   //drive_speed(0, 0);
 
   while(1);
