@@ -1,7 +1,4 @@
-libkeypad.c
-keypad.c
-keypad.h
-getNumber.c
+Keypad 4x4 Read Simultaneous Keys.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
@@ -9,5 +6,4 @@ getNumber.c
 >-fno-exceptions
 >defs::-std=c99
 >-lm
->-create_library
 >BOARD::ACTIVITYBOARD

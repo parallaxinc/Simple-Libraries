@@ -3,7 +3,7 @@
  
   @author Andy Lindsay
  
-  @version v1.1.5
+  @version v1.1.6
  
   @copyright
   Copyright (C) Parallax, Inc. 2017. All Rights MIT Licensed.
@@ -44,6 +44,21 @@ void keypad_setup(int rowCount, int columnCount,
 int keypad_read(void);
 
 /**
+  @brief Get a number from the keypad.  The number will be retured as soon as
+  a non-numeric key is pressed and released.    
+ 
+  @returns The number that was entered.
+*/
+int keypad_getNumber(void); 
+
+/**
+  @brief Get the key that terminated number received by keypad_getNumber.    
+ 
+  @returns Key that terminated getNumber.
+*/
+int keypad_getNumberEndKey(void);                         // getNumber function
+
+/**
   @brief If more than one key might be pressed and held at one time, use this 
   keyapd_readFrom function to get the 2nd, 3rd, etc key.    
  
@@ -55,6 +70,7 @@ int keypad_read(void);
   are pressed.
 */
 int keypad_readFrom(int button);
+
 
 /**
   TERMS OF USE: MIT License

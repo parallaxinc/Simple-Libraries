@@ -1,4 +1,4 @@
-Keypad 4x4 Read Individual Keys.c
+Keypad 4x4 Countdown Timer.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

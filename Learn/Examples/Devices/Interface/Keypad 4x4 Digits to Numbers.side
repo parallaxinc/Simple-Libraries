@@ -1,4 +1,4 @@
-Keypad 4x4 Simple.c
+Keypad 4x4 Digits to Numbers.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
