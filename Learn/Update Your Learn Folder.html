@@ -57,6 +57,30 @@ learn@parallax.com</a>.
 </ul>
 </p>  
 
+
+<p>
+Update 6/12/2017
+<ul>
+<li>
+Prevent abdrive library control system from getting disoriented
+after a stall condition by preventing calculated distance from getting too
+far ahead of actual distance.
+</li>
+<li>
+New abdrive library function drive_setErrorLimit(int maxDistDiffTicks) 
+for configuring how far ahead of the measured distance the calculated
+distance is allowed to get.  The twitch response after a stall is
+released gets smaller with smaller values, but the acceleration may
+also get dampened.  For now, the default is 10 ticks.  Opinions on
+values for best performance would be appreciated.
+</li>
+<li>
+Remove ActivityBot example programs that demonstrate setting trim, which
+is no longer supported by the abdrive library.
+</li>
+</ul>
+</p>  
+
 <p>
 Update 6/2/2017
 <ul>

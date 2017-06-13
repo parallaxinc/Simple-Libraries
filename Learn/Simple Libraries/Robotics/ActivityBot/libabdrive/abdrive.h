@@ -39,6 +39,7 @@
  * distance is allowed to get.  The twitch response after a stall is
  * released gets smaller with smaller values, but the acceleration may
  * also get dampened.  For now, the default is 10 ticks.  Opinions on
+ * values for best performance would be appreciated.
  *
  * @version 0.9.82
  * @li Move most control logic into the control system cog.
