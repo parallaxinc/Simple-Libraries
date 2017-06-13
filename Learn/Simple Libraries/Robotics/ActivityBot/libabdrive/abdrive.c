@@ -179,6 +179,8 @@ volatile int abd_speedi[2];
 volatile int abd_speedd[2];
 volatile int abd_dvFlag[2] = {0, 0};
 
+volatile int abd_edMax = 10;
+
 //volatile int abd_gotoFlagTemp;
 
 volatile  int abd_zdir[2] = {0, 0};
@@ -574,25 +576,50 @@ void abd_encoders(void *par)
       {
     
         if((CNT - abd_tdst) >= abd_td) abd_sample();
+        // Notes: Calculated from abd_sample()         
+          //abd_dca[ABD_L] += abd_speed[ABD_L];
+          //abd_dca[ABD_R] += abd_speed[ABD_R];
+          //abd_dc[ABD_L] = abd_dca[ABD_L]/abd_dsr;
+          //abd_dc[ABD_R] = abd_dca[ABD_R]/abd_dsr;                             
 
         if(encoderFeedback)
         {
           input(14);
           // Error ticks = calculated - measured 
           abd_ed[lr] = abd_dc[lr] - abd_ticks[lr];
-          abd_ea[lr] += abd_ed[lr];
+
+          // abd_ea[lr] += abd_ed[lr]; // Replaced 170612
+          if(abd_ed[lr] > abd_edMax)
+          {
+            abd_ed[lr] = abd_edMax;
+            abd_dc[lr] = abd_ticks[lr] + abd_edMax;
+            abd_dca[lr] = abd_dc[lr] * abd_dsr;
+          }
+          else if(abd_ed[lr] < -abd_edMax)
+          {
+            abd_ed[lr] = -abd_edMax;
+            abd_dc[lr] = abd_ticks[lr] - abd_edMax;
+            abd_dca[lr] = abd_dc[lr] * abd_dsr;
+          }
+          else
+          {
+            // Integral error accumulation
+            abd_ea[lr] += abd_ed[lr];
+          }            
+
+          
           if(abd_speed[lr] != 0)
           {
             //iL += edL;
             if(abd_speed[lr] > 0)
             {
               abd_p[lr] = abd_ed[lr] * (3+(abd_speed[lr]/10));  
-              if(abd_ed[lr]>0)abd_i[lr]+=1; else if(abd_ed[lr]<0) abd_i[lr]-=1;
+              if((abd_ed[lr]>0) && (abd_ed[lr] != abd_edMax))abd_i[lr]+=1; else if((abd_ed[lr]<0) && (abd_ed[lr] != -abd_edMax)) abd_i[lr]-=1;
             }
             else if(abd_speed[lr] < 0)
             {
               abd_p[lr] = abd_ed[lr] * (-3+(abd_speed[lr]/10));  
-              if(abd_ed[lr]>0)abd_i[lr]-=1; else if(abd_ed[lr]<0) abd_i[lr]+=1;
+              if((abd_ed[lr]>0) && (abd_ed[lr] != abd_edMax))abd_i[lr]-=1; else if((abd_ed[lr]<0) && (abd_ed[lr] != -abd_edMax)) abd_i[lr]+=1;
             }
 
             if((CNT - abd_tdst) >= abd_td) abd_sample();
