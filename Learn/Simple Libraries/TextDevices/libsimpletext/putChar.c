@@ -27,12 +27,8 @@ void putChar(char c)
 void putChar(char c)
 {
   extern text_t *dport_ptr;
-
-/* This is EVIL
- * if(c == '\n')
- *   dport_ptr->txChar(dport_ptr, '\r');
- */
-
+  if(c == '\n')
+    dport_ptr->txChar(dport_ptr, '\r');
   dport_ptr->txChar(dport_ptr, c);
 }
 
