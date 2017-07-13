@@ -47,9 +47,9 @@ int wifi_buf_size;
 
 int wifi_mode(int mode)
 {
-  //#ifdef WIFI_DEBUG
+  #ifdef WIFI_DEBUG
   print("wifi_networkMode\r");
-  //#endif  //WIFI_DEBUG
+  #endif  //WIFI_DEBUG
   
   //mode = 0;
   
