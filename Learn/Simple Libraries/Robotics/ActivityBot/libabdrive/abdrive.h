@@ -30,6 +30,17 @@
  * @par Memory Models
  * Use with CMM. 
  *
+ * @version 0.9.95
+ * @li Prevent control system from getting completely confused after a
+ * stall condition by preventing calculated distance from getting too
+ * far ahead of actual distance.
+ * @li New function drive_setErrorLimit(int maxDistDiffTicks) for
+ * configuration how far ahead of the measured distance the calculated
+ * distance is allowed to get.  The twitch response after a stall is
+ * released gets smaller with smaller values, but the acceleration may
+ * also get dampened.  For now, the default is 10 ticks.  Opinions on
+ * values for best performance would be appreciated.
+ *
  * @version 0.9.82
  * @li Move most control logic into the control system cog.
  * @li Arc support with drive_goto(left, right), where left != right.
@@ -405,6 +416,17 @@ void drive_setAcceleration(int forGotoOrSpeed, int ticksPerSecSq);
 
 
 /**
+ * @brief Sets the maximum accumulated error between target and actual
+ * distance traveled.  
+ *
+ * @param maxDistDiffTicks The maximum number of error ticks the control system can
+ * accumulate.  The default is 10.  Lower values mean less twitch when released from a 
+ * stall condition, but may override acceleration settings.
+ */
+void drive_setErrorLimit(int maxDistDiffTicks);
+
+
+/**
  * @brief Modifies the default maximum top speed for use with encoders.  The default
  * is 128 ticks/second = 2 revolutions per second (RPS).  This is the full speed that
  * drive_distance and drive_goto use.  This value can currently be reduced, but not 
@@ -549,6 +571,7 @@ void drive_ramp(int left, int right);
 #ifdef _monitor_
 void monitor_start(int monitorReps);
 void monitor_stop();
+int *encoderLeds_start(int pinLeft, int pinRight);
 #endif
 
 #ifndef AB_RIGHT  

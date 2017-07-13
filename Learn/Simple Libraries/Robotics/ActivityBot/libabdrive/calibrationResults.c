@@ -179,6 +179,7 @@ volatile int abd_dvFlag[2];
 int abd_abs(int value);
 
 
+/*
 int abd_checkForSwappedCables(void)
 {
   int state = 0;
@@ -189,6 +190,100 @@ int abd_checkForSwappedCables(void)
   if( (abd_elCnt[ABD_R] == 80) && (abd_cntrIdx[ABD_R] == 0))
   {
     state |= (1 << 1);
+  }
+  return state;  // Left 1, right 2, both 3
+}      
+*/
+
+int abd_checkActivityBotStrings(void)
+{
+  int state = 0;
+  char str[4];
+  ee_getStr((unsigned char *) str, 3, _ActivityBot_EE_Start_ + 12);
+  if(strncmp(str, "spL", 3) != 0) state |= (1 << 0);
+  /*
+  for(int n = 0; n <= 2; n++)
+  {
+    if(str[n] >= ' ' && str[n] <= 'z')
+    {
+      print("%c", str[n]);
+    }
+    else
+    {
+      print("[%d]", str[n]);
+    }
+  }      
+  print("\rcomparison = %d\r", strncmp(str, "spL", 3));
+  */
+
+  ee_getStr((unsigned char *) str, 3, _ActivityBot_EE_Start_ + 20);
+  if(strncmp(str, "epL", 3) != 0) state |= (1 << 1);
+
+  return state;
+
+  /*
+  for(int n = 0; n <= 2; n++)
+  {
+    if(str[n] >= ' ' && str[n] <= 'z')
+    {
+      print("%c", str[n]);
+    }
+    else
+    {
+      print("[%d]", str[n]);
+    }
+  }      
+  print("\rcomparison = %d\r", strncmp(str, "epL", 3));
+  */
+  //print("string = %s\r", str);
+}  
+  
+
+
+int abd_checkForSwappedCables(void)
+{
+  int state = 0;
+  int deviations = 25;
+  int sum = 0;
+  int avgPt = (int)((abd_spdmL[2] + abd_spdmL[3] + abd_spdmL[4]) / 3);
+  if
+  (
+    (avgPt < 60) 
+      //&& 
+    //(avgPt > 0)
+  )
+  {
+    for(int n = 5; n < 30; n ++)
+    {
+      sum += abd_spdmL[n];
+      if(abd_abs((int)(abd_spdmL[n] - avgPt)) < 8)
+      {
+        deviations--;
+      }
+      //print("deviations = %d\r", deviations);
+    }
+    if((deviations < 4) && (sum != 0)) state |= (1 << 0);
+  }    
+
+  deviations = 17;
+  avgPt = (int)((abd_spdmR[50] + abd_spdmR[51] + abd_spdmR[52]) / 3);
+  sum = 0;
+  if
+  (
+    (avgPt < 50) 
+      //&& 
+    //(avgPt > 0)
+  )
+  {  
+    for(int n = 53; n < 53 + 17; n ++)
+    {
+      sum += abd_spdmR[n];
+      if(abd_abs((int)(abd_spdmR[n] - avgPt)) < 8)
+      {
+        deviations--;
+      }
+    }
+    if((deviations < 4) && (sum != 0)) state |= (1 << 1);
   }
   return state;  // Left 1, right 2, both 3
 }      
@@ -276,6 +371,7 @@ void drive_calibrationResults(void)
 {
   char s[20];
   if(!abd_intTabSetup) interpolation_table_setup();
+  int cfgStrs = abd_checkActivityBotStrings();
   int cables = abd_checkForSwappedCables();
   int noSignal = abd_checkForNoSignal();
   int centerError = abd_checkCenterPulseWidth();
@@ -292,15 +388,17 @@ void drive_calibrationResults(void)
   
   if
   (
+    (cfgStrs == 0)
+      &&
     (cables == 0)
       &&
     (noSignal == 0)
       &&
     (centerError == 0)
       &&
-    (supplyL > 165)
+    (supplyL >= 150)
       &&
-    (supplyR > 165)
+    (supplyR >= 150)
       &&
     (supplyL < 205)
       &&
@@ -318,14 +416,26 @@ void drive_calibrationResults(void)
     print("the learn.parallax.com tutorial you are\r");
     print("following.\r\r");
     print("Details:\r\r");
-        
-    if(cables)
+    
+    pause(10);
+    //    
+    if(cfgStrs)
+    {
+      print("It does not look like the calibration\r");
+      print("procedure has been completed.\r\r");
+    }
+    //
+    if(
+        //(noSignal != 3) 
+          //&& 
+        cables
+      )
     {
       print("Either your ActivityBot's servo cables\r");
       print("or its encoder cables are swapped.\r\r");
     }
     
-    if(noSignal)
+    if(noSignal && (cables == 0))
     {
       print("The Propeller cannot detect\r");
       abd_displaySide(noSignal, s);
@@ -381,11 +491,11 @@ void drive_calibrationResults(void)
         print("the 5V setting.  It should be at the VIN\r");
         print("setting.\r\r");
       }
-      else if(supply < 160)
+      else if(supply < 150)
       {
         print("The ActivityBot's batteries are too low.\r");
         print("Try a new set of 5 alkaline batteries, or\r");
-        print("recharge your 6.5 to 8 V power pack.\r\r");
+        print("recharge your power pack to the 7 to 8 V range.\r\r");
       }      
       else if(supply > 205)
       {
