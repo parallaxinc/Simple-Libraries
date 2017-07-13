@@ -3,7 +3,7 @@
  *
  * @author Andy Lindsay
  *
- * @version 0.85
+ * @version 1.1.7
  *
  * @copyright Copyright (C) Parallax, Inc. 2012.  See end of file for
  * terms of use (MIT License).
@@ -17,12 +17,20 @@
 #include "simpletools.h"                      // simpletools function prototypes
 
 void pause(int time)                          // pause function definition
+{ 
+  unsigned int t = CNT;                       // Mark time
+  while(time--)                               // Count down pause increments
+    waitcnt(t += st_pauseTicks);              // Delay one pause increment
+}
+
+/*
+void pause(int time)                          // pause function definition
 { // If st_pauseTicks not initialized, set it up to 1 ms.
   // if(!st_pauseTicks) set_pause_dt(CLKFREQ/1000);
   time *= st_pauseTicks;                         // Calculate system clock ticks
   waitcnt(time+CNT);                          // Wait for system clock target
 }
-
+*/
 /**
  * TERMS OF USE: MIT License
  *
