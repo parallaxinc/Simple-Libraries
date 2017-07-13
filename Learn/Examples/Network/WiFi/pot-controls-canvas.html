@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+  <!-- Start of section to delete -->
+    <b>Setup:</b><br>
+    &nbsp &nbsp &#9989 &nbsp Upload this page to your Wi-Fi module.<br>
+    &nbsp &nbsp &#9989 &nbsp Open this page from http://your-wi-fi-module's-ip/files/pot-controls-canvas.html.<br>
+    &nbsp &nbsp &#9989 &nbsp Open "Pot Controls Canvas Host.side" with SimpleIDE,<br> 
+    and load the .c program into your Propeller board. <br>
+    &nbsp &nbsp &#x1F56E &nbsp More info at http://learn.parallax.com/propeller-c-wx-wi-fi
+    <br><br>
+  <!-- End of section to delete -->
+
+<body>
+
+<canvas 
+  id="myCanvas" width="300" height="150" 
+  style="border:1px solid gray;">
+</canvas>
+
+<p id="turnAngle" style="width: 300px; text-align: center">
+angle = (waiting...)</p>
+
+<script>
+
+var myTimer = setInterval(getFromMcu, 1000);
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+var angle = 135;
+ctx.lineWidth = 8;
+ctx.strokeStyle = "darkgray";
+ctx.lineCap = "round";
+ctx.translate(150, 75);
+drawPot();
+drawPotHousing(135);
+
+function useMcuReply(response)
+{
+  var sliderVal = Number(response);
+  ctx.clearRect(-150, -75, 300, 150);
+  console.log("angle = " + angle);
+  console.log("sliderVal = " + sliderVal);
+  var rotateAngle = sliderVal - angle;
+  ctx.rotate((rotateAngle) * Math.PI / 180);
+  angle = sliderVal;
+  console.log("angle = " + angle);
+  console.log("rotateAngle = " + rotateAngle);
+  document.getElementById("turnAngle").innerHTML = 
+    "angle = " + (angle - 135);
+  drawPotHousing(angle);
+  drawPot();
+}
+
+function getFromMcu()
+{
+  httpGet("/dial", useMcuReply);
+}
+
+function httpGet(path, callback)
+{
+  var req = new XMLHttpRequest();
+  req.open("GET", path, true); 
+  req.onreadystatechange = function() 
+  { 
+    if (req.readyState == 4)
+    if(req.status == 200)
+      callback(req.responseText);
+    else
+      callback("Waiting...");
+  }
+  req.send(null);
+}
+
+function drawPotHousing(x)
+{
+  ctx.save();
+  ctx.rotate((135 - x) * Math.PI / 180)
+  ctx.beginPath();
+  ctx.moveTo(70, -60);
+  ctx.lineTo(70, 60);
+  ctx.lineTo(-45, 60);
+  ctx.lineTo(-80, 25);
+  ctx.lineTo(-80, -25);
+  ctx.lineTo(-45, -60);
+  ctx.lineTo(70, -60);
+  ctx.stroke();
+  ctx.restore();  
+}
+
+function drawPot()
+{
+  ctx.beginPath();
+  var x1 = 0;
+  var y1 = 0;
+  ctx.moveTo(-35, 15);
+  ctx.lineTo(-35, -15);
+  ctx.moveTo(-24, y1);
+  ctx.lineTo(24, 0);
+  ctx.moveTo(40, 0);
+  ctx.arc(x1, y1, 40, 0, 2.0 * Math.PI);
+  ctx.stroke();
+}
+
+</script>
+
+</body>
+</html>

@@ -204,10 +204,23 @@ Addresses 0..32767 - Overwritten every time a Spin or C program is loaded into E
 <blockquote>
 <a href="Simple%20Libraries/Audio/libwavplayer/Documentation%20wavplayer%20Library.html" target="_blank">wavplayer.h</a> +2 while playing, +1 between tracks
   <blockquote>
-	wav_play uses 2 cores while a file is playing, 1 stays alive between tracks and after a call to wav_stop.  wav_close recovers both cores.
+    wav_play uses 2 cores while a file is playing, 1 stays alive between tracks and after a call to wav_stop.  wav_close recovers both cores.
   </blockquote>
 </blockquote>
 </p>
+
+<p>
+<blockquote>
+<a href="Simple%20Libraries/Network/libwifi/Documentation%20wifi%20Library.html" target="_blank">wifi.h</a> +1 with a single call to wifi_start 
+  <blockquote>
+    The wifi_start function (+ 1 cog full duplex serial communication) 
+    has to be called before other functions can be used to exchange with 
+    the Wi-Fi module.  The wifi_stop function closes the serial connection
+    and recovers the cog.
+  </blockquote>
+</blockquote>
+</p>
+
 
 
 
