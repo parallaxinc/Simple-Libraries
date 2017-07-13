@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+
+  <!-- Start of section to delete -->
+    <b>Setup:</b><br>
+    &nbsp &nbsp &#9989 &nbsp Upload this page to your Wi-Fi module.<br>
+    &nbsp &nbsp &#9989 &nbsp Upload the obstacle-*.png files.<br>
+    &nbsp &nbsp &#9989 &nbsp Open this page from http://your-wi-fi-module's-ip/files/activitybot-btns-ir-speed.html.<br>
+    &nbsp &nbsp &#9989 &nbsp Open "ActivityBot Buttons IR Speed Host.side" with SimpleIDE,<br> 
+    and load the .c program into your Propeller board. <br>
+    &nbsp &nbsp &#x1F56E &nbsp More info at http://learn.parallax.com/propeller-c-wx-wi-fi
+    <br><br>
+  <!-- End of section to delete -->
+
+  <head>
+    <style>
+      a{
+        background-color:#637aad;
+        border:1px solid navy;
+        display:inline-block;
+        color:white;
+        font-size:18px;
+        margin:20px;
+        width:100px;
+        height:55px;
+        font-family:Arial;
+        cursor:pointer;
+        padding-top:37px
+      }
+      a:hover{background-color:white;color:navy;}
+    </style>
+  </head>
+  <body bgcolor=3b5898>
+    <div align="center">
+      <font face="Arial" size=6 color="white">
+        ActivityBot
+      </font>
+        <br> 
+        <br> 
+      <font face="Arial" size=5 color="white">
+      Infrared Obstacles
+      </font>
+      <br>
+      <img id="obstacle" src="obstacle-none.png">
+      <br>
+
+      <font face="Arial" size=5 color="white">
+      <p id = "servoSpeed"> Speed = 50</p>
+      000
+      <input type="range" id="speedControl" 
+      min="0" max="100" value="50" style="width: 500px" 
+      onchange="updateSpeed(id);">
+      100
+      </font>
+      <br><br>
+
+      <font face="Arial" size=5 color="white">
+        Control
+      </font>
+      <br>
+      <a onclick="navBtns('F');">Forward</a>
+      <br>
+      <a onclick="navBtns('L');">Left</a>
+      <a onclick="navBtns('S');">Stop</a>
+      <a onclick="navBtns('R');">Right</a>
+      <br>
+      <a onclick="navBtns('B');">Reverse</a>
+    </div>
+  </body>
+  <script>
+    var myTimer = setInterval(getFromMcu, 1000);
+    updateSpeed("speedControl") 
+    var img = new Array();
+    var idx = 3;
+
+    img[0] = new Image();
+    img[1] = new Image();
+    img[2] = new Image();
+    img[3] = new Image();
+
+    img[3].src = "obstacle-none.png";
+    img[2].src = "obstacle-left.png";
+    img[1].src = "obstacle-right.png";
+    img[0].src = "obstacle-both.png";
+    
+    function navBtns(direction) 
+    {
+      httpPost("/bot", "go=" + direction);
+    }
+
+    function updateSpeed(sliderId) 
+    {
+      var displaySpeed = document.getElementById("servoSpeed");
+      var speed = document.getElementById(sliderId).value;
+      console.log("speed = " + speed);
+      var speedStr = ('000' + speed).substr(-3);
+      displaySpeed.innerHTML = "Speed = " + speedStr;
+      httpPost("/spd", "v=" + speedStr);
+      //console.log("v=" + speedStr);
+    }
+
+    function getFromMcu()
+    {
+      httpGet("/ir", useMcuReply);
+    }
+
+    function useMcuReply(response)
+    {
+      var val = document.getElementById("value");
+      //console.log("ir=" + response);
+
+      if((response.charAt(0) == "1") && (response.charAt(1) == "1"))
+      {
+        idx = 3;
+      }
+      else if((response.charAt(0) == "1") && (response.charAt(1) == "0"))
+      {
+        idx = 2;
+      }
+      else if((response.charAt(0) == "0") && (response.charAt(1) == "1"))
+      {
+        idx = 1;
+      }
+      else if((response.charAt(0) == "0") && (response.charAt(1) == "0"))
+      {
+        idx = 0;
+      }
+
+      document.getElementById("obstacle").src = img[idx].src;
+      console.log(idx);
+    }
+
+    function httpPost(path, param)
+    {
+      var req = new XMLHttpRequest();
+      req.open("POST", path, true);
+      req.setRequestHeader("Content-type",
+      "application/x-www-form-urlencoded");
+      req.send(param);
+    }
+
+    function httpGet(path, callback)
+    {
+      var req = new XMLHttpRequest();
+      req.open("GET", path, true); 
+      req.onreadystatechange = function() 
+      { 
+        if (req.readyState == 4)
+          if(req.status == 200)
+            callback(req.responseText);
+          else
+            callback("Waiting...");
+      }
+      req.send(null);
+    }
+  </script>
+<html>
