@@ -11,12 +11,8 @@ int writeStr(text_t *p, char *str)
 {
   int n = 0;
   while(*str) {
-
-/* This is EVIL
- *   if(*str == '\n')
- *     writeChar(p, '\r');
- */
-
+    if(*str == '\n')
+      writeChar(p, '\r');
     writeChar(p, *str);
     str++;
     n++;
