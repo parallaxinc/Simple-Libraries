@@ -24,6 +24,8 @@ download the latest before getting started. Just go to:
 From there, just follow the instructions with red checkmarks.  Then, you'll be equipped with latest example programs and libraries for use with the tutorials on:
 </p>
 
+
+
 <p>
 <font color="white">___</font><a href="http://learn.parallax.com/propeller-c-tutorials" target="_blank">http://learn.parallax.com/propeller-c-tutorials</a>.
 </p>
@@ -39,6 +41,9 @@ For more info on the Propeller C Education program, go here:
 <p>
 For info on this Learn folder's Simple Libraries, go here: <a href="Simple%20Libraries%20Index.html" target="_blank">Simple Libraries Folder Index</a>
 </p>
+<p>
+For library core/cog and EEPROM usage info, go here: <a href="Library%20Cog%20and%20EEPROM%20Usage.html" target="_blank">Simple Library Core and EEPROM Usage</a>
+</p>
 
 <p>
 Typos, comments, or suggestions? Email: <a href="mailto:learn@parallax.com">
@@ -49,18 +54,226 @@ learn@parallax.com</a>.
 
 <h2 style="font-family:verdana;">Update History</h2>
 
+</ul>
+</p>  
+
+
 <p>
-Update 11/29/2016
+Update 7/13/2017
+<ul>
+<li>
+Add Wi-Fi module examples and library.  The examples are located in:<br>
+.../Documents/SimpleIDE/Learn/Examples/Network/WiFi/<br>
+The library is located in:<br>
+.../Documents/SimpleIDE/Learn/Simple Libraries/Network/libwifi/<br>
+</li>
+<li>
+Add S3 library.  The library is located in:<br>
+.../Documents/SimpleIDE/Learn/Simple Libraries/Robotics/S3/libs3/<br>
+</li>
+<li>
+Add fingerprint scanner examples and library.  The examples are located in:<br>
+.../Documents/SimpleIDE/Learn/Examples/Devices/Sensor/Fingerprint Scanner/<br>
+The library is located in:<br>
+.../Documents/SimpleIDE/Learn/Simple Libraries/Sensor/libfingerprint/<br>
+</li>
+<li>
+Update box function in badgetools for better performance in oOED display.<br>
+</li>
+<li>
+Remove some duplicate files.<br>
+</li>
+</ul>
+</p>  
+
+
+<p>
+Update 6/12/2017
+<ul>
+<li>
+Prevent abdrive library control system from getting disoriented
+after a stall condition by preventing calculated distance from getting too
+far ahead of actual distance.
+</li>
+<li>
+New abdrive library function drive_setErrorLimit(int maxDistDiffTicks) 
+for configuring how far ahead of the measured distance the calculated
+distance is allowed to get.  The twitch response after a stall is
+released gets smaller with smaller values, but the acceleration may
+also get dampened.  For now, the default is 10 ticks.  Opinions on
+values for best performance would be appreciated.
+</li>
+<li>
+Remove ActivityBot example programs that demonstrate setting trim, which
+is no longer supported by the abdrive library.
+</li>
+</ul>
+</p>  
+
+
+<p>
+Update 6/2/2017
+<ul>
+<li>
+Increase max pause function value from 26,843 ms to 2,147,483,648 ms.
+</li>
+<li>
+Add keypad_getNumber and keypad_getNumberEndKey functions to keypad 
+library.
+</li>
+<li>
+Modify, expand, and move Matrix Keypad folder example programs to
+ ...Learn/Examples/Devices/Interface.
+</li>
+</ul>
+</p>  
+
+<p>
+Update 6/1/2017
+<ul>
+<li>
+Add /Interface/libkeypad to Simple Libraries.
+</li>
+<li>
+Add Matrix Keypad folder with example programs to 
+...Learn/Examples/Devices/.
+</li>
+</ul>
+</p>  
+
+<p>
+Update 5/15/2017
+<ul>
+<li>
+Update drive_calibrationResults to allow calibration success down to 
+about 7 V, and correct crossed cables reported as missing signal(s).
+</li>
+<li>
+Prevent switch from drive_speed to drive_goto from making certain 
+pivot maneuvers fail to detect that they are done.
+</li>
+<li>
+Udpate and cross link documentation htmls in the learn folder.  This 
+does not apply to subdirectories.
+</li>
+</ul>
+</p>  
+
+<p>
+Update 4/14/2017
+<ul>
+<li>
+A function named drive_calibrationResults was added to the ActivityBot abdrive
+library.  This function can be called to determine if a calibration was successful, 
+or if there was a mistake in the encoder/servo/power circuits.
+</li>
+</ul>
+</p>  
+
+<p>
+Update 4/11/2017
+<br>
+<b>
+Update abdrive library to 0.9.82:
+</b>
+
+<ul>
+<li>
+Move most control logic into the control system cog.
+</li>
+
+
+<li>
+Arc support with drive_goto(left, right), where left != right.
+</li>
+
+
+<li>
+Background target calculation for better acceleration/deceleration.
+</li>
+
+
+<li>
+drive_acceleration(forGotoOrSpeed, ticksPerSecondSquared).
+</li>
+
+
+<li>
+drive_ramp can be interrupted with a new direction.
+</li>
+
+
+<li>
+drive_goto can be interrupted after calling drive_gotoMode(0).
+</li>
+
+
+<li>
+drive_gotoStatus added for monitoring when a maneuver is finished.
+</li>
+
+
+<li>
+All acceleration (a.k.a. ramping) is done in the background.
+</li>
+
+
+<li>
+Sampling rate increased from 400 to 800 Hz.
+</li>
+
+
+<li>
+Default speed for drive_goto set to 64 ticks per second with a default acceleration of 200 ticks per second.
+</li>
+
+
+<li>
+Default speed limit for drive_speed is 128 ticks per second, with a default acceleration of 600 ticks/second squared.
+</li>
+
+
+<li>
+Trim support was removed.
+</li>
+
+
+</ul>
+</p>  
+
+<p>
+Update 1/22/2017
+
+<ul>
+<li>
+S3 C language test library removed.
+</li>
+
+
+<li>
+Simple Libraries Index updated.
+</li>
+</ul>
+</p>  
+
+<p>
+Update 1/18/2017
 
 <ul>
 <li> 
-Add S3 library and one example program.   
+Badge library video game examples added.
 </li>
 
 <li> 
-Move Arlo and ActivityBot example programs to .../SimpleIDE/Learn/Examples/Robots/.   
+Badge library graphics updates.
 </li>
 
+<li> 
+LSM9DS1 9-axis IMU library added.
+</li>
+
+<li>
+S3 C language test library added.
 </ul>
 </p>  
 
@@ -105,7 +318,7 @@ Add oledc library for Parallax Part #28087 - 0.95 inch 96x64 RGB  display module
 </li>
 
 <li> 
-Add colorPalRRGGBB funciton to convert 12-bit values
+Add colorPalRRGGBB function to convert 12-bit values
 to 8-bit for use with color picking software.   
 </li>
 
@@ -316,7 +529,7 @@ launching function code into another cog.
 </li>
 <li> 
 vgatext library modified to work with the simpletext library.  You can now
-use any simpletext output call with a text_t parameter to dsipaly text messages with the
+use any simpletext output call with a text_t parameter to display text messages with the
 VGA.  See the <a href="http://learn.parallax.com/propeller-c-simple-devices/vga-text-display" target="_blank">VGA Text Display</a> activity for examples.
 </li>
 <li> 

@@ -95,4 +95,7 @@ typedef struct s3 {
   int32_t s3_resetButtonCount();
   int32_t s3_runWithoutResult(int32_t input);
   int32_t s3_ping(int32_t Pin);
+  void s3_enableMic();
+  int32_t s3_readMic();
+
 #endif

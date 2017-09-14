@@ -32,8 +32,8 @@ void imu_setMagCalibration(int mxBias, int myBias, int mzBias)
   {
     msb = (__mBiasRaw[k] & 0xFF00) >> 8;
     lsb = __mBiasRaw[k] & 0x00FF;
-    LSM9DS1_SPIwriteByte(__pinM, OFFSET_X_REG_L_M + (2 * k), lsb);
-    LSM9DS1_SPIwriteByte(__pinM, OFFSET_X_REG_H_M + (2 * k), msb);
+    imu_SPIwriteByte(__pinM, OFFSET_X_REG_L_M + (2 * k), lsb);
+    imu_SPIwriteByte(__pinM, OFFSET_X_REG_H_M + (2 * k), msb);
   }  
 }  
 

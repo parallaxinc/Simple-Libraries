@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+  <html>
+
+  <!-- Start of section to delete -->
+    <b>Setup:</b><br>
+    &nbsp &nbsp &#9989 &nbsp Upload this page to your Wi-Fi module.<br>
+    &nbsp &nbsp &#9989 &nbsp Upload the obstacle-*.png files.<br>
+    &nbsp &nbsp &#9989 &nbsp Open this page from http://your-wi-fi-module's-ip/files/ws-activitybot-btns-ir-speed.html.<br>
+    &nbsp &nbsp &#9989 &nbsp Open "Ws ActivityBot Btns Ir Speed Host.side" with SimpleIDE,<br> 
+    and load the .c program into your Propeller board. <br>
+    &nbsp &nbsp &#x1F56E &nbsp 
+    &nbsp &nbsp &#9989 &nbsp Reload ws-boe-bot-btns-ir-speed.html.<br>
+    &nbsp &nbsp &#x1F56E &nbsp More info at http://learn.parallax.com/propeller-c-wx-wi-fi
+    <br><br>
+  <!-- End of section to delete -->
+
+  <head>
+    <style>
+      a{
+        background-color:#637aad;
+        border:1px solid navy;
+        display:inline-block;
+        color:white;
+        font-size:18px;
+        margin:20px;
+        width:100px;
+        height:55px;
+        font-family:Arial;
+        cursor:pointer;
+        padding-top:37px
+      }
+      a:hover{background-color:white;color:navy;}
+    </style>
+  </head>
+  <body bgcolor=3b5898>
+    <div align="center">
+      <font face="Arial" size=6 color="white">
+        ActivityBot
+      </font>
+        <br> 
+        <br> 
+      <font face="Arial" size=5 color="white">
+      Infrared Obstacles
+      </font>
+      <br>
+      <img id="obstacle" src="obstacle-none.png">
+      <br>
+
+      <font face="Arial" size=5 color="white">
+      <p id = "servoSpeed"> Speed = 50</p>
+      000
+      <input type="range" id="position" 
+      min="0" max="100" value="50" style="width: 500px" 
+      onchange="updateSpeed(id);">
+      100
+      </font>
+      <br><br>
+
+      <font face="Arial" size=5 color="white">
+        Control
+      </font>
+      <br>
+      <a onclick="navBtns('F');">Forward</a>
+      <br>
+      <a onclick="navBtns('L');">Left</a>
+      <a onclick="navBtns('S');">Stop</a>
+      <a onclick="navBtns('R');">Right</a>
+      <br>
+      <a onclick="navBtns('B');">Reverse</a>
+    </div>
+  </body>
+  <script>
+    var wsURL = "ws://" + window.location.host + "/ws/a";
+    var ws;
+    
+    var img = new Array();
+    var idx = 3;
+
+    window.addEventListener("load", init, false);
+
+    function init()
+    {
+      ws = new WebSocket(wsURL);
+      ws.onopen = onOpen;
+      ws.onclose = onClose;
+      ws.onmessage = function (evt) { onMessage(evt); };
+      ws.onerror = onError;
+    }
+
+    function navBtns(direction) 
+    {
+      console.log(direction + "000");
+      ws.send(direction + "000");
+    }
+
+    img[3] = new Image();
+    img[2] = new Image();
+    img[1] = new Image();
+    img[0] = new Image();
+
+    img[3].src = "obstacle-none.png";
+    img[2].src = "obstacle-left.png";
+    img[1].src = "obstacle-right.png";
+    img[0].src = "obstacle-both.png";
+    
+    function updateSpeed(sliderId) 
+    {
+      var displaySpeed = document.getElementById("servoSpeed");
+      var speed = document.getElementById(sliderId).value;
+      var speedChars = ("000" + speed).substr(-3);
+      displaySpeed.innerHTML = "Speed = " + speedChars;
+      var speedStr = "v" + speedChars;
+      console.log(speedStr);
+      ws.send(speedStr);
+    }
+
+    function onMessage(evt)
+    {
+      var msg = evt.data;
+      console.log(msg);
+      useMcuReply(msg);
+    }
+    
+    function useMcuReply(response)
+    {
+      var val = document.getElementById("value");
+      //console.log("ir=" + response);
+
+      if((response.charAt(0) == "1") && (response.charAt(1) == "1"))
+      {
+        idx = 3;
+      }
+      else if((response.charAt(0) == "1") && (response.charAt(1) == "0"))
+      {
+        idx = 2;
+      }
+      else if((response.charAt(0) == "0") && (response.charAt(1) == "1"))
+      {
+        idx = 1;
+      }
+      else if((response.charAt(0) == "0") && (response.charAt(1) == "0"))
+      {
+        idx = 0;
+      }
+
+      document.getElementById("obstacle").src = img[idx].src;
+      console.log(idx);
+    }
+
+    function onOpen(evt)
+    {
+      console.log("onOpen");
+      updateSpeed("position");      
+    }
+  
+    function onClose(evt)
+    {
+      console.log("onClose");
+    }
+
+    function onError(evt)
+    {
+      console.log("Error");
+    }
+
+  </script>
+<html>

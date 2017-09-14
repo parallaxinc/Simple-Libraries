@@ -100,6 +100,21 @@ void s3_setup()
   _waitcnt((CNT + 10000000));
 }
 
+void s3_enableMic()
+{
+  scribbler_start_mic_env(&self->Scribbler);
+}
+
+int32_t s3_readMic()
+{
+  int micVol = scribbler_get_mic_env();
+  micVol -= 350000;
+  micVol /= 16500;
+  if(micVol < 0) micVol = 0;
+  if(micVol > 100) micVol = 100;
+  return micVol;
+}  
+
 static void s3_obstacler()
 {
   int32_t	side, ObstacleThld;

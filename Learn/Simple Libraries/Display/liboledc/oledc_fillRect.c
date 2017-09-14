@@ -22,18 +22,17 @@ int _width, _height;
 
 void oledc_fillRectPrimative(int x0, int y0, int w, int h, unsigned int color)
 {
-  if (w < 0 || h < 0) return;
-  
-  if (x0 < 0) x0 = 0;
-  if (x0 >= _width) x0 = (_width-1);
-  if (y0 < 0) y0 = 0;
-  if (y0 >= _height) y0 = (_height-1);
-  
-  if (x0 + w >= _width) w = (_width - x0);
-  if (y0 + h >= _height) h = (_height - y0);
-
   int x1 = x0 + w - 1;
   int y1 = y0 + h - 1;
+
+  if (x0 >= _width || y0 >= _height || x1 < 0 || y1 < 0 || w <= 0 || h <= 0) return;
+
+  if (x1 >= _width)  x1 = _width - 1;
+  if (y1 >= _height) y1 = _height - 1; 
+ 
+  if (x0 < 0) x0 = 0;
+  if (y0 < 0) y0 = 0;
+
 
   switch (TFTROTATION) {
     case 1:

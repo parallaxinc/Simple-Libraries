@@ -4,7 +4,7 @@
  * @author Andy Lindsay
  *
  * @copyright
- * Copyright (C) Parallax, Inc. 2016. All Rights MIT Licensed.
+ * Copyright (C) Parallax, Inc. 2013-2017. All Rights MIT Licensed.
  *
  * @brief This library provides convenient functions 
  * for a variety of microcontroller I/O, timing, conversion, and  
@@ -58,6 +58,8 @@
  * Use with CMM or LMM.
  * 
  * @version
+ * 1.1.7 Update pause function for up to 2,147,483,647 ms.  
+ * @par
  * 0.98.2 Add term_cmd function for SimpleIDE Terminal cursor, screen, and audio
  * control.  
  * @par

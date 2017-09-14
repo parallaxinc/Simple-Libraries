@@ -3,7 +3,7 @@
  *
  * @author Matthew Matz
  *
- * @version 0.5
+ * @version 0.6
  *
  * @copyright
  * Copyright (C) Parallax, Inc. 2016. All Rights MIT Licensed.
