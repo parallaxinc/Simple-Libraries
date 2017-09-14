@@ -179,6 +179,8 @@ volatile int abd_speedi[2];
 volatile int abd_speedd[2];
 volatile int abd_dvFlag[2] = {0, 0};
 
+volatile int abd_edMax = 10;
+
 //volatile int abd_gotoFlagTemp;
 
 volatile  int abd_zdir[2] = {0, 0};
@@ -210,7 +212,7 @@ void interpolation_table_setup()
 
   unsigned char str[12];
   ee_getStr(str, 12, _ActivityBot_EE_Start_);
-  ee_getStr(str, 12, _ActivityBot_EE_Start_);
+  //ee_getStr(str, 12, _ActivityBot_EE_Start_);
 
   abd_eeAddr = _ActivityBot_EE_Start_ + _ActivityBot_EE_Left_;
   //print("left abd_eeAddr = %d\n", abd_eeAddr);
@@ -539,6 +541,7 @@ void abd_encoders(void *par)
           else abd_speed[lr] = abd_speedT[lr];
         }  
 
+        //                    ----> DO NOT DELETE <----
         // This would force a stop on any direction change, even in velocity mode.
         // It seemed to decrease performance, so it is commented for now.  
         /*
@@ -573,25 +576,50 @@ void abd_encoders(void *par)
       {
     
         if((CNT - abd_tdst) >= abd_td) abd_sample();
+        // Notes: Calculated from abd_sample()         
+          //abd_dca[ABD_L] += abd_speed[ABD_L];
+          //abd_dca[ABD_R] += abd_speed[ABD_R];
+          //abd_dc[ABD_L] = abd_dca[ABD_L]/abd_dsr;
+          //abd_dc[ABD_R] = abd_dca[ABD_R]/abd_dsr;                             
 
         if(encoderFeedback)
         {
           input(14);
           // Error ticks = calculated - measured 
           abd_ed[lr] = abd_dc[lr] - abd_ticks[lr];
-          abd_ea[lr] += abd_ed[lr];
+
+          // abd_ea[lr] += abd_ed[lr]; // Replaced 170612
+          if(abd_ed[lr] > abd_edMax)
+          {
+            abd_ed[lr] = abd_edMax;
+            abd_dc[lr] = abd_ticks[lr] + abd_edMax;
+            abd_dca[lr] = abd_dc[lr] * abd_dsr;
+          }
+          else if(abd_ed[lr] < -abd_edMax)
+          {
+            abd_ed[lr] = -abd_edMax;
+            abd_dc[lr] = abd_ticks[lr] - abd_edMax;
+            abd_dca[lr] = abd_dc[lr] * abd_dsr;
+          }
+          else
+          {
+            // Integral error accumulation
+            abd_ea[lr] += abd_ed[lr];
+          }            
+
+          
           if(abd_speed[lr] != 0)
           {
             //iL += edL;
             if(abd_speed[lr] > 0)
             {
               abd_p[lr] = abd_ed[lr] * (3+(abd_speed[lr]/10));  
-              if(abd_ed[lr]>0)abd_i[lr]+=1; else if(abd_ed[lr]<0) abd_i[lr]-=1;
+              if((abd_ed[lr]>0) && (abd_ed[lr] != abd_edMax))abd_i[lr]+=1; else if((abd_ed[lr]<0) && (abd_ed[lr] != -abd_edMax)) abd_i[lr]-=1;
             }
             else if(abd_speed[lr] < 0)
             {
               abd_p[lr] = abd_ed[lr] * (-3+(abd_speed[lr]/10));  
-              if(abd_ed[lr]>0)abd_i[lr]-=1; else if(abd_ed[lr]<0) abd_i[lr]+=1;
+              if((abd_ed[lr]>0) && (abd_ed[lr] != abd_edMax))abd_i[lr]-=1; else if((abd_ed[lr]<0) && (abd_ed[lr] != -abd_edMax)) abd_i[lr]+=1;
             }
 
             if((CNT - abd_tdst) >= abd_td) abd_sample();
@@ -666,7 +694,6 @@ void abd_encoders(void *par)
 
 
 
-
 void abd_sample(void)
 {
   abd_td += abd_tdst;                                     // Reset sample timer         '
@@ -732,3 +759,127 @@ void abd_sample(void)
   abd_dc[ABD_L] = abd_dca[ABD_L]/abd_dsr;                     // ticks expected
   abd_dc[ABD_R] = abd_dca[ABD_R]/abd_dsr;                             
 }
+
+
+/*
+//                    ----> DO NOT DELETE <----
+// This was the previous incarnation of the sample function.  
+void abd_sample(void)
+{
+  abd_td += abd_tdst;                                     // Reset sample timer         '
+  abd_sampleCount++;
+  
+  for(int rl = ABD_L; rl <= ABD_R; rl++)
+  {
+    if(((INA >> abd_ePin[rl]) & 1) != state[rl])
+    {
+      state[rl] = (~state[rl]) & 1;
+      //if( ((rl == L) && (phs[rl] == 0)) || ((rl == R) && (phs[rl] == 0)) )
+      if( ((rl == ABD_L) && (PHSA == 0)) || ((rl == ABD_R) && (PHSB == 0)) )
+      {
+        abd_ticks[rl] += abd_zdir[rl];
+      }          
+      //if(phs[rl] > cntrVal[rl] + 1500)
+      else if( ( (rl == ABD_L) && (phs[rl] > (cntrVal[rl] + 1500)) ) || ((rl == ABD_R) && (phs[rl] < (1500 - cntrVal[rl]))) )
+      {
+        abd_ticks[rl]++;
+        abd_zdir[rl] = 1;
+      }
+      //else if(phs[rl] < cntrVal[rl] + 1500)
+      else if( ( (rl == ABD_L) && (phs[rl] < (cntrVal[rl] + 1500)) ) || ((rl == ABD_R) && (phs[rl] > (1500 - cntrVal[rl]))) )
+      {
+        abd_ticks[rl]--;
+        abd_zdir[rl] = -1;
+      }
+      else
+      {
+        abd_ticks[rl] += abd_zdir[rl];
+      }
+    }
+  }
+
+  // Calculated distance accumulator
+
+  #ifdef test_t_interval
+    if( (n*4) < (sizeof(rec_t)-8) )
+      rec_t[n++] = CNT;  
+  #endif
+
+  //  Every sampling rate x per second d*c is the calculated distance:
+  //    accumulator add number ot ticks per second you want the wheel to turn
+  //    calculated = accumulator / sampling rate
+  //  In other words, if you are adding the number of ticks per second you want
+  //  at a rate of 400x/second, you'll need to divide that accumulated value by
+  //  400.
+
+  // distance calculated (accumulated) += encoder ticks per second requested  
+  //abd_dca[L] += etpsL;                              // + velocityL for dt
+  //abd_dca[R] += etpsR;                              // + velocityR for dt
+  abd_dca[ABD_L] += abd_speed[ABD_L];                              // + velocityL for dt
+  abd_dca[ABD_R] += abd_speed[ABD_R];                              // + velocityR for dt
+  
+  // distance calculated = distance calculated (accumulated) / sampling rate
+  abd_dc[ABD_L] = abd_dca[ABD_L]/abd_dsr;                     // ticks expected
+  abd_dc[ABD_R] = abd_dca[ABD_R]/abd_dsr;                             
+}
+*/
+
+
+
+
+
+
+/*
+        //  test 170412
+        //                    ----> DO NOT DELETE <----
+        // This nudge correction has states for responding to overcorrection.
+        // It needs tuning.
+        if((( ((abd_gotoFlag[lr] == 2) || (abd_gotoFlag[lr] == 4)) && (abd_stopCtr[lr] == 0) && (abd_speed[lr] == 0))) 
+        || (((abd_gotoFlag[lr] == 3))))// && (abd_stopCtr[lr] == 0))))
+        {
+          if((CNT - abd_tdst) >= abd_td) abd_sample();
+          abd_distError[lr] = abd_ticksf[lr] - abd_ticks[lr];
+          sign[lr] = abd_abs(abd_distError[lr]) / abd_distError[lr];
+
+
+          if(abd_distError[lr] == 0)
+          {
+            if(abd_gotoFlag[lr] == 2)
+            {
+              abd_gotoFlag[lr] = 4;
+              abd_speed[lr] = 0;
+            }
+            else if(abd_gotoFlag[lr] == 3)
+            {
+              abd_speed[lr] = 0;
+              abd_gotoFlag[lr] = 4;
+            } 
+            else if(abd_gotoFlag[lr] == 4)
+            {
+              abd_gotoFlag[lr] = 0;
+              abd_speed[lr] = 0;
+              abd_nudgeCtr[lr] = 0;
+            } 
+          }
+          else if(abd_distError[lr] != 0)
+          {
+            if(abd_gotoFlag[lr] == 2)
+            {
+              abd_nudgeCtr[lr]++;
+              abd_speed[lr] = (sign[lr] * ABD_NUDGE_SPEED);
+              abd_gotoFlag[lr] = 3; //18
+            } 
+            else if(abd_gotoFlag[lr] == 3)
+            {
+              
+            } 
+            else if(abd_gotoFlag[lr] == 4)
+            {
+              abd_gotoFlag[lr] = 2;
+            } 
+          }                                     
+          //
+        
+                  
+        } // End of for(int lr = 0; lr <= 1; lr++) that follows while(1) main loop
+*/
