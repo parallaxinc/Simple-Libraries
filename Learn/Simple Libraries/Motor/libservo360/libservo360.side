@@ -1,0 +1,17 @@
+libservo360.c
+API_PUBLIC.c
+console.c
+control.c
+encoder.c
+helpers.c
+servo360.c
+servo360.h
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>defs::-std=c99
+>-lm
+>-create_library
+>BOARD::ACTIVITYBOARD

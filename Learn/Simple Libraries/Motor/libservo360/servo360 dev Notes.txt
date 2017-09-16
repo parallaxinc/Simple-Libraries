@@ -1,0 +1,151 @@
+To-Do: 
+
+
+  [  ] Right wheel losing a tick
+
+  [  ] Set up pulse windows for 6 or 8 servos
+  [  ] Add overflow resets for the 12-bit angle tracking approaching 31 bits
+  [  ] Transition between speed and position control 
+  [  ] Slow down faster wheel at top speed
+
+  [  ] Add control system setting functions
+  [  ] Test more servos
+
+  [  ] Clean variable names
+  [  ] Clean function names
+  
+  [  ] Documentation comments
+  [  ] Code comments
+
+  [  ] Make feedback work sans encoders
+
+
+Reminders:
+
+  Test feedback
+  Temporarily change rampstep and topspeed in drive_goto
+  Check how the servo handles stalls
+  Check for functions that call other functions and might set locks twice
+  Check for rounding down error in goto
+  AB Interpreter doesn't run properly if #define _console_
+  Check to make sure repeated same speed calls don't change control accumulators
+
+
+Tests:
+
+ [ pass ] Test Encoder Connections.side
+ [ pas* ] AB Interpreter.side
+          * It does not pass if _console_ is #defined for debugging
+ [ pass ] Forward Stop Face Right.side
+
+ [ fail ] Speeds for Navigation.side
+          Examine IR Bot for overshoot
+          Check Ping Bot against others for left servo lag
+            IR Bot did not have the same problem as Ping Bot
+
+ [  na  ] Test Ping.side
+ [ pass ] Detect and Turn from Obstacle.side
+ [ pass ] Roaming with Ping.side
+          In ...Documents\SimpleIDE\My Projects\Additional abdrive360 Tests
+ [ fail ] Follow with Ping.side
+          The application worked, but the servo missmatch is very visible.
+
+ [  na  ] Test Whiskers with Terminal.side
+ [  na  ] Test Whiskers with LEDs.side
+ [ fail ] Whiskers Push Bot.side
+          Application passed, but servos were missmatched at certain speeds
+ [ fial ] Roaming with Whiskers.side
+          Either servoLeft too slow periodically, or servoRight too fast periodically  
+
+ [ test ] Test Light Sensors.side
+ [ test ] Test Light Sensors Graphical.side
+ [ test ] Navigate by Light.side
+
+ [ test ] Test IR Detectors.side
+ [ test ] IR Roaming.side
+
+ [ test ] drive_goto tests.side
+ [ test ] drive_speed tests.side
+
+
+Notes:
+
+   Open Loop Acceleration-360
+   
+   alphaMax approx (40 degrees / s) / (1/50/s) = 2000 degrees/s^2
+
+
+History:
+
+servo360 dev - Copy (30)
+draft of libabdrive functions
+
+servo360 dev - Copy (29)
+Curve goto POC
+
+servo360 dev - Copy (28)
+Snapshot before 170914 PM work
+
+servo360 dev - Copy (26)
+Goto from target value
+First library version
+
+servo360 dev - Copy (23)
+Start twitch eliminated
+
+servo360 dev - Copy (22)
+POC Two Servos Speed
+
+servo360 dev - Copy (21)
+POC Two Servos Speed
+
+servo360 dev - Copy (20)
+Structures with terminal debugged
+
+servo360 dev - Copy (19)
+Structures
+
+servo360 dev - Copy (17)
+Functions renamed
+
+servo360 dev - Copy (16)
+Snapshot 170912 3:30 PM
+Working on cleaning up function names
+Some variables left
+
+servo360 dev - Copy (15)
+Snapshot during variable cleaning
+
+servo360 dev - Copy (13)
+Variable elimination
+
+servo360 dev - Copy (12)
+last of the day 170911
+
+servo360 dev - Copy (11)
+last of the day 170911
+
+servo360 dev - Copy (10)
+Lurch from position to speed fixed
+
+servo360 dev - Copy (9)
+Speed and goto ok
+Distance working but not verified as 4096
+
+servo360 dev - Copy (8)
+fixed transfer function pw
+still looking for ticksguard problem
+
+
+servo360 dev - Copy (6)
+Goto Functionality Added
+Works
+
+servo360 dev - Copy (5)
+Speed and position control regained
+
+servo360 dev - Copy (4)
+Encoding works
+Control speed with speedOut variable in 0.1 us units
+
+
