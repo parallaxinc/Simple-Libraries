@@ -167,7 +167,7 @@ void drive_setMaxVelocity(int forGotoOrSpeed, int ticksPerSec)
     servo360_setMaxSpeed(pinCtrlLeft, ticksPerSec);
     servo360_setMaxSpeed(pinCtrlRight, ticksPerSec);
   }
-  else if(forGotoOrSpeed == FOR_SPEED)
+  else if(forGotoOrSpeed == FOR_GOTO)
   {
     speedLimitGoto = ticksPerSec;
   }    
@@ -269,6 +269,12 @@ void drive_rampStep(int left, int right)
 {
   drive_speed(left, right);
 }
+
+void drive_setMaxSpeed(int speed)
+{
+  
+}  
+
 
 
 
