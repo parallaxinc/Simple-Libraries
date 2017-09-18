@@ -21,12 +21,15 @@
 int *servoCog;
 volatile int lock360;
 volatile int devCount;
-static volatile int t360;
-static volatile int dt360;
+volatile int t360;
+volatile int t360slice;
+volatile int dt360;
 volatile int angleSign = CCW_POS;
 volatile int cntPrev;
+volatile int dt360fbSlice;
+volatile int dt360spSlice;
 
-servo360 fb[2];
+servo360 fb[FB360_DEVS_MAX];
 
 
 void fb360_run(void)
@@ -35,6 +38,7 @@ void fb360_run(void)
   cntPrev = CNT;
   pause(500);
 }
+
   
 void fb360_end(void)
 {
@@ -43,61 +47,8 @@ void fb360_end(void)
 } 
 
 
-void fb360_servoPulse(int p)
-{
-  //high(26);
-  int pin = fb[p].pinCtrl;
-  low(pin);
-  //low(12);
-  PHSA = 0;
-  FRQA = 0;
-  CTRA = (4 << 26) | pin;
-  FRQA = 1;
-  PHSA = -(15000 + fb[p].speedOut) * (CLKFREQ/10000000);
-  //low(26);
-  /*
-  low(27);
-  PHSB = 0;
-  FRQB = 0;
-  CTRB = (4 << 26) | 27;
-  FRQB = 1;
-  PHSB = -(15000 + 500) * (CLKFREQ/10000000);
-  */
-  while(get_state(pin));
-  CTRA = 0;
-  PHSA = 0;
-  FRQA = 0;
-}   
-
-
-void fb360_mainLoop()
-{
-  fb360_setup();
-  
-  //low(27);
-  
-  //int p = 0;
-
-  while(1)
-  {
-    waitcnt(t360 += dt360);
-    for(int p = 0; p < devCount; p+= 1)
-    //if(devCount > 0)
-    {
-      //toggle(27);
-      fb360_checkAngle(p);
-      fb360_outputSelector(p);
-      //fb[p].speedOut = 0;
-      fb360_servoPulse(p);
-      //toggle(27);
-    }      
-  }    
-}  
-
-
 void fb360_setup(void)
 {
-  
   for(int p = 0; p < FB360_DEVS_MAX; p++)
   {
     fb[p].pinCtrl = -1;
@@ -109,9 +60,88 @@ void fb360_setup(void)
   lock360 = locknew();
   lockclr(lock360);
   
-  dt360 = CLKFREQ/50;
-  t360  = CNT + dt360;
+  dt360 = CLKFREQ / FB360_FREQ_CTRL_SIG;  // 20 ms
+  dt360fbSlice = 4 * dt360 / 5;           // 16 ms
+  dt360spSlice = dt360 / 10;              // 2 ms
+  t360  = CNT;
+  t360slice = t360;
+}
+
+
+void fb360_mainLoop()
+{
+  fb360_setup();
+  
+  while(1)
+  {
+    waitcnt(t360 += dt360);
+    for(int p = 0; p < FB360_DEVS_MAX; p++)
+    {
+      if(fb[p].pinCtrl != -1 && fb[p].pinFb != -1)
+      {
+        fb360_checkAngle(p);
+        fb360_outputSelector(p);
+      }        
+    }      
+    for(int p = 0; p < FB360_DEVS_MAX; p++)
+    {
+      if(p % 2 == 1)
+      {
+        waitcnt(t360 + dt360fbSlice + ((p/2) * (dt360spSlice)));
+        fb360_servoPulse(p - 1, p);
+      }        
+    }      
+  }    
 }  
+//
+
+//
+void fb360_servoPulse(int p, int q)
+{
+  int pinA = fb[p].pinCtrl;
+  int pinB = fb[q].pinCtrl;
+
+  if(pinA != -1)
+  {
+    low(pinA);
+    PHSA = 0;
+    FRQA = 0;
+    CTRA = (4 << 26) | pinA;
+    FRQA = 1;
+    PHSA = -(15000 + fb[p].speedOut) * (CLKFREQ/10000000);
+  }   
+
+  //if(pinB != -1 && q < FB360_DEVS_MAX)
+  if(pinB != -1)
+  {
+    low(pinB);
+    PHSB = 0;
+    FRQB = 0;
+    CTRB = (4 << 26) | pinB;
+    FRQB = 1;
+    PHSB = -(15000 + fb[q].speedOut) * (CLKFREQ/10000000);
+  }    
+
+  if(pinA != -1)
+  {
+    while(get_state(pinA));
+    CTRA = 0;
+    PHSA = 0;
+    FRQA = 0;
+  }    
+  
+  //if(pinB != -1 && q < FB360_DEVS_MAX)
+  if(pinB != -1)
+  {
+    while(get_state(pinB));
+    CTRB = 0;
+    PHSB = 0;
+    FRQB = 0;
+  }    
+}   
+//
+
+
 
 
 void fb360_waitServoCtrllEdgeNeg(int p)

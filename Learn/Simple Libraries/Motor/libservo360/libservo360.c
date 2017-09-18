@@ -16,11 +16,11 @@
 
 int main()
 {
-//int state = servo360_setMaxSpeed(12, 180);
-//  print("speedLimit = %d\r", speedLimit);
+  //int state = servo360_setMaxSpeed(12, 180);
+  //  print("speedLimit = %d\r", speedLimit);
   
   //servo360_setramp(12, 2);
-//  print("rampStep = %d\r", rampStep);
+  //  print("rampStep = %d\r", rampStep);
 
   servo360_connect(12, 14);
   servo360_connect(13, 15);

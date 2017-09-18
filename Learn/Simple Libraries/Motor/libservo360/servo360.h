@@ -34,7 +34,7 @@
 #define GOTO 3
 #define MONITOR 4
 #define FB360_FREQ_CTRL_SIG 50
-#define FB360_DEVS_MAX 2
+#define FB360_DEVS_MAX 4
 
 #define FB360_RAMP_STEP 10 * 4096 / 360;
 
@@ -84,6 +84,7 @@ void fb360_setup(void);
 void fb360_mainLoop();
 void fb360_outputSelector(int p);
 
+void fb360_servoPulse(int p, int q);
 void fb360_waitServoCtrllEdgeNeg(int p);
 int fb360_dutyCycle(int p, int scale);
 int fb360_crossing(int current, int previous, int units);
@@ -125,6 +126,10 @@ int terminal_checkForValue(fdserial *connection, int *value);
 //extern fdserial *term;
 extern int *servoCog;
 extern volatile int lock360;
+extern volatile int t360;
+extern volatile int t360slice;
+extern volatile int dt360fbSlice;
+extern volatile int dt360spSlice;
 extern volatile int devCount;
 //extern volatile int SCALE_DEN_V;                     // Velocity control system denomenator
 
@@ -194,7 +199,7 @@ typedef volatile struct servo360_s {
   volatile int angleTarget;
 } servo360;
 
-extern volatile servo360 fb[2];
+extern volatile servo360 fb[FB360_DEVS_MAX];
 
 // console
 #ifdef _console_

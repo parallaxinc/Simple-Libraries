@@ -123,6 +123,8 @@ int servo360_angle(int pin, int position)
   }    
   
   lockclr(lock360);
+  
+  print("p = %d\r", p);
 }  
 
 
@@ -135,18 +137,6 @@ int servo360_goto(int pin, int position)
 
 
   while(lockset(lock360));
-  /*
-    fb[p].speedTarget  = 0;
-    fb[p].angleError = 0;
-    fb[p].erDist = 0;
-    fb[p].erDistP = 0;
-    fb[p].integralV = 0;
-    fb[p].derivativeV = 0;
-    fb[p].pV = 0;
-    fb[p].iV = 0;
-    fb[p].dV = 0;
-    fb[p].opPidV = 0;
-  */
 
   offset = fb[p].angleTarget;
   target = position * UNITS_ENCODER / fb[0].unitsRev;
@@ -189,7 +179,7 @@ int servo360_connect(int pinControl, int pinFeedback)
   if(fb360_findServoIndex(pinFeedback) != -1)
     return -5;
     
-  if(pinControl >= 28 && pinFeedback <= 28)
+  if(pinControl >= 28 && pinFeedback >= 28)
     return -6;
 
   if(devCount >= FB360_DEVS_MAX)
@@ -198,14 +188,22 @@ int servo360_connect(int pinControl, int pinFeedback)
   while(lockset(lock360));
 
   int result = -1;
+  /*
   for(int p = 0; p < FB360_DEVS_MAX; p++) 
   {
-    if(fb[p].pinCtrl == -1 && fb[p].pinFb == -1)
+    print("fb[%d].pinCtrl = %d, fb[%d].pinFb = %d\r", p, fb[p].pinCtrl, p, fb[p].pinFb);
+  }
+  */
+  for(int p = 0; p < FB360_DEVS_MAX; p++) 
+  {
+    //print("fb[%d].pinCtrl = %d, fb[%d].pinFb = %d\r", p, fb[p].pinCtrl, p, fb[p].pinFb);
+    if( (fb[p].pinCtrl == -1) && (fb[p].pinFb == -1) )
     {
       //fb[p].pinCtrl = pinControl;
       //fb[p].pinFb = pinFeedback;
       result = p;
       break;
+    //print("\r");
     }
   }
   //lockclr(lock360);
@@ -247,9 +245,13 @@ int servo360_connect(int pinControl, int pinFeedback)
   fb[p].angle = (fb[p].angleSign) * (fb[p].angleFixed - fb[p].pvOffset);
   fb[p].angleCalc = fb[p].angle;
   fb[p].angleP = fb[p].angle;
+
   devCount++;
 
   lockclr(lock360);  
+  print("devCount: %d, index: %d, p: %d\r", devCount, result, p); 
+  print("fb[%d].pinCtrl = %d, fb[%d].pinFb = %d\r", p, fb[p].pinCtrl, p, fb[p].pinFb);
+
 
   return result;
 }

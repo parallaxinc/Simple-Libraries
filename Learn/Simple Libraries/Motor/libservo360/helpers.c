@@ -84,7 +84,8 @@ int fb360_findServoIndex(int pin)
   int p = 0;
   while(1)
   {
-    if(p >= FB360_DEVS_MAX)
+    //print("p = %d, ", p);
+    if(p >= (FB360_DEVS_MAX))
     {
       return -1;
     }       
