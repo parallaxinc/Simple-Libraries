@@ -226,7 +226,7 @@ int32_t s3_motorsMoving()
 }
 
 int32_t s3_tailWheelMoving() {
-  return (((scribbler_motion() & 0xFF00 >> 8) < 100) ? 1 : 0);
+  return (((scribbler_motion() & 0xFF00) >> 8 < 10) ? 1 : 0);
 }  
 
 void s3_simpleDrive(int32_t Direction, int32_t Speed)
