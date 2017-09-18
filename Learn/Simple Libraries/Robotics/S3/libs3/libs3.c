@@ -74,19 +74,9 @@ the Test Utility, cycle the Scribbler//s power switch.
 
 */
 
-
-/* SERIAL_TERMINAL USED */
-#include "simpletools.h"
-#include "s3.h"
-
-
-int main()
-{
-
-
+int main() {
 
 }
-
 
 
 /*
