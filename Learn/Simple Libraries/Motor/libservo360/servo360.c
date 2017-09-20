@@ -24,8 +24,9 @@ volatile int t360slice;
 volatile int dt360;
 volatile int angleSign = CCW_POS;
 volatile int cntPrev;
-volatile int dt360fbSlice;
-volatile int dt360spSlice;
+//volatile int dt360fbSlice;
+//volatile int dt360spSlice;
+volatile int dt360a[2];
 
 servo360 fb[FB360_DEVS_MAX];
 
@@ -59,10 +60,9 @@ void fb360_setup(void)
   lockclr(lock360);
   
   dt360 = CLKFREQ / FB360_FREQ_CTRL_SIG;  // 20 ms
-  dt360fbSlice = 4 * dt360 / 5;           // 16 ms
-  dt360spSlice = dt360 / 10;              // 2 ms
   t360  = CNT;
-  t360slice = t360;
+  dt360a[0] = 16 * (CLKFREQ / 1000);      // 16 ms
+  dt360a[1] = 18 * (CLKFREQ / 1000);      // 18 ms
 }
 
 
@@ -72,9 +72,7 @@ void fb360_mainLoop()
   
   while(1)
   {
-    //waitcnt(t360 += dt360);
-    t360 += dt360;
-    while(CNT - t360 < dt360);
+    while((CNT - t360) < dt360);
     for(int p = 0; p < FB360_DEVS_MAX; p++)
     {
       if(fb[p].pinCtrl != -1 && fb[p].pinFb != -1)
@@ -87,12 +85,11 @@ void fb360_mainLoop()
     {
       if(p % 2 == 1)
       {
-        //waitcnt(t360 + dt360fbSlice + ((p/2) * (dt360spSlice)));
-        int timeInc = dt360fbSlice + ((p/2) * (dt360spSlice));
-        while(CNT - t360 <  timeInc);
+        while((CNT - t360) <  dt360a[p/2]);
         fb360_servoPulse(p - 1, p);
       }        
     }      
+    t360 += dt360;
   }    
 }  
 //
