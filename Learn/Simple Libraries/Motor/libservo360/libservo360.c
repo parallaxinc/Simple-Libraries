@@ -22,14 +22,14 @@ int main()
   //servo360_setramp(12, 2);
   //  print("rampStep = %d\r", rampStep);
 
-  servo360_connect(12, 14);
-  servo360_connect(13, 15);
-  
   #ifdef _console_
     console_start();
     suppressFbDisplay = 0;
   #endif 
 
+  servo360_connect(12, 14);
+  servo360_connect(13, 15);
+  
   fb360_setRampStep(12, 256); 
   fb360_setRampStep(13, 256); 
   

@@ -1,4 +1,4 @@
-drive_goto tests.c
+Test Encoder Connections.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

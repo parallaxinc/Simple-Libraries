@@ -1,4 +1,4 @@
-drive_goto tests with setMaxVelocity.c
+Dev Follow with Ping (1).c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

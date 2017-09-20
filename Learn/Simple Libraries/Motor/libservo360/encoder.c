@@ -11,8 +11,6 @@
 
 
 #include "simpletools.h"  
-//#include "servo.h" 
-#include "fdserial.h"
 #include "servo360.h"
 
 //servo360 fb[2];

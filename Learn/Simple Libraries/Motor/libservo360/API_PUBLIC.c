@@ -11,8 +11,6 @@
 
 
 #include "simpletools.h"  
-//#include "servo.h" 
-#include "fdserial.h"
 #include "servo360.h"
 
 
@@ -124,7 +122,7 @@ int servo360_angle(int pin, int position)
   
   lockclr(lock360);
   
-  print("p = %d\r", p);
+  //print("p = %d\r", p);
 }  
 
 
@@ -139,7 +137,7 @@ int servo360_goto(int pin, int position)
   while(lockset(lock360));
 
   offset = fb[p].angleTarget;
-  target = position * UNITS_ENCODER / fb[0].unitsRev;
+  target = position * UNITS_ENCODER / fb[p].unitsRev;
 
   fb[p].angleTarget = target + offset;
 
@@ -249,8 +247,8 @@ int servo360_connect(int pinControl, int pinFeedback)
   devCount++;
 
   lockclr(lock360);  
-  print("devCount: %d, index: %d, p: %d\r", devCount, result, p); 
-  print("fb[%d].pinCtrl = %d, fb[%d].pinFb = %d\r", p, fb[p].pinCtrl, p, fb[p].pinFb);
+  //print("devCount: %d, index: %d, p: %d\r", devCount, result, p); 
+  //print("fb[%d].pinCtrl = %d, fb[%d].pinFb = %d\r", p, fb[p].pinCtrl, p, fb[p].pinFb);
 
 
   return result;

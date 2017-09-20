@@ -1,3 +1,5 @@
+#define _console_
+
 /*
   @file servo360.h
 
@@ -9,8 +11,6 @@
   @brief 
 */
 
-
-//#define _console_
 
 #include "simpletools.h"  
 

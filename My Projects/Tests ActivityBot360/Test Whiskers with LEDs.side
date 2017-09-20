@@ -1,4 +1,4 @@
-IR Roaming at slower speeds.c
+Test Whiskers with LEDs.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

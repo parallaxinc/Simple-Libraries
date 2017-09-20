@@ -1,4 +1,4 @@
-drive_goto tests 3 servos.c
+Set Speeds.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

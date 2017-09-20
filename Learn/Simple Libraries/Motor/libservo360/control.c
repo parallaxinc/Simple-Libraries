@@ -11,13 +11,14 @@
 
 
 #include "simpletools.h"  
-//#include "servo.h" 
-#include "fdserial.h"
 #include "servo360.h"
 
 
+// Angular PID control
 int fb360_pidA(int p)
 {
+  // Clear any speed control system corrections so that return to speed control
+  // doesn't start with unexpected compensation.
   {
     fb[p].speedTarget  = 0;
     fb[p].angleError = 0;
@@ -34,19 +35,27 @@ int fb360_pidA(int p)
     //fb[p].angleCalcP = fb[p].angleCalc;
   }    
   
+  // Angle error
   fb[p].er = fb[p].sp - fb[p].angle;
+  // Integral accumuliation
   fb[p].integral += fb[p].er;
+  // Derivative difference
   fb[p].derivative = fb[p].er - fb[p].erP;
   
+  // Clamp itegral level
   if(fb[p].integral > fb[p].iMax) fb[p].integral = fb[p].iMax;
   if(fb[p].integral < fb[p].iMin) fb[p].integral = fb[p].iMin;
 
+  // Calculate influences of P, I, and D.
   fb[p].p = (fb[p].Kp * fb[p].er) / SCALE_DEN_A;
   fb[p].i = (fb[p].Ki * fb[p].integral) / SCALE_DEN_A;
   fb[p].d = (fb[p].Kd * fb[p].derivative) / SCALE_DEN_A;
   
+  // Output = sum(P, I, and D)
   fb[p].op = (fb[p].p + fb[p].i + fb[p].d);
   
+  // Limit output proportional to speed limit???  This may have been intended
+  // to be proportional to the current target speed.
   int opMax = fb[p].speedLimit / 4;
   
   if(fb[p].op > opMax) fb[p].op = opMax;
@@ -56,8 +65,11 @@ int fb360_pidA(int p)
   return fb[p].op;
 }
   
-
-
+// Velocity PID control
+// Calculated distance marches forward based on speed.  The control system 
+// calculates position error at 50 Hz by subtracting actual position from 
+// calcualted position.  This is the error that is the basis for the 
+// P, I, and D calculations.   
 int fb360_pidV(int p)  
 {
   int opv;  
@@ -65,13 +77,10 @@ int fb360_pidV(int p)
 
   int transition = fb360_crossing(fb[p].angle, fb[p].angleP, UNITS_ENCODER);
         
-  //angleNow = angle;
-
   fb[p].speedMeasured = (fb[p].angle - fb[p].angleP) * 50; 
 
   fb[p].angleDeltaCalc = fb[p].speedTarget / FB360_CS_HZ;
   
-  //angleCalc = anglePrevCalc + angleDeltaCalc;
   fb[p].angleCalc += fb[p].angleDeltaCalc;
 
   fb[p].angleError = fb[p].angleCalc - fb[p].angle;
@@ -93,13 +102,15 @@ int fb360_pidV(int p)
   if(fb[p].opV < -opMax) fb[p].opV = -opMax;
   
   fb[p].erDistP = fb[p].erDist;
-  //anglePrev = angleNow;
-//  anglePrevCalc = angleCalc;
+
   return fb[p].opV;
-  //
+
 }
 
-
+// Select pulse width from graph of angular velocity vs. pulse width
+// for the servo.  This is done once for each new speed.  After the pulse
+// is delivered once, the control system adjusts upward or downward from
+// that initial value.
 int fb360_upsToPulseFromTransferFunction(int unitsPerSec)
 {
   int pw, b, mx;
@@ -127,7 +138,10 @@ int fb360_upsToPulseFromTransferFunction(int unitsPerSec)
 
 void fb360_speedControl(int p)
 {
-
+  // If we switch back to position control, it doesn't
+  // work well to have old settings error correction from
+  // the last time position was controlled, so clear the
+  // settings.
   {
     fb[p].er = 0;
     fb[p].integral = 0;
@@ -140,7 +154,8 @@ void fb360_speedControl(int p)
     fb[p].pw = 0;
   }    
 
-  
+  // Acceleration control by taking steps in target speed 
+  // toward requested speed
   if(fb[p].speedTarget != fb[p].speedReq)
   {
     int speedDifference = fb[p].speedReq - fb[p].speedTarget;

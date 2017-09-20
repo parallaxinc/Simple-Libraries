@@ -1,4 +1,4 @@
-drive_speed tests.c
+Test Whiskers with Terminal.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

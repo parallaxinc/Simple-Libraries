@@ -11,8 +11,6 @@
 
 
 #include "simpletools.h"  
-//#include "servo.h" 
-//#include "fdserial.h"
 #include "servo360.h"
 
                            ////// ALL SERVOS //////
@@ -74,7 +72,9 @@ void fb360_mainLoop()
   
   while(1)
   {
-    waitcnt(t360 += dt360);
+    //waitcnt(t360 += dt360);
+    t360 += dt360;
+    while(CNT - t360 < dt360);
     for(int p = 0; p < FB360_DEVS_MAX; p++)
     {
       if(fb[p].pinCtrl != -1 && fb[p].pinFb != -1)
@@ -87,13 +87,16 @@ void fb360_mainLoop()
     {
       if(p % 2 == 1)
       {
-        waitcnt(t360 + dt360fbSlice + ((p/2) * (dt360spSlice)));
+        //waitcnt(t360 + dt360fbSlice + ((p/2) * (dt360spSlice)));
+        int timeInc = dt360fbSlice + ((p/2) * (dt360spSlice));
+        while(CNT - t360 <  timeInc);
         fb360_servoPulse(p - 1, p);
       }        
     }      
   }    
 }  
 //
+
 
 //
 void fb360_servoPulse(int p, int q)

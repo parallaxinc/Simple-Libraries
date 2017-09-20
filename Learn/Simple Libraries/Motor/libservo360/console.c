@@ -11,7 +11,6 @@
 
 
 #include "simpletools.h"  
-//#include "servo.h" 
 #include "servo360.h"
 
 #ifdef _console_
@@ -75,7 +74,7 @@ void console()
   
   while(1)
   {
-    fb360_waitServoCtrllEdgeNeg(0);
+    fb360_waitServoCtrllEdgeNeg(devCount - 1);
     cnt = CNT;
     tElapsed = cnt - cntPrev;
     cntPrev = cnt;
@@ -146,8 +145,10 @@ void console()
         dprint(term, "id: %d, csop: %d, ms: %d\r", p, fb[p].csop, tElapsed / (CLKFREQ/1000)); 
         if(fb[p].csop == POSITION)
         {
-          dprint(term, "pv: %d, op: %d, e: %d, p: %d, i: %d, d: %d th: %d\r", 
-               fb[p].angle, fb[p].op, fb[p].er, fb[p].p, fb[p].i, fb[p].d, fb[p].theta); 
+          dprint(term, "sp: %d, pv: %d, op: %d, e: %d, "\
+                       "p: %d, i: %d, d: %d th: %d\r", 
+                       fb[p].sp, fb[p].angle, fb[p].op, fb[p].er, 
+                       fb[p].p, fb[p].i, fb[p].d, fb[p].theta); 
         }        
         //else if(operation == SPEED)
         else if(fb[p].csop == SPEED)
