@@ -93,10 +93,8 @@ void fb360_mainLoop()
     t360 += dt360;
   }    
 }  
-//
 
 
-//
 void fb360_servoPulse(int p, int q)
 {
   pulseCount++;
@@ -113,7 +111,6 @@ void fb360_servoPulse(int p, int q)
     PHSA = -(15000 + fb[p].speedOut) * (CLKFREQ/10000000);
   }   
 
-  //if(pinB != -1 && q < FB360_DEVS_MAX)
   if(pinB != -1)
   {
     low(pinB);
@@ -132,7 +129,6 @@ void fb360_servoPulse(int p, int q)
     FRQA = 0;
   }    
   
-  //if(pinB != -1 && q < FB360_DEVS_MAX)
   if(pinB != -1)
   {
     while(get_state(pinB));
@@ -142,7 +138,6 @@ void fb360_servoPulse(int p, int q)
   }    
 }   
 //
-
 
 
 

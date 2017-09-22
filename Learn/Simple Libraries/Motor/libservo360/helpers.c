@@ -51,6 +51,7 @@ int servo360_setControlSys(int pin, int constant, int value)
   }  
 }    
 
+
 int servo360_getAngleCalc(int pin)
 {
   if(!servoCog) fb360_run();
@@ -62,6 +63,7 @@ int servo360_getAngleCalc(int pin)
   lockclr(lock360);
   return val;
 }  
+
 
 int servo360_getCsop(int pin)
 {
@@ -139,16 +141,16 @@ void fb360_captureOffset(int p)
 }  
 
 
-int unitsAngleToEncoder(int value)
+int fb360_unitsAngleToEncoder(int value, int unitsRev)
 {
-  int result = value * UNITS_ENCODER / fb[0].unitsRev;
+  int result = value * UNITS_ENCODER / unitsRev;
   return result;
 }  
 
 
-int unitsEncoderToAngle(int value)
+int fb360_unitsEncoderToAngle(int value, int unitsRev)
 {
-  int result = value * fb[0].unitsRev / UNITS_ENCODER;
+  int result = value * unitsRev / UNITS_ENCODER;
   return result;
 }  
 

@@ -118,8 +118,8 @@ int fb360_pidV(int p);
 
 int fb360_findServoIndex(int pin);
 
-int fb360_unitsAngleToEncoder(int value);
-int fb360_unitsEncoderToAngle(int value); 
+int fb360_unitsAngleToEncoder(int value, int unitsRev);
+int fb360_unitsEncoderToAngle(int value, int unitsRev); 
 int fb360_checkDistanceRemaining(int pin, int speed, int finalAngle);
 
 int fb360_setMaxSpeed(int pin, int speed);
