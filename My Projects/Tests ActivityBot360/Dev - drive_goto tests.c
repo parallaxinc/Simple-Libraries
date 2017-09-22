@@ -10,12 +10,12 @@
 
 int main()                    
 {
-  /*
+  //
   #ifdef _console_
     console_start();
     suppressFbDisplay = 0;
   #endif 
-  */
+  //
 
   drive_goto(192, 192);
   drive_goto(-28, 28);

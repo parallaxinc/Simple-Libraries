@@ -1,4 +1,4 @@
-//#define _console_
+#define _console_
 
 /*
   @file servo360.h
@@ -42,16 +42,16 @@
 #define FB360_B -129
 #define FB360_ENC_RES 4096
 
-#define FB360_POS_INTGRL_MAX 150
-
-#define KPA 800
-#define KIA 200
-#define KDA 400
+#define KPA 600
+#define KIA 100
+#define KDA -200
+#define FB360_POS_INTGRL_MAX 350
 #define SCALE_DEN_A 100
 
-#define KPV 1000
-#define KIV 250
-#define KDV 500
+#define KPV 1200
+#define KIV 225
+#define KDV -100
+#define FB360_VEL_INTGRL_MAX 350
 #define SCALE_DEN_V 1000
 
 #define PW_CENTER 15000
@@ -59,11 +59,20 @@
 #define UNITS_ENCODER 4096
 #define UNITS_REV 360
 
+#define S360_KPV 1
+#define S360_KIV 2
+#define S360_KDV 3
+#define S360_IV_MAX 4
+#define S360_KPA 5
+#define S360_KIA 6
+#define S360_KDA 7
+#define S360_IA_MAX 8
+
 
 /* Drafted and waiting for pin argument */
+int servo360_connect(int pinControl, int pinFeedback);
 int servo360_setUnitsFullCircle(int pin, int units);
 int servo360_setMaxSpeed(int pin, int speed);
-int servo360_connect(int pinControl, int pinFeedback);
 int servo360_speed(int pin, int speed);
 int servo360_angle(int pin, int position);
 int servo360_get(int pin);                      
@@ -75,6 +84,11 @@ int servo360_feedback(int pin, int state);
 int servo360_set(int pinControl, int time);
 int servo360_setAcceleration(int pin, int unitsPerSecSquared);
 int servo360_goto(int pin, int position);
+int servo360_getTopSpeed(int pin);
+int servo360_getRampStep(int pin);
+int servo360_getCsop(int pin);
+int servo360_getAngleCalc(int pin);
+int servo360_setControlSys(int pin, int constant, int value);
 
 
 /* Internal */
@@ -110,11 +124,6 @@ int fb360_checkDistanceRemaining(int pin, int speed, int finalAngle);
 
 int fb360_setMaxSpeed(int pin, int speed);
 
-int servo360_getTopSpeed(int pin);
-int servo360_getRampStep(int pin);
-int servo360_getCsop(int pin);
-int servo360_getAngleCalc(int pin);
-
 #ifdef _console_
 void console();
 void console_start(void);
@@ -131,6 +140,7 @@ extern volatile int t360slice;
 extern volatile int dt360fbSlice;
 extern volatile int dt360spSlice;
 extern volatile int devCount;
+extern volatile int pulseCount;
 //extern volatile int SCALE_DEN_V;                     // Velocity control system denomenator
 
 

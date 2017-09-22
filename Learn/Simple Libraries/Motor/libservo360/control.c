@@ -65,6 +65,7 @@ int fb360_pidA(int p)
   return fb[p].op;
 }
   
+  
 // Velocity PID control
 // Calculated distance marches forward based on speed.  The control system 
 // calculates position error at 50 Hz by subtracting actual position from 
@@ -75,12 +76,8 @@ int fb360_pidV(int p)
   int opv;  
   int opMax = fb[p].speedLimit / 4;
 
-  int transition = fb360_crossing(fb[p].angle, fb[p].angleP, UNITS_ENCODER);
-        
   fb[p].speedMeasured = (fb[p].angle - fb[p].angleP) * 50; 
-
   fb[p].angleDeltaCalc = fb[p].speedTarget / FB360_CS_HZ;
-  
   fb[p].angleCalc += fb[p].angleDeltaCalc;
 
   fb[p].angleError = fb[p].angleCalc - fb[p].angle;
@@ -104,8 +101,8 @@ int fb360_pidV(int p)
   fb[p].erDistP = fb[p].erDist;
 
   return fb[p].opV;
-
 }
+
 
 // Select pulse width from graph of angular velocity vs. pulse width
 // for the servo.  This is done once for each new speed.  After the pulse

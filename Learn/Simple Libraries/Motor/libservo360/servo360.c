@@ -27,6 +27,7 @@ volatile int cntPrev;
 //volatile int dt360fbSlice;
 //volatile int dt360spSlice;
 volatile int dt360a[2];
+volatile int pulseCount;
 
 servo360 fb[FB360_DEVS_MAX];
 
@@ -98,6 +99,7 @@ void fb360_mainLoop()
 //
 void fb360_servoPulse(int p, int q)
 {
+  pulseCount++;
   int pinA = fb[p].pinCtrl;
   int pinB = fb[q].pinCtrl;
 

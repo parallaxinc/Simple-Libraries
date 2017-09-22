@@ -93,6 +93,7 @@ int servo360_speed(int pin, int speed)
   }    
   
   lockclr(lock360);
+  //fb360_waitServoCtrllEdgeNeg(devCount - 1);
 }  
 
 
@@ -122,7 +123,6 @@ int servo360_angle(int pin, int position)
   
   lockclr(lock360);
   
-  //print("p = %d\r", p);
 }  
 
 
@@ -133,7 +133,6 @@ int servo360_goto(int pin, int position)
   int p = fb360_findServoIndex(pin);
   if(p == -1)return -1;
 
-
   while(lockset(lock360));
 
   offset = fb[p].angleTarget;
@@ -141,7 +140,6 @@ int servo360_goto(int pin, int position)
 
   fb[p].angleTarget = target + offset;
 
-  //fb[p].angleTarget = position * UNITS_ENCODER / fb[p].unitsRev;
   fb[p].csop = GOTO;
   lockclr(lock360);
 }
@@ -186,25 +184,15 @@ int servo360_connect(int pinControl, int pinFeedback)
   while(lockset(lock360));
 
   int result = -1;
-  /*
+
   for(int p = 0; p < FB360_DEVS_MAX; p++) 
   {
-    print("fb[%d].pinCtrl = %d, fb[%d].pinFb = %d\r", p, fb[p].pinCtrl, p, fb[p].pinFb);
-  }
-  */
-  for(int p = 0; p < FB360_DEVS_MAX; p++) 
-  {
-    //print("fb[%d].pinCtrl = %d, fb[%d].pinFb = %d\r", p, fb[p].pinCtrl, p, fb[p].pinFb);
     if( (fb[p].pinCtrl == -1) && (fb[p].pinFb == -1) )
     {
-      //fb[p].pinCtrl = pinControl;
-      //fb[p].pinFb = pinFeedback;
       result = p;
       break;
-    //print("\r");
     }
   }
-  //lockclr(lock360);
 
   int p = result;
   
@@ -224,20 +212,19 @@ int servo360_connect(int pinControl, int pinFeedback)
   
   fb[p].pw = PW_CENTER;
   fb[p].iMax = FB360_POS_INTGRL_MAX;
-  fb[p].iMin = FB360_POS_INTGRL_MAX;
+  fb[p].iMin = -FB360_POS_INTGRL_MAX;
+  fb[p].iMaxV = FB360_VEL_INTGRL_MAX;
+  fb[p].iMinV = -FB360_VEL_INTGRL_MAX;
   
   fb[p].speedLimit = MAX_SPEED;
   fb[p].rampStep = FB360_RAMP_STEP;
   
-  //while(lockset(lock360));
- 
   fb360_setPositiveDirection(p, CCW_POS);
 
   fb[p].theta = fb360_getTheta(p);  
   fb[p].thetaP = fb[p].theta;
   fb[p].angleFixed = fb[p].theta; 
 
-  //fb360_captureOffset(p);
   fb[p].pvOffset = fb[p].angleFixed;
   
   fb[p].angle = (fb[p].angleSign) * (fb[p].angleFixed - fb[p].pvOffset);
@@ -247,9 +234,6 @@ int servo360_connect(int pinControl, int pinFeedback)
   devCount++;
 
   lockclr(lock360);  
-  //print("devCount: %d, index: %d, p: %d\r", devCount, result, p); 
-  //print("fb[%d].pinCtrl = %d, fb[%d].pinFb = %d\r", p, fb[p].pinCtrl, p, fb[p].pinFb);
-
 
   return result;
 }
@@ -261,11 +245,10 @@ int servo360_setAcceleration(int pin, int unitsPerSecSquared)
   int p = fb360_findServoIndex(pin);
   if(p == -1)return -1;
   
-  //int rampStep = unitsPerSecSquared * 
-
   fb360_setRampStep(pin, unitsPerSecSquared * UNITS_ENCODER 
                          / (FB360_CS_HZ * fb[p].unitsRev));  
 }
+
 
 int servo360_get(int pin)
 {
@@ -292,6 +275,7 @@ int servo360_getAngleFixedOrigin(int pin)
   return val;
 }  
 
+
 int servo360_enable(int pin, int state)
 {
   if(!servoCog) fb360_run();
@@ -305,6 +289,7 @@ int servo360_enable(int pin, int state)
   return index; 
 }
 
+
 int servo360_stop(int pin)
 {
   if(!servoCog) fb360_run();
@@ -313,10 +298,11 @@ int servo360_stop(int pin)
 
   int index = fb360_findServoIndex(pin);
   while(lockset(lock360));
-  //servo_speed(pin, 0);
+  servo360_speed(pin, 0);
   while(lockset(lock360));
   return index; 
 }
+
 
 int servo360_feedback(int pin, int state)
 {
@@ -339,7 +325,6 @@ int servo360_set(int pinControl, int time)
   if(p == -1)return -1;
 
   servo360_feedback(pinControl, 0);
-  //pulseControl(pinControl, time - 1500);
 }  
 
 

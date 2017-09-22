@@ -27,6 +27,8 @@ volatile int cntPrev;
 volatile int tElapsed;
 volatile int cnt;
 
+servo360 fbt[FB360_DEVS_MAX];
+
 //servo360 fb[2];
 
 fdserial *term;
@@ -139,47 +141,78 @@ void console()
       //while(lockset(lock360));
       //if(operation == POSITION)
       //fb360_waitServoCtrllEdgeNeg(0);
-      dprint(term, "ms: %d\r", tElapsed / (CLKFREQ/1000)); 
+      //dprint(term, "pc: %d\r", tElapsed / (CLKFREQ/1000));
+      
+      //
       for(int p = 0; p < devCount; p++)
       {
-        dprint(term, "id: %d, csop: %d, ms: %d\r", p, fb[p].csop, tElapsed / (CLKFREQ/1000)); 
-        if(fb[p].csop == POSITION)
+        fbt[p] = fb[p];
+      } 
+      //
+       
+      for(int p = 0; p < devCount; p++)
+      {
+        /*
+        pc        pulse count
+        id        servoID  
+                  0 left, 1 right
+        csop      control system operation
+                  0 inactive, 1 speed, 2, angle, 3 goto
+        */
+        dprint(term, "pc: %d, id: %d, csop: %d\r", pulseCount, p, fbt[p].csop); 
+        if(fbt[p].csop == POSITION)
         {
           dprint(term, "sp: %d, pv: %d, op: %d, e: %d, "\
                        "p: %d, i: %d, d: %d th: %d\r", 
-                       fb[p].sp, fb[p].angle, fb[p].op, fb[p].er, 
-                       fb[p].p, fb[p].i, fb[p].d, fb[p].theta); 
+                       fbt[p].sp, fbt[p].angle, fbt[p].op, fbt[p].er, 
+                       fbt[p].p, fbt[p].i, fbt[p].d, fbt[p].theta); 
         }        
         //else if(operation == SPEED)
-        else if(fb[p].csop == SPEED)
+        else if(fbt[p].csop == SPEED)
         {
-          dprint(term, "spR: %d, spT: %d, spM: %d, "\
-                       "drive: %d, opV: %d, opPidV: %d, "\
-                       "dcaC: %d, dcaM: %d, dcaE: %d\r", 
-                       fb[p].speedReq, fb[p].speedTarget, fb[p].speedMeasured, 
-                       fb[p].drive, fb[p].opV, fb[p].opPidV, 
-                       fb[p].angleCalc, fb[p].angle, fb[p].angleError); 
+          /*
+            spR       speed requested                    in 4096ths per second
+            spT       speed target           
+            spM       speed measured
+  
+            aC        angle calculated                   in 4096ths of a full circle
+            aM        angle measured
+            aE        angle error
+  
+            tf        pulse widt from tranfer function   in 0.1 us units
+            pidV      pid velocity output
+            tf+pidV   pulse output
+          */
+          dprint(term, "spR: %d, spT: %d, spM: %d\r"\
+                       "aC: %d, aM: %d, aE: %d\r"\
+                       "pV: %d, iV: %d, dV: %d\r"\
+                       "tf: %d, pidV: %d, tf+pidV: %d"\
+                       "\r",
+                       fbt[p].speedReq, fbt[p].speedTarget, fbt[p].speedMeasured, 
+                       fbt[p].angleCalc, fbt[p].angle, fbt[p].angleError, 
+                       fbt[p].pV, fbt[p].iV, fbt[p].dV,
+                       fbt[p].drive, fbt[p].opV, fbt[p].opPidV); 
         }        
-        else if(fb[p].csop == GOTO)
+        else if(fbt[p].csop == GOTO)
         {
           dprint(term,         
                    "spR: %d, spT: %d, spM: %d, "\
                    "csop: %d, aT: %d, a: %d, "\
                    "tG: %d, tD: %d, af: %d\r", 
-                   fb[p].speedReq, fb[p].speedTarget, fb[p].speedMeasured, 
-                   fb[p].csop, fb[p].angleTarget, fb[p].angle,
-                   fb[p].ticksGuard, fb[p].ticksDiff, fb[p].approachFlag 
+                   fbt[p].speedReq, fbt[p].speedTarget, fbt[p].speedMeasured, 
+                   fbt[p].csop, fbt[p].angleTarget, fbt[p].angle,
+                   fbt[p].ticksGuard, fbt[p].ticksDiff, fbt[p].approachFlag 
                  ); 
         }        
         //else if(operation == MONITOR)
-        else if(fb[p].csop == MONITOR)
+        else if(fbt[p].csop == MONITOR)
         {
           //dprint(term, "th: %d, pvm: %d\r", 
           //       theta, angleFixed); 
           //if(( angleFixed > (angleFixedPrev + 30) || (angleFixed < angleFixedPrev - 30))) dprint(term, "\r\r\rLOOK???   LOOK!!!   LOOK!!!\r\r\r");        
           //angleFixedPrev = angleFixed;
           dprint(term, "dc: %d, theta: %d, turns: %d, angle: %d\r", 
-          fb[p].dc, fb[p].theta, fb[p].turns, fb[p].angle);
+          fbt[p].dc, fbt[p].theta, fbt[p].turns, fbt[p].angle);
         }    
       }
       dprint(term, "\r");            

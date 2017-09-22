@@ -57,6 +57,7 @@ void drive_speed(int left, int right)
 
   servo360_speed(pinCtrlLeft, left);
   servo360_speed(pinCtrlRight, -right);
+  pause(20);
 }   
 
 

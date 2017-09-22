@@ -14,6 +14,43 @@
 #include "servo360.h"
 
 
+int servo360_setControlSys(int pin, int constant, int value)
+{
+  if(!servoCog) fb360_run();
+  int p = fb360_findServoIndex(pin);
+  if(p == -1)return -1;
+  
+  switch(constant)
+  {
+    case S360_KPV:
+      fb[p].KpV = value;
+      break;
+    case S360_KIV:
+      fb[p].KiV = value;
+      break;
+    case S360_KDV:
+      fb[p].KdV = value;
+      break;
+    case S360_IV_MAX:
+      fb[p].iMaxV = value;
+      fb[p].iMinV = -value;
+      break;
+    case S360_KPA:
+      fb[p].Kp = value;
+      break;
+    case S360_KIA:
+      fb[p].Ki = value;
+      break;
+    case S360_KDA:
+      fb[p].Kd = value;
+      break;
+    case S360_IA_MAX:
+      fb[p].iMax = value;
+      fb[p].iMin = -value;
+      break;
+  }  
+}    
+
 int servo360_getAngleCalc(int pin)
 {
   if(!servoCog) fb360_run();
