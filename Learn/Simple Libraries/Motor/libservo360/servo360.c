@@ -74,6 +74,8 @@ void fb360_mainLoop()
   while(1)
   {
     while((CNT - t360) < dt360);
+
+    while(lockset(lock360));
     for(int p = 0; p < FB360_DEVS_MAX; p++)
     {
       if(fb[p].pinCtrl != -1 && fb[p].pinFb != -1)
@@ -82,6 +84,8 @@ void fb360_mainLoop()
         fb360_outputSelector(p);
       }        
     }      
+    lockclr(lock360);
+
     for(int p = 0; p < FB360_DEVS_MAX; p++)
     {
       if(p % 2 == 1)
@@ -154,6 +158,7 @@ void fb360_waitServoCtrllEdgeNeg(int p)
 
 void fb360_checkAngle(int p)
 {
+
   fb[p].thetaP = fb[p].theta;
   fb[p].angleFixedP = fb[p].angleFixed;
   fb[p].angleP = fb[p].angle;  

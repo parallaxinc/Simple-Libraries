@@ -13,6 +13,32 @@
 #include "simpletools.h"  
 #include "servo360.h"
 
+
+void fb360_consoleInit(void)
+{
+  #ifdef _console_
+  pause(100);
+  
+  // To use this, recompile libservo360 with #define _console_ uncommented
+  // in servo360.h
+  //
+    console_start();
+    suppressFbDisplay = 0;
+  // 
+  
+  pause(1000);
+  #endif 
+}  
+
+
+void fb360_consolePause(void)
+{
+  #ifdef _console_
+    suppressFbDisplay = 1;
+  #endif 
+}  
+
+
 #ifdef _console_
 #include "fdserial.h"
 
@@ -144,10 +170,12 @@ void console()
       //dprint(term, "pc: %d\r", tElapsed / (CLKFREQ/1000));
       
       //
+      while(lockset(lock360));
       for(int p = 0; p < devCount; p++)
       {
         fbt[p] = fb[p];
       } 
+      lockclr(lock360);
       //
        
       for(int p = 0; p < devCount; p++)

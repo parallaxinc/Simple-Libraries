@@ -69,13 +69,13 @@
 #define S360_IA_MAX 8
 
 
-/* Drafted and waiting for pin argument */
+/* Public */
 int servo360_connect(int pinControl, int pinFeedback);
 int servo360_setUnitsFullCircle(int pin, int units);
 int servo360_setMaxSpeed(int pin, int speed);
 int servo360_speed(int pin, int speed);
 int servo360_angle(int pin, int position);
-int servo360_get(int pin);                      
+int servo360_getAngle12Bit(int pin);
 int servo360_getAngle(int pin);
 int servo360_getAngleFixedOrigin(int pin);
 int servo360_enable(int pin, int state);
@@ -89,9 +89,10 @@ int servo360_getRampStep(int pin);
 int servo360_getCsop(int pin);
 int servo360_getAngleCalc(int pin);
 int servo360_setControlSys(int pin, int constant, int value);
+int servo360_setTurns(int pin, int turns);
 
 
-/* Internal */
+/* Private */
 void fb360_run(void);
 void fb360_end();
 void fb360_setup(void);
@@ -123,6 +124,9 @@ int fb360_unitsEncoderToAngle(int value, int unitsRev);
 int fb360_checkDistanceRemaining(int pin, int speed, int finalAngle);
 
 int fb360_setMaxSpeed(int pin, int speed);
+
+void fb360_consoleInit(void);
+void fb360_consolePause(void);
 
 #ifdef _console_
 void console();

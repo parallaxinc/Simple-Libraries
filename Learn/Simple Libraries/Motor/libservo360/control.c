@@ -73,6 +73,8 @@ int fb360_pidA(int p)
 // P, I, and D calculations.   
 int fb360_pidV(int p)  
 {
+  //while(lockset(lock360));
+
   int opv;  
   int opMax = fb[p].speedLimit / 4;
 
@@ -99,6 +101,8 @@ int fb360_pidV(int p)
   if(fb[p].opV < -opMax) fb[p].opV = -opMax;
   
   fb[p].erDistP = fb[p].erDist;
+  
+  //lockclr(lock360);
 
   return fb[p].opV;
 }

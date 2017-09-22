@@ -14,13 +14,103 @@
 #include "servo360.h"
 
 
+int servo360_getTurns(int pin)
+{
+  if(!servoCog) fb360_run();
+  int p = fb360_findServoIndex(pin);
+  if(p == -1)return -1;
+
+  return fb[p].turns;
+}  
+
+
+int servo360_setTurns(int pin, int turns)
+{
+  if(!servoCog) fb360_run();
+  int p = fb360_findServoIndex(pin);
+  if(p == -1)return -1;
+
+  int delta = turns * FB360_ENC_RES;
+  
+  while(lockset(lock360));
+  
+  fb[p].angle += delta;  
+  fb[p].angleP += delta;
+  fb[p].angleFixed += delta;
+  fb[p].angleFixedP += delta;
+  fb[p].turns += turns;
+
+
+  if(fb[p].csop == POSITION)
+  {
+    fb[p].sp += delta;
+    fb[p].angleTarget += delta;
+  }
+  //
+  else if(fb[p].csop == SPEED)
+  {
+    fb[p].angleCalc += delta;
+    fb[p].angleTarget += delta;
+  }
+  //
+  else if(fb[p].csop == GOTO)
+  {
+    fb[p].angleTarget += delta;
+    fb[p].sp += delta;
+    fb[p].angleCalc += delta;
+  }    
+  
+  lockclr(lock360);
+  
+  return 0;
+}   
+
+
+int servo360_setControlSys(int pin, int constant, int value)
+{
+  if(!servoCog) fb360_run();
+  int p = fb360_findServoIndex(pin);
+  if(p == -1)return -1;
+  
+  switch(constant)
+  {
+    case S360_KPV:
+      fb[p].KpV = value;
+      break;
+    case S360_KIV:
+      fb[p].KiV = value;
+      break;
+    case S360_KDV:
+      fb[p].KdV = value;
+      break;
+    case S360_IV_MAX:
+      fb[p].iMaxV = value;
+      fb[p].iMinV = -value;
+      break;
+    case S360_KPA:
+      fb[p].Kp = value;
+      break;
+    case S360_KIA:
+      fb[p].Ki = value;
+      break;
+    case S360_KDA:
+      fb[p].Kd = value;
+      break;
+    case S360_IA_MAX:
+      fb[p].iMax = value;
+      fb[p].iMin = -value;
+      break;
+  }  
+}    
+
+
 int servo360_getAngle(int pin)
 {
   if(!servoCog) fb360_run();
   int p = fb360_findServoIndex(pin);
   if(p == -1)return -1;
   
-
+  
   while(lockset(lock360));
   int val = fb[p].angle;
   val = val * fb[p].unitsRev / UNITS_ENCODER; 
@@ -250,7 +340,7 @@ int servo360_setAcceleration(int pin, int unitsPerSecSquared)
 }
 
 
-int servo360_get(int pin)
+int servo360_getAngle12Bit(int pin)
 {
   if(!servoCog) fb360_run();
   int p = fb360_findServoIndex(pin);
