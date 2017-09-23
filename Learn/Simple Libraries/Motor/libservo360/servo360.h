@@ -42,11 +42,11 @@
 #define FB360_B -129
 #define FB360_ENC_RES 4096
 
-#define KPA 600
-#define KIA 100
-#define KDA -200
-#define FB360_POS_INTGRL_MAX 350
-#define SCALE_DEN_A 100
+#define KPA 5000
+#define KIA 200
+#define KDA -100
+#define FB360_POS_INTGRL_MAX 500
+#define SCALE_DEN_A 1000
 
 #define KPV 1200
 #define KIV 225
