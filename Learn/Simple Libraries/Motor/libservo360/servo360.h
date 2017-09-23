@@ -68,6 +68,9 @@
 #define S360_KDA 7
 #define S360_IA_MAX 8
 
+//#define S360_A_MAX (((1 << 31) - 1)) / UNITS_FULL_CIRCLE  // 524287 degrees
+#define S360_A_MAX 524287          
+
 
 /* Public */
 int servo360_connect(int pinControl, int pinFeedback);
@@ -90,7 +93,7 @@ int servo360_getCsop(int pin);
 int servo360_getAngleCalc(int pin);
 int servo360_setControlSys(int pin, int constant, int value);
 int servo360_setTurns(int pin, int turns);
-
+int servo360_setAngleLimits(int pin, int ccwMax, int cwMax);
 
 /* Private */
 void fb360_run(void);

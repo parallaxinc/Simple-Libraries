@@ -192,6 +192,9 @@ int servo360_angle(int pin, int position)
   if(!servoCog) fb360_run();
   int p = fb360_findServoIndex(pin);
   if(p == -1)return -1;
+  
+  if(position >= fb[p].angleMax) position = fb[p].angleMax;
+  if(position <= fb[p].angleMin) position = fb[p].angleMin;
 
   while(lockset(lock360));
   
@@ -212,7 +215,6 @@ int servo360_angle(int pin, int position)
   }    
   
   lockclr(lock360);
-  
 }  
 
 
@@ -320,6 +322,9 @@ int servo360_connect(int pinControl, int pinFeedback)
   fb[p].angle = (fb[p].angleSign) * (fb[p].angleFixed - fb[p].pvOffset);
   fb[p].angleCalc = fb[p].angle;
   fb[p].angleP = fb[p].angle;
+  
+  fb[p].angleMax = S360_A_MAX;
+  fb[p].angleMin = -S360_A_MAX;
 
   devCount++;
 
@@ -424,12 +429,11 @@ int servo360_setAngleLimits(int pin, int ccwMax, int cwMax)
   int p = fb360_findServoIndex(pin);
   if(p == -1)return -1;
 
-  int index = fb360_findServoIndex(pin);
-  while(lockset(lock360));
+  //while(lockset(lock360));
   fb[p].angleMax = ccwMax;
   fb[p].angleMin = cwMax;
-  while(lockset(lock360));
-  return index; 
+  //while(lockset(lock360));
+  return p; 
 }
 
 
