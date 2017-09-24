@@ -74,26 +74,47 @@
 
 /* Public */
 int servo360_connect(int pinControl, int pinFeedback);
+
 int servo360_setUnitsFullCircle(int pin, int units);
+int servo360_getUnitsFullCircle(int pin);
+
 int servo360_setMaxSpeed(int pin, int speed);
+int servo360_getMaxSpeed(int pin);
+
 int servo360_speed(int pin, int speed);
+int servo360_getSpeed(int pin);
+int servo360_getAngleCalc(int pin);
+
 int servo360_angle(int pin, int position);
-int servo360_getAngle12Bit(int pin);
 int servo360_getAngle(int pin);
+
+int servo360_goto(int pin, int position);
+int servo360_getCsop(int pin);
+
+int servo360_getAngle12Bit(int pin);
 int servo360_getAngleFixedOrigin(int pin);
-int servo360_enable(int pin, int state);
+
+int servo360_setAcceleration(int pin, int unitsPerSecSquared);
+int servo360_getAcceleration(int pin);
+
+int servo360_setRampStep(int pin, int stepSize);
+int servo360_getRampStep(int pin);
+
+int servo360_setControlSys(int pin, int constant, int value);
+int servo360_getControlSys(int pin, int constant);
+
+int servo360_setAngleLimits(int pin, int ccwMax, int cwMax);
+int servo360_getAngleLimits(int pin, int *ccwMax, int *cwMax);
+
+int servo360_setTurns(int pin, int turns);
+int servo360_getTurns(int pin);
+
 int servo360_stop(int pin);
+
 int servo360_feedback(int pin, int state);
 int servo360_set(int pinControl, int time);
-int servo360_setAcceleration(int pin, int unitsPerSecSquared);
-int servo360_goto(int pin, int position);
-int servo360_getTopSpeed(int pin);
-int servo360_getRampStep(int pin);
-int servo360_getCsop(int pin);
-int servo360_getAngleCalc(int pin);
-int servo360_setControlSys(int pin, int constant, int value);
-int servo360_setTurns(int pin, int turns);
-int servo360_setAngleLimits(int pin, int ccwMax, int cwMax);
+
+// int servo360_enable(int pin, int state);
 
 /* Private */
 void fb360_run(void);

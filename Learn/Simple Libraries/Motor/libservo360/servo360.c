@@ -80,8 +80,11 @@ void fb360_mainLoop()
     {
       if(fb[p].pinCtrl != -1 && fb[p].pinFb != -1)
       {
-        fb360_checkAngle(p);
-        fb360_outputSelector(p);
+        if(fb[p].feedback)
+        {
+          fb360_checkAngle(p);
+          fb360_outputSelector(p);
+        }          
       }        
     }      
     lockclr(lock360);

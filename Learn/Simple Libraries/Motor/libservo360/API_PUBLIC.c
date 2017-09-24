@@ -104,6 +104,45 @@ int servo360_setControlSys(int pin, int constant, int value)
 }    
 
 
+int servo360_getControlSys(int pin, int constant)
+{
+  if(!servoCog) fb360_run();
+  int p = fb360_findServoIndex(pin);
+  if(p == -1)return -1;
+  
+  int value; 
+  
+  switch(constant)
+  {
+    case S360_KPV:
+      value = fb[p].KpV;
+      break;
+    case S360_KIV:
+      value = fb[p].KiV;
+      break;
+    case S360_KDV:
+      value = fb[p].KdV;
+      break;
+    case S360_IV_MAX:
+      value = fb[p].iMaxV;
+      break;
+    case S360_KPA:
+      value = fb[p].Kp;
+      break;
+    case S360_KIA:
+      value = fb[p].Ki;
+      break;
+    case S360_KDA:
+      value = fb[p].Kd;
+      break;
+    case S360_IA_MAX:
+      value = fb[p].iMax;
+      break;
+  }  
+  return value;
+}    
+
+
 int servo360_getAngle(int pin)
 {
   if(!servoCog) fb360_run();
@@ -151,6 +190,16 @@ int servo360_setMaxSpeed(int pin, int speed)
 }
 
 
+int servo360_getMaxSpeed(int pin)
+{
+  if(!servoCog) fb360_run();
+  int p = fb360_findServoIndex(pin);
+  if(p == -1)return -1;
+  
+  return (fb[p].speedLimit * fb[p].unitsRev) / UNITS_ENCODER;
+}
+
+
 int servo360_speed(int pin, int speed)
 {
   if(!servoCog) fb360_run();
@@ -184,6 +233,16 @@ int servo360_speed(int pin, int speed)
   
   lockclr(lock360);
   //fb360_waitServoCtrllEdgeNeg(devCount - 1);
+}  
+
+
+int servo360_getSpeed(int pin)
+{
+  if(!servoCog) fb360_run();
+  int p = fb360_findServoIndex(pin);
+  if(p == -1)return -1;
+  
+  return fb[p].speedMeasured * fb[p].unitsRev / FB360_ENC_RES;
 }  
 
 
@@ -257,6 +316,16 @@ int servo360_setUnitsFullCircle(int pin, int units)
 }  
 
 
+int servo360_getUnitsFullCircle(int pin)
+{
+  if(!servoCog) fb360_run();
+  int p = fb360_findServoIndex(pin);
+  if(p == -1)return -1;
+
+  return fb[p].unitsRev;
+}  
+
+
 int servo360_connect(int pinControl, int pinFeedback)
 {
   if(!servoCog) fb360_run();
@@ -325,9 +394,11 @@ int servo360_connect(int pinControl, int pinFeedback)
   
   fb[p].angleMax = S360_A_MAX;
   fb[p].angleMin = -S360_A_MAX;
+  
+  fb[p].feedback = 1;
 
   devCount++;
-
+  
   lockclr(lock360);  
 
   return result;
@@ -342,6 +413,29 @@ int servo360_setAcceleration(int pin, int unitsPerSecSquared)
   
   fb360_setRampStep(pin, unitsPerSecSquared * UNITS_ENCODER 
                          / (FB360_CS_HZ * fb[p].unitsRev));  
+}
+
+
+int servo360_setRampStep(int pin, int stepSize)
+{
+  if(!servoCog) fb360_run();
+  int p = fb360_findServoIndex(pin);
+  if(p == -1)return -1;
+  
+  fb360_setRampStep(pin, stepSize);  
+  return p;
+}  
+
+int servo360_getAcceleration(int pin)
+{
+  if(!servoCog) fb360_run();
+  int p = fb360_findServoIndex(pin);
+  if(p == -1) return -1;
+  
+  int acceleration = servo360_getRampStep(pin);
+  acceleration *= (FB360_CS_HZ * fb[p].unitsRev);
+  acceleration /= UNITS_ENCODER;
+  return acceleration;
 }
 
 
@@ -389,13 +483,12 @@ int servo360_stop(int pin)
 {
   if(!servoCog) fb360_run();
   int p = fb360_findServoIndex(pin);
-  if(p == -1)return -1;
+  if(p == -1) return -1;
 
-  int index = fb360_findServoIndex(pin);
-  while(lockset(lock360));
+  //while(lockset(lock360));
   servo360_speed(pin, 0);
-  while(lockset(lock360));
-  return index; 
+  //while(lockset(lock360));
+  return p; 
 }
 
 
@@ -404,12 +497,82 @@ int servo360_feedback(int pin, int state)
   if(!servoCog) fb360_run();
   int p = fb360_findServoIndex(pin);
   if(p == -1)return -1;
+  
+  if(state == 1 && fb[p].feedback == 0)
+  {
+    /*
+    servo360 fbtemp = fb[p];
+    fb[p].pinCtrl = -1;
+    fb[p].pinFb = -1;
+    servo360_connect(fbtemp.pinCtrl, fbtemp.pinFb);
+    fb[p].unitsRev = fb[p].unitsRev;
+    fb[p].KpV = fbtemp.KpV;
+    fb[p].KiV = fbtemp.KiV;
+    fb[p].KdV = fbtemp.KdV;
+    fb[p].Kp = fbtemp.Kp;
+    fb[p].Ki = fbtemp.Ki;
+    fb[p].Kd = fbtemp.Kd;
+    fb[p].iMax = fbtemp.iMax;
+    fb[p].iMin = fbtemp.iMin;
+    fb[p].iMaxV = fbtemp.iMaxV;
+    fb[p].iMinV = fbtemp.iMinV;
+    fb[p].speedLimit = fbtemp.speedLimit;
+    fb[p].rampStep = fbtemp.rampStep;
+    //fb[p].csop = 0;
+    */
+    {
+      fb[p].speedTarget  = 0;
+      fb[p].angleError = 0;
+      fb[p].erDist = 0;
+      fb[p].erDistP = 0;
+      fb[p].integralV = 0;
+      fb[p].derivativeV = 0;
+      fb[p].pV = 0;
+      fb[p].iV = 0;
+      fb[p].dV = 0;
+      fb[p].opPidV = 0;
+  
+      fb[p].angleCalc = fb[p].angle;
+      //fb[p].angleCalcP = fb[p].angleCalc;
+    }  
+    {
+      fb[p].er = 0;
+      fb[p].integral = 0;
+      fb[p].derivative = 0;
+      fb[p].p = 0;
+      fb[p].i = 0;
+      fb[p].d = 0;
+      fb[p].op = 0;
+      fb[p].erP = 0;
+      fb[p].pw = 0;
+    }    
+      
+    //
 
-  int index = fb360_findServoIndex(pin);
-  while(lockset(lock360));
-  fb[p].feedback = state;
-  while(lockset(lock360));
-  return index; 
+    //
+    fb360_setPositiveDirection(p, CCW_POS);
+
+    fb[p].theta = fb360_getTheta(p);  
+    fb[p].thetaP = fb[p].theta;
+    fb[p].angleFixed = fb[p].theta; 
+  
+    fb[p].pvOffset = fb[p].angleFixed;
+    
+    fb[p].angle = (fb[p].angleSign) * (fb[p].angleFixed - fb[p].pvOffset);
+    fb[p].angleCalc = fb[p].angle;
+    fb[p].angleP = fb[p].angle;
+    fb[p].feedback = state;
+    //
+  }
+  else
+  {
+    //while(lockset(lock360));
+    fb[p].feedback = state;
+    //while(lockset(lock360));
+  }    
+        
+
+  return p; 
 }
 
 
@@ -419,7 +582,10 @@ int servo360_set(int pinControl, int time)
   int p = fb360_findServoIndex(pinControl);
   if(p == -1)return -1;
 
-  servo360_feedback(pinControl, 0);
+  //servo360_feedback(pinControl, 0);
+  fb[p].speedOut = (time - 1500) * 10;
+  
+  return p;
 }  
 
 
@@ -432,6 +598,20 @@ int servo360_setAngleLimits(int pin, int ccwMax, int cwMax)
   //while(lockset(lock360));
   fb[p].angleMax = ccwMax;
   fb[p].angleMin = cwMax;
+  //while(lockset(lock360));
+  return p; 
+}
+
+
+int servo360_getAngleLimits(int pin, int *ccwMax, int *cwMax)
+{
+  if(!servoCog) fb360_run();
+  int p = fb360_findServoIndex(pin);
+  if(p == -1)return -1;
+
+  //while(lockset(lock360));
+  *ccwMax = fb[p].angleMax;
+  *cwMax = fb[p].angleMin;
   //while(lockset(lock360));
   return p; 
 }
