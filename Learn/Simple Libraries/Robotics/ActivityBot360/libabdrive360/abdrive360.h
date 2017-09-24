@@ -47,9 +47,28 @@
 #define SIDE_RIGHT 1
 #define SIDE_BOTH 2
 
+extern volatile int abd360_initialized;
 
-// Functions drafted
+extern volatile int abd360_unitsPerRev;
+
+extern volatile int abd360_pinCtrlLeft;
+extern volatile int abd360_pinCtrlRight;
+extern volatile int abd360_pinFbLeft;
+extern volatile int abd360_pinFbRight;
+
+extern volatile int abd360_speedLimit;
+extern volatile int abd360_rampStep;
+extern volatile int abd360_setRampStep;
+extern volatile int abd360_speedLimitGoto;
+extern volatile int abd360_rampStepGoto;
+
+extern volatile int abd360_gotoMode;
+
+
+void drive_init(void);
+
 void drive_goto(int distLeft, int distRight);
+
 void drive_speed(int left, int right); 
 
 void drive_getTicks(int *left, int *right);
@@ -64,7 +83,7 @@ void drive_encoderPins(int encPinLeft, int encPinRight);
 
 void drive_feedback(int enabled); 
 
-void drive_gotoMode(int mode);
+void drive_abd360_gotoMode(int mode);
 
 void drive_servoPins(int servoPinLeft, int servoPinRight);
 
@@ -80,9 +99,11 @@ void drive360_ticksPerRev(int units);
 
 void drive_setRampStep(int stepsize);
 
-void drive_rampStep(int left, int right);
+void drive_abd360_rampStep(int left, int right);
 
 void drive_ramp(int left, int right);
+
+void drive_rampStep(int left, int right);
 
 
 

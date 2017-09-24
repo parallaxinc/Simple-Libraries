@@ -1,5 +1,5 @@
 /*
-  @file abdrive360.c
+  @file drive_abd360_rampStep.c
 
   @author Parallax Inc
 
@@ -8,47 +8,16 @@
  
   @brief 
 */
+//                                            //                                //  
 
 
 #include "abdrive360.h"
 
 
-//                                            //                                //  
-
-
-volatile int abd360_initialized = 0;
-
-volatile int abd360_unitsPerRev = ABD360_UNITS_REV;
-
-volatile int abd360_pinCtrlLeft = ABD60_PIN_CTRL_L;
-volatile int abd360_pinCtrlRight = ABD360_PIN_CTRL_R;
-volatile int abd360_pinFbLeft = ABD60_PIN_FB_L;
-volatile int abd360_pinFbRight = ABD360_PIN_FB_R;
-
-volatile int abd360_speedLimit = ABD_SPEED_LIMIT;
-volatile int abd360_rampStep = ABD_RAMP_STEP;
-volatile int abd360_speedLimitGoto = ABD_GOTO_SPEED_LIMIT;
-volatile int abd360_rampStepGoto = ABD_GOTO_RAMP_STEP;
-
-volatile int abd360_gotoMode = ABD360_GOTO_BLOCK;
-
-
-void drive_init(void)
+void drive_rampStep(int left, int right)
 {
-  servo360_connect(abd360_pinCtrlLeft, abd360_pinFbLeft);
-  servo360_connect(abd360_pinCtrlRight, abd360_pinFbRight);
-
-  servo360_setUnitsFullCircle(abd360_pinCtrlLeft, ABD360_UNITS_REV);
-  servo360_setUnitsFullCircle(abd360_pinCtrlRight, ABD360_UNITS_REV);
-
-  servo360_setAcceleration(abd360_pinCtrlLeft, abd360_rampStep * 50);
-  servo360_setAcceleration(abd360_pinCtrlRight, abd360_rampStep * 50);
-
-  servo360_setMaxSpeed(abd360_pinCtrlLeft, abd360_speedLimit);
-  servo360_setMaxSpeed(abd360_pinCtrlRight, abd360_speedLimit);
-
-  abd360_initialized = 1;
-}  
+  drive_speed(left, right);
+}
 
 
 /**

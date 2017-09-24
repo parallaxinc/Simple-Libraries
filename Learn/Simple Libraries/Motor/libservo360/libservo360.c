@@ -30,11 +30,11 @@ int main()
   servo360_connect(12, 14);
   servo360_connect(13, 15);
   
-  fb360_setRampStep(12, 256); 
-  fb360_setRampStep(13, 256); 
+  servo360_setRampStep(12, 256); 
+  servo360_setRampStep(13, 256); 
   
-  fb360_setMaxSpeed(12, 4096);
-  fb360_setMaxSpeed(13, 4096);
+  servo360_setMaxSpeed(12, 4096);
+  servo360_setMaxSpeed(13, 4096);
  
   
   servo360_speed(12, 0);
@@ -299,7 +299,7 @@ int main()
   #endif
 */
 
-  //fb360_run();
+  //servo360_run();
   /*
   console_start(); 
   suppressFbDisplay = 0;

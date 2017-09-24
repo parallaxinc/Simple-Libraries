@@ -60,11 +60,11 @@ int main()
   servo360_connect(13, 15);
   
   
-  fb360_setRampStep(12, 256); 
-  fb360_setRampStep(13, 256); 
+  servo360_setRampStep(12, 256); 
+  servo360_setRampStep(13, 256); 
   
-  fb360_setMaxSpeed(12, 4096);
-  fb360_setMaxSpeed(13, 4096);
+  servo360_setMaxSpeed(12, 4096);
+  servo360_setMaxSpeed(13, 4096);
  
   
   int distL = 720;
@@ -258,7 +258,7 @@ int main()
   
   pause(1000);
   #ifdef _console_
-    dprint(term, "speedLimit = %d\r", fb[0].speedLimit);
+    //dprint(term, "speedLimit = %d\r", fb[0].speedLimit);
   #endif
   #ifdef _console_
     suppressFbDisplay = 0;

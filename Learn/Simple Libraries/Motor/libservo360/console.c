@@ -14,7 +14,7 @@
 #include "servo360.h"
 
 
-void fb360_consoleInit(void)
+void servo360_consoleInit(void)
 {
   #ifdef _console_
   pause(100);
@@ -31,7 +31,7 @@ void fb360_consoleInit(void)
 }  
 
 
-void fb360_consolePause(void)
+void servo360_consolePause(void)
 {
   #ifdef _console_
     suppressFbDisplay = 1;
@@ -53,7 +53,7 @@ volatile int cntPrev;
 volatile int tElapsed;
 volatile int cnt;
 
-servo360 fbt[FB360_DEVS_MAX];
+servo360 fbt[servo360_DEVS_MAX];
 
 //servo360 fb[2];
 
@@ -80,7 +80,7 @@ void console()
 
   //int start(void)
   {
-    //fb360_run();
+    //servo360_run();
     /////servo_speed(pinServoCtrl, 0);
     pause(200);
     pause(10);
@@ -102,7 +102,7 @@ void console()
   
   while(1)
   {
-    fb360_waitServoCtrllEdgeNeg(devCount - 1);
+    servo360_waitServoCtrllEdgeNeg(devCount - 1);
     cnt = CNT;
     tElapsed = cnt - cntPrev;
     cntPrev = cnt;
@@ -166,7 +166,7 @@ void console()
     {
       //while(lockset(lock360));
       //if(operation == POSITION)
-      //fb360_waitServoCtrllEdgeNeg(0);
+      //servo360_waitServoCtrllEdgeNeg(0);
       //dprint(term, "pc: %d\r", tElapsed / (CLKFREQ/1000));
       
       //

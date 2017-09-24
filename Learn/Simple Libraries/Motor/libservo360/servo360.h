@@ -33,29 +33,29 @@
 #define POSITION 2
 #define GOTO 3
 #define MONITOR 4
-#define FB360_FREQ_CTRL_SIG 50
-#define FB360_DEVS_MAX 4
+#define servo360_FREQ_CTRL_SIG 50
+#define servo360_DEVS_MAX 4
 
-#define FB360_RAMP_STEP 10 * 4096 / 360;
+#define servo360_RAMP_STEP 10 * 4096 / 360;
 
-#define FB360_M 4348
-#define FB360_B -129
-#define FB360_ENC_RES 4096
+#define servo360_M 4348
+#define servo360_B -129
+#define servo360_ENC_RES 4096
 
 #define KPA 5000
 #define KIA 200
 #define KDA -100
-#define FB360_POS_INTGRL_MAX 500
+#define servo360_POS_INTGRL_MAX 500
 #define SCALE_DEN_A 1000
 
 #define KPV 1200
 #define KIV 225
 #define KDV -100
-#define FB360_VEL_INTGRL_MAX 350
+#define servo360_VEL_INTGRL_MAX 350
 #define SCALE_DEN_V 1000
 
 #define PW_CENTER 15000
-#define FB360_CS_HZ 50
+#define servo360_CS_HZ 50
 #define UNITS_ENCODER 4096
 #define UNITS_REV 360
 
@@ -117,40 +117,40 @@ int servo360_set(int pinControl, int time);
 // int servo360_enable(int pin, int state);
 
 /* Private */
-void fb360_run(void);
-void fb360_end();
-void fb360_setup(void);
-void fb360_mainLoop();
-void fb360_outputSelector(int p);
+void servo360_run(void);
+void servo360_end();
+void servo360_setup(void);
+void servo360_mainLoop();
+void servo360_outputSelector(int p);
 
-void fb360_servoPulse(int p, int q);
-void fb360_waitServoCtrllEdgeNeg(int p);
-int fb360_dutyCycle(int p, int scale);
-int fb360_crossing(int current, int previous, int units);
-int fb360_getTheta(int p);
-void fb360_checkAngle(int p);
-void fb360_captureOffset(int p);
-void fb360_setPositiveDirection(int p, int direction);
+void servo360_servoPulse(int p, int q);
+void servo360_waitServoCtrllEdgeNeg(int p);
+int servo360_dutyCycle(int p, int scale);
+int servo360_crossing(int current, int previous, int units);
+int servo360_getTheta(int p);
+void servo360_checkAngle(int p);
+void servo360_captureOffset(int p);
+void servo360_setPositiveDirection(int p, int direction);
 
-int fb360_setRampStep(int p, int stepSize);
+int servo360_setRampStep(int p, int stepSize);
 
-int fb360_upsToPulseFromTransferFunction(int unitsPerSec);
-void fb360_pulseControl(int p, int speedUps);
+int servo360_upsToPulseFromTransferFunction(int unitsPerSec);
+void servo360_pulseControl(int p, int speedUps);
 
-void fb360_speedControl(int p);
-int fb360_pidA(int p);
-int fb360_pidV(int p);  
+void servo360_speedControl(int p);
+int servo360_pidA(int p);
+int servo360_pidV(int p);  
 
-int fb360_findServoIndex(int pin);
+int servo360_findServoIndex(int pin);
 
-int fb360_unitsAngleToEncoder(int value, int unitsRev);
-int fb360_unitsEncoderToAngle(int value, int unitsRev); 
-int fb360_checkDistanceRemaining(int pin, int speed, int finalAngle);
+int servo360_unitsAngleToEncoder(int value, int unitsRev);
+int servo360_unitsEncoderToAngle(int value, int unitsRev); 
+int servo360_checkDistanceRemaining(int pin, int speed, int finalAngle);
 
-int fb360_setMaxSpeed(int pin, int speed);
+int servo360_setMaxSpeedEncoded(int pin, int speed);
 
-void fb360_consoleInit(void);
-void fb360_consolePause(void);
+void servo360_consoleInit(void);
+void servo360_consolePause(void);
 
 #ifdef _console_
 void console();
@@ -237,7 +237,7 @@ typedef volatile struct servo360_s {
   volatile int angleTarget;
 } servo360;
 
-extern volatile servo360 fb[FB360_DEVS_MAX];
+extern volatile servo360 fb[servo360_DEVS_MAX];
 
 // console
 #ifdef _console_
