@@ -28,7 +28,15 @@ int servo360_goto(int pin, int position)
 
   fb[p].angleTarget = target + offset;
 
-  fb[p].csop = GOTO;
+  if(fb[p].csop != GOTO)
+  {
+    fb[p].csop = GOTO;
+  }    
+  else
+  {
+    fb[p].approachFlag = 0;
+  }    
+  
   lockclr(lock360);
 }
 

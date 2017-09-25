@@ -199,15 +199,15 @@ void servo360_outputSelector(int p)
     if((fb[p].ticksDiff < 0) && (fb[p].ticksDiff < fb[p].ticksGuard) && (fb[p].approachFlag == 0))
     {
       fb[p].speedReq = -fb[p].speedLimit;
-      servo360_speedControl(p);
-      fb[p].speedOut = fb[p].opPidV;
+      //servo360_speedControl(p);
+      //fb[p].speedOut = fb[p].opPidV;
       fb[p].approachFlag = 0;
     }
     else if((fb[p].ticksDiff > 0) && (fb[p].ticksDiff > fb[p].ticksGuard) && (fb[p].approachFlag == 0))
     {
       fb[p].speedReq = fb[p].speedLimit;
-      servo360_speedControl(p);
-      fb[p].speedOut = fb[p].opPidV;
+      //servo360_speedControl(p);
+      //fb[p].speedOut = fb[p].opPidV;
       fb[p].approachFlag = 0;
     }
     else if((fb[p].ticksDiff > 0) && (fb[p].ticksDiff <= fb[p].ticksGuard) && (fb[p].approachFlag == 0))
@@ -215,22 +215,26 @@ void servo360_outputSelector(int p)
       //speedReq -= rampStep;
       fb[p].speedReq = 0;
       fb[p].approachFlag = 1;
-      servo360_speedControl(p);
-      fb[p].speedOut = fb[p].opPidV;
+      //servo360_speedControl(p);
+      //fb[p].speedOut = fb[p].opPidV;
     }    
     else if((fb[p].ticksDiff < 0) && (fb[p].ticksDiff >= fb[p].ticksGuard) && (fb[p].approachFlag == 0))
     {
       //speedReq += rampStep;
       fb[p].speedReq = 0;
       fb[p].approachFlag = 1;
-      servo360_speedControl(p);
-      fb[p].speedOut = fb[p].opPidV;
+      //servo360_speedControl(p);
+      //fb[p].speedOut = fb[p].opPidV;
     } 
     else
     {
-      servo360_speedControl(p);
-      fb[p].speedOut = fb[p].opPidV;
+      //servo360_speedControl(p);
+      //fb[p].speedOut = fb[p].opPidV;
     }       
+    
+    servo360_speedControl(p);
+    fb[p].speedOut = fb[p].opPidV;
+    
     if
     ( 
       (abs(fb[p].ticksDiff) < (fb[p].rampStep / (fb[p].unitsRev * 50))) 

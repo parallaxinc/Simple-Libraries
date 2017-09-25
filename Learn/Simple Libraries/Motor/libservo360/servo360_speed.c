@@ -22,30 +22,33 @@ int servo360_speed(int pin, int speed)
   
   speed = speed * UNITS_ENCODER / fb[p].unitsRev;
   
-  while(lockset(lock360));
-
-  if(speed > fb[p].speedLimit)
-    fb[p].speedReq = fb[p].speedLimit;
-  else if(speed < -fb[p].speedLimit)
-    fb[p].speedReq = -fb[p].speedLimit;
-  else
-    fb[p].speedReq = speed;
-
-  fb[p].csop = SPEED; 
-
+  if(speed != fb[p].speedReq)
   {
-    fb[p].er = 0;
-    fb[p].integral = 0;
-    fb[p].derivative = 0;
-    fb[p].p = 0;
-    fb[p].i = 0;
-    fb[p].d = 0;
-    fb[p].op = 0;
-    fb[p].erP = 0;
-    fb[p].pw = 0;
-  }    
+    while(lockset(lock360));
   
-  lockclr(lock360);
+    if(speed > fb[p].speedLimit)
+      fb[p].speedReq = fb[p].speedLimit;
+    else if(speed < -fb[p].speedLimit)
+      fb[p].speedReq = -fb[p].speedLimit;
+    else
+      fb[p].speedReq = speed;
+  
+    fb[p].csop = SPEED; 
+  
+    {
+      fb[p].er = 0;
+      fb[p].integral = 0;
+      fb[p].derivative = 0;
+      fb[p].p = 0;
+      fb[p].i = 0;
+      fb[p].d = 0;
+      fb[p].op = 0;
+      fb[p].erP = 0;
+      fb[p].pw = 0;
+    }    
+    
+    lockclr(lock360);
+  }    
   //servo360_waitServoCtrllEdgeNeg(devCount - 1);
 }  
 
