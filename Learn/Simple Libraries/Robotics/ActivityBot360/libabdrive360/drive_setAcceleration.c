@@ -16,7 +16,7 @@
 
 void drive_setAcceleration(int forGotoOrSpeed, int ticksPerSecSq)
 {
-  if(!abd360_initialized) drive_init();
+  if(!abd360_initialized) drive_speed(0, 0);
 
   if(forGotoOrSpeed == FOR_SPEED)
   {

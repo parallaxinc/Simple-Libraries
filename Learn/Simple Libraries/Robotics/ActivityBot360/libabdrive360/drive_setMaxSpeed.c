@@ -16,6 +16,8 @@
 
 void drive_setMaxSpeed(int speed)
 {
+  if(!abd360_initialized) drive_speed(0, 0);
+
   servo360_setMaxSpeed(abd360_pinCtrlLeft, speed);
   servo360_setMaxSpeed(abd360_pinCtrlRight, speed);
 }  

@@ -16,7 +16,7 @@
 
 void drive_setRampStep(int stepsize)
 {
-  if(!abd360_initialized) drive_init();
+  if(!abd360_initialized) drive_speed(0, 0);
 
   servo360_setAcceleration(abd360_pinCtrlLeft, stepsize * 50);
   servo360_setAcceleration(abd360_pinCtrlRight, stepsize * 50);

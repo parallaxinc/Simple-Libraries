@@ -16,7 +16,7 @@
 
 void drive_feedback(int enabled)
 {
-  if(!abd360_initialized) drive_init();
+  if(!abd360_initialized) drive_speed(0, 0);
 
   servo360_feedback(abd360_pinCtrlLeft, enabled);
   servo360_feedback(abd360_pinCtrlRight, enabled);

@@ -16,7 +16,7 @@
 
 void drive_getTicksCalc(int *left, int *right)
 {
-  if(!abd360_initialized) drive_init();
+  if(!abd360_initialized) drive_speed(0, 0);
 
   *left = servo360_getAngleCalc(abd360_pinCtrlLeft);
   *right = servo360_getAngleCalc(abd360_pinCtrlRight);

@@ -16,7 +16,7 @@
 
 void drive360_abd360_unitsPerRev(int units)
 {
-  if(!abd360_initialized) drive_init();
+  if(!abd360_initialized) drive_speed(0, 0);
 
   servo360_setUnitsFullCircle(abd360_pinCtrlLeft, units);
   servo360_setUnitsFullCircle(abd360_pinCtrlRight, units);

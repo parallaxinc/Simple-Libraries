@@ -15,6 +15,10 @@
 
 int servo360_connect(int pinControl, int pinFeedback)
 {
+
+  int t1 = pulse_in(pinFeedback, 1);
+  if( (t1 > 1200) || (t1 < 25) ) return -8;
+
   if(!servoCog) servo360_run();
 
   if(servo360_findServoIndex(pinControl) != -1)

@@ -35,8 +35,22 @@ volatile int abd360_gotoMode = ABD360_GOTO_BLOCK;
 
 void drive_init(void)
 {
-  servo360_connect(abd360_pinCtrlLeft, abd360_pinFbLeft);
-  servo360_connect(abd360_pinCtrlRight, abd360_pinFbRight);
+  int result, flag = 0;
+  do
+  {
+    result = servo360_connect(abd360_pinCtrlLeft, abd360_pinFbLeft);
+    if(result < 0) flag = 1;
+  }    
+  while(result < 0);
+
+  do
+  {
+    result = servo360_connect(abd360_pinCtrlRight, abd360_pinFbRight);
+    if(result < 0) flag = 1;
+  }    
+  while(result < 0);
+  
+  if(flag) pause(200);  // PWR 1 -> 2, let servos engergize
 
   servo360_setUnitsFullCircle(abd360_pinCtrlLeft, ABD360_UNITS_REV);
   servo360_setUnitsFullCircle(abd360_pinCtrlRight, ABD360_UNITS_REV);

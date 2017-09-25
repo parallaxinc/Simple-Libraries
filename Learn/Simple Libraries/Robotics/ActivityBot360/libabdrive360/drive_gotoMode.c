@@ -18,7 +18,7 @@
 // ABD360_GOTO_SET_FORGET 1
 void drive_gotoMode(int mode)
 {
-  if(!abd360_initialized) drive_init();
+  if(!abd360_initialized) drive_speed(0, 0);
 
   abd360_gotoMode = mode;
 } 

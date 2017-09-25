@@ -196,6 +196,7 @@ typedef volatile struct servo360_s {
   volatile int turns;
   volatile int angleFixed, angleFixedP; 
   volatile int angle, angleP, pvOffset;
+  //volatile int stalled, noSignal;
   
   // pulse control
   volatile int speedOut;
