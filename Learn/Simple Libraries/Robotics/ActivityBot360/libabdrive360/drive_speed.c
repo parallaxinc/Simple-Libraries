@@ -20,7 +20,8 @@ void drive_speed(int left, int right)
 
   servo360_speed(abd360_pinCtrlLeft, left);
   servo360_speed(abd360_pinCtrlRight, -right);
-  pause(20);
+  //pause(1);
+  //waitcnt(CLKFREQ/1000 + CNT);
 }   
 
 
