@@ -70,7 +70,6 @@ void servo360_mainLoop()
   {
     while((CNT - t360) < dt360);
 
-    while(lockset(lock360));
     for(int p = 0; p < servo360_DEVS_MAX; p++)
     {
       if(fb[p].pinCtrl != -1 && fb[p].pinFb != -1)
@@ -78,6 +77,17 @@ void servo360_mainLoop()
         if(fb[p].feedback)
         {
           servo360_checkAngle(p);
+        }          
+      }        
+    }      
+
+    while(lockset(lock360));
+    for(int p = 0; p < servo360_DEVS_MAX; p++)
+    {
+      if(fb[p].pinCtrl != -1 && fb[p].pinFb != -1)
+      {
+        if(fb[p].feedback)
+        {
           servo360_outputSelector(p);
         }          
       }        
@@ -388,7 +398,7 @@ int servo360_pidV(int p)
 {
   //while(lockset(lock360));
 
-  int opv;  
+  //int opv;  
   int opMax = fb[p].speedLimit / 4;
 
   fb[p].speedMeasured = (fb[p].angle - fb[p].angleP) * 50; 
@@ -465,7 +475,7 @@ void servo360_speedControl(int p)
     fb[p].d = 0;
     fb[p].op = 0;
     fb[p].erP = 0;
-    fb[p].pw = 0;
+    //fb[p].pw = 0;
   }    
 
   // Acceleration control by taking steps in target speed 

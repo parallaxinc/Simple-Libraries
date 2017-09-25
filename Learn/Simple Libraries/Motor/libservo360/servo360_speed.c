@@ -34,6 +34,7 @@ int servo360_speed(int pin, int speed)
       fb[p].speedReq = speed;
   
     fb[p].csop = SPEED; 
+    lockclr(lock360);
   
     {
       fb[p].er = 0;
@@ -44,10 +45,9 @@ int servo360_speed(int pin, int speed)
       fb[p].d = 0;
       fb[p].op = 0;
       fb[p].erP = 0;
-      fb[p].pw = 0;
+      //fb[p].pw = 0;
     }    
     
-    lockclr(lock360);
   }    
   //servo360_waitServoCtrllEdgeNeg(devCount - 1);
 }  
