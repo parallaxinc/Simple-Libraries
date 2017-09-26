@@ -86,6 +86,8 @@ int servo360_connect(int pinControl, int pinFeedback)
   fb[p].angleMax = S360_A_MAX;
   fb[p].angleMin = -S360_A_MAX;
   
+  fb[p].opMax = MAX_SPEED;
+  
   fb[p].feedback = 1;
 
   devCount++;

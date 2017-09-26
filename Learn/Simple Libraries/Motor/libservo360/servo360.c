@@ -24,7 +24,7 @@ volatile int cntPrev;
 volatile int dt360a[2];
 volatile int pulseCount;
 
-servo360 fb[servo360_DEVS_MAX];
+servo360_t fb[servo360_DEVS_MAX];
 
 
 void servo360_run(void)
@@ -392,10 +392,11 @@ int servo360_pidA(int p)
   
   // Limit output proportional to speed limit???  This may have been intended
   // to be proportional to the current target speed.
-  int opMax = fb[p].speedLimit / 4;
+  //int opMax = fb[p].speedLimit / 4;
+  //int opMax = fb[p].speedLimit;
   
-  if(fb[p].op > opMax) fb[p].op = opMax;
-  if(fb[p].op < -opMax) fb[p].op = -opMax;
+  if(fb[p].op > fb[p].opMax) fb[p].op = fb[p].opMax;
+  if(fb[p].op < -fb[p].opMax) fb[p].op = -fb[p].opMax;
   
   fb[p].erP = fb[p].er;
   return fb[p].op;

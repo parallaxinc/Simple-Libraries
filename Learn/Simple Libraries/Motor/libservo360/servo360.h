@@ -42,10 +42,10 @@
 #define servo360_B -129
 #define servo360_ENC_RES 4096
 
-#define KPA 5000
-#define KIA 200
-#define KDA -100
-#define servo360_POS_INTGRL_MAX 500
+#define KPA 12000
+#define KIA 600
+#define KDA 6000
+#define servo360_POS_INTGRL_MAX 600
 #define SCALE_DEN_A 1000
 
 #define KPV 1200
@@ -113,6 +113,10 @@ int servo360_stop(int pin);
 
 int servo360_feedback(int pin, int state);
 int servo360_set(int pinControl, int time);
+
+int servo360_setAngleCtrlSpeedMax(int pin, int speed);
+int servo360_getAngleCtrlSpeedMax(int pin);
+
 
 // int servo360_enable(int pin, int state);
 
@@ -197,6 +201,7 @@ typedef volatile struct servo360_s {
   volatile int angleFixed, angleFixedP; 
   volatile int angle, angleP, pvOffset;
   //volatile int stalled, noSignal;
+  volatile int opMax;
   
   // pulse control
   volatile int speedOut;
@@ -236,9 +241,9 @@ typedef volatile struct servo360_s {
   
   // goto system
   volatile int angleTarget;
-} servo360;
+} servo360_t;
 
-extern volatile servo360 fb[servo360_DEVS_MAX];
+extern volatile servo360_t fb[servo360_DEVS_MAX];
 
 // console
 #ifdef _console_

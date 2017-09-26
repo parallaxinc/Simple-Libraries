@@ -53,7 +53,7 @@ volatile int cntPrev;
 volatile int tElapsed;
 volatile int cnt;
 
-servo360 fbt[servo360_DEVS_MAX];
+servo360_t fbt[servo360_DEVS_MAX];
 
 //servo360 fb[2];
 
