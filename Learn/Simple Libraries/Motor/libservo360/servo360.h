@@ -48,10 +48,10 @@
 #define servo360_POS_INTGRL_MAX 600
 #define SCALE_DEN_A 1000
 
-#define KPV 1200
-#define KIV 225
-#define KDV -100
-#define servo360_VEL_INTGRL_MAX 350
+#define KPV 3000
+#define KIV 500
+#define KDV 1600
+#define servo360_VEL_INTGRL_MAX 325
 #define SCALE_DEN_V 1000
 
 #define PW_CENTER 15000
@@ -153,12 +153,13 @@ int servo360_checkDistanceRemaining(int pin, int speed, int finalAngle);
 
 int servo360_setMaxSpeedEncoded(int pin, int speed);
 
-void servo360_consoleInit(void);
-void servo360_consolePause(void);
+void servo360_consoleRun(void);
+void servo360_consoleEnd(void);
 
 #ifdef _console_
 void console();
 void console_start(void);
+void console_stop();
 int terminal_checkForValue(fdserial *connection, int *value);
 #endif
 

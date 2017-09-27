@@ -57,16 +57,16 @@ int servo360_connect(int pinControl, int pinFeedback)
   fb[p].KpV = KPV;
   fb[p].KiV = KIV;
   fb[p].KdV = KDV;
+  fb[p].iMax = servo360_POS_INTGRL_MAX;
+  fb[p].iMin = -servo360_POS_INTGRL_MAX;
   
   fb[p].Kp = KPA;
   fb[p].Ki = KIA;
   fb[p].Kd = KDA;
-  
-  fb[p].pw = PW_CENTER;
-  fb[p].iMax = servo360_POS_INTGRL_MAX;
-  fb[p].iMin = -servo360_POS_INTGRL_MAX;
   fb[p].iMaxV = servo360_VEL_INTGRL_MAX;
   fb[p].iMinV = -servo360_VEL_INTGRL_MAX;
+  
+  fb[p].pw = PW_CENTER;
   
   fb[p].speedLimit = MAX_SPEED;
   fb[p].rampStep = servo360_RAMP_STEP;

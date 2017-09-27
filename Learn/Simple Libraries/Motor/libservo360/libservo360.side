@@ -1,5 +1,4 @@
 libservo360.c
-console.c
 servo360.c
 servo360.h
 servo360_getTurns.c
@@ -39,6 +38,7 @@ servo360_captureOffset.c
 servo360_unitsEncoderToAngle.c
 servo360_setAngleCtrlSpeedMax.c
 servo360_getAngleCtrlSpeedMax.c
+z_dev_console.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

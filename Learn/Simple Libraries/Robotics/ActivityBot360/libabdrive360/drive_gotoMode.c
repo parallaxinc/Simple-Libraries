@@ -1,5 +1,5 @@
 /*
-  @file drive_abd360_gotoMode.c
+  @file drive_gotoMode.c
 
   @author Parallax Inc
 

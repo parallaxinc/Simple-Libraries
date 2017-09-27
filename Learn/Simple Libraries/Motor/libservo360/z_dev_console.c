@@ -14,27 +14,31 @@
 #include "servo360.h"
 
 
-void servo360_consoleInit(void)
+void servo360_consoleRun(void)
 {
   #ifdef _console_
-  pause(100);
+  pause(1000);
   
   // To use this, recompile libservo360 with #define _console_ uncommented
   // in servo360.h
   //
+    //simpleterm_close();
     console_start();
     suppressFbDisplay = 0;
+    
+    pause(1000);
   // 
   
-  pause(1000);
+  //pause(1000);
   #endif 
 }  
 
 
-void servo360_consolePause(void)
+void servo360_consoleEnd(void)
 {
   #ifdef _console_
     suppressFbDisplay = 1;
+    console_stop();
   #endif 
 }  
 
@@ -58,13 +62,26 @@ servo360_t fbt[servo360_DEVS_MAX];
 //servo360 fb[2];
 
 fdserial *term;
+int *consoleCog;
+
 
 void console_start()
 {
   simpleterm_close();
   pause(10);
   cntPrev = CNT;
-  cog_run(console, 512);
+  consoleCog = cog_run(console, 512);
+  pause(100);
+}  
+  
+
+void console_stop()
+{
+  cog_end(consoleCog);
+  fdserial_close(term);
+  pause(100);
+  simpleterm_open();
+  pause(500);
 }  
   
 
@@ -177,7 +194,7 @@ void console()
       } 
       lockclr(lock360);
       //
-       
+      //int p 
       for(int p = 0; p < devCount; p++)
       {
         /*
@@ -187,7 +204,11 @@ void console()
         csop      control system operation
                   0 inactive, 1 speed, 2, angle, 3 goto
         */
-        dprint(term, "pc: %d, id: %d, csop: %d\r", pulseCount, p, fbt[p].csop); 
+        if(p == 0)
+        {
+          //dprint(term, "pc: %d, id: %d, csop: %d\r", pulseCount, p, fbt[p].csop); 
+          dprint(term, "pc: %d, id: %d, csop: %d\r", pulseCount, p, fbt[p].csop); 
+        }          
         if(fbt[p].csop == POSITION)
         {
           dprint(term, "sp: %d, pv: %d, op: %d, e: %d, "\
@@ -211,6 +232,7 @@ void console()
             pidV      pid velocity output
             tf+pidV   pulse output
           */
+          /*
           dprint(term, "spR: %d, spT: %d, spM: %d\r"\
                        "aC: %d, aM: %d, aE: %d\r"\
                        "pV: %d, iV: %d, dV: %d\r"\
@@ -220,7 +242,12 @@ void console()
                        fbt[p].angleCalc, fbt[p].angle, fbt[p].angleError, 
                        fbt[p].pV, fbt[p].iV, fbt[p].dV,
                        fbt[p].drive, fbt[p].opV, fbt[p].opPidV); 
-        }        
+          */
+          dprint(term, "spT: %d, aC: %d, aM: %d, aE: %d",
+          fbt[p].speedTarget, fbt[p].angleCalc, 
+          fbt[p].angle, fbt[p].angleError);
+          if(p == 0) dprint(term, "   |   ");
+        }                        
         else if(fbt[p].csop == GOTO)
         {
           dprint(term,         
@@ -243,7 +270,7 @@ void console()
           fbt[p].dc, fbt[p].theta, fbt[p].turns, fbt[p].angle);
         }    
       }
-      dprint(term, "\r");            
+      dprint(term, "\r");             
       //lockclr(lock360);
     }
   } 

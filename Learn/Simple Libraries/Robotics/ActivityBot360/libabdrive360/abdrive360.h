@@ -27,7 +27,7 @@
 #define ABD360_GOTO_BLOCK 0
 #define ABD360_GOTO_SET_FORGET 1
 
-#define ABD_RAMP_STEP 6
+#define ABD_RAMP_STEP 4
 #define ABD_SPEED_LIMIT 128
 #define ABD_GOTO_SPEED_LIMIT 64
 #define ABD_GOTO_RAMP_STEP 4
@@ -83,7 +83,7 @@ void drive_encoderPins(int encPinLeft, int encPinRight);
 
 void drive_feedback(int enabled); 
 
-void drive_abd360_gotoMode(int mode);
+void drive_gotoMode(int mode);
 
 void drive_servoPins(int servoPinLeft, int servoPinRight);
 
@@ -99,7 +99,7 @@ void drive360_ticksPerRev(int units);
 
 void drive_setRampStep(int stepsize);
 
-void drive_abd360_rampStep(int left, int right);
+void drive_rampStep(int left, int right);
 
 void drive_ramp(int left, int right);
 

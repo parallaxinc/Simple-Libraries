@@ -413,7 +413,7 @@ int servo360_pidV(int p)
   //while(lockset(lock360));
 
   //int opv;  
-  int opMax = fb[p].speedLimit / 4;
+  int opMax = fb[p].speedLimit;
 
   fb[p].speedMeasured = (fb[p].angle - fb[p].angleP) * 50; 
   if(abs(fb[p].angleError) < UNITS_ENCODER/4)

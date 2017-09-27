@@ -1,5 +1,5 @@
 /*
-  @file drive360_abd360_unitsPerRev.c
+  @file drive360_unitsPerRev.c
 
   @author Parallax Inc
 
@@ -14,7 +14,7 @@
 #include "abdrive360.h"
 
 
-void drive360_abd360_unitsPerRev(int units)
+void drive360_unitsPerRev(int units)
 {
   if(!abd360_initialized) drive_speed(0, 0);
 
