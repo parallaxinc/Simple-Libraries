@@ -72,7 +72,9 @@ void servo360_mainLoop()
   
   while(1)
   {
-    while((CNT - t360) < dt360);
+    //while((CNT - t360) < dt360);
+    //while((CNT - t360) < dt360);
+    
 
     for(int p = 0; p < servo360_DEVS_MAX; p++)
     {
@@ -103,10 +105,9 @@ void servo360_mainLoop()
 
 
 
-
      
     
-    //#ifdef couple_servos
+    #ifdef couple_servos
     
     input(14);
 
@@ -116,16 +117,12 @@ void servo360_mainLoop()
 
     fb[0].lag = fb[0].stepDir * fb[0].angleError;
   
-  
     if(fb[1].speedTarget > 0) fb[1].stepDir = 1;
     else if(fb[1].speedTarget < 0) fb[1].stepDir = -1;
     else  fb[1].stepDir = 0;
 
     fb[1].lag = fb[1].stepDir * fb[1].angleError;
 
-
-    
-    //int leader, follower;
     if(fb[1].lag > fb[0].lag)
     {
       int compensate = fb[1].lag - fb[0].lag;
@@ -145,9 +142,7 @@ void servo360_mainLoop()
       if(fb[1].speedOut < 000) fb[1].speedOut += compensate;
     }
     
-    //int compensate = (fb[leader].stepDir) * (fb[leader].lag - fb[follower].lag);           
-
-    //#endif
+    #endif
 
 
 
@@ -158,12 +153,17 @@ void servo360_mainLoop()
 
           
     lockclr(lock360);
+    
+    int target[2];
+    target[0] = t360 + dt360a[0];
+    target[1] = t360 + dt360a[1];
 
     for(int p = 0; p < servo360_DEVS_MAX; p++)
     {
       if(p % 2 == 1)
       {
-        while((CNT - t360) <  dt360a[p/2]);
+        //while((CNT - t360) <  dt360a[p/2]);
+        waitcnt(target[p/2]);
         servo360_servoPulse(p - 1, p);
       }        
     }      

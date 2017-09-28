@@ -1,7 +1,6 @@
 /*
-   Accelleration FOR_SPEED, 300
+   Dev - Velocity Control System Tuning (3).c
 */
-
 
 #include "simpletools.h"
 #include "abdrive360.h"
@@ -11,55 +10,29 @@ void forwardStopBackwardStop(void);
 int main()
 {
   drive_speed(0, 0);
+  
   //  
   drive_setAcceleration(FOR_SPEED, 200);
 
-  servo360_setControlSys(12, S360_KPV, 3000);            // KPV
-  servo360_setControlSys(13, S360_KPV, 3000);            // KPV
-  servo360_setControlSys(12, S360_KIV, 500);             // KIV
-  servo360_setControlSys(13, S360_KIV, 500);             // KIV
-  servo360_setControlSys(12, S360_KDV, 1600);            // KDV
-  servo360_setControlSys(13, S360_KDV, 1600);            // KDV
-  servo360_setControlSys(12, S360_IV_MAX, 325);          // FB360_VEL_INTGRL_MAX
-  servo360_setControlSys(13, S360_IV_MAX, 325);          // FB360_VEL_INTGRL_MAX
+  servo360_setControlSys(12, S360_KPV, 2500);            // KPV
+  servo360_setControlSys(13, S360_KPV, 2500);            // KPV
+  servo360_setControlSys(12, S360_KIV, 000);             // KIV
+  servo360_setControlSys(13, S360_KIV, 000);             // KIV
+  servo360_setControlSys(12, S360_KDV, 0000);            // KDV
+  servo360_setControlSys(13, S360_KDV, 0000);            // KDV
+  servo360_setControlSys(12, S360_IV_MAX, 0);            // FB360_VEL_INTGRL_MAX
+  servo360_setControlSys(13, S360_IV_MAX, 0);            // FB360_VEL_INTGRL_MAX
   //
 
 
-  /*
-  drive_setAcceleration(FOR_SPEED, 2400);
-
-  servo360_setControlSys(12, S360_KPV, 0000);            // KPV
-  servo360_setControlSys(13, S360_KPV, 0000);            // KPV
-  servo360_setControlSys(12, S360_KIV, 000);             // KIV
-  servo360_setControlSys(13, S360_KIV, 000);             // KIV
-  servo360_setControlSys(12, S360_KDV, 0);            // KDV
-  servo360_setControlSys(13, S360_KDV, 0);            // KDV
-  servo360_setControlSys(12, S360_IV_MAX, 000);          // FB360_VEL_INTGRL_MAX
-  servo360_setControlSys(13, S360_IV_MAX, 000);          // FB360_VEL_INTGRL_MAX
-  */
-
-
-  /*
-  drive_setAcceleration(FOR_SPEED, 400);
-
-  servo360_setControlSys(12, S360_KPV, 0000);            // KPV
-  servo360_setControlSys(13, S360_KPV, 0000);            // KPV
-  servo360_setControlSys(12, S360_KIV, 000);             // KIV
-  servo360_setControlSys(13, S360_KIV, 000);             // KIV
-  servo360_setControlSys(12, S360_KDV, 0);            // KDV
-  servo360_setControlSys(13, S360_KDV, 0);            // KDV
-  servo360_setControlSys(12, S360_IV_MAX, 0);          // FB360_VEL_INTGRL_MAX
-  servo360_setControlSys(13, S360_IV_MAX, 0);          // FB360_VEL_INTGRL_MAX
-  */
-
   int kpL = servo360_getControlSys(12, S360_KPV);
   int kpR = servo360_getControlSys(13, S360_KPV);
-  int kiL = servo360_getControlSys(12, S360_KIV);         // KIV
-  int kiR = servo360_getControlSys(13, S360_KIV);         // KIV
-  int kdL = servo360_getControlSys(12, S360_KDV);         // KDV
-  int kdR = servo360_getControlSys(13, S360_KDV);         // KDV
-  int kiclL = servo360_getControlSys(12, S360_IV_MAX);    // FB360_VEL_INTGRL_MAX
-  int kiclR = servo360_getControlSys(13, S360_IV_MAX);    // FB360_VEL_INTGRL_MAX
+  int kiL = servo360_getControlSys(12, S360_KIV);
+  int kiR = servo360_getControlSys(13, S360_KIV);
+  int kdL = servo360_getControlSys(12, S360_KDV);
+  int kdR = servo360_getControlSys(13, S360_KDV);
+  int kiclL = servo360_getControlSys(12, S360_IV_MAX);
+  int kiclR = servo360_getControlSys(13, S360_IV_MAX);
 
   print("kpL = %d, kpR = %d\r", kpL, kpR);
   print("kiL = %d, kiR = %d\r", kiL, kiR);
@@ -71,25 +44,27 @@ int main()
   // memory.        
   servo360_consoleRun();  
    
-  drive_speed(46, 46);
+  drive_speed(64, 64);
   pause(4000);
   drive_speed(0, 0);
   pause(1000);
+  
   /*
-  drive_speed(32, -32);
-  pause(850);
+  drive_speed(42, -42);
+  pause(600);
   drive_speed(0, 0);
-  pause(500);
-  drive_speed(-32, 32);
-  pause(1700);
+  pause(700);
+  drive_speed(-42, 42);
+  pause(1200);
   drive_speed(0,0);
-  pause(500);
-  drive_speed(32, -32);
-  pause(850);
+  pause(700);
+  drive_speed(42, -42);
+  pause(600);
   drive_speed(0, 0);
-  pause(500);
+  pause(700);
   */
-  drive_speed(-46, -46);
+
+  drive_speed(-64, -64);
   pause(4000);
   drive_speed(0, 0);
   pause(1000);
@@ -97,5 +72,4 @@ int main()
   servo360_consoleEnd();
 
   pause(100);
-  
 }

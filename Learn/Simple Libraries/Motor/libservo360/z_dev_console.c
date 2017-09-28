@@ -247,8 +247,8 @@ void console()
                        fbt[p].speedReq, fbt[p].speedTarget, fbt[p].speedMeasured);
           dprint(term, "aC: %d, aM: %d, aE: %d\r",
                        fbt[p].angleCalc, fbt[p].angle, fbt[p].angleError); 
-          //dprint(term, "pV: %d, iV: %d, dV: %d\r",
-          //             fbt[p].pV, fbt[p].iV, fbt[p].dV);
+          dprint(term, "pV: %d, iV: %d, dV: %d\r",
+                       fbt[p].pV, fbt[p].iV, fbt[p].dV);
           dprint(term, "sd: %d, lag: %d, spdO: %d\r",
                        fbt[p].stepDir, fbt[p].lag, fbt[p].speedOut);
           dprint(term, "tf: %d, pidV: %d, tf+pidV: %d",

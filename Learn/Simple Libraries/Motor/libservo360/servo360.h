@@ -48,10 +48,16 @@
 #define servo360_POS_INTGRL_MAX 600
 #define SCALE_DEN_A 1000
 
+/*
 #define KPV 3000
 #define KIV 500
 #define KDV 1600
 #define servo360_VEL_INTGRL_MAX 325
+*/
+#define KPV 2500
+#define KIV 0
+#define KDV 0
+#define servo360_VEL_INTGRL_MAX 0
 #define SCALE_DEN_V 1000
 
 #define PW_CENTER 15000
