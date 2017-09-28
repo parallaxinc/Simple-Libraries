@@ -34,7 +34,7 @@
 #define GOTO 3
 #define MONITOR 4
 #define servo360_FREQ_CTRL_SIG 50
-#define servo360_DEVS_MAX 2
+#define servo360_DEVS_MAX 4
 
 #define servo360_RAMP_STEP 10 * 4096 / 360;
 
