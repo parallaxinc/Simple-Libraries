@@ -243,10 +243,24 @@ void console()
                        fbt[p].pV, fbt[p].iV, fbt[p].dV,
                        fbt[p].drive, fbt[p].opV, fbt[p].opPidV); 
           */
+          dprint(term, "spR: %d, spT: %d, spM: %d\r",
+                       fbt[p].speedReq, fbt[p].speedTarget, fbt[p].speedMeasured);
+          dprint(term, "aC: %d, aM: %d, aE: %d\r",
+                       fbt[p].angleCalc, fbt[p].angle, fbt[p].angleError); 
+          //dprint(term, "pV: %d, iV: %d, dV: %d\r",
+          //             fbt[p].pV, fbt[p].iV, fbt[p].dV);
+          dprint(term, "sd: %d, lag: %d, spdO: %d\r",
+                       fbt[p].stepDir, fbt[p].lag, fbt[p].speedOut);
+          dprint(term, "tf: %d, pidV: %d, tf+pidV: %d",
+                       fbt[p].drive, fbt[p].opV, fbt[p].opPidV); 
+          dprint(term, "\r");
+          //
+          /*
           dprint(term, "spT: %d, aC: %d, aM: %d, aE: %d",
           fbt[p].speedTarget, fbt[p].angleCalc, 
           fbt[p].angle, fbt[p].angleError);
           if(p == 0) dprint(term, "   |   ");
+          */
         }                        
         else if(fbt[p].csop == GOTO)
         {

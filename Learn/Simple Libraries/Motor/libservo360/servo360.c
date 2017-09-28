@@ -13,6 +13,10 @@
 #include "simpletools.h"  
 #include "servo360.h"
 
+
+#define couple_servos
+
+
 int *servoCog;
 volatile int lock360;
 volatile int devCount;
@@ -92,7 +96,67 @@ void servo360_mainLoop()
             servo360_outputSelector(p);
         }          
       }        
-    }      
+    }
+
+
+
+
+
+
+
+     
+    
+    //#ifdef couple_servos
+    
+    input(14);
+
+    if(fb[0].speedTarget > 0) fb[0].stepDir = 1;
+    else if(fb[0].speedTarget < 0) fb[0].stepDir = -1;
+    else  fb[0].stepDir = 0;
+
+    fb[0].lag = fb[0].stepDir * fb[0].angleError;
+  
+  
+    if(fb[1].speedTarget > 0) fb[1].stepDir = 1;
+    else if(fb[1].speedTarget < 0) fb[1].stepDir = -1;
+    else  fb[1].stepDir = 0;
+
+    fb[1].lag = fb[1].stepDir * fb[1].angleError;
+
+
+    
+    //int leader, follower;
+    if(fb[1].lag > fb[0].lag)
+    {
+      int compensate = fb[1].lag - fb[0].lag;
+      compensate *= 2;
+      if(compensate > 500) compensate = 500;           
+
+      if(fb[0].speedOut > 000) fb[0].speedOut -= compensate;
+      if(fb[0].speedOut < 0000) fb[0].speedOut += compensate;
+    }
+    else if(fb[0].lag > fb[1].lag)
+    {
+      int compensate = fb[0].lag - fb[1].lag;
+      compensate *= 2;           
+      if(compensate > 500) compensate = 500;           
+  
+      if(fb[1].speedOut > 000) fb[1].speedOut -= compensate;
+      if(fb[1].speedOut < 000) fb[1].speedOut += compensate;
+    }
+    
+    //int compensate = (fb[leader].stepDir) * (fb[leader].lag - fb[follower].lag);           
+
+    //#endif
+
+
+
+
+
+
+
+
+          
     lockclr(lock360);
 
     for(int p = 0; p < servo360_DEVS_MAX; p++)
@@ -445,7 +509,7 @@ int servo360_pidV(int p)
   
   fb[p].erDistP = fb[p].erDist;
   
-  //lockclr(lock360);
+  //lockclr(lock360);  
 
   return fb[p].opV;
 }
@@ -458,7 +522,7 @@ int servo360_pidV(int p)
 int servo360_upsToPulseFromTransferFunction(int unitsPerSec)
 {
   int pw, b, mx;
-  int ups = unitsPerSec/4;
+  int ups = unitsPerSec/7;
   
   if(ups > 0)
   {

@@ -34,7 +34,7 @@
 #define GOTO 3
 #define MONITOR 4
 #define servo360_FREQ_CTRL_SIG 50
-#define servo360_DEVS_MAX 4
+#define servo360_DEVS_MAX 2
 
 #define servo360_RAMP_STEP 10 * 4096 / 360;
 
@@ -230,6 +230,8 @@ typedef volatile struct servo360_s {
   volatile int pV, iV, dV;
   volatile int speedMeasured;
   volatile int drive;
+  volatile int stepDir;
+  volatile int lag;
   
   // position control system
   volatile int Kp;
