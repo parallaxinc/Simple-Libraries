@@ -122,7 +122,7 @@ int servo360_set(int pinControl, int time);
 
 int servo360_setAngleCtrlSpeedMax(int pin, int speed);
 int servo360_getAngleCtrlSpeedMax(int pin);
-
+int servo360_couple(int pinA, int pinB);
 
 // int servo360_enable(int pin, int state);
 
@@ -196,6 +196,7 @@ typedef volatile struct servo360_s {
   volatile int angleMax;
   volatile int angleMin;
   volatile int unitsRev;
+  volatile int couple;
   
   // admin
   volatile int csop;

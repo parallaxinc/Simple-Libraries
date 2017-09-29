@@ -100,58 +100,47 @@ void servo360_mainLoop()
       }        
     }
 
-
-
-
-
-
-     
-    
     #ifdef couple_servos
-    
-    input(14);
 
-    if(fb[0].speedTarget > 0) fb[0].stepDir = 1;
-    else if(fb[0].speedTarget < 0) fb[0].stepDir = -1;
-    else  fb[0].stepDir = 0;
-
-    fb[0].lag = fb[0].stepDir * fb[0].angleError;
-  
-    if(fb[1].speedTarget > 0) fb[1].stepDir = 1;
-    else if(fb[1].speedTarget < 0) fb[1].stepDir = -1;
-    else  fb[1].stepDir = 0;
-
-    fb[1].lag = fb[1].stepDir * fb[1].angleError;
-
-    if(fb[1].lag > fb[0].lag)
+    for(int p = 0; p < servo360_DEVS_MAX; p++)
     {
-      int compensate = fb[1].lag - fb[0].lag;
-      compensate *= 2;
-      if(compensate > 500) compensate = 500;           
-
-      if(fb[0].speedOut > 000) fb[0].speedOut -= compensate;
-      if(fb[0].speedOut < 0000) fb[0].speedOut += compensate;
-    }
-    else if(fb[0].lag > fb[1].lag)
-    {
-      int compensate = fb[0].lag - fb[1].lag;
-      compensate *= 2;           
-      if(compensate > 500) compensate = 500;           
-  
-      if(fb[1].speedOut > 000) fb[1].speedOut -= compensate;
-      if(fb[1].speedOut < 000) fb[1].speedOut += compensate;
-    }
+      if((fb[p].couple != -1) && (fb[p].feedback))
+      {
+        if(fb[p].speedTarget > 0) fb[p].stepDir = 1;
+        else if(fb[p].speedTarget < 0) fb[p].stepDir = -1;
+        else  fb[p].stepDir = 0;
     
+        fb[p].lag = fb[p].stepDir * fb[p].angleError;
+      
+        if(fb[fb[p].couple].speedTarget > 0) fb[fb[p].couple].stepDir = 1;
+        else if(fb[fb[p].couple].speedTarget < 0) fb[fb[p].couple].stepDir = -1;
+        else  fb[fb[p].couple].stepDir = 0;
+    
+        fb[fb[p].couple].lag = fb[fb[p].couple].stepDir * fb[fb[p].couple].angleError;
+    
+        if(fb[fb[p].couple].lag > fb[p].lag)
+        {
+          int compensate = fb[fb[p].couple].lag - fb[p].lag;
+          compensate *= 2;
+          if(compensate > 500) compensate = 500;           
+    
+          if(fb[p].speedOut > 0) fb[p].speedOut -= compensate;
+          if(fb[p].speedOut < 0) fb[p].speedOut += compensate;
+        }
+        else if(fb[p].lag > fb[fb[p].couple].lag)
+        {
+          int compensate = fb[p].lag - fb[fb[p].couple].lag;
+          compensate *= 2;           
+          if(compensate > 500) compensate = 500;           
+      
+          if(fb[fb[p].couple].speedOut > 0) fb[fb[p].couple].speedOut -= compensate;
+          if(fb[fb[p].couple].speedOut < 0) fb[fb[p].couple].speedOut += compensate;
+        }
+      }        
+    }
+
     #endif
-
-
-
-
-
-
-
-
-          
+    
     lockclr(lock360);
     
     int target[2];

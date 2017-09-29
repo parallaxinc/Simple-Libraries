@@ -61,6 +61,8 @@ void drive_init(void)
   servo360_setMaxSpeed(abd360_pinCtrlLeft, abd360_speedLimit);
   servo360_setMaxSpeed(abd360_pinCtrlRight, abd360_speedLimit);
 
+  servo360_couple(abd360_pinCtrlLeft, abd360_pinCtrlRight);
+
   abd360_initialized = 1;
 }  
 
