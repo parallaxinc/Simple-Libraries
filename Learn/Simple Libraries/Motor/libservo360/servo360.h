@@ -12,6 +12,14 @@
 */
 
 
+#ifndef SERVO360_H
+#define SERVO360_H
+
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
+
 #include "simpletools.h"  
 
 #ifdef _console_
@@ -268,6 +276,14 @@ extern volatile servo360_t fb[S360_DEVS_MAX];
   extern volatile int suppressFbDisplay;
 #endif
 
+
+
+#if defined(__cplusplus)
+}
+#endif
+/* __cplusplus */ 
+#endif
+/* SERVO360_H */ 
 
 
 /**
