@@ -16,7 +16,7 @@
 
 int servo360_set(int pinControl, int time)
 {
-  if(!servoCog) servo360_run();
+  if(!_fb360c.servoCog) servo360_run();
   int p = servo360_findServoIndex(pinControl);
   if(p == -1)return -1;
 

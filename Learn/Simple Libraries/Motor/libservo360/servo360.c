@@ -16,33 +16,36 @@
 
 #define couple_servos
 
-
+/*
 int *servoCog;
-volatile int lock360;
-volatile int devCount;
-volatile int t360;
-volatile int t360slice;
-volatile int dt360;
+volatile int _fb360c.lock360;
+volatile int _fb360c.devCount;
+volatile int _fb360c.t360;
+volatile int _fb360c.t360slice;
+volatile int _fb360c.dt360;
 volatile int angleSign = S360_CCW_POS;
-volatile int cntPrev;
+volatile int _fb360c.cntPrev;
 volatile int dt360a[2];
-volatile int pulseCount;
+volatile int _fb360c.pulseCount;
+*/
 
+
+servo360_cog_t _fb360c;
 servo360_t fb[S360_DEVS_MAX];
 
 
 void servo360_run(void)
 {
-  servoCog = cog_run(servo360_mainLoop, 512); 
-  cntPrev = CNT;
+  _fb360c.servoCog = cog_run(servo360_mainLoop, 512); 
+  _fb360c.cntPrev = CNT;
   pause(500);
 }
 
   
 void servo360_end(void)
 {
-  lockret(lock360);
-  cog_end(servoCog);
+  lockret(_fb360c.lock360);
+  cog_end(_fb360c.servoCog);
 } 
 
 
@@ -54,15 +57,15 @@ void servo360_setup(void)
     fb[p].pinFb = -1;
   } 
   
-  devCount = 0;   
+  _fb360c.devCount = 0;   
   
-  lock360 = locknew();
-  lockclr(lock360);
+  _fb360c.lock360 = locknew();
+  lockclr(_fb360c.lock360);
   
-  dt360 = CLKFREQ / S360_FREQ_CTRL_SIG;  // 20 ms
-  t360  = CNT;
-  dt360a[0] = 16 * (CLKFREQ / 1000);      // 16 ms
-  dt360a[1] = 18 * (CLKFREQ / 1000);      // 18 ms
+  _fb360c.dt360 = CLKFREQ / S360_FREQ_CTRL_SIG;  // 20 ms
+  _fb360c.t360  = CNT;
+  _fb360c.dt360a[0] = 16 * (CLKFREQ / 1000);      // 16 ms
+  _fb360c.dt360a[1] = 18 * (CLKFREQ / 1000);      // 18 ms
 }
 
 
@@ -72,8 +75,8 @@ void servo360_mainLoop()
   
   while(1)
   {
-    //while((CNT - t360) < dt360);
-    //while((CNT - t360) < dt360);
+    //while((CNT - _fb360c.t360) < _fb360c.dt360);
+    //while((CNT - _fb360c.t360) < _fb360c.dt360);
     
 
     for(int p = 0; p < S360_DEVS_MAX; p++)
@@ -87,7 +90,7 @@ void servo360_mainLoop()
       }        
     }
     
-    while(lockset(lock360));
+    while(lockset(_fb360c.lock360));
     for(int p = 0; p < S360_DEVS_MAX; p++)
     {
       if(fb[p].pinCtrl != -1 && fb[p].pinFb != -1)
@@ -141,30 +144,30 @@ void servo360_mainLoop()
 
     #endif
     
-    lockclr(lock360);
+    lockclr(_fb360c.lock360);
     
     int target[2];
-    target[0] = t360 + dt360a[0];
-    target[1] = t360 + dt360a[1];
+    target[0] = _fb360c.t360 + _fb360c.dt360a[0];
+    target[1] = _fb360c.t360 + _fb360c.dt360a[1];
 
     for(int p = 0; p < S360_DEVS_MAX; p++)
     {
       if(p % 2 == 1)
       {
-        //while((CNT - t360) <  dt360a[p/2]);
+        //while((CNT - _fb360c.t360) <  dt360a[p/2]);
         waitcnt(target[p/2]);
         servo360_servoPulse(p - 1, p);
       }        
     }      
 
-    t360 += dt360;
+    _fb360c.t360 += _fb360c.dt360;
   }    
 }  
 
 
 void servo360_servoPulse(int p, int q)
 {
-  pulseCount++;
+  _fb360c.pulseCount++;
   int pinA = fb[p].pinCtrl;
   int pinB = fb[q].pinCtrl;
 
@@ -463,7 +466,7 @@ int servo360_pidA(int p)
 // P, I, and D calculations.   
 int servo360_pidV(int p)  
 {
-  //while(lockset(lock360));
+  //while(lockset(_fb360c.lock360));
 
   //int opv;  
   int opMax = fb[p].speedLimit;
@@ -498,7 +501,7 @@ int servo360_pidV(int p)
   
   fb[p].erDistP = fb[p].erDist;
   
-  //lockclr(lock360);  
+  //lockclr(_fb360c.lock360);  
 
   return fb[p].opV;
 }

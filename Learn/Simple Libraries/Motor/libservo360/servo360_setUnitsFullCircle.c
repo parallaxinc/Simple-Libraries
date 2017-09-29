@@ -16,11 +16,11 @@
 
 int servo360_setUnitsFullCircle(int pin, int units)
 {
-  if(!servoCog) servo360_run();
+  if(!_fb360c.servoCog) servo360_run();
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
 
-  //while(lockset(lock360));
+  //while(lockset(_fb360c.lock360));
   if(fb[p].unitsRev <= S360_UNITS_FULL_CIRCLE)
   {
     fb[p].unitsRev = units;
@@ -30,7 +30,7 @@ int servo360_setUnitsFullCircle(int pin, int units)
   {
     return -1;
   }        
-  //lockclr(lock360);
+  //lockclr(_fb360c.lock360);
 }  
 
 

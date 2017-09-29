@@ -16,14 +16,14 @@
 
 int servo360_enable(int pin, int state)
 {
-  if(!servoCog) servo360_run();
+  if(!_fb360c.servoCog) servo360_run();
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
 
   int index = servo360_findServoIndex(pin);
-  while(lockset(lock360));
+  while(lockset(_fb360c.lock360));
   //enable = state;
-  while(lockset(lock360));
+  while(lockset(_fb360c.lock360));
   return index; 
 }
 

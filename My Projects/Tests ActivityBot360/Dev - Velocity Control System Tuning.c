@@ -17,25 +17,24 @@ int main()
   servo360_couple(12, 13);
   servo360_setCoupleScale(12, 13, 2000);
 
-  servo360_setControlSys(12, S360_KPV, 2500);            // KPV
-  servo360_setControlSys(13, S360_KPV, 2500);            // KPV
-  servo360_setControlSys(12, S360_KIV, 000);             // KIV
-  servo360_setControlSys(13, S360_KIV, 000);             // KIV
-  servo360_setControlSys(12, S360_KDV, 0000);            // KDV
-  servo360_setControlSys(13, S360_KDV, 0000);            // KDV
-  servo360_setControlSys(12, S360_IV_MAX, 0);            // FB360_VEL_INTGRL_MAX
-  servo360_setControlSys(13, S360_IV_MAX, 0);            // FB360_VEL_INTGRL_MAX
+  servo360_setControlSys(12, S360_SETTING_KPV, 2500);            // KPV
+  servo360_setControlSys(13, S360_SETTING_KPV, 2500);            // KPV
+  servo360_setControlSys(12, S360_SETTING_KIV, 000);             // KIV
+  servo360_setControlSys(13, S360_SETTING_KIV, 000);             // KIV
+  servo360_setControlSys(12, S360_SETTING_KDV, 0000);            // KDV
+  servo360_setControlSys(13, S360_SETTING_KDV, 0000);            // KDV
+  servo360_setControlSys(12, S360_SETTING_IV_MAX, 0);            // FB360_VEL_INTGRL_MAX
+  servo360_setControlSys(13, S360_SETTING_IV_MAX, 0);            // FB360_VEL_INTGRL_MAX
   //
 
-
-  int kpL = servo360_getControlSys(12, S360_KPV);
-  int kpR = servo360_getControlSys(13, S360_KPV);
-  int kiL = servo360_getControlSys(12, S360_KIV);
-  int kiR = servo360_getControlSys(13, S360_KIV);
-  int kdL = servo360_getControlSys(12, S360_KDV);
-  int kdR = servo360_getControlSys(13, S360_KDV);
-  int kiclL = servo360_getControlSys(12, S360_IV_MAX);
-  int kiclR = servo360_getControlSys(13, S360_IV_MAX);
+  int kpL = servo360_getControlSys(12, S360_SETTING_KPV);
+  int kpR = servo360_getControlSys(13, S360_SETTING_KPV);
+  int kiL = servo360_getControlSys(12, S360_SETTING_KIV);
+  int kiR = servo360_getControlSys(13, S360_SETTING_KIV);
+  int kdL = servo360_getControlSys(12, S360_SETTING_KDV);
+  int kdR = servo360_getControlSys(13, S360_SETTING_KDV);
+  int kiclL = servo360_getControlSys(12, S360_SETTING_IV_MAX);
+  int kiclR = servo360_getControlSys(13, S360_SETTING_IV_MAX);
 
   print("kpL = %d, kpR = %d\r", kpL, kpR);
   print("kiL = %d, kiR = %d\r", kiL, kiR);

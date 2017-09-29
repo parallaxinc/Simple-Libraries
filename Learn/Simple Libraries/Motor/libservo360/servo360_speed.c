@@ -16,7 +16,7 @@
 
 int servo360_speed(int pin, int speed)
 {
-  if(!servoCog) servo360_run();
+  if(!_fb360c.servoCog) servo360_run();
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
   
@@ -24,7 +24,7 @@ int servo360_speed(int pin, int speed)
   
   if(speed != fb[p].speedReq)
   {
-    while(lockset(lock360));
+    while(lockset(_fb360c.lock360));
   
     if(speed > fb[p].speedLimit)
       fb[p].speedReq = fb[p].speedLimit;
@@ -34,7 +34,7 @@ int servo360_speed(int pin, int speed)
       fb[p].speedReq = speed;
   
     fb[p].csop = S360_SPEED; 
-    lockclr(lock360);
+    lockclr(_fb360c.lock360);
   
     {
       fb[p].er = 0;
@@ -49,7 +49,7 @@ int servo360_speed(int pin, int speed)
     }    
     
   }    
-  //servo360_waitServoCtrllEdgeNeg(devCount - 1);
+  //servo360_waitServoCtrllEdgeNeg(_fb360c.devCount - 1);
 }  
 
 

@@ -53,7 +53,7 @@ static volatile int val;
 static volatile int operation;
 static volatile int pvStart;
 static volatile int angleFixedPrev;
-volatile int cntPrev;
+volatile int _fb360c.cntPrev;
 volatile int tElapsed;
 volatile int cnt;
 
@@ -69,7 +69,7 @@ void console_start()
 {
   simpleterm_close();
   pause(10);
-  cntPrev = CNT;
+  _fb360c.cntPrev = CNT;
   consoleCog = cog_run(console, 512);
   pause(100);
 }  
@@ -119,10 +119,10 @@ void console()
   
   while(1)
   {
-    servo360_waitServoCtrllEdgeNeg(devCount - 1);
+    servo360_waitServoCtrllEdgeNeg(_fb360c.devCount - 1);
     cnt = CNT;
-    tElapsed = cnt - cntPrev;
-    cntPrev = cnt;
+    tElapsed = cnt - _fb360c.cntPrev;
+    _fb360c.cntPrev = cnt;
     
     ready = terminal_checkForValue(term, &value);
 
@@ -181,21 +181,21 @@ void console()
     //if(0)
     if(!suppressFbDisplay)
     {
-      //while(lockset(lock360));
+      //while(lockset(_fb360c.lock360));
       //if(operation == S360_POSITION)
       //servo360_waitServoCtrllEdgeNeg(0);
       //dprint(term, "pc: %d\r", tElapsed / (CLKFREQ/1000));
       
       //
-      while(lockset(lock360));
-      for(int p = 0; p < devCount; p++)
+      while(lockset(_fb360c.lock360));
+      for(int p = 0; p < _fb360c.devCount; p++)
       {
         fbt[p] = fb[p];
       } 
-      lockclr(lock360);
+      lockclr(_fb360c.lock360);
       //
       //int p 
-      for(int p = 0; p < devCount; p++)
+      for(int p = 0; p < _fb360c.devCount; p++)
       {
         /*
         pc        pulse count
@@ -206,8 +206,8 @@ void console()
         */
         if(p == 0)
         {
-          //dprint(term, "pc: %d, id: %d, csop: %d\r", pulseCount, p, fbt[p].csop); 
-          dprint(term, "pc: %d, id: %d, csop: %d\r", pulseCount, p, fbt[p].csop); 
+          //dprint(term, "pc: %d, id: %d, csop: %d\r", _fb360c.pulseCount, p, fbt[p].csop); 
+          dprint(term, "pc: %d, id: %d, csop: %d\r", _fb360c.pulseCount, p, fbt[p].csop); 
         }          
         if(fbt[p].csop == S360_POSITION)
         {
@@ -285,7 +285,7 @@ void console()
         }    
       }
       dprint(term, "\r");             
-      //lockclr(lock360);
+      //lockclr(_fb360c.lock360);
     }
   } 
 }    

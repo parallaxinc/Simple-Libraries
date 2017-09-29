@@ -16,7 +16,7 @@
 
 int servo360_setCoupleScale(int pinA, int pinB, int scale)
 {
-  if(!servoCog) servo360_run();
+  if(!_fb360c.servoCog) servo360_run();
 
   int pA = servo360_findServoIndex(pinA);
   if(pA == -1) return -1;

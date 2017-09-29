@@ -111,10 +111,10 @@ int main()
   
   pause(2000);
  
-  print("devCount %d\r", devCount);
+  print("_fb360c.devCount %d\r", _fb360c.devCount);
   print("ctrl %d, fb %d\r", fb[0].pinCtrl, fb[0].pinFb);
   print("ctrl %d, fb %d\r", fb[1].pinCtrl, fb[1].pinFb);
-  print("devCount %d\r", devCount);
+  print("_fb360c.devCount %d\r", _fb360c.devCount);
   
   servo360_speed(12, 0);
   servo360_speed(13, 0);

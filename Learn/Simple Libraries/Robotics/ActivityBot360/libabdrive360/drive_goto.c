@@ -71,7 +71,7 @@ void drive_goto(int distLeft, int distRight)
   servo360_goto(abd360_pinCtrlLeft, distLeft);
   servo360_goto(abd360_pinCtrlRight, -distRight);
   
-  while(servo360_getCsop(abd360_pinCtrlLeft) == GOTO && servo360_getCsop(abd360_pinCtrlRight) == GOTO);
+  while(servo360_getCsop(abd360_pinCtrlLeft) == S360_GOTO && servo360_getCsop(abd360_pinCtrlRight) == S360_GOTO);
   
   servo360_setAcceleration(abd360_pinCtrlLeft, abd360_rampStep * 50);
   servo360_setAcceleration(abd360_pinCtrlRight, abd360_rampStep * 50);

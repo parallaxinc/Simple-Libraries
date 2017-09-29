@@ -16,13 +16,13 @@
 
 int servo360_stop(int pin)
 {
-  if(!servoCog) servo360_run();
+  if(!_fb360c.servoCog) servo360_run();
   int p = servo360_findServoIndex(pin);
   if(p == -1) return -1;
 
-  //while(lockset(lock360));
+  //while(lockset(_fb360c.lock360));
   servo360_speed(pin, 0);
-  //while(lockset(lock360));
+  //while(lockset(_fb360c.lock360));
   return p; 
 }
 

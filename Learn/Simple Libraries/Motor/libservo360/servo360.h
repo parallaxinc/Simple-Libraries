@@ -85,8 +85,8 @@ extern "C" {
 //#define S360_A_MAX (((1 << 31) - 1)) / S360_UNITS_FULL_CIRCLE  // 524287 degrees
 #define S360_A_MAX 524287  
 
-#define S360_SCALE_DEN_COUPLE 1000;        
-#define S360_SCALE_COUPLE 2000;        
+#define S360_SCALE_DEN_COUPLE 1000        
+#define S360_SCALE_COUPLE 2000       
 
 
 /* Public */
@@ -184,22 +184,28 @@ int terminal_checkForValue(fdserial *connection, int *value);
 #endif
 
                            ////// ALL SERVOS //////
+//
+typedef volatile struct servo360_cog_s 
+{
+  int *servoCog;
+  volatile int lock360;
+  volatile int t360;
+  volatile int t360slice;
+  volatile int fbSlice;
+  volatile int spSlice;
+  volatile int devCount;
+  volatile int pulseCount;
+  volatile int cntPrev;
+  volatile int dt360;
+  volatile int dt360a[2];
+} servo360_cog_t;
 
-//extern fdserial *term;
-extern int *servoCog;
-extern volatile int lock360;
-extern volatile int t360;
-extern volatile int t360slice;
-extern volatile int dt360fbSlice;
-extern volatile int dt360spSlice;
-extern volatile int devCount;
-extern volatile int pulseCount;
-//extern volatile int S360_SCALE_DEN_V;                     // Velocity control system denomenator
-
-
+extern volatile servo360_cog_t _fb360c;
+//
                             ////// PER SERVO ///  ///
   
-typedef volatile struct servo360_s {
+typedef volatile struct servo360_s 
+{
   // settings
   volatile int pinCtrl;                       // pinControl
   volatile int pinFb;                       // pinFeedback
@@ -266,7 +272,8 @@ typedef volatile struct servo360_s {
   
   // goto system
   volatile int angleTarget;
-} servo360_t;
+} 
+servo360_t;
 
 extern volatile servo360_t fb[S360_DEVS_MAX];
 

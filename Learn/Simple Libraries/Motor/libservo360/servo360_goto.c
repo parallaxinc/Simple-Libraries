@@ -17,11 +17,11 @@
 int servo360_goto(int pin, int position)
 {
   int target, offset;
-  if(!servoCog) servo360_run();
+  if(!_fb360c.servoCog) servo360_run();
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
 
-  while(lockset(lock360));
+  while(lockset(_fb360c.lock360));
 
   offset = fb[p].angleTarget;
   target = position * S360_UNITS_ENCODER / fb[p].unitsRev;
@@ -37,7 +37,7 @@ int servo360_goto(int pin, int position)
     fb[p].approachFlag = 0;
   }    
   
-  lockclr(lock360);
+  lockclr(_fb360c.lock360);
 }
 
 

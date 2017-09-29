@@ -19,7 +19,7 @@ int servo360_connect(int pinControl, int pinFeedback)
   int t1 = pulse_in(pinFeedback, 1);
   if( (t1 > 1200) || (t1 < 25) ) return -8;
 
-  if(!servoCog) servo360_run();
+  if(!_fb360c.servoCog) servo360_run();
 
   if(servo360_findServoIndex(pinControl) != -1)
     return -4;
@@ -30,10 +30,10 @@ int servo360_connect(int pinControl, int pinFeedback)
   if(pinControl >= 28 && pinFeedback >= 28)
     return -6;
 
-  if(devCount >= S360_DEVS_MAX)
+  if(_fb360c.devCount >= S360_DEVS_MAX)
     return -7;
 
-  while(lockset(lock360));
+  while(lockset(_fb360c.lock360));
 
   int result = -1;
 
@@ -93,9 +93,9 @@ int servo360_connect(int pinControl, int pinFeedback)
   
   fb[p].feedback = 1;
 
-  devCount++;
+  _fb360c.devCount++;
   
-  lockclr(lock360);  
+  lockclr(_fb360c.lock360);  
 
   return result;
 }

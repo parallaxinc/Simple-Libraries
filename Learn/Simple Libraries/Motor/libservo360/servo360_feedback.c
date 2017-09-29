@@ -16,7 +16,7 @@
 
 int servo360_feedback(int pin, int state)
 {
-  if(!servoCog) servo360_run();
+  if(!_fb360c.servoCog) servo360_run();
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
   
@@ -88,9 +88,9 @@ int servo360_feedback(int pin, int state)
   }
   else
   {
-    //while(lockset(lock360));
+    //while(lockset(_fb360c.lock360));
     fb[p].feedback = state;
-    //while(lockset(lock360));
+    //while(lockset(_fb360c.lock360));
   }    
         
 

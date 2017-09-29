@@ -16,7 +16,7 @@
 
 int servo360_setMaxSpeedEncoded(int pin, int speed)
 {
-  if(!servoCog) servo360_run();
+  if(!_fb360c.servoCog) servo360_run();
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
   
