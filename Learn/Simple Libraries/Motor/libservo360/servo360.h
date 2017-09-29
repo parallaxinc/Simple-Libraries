@@ -1,4 +1,4 @@
-//#define _console_
+#define _console_
 
 /*
   @file servo360.h
@@ -75,7 +75,10 @@
 #define S360_IA_MAX 8
 
 //#define S360_A_MAX (((1 << 31) - 1)) / UNITS_FULL_CIRCLE  // 524287 degrees
-#define S360_A_MAX 524287          
+#define S360_A_MAX 524287  
+
+#define S360_SCALE_DEN_COUPLE 1000;        
+#define S360_SCALE_COUPLE 2000;        
 
 
 /* Public */
@@ -122,7 +125,10 @@ int servo360_set(int pinControl, int time);
 
 int servo360_setAngleCtrlSpeedMax(int pin, int speed);
 int servo360_getAngleCtrlSpeedMax(int pin);
+
 int servo360_couple(int pinA, int pinB);
+int servo360_setCoupleScale(int pinA, int pinB, int scale);
+
 
 // int servo360_enable(int pin, int state);
 
@@ -197,6 +203,7 @@ typedef volatile struct servo360_s {
   volatile int angleMin;
   volatile int unitsRev;
   volatile int couple;
+  volatile int coupleScale;
   
   // admin
   volatile int csop;

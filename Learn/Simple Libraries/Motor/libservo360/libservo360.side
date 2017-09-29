@@ -40,6 +40,7 @@ servo360_setAngleCtrlSpeedMax.c
 servo360_getAngleCtrlSpeedMax.c
 z_dev_console.c
 servo360_couple.c
+servo360_setCoupleScale.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

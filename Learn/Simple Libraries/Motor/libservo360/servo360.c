@@ -121,7 +121,7 @@ void servo360_mainLoop()
         if(fb[fb[p].couple].lag > fb[p].lag)
         {
           int compensate = fb[fb[p].couple].lag - fb[p].lag;
-          compensate *= 2;
+          compensate = fb[p].coupleScale * compensate / S360_SCALE_DEN_COUPLE;
           if(compensate > 500) compensate = 500;           
     
           if(fb[p].speedOut > 0) fb[p].speedOut -= compensate;
@@ -130,7 +130,7 @@ void servo360_mainLoop()
         else if(fb[p].lag > fb[fb[p].couple].lag)
         {
           int compensate = fb[p].lag - fb[fb[p].couple].lag;
-          compensate *= 2;           
+          compensate = fb[p].coupleScale * compensate / S360_SCALE_DEN_COUPLE;
           if(compensate > 500) compensate = 500;           
       
           if(fb[fb[p].couple].speedOut > 0) fb[fb[p].couple].speedOut -= compensate;

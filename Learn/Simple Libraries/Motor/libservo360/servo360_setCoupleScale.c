@@ -1,5 +1,5 @@
 /*
-  @file servo360_couple.c
+  @file servo360_setCoupleScale.c
 
   @author Parallax Inc
 
@@ -14,26 +14,24 @@
 #include "servo360.h"
 
 
-int servo360_couple(int pinA, int pinB)
+int servo360_setCoupleScale(int pinA, int pinB, int scale)
 {
   if(!servoCog) servo360_run();
 
   int pA = servo360_findServoIndex(pinA);
-  if(pA == -1)return -1;
+  if(pA == -1) return -1;
   int pB = servo360_findServoIndex(pinB);
-  if(pB == -1)return -2;
+  if(pB == -1) return -2;
   
-  if(pA < pB)
+  if(fb[pA].couple >= 0)
   {
-    fb[pA].couple = pB;
-    fb[pA].coupleScale = S360_SCALE_COUPLE;
-    return pB;
-  }
-  else if(pB < pA)
-  {
-    fb[pB].couple = pA;
-    fb[pB].coupleScale = S360_SCALE_COUPLE;
+    fb[pA].coupleScale = scale;
     return pA;
+  }
+  else if(fb[pB].couple >= 0)
+  {
+    fb[pB].coupleScale = scale;
+    return pB;
   }
   else
   {

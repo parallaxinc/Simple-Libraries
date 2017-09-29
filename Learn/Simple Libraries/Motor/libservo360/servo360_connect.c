@@ -88,7 +88,8 @@ int servo360_connect(int pinControl, int pinFeedback)
   
   fb[p].opMax = MAX_SPEED;
 
-  fb[p].couple = -1;
+  fb[p].couple = 0;
+  fb[p].coupleScale = 0;
   
   fb[p].feedback = 1;
 

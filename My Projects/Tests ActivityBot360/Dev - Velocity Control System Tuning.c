@@ -13,6 +13,9 @@ int main()
   
   //  
   drive_setAcceleration(FOR_SPEED, 200);
+  
+  servo360_couple(12, 13);
+  servo360_setCoupleScale(12, 13, 2000);
 
   servo360_setControlSys(12, S360_KPV, 2500);            // KPV
   servo360_setControlSys(13, S360_KPV, 2500);            // KPV
