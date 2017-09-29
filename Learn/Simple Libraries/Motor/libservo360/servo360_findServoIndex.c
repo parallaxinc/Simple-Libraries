@@ -20,7 +20,7 @@ int servo360_findServoIndex(int pin)
   while(1)
   {
     //print("p = %d, ", p);
-    if(p >= (servo360_DEVS_MAX))
+    if(p >= (S360_DEVS_MAX))
     {
       return -1;
     }       

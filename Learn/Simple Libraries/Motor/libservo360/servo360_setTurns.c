@@ -20,7 +20,7 @@ int servo360_setTurns(int pin, int turns)
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
 
-  int delta = turns * servo360_ENC_RES;
+  int delta = turns * S360_ENC_RES;
   
   while(lockset(lock360));
   
@@ -31,19 +31,19 @@ int servo360_setTurns(int pin, int turns)
   fb[p].turns += turns;
 
 
-  if(fb[p].csop == POSITION)
+  if(fb[p].csop == S360_POSITION)
   {
     fb[p].sp += delta;
     fb[p].angleTarget += delta;
   }
   //
-  else if(fb[p].csop == SPEED)
+  else if(fb[p].csop == S360_SPEED)
   {
     fb[p].angleCalc += delta;
     fb[p].angleTarget += delta;
   }
   //
-  else if(fb[p].csop == GOTO)
+  else if(fb[p].csop == S360_GOTO)
   {
     fb[p].angleTarget += delta;
     fb[p].sp += delta;

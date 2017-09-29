@@ -30,14 +30,14 @@ int servo360_connect(int pinControl, int pinFeedback)
   if(pinControl >= 28 && pinFeedback >= 28)
     return -6;
 
-  if(devCount >= servo360_DEVS_MAX)
+  if(devCount >= S360_DEVS_MAX)
     return -7;
 
   while(lockset(lock360));
 
   int result = -1;
 
-  for(int p = 0; p < servo360_DEVS_MAX; p++) 
+  for(int p = 0; p < S360_DEVS_MAX; p++) 
   {
     if( (fb[p].pinCtrl == -1) && (fb[p].pinFb == -1) )
     {
@@ -52,26 +52,26 @@ int servo360_connect(int pinControl, int pinFeedback)
   fb[p].pinCtrl = pinControl;
   fb[p].pinFb = pinFeedback;
   
-  fb[p].unitsRev = UNITS_REV;
+  fb[p].unitsRev = S360_UNITS_REV;
   
   fb[p].KpV = KPV;
   fb[p].KiV = KIV;
   fb[p].KdV = KDV;
-  fb[p].iMax = servo360_POS_INTGRL_MAX;
-  fb[p].iMin = -servo360_POS_INTGRL_MAX;
+  fb[p].iMax = S360_POS_INTGRL_MAX;
+  fb[p].iMin = -S360_POS_INTGRL_MAX;
   
   fb[p].Kp = KPA;
   fb[p].Ki = KIA;
   fb[p].Kd = KDA;
-  fb[p].iMaxV = servo360_VEL_INTGRL_MAX;
-  fb[p].iMinV = -servo360_VEL_INTGRL_MAX;
+  fb[p].iMaxV = S360_VEL_INTGRL_MAX;
+  fb[p].iMinV = -S360_VEL_INTGRL_MAX;
   
-  fb[p].pw = PW_CENTER;
+  fb[p].pw = S360_PW_CENTER;
   
-  fb[p].speedLimit = MAX_SPEED;
-  fb[p].rampStep = servo360_RAMP_STEP;
+  fb[p].speedLimit = S360_MAX_SPEED;
+  fb[p].rampStep = S360_RAMP_STEP;
   
-  servo360_setPositiveDirection(p, CCW_POS);
+  servo360_setPositiveDirection(p, S360_CCW_POS);
 
   fb[p].theta = servo360_getTheta(p);  
   fb[p].thetaP = fb[p].theta;
@@ -86,7 +86,7 @@ int servo360_connect(int pinControl, int pinFeedback)
   fb[p].angleMax = S360_A_MAX;
   fb[p].angleMin = -S360_A_MAX;
   
-  fb[p].opMax = MAX_SPEED;
+  fb[p].opMax = S360_MAX_SPEED;
 
   fb[p].couple = 0;
   fb[p].coupleScale = 0;

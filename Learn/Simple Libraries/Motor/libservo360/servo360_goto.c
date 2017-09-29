@@ -24,13 +24,13 @@ int servo360_goto(int pin, int position)
   while(lockset(lock360));
 
   offset = fb[p].angleTarget;
-  target = position * UNITS_ENCODER / fb[p].unitsRev;
+  target = position * S360_UNITS_ENCODER / fb[p].unitsRev;
 
   fb[p].angleTarget = target + offset;
 
-  if(fb[p].csop != GOTO)
+  if(fb[p].csop != S360_GOTO)
   {
-    fb[p].csop = GOTO;
+    fb[p].csop = S360_GOTO;
   }    
   else
   {

@@ -23,7 +23,7 @@ int servo360_getAngle(int pin)
   
   while(lockset(lock360));
   int val = fb[p].angle;
-  val = val * fb[p].unitsRev / UNITS_ENCODER; 
+  val = val * fb[p].unitsRev / S360_UNITS_ENCODER; 
   lockclr(lock360);
   return val;
 }  

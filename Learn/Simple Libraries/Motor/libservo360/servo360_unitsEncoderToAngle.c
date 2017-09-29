@@ -16,7 +16,7 @@
 
 int servo360_unitsEncoderToAngle(int value, int unitsRev)
 {
-  int result = value * unitsRev / UNITS_ENCODER;
+  int result = value * unitsRev / S360_UNITS_ENCODER;
   return result;
 }  
 

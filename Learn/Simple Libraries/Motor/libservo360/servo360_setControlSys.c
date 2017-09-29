@@ -21,29 +21,29 @@ int servo360_setControlSys(int pin, int constant, int value)
   
   switch(constant)
   {
-    case S360_KPV:
+    case S360_SETTING_KPV:
       fb[p].KpV = value;
       break;
-    case S360_KIV:
+    case S360_SETTING_KIV:
       fb[p].KiV = value;
       break;
-    case S360_KDV:
+    case S360_SETTING_KDV:
       fb[p].KdV = value;
       break;
-    case S360_IV_MAX:
+    case S360_SETTING_IV_MAX:
       fb[p].iMaxV = value;
       fb[p].iMinV = -value;
       break;
-    case S360_KPA:
+    case S360_SETTING_KPA:
       fb[p].Kp = value;
       break;
-    case S360_KIA:
+    case S360_SETTING_KIA:
       fb[p].Ki = value;
       break;
-    case S360_KDA:
+    case S360_SETTING_KDA:
       fb[p].Kd = value;
       break;
-    case S360_IA_MAX:
+    case S360_SETTING_IA_MAX:
       fb[p].iMax = value;
       fb[p].iMin = -value;
       break;

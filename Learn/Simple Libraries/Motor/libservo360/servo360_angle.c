@@ -25,8 +25,8 @@ int servo360_angle(int pin, int position)
 
   while(lockset(lock360));
   
-  fb[p].sp = position * UNITS_ENCODER / fb[p].unitsRev;
-  fb[p].csop = POSITION;
+  fb[p].sp = position * S360_UNITS_ENCODER / fb[p].unitsRev;
+  fb[p].csop = S360_POSITION;
 
   {
     fb[p].speedTarget  = 0;

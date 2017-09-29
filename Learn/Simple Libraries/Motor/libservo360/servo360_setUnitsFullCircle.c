@@ -21,7 +21,7 @@ int servo360_setUnitsFullCircle(int pin, int units)
   if(p == -1)return -1;
 
   //while(lockset(lock360));
-  if(fb[p].unitsRev <= UNITS_FULL_CIRCLE)
+  if(fb[p].unitsRev <= S360_UNITS_FULL_CIRCLE)
   {
     fb[p].unitsRev = units;
     return 0;

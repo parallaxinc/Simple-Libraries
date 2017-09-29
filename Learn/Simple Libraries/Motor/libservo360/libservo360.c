@@ -326,10 +326,10 @@ int main()
   servo360_speed(12, 0);
   pause(500);
   servo360_goto(12, 720);
-  while(csop == GOTO); 
+  while(csop == S360_GOTO); 
   pause(500);
   servo360_goto(12, 0);
-  while(csop == GOTO); 
+  while(csop == S360_GOTO); 
   pause(500);
   suppressFbDisplay = 1;
   */

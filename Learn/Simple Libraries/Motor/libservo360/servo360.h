@@ -18,63 +18,63 @@
   #include "fdserial.h"
 #endif
 
-#define UNITS_FULL_CIRCLE 360
-#define MAX_SPEED 2 * 4096 
-#define B_POS (int) 15200
-#define B_NEG (int) 14800
+#define S360_UNITS_FULL_CIRCLE 360
+#define S360_MAX_SPEED 2 * 4096 
+#define S360_B_POS (int) 15200
+#define S360_B_NEG (int) 14800
 
-#define DUTY_CYCLE_MIN 290
-#define DUTY_CYCLE_MAX 9710
+#define S360_DUTY_CYCLE_MIN 290
+#define S360_DUTY_CYCLE_MAX 9710
 
-#define CCW_POS 1
-#define CCW_NEG -1
+#define S360_CCW_POS 1
+#define S360_CCW_NEG -1
 
-#define SPEED 1
-#define POSITION 2
-#define GOTO 3
-#define MONITOR 4
-#define servo360_FREQ_CTRL_SIG 50
-#define servo360_DEVS_MAX 4
+#define S360_SPEED 1
+#define S360_POSITION 2
+#define S360_GOTO 3
+#define S360_MONITOR 4
+#define S360_FREQ_CTRL_SIG 50
+#define S360_DEVS_MAX 4
 
-#define servo360_RAMP_STEP 10 * 4096 / 360;
+#define S360_RAMP_STEP 10 * 4096 / 360;
 
-#define servo360_M 4348
-#define servo360_B -129
-#define servo360_ENC_RES 4096
+#define S360_M 4348
+#define S360_B -129
+#define S360_ENC_RES 4096
 
 #define KPA 12000
 #define KIA 600
 #define KDA 6000
-#define servo360_POS_INTGRL_MAX 600
-#define SCALE_DEN_A 1000
+#define S360_POS_INTGRL_MAX 600
+#define S360_SCALE_DEN_A 1000
 
 /*
 #define KPV 3000
 #define KIV 500
 #define KDV 1600
-#define servo360_VEL_INTGRL_MAX 325
+#define S360_VEL_INTGRL_MAX 325
 */
 #define KPV 500
 #define KIV 0
 #define KDV 0
-#define servo360_VEL_INTGRL_MAX 0
-#define SCALE_DEN_V 1000
+#define S360_VEL_INTGRL_MAX 0
+#define S360_SCALE_DEN_V 1000
 
-#define PW_CENTER 15000
-#define servo360_CS_HZ 50
-#define UNITS_ENCODER 4096
-#define UNITS_REV 360
+#define S360_PW_CENTER 15000
+#define S360_CS_HZ 50
+#define S360_UNITS_ENCODER 4096
+#define S360_UNITS_REV 360
 
-#define S360_KPV 1
-#define S360_KIV 2
-#define S360_KDV 3
-#define S360_IV_MAX 4
-#define S360_KPA 5
-#define S360_KIA 6
-#define S360_KDA 7
-#define S360_IA_MAX 8
+#define S360_SETTING_KPV 1
+#define S360_SETTING_KIV 2
+#define S360_SETTING_KDV 3
+#define S360_SETTING_IV_MAX 4
+#define S360_SETTING_KPA 5
+#define S360_SETTING_KIA 6
+#define S360_SETTING_KDA 7
+#define S360_SETTING_IA_MAX 8
 
-//#define S360_A_MAX (((1 << 31) - 1)) / UNITS_FULL_CIRCLE  // 524287 degrees
+//#define S360_A_MAX (((1 << 31) - 1)) / S360_UNITS_FULL_CIRCLE  // 524287 degrees
 #define S360_A_MAX 524287  
 
 #define S360_SCALE_DEN_COUPLE 1000;        
@@ -186,7 +186,7 @@ extern volatile int dt360fbSlice;
 extern volatile int dt360spSlice;
 extern volatile int devCount;
 extern volatile int pulseCount;
-//extern volatile int SCALE_DEN_V;                     // Velocity control system denomenator
+//extern volatile int S360_SCALE_DEN_V;                     // Velocity control system denomenator
 
 
                             ////// PER SERVO ///  ///
@@ -260,7 +260,7 @@ typedef volatile struct servo360_s {
   volatile int angleTarget;
 } servo360_t;
 
-extern volatile servo360_t fb[servo360_DEVS_MAX];
+extern volatile servo360_t fb[S360_DEVS_MAX];
 
 // console
 #ifdef _console_

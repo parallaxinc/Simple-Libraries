@@ -57,7 +57,7 @@ volatile int cntPrev;
 volatile int tElapsed;
 volatile int cnt;
 
-servo360_t fbt[servo360_DEVS_MAX];
+servo360_t fbt[S360_DEVS_MAX];
 
 //servo360 fb[2];
 
@@ -132,25 +132,25 @@ void console()
     }
     else if(ready == 'a' || ready == 'A')
     {
-      operation = POSITION;
+      operation = S360_POSITION;
       dprint(term, "\rEnter angle: ");
     }
     else if(ready == 's' || ready == 'S')
     {
-      operation = SPEED;
+      operation = S360_SPEED;
       dprint(term, "\rEnter speed: ");
     }        
     else if(ready == 'g' || ready == 'G')
     {
-      operation = GOTO;
-      fb[0].csop = GOTO;
+      operation = S360_GOTO;
+      fb[0].csop = S360_GOTO;
       dprint(term, "\rGoto Mode: ");
     }        
     else if(ready == 'm' || ready == 'M')
     {
-      operation = MONITOR;
-      fb[0].csop = MONITOR;
-      operation = MONITOR;
+      operation = S360_MONITOR;
+      fb[0].csop = S360_MONITOR;
+      operation = S360_MONITOR;
       dprint(term, "\rMonitor Mode: ");
     }        
 
@@ -158,19 +158,19 @@ void console()
     {
       dprint(term, "\rvalue = %d\r", value);
       dprint(term, "\rEnter value: ");
-      if(operation == POSITION)
+      if(operation == S360_POSITION)
       {
         servo360_angle(12, value);
       }
-      else if(operation == SPEED)
+      else if(operation == S360_SPEED)
       {
         servo360_speed(12, value);
       }  
-      else if(operation == GOTO)
+      else if(operation == S360_GOTO)
       {
         servo360_goto(12, value);
       }  
-      else if(operation == MONITOR)
+      else if(operation == S360_MONITOR)
       {
         //servo_speed(pinServoCtrl, value);
       }                      
@@ -182,7 +182,7 @@ void console()
     if(!suppressFbDisplay)
     {
       //while(lockset(lock360));
-      //if(operation == POSITION)
+      //if(operation == S360_POSITION)
       //servo360_waitServoCtrllEdgeNeg(0);
       //dprint(term, "pc: %d\r", tElapsed / (CLKFREQ/1000));
       
@@ -209,15 +209,15 @@ void console()
           //dprint(term, "pc: %d, id: %d, csop: %d\r", pulseCount, p, fbt[p].csop); 
           dprint(term, "pc: %d, id: %d, csop: %d\r", pulseCount, p, fbt[p].csop); 
         }          
-        if(fbt[p].csop == POSITION)
+        if(fbt[p].csop == S360_POSITION)
         {
           dprint(term, "sp: %d, pv: %d, op: %d, e: %d, "\
                        "p: %d, i: %d, d: %d th: %d\r", 
                        fbt[p].sp, fbt[p].angle, fbt[p].op, fbt[p].er, 
                        fbt[p].p, fbt[p].i, fbt[p].d, fbt[p].theta); 
         }        
-        //else if(operation == SPEED)
-        else if(fbt[p].csop == SPEED)
+        //else if(operation == S360_SPEED)
+        else if(fbt[p].csop == S360_SPEED)
         {
           /*
             spR       speed requested                    in 4096ths per second
@@ -262,7 +262,7 @@ void console()
           if(p == 0) dprint(term, "   |   ");
           */
         }                        
-        else if(fbt[p].csop == GOTO)
+        else if(fbt[p].csop == S360_GOTO)
         {
           dprint(term,         
                    "spR: %d, spT: %d, spM: %d, "\
@@ -273,8 +273,8 @@ void console()
                    fbt[p].ticksGuard, fbt[p].ticksDiff, fbt[p].approachFlag 
                  ); 
         }        
-        //else if(operation == MONITOR)
-        else if(fbt[p].csop == MONITOR)
+        //else if(operation == S360_MONITOR)
+        else if(fbt[p].csop == S360_MONITOR)
         {
           //dprint(term, "th: %d, pvm: %d\r", 
           //       theta, angleFixed); 

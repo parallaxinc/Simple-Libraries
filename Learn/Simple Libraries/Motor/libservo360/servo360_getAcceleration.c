@@ -21,8 +21,8 @@ int servo360_getAcceleration(int pin)
   if(p == -1) return -1;
   
   int acceleration = servo360_getRampStep(pin);
-  acceleration *= (servo360_CS_HZ * fb[p].unitsRev);
-  acceleration /= UNITS_ENCODER;
+  acceleration *= (S360_CS_HZ * fb[p].unitsRev);
+  acceleration /= S360_UNITS_ENCODER;
   return acceleration;
 }
 

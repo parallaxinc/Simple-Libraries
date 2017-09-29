@@ -72,7 +72,7 @@ int servo360_feedback(int pin, int state)
     //
 
     //
-    servo360_setPositiveDirection(p, CCW_POS);
+    servo360_setPositiveDirection(p, S360_CCW_POS);
 
     fb[p].theta = servo360_getTheta(p);  
     fb[p].thetaP = fb[p].theta;

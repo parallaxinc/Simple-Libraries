@@ -20,9 +20,9 @@ int servo360_setAngleCtrlSpeedMax(int pin, int speed)
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
   
-  int speed12bit = speed * UNITS_ENCODER / fb[p].unitsRev;
+  int speed12bit = speed * S360_UNITS_ENCODER / fb[p].unitsRev;
   
-  if(speed12bit <= MAX_SPEED)
+  if(speed12bit <= S360_MAX_SPEED)
   {
     fb[p].opMax = speed12bit;
     return p;

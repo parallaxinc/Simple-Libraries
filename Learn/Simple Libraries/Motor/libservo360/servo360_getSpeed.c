@@ -20,7 +20,7 @@ int servo360_getSpeed(int pin)
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
   
-  return fb[p].speedMeasured * fb[p].unitsRev / servo360_ENC_RES;
+  return fb[p].speedMeasured * fb[p].unitsRev / S360_ENC_RES;
 }  
 
 

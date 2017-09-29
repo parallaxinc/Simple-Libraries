@@ -20,7 +20,7 @@ int servo360_speed(int pin, int speed)
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
   
-  speed = speed * UNITS_ENCODER / fb[p].unitsRev;
+  speed = speed * S360_UNITS_ENCODER / fb[p].unitsRev;
   
   if(speed != fb[p].speedReq)
   {
@@ -33,7 +33,7 @@ int servo360_speed(int pin, int speed)
     else
       fb[p].speedReq = speed;
   
-    fb[p].csop = SPEED; 
+    fb[p].csop = S360_SPEED; 
     lockclr(lock360);
   
     {

@@ -20,8 +20,8 @@ int servo360_setAcceleration(int pin, int unitsPerSecSquared)
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
   
-  servo360_setRampStep(pin, unitsPerSecSquared * UNITS_ENCODER 
-                         / (servo360_CS_HZ * fb[p].unitsRev));  
+  servo360_setRampStep(pin, unitsPerSecSquared * S360_UNITS_ENCODER 
+                         / (S360_CS_HZ * fb[p].unitsRev));  
 }
 
 

@@ -20,7 +20,7 @@ int servo360_getMaxSpeed(int pin)
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
   
-  return (fb[p].speedLimit * fb[p].unitsRev) / UNITS_ENCODER;
+  return (fb[p].speedLimit * fb[p].unitsRev) / S360_UNITS_ENCODER;
 }
 
 
