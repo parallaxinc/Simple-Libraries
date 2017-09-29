@@ -54,7 +54,7 @@
 #define KDV 1600
 #define servo360_VEL_INTGRL_MAX 325
 */
-#define KPV 2500
+#define KPV 500
 #define KIV 0
 #define KDV 0
 #define servo360_VEL_INTGRL_MAX 0
