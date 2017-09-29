@@ -1,5 +1,3 @@
-//#define _console_
-
 /*
   @file servo360.h
 
@@ -21,6 +19,8 @@ extern "C" {
 
 
 #include "simpletools.h"  
+
+//#define _console_
 
 #ifdef _console_
   #include "fdserial.h"
@@ -50,21 +50,21 @@ extern "C" {
 #define S360_B -129
 #define S360_ENC_RES 4096
 
-#define KPA 12000
-#define KIA 600
-#define KDA 6000
+#define S360_KPA 12000
+#define S360_KIA 600
+#define S360_KDA 6000
 #define S360_POS_INTGRL_MAX 600
 #define S360_SCALE_DEN_A 1000
 
 /*
-#define KPV 3000
-#define KIV 500
-#define KDV 1600
+#define S360_KPV 3000
+#define S360_KIV 500
+#define S360_KDV 1600
 #define S360_VEL_INTGRL_MAX 325
 */
-#define KPV 500
-#define KIV 0
-#define KDV 0
+#define S360_KPV 500
+#define S360_KIV 0
+#define S360_KDV 0
 #define S360_VEL_INTGRL_MAX 0
 #define S360_SCALE_DEN_V 1000
 

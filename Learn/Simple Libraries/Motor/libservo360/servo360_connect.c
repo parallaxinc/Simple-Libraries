@@ -54,15 +54,15 @@ int servo360_connect(int pinControl, int pinFeedback)
   
   fb[p].unitsRev = S360_UNITS_REV;
   
-  fb[p].KpV = KPV;
-  fb[p].KiV = KIV;
-  fb[p].KdV = KDV;
+  fb[p].KpV = S360_KPV;
+  fb[p].KiV = S360_KIV;
+  fb[p].KdV = S360_KDV;
   fb[p].iMax = S360_POS_INTGRL_MAX;
   fb[p].iMin = -S360_POS_INTGRL_MAX;
   
-  fb[p].Kp = KPA;
-  fb[p].Ki = KIA;
-  fb[p].Kd = KDA;
+  fb[p].Kp = S360_KPA;
+  fb[p].Ki = S360_KIA;
+  fb[p].Kd = S360_KDA;
   fb[p].iMaxV = S360_VEL_INTGRL_MAX;
   fb[p].iMinV = -S360_VEL_INTGRL_MAX;
   
