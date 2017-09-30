@@ -10,7 +10,7 @@
 */
 
 
-#define _servo360_monitor_
+//#define _servo360_monitor_
 
 
 #ifndef SERVO360_H
@@ -97,7 +97,10 @@ extern "C" {
 #define S360_SCALE_DEN_COUPLE 1000        
 #define S360_SCALE_COUPLE 2000   
 
-#define S360_LATENCY 3   
+#define S360_LATENCY 3  
+
+#define S360_PWMAX 2400 
+#define S360_PWMIN -2400 
 
 
 /* Public */

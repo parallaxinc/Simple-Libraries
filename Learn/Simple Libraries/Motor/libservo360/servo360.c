@@ -16,19 +16,6 @@
 
 #define couple_servos
 
-/*
-int *servoCog;
-volatile int _fb360c.lock360;
-volatile int _fb360c.devCount;
-volatile int _fb360c.t360;
-volatile int _fb360c.t360slice;
-volatile int _fb360c.dt360;
-volatile int angleSign = S360_CCW_POS;
-volatile int _fb360c.cntPrev;
-volatile int dt360a[2];
-volatile int _fb360c.pulseCount;
-*/
-
 
 servo360_cog_t _fb360c;
 servo360_t _fbs[S360_DEVS_MAX];
@@ -125,7 +112,8 @@ void servo360_mainLoop()
         {
           int compensate = _fbs[_fbs[p].couple].lag - _fbs[p].lag;
           compensate = _fbs[p].coupleScale * compensate / S360_SCALE_DEN_COUPLE;
-          if(compensate > 500) compensate = 500;           
+          if(compensate > 500) compensate = 500;  
+          // Limits pulse deviation to 50 us
     
           if(_fbs[p].speedOut > 0) _fbs[p].speedOut -= compensate;
           if(_fbs[p].speedOut < 0) _fbs[p].speedOut += compensate;
@@ -170,9 +158,13 @@ void servo360_servoPulse(int p, int q)
   _fb360c.pulseCount++;
   int pinA = _fbs[p].pinCtrl;
   int pinB = _fbs[q].pinCtrl;
+  
 
   if(pinA != -1 && _fbs[p].dc != -1)
   {
+    if(_fbs[p].speedOut > S360_PWMAX) _fbs[p].speedOut = S360_PWMAX; 
+    if(_fbs[p].speedOut < S360_PWMIN) _fbs[p].speedOut = S360_PWMIN; 
+
     low(pinA);
     PHSA = 0;
     FRQA = 0;
@@ -183,6 +175,9 @@ void servo360_servoPulse(int p, int q)
 
   if(pinB != -1 && _fbs[q].dc != -1)
   {
+    if(_fbs[q].speedOut > S360_PWMAX) _fbs[q].speedOut = S360_PWMAX; 
+    if(_fbs[q].speedOut < S360_PWMIN) _fbs[q].speedOut = S360_PWMIN; 
+
     low(pinB);
     PHSB = 0;
     FRQB = 0;
