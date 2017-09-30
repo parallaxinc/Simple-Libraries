@@ -59,10 +59,13 @@ extern "C" {
 #define S360_SCALE_DEN_A 1000
 */
 
-#define S360_KPA 6000
-#define S360_KIA 500
-#define S360_KDA 2000
-#define S360_POS_INTGRL_MAX 300
+#define S360_KPA 5000
+//#define S360_KIA 500
+#define S360_KIA 150
+//#define S360_KDA 2000
+#define S360_KDA 0
+//#define S360_POS_INTGRL_MAX 300
+#define S360_POS_INTGRL_MAX 150
 #define S360_SCALE_DEN_A 1000
 
 /*
@@ -187,8 +190,8 @@ int servo360_checkDistanceRemaining(int pin, int speed, int finalAngle);
 
 int servo360_setMaxSpeedEncoded(int pin, int speed);
 
-void servo360_consoleRun(void);
-void servo360_consoleEnd(void);
+void servo360_monitorRun(void);
+void servo360_monitorEnd(void);
 
 #ifdef _servo360_monitor_
 void console();

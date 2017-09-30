@@ -1,4 +1,4 @@
-Set Angles 1 servo.c
+Velocity Control System Tuning.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

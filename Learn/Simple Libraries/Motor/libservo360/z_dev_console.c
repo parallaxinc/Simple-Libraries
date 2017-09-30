@@ -26,7 +26,7 @@
 #include "servo360.h"
 
 
-void servo360_consoleRun(void)
+void servo360_monitorRun(void)
 {
   #ifdef _servo360_monitor_
   pause(1000);
@@ -46,7 +46,7 @@ void servo360_consoleRun(void)
 }  
 
 
-void servo360_consoleEnd(void)
+void servo360_monitorEnd(void)
 {
   #ifdef _servo360_monitor_
     suppressFbDisplay = 1;

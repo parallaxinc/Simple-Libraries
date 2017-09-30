@@ -18,7 +18,7 @@ int main()
   int s3 = servo360_connect(16, 6);
   int s4 = servo360_connect(17, 7);
   //int s3 = 0;
-  print("devcount = %d, s1 = %d, s2 = %d, s3 = %d, s4 = %d\r", s1, s2, s3, s4, devCount);
+  print("s1 = %d, s2 = %d, s3 = %d, s4 = %d\r", s1, s2, s3, s4);
   pause(1000);
   
   servo360_angle(12, 0);
