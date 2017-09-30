@@ -4,7 +4,7 @@
   Load to ActivityBot EEPROM. PWR to Position 2.
   Gently turn each wheel by hand.  Right wheel
   blinks P27 LED, left wheel blinks P26 LED.
-  If not, encoders are not seeing wheel spokes.
+  If not, encoders are not measuring rotation.
   Go to Extras/Troubleshooting section of tutorial.
 
   http://learn.parallax.com/activitybot/test-encoder-connections

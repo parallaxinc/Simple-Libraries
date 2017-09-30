@@ -262,7 +262,13 @@ void servo360_outputSelector(int p)
   else if(_fbs[p].csop == S360_GOTO)
   {
     _fbs[p].ticksDiff = _fbs[p].angleTarget - _fbs[p].angle;
-    _fbs[p].ticksGuard = ( _fbs[p].speedReq * abs(_fbs[p].speedReq) ) / (110 * _fbs[p].rampStep);
+    
+    // Use v^2 / 2a to figure out when to slow down
+    _fbs[p].ticksGuard = ( _fbs[p].speedReq * abs(_fbs[p].speedReq) ) / (100 * _fbs[p].rampStep);
+    // Add a certain number of pulses worth of padding to the slowdown
+    // estimate
+    _fbs[p].ticksGuard += (S360_LATENCY  * _fbs[p].speedReq / 50);
+    
     //ticksGuard = ticksGuard * S360_UNITS_ENCODER / unitsRev;
     if((_fbs[p].ticksDiff < 0) && (_fbs[p].ticksDiff < _fbs[p].ticksGuard) && (_fbs[p].approachFlag == 0))
     {
@@ -303,6 +309,7 @@ void servo360_outputSelector(int p)
     servo360_speedControl(p);
     _fbs[p].speedOut = _fbs[p].opPidV;
     
+    //
     if
     ( 
       (abs(_fbs[p].ticksDiff) < (_fbs[p].rampStep / (_fbs[p].unitsRev * 50))) 
@@ -315,7 +322,8 @@ void servo360_outputSelector(int p)
       _fbs[p].csop = S360_POSITION;
       _fbs[p].approachFlag = 0;
       //return;
-    }      
+    } 
+    //     
   }
   else if(_fbs[p].csop == S360_MONITOR)
   {

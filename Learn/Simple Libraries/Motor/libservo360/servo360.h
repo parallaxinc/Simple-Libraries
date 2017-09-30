@@ -10,6 +10,9 @@
 */
 
 
+#define _servo360_monitor_
+
+
 #ifndef SERVO360_H
 #define SERVO360_H
 
@@ -20,9 +23,7 @@ extern "C" {
 
 #include "simpletools.h"  
 
-//#define _console_
-
-#ifdef _console_
+#ifdef _servo360_monitor_
   #include "fdserial.h"
 #endif
 
@@ -46,14 +47,22 @@ extern "C" {
 
 #define S360_RAMP_STEP 10 * 4096 / 360;
 
+// Rename to indicate encoder
 #define S360_M 4348
 #define S360_B -129
 #define S360_ENC_RES 4096
-
+/*
 #define S360_KPA 12000
 #define S360_KIA 600
 #define S360_KDA 6000
 #define S360_POS_INTGRL_MAX 600
+#define S360_SCALE_DEN_A 1000
+*/
+
+#define S360_KPA 6000
+#define S360_KIA 500
+#define S360_KDA 2000
+#define S360_POS_INTGRL_MAX 300
 #define S360_SCALE_DEN_A 1000
 
 /*
@@ -86,7 +95,9 @@ extern "C" {
 #define S360_A_MAX 524287  
 
 #define S360_SCALE_DEN_COUPLE 1000        
-#define S360_SCALE_COUPLE 2000       
+#define S360_SCALE_COUPLE 2000   
+
+#define S360_LATENCY 3   
 
 
 /* Public */
@@ -176,10 +187,10 @@ int servo360_setMaxSpeedEncoded(int pin, int speed);
 void servo360_consoleRun(void);
 void servo360_consoleEnd(void);
 
-#ifdef _console_
+#ifdef _servo360_monitor_
 void console();
-void console_start(void);
-void console_stop();
+void servo360_monitor_start(void);
+void servo360_monitor_stop();
 int terminal_checkForValue(fdserial *connection, int *value);
 #endif
 
@@ -278,7 +289,7 @@ servo360_t;
 extern volatile servo360_t _fbs[S360_DEVS_MAX];
 
 // console
-#ifdef _console_
+#ifdef _servo360_monitor_
   fdserial *term;
   extern volatile int suppressFbDisplay;
 #endif

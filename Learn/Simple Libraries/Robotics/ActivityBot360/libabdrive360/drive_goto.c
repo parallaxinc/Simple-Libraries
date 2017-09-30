@@ -17,7 +17,7 @@
 void drive_goto(int distLeft, int distRight)
 {
   /*
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     dprint(term, "\r\rdrive_goto(%d, %d)\r\r", distLeft, distRight);
   #endif  
   */

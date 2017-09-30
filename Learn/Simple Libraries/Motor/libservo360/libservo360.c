@@ -22,8 +22,8 @@ int main()
   //servo360_setramp(12, 2);
   //  print("rampStep = %d\r", rampStep);
 
-  #ifdef _console_
-    console_start();
+  #ifdef _servo360_monitor_
+    servo360_monitor_start();
     suppressFbDisplay = 0;
   #endif 
 
@@ -42,7 +42,7 @@ int main()
 
   pause(1000); 
    
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 0;
   #endif 
 
@@ -65,7 +65,7 @@ int main()
   servo360_goto(12, -270);
   servo360_goto(13, -270);
   
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 1;
   #endif 
   while(1);
@@ -138,8 +138,8 @@ int main()
   servo360_speed(13, 0);
   
   /*
-  #ifdef _console_
-    console_start();
+  #ifdef _servo360_monitor_
+    servo360_monitor_start();
     suppressFbDisplay = 0;
   #endif 
   */
@@ -148,7 +148,7 @@ int main()
     print("angle = %d\r", _fbs[0].angle);
     print("angle = %d\r\r", _fbs[1].angle);
     pause(500);
-    #ifdef _console_
+    #ifdef _servo360_monitor_
       suppressFbDisplay = 0;
     #endif 
   }    
@@ -159,8 +159,8 @@ int main()
   servo360_speed(12, 180);
   
   pause(100);
-  #ifdef _console_
-    console_start();
+  #ifdef _servo360_monitor_
+    servo360_monitor_start();
     suppressFbDisplay = 0;
   #endif 
   
@@ -184,8 +184,8 @@ int main()
     //print("angle: %d\r", _fbs[0].angle);
   }    
 
-  #ifdef _console_
-    console_start();
+  #ifdef _servo360_monitor_
+    servo360_monitor_start();
     suppressFbDisplay = 1;
   #endif 
   //servo360_speed(12, 0);
@@ -193,7 +193,7 @@ int main()
   servo360_speed(12, 180);
   pause(1000);
   _fbs[0].speedReq = 2048;
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 1;
     pause(1000);
     dprint(term, "\r\rrequested = %d\r\r", _fbs[0].speedReq);
@@ -205,47 +205,47 @@ int main()
   pause(1000);
   servo360_speed(12, 0);
   pause(1000);
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 1;
   #endif
   while(1);
   
   pause(1000);
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     dprint(term, "speedLimit = %d\r", _fbs[0].speedLimit);
   #endif
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 0;
   #endif
   pause(1000);
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 0;
   #endif
   servo360_speed(12, 1080);
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 0;
   #endif
   pause(3000);
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 0;
   #endif
   servo360_speed(12, -1080);
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 0;
   #endif
   pause(4000);
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 0;
   #endif
   servo360_speed(12, 0);
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 0;
   #endif
   pause(1000);  
   
   
   
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 1;
   #endif  
   
@@ -256,52 +256,52 @@ int main()
   servo360_setramp(12, 2);
 //  print("rampStep = %d\r", rampStep);
   
-  #ifdef _console_
-    console_start();
+  #ifdef _servo360_monitor_
+    servo360_monitor_start();
   #endif 
   pause(1000);
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     dprint(term, "speedLimit = %d\r", _fbs[0].speedLimit);
   #endif
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 0;
   #endif
   pause(1000);
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 0;
   #endif
   servo360_speed(12, 1080);
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 0;
   #endif
   pause(3000);
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 0;
   #endif
   servo360_speed(12, -1080);
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 0;
   #endif
   pause(4000);
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 0;
   #endif
   servo360_speed(12, 0);
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 0;
   #endif
   pause(1000);  
   
   
   
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 1;
   #endif
 */
 
   //servo360_run();
   /*
-  console_start(); 
+  servo360_monitor_start(); 
   suppressFbDisplay = 0;
   servo360_speed(12, 0);
   pause(500);
@@ -321,7 +321,7 @@ int main()
 
 
   /*
-  console_start(); 
+  servo360_monitor_start(); 
   suppressFbDisplay = 0;
   servo360_speed(12, 0);
   pause(500);
@@ -337,7 +337,7 @@ int main()
 
   /*
   servo360_speed(12, 0);
-  console_start(); 
+  servo360_monitor_start(); 
   suppressFbDisplay = 0;
   pause(1000);
   suppressFbDisplay = 0;
@@ -366,7 +366,7 @@ int main()
   
   /*
   servo360_speed(12, 0);
-  console_start(); 
+  servo360_monitor_start(); 
   suppressFbDisplay = 0;
   pause(1000);
   suppressFbDisplay = 0;

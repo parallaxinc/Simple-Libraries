@@ -6,7 +6,19 @@
   @copyright
   Copyright (C) Parallax Inc. 2017. All Rights MIT Licensed.  See end of file.
  
-  @brief 
+  @brief This development tool monitors control system values 
+  during runtime when #define _servo360_monitor_ is uncommented
+  in servo360.h.  Make sure servos are already connected with 
+  drive360_speed and/or servo_conntect.  Then, call 
+  servo360_consoleRun and servo360_consoleEnd to start, stop and
+  resume displaying values.  
+  
+  Note, you have to stop displaying 
+  values before using print calls or the application will become
+  unresponsive. 
+  
+  MAKE SURE to comment #define _servo360_monitor_ before using the
+  servo360 and abdrive360 libraries for applications.
 */
 
 
@@ -16,14 +28,14 @@
 
 void servo360_consoleRun(void)
 {
-  #ifdef _console_
+  #ifdef _servo360_monitor_
   pause(1000);
   
-  // To use this, recompile libservo360 with #define _console_ uncommented
+  // To use this, recompile libservo360 with #define _servo360_monitor_ uncommented
   // in servo360.h
   //
     //simpleterm_close();
-    console_start();
+    servo360_monitor_start();
     suppressFbDisplay = 0;
     
     pause(1000);
@@ -36,14 +48,14 @@ void servo360_consoleRun(void)
 
 void servo360_consoleEnd(void)
 {
-  #ifdef _console_
+  #ifdef _servo360_monitor_
     suppressFbDisplay = 1;
-    console_stop();
+    servo360_monitor_stop();
   #endif 
 }  
 
 
-#ifdef _console_
+#ifdef _servo360_monitor_
 #include "fdserial.h"
 
 volatile int suppressFbDisplay = 0;
@@ -53,7 +65,7 @@ static volatile int val;
 static volatile int operation;
 static volatile int pvStart;
 static volatile int angleFixedPrev;
-volatile int _fb360c.cntPrev;
+//volatile int _fb360c.cntPrev;
 volatile int tElapsed;
 volatile int cnt;
 
@@ -65,7 +77,7 @@ fdserial *term;
 int *consoleCog;
 
 
-void console_start()
+void servo360_monitor_start()
 {
   simpleterm_close();
   pause(10);
@@ -75,7 +87,7 @@ void console_start()
 }  
   
 
-void console_stop()
+void servo360_monitor_stop()
 {
   cog_end(consoleCog);
   fdserial_close(term);
@@ -338,7 +350,7 @@ int terminal_checkForValue(fdserial *connection, int *value)
   }      
 }
 
-#endif //_console_
+#endif //_servo360_monitor_
 
 
 
