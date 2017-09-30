@@ -31,7 +31,7 @@ volatile int _fb360c.pulseCount;
 
 
 servo360_cog_t _fb360c;
-servo360_t fb[S360_DEVS_MAX];
+servo360_t _fbs[S360_DEVS_MAX];
 
 
 void servo360_run(void)
@@ -53,8 +53,8 @@ void servo360_setup(void)
 {
   for(int p = 0; p < S360_DEVS_MAX; p++)
   {
-    fb[p].pinCtrl = -1;
-    fb[p].pinFb = -1;
+    _fbs[p].pinCtrl = -1;
+    _fbs[p].pinFb = -1;
   } 
   
   _fb360c.devCount = 0;   
@@ -81,9 +81,9 @@ void servo360_mainLoop()
 
     for(int p = 0; p < S360_DEVS_MAX; p++)
     {
-      if(fb[p].pinCtrl != -1 && fb[p].pinFb != -1)
+      if(_fbs[p].pinCtrl != -1 && _fbs[p].pinFb != -1)
       {
-        if(fb[p].feedback)
+        if(_fbs[p].feedback)
         {
           servo360_checkAngle(p);
         }          
@@ -93,11 +93,11 @@ void servo360_mainLoop()
     while(lockset(_fb360c.lock360));
     for(int p = 0; p < S360_DEVS_MAX; p++)
     {
-      if(fb[p].pinCtrl != -1 && fb[p].pinFb != -1)
+      if(_fbs[p].pinCtrl != -1 && _fbs[p].pinFb != -1)
       {
-        if(fb[p].feedback)
+        if(_fbs[p].feedback)
         {
-          if(fb[p].dc != -1)
+          if(_fbs[p].dc != -1)
             servo360_outputSelector(p);
         }          
       }        
@@ -107,37 +107,37 @@ void servo360_mainLoop()
 
     for(int p = 0; p < S360_DEVS_MAX; p++)
     {
-      if((fb[p].couple != -1) && (fb[p].feedback))
+      if((_fbs[p].couple != -1) && (_fbs[p].feedback))
       {
-        if(fb[p].speedTarget > 0) fb[p].stepDir = 1;
-        else if(fb[p].speedTarget < 0) fb[p].stepDir = -1;
-        else  fb[p].stepDir = 0;
+        if(_fbs[p].speedTarget > 0) _fbs[p].stepDir = 1;
+        else if(_fbs[p].speedTarget < 0) _fbs[p].stepDir = -1;
+        else  _fbs[p].stepDir = 0;
     
-        fb[p].lag = fb[p].stepDir * fb[p].angleError;
+        _fbs[p].lag = _fbs[p].stepDir * _fbs[p].angleError;
       
-        if(fb[fb[p].couple].speedTarget > 0) fb[fb[p].couple].stepDir = 1;
-        else if(fb[fb[p].couple].speedTarget < 0) fb[fb[p].couple].stepDir = -1;
-        else  fb[fb[p].couple].stepDir = 0;
+        if(_fbs[_fbs[p].couple].speedTarget > 0) _fbs[_fbs[p].couple].stepDir = 1;
+        else if(_fbs[_fbs[p].couple].speedTarget < 0) _fbs[_fbs[p].couple].stepDir = -1;
+        else  _fbs[_fbs[p].couple].stepDir = 0;
     
-        fb[fb[p].couple].lag = fb[fb[p].couple].stepDir * fb[fb[p].couple].angleError;
+        _fbs[_fbs[p].couple].lag = _fbs[_fbs[p].couple].stepDir * _fbs[_fbs[p].couple].angleError;
     
-        if(fb[fb[p].couple].lag > fb[p].lag)
+        if(_fbs[_fbs[p].couple].lag > _fbs[p].lag)
         {
-          int compensate = fb[fb[p].couple].lag - fb[p].lag;
-          compensate = fb[p].coupleScale * compensate / S360_SCALE_DEN_COUPLE;
+          int compensate = _fbs[_fbs[p].couple].lag - _fbs[p].lag;
+          compensate = _fbs[p].coupleScale * compensate / S360_SCALE_DEN_COUPLE;
           if(compensate > 500) compensate = 500;           
     
-          if(fb[p].speedOut > 0) fb[p].speedOut -= compensate;
-          if(fb[p].speedOut < 0) fb[p].speedOut += compensate;
+          if(_fbs[p].speedOut > 0) _fbs[p].speedOut -= compensate;
+          if(_fbs[p].speedOut < 0) _fbs[p].speedOut += compensate;
         }
-        else if(fb[p].lag > fb[fb[p].couple].lag)
+        else if(_fbs[p].lag > _fbs[_fbs[p].couple].lag)
         {
-          int compensate = fb[p].lag - fb[fb[p].couple].lag;
-          compensate = fb[p].coupleScale * compensate / S360_SCALE_DEN_COUPLE;
+          int compensate = _fbs[p].lag - _fbs[_fbs[p].couple].lag;
+          compensate = _fbs[p].coupleScale * compensate / S360_SCALE_DEN_COUPLE;
           if(compensate > 500) compensate = 500;           
       
-          if(fb[fb[p].couple].speedOut > 0) fb[fb[p].couple].speedOut -= compensate;
-          if(fb[fb[p].couple].speedOut < 0) fb[fb[p].couple].speedOut += compensate;
+          if(_fbs[_fbs[p].couple].speedOut > 0) _fbs[_fbs[p].couple].speedOut -= compensate;
+          if(_fbs[_fbs[p].couple].speedOut < 0) _fbs[_fbs[p].couple].speedOut += compensate;
         }
       }        
     }
@@ -168,30 +168,30 @@ void servo360_mainLoop()
 void servo360_servoPulse(int p, int q)
 {
   _fb360c.pulseCount++;
-  int pinA = fb[p].pinCtrl;
-  int pinB = fb[q].pinCtrl;
+  int pinA = _fbs[p].pinCtrl;
+  int pinB = _fbs[q].pinCtrl;
 
-  if(pinA != -1 && fb[p].dc != -1)
+  if(pinA != -1 && _fbs[p].dc != -1)
   {
     low(pinA);
     PHSA = 0;
     FRQA = 0;
     CTRA = (4 << 26) | pinA;
     FRQA = 1;
-    PHSA = -(15000 + fb[p].speedOut) * (CLKFREQ/10000000);
+    PHSA = -(15000 + _fbs[p].speedOut) * (CLKFREQ/10000000);
   }   
 
-  if(pinB != -1 && fb[q].dc != -1)
+  if(pinB != -1 && _fbs[q].dc != -1)
   {
     low(pinB);
     PHSB = 0;
     FRQB = 0;
     CTRB = (4 << 26) | pinB;
     FRQB = 1;
-    PHSB = -(15000 + fb[q].speedOut) * (CLKFREQ/10000000);
+    PHSB = -(15000 + _fbs[q].speedOut) * (CLKFREQ/10000000);
   }    
 
-  if(pinA != -1 && fb[p].dc != -1)
+  if(pinA != -1 && _fbs[p].dc != -1)
   {
     while(get_state(pinA));
     CTRA = 0;
@@ -199,7 +199,7 @@ void servo360_servoPulse(int p, int q)
     FRQA = 0;
   }    
   
-  if(pinB != -1 && fb[q].dc != -1)
+  if(pinB != -1 && _fbs[q].dc != -1)
   {
     while(get_state(pinB));
     CTRB = 0;
@@ -212,7 +212,7 @@ void servo360_servoPulse(int p, int q)
 
 void servo360_waitServoCtrllEdgeNeg(int p)
 {
-  int mask = 1 << fb[p].pinCtrl;
+  int mask = 1 << _fbs[p].pinCtrl;
   if(!(INA & mask))
   { 
     while(!(INA & mask));
@@ -224,100 +224,100 @@ void servo360_waitServoCtrllEdgeNeg(int p)
 void servo360_checkAngle(int p)
 {
 
-  fb[p].thetaP = fb[p].theta;
-  fb[p].angleFixedP = fb[p].angleFixed;
-  fb[p].angleP = fb[p].angle;  
-  fb[p].dcp = fb[p].dc;
+  _fbs[p].thetaP = _fbs[p].theta;
+  _fbs[p].angleFixedP = _fbs[p].angleFixed;
+  _fbs[p].angleP = _fbs[p].angle;  
+  _fbs[p].dcp = _fbs[p].dc;
   
-  fb[p].theta = servo360_getTheta(p);  
+  _fbs[p].theta = servo360_getTheta(p);  
   
-  fb[p].turns += servo360_crossing(fb[p].theta, fb[p].thetaP, S360_UNITS_ENCODER);
+  _fbs[p].turns += servo360_crossing(_fbs[p].theta, _fbs[p].thetaP, S360_UNITS_ENCODER);
 
-  if(fb[p].turns >= 0)
+  if(_fbs[p].turns >= 0)
   {
-    fb[p].angleFixed = (fb[p].turns * S360_UNITS_ENCODER) + fb[p].theta;
+    _fbs[p].angleFixed = (_fbs[p].turns * S360_UNITS_ENCODER) + _fbs[p].theta;
   }      
-  else if(fb[p].turns < 0)
+  else if(_fbs[p].turns < 0)
   {
-    fb[p].angleFixed = (S360_UNITS_ENCODER * (fb[p].turns + 1)) + (fb[p].theta - S360_UNITS_ENCODER);
+    _fbs[p].angleFixed = (S360_UNITS_ENCODER * (_fbs[p].turns + 1)) + (_fbs[p].theta - S360_UNITS_ENCODER);
   }
 
-  fb[p].angle = fb[p].angleFixed - fb[p].pvOffset;
+  _fbs[p].angle = _fbs[p].angleFixed - _fbs[p].pvOffset;
 }  
  
 
 void servo360_outputSelector(int p)
 {
-  if(fb[p].csop == S360_POSITION)
+  if(_fbs[p].csop == S360_POSITION)
   {
     int output = servo360_pidA(p);
-    fb[p].pw = servo360_upsToPulseFromTransferFunction(output);
-    fb[p].speedOut = fb[p].pw - 15000;
+    _fbs[p].pw = servo360_upsToPulseFromTransferFunction(output);
+    _fbs[p].speedOut = _fbs[p].pw - 15000;
   }
-  else if(fb[p].csop == S360_SPEED)
+  else if(_fbs[p].csop == S360_SPEED)
   {
     servo360_speedControl(p);
-    fb[p].speedOut = fb[p].opPidV;
+    _fbs[p].speedOut = _fbs[p].opPidV;
   }   
-  else if(fb[p].csop == S360_GOTO)
+  else if(_fbs[p].csop == S360_GOTO)
   {
-    fb[p].ticksDiff = fb[p].angleTarget - fb[p].angle;
-    fb[p].ticksGuard = ( fb[p].speedReq * abs(fb[p].speedReq) ) / (110 * fb[p].rampStep);
+    _fbs[p].ticksDiff = _fbs[p].angleTarget - _fbs[p].angle;
+    _fbs[p].ticksGuard = ( _fbs[p].speedReq * abs(_fbs[p].speedReq) ) / (110 * _fbs[p].rampStep);
     //ticksGuard = ticksGuard * S360_UNITS_ENCODER / unitsRev;
-    if((fb[p].ticksDiff < 0) && (fb[p].ticksDiff < fb[p].ticksGuard) && (fb[p].approachFlag == 0))
+    if((_fbs[p].ticksDiff < 0) && (_fbs[p].ticksDiff < _fbs[p].ticksGuard) && (_fbs[p].approachFlag == 0))
     {
-      fb[p].speedReq = -fb[p].speedLimit;
+      _fbs[p].speedReq = -_fbs[p].speedLimit;
       //servo360_speedControl(p);
-      //fb[p].speedOut = fb[p].opPidV;
-      fb[p].approachFlag = 0;
+      //_fbs[p].speedOut = _fbs[p].opPidV;
+      _fbs[p].approachFlag = 0;
     }
-    else if((fb[p].ticksDiff > 0) && (fb[p].ticksDiff > fb[p].ticksGuard) && (fb[p].approachFlag == 0))
+    else if((_fbs[p].ticksDiff > 0) && (_fbs[p].ticksDiff > _fbs[p].ticksGuard) && (_fbs[p].approachFlag == 0))
     {
-      fb[p].speedReq = fb[p].speedLimit;
+      _fbs[p].speedReq = _fbs[p].speedLimit;
       //servo360_speedControl(p);
-      //fb[p].speedOut = fb[p].opPidV;
-      fb[p].approachFlag = 0;
+      //_fbs[p].speedOut = _fbs[p].opPidV;
+      _fbs[p].approachFlag = 0;
     }
-    else if((fb[p].ticksDiff > 0) && (fb[p].ticksDiff <= fb[p].ticksGuard) && (fb[p].approachFlag == 0))
+    else if((_fbs[p].ticksDiff > 0) && (_fbs[p].ticksDiff <= _fbs[p].ticksGuard) && (_fbs[p].approachFlag == 0))
     {
       //speedReq -= rampStep;
-      fb[p].speedReq = 0;
-      fb[p].approachFlag = 1;
+      _fbs[p].speedReq = 0;
+      _fbs[p].approachFlag = 1;
       //servo360_speedControl(p);
-      //fb[p].speedOut = fb[p].opPidV;
+      //_fbs[p].speedOut = _fbs[p].opPidV;
     }    
-    else if((fb[p].ticksDiff < 0) && (fb[p].ticksDiff >= fb[p].ticksGuard) && (fb[p].approachFlag == 0))
+    else if((_fbs[p].ticksDiff < 0) && (_fbs[p].ticksDiff >= _fbs[p].ticksGuard) && (_fbs[p].approachFlag == 0))
     {
       //speedReq += rampStep;
-      fb[p].speedReq = 0;
-      fb[p].approachFlag = 1;
+      _fbs[p].speedReq = 0;
+      _fbs[p].approachFlag = 1;
       //servo360_speedControl(p);
-      //fb[p].speedOut = fb[p].opPidV;
+      //_fbs[p].speedOut = _fbs[p].opPidV;
     } 
     else
     {
       //servo360_speedControl(p);
-      //fb[p].speedOut = fb[p].opPidV;
+      //_fbs[p].speedOut = _fbs[p].opPidV;
     }       
     
     servo360_speedControl(p);
-    fb[p].speedOut = fb[p].opPidV;
+    _fbs[p].speedOut = _fbs[p].opPidV;
     
     if
     ( 
-      (abs(fb[p].ticksDiff) < (fb[p].rampStep / (fb[p].unitsRev * 50))) 
-      || (fb[p].approachFlag == 1 && fb[p].speedMeasured == 0)
+      (abs(_fbs[p].ticksDiff) < (_fbs[p].rampStep / (_fbs[p].unitsRev * 50))) 
+      || (_fbs[p].approachFlag == 1 && _fbs[p].speedMeasured == 0)
     )
     {
-      fb[p].speedReq = 0;
-      fb[p].speedTarget = 0;
-      fb[p].sp = fb[p].angleTarget;
-      fb[p].csop = S360_POSITION;
-      fb[p].approachFlag = 0;
+      _fbs[p].speedReq = 0;
+      _fbs[p].speedTarget = 0;
+      _fbs[p].sp = _fbs[p].angleTarget;
+      _fbs[p].csop = S360_POSITION;
+      _fbs[p].approachFlag = 0;
       //return;
     }      
   }
-  else if(fb[p].csop == S360_MONITOR)
+  else if(_fbs[p].csop == S360_MONITOR)
   {
     
   } 
@@ -329,7 +329,7 @@ int servo360_dutyCycle(int p, int scale)
   int t = CNT;
   int dt = 3 * (CLKFREQ/1000);
   
-  int pin = fb[p].pinFb;
+  int pin = _fbs[p].pinFb;
   CTRA = (1000 << 26) | pin;
   CTRB = (1100 << 26) | pin;
   FRQA = 1;
@@ -365,19 +365,19 @@ int servo360_dutyCycle(int p, int scale)
 
 int servo360_getTheta(int p)
 {
-  fb[p].dc = servo360_dutyCycle(p, S360_M); 
+  _fbs[p].dc = servo360_dutyCycle(p, S360_M); 
   
-  if(fb[p].angleSign == S360_CCW_POS)
+  if(_fbs[p].angleSign == S360_CCW_POS)
   {
-    fb[p].theta = (S360_ENC_RES - 1) - (fb[p].dc + S360_B);
+    _fbs[p].theta = (S360_ENC_RES - 1) - (_fbs[p].dc + S360_B);
   }
-  else if(fb[p].angleSign == S360_CCW_NEG)
+  else if(_fbs[p].angleSign == S360_CCW_NEG)
   {    
-    fb[p].theta = fb[p].dc + S360_B;
+    _fbs[p].theta = _fbs[p].dc + S360_B;
   }  
 
-  fb[p].theta &= 0xFFF;
-  return fb[p].theta;
+  _fbs[p].theta &= 0xFFF;
+  return _fbs[p].theta;
 }  
 
 
@@ -402,7 +402,7 @@ int servo360_crossing(int current, int previous, int units)
 
 void servo360_setPositiveDirection(int p, int direction)
 {
-  fb[p].angleSign = direction;
+  _fbs[p].angleSign = direction;
 }  
 
 
@@ -412,50 +412,50 @@ int servo360_pidA(int p)
   // Clear any speed control system corrections so that return to speed control
   // doesn't start with unexpected compensation.
   {
-    fb[p].speedTarget  = 0;
-    fb[p].angleError = 0;
-    fb[p].erDist = 0;
-    fb[p].erDistP = 0;
-    fb[p].integralV = 0;
-    fb[p].derivativeV = 0;
-    fb[p].pV = 0;
-    fb[p].iV = 0;
-    fb[p].dV = 0;
-    fb[p].opPidV = 0;
+    _fbs[p].speedTarget  = 0;
+    _fbs[p].angleError = 0;
+    _fbs[p].erDist = 0;
+    _fbs[p].erDistP = 0;
+    _fbs[p].integralV = 0;
+    _fbs[p].derivativeV = 0;
+    _fbs[p].pV = 0;
+    _fbs[p].iV = 0;
+    _fbs[p].dV = 0;
+    _fbs[p].opPidV = 0;
 
-    fb[p].angleCalc = fb[p].angle;
-    //fb[p].angleCalcP = fb[p].angleCalc;
+    _fbs[p].angleCalc = _fbs[p].angle;
+    //_fbs[p].angleCalcP = _fbs[p].angleCalc;
   }    
   
   // Angle error
-  fb[p].er = fb[p].sp - fb[p].angle;
+  _fbs[p].er = _fbs[p].sp - _fbs[p].angle;
   // Integral accumuliation
-  fb[p].integral += fb[p].er;
+  _fbs[p].integral += _fbs[p].er;
   // Derivative difference
-  fb[p].derivative = fb[p].er - fb[p].erP;
+  _fbs[p].derivative = _fbs[p].er - _fbs[p].erP;
   
   // Clamp itegral level
-  if(fb[p].integral > fb[p].iMax) fb[p].integral = fb[p].iMax;
-  if(fb[p].integral < fb[p].iMin) fb[p].integral = fb[p].iMin;
+  if(_fbs[p].integral > _fbs[p].iMax) _fbs[p].integral = _fbs[p].iMax;
+  if(_fbs[p].integral < _fbs[p].iMin) _fbs[p].integral = _fbs[p].iMin;
 
   // Calculate influences of P, I, and D.
-  fb[p].p = (fb[p].Kp * fb[p].er) / S360_SCALE_DEN_A;
-  fb[p].i = (fb[p].Ki * fb[p].integral) / S360_SCALE_DEN_A;
-  fb[p].d = (fb[p].Kd * fb[p].derivative) / S360_SCALE_DEN_A;
+  _fbs[p].p = (_fbs[p].Kp * _fbs[p].er) / S360_SCALE_DEN_A;
+  _fbs[p].i = (_fbs[p].Ki * _fbs[p].integral) / S360_SCALE_DEN_A;
+  _fbs[p].d = (_fbs[p].Kd * _fbs[p].derivative) / S360_SCALE_DEN_A;
   
   // Output = sum(P, I, and D)
-  fb[p].op = (fb[p].p + fb[p].i + fb[p].d);
+  _fbs[p].op = (_fbs[p].p + _fbs[p].i + _fbs[p].d);
   
   // Limit output proportional to speed limit???  This may have been intended
   // to be proportional to the current target speed.
-  //int opMax = fb[p].speedLimit / 4;
-  //int opMax = fb[p].speedLimit;
+  //int opMax = _fbs[p].speedLimit / 4;
+  //int opMax = _fbs[p].speedLimit;
   
-  if(fb[p].op > fb[p].opMax) fb[p].op = fb[p].opMax;
-  if(fb[p].op < -fb[p].opMax) fb[p].op = -fb[p].opMax;
+  if(_fbs[p].op > _fbs[p].opMax) _fbs[p].op = _fbs[p].opMax;
+  if(_fbs[p].op < -_fbs[p].opMax) _fbs[p].op = -_fbs[p].opMax;
   
-  fb[p].erP = fb[p].er;
-  return fb[p].op;
+  _fbs[p].erP = _fbs[p].er;
+  return _fbs[p].op;
 }
   
   
@@ -469,41 +469,41 @@ int servo360_pidV(int p)
   //while(lockset(_fb360c.lock360));
 
   //int opv;  
-  int opMax = fb[p].speedLimit;
+  int opMax = _fbs[p].speedLimit;
 
-  fb[p].speedMeasured = (fb[p].angle - fb[p].angleP) * 50; 
-  if(abs(fb[p].angleError) < S360_UNITS_ENCODER/4)
+  _fbs[p].speedMeasured = (_fbs[p].angle - _fbs[p].angleP) * 50; 
+  if(abs(_fbs[p].angleError) < S360_UNITS_ENCODER/4)
   {
-    fb[p].angleDeltaCalc = fb[p].speedTarget / S360_CS_HZ;
-    fb[p].angleCalc += fb[p].angleDeltaCalc;
+    _fbs[p].angleDeltaCalc = _fbs[p].speedTarget / S360_CS_HZ;
+    _fbs[p].angleCalc += _fbs[p].angleDeltaCalc;
   }    
 
-  fb[p].angleError = fb[p].angleCalc - fb[p].angle;
+  _fbs[p].angleError = _fbs[p].angleCalc - _fbs[p].angle;
 
-  if(abs(fb[p].angleError) < S360_UNITS_ENCODER/4)
+  if(abs(_fbs[p].angleError) < S360_UNITS_ENCODER/4)
   {
-    fb[p].erDist = fb[p].angleError;
-    fb[p].integralV += fb[p].erDist;
-    fb[p].derivativeV = fb[p].erDist - fb[p].erDistP;
+    _fbs[p].erDist = _fbs[p].angleError;
+    _fbs[p].integralV += _fbs[p].erDist;
+    _fbs[p].derivativeV = _fbs[p].erDist - _fbs[p].erDistP;
   }    
   
-  if(fb[p].integralV > fb[p].iMaxV) fb[p].integralV = fb[p].iMaxV;
-  if(fb[p].integralV < fb[p].iMinV) fb[p].integralV = fb[p].iMinV;
+  if(_fbs[p].integralV > _fbs[p].iMaxV) _fbs[p].integralV = _fbs[p].iMaxV;
+  if(_fbs[p].integralV < _fbs[p].iMinV) _fbs[p].integralV = _fbs[p].iMinV;
 
-  fb[p].pV = (fb[p].KpV * fb[p].erDist) / S360_SCALE_DEN_V;
-  fb[p].iV = (fb[p].KiV * fb[p].integralV) / S360_SCALE_DEN_V;
-  fb[p].dV = (fb[p].KdV * fb[p].derivativeV) / S360_SCALE_DEN_V;
+  _fbs[p].pV = (_fbs[p].KpV * _fbs[p].erDist) / S360_SCALE_DEN_V;
+  _fbs[p].iV = (_fbs[p].KiV * _fbs[p].integralV) / S360_SCALE_DEN_V;
+  _fbs[p].dV = (_fbs[p].KdV * _fbs[p].derivativeV) / S360_SCALE_DEN_V;
   
-  fb[p].opV = fb[p].pV + fb[p].iV + fb[p].dV;
+  _fbs[p].opV = _fbs[p].pV + _fbs[p].iV + _fbs[p].dV;
 
-  if(fb[p].opV > opMax) fb[p].opV = opMax;
-  if(fb[p].opV < -opMax) fb[p].opV = -opMax;
+  if(_fbs[p].opV > opMax) _fbs[p].opV = opMax;
+  if(_fbs[p].opV < -opMax) _fbs[p].opV = -opMax;
   
-  fb[p].erDistP = fb[p].erDist;
+  _fbs[p].erDistP = _fbs[p].erDist;
   
   //lockclr(_fb360c.lock360);  
 
-  return fb[p].opV;
+  return _fbs[p].opV;
 }
 
 
@@ -543,50 +543,50 @@ void servo360_speedControl(int p)
   // the last time position was controlled, so clear the
   // settings.
   {
-    fb[p].er = 0;
-    fb[p].integral = 0;
-    fb[p].derivative = 0;
-    fb[p].p = 0;
-    fb[p].i = 0;
-    fb[p].d = 0;
-    fb[p].op = 0;
-    fb[p].erP = 0;
-    //fb[p].pw = 0;
+    _fbs[p].er = 0;
+    _fbs[p].integral = 0;
+    _fbs[p].derivative = 0;
+    _fbs[p].p = 0;
+    _fbs[p].i = 0;
+    _fbs[p].d = 0;
+    _fbs[p].op = 0;
+    _fbs[p].erP = 0;
+    //_fbs[p].pw = 0;
   }    
 
   // Acceleration control by taking steps in target speed 
   // toward requested speed
-  if(fb[p].speedTarget != fb[p].speedReq)
+  if(_fbs[p].speedTarget != _fbs[p].speedReq)
   {
-    int speedDifference = fb[p].speedReq - fb[p].speedTarget;
-    if(abs(fb[p].angleError) < S360_UNITS_ENCODER/4)
+    int speedDifference = _fbs[p].speedReq - _fbs[p].speedTarget;
+    if(abs(_fbs[p].angleError) < S360_UNITS_ENCODER/4)
     {
-      if( abs(speedDifference) > fb[p].rampStep)
+      if( abs(speedDifference) > _fbs[p].rampStep)
       {
         if(speedDifference > 0)
         {
-          fb[p].speedTarget += fb[p].rampStep;
+          _fbs[p].speedTarget += _fbs[p].rampStep;
         }
         else if(speedDifference < 0)
         {
-          fb[p].speedTarget -= fb[p].rampStep;
+          _fbs[p].speedTarget -= _fbs[p].rampStep;
         }        
       }
       else
       {
-        fb[p].speedTarget = fb[p].speedReq;
+        _fbs[p].speedTarget = _fbs[p].speedReq;
         //speedUpdateFlag = 0;
       }
     }      
-    fb[p].pw = servo360_upsToPulseFromTransferFunction(fb[p].speedTarget);
-    fb[p].drive = fb[p].pw - 15000;
-    fb[p].opPidV = fb[p].drive + servo360_pidV(p);
+    _fbs[p].pw = servo360_upsToPulseFromTransferFunction(_fbs[p].speedTarget);
+    _fbs[p].drive = _fbs[p].pw - 15000;
+    _fbs[p].opPidV = _fbs[p].drive + servo360_pidV(p);
   }
   else    
   {
-    fb[p].opPidV = fb[p].drive + servo360_pidV(p);
+    _fbs[p].opPidV = _fbs[p].drive + servo360_pidV(p);
   }
-  fb[p].speedTargetP = fb[p].speedTarget;
+  _fbs[p].speedTargetP = _fbs[p].speedTarget;
 }  
  
 

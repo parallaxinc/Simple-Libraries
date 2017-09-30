@@ -20,32 +20,32 @@ int servo360_speed(int pin, int speed)
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
   
-  speed = speed * S360_UNITS_ENCODER / fb[p].unitsRev;
+  speed = speed * S360_UNITS_ENCODER / _fbs[p].unitsRev;
   
-  if(speed != fb[p].speedReq)
+  if(speed != _fbs[p].speedReq)
   {
     while(lockset(_fb360c.lock360));
   
-    if(speed > fb[p].speedLimit)
-      fb[p].speedReq = fb[p].speedLimit;
-    else if(speed < -fb[p].speedLimit)
-      fb[p].speedReq = -fb[p].speedLimit;
+    if(speed > _fbs[p].speedLimit)
+      _fbs[p].speedReq = _fbs[p].speedLimit;
+    else if(speed < -_fbs[p].speedLimit)
+      _fbs[p].speedReq = -_fbs[p].speedLimit;
     else
-      fb[p].speedReq = speed;
+      _fbs[p].speedReq = speed;
   
-    fb[p].csop = S360_SPEED; 
+    _fbs[p].csop = S360_SPEED; 
     lockclr(_fb360c.lock360);
   
     {
-      fb[p].er = 0;
-      fb[p].integral = 0;
-      fb[p].derivative = 0;
-      fb[p].p = 0;
-      fb[p].i = 0;
-      fb[p].d = 0;
-      fb[p].op = 0;
-      fb[p].erP = 0;
-      //fb[p].pw = 0;
+      _fbs[p].er = 0;
+      _fbs[p].integral = 0;
+      _fbs[p].derivative = 0;
+      _fbs[p].p = 0;
+      _fbs[p].i = 0;
+      _fbs[p].d = 0;
+      _fbs[p].op = 0;
+      _fbs[p].erP = 0;
+      //_fbs[p].pw = 0;
     }    
     
   }    

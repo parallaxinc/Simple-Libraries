@@ -16,7 +16,7 @@
 
 void servo360_captureOffset(int p)
 {
-  fb[p].pvOffset = fb[p].angleFixed;
+  _fbs[p].pvOffset = _fbs[p].angleFixed;
 }  
 
 

@@ -70,24 +70,24 @@ int main()
   #endif 
   while(1);
   
-  int angle0 = fb[0].angle;
-  int angleFixed0 = fb[0].angleFixed;
-  int pvOffset0 = fb[0].pvOffset;
+  int angle0 = _fbs[0].angle;
+  int angleFixed0 = _fbs[0].angleFixed;
+  int pvOffset0 = _fbs[0].pvOffset;
   print("angle0 = %d, angleFixed0 %d, pvOffset0 %d,\r", angle0, angleFixed0, pvOffset0);
   pause(80);
-  angle0 = fb[0].angle;
-  angleFixed0 = fb[0].angleFixed;
-  pvOffset0 = fb[0].pvOffset;  
+  angle0 = _fbs[0].angle;
+  angleFixed0 = _fbs[0].angleFixed;
+  pvOffset0 = _fbs[0].pvOffset;  
   print("angle0 = %d, angleFixed0 %d, pvOffset0 %d,\r", angle0, angleFixed0, pvOffset0);
 
-  int angle1 = fb[1].angle;
-  int angleFixed1 = fb[1].angleFixed;
-  int pvOffset1 = fb[1].pvOffset;
+  int angle1 = _fbs[1].angle;
+  int angleFixed1 = _fbs[1].angleFixed;
+  int pvOffset1 = _fbs[1].pvOffset;
   print("angle1 = %d, angleFixed1 %d, pvOffset1 %d,\r\r", angle1, angleFixed1, pvOffset1);
   pause(80);
-  angle1 = fb[1].angle;
-  angleFixed1 = fb[1].angleFixed;
-  pvOffset1 = fb[1].pvOffset;
+  angle1 = _fbs[1].angle;
+  angleFixed1 = _fbs[1].angleFixed;
+  pvOffset1 = _fbs[1].pvOffset;
   print("angle1 = %d, angleFixed1 %d, pvOffset1 %d,\r\r", angle1, angleFixed1, pvOffset1);
 
   /*
@@ -112,8 +112,8 @@ int main()
   pause(2000);
  
   print("_fb360c.devCount %d\r", _fb360c.devCount);
-  print("ctrl %d, fb %d\r", fb[0].pinCtrl, fb[0].pinFb);
-  print("ctrl %d, fb %d\r", fb[1].pinCtrl, fb[1].pinFb);
+  print("ctrl %d, fb %d\r", _fbs[0].pinCtrl, _fbs[0].pinFb);
+  print("ctrl %d, fb %d\r", _fbs[1].pinCtrl, _fbs[1].pinFb);
   print("_fb360c.devCount %d\r", _fb360c.devCount);
   
   servo360_speed(12, 0);
@@ -145,8 +145,8 @@ int main()
   */
   while(1)
   {
-    print("angle = %d\r", fb[0].angle);
-    print("angle = %d\r\r", fb[1].angle);
+    print("angle = %d\r", _fbs[0].angle);
+    print("angle = %d\r\r", _fbs[1].angle);
     pause(500);
     #ifdef _console_
       suppressFbDisplay = 0;
@@ -169,11 +169,11 @@ int main()
   pause(2000);
   
   //servo360_speed(12, 180);
-  //print("\r\rrequested = %d\r\r", fb[0].speedReq);
+  //print("\r\rrequested = %d\r\r", _fbs[0].speedReq);
   
   //servo360_speed(12, 0);
  
-  //print("\r\rcsop = %d\r\r", fb[0].csop);
+  //print("\r\rcsop = %d\r\r", _fbs[0].csop);
   pause(2000);
   
   servo360_speed(12, 0);
@@ -181,7 +181,7 @@ int main()
   while(1)
   {
     pause(500);
-    //print("angle: %d\r", fb[0].angle);
+    //print("angle: %d\r", _fbs[0].angle);
   }    
 
   #ifdef _console_
@@ -192,13 +192,13 @@ int main()
   //pause(1000);
   servo360_speed(12, 180);
   pause(1000);
-  fb[0].speedReq = 2048;
+  _fbs[0].speedReq = 2048;
   #ifdef _console_
     suppressFbDisplay = 1;
     pause(1000);
-    dprint(term, "\r\rrequested = %d\r\r", fb[0].speedReq);
-    dprint(term, "\r\rpinCtrl = %d\r\r", fb[0].pinCtrl);
-    dprint(term, "\r\rpinFb = %d\r\r", fb[0].pinFb);
+    dprint(term, "\r\rrequested = %d\r\r", _fbs[0].speedReq);
+    dprint(term, "\r\rpinCtrl = %d\r\r", _fbs[0].pinCtrl);
+    dprint(term, "\r\rpinFb = %d\r\r", _fbs[0].pinFb);
     pause(1000);
     suppressFbDisplay = 1;
   #endif
@@ -212,7 +212,7 @@ int main()
   
   pause(1000);
   #ifdef _console_
-    dprint(term, "speedLimit = %d\r", fb[0].speedLimit);
+    dprint(term, "speedLimit = %d\r", _fbs[0].speedLimit);
   #endif
   #ifdef _console_
     suppressFbDisplay = 0;
@@ -261,7 +261,7 @@ int main()
   #endif 
   pause(1000);
   #ifdef _console_
-    dprint(term, "speedLimit = %d\r", fb[0].speedLimit);
+    dprint(term, "speedLimit = %d\r", _fbs[0].speedLimit);
   #endif
   #ifdef _console_
     suppressFbDisplay = 0;

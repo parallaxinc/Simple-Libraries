@@ -59,7 +59,7 @@ volatile int cnt;
 
 servo360_t fbt[S360_DEVS_MAX];
 
-//servo360 fb[2];
+//servo360 _fbs[2];
 
 fdserial *term;
 int *consoleCog;
@@ -101,7 +101,7 @@ void console()
     /////servo_speed(pinServoCtrl, 0);
     pause(200);
     pause(10);
-    //fb[0].speedReq = 0;
+    //_fbs[0].speedReq = 0;
     //speedReqP = 0;
   }    
   
@@ -143,13 +143,13 @@ void console()
     else if(ready == 'g' || ready == 'G')
     {
       operation = S360_GOTO;
-      fb[0].csop = S360_GOTO;
+      _fbs[0].csop = S360_GOTO;
       dprint(term, "\rGoto Mode: ");
     }        
     else if(ready == 'm' || ready == 'M')
     {
       operation = S360_MONITOR;
-      fb[0].csop = S360_MONITOR;
+      _fbs[0].csop = S360_MONITOR;
       operation = S360_MONITOR;
       dprint(term, "\rMonitor Mode: ");
     }        
@@ -174,7 +174,7 @@ void console()
       {
         //servo_speed(pinServoCtrl, value);
       }                      
-      dprint(term, "sp = %d\r", fb[0].sp);
+      dprint(term, "sp = %d\r", _fbs[0].sp);
       dprint(term, "operation = %d\r", operation);
     }
     //if(1)
@@ -190,7 +190,7 @@ void console()
       while(lockset(_fb360c.lock360));
       for(int p = 0; p < _fb360c.devCount; p++)
       {
-        fbt[p] = fb[p];
+        fbt[p] = _fbs[p];
       } 
       lockclr(_fb360c.lock360);
       //

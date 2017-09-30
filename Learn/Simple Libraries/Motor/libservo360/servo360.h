@@ -28,8 +28,8 @@ extern "C" {
 
 #define S360_UNITS_FULL_CIRCLE 360
 #define S360_MAX_SPEED 2 * 4096 
-#define S360_B_POS (int) 15200
-#define S360_B_NEG (int) 14800
+#define S360_B_POS 15200
+#define S360_B_NEG 14800
 
 #define S360_DUTY_CYCLE_MIN 290
 #define S360_DUTY_CYCLE_MAX 9710
@@ -275,7 +275,7 @@ typedef volatile struct servo360_s
 } 
 servo360_t;
 
-extern volatile servo360_t fb[S360_DEVS_MAX];
+extern volatile servo360_t _fbs[S360_DEVS_MAX];
 
 // console
 #ifdef _console_

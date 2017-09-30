@@ -20,53 +20,53 @@ int servo360_feedback(int pin, int state)
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
   
-  if(state == 1 && fb[p].feedback == 0)
+  if(state == 1 && _fbs[p].feedback == 0)
   {
     /*
-    servo360 fbtemp = fb[p];
-    fb[p].pinCtrl = -1;
-    fb[p].pinFb = -1;
+    servo360 fbtemp = _fbs[p];
+    _fbs[p].pinCtrl = -1;
+    _fbs[p].pinFb = -1;
     servo360_connect(fbtemp.pinCtrl, fbtemp.pinFb);
-    fb[p].unitsRev = fb[p].unitsRev;
-    fb[p].KpV = fbtemp.KpV;
-    fb[p].KiV = fbtemp.KiV;
-    fb[p].KdV = fbtemp.KdV;
-    fb[p].Kp = fbtemp.Kp;
-    fb[p].Ki = fbtemp.Ki;
-    fb[p].Kd = fbtemp.Kd;
-    fb[p].iMax = fbtemp.iMax;
-    fb[p].iMin = fbtemp.iMin;
-    fb[p].iMaxV = fbtemp.iMaxV;
-    fb[p].iMinV = fbtemp.iMinV;
-    fb[p].speedLimit = fbtemp.speedLimit;
-    fb[p].rampStep = fbtemp.rampStep;
-    //fb[p].csop = 0;
+    _fbs[p].unitsRev = _fbs[p].unitsRev;
+    _fbs[p].KpV = fbtemp.KpV;
+    _fbs[p].KiV = fbtemp.KiV;
+    _fbs[p].KdV = fbtemp.KdV;
+    _fbs[p].Kp = fbtemp.Kp;
+    _fbs[p].Ki = fbtemp.Ki;
+    _fbs[p].Kd = fbtemp.Kd;
+    _fbs[p].iMax = fbtemp.iMax;
+    _fbs[p].iMin = fbtemp.iMin;
+    _fbs[p].iMaxV = fbtemp.iMaxV;
+    _fbs[p].iMinV = fbtemp.iMinV;
+    _fbs[p].speedLimit = fbtemp.speedLimit;
+    _fbs[p].rampStep = fbtemp.rampStep;
+    //_fbs[p].csop = 0;
     */
     {
-      fb[p].speedTarget  = 0;
-      fb[p].angleError = 0;
-      fb[p].erDist = 0;
-      fb[p].erDistP = 0;
-      fb[p].integralV = 0;
-      fb[p].derivativeV = 0;
-      fb[p].pV = 0;
-      fb[p].iV = 0;
-      fb[p].dV = 0;
-      fb[p].opPidV = 0;
+      _fbs[p].speedTarget  = 0;
+      _fbs[p].angleError = 0;
+      _fbs[p].erDist = 0;
+      _fbs[p].erDistP = 0;
+      _fbs[p].integralV = 0;
+      _fbs[p].derivativeV = 0;
+      _fbs[p].pV = 0;
+      _fbs[p].iV = 0;
+      _fbs[p].dV = 0;
+      _fbs[p].opPidV = 0;
   
-      fb[p].angleCalc = fb[p].angle;
-      //fb[p].angleCalcP = fb[p].angleCalc;
+      _fbs[p].angleCalc = _fbs[p].angle;
+      //_fbs[p].angleCalcP = _fbs[p].angleCalc;
     }  
     {
-      fb[p].er = 0;
-      fb[p].integral = 0;
-      fb[p].derivative = 0;
-      fb[p].p = 0;
-      fb[p].i = 0;
-      fb[p].d = 0;
-      fb[p].op = 0;
-      fb[p].erP = 0;
-      fb[p].pw = 0;
+      _fbs[p].er = 0;
+      _fbs[p].integral = 0;
+      _fbs[p].derivative = 0;
+      _fbs[p].p = 0;
+      _fbs[p].i = 0;
+      _fbs[p].d = 0;
+      _fbs[p].op = 0;
+      _fbs[p].erP = 0;
+      _fbs[p].pw = 0;
     }    
       
     //
@@ -74,22 +74,22 @@ int servo360_feedback(int pin, int state)
     //
     servo360_setPositiveDirection(p, S360_CCW_POS);
 
-    fb[p].theta = servo360_getTheta(p);  
-    fb[p].thetaP = fb[p].theta;
-    fb[p].angleFixed = fb[p].theta; 
+    _fbs[p].theta = servo360_getTheta(p);  
+    _fbs[p].thetaP = _fbs[p].theta;
+    _fbs[p].angleFixed = _fbs[p].theta; 
   
-    fb[p].pvOffset = fb[p].angleFixed;
+    _fbs[p].pvOffset = _fbs[p].angleFixed;
     
-    fb[p].angle = (fb[p].angleSign) * (fb[p].angleFixed - fb[p].pvOffset);
-    fb[p].angleCalc = fb[p].angle;
-    fb[p].angleP = fb[p].angle;
-    fb[p].feedback = state;
+    _fbs[p].angle = (_fbs[p].angleSign) * (_fbs[p].angleFixed - _fbs[p].pvOffset);
+    _fbs[p].angleCalc = _fbs[p].angle;
+    _fbs[p].angleP = _fbs[p].angle;
+    _fbs[p].feedback = state;
     //
   }
   else
   {
     //while(lockset(_fb360c.lock360));
-    fb[p].feedback = state;
+    _fbs[p].feedback = state;
     //while(lockset(_fb360c.lock360));
   }    
         

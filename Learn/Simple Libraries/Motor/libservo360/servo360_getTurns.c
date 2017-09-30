@@ -19,7 +19,7 @@ int servo360_getTurns(int pin)
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
 
-  return fb[p].turns;
+  return _fbs[p].turns;
 }  
 
 
