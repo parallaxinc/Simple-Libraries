@@ -41,6 +41,8 @@ servo360_getAngleCtrlSpeedMax.c
 z_dev_console.c
 servo360_couple.c
 servo360_setCoupleScale.c
+servo360_setAngleOffset.c
+servo360_getAngleOffset.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

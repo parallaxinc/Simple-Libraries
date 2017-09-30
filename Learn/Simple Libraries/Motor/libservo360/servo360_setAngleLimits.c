@@ -21,8 +21,8 @@ int servo360_setAngleLimits(int pin, int ccwMax, int cwMax)
   if(p == -1)return -1;
 
   //while(lockset(_fb360c.lock360));
-  _fbs[p].angleMax = ccwMax;
-  _fbs[p].angleMin = cwMax;
+  _fs[p].angleMax = ccwMax;
+  _fs[p].angleMin = cwMax;
   //while(lockset(_fb360c.lock360));
   return p; 
 }

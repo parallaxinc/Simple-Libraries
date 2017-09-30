@@ -21,7 +21,7 @@ int servo360_setRampStep(int pin, int stepSize)
   if(p == -1)return -1;
     
   while(lockset(_fb360c.lock360));
-  _fbs[p].rampStep = stepSize;
+  _fs[p].rampStep = stepSize;
   lockclr(_fb360c.lock360);
 }
 

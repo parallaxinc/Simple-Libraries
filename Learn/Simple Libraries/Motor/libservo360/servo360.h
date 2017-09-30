@@ -122,6 +122,9 @@ int servo360_getAngleCalc(int pin);
 int servo360_angle(int pin, int position);
 int servo360_getAngle(int pin);
 
+int servo360_setAngleOffset(int pin, int angle);
+int servo360_getAngleOffset(int pin);
+
 int servo360_goto(int pin, int position);
 int servo360_getCsop(int pin);
 
@@ -292,7 +295,7 @@ typedef volatile struct servo360_s
 } 
 servo360_t;
 
-extern volatile servo360_t _fbs[S360_DEVS_MAX];
+extern volatile servo360_t _fs[S360_DEVS_MAX];
 
 // console
 #ifdef _servo360_monitor_
