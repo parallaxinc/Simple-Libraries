@@ -12,13 +12,13 @@ int main()
   drive_speed(0, 0);
   
   //  
-  drive_setAcceleration(FOR_SPEED, 200);
+  drive_setAcceleration(FOR_SPEED, 400);
   
   servo360_couple(12, 13);
   servo360_setCoupleScale(12, 13, 2000);
 
-  servo360_setControlSys(12, S360_SETTING_KPV, 2500);            // KPV
-  servo360_setControlSys(13, S360_SETTING_KPV, 2500);            // KPV
+  servo360_setControlSys(12, S360_SETTING_KPV, 500);            // KPV
+  servo360_setControlSys(13, S360_SETTING_KPV, 500);            // KPV
   servo360_setControlSys(12, S360_SETTING_KIV, 000);             // KIV
   servo360_setControlSys(13, S360_SETTING_KIV, 000);             // KIV
   servo360_setControlSys(12, S360_SETTING_KDV, 0000);            // KDV
