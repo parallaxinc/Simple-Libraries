@@ -21,7 +21,7 @@ int servo360_getAngle12Bit(int pin)
   if(p == -1)return -1;
 
   while(lockset(_fb360c.lock360));
-  int val = _fbs[p].angle;
+  int val = _fs[p].angle;
   lockclr(_fb360c.lock360);
   return val;
 }                    
