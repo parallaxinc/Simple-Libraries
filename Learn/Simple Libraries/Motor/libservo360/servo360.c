@@ -160,7 +160,7 @@ void servo360_servoPulse(int p, int q)
   int pinB = _fs[q].pinCtrl;
   
 
-  if(pinA != -1 && _fs[p].dc != -1)
+  if(pinA != -1 && _fs[p].dc != -1 && _fs[p].enable)
   {
     if(_fs[p].speedOut > S360_PWMAX) _fs[p].speedOut = S360_PWMAX; 
     if(_fs[p].speedOut < S360_PWMIN) _fs[p].speedOut = S360_PWMIN; 
@@ -173,7 +173,7 @@ void servo360_servoPulse(int p, int q)
     PHSA = -(15000 + _fs[p].speedOut) * (CLKFREQ/10000000);
   }   
 
-  if(pinB != -1 && _fs[q].dc != -1)
+  if(pinB != -1 && _fs[q].dc != -1 && _fs[q].enable)
   {
     if(_fs[q].speedOut > S360_PWMAX) _fs[q].speedOut = S360_PWMAX; 
     if(_fs[q].speedOut < S360_PWMIN) _fs[q].speedOut = S360_PWMIN; 

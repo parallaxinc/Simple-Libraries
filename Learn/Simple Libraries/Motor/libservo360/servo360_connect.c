@@ -93,6 +93,8 @@ int servo360_connect(int pinControl, int pinFeedback)
   
   _fs[p].feedback = 1;
 
+  _fs[p].enable = 1;
+
   _fb360c.devCount++;
   
   lockclr(_fb360c.lock360);  

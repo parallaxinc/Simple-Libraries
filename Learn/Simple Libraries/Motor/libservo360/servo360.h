@@ -238,6 +238,7 @@ typedef volatile struct servo360_s
   volatile int unitsRev;
   volatile int couple;
   volatile int coupleScale;
+  volatile int enable;
   
   // admin
   volatile int csop;
