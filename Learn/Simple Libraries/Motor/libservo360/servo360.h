@@ -51,22 +51,22 @@ extern "C" {
 #define S360_M 4348
 #define S360_B -129
 #define S360_ENC_RES 4096
+
 /*
+#define S360_KPA 5000
+#define S360_KIA 150
+#define S360_KDA 0
+#define S360_POS_INTGRL_MAX 150
+#define S360_SCALE_DEN_A 1000
+*/
+
+//
 #define S360_KPA 12000
 #define S360_KIA 600
 #define S360_KDA 6000
 #define S360_POS_INTGRL_MAX 600
 #define S360_SCALE_DEN_A 1000
-*/
-
-#define S360_KPA 5000
-//#define S360_KIA 500
-#define S360_KIA 150
-//#define S360_KDA 2000
-#define S360_KDA 0
-//#define S360_POS_INTGRL_MAX 300
-#define S360_POS_INTGRL_MAX 150
-#define S360_SCALE_DEN_A 1000
+//
 
 /*
 #define S360_KPV 3000
