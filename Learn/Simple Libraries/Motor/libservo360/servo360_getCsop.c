@@ -21,7 +21,7 @@ int servo360_getCsop(int pin)
   if(p == -1)return -1;
 
   while(lockset(_fb360c.lock360));
-  int val = _fbs[p].csop;
+  int val = _fs[p].csop;
   lockclr(_fb360c.lock360);
   return val;
 }  

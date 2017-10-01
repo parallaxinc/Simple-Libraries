@@ -20,25 +20,25 @@ int servo360_angle(int pin, int position)
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
   
-  if(position >= _fbs[p].angleMax) position = _fbs[p].angleMax;
-  if(position <= _fbs[p].angleMin) position = _fbs[p].angleMin;
+  if(position >= _fs[p].angleMax) position = _fs[p].angleMax;
+  if(position <= _fs[p].angleMin) position = _fs[p].angleMin;
 
   while(lockset(_fb360c.lock360));
   
-  _fbs[p].sp = position * S360_UNITS_ENCODER / _fbs[p].unitsRev;
-  _fbs[p].csop = S360_POSITION;
+  _fs[p].sp = position * S360_UNITS_ENCODER / _fs[p].unitsRev;
+  _fs[p].csop = S360_POSITION;
 
   {
-    _fbs[p].speedTarget  = 0;
-    _fbs[p].angleError = 0;
-    _fbs[p].erDist = 0;
-    _fbs[p].erDistP = 0;
-    _fbs[p].integralV = 0;
-    _fbs[p].derivativeV = 0;
-    _fbs[p].pV = 0;
-    _fbs[p].iV = 0;
-    _fbs[p].dV = 0;
-    _fbs[p].opPidV = 0;
+    _fs[p].speedTarget  = 0;
+    _fs[p].angleError = 0;
+    _fs[p].erDist = 0;
+    _fs[p].erDistP = 0;
+    _fs[p].integralV = 0;
+    _fs[p].derivativeV = 0;
+    _fs[p].pV = 0;
+    _fs[p].iV = 0;
+    _fs[p].dV = 0;
+    _fs[p].opPidV = 0;
   }    
   
   lockclr(_fb360c.lock360);

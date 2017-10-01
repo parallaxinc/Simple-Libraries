@@ -20,7 +20,7 @@ int servo360_getUnitsFullCircle(int pin)
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
 
-  return _fbs[p].unitsRev;
+  return _fs[p].unitsRev;
 }  
 
 

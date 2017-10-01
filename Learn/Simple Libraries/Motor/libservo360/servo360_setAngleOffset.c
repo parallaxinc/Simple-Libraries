@@ -1,5 +1,5 @@
 /*
-  @servo360_getControlSys.c
+  @file servo360_setAngleOffset.c
 
   @author Parallax Inc
 
@@ -14,43 +14,16 @@
 #include "servo360.h"
 
 
-int servo360_getControlSys(int pin, int constant)
+int servo360_setAngleOffset(int pin, int angle)
 {
   if(!_fb360c.servoCog) servo360_run();
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
   
-  int value; 
-  
-  switch(constant)
-  {
-    case S360_SETTING_KPV:
-      value = _fs[p].KpV;
-      break;
-    case S360_SETTING_KIV:
-      value = _fs[p].KiV;
-      break;
-    case S360_SETTING_KDV:
-      value = _fs[p].KdV;
-      break;
-    case S360_SETTING_IV_MAX:
-      value = _fs[p].iMaxV;
-      break;
-    case S360_SETTING_KPA:
-      value = _fs[p].Kp;
-      break;
-    case S360_SETTING_KIA:
-      value = _fs[p].Ki;
-      break;
-    case S360_SETTING_KDA:
-      value = _fs[p].Kd;
-      break;
-    case S360_SETTING_IA_MAX:
-      value = _fs[p].iMax;
-      break;
-  }  
-  return value;
-}    
+  //while(lockset(_fb360c.lock360));
+  _fs[p].pvOffset = angle * S360_UNITS_ENCODER / _fs[p].unitsRev;
+  //lockclr(_fb360c.lock360);
+}  
 
 
 /**

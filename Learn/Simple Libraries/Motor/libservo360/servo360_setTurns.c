@@ -24,30 +24,30 @@ int servo360_setTurns(int pin, int turns)
   
   while(lockset(_fb360c.lock360));
   
-  _fbs[p].angle += delta;  
-  _fbs[p].angleP += delta;
-  _fbs[p].angleFixed += delta;
-  _fbs[p].angleFixedP += delta;
-  _fbs[p].turns += turns;
+  _fs[p].angle += delta;  
+  _fs[p].angleP += delta;
+  _fs[p].angleFixed += delta;
+  _fs[p].angleFixedP += delta;
+  _fs[p].turns += turns;
 
 
-  if(_fbs[p].csop == S360_POSITION)
+  if(_fs[p].csop == S360_POSITION)
   {
-    _fbs[p].sp += delta;
-    _fbs[p].angleTarget += delta;
+    _fs[p].sp += delta;
+    _fs[p].angleTarget += delta;
   }
   //
-  else if(_fbs[p].csop == S360_SPEED)
+  else if(_fs[p].csop == S360_SPEED)
   {
-    _fbs[p].angleCalc += delta;
-    _fbs[p].angleTarget += delta;
+    _fs[p].angleCalc += delta;
+    _fs[p].angleTarget += delta;
   }
   //
-  else if(_fbs[p].csop == S360_GOTO)
+  else if(_fs[p].csop == S360_GOTO)
   {
-    _fbs[p].angleTarget += delta;
-    _fbs[p].sp += delta;
-    _fbs[p].angleCalc += delta;
+    _fs[p].angleTarget += delta;
+    _fs[p].sp += delta;
+    _fs[p].angleCalc += delta;
   }    
   
   lockclr(_fb360c.lock360);

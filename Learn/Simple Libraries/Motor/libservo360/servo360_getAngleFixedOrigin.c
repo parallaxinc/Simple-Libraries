@@ -21,7 +21,7 @@ int servo360_getAngleFixedOrigin(int pin)
   if(p == -1)return -1;
 
   while(lockset(_fb360c.lock360));
-  int val = _fbs[p].theta;
+  int val = _fs[p].theta;
   lockclr(_fb360c.lock360);
   return val;
 }  

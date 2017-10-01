@@ -20,7 +20,7 @@ int servo360_getAngleCtrlSpeedMax(int pin)
   int p = servo360_findServoIndex(pin);
   if(p == -1)return -1;
   
-  int speed = _fbs[p].opMax * _fbs[p].unitsRev / S360_UNITS_ENCODER;
+  int speed = _fs[p].opMax * _fs[p].unitsRev / S360_UNITS_ENCODER;
 
   return speed;                      
 }  

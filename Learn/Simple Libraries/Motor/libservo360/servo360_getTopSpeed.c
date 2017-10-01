@@ -21,7 +21,7 @@ int servo360_getTopSpeed(int pin)
   if(p == -1)return -1;
 
   while(lockset(_fb360c.lock360));
-  int val = _fbs[p].speedLimit;
+  int val = _fs[p].speedLimit;
   lockclr(_fb360c.lock360);
   return val;
 }  

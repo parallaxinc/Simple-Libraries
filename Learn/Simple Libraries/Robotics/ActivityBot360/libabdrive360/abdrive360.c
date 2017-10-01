@@ -62,6 +62,23 @@ void drive_init(void)
   servo360_setMaxSpeed(abd360_pinCtrlRight, abd360_speedLimit);
 
   servo360_couple(abd360_pinCtrlLeft, abd360_pinCtrlRight);
+  
+  /*
+  #define S360_KPA 5000
+  #define S360_KIA 150
+  #define S360_KDA 0
+  #define S360_POS_INTGRL_MAX 150
+  #define S360_SCALE_DEN_A 1000
+  */
+
+  servo360_setControlSys(abd360_pinCtrlLeft, S360_SETTING_KPA, 5000);             // KPV
+  servo360_setControlSys(abd360_pinCtrlRight, S360_SETTING_KPA, 5000);             // KPV
+  servo360_setControlSys(abd360_pinCtrlLeft, S360_SETTING_KIA, 150);               // KIV
+  servo360_setControlSys(abd360_pinCtrlRight, S360_SETTING_KIA, 150);               // KIV
+  servo360_setControlSys(abd360_pinCtrlLeft, S360_SETTING_KDA, 0);               // KDV
+  servo360_setControlSys(abd360_pinCtrlRight, S360_SETTING_KDA, 0);               // KDV
+  servo360_setControlSys(abd360_pinCtrlLeft, S360_SETTING_IA_MAX, 150);            // FB360_VEL_INTGRL_MAX
+  servo360_setControlSys(abd360_pinCtrlRight, S360_SETTING_IA_MAX, 150);            // FB360_VEL_INTGRL_MAX
 
   abd360_initialized = 1;
 }  
