@@ -21,10 +21,9 @@ int servo360_enable(int pin, int state)
   if(p == -1)return -1;
 
   int index = servo360_findServoIndex(pin);
-  //while(lockset(_fb360c.lock360));
-  _fs[p].enable = state;
-  //while(lockset(_fb360c.lock360));
-  pause(1);
+  while(lockset(_fb360c.lock360));
+  //enable = state;
+  while(lockset(_fb360c.lock360));
   return index; 
 }
 

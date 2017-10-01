@@ -25,14 +25,14 @@ int servo360_couple(int pinA, int pinB)
   
   if(pA < pB)
   {
-    _fs[pA].couple = pB;
-    _fs[pA].coupleScale = S360_SCALE_COUPLE;
+    _fbs[pA].couple = pB;
+    _fbs[pA].coupleScale = S360_SCALE_COUPLE;
     return pB;
   }
   else if(pB < pA)
   {
-    _fs[pB].couple = pA;
-    _fs[pB].coupleScale = S360_SCALE_COUPLE;
+    _fbs[pB].couple = pA;
+    _fbs[pB].coupleScale = S360_SCALE_COUPLE;
     return pA;
   }
   else

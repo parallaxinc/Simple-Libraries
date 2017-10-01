@@ -21,7 +21,7 @@ int servo360_set(int pinControl, int time)
   if(p == -1)return -1;
 
   //servo360_feedback(pinControl, 0);
-  _fs[p].speedOut = (time - 1500) * 10;
+  _fbs[p].speedOut = (time - 1500) * 10;
   
   return p;
 }  

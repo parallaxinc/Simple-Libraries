@@ -51,22 +51,22 @@ extern "C" {
 #define S360_M 4348
 #define S360_B -129
 #define S360_ENC_RES 4096
-
 /*
-#define S360_KPA 5000
-#define S360_KIA 150
-#define S360_KDA 0
-#define S360_POS_INTGRL_MAX 150
-#define S360_SCALE_DEN_A 1000
-*/
-
-//
 #define S360_KPA 12000
 #define S360_KIA 600
 #define S360_KDA 6000
 #define S360_POS_INTGRL_MAX 600
 #define S360_SCALE_DEN_A 1000
-//
+*/
+
+#define S360_KPA 5000
+//#define S360_KIA 500
+#define S360_KIA 150
+//#define S360_KDA 2000
+#define S360_KDA 0
+//#define S360_POS_INTGRL_MAX 300
+#define S360_POS_INTGRL_MAX 150
+#define S360_SCALE_DEN_A 1000
 
 /*
 #define S360_KPV 3000
@@ -121,9 +121,6 @@ int servo360_getAngleCalc(int pin);
 
 int servo360_angle(int pin, int position);
 int servo360_getAngle(int pin);
-
-int servo360_setAngleOffset(int pin, int angle);
-int servo360_getAngleOffset(int pin);
 
 int servo360_goto(int pin, int position);
 int servo360_getCsop(int pin);
@@ -238,7 +235,6 @@ typedef volatile struct servo360_s
   volatile int unitsRev;
   volatile int couple;
   volatile int coupleScale;
-  volatile int enable;
   
   // admin
   volatile int csop;
@@ -296,7 +292,7 @@ typedef volatile struct servo360_s
 } 
 servo360_t;
 
-extern volatile servo360_t _fs[S360_DEVS_MAX];
+extern volatile servo360_t _fbs[S360_DEVS_MAX];
 
 // console
 #ifdef _servo360_monitor_

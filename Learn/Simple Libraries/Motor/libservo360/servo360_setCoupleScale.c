@@ -23,14 +23,14 @@ int servo360_setCoupleScale(int pinA, int pinB, int scale)
   int pB = servo360_findServoIndex(pinB);
   if(pB == -1) return -2;
   
-  if(_fs[pA].couple >= 0)
+  if(_fbs[pA].couple >= 0)
   {
-    _fs[pA].coupleScale = scale;
+    _fbs[pA].coupleScale = scale;
     return pA;
   }
-  else if(_fs[pB].couple >= 0)
+  else if(_fbs[pB].couple >= 0)
   {
-    _fs[pB].coupleScale = scale;
+    _fbs[pB].coupleScale = scale;
     return pB;
   }
   else

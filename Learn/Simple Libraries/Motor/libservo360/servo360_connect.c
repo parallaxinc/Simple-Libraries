@@ -39,7 +39,7 @@ int servo360_connect(int pinControl, int pinFeedback)
 
   for(int p = 0; p < S360_DEVS_MAX; p++) 
   {
-    if( (_fs[p].pinCtrl == -1) && (_fs[p].pinFb == -1) )
+    if( (_fbs[p].pinCtrl == -1) && (_fbs[p].pinFb == -1) )
     {
       result = p;
       break;
@@ -48,52 +48,50 @@ int servo360_connect(int pinControl, int pinFeedback)
 
   int p = result;
   
-  _fs[p].speedReq = 0;
-  _fs[p].pinCtrl = pinControl;
-  _fs[p].pinFb = pinFeedback;
+  _fbs[p].speedReq = 0;
+  _fbs[p].pinCtrl = pinControl;
+  _fbs[p].pinFb = pinFeedback;
   
-  _fs[p].unitsRev = S360_UNITS_REV;
+  _fbs[p].unitsRev = S360_UNITS_REV;
   
-  _fs[p].KpV = S360_KPV;
-  _fs[p].KiV = S360_KIV;
-  _fs[p].KdV = S360_KDV;
-  _fs[p].iMax = S360_POS_INTGRL_MAX;
-  _fs[p].iMin = -S360_POS_INTGRL_MAX;
+  _fbs[p].KpV = S360_KPV;
+  _fbs[p].KiV = S360_KIV;
+  _fbs[p].KdV = S360_KDV;
+  _fbs[p].iMax = S360_POS_INTGRL_MAX;
+  _fbs[p].iMin = -S360_POS_INTGRL_MAX;
   
-  _fs[p].Kp = S360_KPA;
-  _fs[p].Ki = S360_KIA;
-  _fs[p].Kd = S360_KDA;
-  _fs[p].iMaxV = S360_VEL_INTGRL_MAX;
-  _fs[p].iMinV = -S360_VEL_INTGRL_MAX;
+  _fbs[p].Kp = S360_KPA;
+  _fbs[p].Ki = S360_KIA;
+  _fbs[p].Kd = S360_KDA;
+  _fbs[p].iMaxV = S360_VEL_INTGRL_MAX;
+  _fbs[p].iMinV = -S360_VEL_INTGRL_MAX;
   
-  _fs[p].pw = S360_PW_CENTER;
+  _fbs[p].pw = S360_PW_CENTER;
   
-  _fs[p].speedLimit = S360_MAX_SPEED;
-  _fs[p].rampStep = S360_RAMP_STEP;
+  _fbs[p].speedLimit = S360_MAX_SPEED;
+  _fbs[p].rampStep = S360_RAMP_STEP;
   
   servo360_setPositiveDirection(p, S360_CCW_POS);
 
-  _fs[p].theta = servo360_getTheta(p);  
-  _fs[p].thetaP = _fs[p].theta;
-  _fs[p].angleFixed = _fs[p].theta; 
+  _fbs[p].theta = servo360_getTheta(p);  
+  _fbs[p].thetaP = _fbs[p].theta;
+  _fbs[p].angleFixed = _fbs[p].theta; 
 
-  _fs[p].pvOffset = _fs[p].angleFixed;
+  _fbs[p].pvOffset = _fbs[p].angleFixed;
   
-  _fs[p].angle = (_fs[p].angleSign) * (_fs[p].angleFixed - _fs[p].pvOffset);
-  _fs[p].angleCalc = _fs[p].angle;
-  _fs[p].angleP = _fs[p].angle;
+  _fbs[p].angle = (_fbs[p].angleSign) * (_fbs[p].angleFixed - _fbs[p].pvOffset);
+  _fbs[p].angleCalc = _fbs[p].angle;
+  _fbs[p].angleP = _fbs[p].angle;
   
-  _fs[p].angleMax = S360_A_MAX;
-  _fs[p].angleMin = -S360_A_MAX;
+  _fbs[p].angleMax = S360_A_MAX;
+  _fbs[p].angleMin = -S360_A_MAX;
   
-  _fs[p].opMax = S360_MAX_SPEED;
+  _fbs[p].opMax = S360_MAX_SPEED;
 
-  _fs[p].couple = 0;
-  _fs[p].coupleScale = 0;
+  _fbs[p].couple = 0;
+  _fbs[p].coupleScale = 0;
   
-  _fs[p].feedback = 1;
-
-  _fs[p].enable = 1;
+  _fbs[p].feedback = 1;
 
   _fb360c.devCount++;
   

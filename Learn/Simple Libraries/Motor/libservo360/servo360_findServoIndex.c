@@ -24,7 +24,7 @@ int servo360_findServoIndex(int pin)
     {
       return -1;
     }       
-    if(_fs[p].pinCtrl == pin || _fs[p].pinFb == pin)
+    if(_fbs[p].pinCtrl == pin || _fbs[p].pinFb == pin)
     {
       return p;
     }
