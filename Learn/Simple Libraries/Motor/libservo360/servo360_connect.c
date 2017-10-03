@@ -13,10 +13,13 @@
 #include "simpletools.h"  
 #include "servo360.h"
 
+long pulse_in(int pin, int state);
+
+
 int servo360_connect(int pinControl, int pinFeedback)
 {
 
-  int t1 = pulse_in(pinFeedback, 1);
+  int t1 = (int) pulse_in(pinFeedback, 1);
   if( (t1 > 1200) || (t1 < 25) ) return -8;
 
   if(!_fb360c.servoCog) servo360_run();
