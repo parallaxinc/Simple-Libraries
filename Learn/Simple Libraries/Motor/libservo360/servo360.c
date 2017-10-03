@@ -12,7 +12,7 @@
 
 #include "simpletools.h"  
 #include "servo360.h"
-
+#include "ping.h"
 
 #define couple_servos
 
@@ -20,6 +20,11 @@
 servo360_cog_t _fb360c;
 servo360_t _fs[S360_DEVS_MAX];
 
+__attribute__((constructor))
+void servo360_patch(void)
+{
+  ping_cm(26);
+}
 
 void servo360_run(void)
 {

@@ -22,6 +22,7 @@ extern "C" {
 
 
 #include "simpletools.h"  
+#include "ping.h"
 
 #ifdef _servo360_monitor_
   #include "fdserial.h"
@@ -195,6 +196,9 @@ int servo360_setMaxSpeedEncoded(int pin, int speed);
 
 void servo360_monitorRun(void);
 void servo360_monitorEnd(void);
+
+__attribute__((constructor))
+void servo360_patch(void);
 
 #ifdef _servo360_monitor_
 void console();
