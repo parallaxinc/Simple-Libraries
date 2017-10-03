@@ -20,14 +20,17 @@
 servo360_cog_t _fb360c;
 servo360_t _fs[S360_DEVS_MAX];
 
+/*
 __attribute__((constructor))
 void servo360_patch(void)
 {
   ping_cm(26);
 }
+*/
 
 void servo360_run(void)
 {
+  ping_cm(26);
   _fb360c.servoCog = cog_run(servo360_mainLoop, 512); 
   _fb360c.cntPrev = CNT;
   pause(500);
