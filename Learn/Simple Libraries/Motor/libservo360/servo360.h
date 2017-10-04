@@ -10,7 +10,13 @@
 */
 
 
-#define _servo360_monitor_
+
+
+
+//#define _servo360_monitor_
+
+
+
 
 
 #ifndef SERVO360_H
@@ -162,7 +168,7 @@ int servo360_couple(int pinA, int pinB);
 int servo360_setCoupleScale(int pinA, int pinB, int scale);
 
 
-// int servo360_enable(int pin, int state);
+int servo360_enable(int pin, int state);
 
 /* Private */
 void servo360_run(void);
@@ -290,6 +296,7 @@ typedef volatile struct servo360_s
   volatile int drive;
   volatile int stepDir;
   volatile int lag;
+  volatile int accelerating;
   
   // position control system
   volatile int Kp;

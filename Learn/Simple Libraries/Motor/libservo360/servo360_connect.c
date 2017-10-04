@@ -93,6 +93,7 @@ int servo360_connect(int pinControl, int pinFeedback)
 
   _fs[p].couple = 0;
   _fs[p].coupleScale = 0;
+  _fs[p].accelerating = 0;
   
   _fs[p].feedback = 1;
 
