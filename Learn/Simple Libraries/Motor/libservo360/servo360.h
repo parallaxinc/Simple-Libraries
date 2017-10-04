@@ -10,7 +10,7 @@
 */
 
 
-//#define _servo360_monitor_
+#define _servo360_monitor_
 
 
 #ifndef SERVO360_H
@@ -30,8 +30,10 @@ extern "C" {
 
 #define S360_UNITS_FULL_CIRCLE 360
 #define S360_MAX_SPEED 2 * 4096 
-#define S360_B_POS 15200
-#define S360_B_NEG 14800
+
+#define S360_VB_POS 200
+#define S360_VB_NEG -200
+#define S360_VM 180
 
 #define S360_DUTY_CYCLE_MIN 290
 #define S360_DUTY_CYCLE_MAX 9710
@@ -46,7 +48,8 @@ extern "C" {
 #define S360_FREQ_CTRL_SIG 50
 #define S360_DEVS_MAX 4
 
-#define S360_RAMP_STEP 10 * 4096 / 360;
+//#define S360_RAMP_STEP 10 * 4096 / 360;
+#define S360_RAMP_STEP 72 * 4096 / 360;
 
 // Rename to indicate encoder
 #define S360_M 4348
