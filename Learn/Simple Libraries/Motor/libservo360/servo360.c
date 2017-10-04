@@ -12,7 +12,7 @@
 
 #include "simpletools.h"  
 #include "servo360.h"
-
+#include "patch.h"
 
 #define couple_servos
 
@@ -20,9 +20,18 @@
 servo360_cog_t _fb360c;
 servo360_t _fs[S360_DEVS_MAX];
 
+/*
+__attribute__((constructor))
+void servo360_patch(void)
+{
+  ping_cm(26);
+}
+*/
 
 void servo360_run(void)
 {
+  //ping_cm(26);
+  patch360forBlockly();
   _fb360c.servoCog = cog_run(servo360_mainLoop, 512); 
   _fb360c.cntPrev = CNT;
   pause(500);
@@ -112,6 +121,8 @@ void servo360_mainLoop()
         {
           int compensate = _fs[_fs[p].couple].lag - _fs[p].lag;
           compensate = _fs[p].coupleScale * compensate / S360_SCALE_DEN_COUPLE;
+          //if(_fs[p].accelerating || _fs[_fs[p].couple].accelerating) 
+          //  compensate *= 4;
           if(compensate > 500) compensate = 500;  
           // Limits pulse deviation to 50 us
     
@@ -122,6 +133,8 @@ void servo360_mainLoop()
         {
           int compensate = _fs[p].lag - _fs[_fs[p].couple].lag;
           compensate = _fs[p].coupleScale * compensate / S360_SCALE_DEN_COUPLE;
+          //if(_fs[p].accelerating || _fs[_fs[p].couple].accelerating) 
+          //  compensate *= 4;
           if(compensate > 500) compensate = 500;           
       
           if(_fs[_fs[p].couple].speedOut > 0) _fs[_fs[p].couple].speedOut -= compensate;
@@ -474,7 +487,7 @@ int servo360_pidV(int p)
   int opMax = _fs[p].speedLimit;
 
   _fs[p].speedMeasured = (_fs[p].angle - _fs[p].angleP) * 50; 
-  if(abs(_fs[p].angleError) < S360_UNITS_ENCODER/4)
+  if(abs(_fs[p].angleError) < S360_UNITS_ENCODER/2)
   {
     _fs[p].angleDeltaCalc = _fs[p].speedTarget / S360_CS_HZ;
     _fs[p].angleCalc += _fs[p].angleDeltaCalc;
@@ -482,7 +495,7 @@ int servo360_pidV(int p)
 
   _fs[p].angleError = _fs[p].angleCalc - _fs[p].angle;
 
-  if(abs(_fs[p].angleError) < S360_UNITS_ENCODER/4)
+  if(abs(_fs[p].angleError) < S360_UNITS_ENCODER/2)
   {
     _fs[p].erDist = _fs[p].angleError;
     _fs[p].integralV += _fs[p].erDist;
@@ -513,6 +526,7 @@ int servo360_pidV(int p)
 // for the servo.  This is done once for each new speed.  After the pulse
 // is delivered once, the control system adjusts upward or downward from
 // that initial value.
+/*
 int servo360_upsToPulseFromTransferFunction(int unitsPerSec)
 {
   int pw, b, mx;
@@ -535,7 +549,30 @@ int servo360_upsToPulseFromTransferFunction(int unitsPerSec)
     pw = 15000;
   }
   return pw;    
-}  
+}
+*/
+
+int servo360_upsToPulseFromTransferFunction(int unitsPerSec)
+{
+  int y, x = unitsPerSec, m = S360_VM, b;
+  
+  if(x > 0)
+  {
+    b = S360_VB_POS;
+  }    
+  else if(x < 0)
+  {
+    b = S360_VB_NEG;
+  }
+  else
+  {
+     b = 0;
+  }
+  
+  y = (m * x / 1000) + b;
+
+  return y + 15000;    
+}
 
 
 void servo360_speedControl(int p)
@@ -561,10 +598,11 @@ void servo360_speedControl(int p)
   if(_fs[p].speedTarget != _fs[p].speedReq)
   {
     int speedDifference = _fs[p].speedReq - _fs[p].speedTarget;
-    if(abs(_fs[p].angleError) < S360_UNITS_ENCODER/4)
+    if(abs(_fs[p].angleError) < S360_UNITS_ENCODER/2)
     {
       if( abs(speedDifference) > _fs[p].rampStep)
       {
+        _fs[p].accelerating = 1;
         if(speedDifference > 0)
         {
           _fs[p].speedTarget += _fs[p].rampStep;
@@ -576,6 +614,7 @@ void servo360_speedControl(int p)
       }
       else
       {
+        _fs[p].accelerating = 0;
         _fs[p].speedTarget = _fs[p].speedReq;
         //speedUpdateFlag = 0;
       }

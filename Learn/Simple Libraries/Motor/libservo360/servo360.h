@@ -10,7 +10,13 @@
 */
 
 
+
+
+
 //#define _servo360_monitor_
+
+
+
 
 
 #ifndef SERVO360_H
@@ -22,6 +28,7 @@ extern "C" {
 
 
 #include "simpletools.h"  
+#include "patch.h"
 
 #ifdef _servo360_monitor_
   #include "fdserial.h"
@@ -29,8 +36,10 @@ extern "C" {
 
 #define S360_UNITS_FULL_CIRCLE 360
 #define S360_MAX_SPEED 2 * 4096 
-#define S360_B_POS 15200
-#define S360_B_NEG 14800
+
+#define S360_VB_POS 200
+#define S360_VB_NEG -200
+#define S360_VM 180
 
 #define S360_DUTY_CYCLE_MIN 290
 #define S360_DUTY_CYCLE_MAX 9710
@@ -45,7 +54,8 @@ extern "C" {
 #define S360_FREQ_CTRL_SIG 50
 #define S360_DEVS_MAX 4
 
-#define S360_RAMP_STEP 10 * 4096 / 360;
+//#define S360_RAMP_STEP 10 * 4096 / 360;
+#define S360_RAMP_STEP 72 * 4096 / 360;
 
 // Rename to indicate encoder
 #define S360_M 4348
@@ -158,7 +168,7 @@ int servo360_couple(int pinA, int pinB);
 int servo360_setCoupleScale(int pinA, int pinB, int scale);
 
 
-// int servo360_enable(int pin, int state);
+int servo360_enable(int pin, int state);
 
 /* Private */
 void servo360_run(void);
@@ -195,6 +205,11 @@ int servo360_setMaxSpeedEncoded(int pin, int speed);
 
 void servo360_monitorRun(void);
 void servo360_monitorEnd(void);
+
+/*
+__attribute__((constructor))
+void servo360_patch(void);
+*/
 
 #ifdef _servo360_monitor_
 void console();
@@ -281,6 +296,7 @@ typedef volatile struct servo360_s
   volatile int drive;
   volatile int stepDir;
   volatile int lag;
+  volatile int accelerating;
   
   // position control system
   volatile int Kp;
