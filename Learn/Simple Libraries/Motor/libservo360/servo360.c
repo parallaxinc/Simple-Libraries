@@ -121,6 +121,8 @@ void servo360_mainLoop()
         {
           int compensate = _fs[_fs[p].couple].lag - _fs[p].lag;
           compensate = _fs[p].coupleScale * compensate / S360_SCALE_DEN_COUPLE;
+          //if(_fs[p].accelerating || _fs[_fs[p].couple].accelerating) 
+          //  compensate *= 4;
           if(compensate > 500) compensate = 500;  
           // Limits pulse deviation to 50 us
     
@@ -131,6 +133,8 @@ void servo360_mainLoop()
         {
           int compensate = _fs[p].lag - _fs[_fs[p].couple].lag;
           compensate = _fs[p].coupleScale * compensate / S360_SCALE_DEN_COUPLE;
+          //if(_fs[p].accelerating || _fs[_fs[p].couple].accelerating) 
+          //  compensate *= 4;
           if(compensate > 500) compensate = 500;           
       
           if(_fs[_fs[p].couple].speedOut > 0) _fs[_fs[p].couple].speedOut -= compensate;
@@ -598,6 +602,7 @@ void servo360_speedControl(int p)
     {
       if( abs(speedDifference) > _fs[p].rampStep)
       {
+        _fs[p].accelerating = 1;
         if(speedDifference > 0)
         {
           _fs[p].speedTarget += _fs[p].rampStep;
@@ -609,6 +614,7 @@ void servo360_speedControl(int p)
       }
       else
       {
+        _fs[p].accelerating = 0;
         _fs[p].speedTarget = _fs[p].speedReq;
         //speedUpdateFlag = 0;
       }

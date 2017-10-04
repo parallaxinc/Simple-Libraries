@@ -10,7 +10,13 @@
 */
 
 
-#define _servo360_monitor_
+
+
+
+//#define _servo360_monitor_
+
+
+
 
 
 #ifndef SERVO360_H
@@ -290,6 +296,7 @@ typedef volatile struct servo360_s
   volatile int drive;
   volatile int stepDir;
   volatile int lag;
+  volatile int accelerating;
   
   // position control system
   volatile int Kp;
