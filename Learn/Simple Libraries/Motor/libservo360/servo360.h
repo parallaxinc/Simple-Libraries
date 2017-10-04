@@ -162,7 +162,7 @@ int servo360_couple(int pinA, int pinB);
 int servo360_setCoupleScale(int pinA, int pinB, int scale);
 
 
-// int servo360_enable(int pin, int state);
+int servo360_enable(int pin, int state);
 
 /* Private */
 void servo360_run(void);
