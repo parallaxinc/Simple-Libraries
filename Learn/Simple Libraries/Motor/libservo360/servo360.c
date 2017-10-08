@@ -258,7 +258,7 @@ void servo360_outputSelector(int p)
   if(_fs[p].csop == S360_POSITION)
   {
     int output = servo360_pidA(p);
-    _fs[p].pw = servo360_upsToPulseFromTransferFunction(output);
+    _fs[p].pw = servo360_upsToPulseFromTransferFunction(output, p);
     _fs[p].speedOut = _fs[p].pw - 15000;
   }
   else if(_fs[p].csop == S360_SPEED)
@@ -552,17 +552,20 @@ int servo360_upsToPulseFromTransferFunction(int unitsPerSec)
 }
 */
 
-int servo360_upsToPulseFromTransferFunction(int unitsPerSec)
+int servo360_upsToPulseFromTransferFunction(int unitsPerSec, int p)
 {
-  int y, x = unitsPerSec, m = S360_VM, b;
+  int y, m, x, b;
+  x = unitsPerSec; 
   
   if(x > 0)
   {
-    b = S360_VB_POS;
+    m = _fs[p].vmCcw;
+    b = _fs[p].vbCcw;
   }    
   else if(x < 0)
   {
-    b = S360_VB_NEG;
+    m = _fs[p].vmCw;
+    b = _fs[p].vbCw;
   }
   else
   {
@@ -619,7 +622,7 @@ void servo360_speedControl(int p)
         //speedUpdateFlag = 0;
       }
     }      
-    _fs[p].pw = servo360_upsToPulseFromTransferFunction(_fs[p].speedTarget);
+    _fs[p].pw = servo360_upsToPulseFromTransferFunction(_fs[p].speedTarget, p);
     _fs[p].drive = _fs[p].pw - 15000;
     _fs[p].opPidV = _fs[p].drive + servo360_pidV(p);
   }
