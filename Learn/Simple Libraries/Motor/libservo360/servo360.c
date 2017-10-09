@@ -79,10 +79,10 @@ void servo360_mainLoop()
     {
       if(_fs[p].pinCtrl != -1 && _fs[p].pinFb != -1)
       {
-        if(_fs[p].feedback)
-        {
+        //if(_fs[p].feedback)
+        //{
           servo360_checkAngle(p);
-        }          
+        //}          
       }        
     }
     

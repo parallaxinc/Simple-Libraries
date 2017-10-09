@@ -29,10 +29,10 @@ int main()
   pause(1000);
   
 
-  servo360_setTransferFunction(12, S360_SETTING_VB_CCW, 250);
-  servo360_setTransferFunction(12, S360_SETTING_VB_CW, -75);
-  servo360_setTransferFunction(13, S360_SETTING_VB_CCW, 250 );
-  servo360_setTransferFunction(13, S360_SETTING_VB_CW, -75);
+  servo360_setTransferFunction(12, S360_SETTING_VB_CCW, 300);
+  servo360_setTransferFunction(12, S360_SETTING_VB_CW, -90);
+  servo360_setTransferFunction(13, S360_SETTING_VB_CCW, 300 );
+  servo360_setTransferFunction(13, S360_SETTING_VB_CW, -90);
 
 
   drive_goto(192, 192);
