@@ -12,9 +12,7 @@
 
 
 
-
 //#define _servo360_monitor_
-
 
 
 
@@ -37,9 +35,16 @@ extern "C" {
 #define S360_UNITS_FULL_CIRCLE 360
 #define S360_MAX_SPEED 2 * 4096 
 
-#define S360_VB_POS 200
-#define S360_VB_NEG -200
 #define S360_VM 180
+//#define S360_VB_POS 200
+//#define S360_VB_NEG -200
+#define S360_VM_CCW S360_VM
+#define S360_VM_CW S360_VM
+
+#define S360_VM_CCW S360_VM
+#define S360_VM_CW S360_VM
+#define S360_VB_CCW 200
+#define S360_VB_CW -200
 
 #define S360_DUTY_CYCLE_MIN 290
 #define S360_DUTY_CYCLE_MAX 9710
@@ -103,6 +108,10 @@ extern "C" {
 #define S360_SETTING_KIA 6
 #define S360_SETTING_KDA 7
 #define S360_SETTING_IA_MAX 8
+#define S360_SETTING_VB_CCW 9
+#define S360_SETTING_VB_CW 10
+#define S360_SETTING_VM_CCW 11    
+#define S360_SETTING_VM_CW 12
 
 //#define S360_A_MAX (((1 << 31) - 1)) / S360_UNITS_FULL_CIRCLE  // 524287 degrees
 #define S360_A_MAX 524287  
@@ -188,7 +197,7 @@ void servo360_setPositiveDirection(int p, int direction);
 
 int servo360_setRampStep(int p, int stepSize);
 
-int servo360_upsToPulseFromTransferFunction(int unitsPerSec);
+int servo360_upsToPulseFromTransferFunction(int unitsPerSec, int p);
 void servo360_pulseControl(int p, int speedUps);
 
 void servo360_speedControl(int p);
@@ -205,6 +214,9 @@ int servo360_setMaxSpeedEncoded(int pin, int speed);
 
 void servo360_monitorRun(void);
 void servo360_monitorEnd(void);
+
+int servo360_setTransferFunction(int pin, int constant, int value);
+
 
 /*
 __attribute__((constructor))
@@ -255,6 +267,11 @@ typedef volatile struct servo360_s
   volatile int coupleScale;
   volatile int enable;
   
+  volatile int vmCcw;
+  volatile int vmCw;
+  volatile int vbCcw;    
+  volatile int vbCw;
+
   // admin
   volatile int csop;
   volatile int speedReq;
