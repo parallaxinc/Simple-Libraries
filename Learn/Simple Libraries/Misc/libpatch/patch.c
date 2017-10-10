@@ -1,4 +1,5 @@
 #include "simpletools.h"
+#include "simplei2c.h"
 
 void patch360forBlockly(void)
 {
