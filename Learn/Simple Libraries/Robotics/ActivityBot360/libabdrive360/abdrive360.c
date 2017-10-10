@@ -35,16 +35,10 @@ volatile int abd360_rampStepGoto = ABD_GOTO_RAMP_STEP;
 
 volatile int abd360_gotoMode = ABD360_GOTO_BLOCK;
 
-i2c *simplei2c_temp;
-
-
 void drive_init(void)
 {
-  
   patch360forBlockly();
-  st_eeprom = i2c_newbus(28, 29, 0);
-  st_eeInitFlag = 1;
-  
+
   abdrive360_getEepromPins();
   
   int result, flag = 0;
