@@ -17,40 +17,12 @@
 // Importrant, must call before anything that controls motion.
 // (...as in before the cog is launched.  We are assuming users do 
 // not intend to hot-swap their ActivityBot connections!)
-/*
 void drive_servoPins(int servoPinLeft, int servoPinRight)
 {
   abd360_pinCtrlLeft = servoPinLeft;
   abd360_pinCtrlRight = servoPinRight;
-}
-*/
+} 
 
-//
-void drive_servoPins(int servoPinLeft, int servoPinRight)          // drivePins function
-{
-  //abd_sPinL = servoPinLeft;                                       // Local to global assignments
-  //abd_sPinR = servoPinRight;
-  //if(!abd_us) abd_us = CLKFREQ/1000000; 
-
-  int eeAddr = _AB360_EE_Start_  + _AB360_EE_Pins_;
-  unsigned char pinInfo[8] = {'s', 'p', 'L', 12, ' ', 'R', 13, ' '};  
-  pinInfo[3] = (char) servoPinLeft;
-  pinInfo[6] = (char) servoPinRight;
-
-  ee_putStr(pinInfo, 8, eeAddr);
-
-  abd360_pinCtrlLeft = servoPinLeft;
-  abd360_pinCtrlRight = servoPinRight;
-
-  //
-  //if(!abd_intTabSetup)
-  //{
-  //  interpolation_table_setup();
-  //}
-  //
-}
-//
- 
 
 /**
  * TERMS OF USE: MIT License

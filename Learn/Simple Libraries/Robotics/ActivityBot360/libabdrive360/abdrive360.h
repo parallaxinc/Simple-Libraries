@@ -49,62 +49,6 @@
 #define SIDE_RIGHT 1
 #define SIDE_BOTH 2
 
-
-
-#ifndef _AB360_EE_Start_
-/**
- *
- * @brief ActivityBot EEPROM calibration data start address.
- */
-#define _AB360_EE_Start_ 63418
-#endif
-
-#ifndef _AB360_EE_Pins_
-#define _AB360_EE_Pins_ 12
-#endif
-
-#ifndef _AB360_EE_mVccwL_
-#define _AB360_EE_mVccwL_ 28
-#endif
-
-#ifndef _AB360_EE_bVccwL_
-#define _AB360_EE_bVccwL_ 32
-#endif
-
-#ifndef _AB360_EE_mVcwL_
-#define _AB360_EE_mVcwL_ 36
-#endif
-
-#ifndef _AB360_EE_bVcwL_
-#define _AB360_EE_bVcwL_ 40
-#endif
-
-#ifndef _AB360_EE_mVccwR_
-#define _AB360_EE_mVccwR_ 44
-#endif
-
-#ifndef _AB360_EE_bVccwR_
-#define _AB360_EE_bVccwR_ 48
-#endif
-
-#ifndef _AB360_EE_mVcwR_
-#define _AB360_EE_mVcwR_ 52
-#endif
-
-#ifndef _AB360_EE_bVcwR_
-#define _AB360_EE_bVcwR_ 56
-#endif
-
-#ifndef _AB360_EE_End_
-/**
- *
- * @brief ActivityBot EEPROM calibration data end address.
- */
-#define _AB360_EE_End_ _AB360_EE_Start_ + 60
-#endif
-
-
-
 extern volatile int abd360_initialized;
 
 extern volatile int abd360_unitsPerRev;
@@ -163,7 +107,6 @@ void drive_ramp(int left, int right);
 
 void drive_rampStep(int left, int right);
 
-//int drive_displayInterpolation(void);
 
 
 /**

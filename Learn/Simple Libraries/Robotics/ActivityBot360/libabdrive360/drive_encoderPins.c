@@ -15,39 +15,11 @@
 
 
 // Comment same as for drive_servoPins.
-/*
 void drive_encoderPins(int encPinLeft, int encPinRight)
 {
   abd360_pinFbLeft = encPinLeft;
   abd360_pinFbRight = encPinRight;
 }  
-*/
-
-//
-void drive_encoderPins(int encPinLeft, int encPinRight)          // drivePins function
-{
-  //abd_ePinL = encPinLeft;
-  //abd_ePinR = encPinRight;
-  //if(!abd_us) abd_us = CLKFREQ/1000000; 
-
-  int eeAddr = 8 + _AB360_EE_Start_  + _AB360_EE_Pins_;
-  unsigned char pinInfo[8] = {'e', 'p', 'L', 14, ' ', 'R', 15, ' '};  
-  pinInfo[3] = (char) encPinLeft;
-  pinInfo[6] = (char) encPinRight;
-
-  ee_putStr(pinInfo, 8, eeAddr);
-
-  abd360_pinFbLeft = encPinLeft;
-  abd360_pinFbRight = encPinRight;
-
-  //
-  //if(!abd_intTabSetup)
-  //{
-  //  interpolation_table_setup();
-  //}
-  //
-}
-//
 
 
 /**

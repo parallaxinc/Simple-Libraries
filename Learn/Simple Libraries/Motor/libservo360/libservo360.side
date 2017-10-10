@@ -43,7 +43,6 @@ servo360_couple.c
 servo360_setCoupleScale.c
 servo360_setAngleOffset.c
 servo360_getAngleOffset.c
-servo360_setTransferFunction.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
