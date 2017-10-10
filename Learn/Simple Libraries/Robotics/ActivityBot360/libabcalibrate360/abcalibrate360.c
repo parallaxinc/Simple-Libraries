@@ -19,7 +19,6 @@ static volatile int abd360_pinFbRight = ABD360_PIN_FB_R;
 
 void cal_activityBot(void)                    
 {
-  patch360forBlockly();
   ee_putStr("AB360cstart", 12, _AB360_EE_Start_);
   
   // Left servo counterclockwise
@@ -224,7 +223,6 @@ void cal_activityBot(void)
 
 void cal_servoPins(int servoPinLeft, int servoPinRight) 
 {
-  patch360forBlockly();
   int eeAddr = _AB360_EE_Start_  + _AB360_EE_Pins_;
   unsigned char pinInfo[8] = {'s', 'p', 'L', 12, ' ', 'R', 13, ' '};  
   pinInfo[3] = (char) servoPinLeft;
@@ -239,7 +237,6 @@ void cal_servoPins(int servoPinLeft, int servoPinRight)
 
 void cal_encoderPins(int encPinLeft, int encPinRight)
 {
-  patch360forBlockly();
   int eeAddr = 8 + _AB360_EE_Start_  + _AB360_EE_Pins_;
   unsigned char pinInfo[8] = {'e', 'p', 'L', 14, ' ', 'R', 15, ' '};  
   pinInfo[3] = (char) encPinLeft;
@@ -253,7 +250,6 @@ void cal_encoderPins(int encPinLeft, int encPinRight)
 
 int cal_getEepromPins()
 {
-  patch360forBlockly();
   int eeAddr = _AB360_EE_Start_  + _AB360_EE_Pins_;
   unsigned char pinInfo[16];
 
@@ -314,7 +310,7 @@ int cal_getEepromPins()
 void cal_displayData(void)
 {
   //if(!abd_us) abd_us = CLKFREQ/1000000; 
-  patch360forBlockly();
+  
   unsigned char str[12];
   ee_getStr(str, 12, _AB360_EE_Start_);
   str[11] = 0;
@@ -400,7 +396,7 @@ void cal_displayData(void)
 void cal_displayResults(void)
 {
   //if(!abd_us) abd_us = CLKFREQ/1000000; 
-  patch360forBlockly();
+  
   unsigned char str[12];
   ee_getStr(str, 12, _AB360_EE_Start_);
   str[11] = 0;

@@ -35,9 +35,9 @@ volatile int abd360_rampStepGoto = ABD_GOTO_RAMP_STEP;
 
 volatile int abd360_gotoMode = ABD360_GOTO_BLOCK;
 
+
 void drive_init(void)
 {
-  patch360forBlockly();
 
   abdrive360_getEepromPins();
   

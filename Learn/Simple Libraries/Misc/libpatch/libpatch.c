@@ -12,7 +12,6 @@
 
 #include "simpletools.h"
 #include "ping.h"
-#include "simplei2c.h"
 
 int main()
 {
