@@ -47,6 +47,7 @@ extern "C" {
 
 #include "simpletools.h"
 #include "servo360.h"
+#include "patch.h"
 
 
 #define ABD60_PIN_CTRL_L 12
