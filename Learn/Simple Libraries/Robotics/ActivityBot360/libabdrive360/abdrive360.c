@@ -38,7 +38,7 @@ volatile int abd360_gotoMode = ABD360_GOTO_BLOCK;
 
 void drive_init(void)
 {
-  patch360forBlockly();
+
   abdrive360_getEepromPins();
   
   int result, flag = 0;
