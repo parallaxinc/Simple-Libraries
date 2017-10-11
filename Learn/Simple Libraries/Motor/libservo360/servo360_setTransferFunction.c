@@ -1,5 +1,5 @@
 /*
-  @file drive_servoPins.c
+  @file servo360_setControlSys.c
 
   @author Parallax Inc
 
@@ -8,49 +8,34 @@
  
   @brief 
 */
-//                                            //                                //  
 
 
-#include "abdrive360.h"
+#include "simpletools.h"  
+#include "servo360.h"
 
-
-// Importrant, must call before anything that controls motion.
-// (...as in before the cog is launched.  We are assuming users do 
-// not intend to hot-swap their ActivityBot connections!)
-/*
-void drive_servoPins(int servoPinLeft, int servoPinRight)
+int servo360_setTransferFunction(int pin, int constant, int value)
 {
-  abd360_pinCtrlLeft = servoPinLeft;
-  abd360_pinCtrlRight = servoPinRight;
-}
-*/
+  if(!_fb360c.servoCog) servo360_run();
+  int p = servo360_findServoIndex(pin);
+  if(p == -1)return -1;
+  
+  switch(constant)
+  {
+    case S360_SETTING_VM_CCW:
+      _fs[p].vmCcw = value;
+      break;
+    case S360_SETTING_VM_CW:
+      _fs[p].vmCw = value;
+      break;
+    case S360_SETTING_VB_CCW:
+      _fs[p].vbCcw = value;
+      break;
+    case S360_SETTING_VB_CW:
+      _fs[p].vbCw = value;
+      break;
+  }  
+}    
 
-//
-void drive_servoPins(int servoPinLeft, int servoPinRight)          // drivePins function
-{
-  //abd_sPinL = servoPinLeft;                                       // Local to global assignments
-  //abd_sPinR = servoPinRight;
-  //if(!abd_us) abd_us = CLKFREQ/1000000; 
-
-  int eeAddr = _AB360_EE_Start_  + _AB360_EE_Pins_;
-  unsigned char pinInfo[8] = {'s', 'p', 'L', 12, ' ', 'R', 13, ' '};  
-  pinInfo[3] = (char) servoPinLeft;
-  pinInfo[6] = (char) servoPinRight;
-
-  ee_putStr(pinInfo, 8, eeAddr);
-
-  abd360_pinCtrlLeft = servoPinLeft;
-  abd360_pinCtrlRight = servoPinRight;
-
-  //
-  //if(!abd_intTabSetup)
-  //{
-  //  interpolation_table_setup();
-  //}
-  //
-}
-//
- 
 
 /**
  * TERMS OF USE: MIT License
