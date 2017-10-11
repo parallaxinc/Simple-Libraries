@@ -146,8 +146,8 @@ void cal_encoderPins(int encPinLeft, int encPinRight);
 
 void cal_displayData(void);
 void cal_displayResults(void);
-int cal_getEepromPins();
-
+int cal_getEepromPins(void);
+void cal_clear(void);
 
 #if defined(__cplusplus)
 }
