@@ -358,8 +358,8 @@ void cal_displayData(void)
   }   
   else
   {
-    print("There was a problem with the calibration.\r");
-    print("Try cal_displayResults() instead.\r");
+    print("Calibration data either not found or has errors.\r");
+    print("Try cal_displayResults() for more info.\r");
     print("\rRaw data from EEPROM:\r\r");
     for(int a = _AB360_EE_Start_; a < _AB360_EE_End_; a++)
     {
@@ -410,14 +410,14 @@ void cal_displayResults(void)
   {
     print("Calibration started but did not complete.\r");
     print("Verify the servo and encoder connections\r");
-    print("against the ones in the diagram and try\r");
+    print("against the ones in the diagrams and try\r");
     print("again. Follow the instructions carefully.\r");
     //return -1;
   }   
   else if(!strcmp(str, "ActivityBot"))
   {
     print("There is a non-servo360 ActivityBot calibration.\r");
-    print("in the EEPROM.  Maek sure to follow the instructions\r");
+    print("in the EEPROM.  Make sure to follow the instructions\r");
     print("for calibrating the ActivityBot360.\r");
     //return -1;
   }   
@@ -479,6 +479,14 @@ void cal_displayResults(void)
   */ 
 }
 
+
+void cal_clear(void)
+{
+  for(int addr = _AB360_EE_Start_; addr <_AB360_EE_End_; addr++)
+  {
+    ee_putByte(0xFF, addr); 
+  }    
+}  
   
 
 
