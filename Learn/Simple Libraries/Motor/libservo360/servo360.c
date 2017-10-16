@@ -487,11 +487,48 @@ int servo360_pidV(int p)
   int opMax = _fs[p].speedLimit;
 
   _fs[p].speedMeasured = (_fs[p].angle - _fs[p].angleP) * 50; 
+  
   if(abs(_fs[p].angleError) < S360_UNITS_ENCODER/2)
   {
+
+
+
+    //
     _fs[p].angleDeltaCalc = _fs[p].speedTarget / S360_CS_HZ;
     _fs[p].angleCalc += _fs[p].angleDeltaCalc;
-  }    
+    //
+
+
+
+    /*
+    // This could remedy the overshoot problem, but it seems to reduce
+    // drive_goto accuracy.
+    if(_fs[p].speedTarget == _fs[p].speedTargetP)
+    {
+      _fs[p].offset--;
+      if(_fs[p].offset < 0) _fs[p].offset = 0;
+    }
+    else
+    {
+      _fs[p].offset++;
+      if(_fs[p].offset > FB360_OFFSET_MAX) _fs[p].offset = FB360_OFFSET_MAX;
+    }
+
+    int idx = _fb360c.pulseCount % FB360_V_ARRAY;
+    _fs[p].vT[idx] = _fs[p].speedTarget;
+
+    idx -= _fs[p].offset;
+    if(idx < 0) idx += FB360_V_ARRAY;
+    
+    _fs[p].speedTargetTemp = _fs[p].vT[_fs[p].offset];    
+
+    _fs[p].angleDeltaCalc = _fs[p].speedTargetTemp / S360_CS_HZ;
+    _fs[p].angleCalc += _fs[p].angleDeltaCalc;
+    */ 
+
+
+
+  }
 
   _fs[p].angleError = _fs[p].angleCalc - _fs[p].angle;
 

@@ -289,7 +289,7 @@ typedef volatile struct servo360_s
   volatile int speedOut;
   volatile int pw;
   
-  // speed control system
+  // velocity control system
   volatile int opPidV;
   volatile int approachFlag;
   volatile int ticksDiff;
@@ -314,6 +314,18 @@ typedef volatile struct servo360_s
   volatile int stepDir;
   volatile int lag;
   volatile int accelerating;
+  volatile int speedTargetTemp;
+  
+  /*
+  // This could remedy the overshoot problem, but it seems to reduce
+  // drive_goto accuracy.
+  
+  #define FB360_OFFSET_MAX 5
+  #define FB360_V_ARRAY 8
+
+  volatile int vT[FB360_V_ARRAY];
+  volatile int offset;
+  */
   
   // position control system
   volatile int Kp;
