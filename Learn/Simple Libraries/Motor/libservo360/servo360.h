@@ -16,7 +16,6 @@
 
 
 
-
 #ifndef SERVO360_H
 #define SERVO360_H
 
@@ -123,6 +122,61 @@ extern "C" {
 
 #define S360_PWMAX 2400 
 #define S360_PWMIN -2400 
+
+
+/*
+
+// WIP servo calibration updates
+//40564
+
+#ifndef _AB360_EE_Start_
+#define _AB360_EE_Start_ 63418
+#endif
+
+#ifndef _AB360_EE_Pins_
+#define _AB360_EE_Pins_ 12
+#endif
+
+#ifndef _AB360_EE_mVccwL_
+#define _AB360_EE_mVccwL_ 28
+#endif
+
+#ifndef _AB360_EE_bVccwL_
+#define _AB360_EE_bVccwL_ 32
+#endif
+
+#ifndef _AB360_EE_mVcwL_
+#define _AB360_EE_mVcwL_ 36
+#endif
+
+#ifndef _AB360_EE_bVcwL_
+#define _AB360_EE_bVcwL_ 40
+#endif
+
+#ifndef _AB360_EE_mVccwR_
+#define _AB360_EE_mVccwR_ 44
+#endif
+
+#ifndef _AB360_EE_bVccwR_
+#define _AB360_EE_bVccwR_ 48
+#endif
+
+#ifndef _AB360_EE_mVcwR_
+#define _AB360_EE_mVcwR_ 52
+#endif
+
+#ifndef _AB360_EE_bVcwR_
+#define _AB360_EE_bVcwR_ 56
+#endif
+
+#ifndef _AB360_EE_End_
+
+#define _AB360_EE_End_ _AB360_EE_Start_ + 60
+#endif
+
+*/
+
+
 
 
 /* Public */
