@@ -10,19 +10,36 @@
   http://learn.parallax.com/activitybot/test-encoder-connections
 */
 
-#include "simpletools.h"
-#include "abdrive360.h"
+                                                                             //
+#include "simpletools.h"                      // Library - simpletools
+#include "abdrive360.h"                       // Library - abdrive360
 
-int main()                    
+int left;                                 // Current/previous angles
+int right;
+int leftPrev;
+int rightPrev;
+
+int main()                                    // Main function
 {
-  low(26);
-  low(27);
-  while(1)
+  drive_getTicks(&left, &right);              // Get current encoder ticks
+  leftPrev = left;                            // Set previous values
+  rightPrev = right;
+  
+  while (1)                                   // Main loop
   {
-    int ticksLeft, ticksRight;
-    drive_getTicks(&ticksLeft, &ticksRight);
-    set_output(26, ticksLeft % 2);
-    set_output(27, ticksRight % 2);
+    drive_getTicks(&left, &right);            // Get current encoder ticks
+    if (left != leftPrev)                     // If left different from previous
+    {
+      toggle(26);                             // Toggle P26 LED light
+    }
+
+    if (right != rightPrev)                   // If right different from previous
+    {
+      toggle(27);                             // Toggle P27 LED light
+    }
+
+    leftPrev = left;                          // Save previous values
+    rightPrev = right;
   }
 }
 
