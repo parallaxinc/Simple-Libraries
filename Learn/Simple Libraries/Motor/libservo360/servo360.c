@@ -12,7 +12,7 @@
 
 #include "simpletools.h"  
 #include "servo360.h"
-#include "patch.h"
+//#include "patch.h"
 
 #define couple_servos
 
@@ -31,7 +31,7 @@ void servo360_patch(void)
 void servo360_run(void)
 {
   //ping_cm(26);
-  patch360forBlockly();
+  //patch360forBlockly();
   _fb360c.servoCog = cog_run(servo360_mainLoop, 512); 
   _fb360c.cntPrev = CNT;
   pause(500);
