@@ -10,6 +10,14 @@
 */
 
 
+#ifndef ABDRIVE360_H
+#define ABDRIVE360_H
+
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
+
 #include "simpletools.h"  
 #include "servo360.h"
 
@@ -162,6 +170,14 @@ void drive_ramp(int left, int right);
 void drive_rampStep(int left, int right);
 
 //int drive_displayInterpolation(void);
+
+
+#if defined(__cplusplus)
+}
+#endif
+/* __cplusplus */ 
+#endif
+/* ABDRIVE360_H */ 
 
 
 /**
