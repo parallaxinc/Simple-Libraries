@@ -1,6 +1,4 @@
-libpatch.c
-patch.c
-patch.h
+ActivityBot360 Calibrate.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
@@ -8,5 +6,4 @@ patch.h
 >-fno-exceptions
 >defs::-std=c99
 >-lm
->-create_library
 >BOARD::ACTIVITYBOARD

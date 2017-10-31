@@ -16,7 +16,6 @@
 
 
 
-
 #ifndef SERVO360_H
 #define SERVO360_H
 
@@ -26,7 +25,7 @@ extern "C" {
 
 
 #include "simpletools.h"  
-#include "patch.h"
+//#include "patch.h"
 
 #ifdef _servo360_monitor_
   #include "fdserial.h"
@@ -123,6 +122,61 @@ extern "C" {
 
 #define S360_PWMAX 2400 
 #define S360_PWMIN -2400 
+
+
+/*
+
+// WIP servo calibration updates
+//40564
+
+#ifndef _AB360_EE_Start_
+#define _AB360_EE_Start_ 63418
+#endif
+
+#ifndef _AB360_EE_Pins_
+#define _AB360_EE_Pins_ 12
+#endif
+
+#ifndef _AB360_EE_mVccwL_
+#define _AB360_EE_mVccwL_ 28
+#endif
+
+#ifndef _AB360_EE_bVccwL_
+#define _AB360_EE_bVccwL_ 32
+#endif
+
+#ifndef _AB360_EE_mVcwL_
+#define _AB360_EE_mVcwL_ 36
+#endif
+
+#ifndef _AB360_EE_bVcwL_
+#define _AB360_EE_bVcwL_ 40
+#endif
+
+#ifndef _AB360_EE_mVccwR_
+#define _AB360_EE_mVccwR_ 44
+#endif
+
+#ifndef _AB360_EE_bVccwR_
+#define _AB360_EE_bVccwR_ 48
+#endif
+
+#ifndef _AB360_EE_mVcwR_
+#define _AB360_EE_mVcwR_ 52
+#endif
+
+#ifndef _AB360_EE_bVcwR_
+#define _AB360_EE_bVcwR_ 56
+#endif
+
+#ifndef _AB360_EE_End_
+
+#define _AB360_EE_End_ _AB360_EE_Start_ + 60
+#endif
+
+*/
+
+
 
 
 /* Public */
@@ -289,7 +343,7 @@ typedef volatile struct servo360_s
   volatile int speedOut;
   volatile int pw;
   
-  // speed control system
+  // velocity control system
   volatile int opPidV;
   volatile int approachFlag;
   volatile int ticksDiff;
@@ -314,6 +368,18 @@ typedef volatile struct servo360_s
   volatile int stepDir;
   volatile int lag;
   volatile int accelerating;
+  volatile int speedTargetTemp;
+  
+  /*
+  // This could remedy the overshoot problem, but it seems to reduce
+  // drive_goto accuracy.
+  
+  #define FB360_OFFSET_MAX 5
+  #define FB360_V_ARRAY 8
+
+  volatile int vT[FB360_V_ARRAY];
+  volatile int offset;
+  */
   
   // position control system
   volatile int Kp;
