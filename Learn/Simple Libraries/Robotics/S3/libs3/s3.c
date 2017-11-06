@@ -118,11 +118,19 @@ int32_t s3_readMic()
 static void s3_obstacler()
 {
   int32_t	side, ObstacleThld;
-  if (scribbler_get_obstacle_threshold() != SCRIBBLER_DEFAULT_OBSTACLE_THLD) {
-    ObstacleThld = scribbler_get_obstacle_threshold();
+  if (scribbler_get_model_s3()) {
+    if (scribbler_get_obstacle_threshold() != S3_OBSTACLE_THLD) {
+      ObstacleThld = scribbler_get_obstacle_threshold();
+    } else {
+      ObstacleThld = S3_OBSTACLE_THLD;
+    }
   } else {
-    ObstacleThld = S3_OBSTACLE_THLD;
-  }
+    if (scribbler_get_obstacle_threshold() != SCRIBBLER_DEFAULT_OBSTACLE_THLD) {
+      ObstacleThld = scribbler_get_obstacle_threshold();
+    } else {
+      ObstacleThld = SCRIBBLER_DEFAULT_OBSTACLE_THLD;
+    }
+  }        
   while (1) {
     for(side = SCRIBBLER_OBS_TX_LEFT; side <= SCRIBBLER_OBS_TX_RIGHT; side = side + 9) {
       FRQA = (14000 * ObstacleThld) + (20607 * (100 - ObstacleThld));
