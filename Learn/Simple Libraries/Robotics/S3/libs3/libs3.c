@@ -74,13 +74,6 @@ the Test Utility, cycle the Scribbler//s power switch.
 
 */
 
-// ------ Libraries and Definitions ------
-#include "simpletools.h"
-#include "s3.h"
-
-
-
-// ------ Main Program ------
 int main()
 {
 
