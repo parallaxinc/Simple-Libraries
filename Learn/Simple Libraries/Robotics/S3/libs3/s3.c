@@ -702,6 +702,7 @@ int32_t s3_ping(int32_t Pin)
   return result;
 }
 
+// User EEPROM read/write functions
 void s3_memoryWrite(int32_t Addr, int32_t Value) {
   int AddrMax = (32768 - SCRIBBLER_EE_USER_AREA) / 4;   // 7936
   if(Addr >= 0 && Addr < AddrMax) {
@@ -711,4 +712,9 @@ void s3_memoryWrite(int32_t Addr, int32_t Value) {
   
 int32_t s3_memoryRead(int32_t Addr) {
    return scribbler_ee_read_byte((Addr * 4) + SCRIBBLER_EE_USER_AREA);
+}
+
+// Return the ADC reading in volt-hundreths
+int32_t s3_readADC(int32_t p) {
+  (scribbler_get_results(p) * 500) >> 16;
 }
