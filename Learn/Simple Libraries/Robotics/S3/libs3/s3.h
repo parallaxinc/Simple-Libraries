@@ -36,6 +36,8 @@
 #define S3_COLOR_00FF00 (SCRIBBLER_GREEN)
 #define S3_OFF (0)
 #define S3_COLOR_000000 (S3_OFF)
+#define S3_ADC_A0 (SCRIBBLER_ADC_P6)
+#define S3_ADC_A1 (SCRIBBLER_ADC_P7)
 
 
 
@@ -68,7 +70,9 @@ typedef struct s3 {
   void s3_motorSet(int32_t LeftVelocity, int32_t RightVelocity, int32_t move_time);
   void s3_motorSetDistance(int32_t left_distance, int32_t right_distance, int32_t max_speed);
   void s3_motorSetRotate(int32_t degrees, int32_t radius, int32_t max_speed);
-  int32_t s3_MotorsMoving();
+  void s3_motorGotoXY(int32_t x_loc, int32_t y_loc, int32_t max_speed);
+  int32_t s3_motorsMoving();
+  int32_t s3_tailWheelMoving();
   void s3_simpleDrive(int32_t Direction, int32_t Speed);
   void s3_simpleSpin(int32_t Angle, int32_t Speed, int32_t Resume);
   void s3_simpleStop();
@@ -97,5 +101,7 @@ typedef struct s3 {
   int32_t s3_ping(int32_t Pin);
   void s3_enableMic();
   int32_t s3_readMic();
+  void s3_memoryWrite(int32_t Addr, int32_t Value);
+  int32_t s3_memoryRead(int32_t Addr);
 
 #endif

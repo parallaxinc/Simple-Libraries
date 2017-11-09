@@ -118,11 +118,19 @@ int32_t s3_readMic()
 static void s3_obstacler()
 {
   int32_t	side, ObstacleThld;
-  if (scribbler_get_obstacle_threshold() != SCRIBBLER_DEFAULT_OBSTACLE_THLD) {
-    ObstacleThld = scribbler_get_obstacle_threshold();
+  if (scribbler_get_model_s3()) {
+    if (scribbler_get_obstacle_threshold() != S3_OBSTACLE_THLD) {
+      ObstacleThld = scribbler_get_obstacle_threshold();
+    } else {
+      ObstacleThld = S3_OBSTACLE_THLD;
+    }
   } else {
-    ObstacleThld = S3_OBSTACLE_THLD;
-  }
+    if (scribbler_get_obstacle_threshold() != SCRIBBLER_DEFAULT_OBSTACLE_THLD) {
+      ObstacleThld = scribbler_get_obstacle_threshold();
+    } else {
+      ObstacleThld = SCRIBBLER_DEFAULT_OBSTACLE_THLD;
+    }
+  }        
   while (1) {
     for(side = SCRIBBLER_OBS_TX_LEFT; side <= SCRIBBLER_OBS_TX_RIGHT; side = side + 9) {
       FRQA = (14000 * ObstacleThld) + (20607 * (100 - ObstacleThld));
@@ -197,6 +205,16 @@ void s3_motorSetDistance(int32_t left_distance, int32_t right_distance, int32_t 
   scribbler_wait_stop();
 }
 
+void s3_motorGotoXY(int32_t x_loc, int32_t y_loc, int32_t max_speed)
+{
+  x_loc = Min__((Max__((-32768), x_loc)), 32767);
+  y_loc = Min__((Max__((-32768), y_loc)), 32767);
+  max_speed = Min__((Max__(1, ((max_speed * 15) / 100))), 15);
+  scribbler_set_speed(max_speed);
+  scribbler_move_to(x_loc, y_loc);
+  scribbler_wait_stop();
+}
+
 void s3_motorSetRotate(int32_t degrees, int32_t radius, int32_t max_speed)
 {
   if (radius >= 0) {
@@ -214,6 +232,10 @@ int32_t s3_motorsMoving()
 {
   return scribbler_moving();
 }
+
+int32_t s3_tailWheelMoving() {
+  return (((scribbler_motion() & 0xFF00) >> 8 < 10) ? 1 : 0);
+}  
 
 void s3_simpleDrive(int32_t Direction, int32_t Speed)
 {
@@ -678,4 +700,21 @@ int32_t s3_ping(int32_t Pin)
     return 0;
   }
   return result;
+}
+
+// User EEPROM read/write functions
+void s3_memoryWrite(int32_t Addr, int32_t Value) {
+  int AddrMax = (32768 - SCRIBBLER_EE_USER_AREA) / 4;   // 7936
+  if(Addr >= 0 && Addr < AddrMax) {
+    scribbler_ee_write_byte((Addr * 4) + SCRIBBLER_EE_USER_AREA, Value);
+  }
+}
+  
+int32_t s3_memoryRead(int32_t Addr) {
+   return scribbler_ee_read_byte((Addr * 4) + SCRIBBLER_EE_USER_AREA);
+}
+
+// Return the ADC reading in volt-hundreths
+int32_t s3_readADC(int32_t p) {
+  (scribbler_get_results(p) * 500) >> 16;
 }
