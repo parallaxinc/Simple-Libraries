@@ -103,5 +103,5 @@ typedef struct s3 {
   int32_t s3_readMic();
   void s3_memoryWrite(int32_t Addr, int32_t Value);
   int32_t s3_memoryRead(int32_t Addr);
-
+  int32_t s3_readADC(int32_t p);
 #endif
