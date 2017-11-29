@@ -118,11 +118,19 @@ int32_t s3_readMic()
 static void s3_obstacler()
 {
   int32_t	side, ObstacleThld;
-  if (scribbler_get_obstacle_threshold() != SCRIBBLER_DEFAULT_OBSTACLE_THLD) {
-    ObstacleThld = scribbler_get_obstacle_threshold();
+  if (scribbler_get_model_s3()) {
+    if (scribbler_get_obstacle_threshold() != S3_OBSTACLE_THLD) {
+      ObstacleThld = scribbler_get_obstacle_threshold();
+    } else {
+      ObstacleThld = S3_OBSTACLE_THLD;
+    }
   } else {
-    ObstacleThld = S3_OBSTACLE_THLD;
-  }
+    if (scribbler_get_obstacle_threshold() != SCRIBBLER_DEFAULT_OBSTACLE_THLD) {
+      ObstacleThld = scribbler_get_obstacle_threshold();
+    } else {
+      ObstacleThld = SCRIBBLER_DEFAULT_OBSTACLE_THLD;
+    }
+  }        
   while (1) {
     for(side = SCRIBBLER_OBS_TX_LEFT; side <= SCRIBBLER_OBS_TX_RIGHT; side = side + 9) {
       FRQA = (14000 * ObstacleThld) + (20607 * (100 - ObstacleThld));
@@ -694,6 +702,7 @@ int32_t s3_ping(int32_t Pin)
   return result;
 }
 
+// User EEPROM read/write functions
 void s3_memoryWrite(int32_t Addr, int32_t Value) {
   int AddrMax = (32768 - SCRIBBLER_EE_USER_AREA) / 4;   // 7936
   if(Addr >= 0 && Addr < AddrMax) {
@@ -703,4 +712,9 @@ void s3_memoryWrite(int32_t Addr, int32_t Value) {
   
 int32_t s3_memoryRead(int32_t Addr) {
    return scribbler_ee_read_byte((Addr * 4) + SCRIBBLER_EE_USER_AREA);
+}
+
+// Return the ADC reading in volt-hundreths
+int32_t s3_readADC(int32_t p) {
+  (scribbler_get_results(p) * 500) >> 16;
 }

@@ -36,6 +36,8 @@
 #define S3_COLOR_00FF00 (SCRIBBLER_GREEN)
 #define S3_OFF (0)
 #define S3_COLOR_000000 (S3_OFF)
+#define S3_ADC_A0 (SCRIBBLER_ADC_P6)
+#define S3_ADC_A1 (SCRIBBLER_ADC_P7)
 
 
 
@@ -101,5 +103,5 @@ typedef struct s3 {
   int32_t s3_readMic();
   void s3_memoryWrite(int32_t Addr, int32_t Value);
   int32_t s3_memoryRead(int32_t Addr);
-
+  int32_t s3_readADC(int32_t p);
 #endif

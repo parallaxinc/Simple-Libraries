@@ -74,7 +74,8 @@ the Test Utility, cycle the Scribbler//s power switch.
 
 */
 
-int main() {
+int main()
+{
 
 }
 
