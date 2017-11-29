@@ -1,4 +1,4 @@
-/*
+/**
   @file abdrive360.h
 
   @author Parallax Inc
@@ -6,7 +6,32 @@
   @copyright
   Copyright (C) Parallax Inc. 2017. All Rights MIT Licensed.  See end of file.
  
-  @brief 
+  @brief This library provides a simple set of functions for making the ActivityBot 
+  360 go certain distances and speeds.  Under the hood, it manages servo angle 
+  monitoring and control signaling.
+  <br>
+  <br>
+  For more information, go here:
+  <br>
+  <br>
+  http://learn.parallax.com/activitybot/navigation-basics
+  <br>
+  <br>
+ 
+  @par Core Usage
+  A single additional core takes care of ActivityBot angle monitoring, control 
+  system algorithm execution and servo control signaling.
+ 
+  @par EEPROM Usage
+  Reads from addresses 63418..65470. 
+ 
+  @par Memory Models
+  Use with CMM. 
+ 
+  @par Help Improve this Library
+  Please submit bug reports, suggestions, and improvements to this code to
+  editor@parallax.com.
+
 */
 
 
