@@ -1,20 +1,18 @@
 /*
-  Test Encoder Connections.c
+  Test Feedback Connections.c
 
   Load to ActivityBot EEPROM. PWR to Position 2.
   Gently turn each wheel by hand.  Right wheel
   blinks P27 LED, left wheel blinks P26 LED.
-  If not, encoders are not measuring rotation.
-  Go to Extras/Troubleshooting section of tutorial.
 
-  http://learn.parallax.com/activitybot/test-encoder-connections
+  http://learn.parallax.com/activitybot/test-feedback-360-servos
 */
 
                                                                              //
 #include "simpletools.h"                      // Library - simpletools
 #include "abdrive360.h"                       // Library - abdrive360
 
-int left;                                 // Current/previous angles
+int left;                                     // Current/previous angles
 int right;
 int leftPrev;
 int rightPrev;
