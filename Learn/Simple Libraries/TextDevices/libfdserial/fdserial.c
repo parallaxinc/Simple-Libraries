@@ -9,8 +9,6 @@
 #include <stdlib.h>
 #include "fdserial.h"
 
-static char rxOnly = 0;
-
 /*
  * start initializes and starts native assembly driver in a cog.
  * @param rxpin is pin number for receive input
@@ -21,14 +19,6 @@ static char rxOnly = 0;
  */
 fdserial *fdserial_open(int rxpin, int txpin, int mode, int baudrate)
 {
-  if((mode & FDSERIAL_MODE_RX_ONLY) || (txpin > 31) || (txpin < 0))
-  {
-    txpin = rxpin;
-    mode |= (FDSERIAL_MODE_RX_ONLY | FDSERIAL_MODE_OPENDRAIN_TX);
-    mode &= (~FDSERIAL_MODE_RX_ONLY);
-    rxOnly = 1;
-  }    
-    
   extern int binary_pst_dat_start[];
 
   fdserial_st *fdptr;
@@ -58,6 +48,18 @@ fdserial *fdserial_open(int rxpin, int txpin, int mode, int baudrate)
   fdptr->ticks   = CLKFREQ/baudrate;
 
   fdptr->buffptr = bufptr; /* receive and transmit buffer */
+
+  if((mode & FDSERIAL_MODE_RX_ONLY) || (txpin > 31) || (txpin < 0))
+  {
+    fdptr->tx_pin = fdptr->rx_pin;
+    fdptr->mode |= FDSERIAL_MODE_OPENDRAIN_TX;
+    fdptr->mode &= (~FDSERIAL_MODE_RX_ONLY);
+    fdptr->rxOnly = 1;
+  }
+  else
+  {
+    fdptr->rxOnly = 0;
+  }    
 
   /* now start the kernel */
 #if defined(__PROPELLER_USE_XMM__)
@@ -139,7 +141,8 @@ int fdserial_rxChar(fdserial *term)
 int fdserial_txChar(fdserial *term, int txbyte)
 {
   int rc = -1;
-  if(!rxOnly)
+  fdserial_st *fdptr = (fdserial_st *) term->devst;
+  if(!fdptr->rxOnly)
   {    
     volatile fdserial_st* fdp = (fdserial_st*) term->devst;
     volatile char* txbuf = (volatile char*) fdp->buffptr + FDSERIAL_BUFF_MASK+1;

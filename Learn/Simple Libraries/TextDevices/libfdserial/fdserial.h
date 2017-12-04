@@ -100,6 +100,7 @@ typedef struct fdserial_struct
     /** interface mode */       int  mode;      
     /** clkfreq / baud */       int  ticks;     
     /** pointer to rx buffer */ char *buffptr;   
+    /** rx-only mode */         char  rxOnly;     
 } fdserial_st;
 
 /**
