@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include "fdserial.h"
 
+static char rxOnly = 0;
+
 /*
  * start initializes and starts native assembly driver in a cog.
  * @param rxpin is pin number for receive input
@@ -19,6 +21,14 @@
  */
 fdserial *fdserial_open(int rxpin, int txpin, int mode, int baudrate)
 {
+  if((mode & FDSERIAL_MODE_RX_ONLY) || (txpin > 31) || (txpin < 0))
+  {
+    txpin = rxpin;
+    mode |= (FDSERIAL_MODE_RX_ONLY | FDSERIAL_MODE_OPENDRAIN_TX);
+    mode &= (~FDSERIAL_MODE_RX_ONLY);
+    rxOnly = 1;
+  }    
+    
   extern int binary_pst_dat_start[];
 
   fdserial_st *fdptr;
@@ -129,15 +139,18 @@ int fdserial_rxChar(fdserial *term)
 int fdserial_txChar(fdserial *term, int txbyte)
 {
   int rc = -1;
-  volatile fdserial_st* fdp = (fdserial_st*) term->devst;
-  volatile char* txbuf = (volatile char*) fdp->buffptr + FDSERIAL_BUFF_MASK+1;
-
-  while(fdp->tx_tail == ((fdp->tx_head+1) & FDSERIAL_BUFF_MASK))
-      ; // wait for queue to be empty
-  txbuf[fdp->tx_head] = txbyte;
-  fdp->tx_head = (fdp->tx_head+1) & FDSERIAL_BUFF_MASK;
-  if(fdp->mode & FDSERIAL_MODE_IGNORE_TX_ECHO)
-      rc = fdserial_rxChar(term); // why not rxcheck or timeout ... this blocks for char
+  if(!rxOnly)
+  {    
+    volatile fdserial_st* fdp = (fdserial_st*) term->devst;
+    volatile char* txbuf = (volatile char*) fdp->buffptr + FDSERIAL_BUFF_MASK+1;
+  
+    while(fdp->tx_tail == ((fdp->tx_head+1) & FDSERIAL_BUFF_MASK))
+        ; // wait for queue to be empty
+    txbuf[fdp->tx_head] = txbyte;
+    fdp->tx_head = (fdp->tx_head+1) & FDSERIAL_BUFF_MASK;
+    if(fdp->mode & FDSERIAL_MODE_IGNORE_TX_ECHO)
+        rc = fdserial_rxChar(term); // why not rxcheck or timeout ... this blocks for char
+  }        
   return rc;
 }
 

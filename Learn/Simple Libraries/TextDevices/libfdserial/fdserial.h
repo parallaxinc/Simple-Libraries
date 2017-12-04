@@ -21,6 +21,8 @@
  * @par Memory Models
  * Use with CMM or LMM. 
  *
+ * @version 0.88 Add Rx-only
+ *
  * @version 0.86
  *
  * @par Help Improve this Library
@@ -78,6 +80,11 @@ typedef text_t fdserial;
  * Mode bit 3 can be set to 1 to ignore copy of txpin's signal if received by rxpin.
  */
 #define FDSERIAL_MODE_IGNORE_TX_ECHO 8
+
+/**
+ * Mode bit 4 can be set to 1 to only receive serial data but not transmit.
+ */
+#define FDSERIAL_MODE_RX_ONLY 16
 
 /**
  * @brief Defines fdserial interface structure of 9 contiguous longs + buffers.
