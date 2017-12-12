@@ -11,9 +11,7 @@
 
 
 
-
 //#define _servo360_monitor_
-
 
 
 
@@ -26,11 +24,17 @@ extern "C" {
 
 
 #include "simpletools.h"  
-#include "patch.h"
+//#include "patch.h"
 
 #ifdef _servo360_monitor_
   #include "fdserial.h"
 #endif
+
+
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
+
 
 #define S360_UNITS_FULL_CIRCLE 360
 #define S360_MAX_SPEED 2 * 4096 
@@ -125,110 +129,59 @@ extern "C" {
 #define S360_PWMIN -2400 
 
 
-/* Public */
-int servo360_connect(int pinControl, int pinFeedback);
-
-int servo360_setUnitsFullCircle(int pin, int units);
-int servo360_getUnitsFullCircle(int pin);
-
-int servo360_setMaxSpeed(int pin, int speed);
-int servo360_getMaxSpeed(int pin);
-
-int servo360_speed(int pin, int speed);
-int servo360_getSpeed(int pin);
-int servo360_getAngleCalc(int pin);
-
-int servo360_angle(int pin, int position);
-int servo360_getAngle(int pin);
-
-int servo360_setAngleOffset(int pin, int angle);
-int servo360_getAngleOffset(int pin);
-
-int servo360_goto(int pin, int position);
-int servo360_getCsop(int pin);
-
-int servo360_getAngle12Bit(int pin);
-int servo360_getAngleFixedOrigin(int pin);
-
-int servo360_setAcceleration(int pin, int unitsPerSecSquared);
-int servo360_getAcceleration(int pin);
-
-int servo360_setRampStep(int pin, int stepSize);
-int servo360_getRampStep(int pin);
-
-int servo360_setControlSys(int pin, int constant, int value);
-int servo360_getControlSys(int pin, int constant);
-
-int servo360_setAngleLimits(int pin, int ccwMax, int cwMax);
-int servo360_getAngleLimits(int pin, int *ccwMax, int *cwMax);
-
-int servo360_setTurns(int pin, int turns);
-int servo360_getTurns(int pin);
-
-int servo360_stop(int pin);
-
-int servo360_feedback(int pin, int state);
-int servo360_set(int pinControl, int time);
-
-int servo360_setAngleCtrlSpeedMax(int pin, int speed);
-int servo360_getAngleCtrlSpeedMax(int pin);
-
-int servo360_couple(int pinA, int pinB);
-int servo360_setCoupleScale(int pinA, int pinB, int scale);
-
-
-int servo360_enable(int pin, int state);
-
-/* Private */
-void servo360_run(void);
-void servo360_end();
-void servo360_setup(void);
-void servo360_mainLoop();
-void servo360_outputSelector(int p);
-
-void servo360_servoPulse(int p, int q);
-void servo360_waitServoCtrllEdgeNeg(int p);
-int servo360_dutyCycle(int p, int scale);
-int servo360_crossing(int current, int previous, int units);
-int servo360_getTheta(int p);
-void servo360_checkAngle(int p);
-void servo360_captureOffset(int p);
-void servo360_setPositiveDirection(int p, int direction);
-
-int servo360_setRampStep(int p, int stepSize);
-
-int servo360_upsToPulseFromTransferFunction(int unitsPerSec, int p);
-void servo360_pulseControl(int p, int speedUps);
-
-void servo360_speedControl(int p);
-int servo360_pidA(int p);
-int servo360_pidV(int p);  
-
-int servo360_findServoIndex(int pin);
-
-int servo360_unitsAngleToEncoder(int value, int unitsRev);
-int servo360_unitsEncoderToAngle(int value, int unitsRev); 
-int servo360_checkDistanceRemaining(int pin, int speed, int finalAngle);
-
-int servo360_setMaxSpeedEncoded(int pin, int speed);
-
-void servo360_monitorRun(void);
-void servo360_monitorEnd(void);
-
-int servo360_setTransferFunction(int pin, int constant, int value);
-
-
 /*
-__attribute__((constructor))
-void servo360_patch(void);
+
+// WIP servo calibration updates
+//40564
+
+#ifndef _AB360_EE_Start_
+#define _AB360_EE_Start_ 63418
+#endif
+
+#ifndef _AB360_EE_Pins_
+#define _AB360_EE_Pins_ 12
+#endif
+
+#ifndef _AB360_EE_mVccwL_
+#define _AB360_EE_mVccwL_ 28
+#endif
+
+#ifndef _AB360_EE_bVccwL_
+#define _AB360_EE_bVccwL_ 32
+#endif
+
+#ifndef _AB360_EE_mVcwL_
+#define _AB360_EE_mVcwL_ 36
+#endif
+
+#ifndef _AB360_EE_bVcwL_
+#define _AB360_EE_bVcwL_ 40
+#endif
+
+#ifndef _AB360_EE_mVccwR_
+#define _AB360_EE_mVccwR_ 44
+#endif
+
+#ifndef _AB360_EE_bVccwR_
+#define _AB360_EE_bVccwR_ 48
+#endif
+
+#ifndef _AB360_EE_mVcwR_
+#define _AB360_EE_mVcwR_ 52
+#endif
+
+#ifndef _AB360_EE_bVcwR_
+#define _AB360_EE_bVcwR_ 56
+#endif
+
+#ifndef _AB360_EE_End_
+
+#define _AB360_EE_End_ _AB360_EE_Start_ + 60
+#endif
+
 */
 
-#ifdef _servo360_monitor_
-void console();
-void servo360_monitor_start(void);
-void servo360_monitor_stop();
-int terminal_checkForValue(fdserial *connection, int *value);
-#endif
+
 
                            ////// ALL SERVOS //////
 //
@@ -289,7 +242,7 @@ typedef volatile struct servo360_s
   volatile int speedOut;
   volatile int pw;
   
-  // speed control system
+  // velocity control system
   volatile int opPidV;
   volatile int approachFlag;
   volatile int ticksDiff;
@@ -314,6 +267,18 @@ typedef volatile struct servo360_s
   volatile int stepDir;
   volatile int lag;
   volatile int accelerating;
+  volatile int speedTargetTemp;
+  
+  /*
+  // This could remedy the overshoot problem, but it seems to reduce
+  // drive_goto accuracy.
+  
+  #define FB360_OFFSET_MAX 5
+  #define FB360_V_ARRAY 8
+
+  volatile int vT[FB360_V_ARRAY];
+  volatile int offset;
+  */
   
   // position control system
   volatile int Kp;
@@ -336,6 +301,456 @@ extern volatile servo360_t _fs[S360_DEVS_MAX];
   fdserial *term;
   extern volatile int suppressFbDisplay;
 #endif
+
+
+
+#endif // DOXYGEN_SHOULD_SKIP_THIS
+
+
+
+/**
+  @brief Initializes a connection to a Parallax Feedback 360 servo.
+  
+  @param pinControl I/O pin connected to the servo's white control signal line.
+  
+  @param pinFeedback I/O pin connected to the servo's yellow feedback line.
+*/  
+int servo360_connect(int pinControl, int pinFeedback);
+
+
+
+/**
+  @brief Set an angle for servo to move to and hold in degrees (360ths 
+  of a full circle).   
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_angle(int pin, int position);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ int servo360_getAngle(int pin);
+
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_speed(int pin, int speed);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ int servo360_getSpeed(int pin);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_goto(int pin, int position);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_getCsop(int pin);
+
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_stop(int pin);
+
+
+
+/**
+  @name Settings - Speed Control
+  @{ 
+*/
+
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_setAcceleration(int pin, int unitsPerSecSquared);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_getAcceleration(int pin);
+
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_setMaxSpeed(int pin, int speed);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_getMaxSpeed(int pin);
+
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_setRampStep(int pin, int stepSize);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_getRampStep(int pin);
+
+
+
+/**
+  @}
+ 
+  @name Settings - Angle Control
+  @{ 
+*/
+
+
+
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_setAngleLimits(int pin, int ccwMax, int cwMax);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_getAngleLimits(int pin, int *ccwMax, int *cwMax);
+
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_setAngleCtrlSpeedMax(int pin, int speed);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_getAngleCtrlSpeedMax(int pin);
+
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_setAngleOffset(int pin, int angle);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_getAngleOffset(int pin);
+
+
+
+/**
+  @}
+ 
+  @name Settings - General
+  @{ 
+*/
+
+
+
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_setUnitsFullCircle(int pin, int units);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_getUnitsFullCircle(int pin);
+
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_setControlSys(int pin, int constant, int value);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_getControlSys(int pin, int constant);
+
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_setTurns(int pin, int turns);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_getTurns(int pin);
+
+
+
+/**
+  @}
+ 
+  @name Settings - Differential Drive
+  @{ 
+*/
+
+
+
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_couple(int pinA, int pinB);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_setCoupleScale(int pinA, int pinB, int scale);
+
+
+
+/**
+  @}
+ 
+  @name Settings - Advanced
+  @{ 
+*/
+
+
+
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_enable(int pin, int state);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_feedback(int pin, int state);
+
+
+/**
+  @brief 
+  
+  @param 
+  
+  @returns
+*/ 
+int servo360_set(int pinControl, int time);
+
+
+
+/**
+  @}
+*/
+
+
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
+
+
+/* Private */
+void servo360_run(void);
+void servo360_end();
+void servo360_setup(void);
+void servo360_mainLoop();
+void servo360_outputSelector(int p);
+
+void servo360_servoPulse(int p, int q);
+void servo360_waitServoCtrllEdgeNeg(int p);
+int servo360_dutyCycle(int p, int scale);
+int servo360_crossing(int current, int previous, int units);
+int servo360_getTheta(int p);
+void servo360_checkAngle(int p);
+void servo360_captureOffset(int p);
+void servo360_setPositiveDirection(int p, int direction);
+
+int servo360_setRampStep(int p, int stepSize);
+
+int servo360_upsToPulseFromTransferFunction(int unitsPerSec, int p);
+void servo360_pulseControl(int p, int speedUps);
+
+void servo360_speedControl(int p);
+int servo360_pidA(int p);
+int servo360_pidV(int p);  
+
+int servo360_findServoIndex(int pin);
+
+int servo360_unitsAngleToEncoder(int value, int unitsRev);
+int servo360_unitsEncoderToAngle(int value, int unitsRev); 
+int servo360_checkDistanceRemaining(int pin, int speed, int finalAngle);
+
+int servo360_setMaxSpeedEncoded(int pin, int speed);
+
+void servo360_monitorRun(void);
+void servo360_monitorEnd(void);
+
+int servo360_setTransferFunction(int pin, int constant, int value);
+
+
+int servo360_getAngle12Bit(int pin);
+int servo360_getAngleFixedOrigin(int pin);
+int servo360_getAngleCalc(int pin);
+
+/*
+__attribute__((constructor))
+void servo360_patch(void);
+*/
+
+#ifdef _servo360_monitor_
+void console();
+void servo360_monitor_start(void);
+void servo360_monitor_stop();
+int terminal_checkForValue(fdserial *connection, int *value);
+#endif
+
+
+
+#endif // DOXYGEN_SHOULD_SKIP_THIS
 
 
 
@@ -368,3 +783,5 @@ extern volatile servo360_t _fs[S360_DEVS_MAX];
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+
+                                                                                //

@@ -1,4 +1,4 @@
-Test Encoder Connections.c
+Forward then Stop.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

@@ -1,5 +1,5 @@
 /* 
-  ActivityBot Display Calibration Results.c
+  ActivityBot Display Calibration.c
 
   Display interpolation table values from calibration
 
@@ -7,11 +7,9 @@
 */
 
 #include "simpletools.h"
-#include "servo360.h"
 #include "abcalibrate360.h"
 
 int main()                   
 {
-  cal_displayResults();
+  cal_displayData();
 }
-
