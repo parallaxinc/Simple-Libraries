@@ -45,6 +45,181 @@ extern "C" {
 #include "servo360.h"
 
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
+#ifndef ABD360_GOTO_BUSY 
+#define ABD360_GOTO_BUSY 1
+#endif
+
+#ifndef ABD360_GOTO_CLEAR 
+#define ABD360_GOTO_CLEAR 0
+#endif
+
+#ifndef ABD360_GOTO_BLOCK 
+#define ABD360_GOTO_BLOCK 0
+#endif
+
+#ifndef ABD360_GOTO_SET_FORGET 
+#define ABD360_GOTO_SET_FORGET 1
+#endif
+
+#ifndef AB360_NEITHER 
+#define AB360_NEITHER 0
+#endif
+
+#ifndef AB360_LEFT 
+#define AB360_LEFT 1
+#endif
+
+#ifndef AB360_RIGHT 
+#define AB360_RIGHT 2
+#endif
+
+#ifndef FOR_GOTO 
+#define FOR_GOTO 1
+#endif
+
+#ifndef FOR_SPEED 
+#define FOR_SPEED 0
+#endif
+
+#ifndef OFF 
+#define OFF 0
+#endif
+
+#ifndef ON  
+#define ON  1
+#endif
+
+#ifndef SIDE_LEFT 
+#define SIDE_LEFT 0
+#endif
+
+#ifndef SIDE_RIGHT 
+#define SIDE_RIGHT 1
+#endif
+
+#ifndef SIDE_BOTH 
+#define SIDE_BOTH 2
+#endif
+
+#ifndef ABD60_PIN_CTRL_L 
+#define ABD60_PIN_CTRL_L 12
+#endif
+
+#ifndef ABD60_PIN_FB_L 
+#define ABD60_PIN_FB_L 14
+#endif
+
+#ifndef ABD360_PIN_CTRL_R 
+#define ABD360_PIN_CTRL_R 13
+#endif
+
+#ifndef ABD360_PIN_FB_R 
+#define ABD360_PIN_FB_R 15
+#endif
+
+#ifndef ABD360_UNITS_REV 
+#define ABD360_UNITS_REV 64
+#endif
+
+#ifndef ABD_RAMP_STEP 
+#define ABD_RAMP_STEP 12
+#endif
+
+#ifndef ABD_SPEED_LIMIT 
+#define ABD_SPEED_LIMIT 128
+#endif
+
+#ifndef ABD_GOTO_SPEED_LIMIT 
+#define ABD_GOTO_SPEED_LIMIT 64
+#endif
+
+#ifndef ABD_GOTO_RAMP_STEP 
+#define ABD_GOTO_RAMP_STEP 8
+#endif
+
+
+//#define ABD_NUDGE_SPEED 4
+//#define ABD_STOP_50ths 5
+
+#ifndef _AB360_EE_Start_
+#define _AB360_EE_Start_ 63418
+#endif
+
+#ifndef _AB360_EE_Pins_
+#define _AB360_EE_Pins_ 12
+#endif
+
+// y = mx + b for transfer function separated into above (ccw) and below (cw)
+// zero speed deadband pulse width.  m sets slope, b sets transition pulse
+// width from zero speed to motion.  If not found in EEPROM, default values
+// from servo360 library are used.
+
+#ifndef _AB360_EE_mVccwL_
+#define _AB360_EE_mVccwL_ 28
+#endif
+
+#ifndef _AB360_EE_bVccwL_
+#define _AB360_EE_bVccwL_ 32
+#endif
+
+#ifndef _AB360_EE_mVcwL_
+#define _AB360_EE_mVcwL_ 36
+#endif
+
+#ifndef _AB360_EE_bVcwL_
+#define _AB360_EE_bVcwL_ 40
+#endif
+
+#ifndef _AB360_EE_mVccwR_
+#define _AB360_EE_mVccwR_ 44
+#endif
+
+#ifndef _AB360_EE_bVccwR_
+#define _AB360_EE_bVccwR_ 48
+#endif
+
+#ifndef _AB360_EE_mVcwR_
+#define _AB360_EE_mVcwR_ 52
+#endif
+
+#ifndef _AB360_EE_bVcwR_
+#define _AB360_EE_bVcwR_ 56
+#endif
+
+#ifndef _AB360_EE_End_
+#define _AB360_EE_End_ _AB360_EE_Start_ + 60
+#endif
+
+
+extern volatile int abd360_initialized;
+
+extern volatile int abd360_unitsPerRev;
+
+extern volatile int abd360_pinCtrlLeft;
+extern volatile int abd360_pinCtrlRight;
+extern volatile int abd360_pinFbLeft;
+extern volatile int abd360_pinFbRight;
+
+extern volatile int abd360_speedLimit;
+extern volatile int abd360_rampStep;
+extern volatile int abd360_setRampStep;
+extern volatile int abd360_speedLimitGoto;
+extern volatile int abd360_rampStepGoto;
+
+extern volatile int abd360_gotoMode;
+
+
+void drive_init(void);
+void drive360_ticksPerRev(int units);
+
+
+
+#endif // DOXYGEN_SHOULD_SKIP_THIS
+
+
+
 /**
   @brief Set wheel speeds in "ticks" per second.  A tick is 1/64th of a 
   revolution, and makes an ActivityBot 360 wheel roll 3.25 mm.  The maximum
@@ -277,201 +452,6 @@ void drive_ramp(int left, int right);
 /**
    @}
 */
-
-
-
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-
-
-/* =========================================================================== */
-//                        PRIVATE FUNCTIONS/MACROS/VARIABLES
-/* =========================================================================== */
-
-/**
-   @name Private (used by abdrive library)
-   @{
-*/
-
-
-
-#ifndef ABD360_GOTO_BUSY 
-#define ABD360_GOTO_BUSY 1
-#endif
-
-#ifndef ABD360_GOTO_CLEAR 
-#define ABD360_GOTO_CLEAR 0
-#endif
-
-#ifndef ABD360_GOTO_BLOCK 
-#define ABD360_GOTO_BLOCK 0
-#endif
-
-#ifndef ABD360_GOTO_SET_FORGET 
-#define ABD360_GOTO_SET_FORGET 1
-#endif
-
-#ifndef AB360_NEITHER 
-#define AB360_NEITHER 0
-#endif
-
-#ifndef AB360_LEFT 
-#define AB360_LEFT 1
-#endif
-
-#ifndef AB360_RIGHT 
-#define AB360_RIGHT 2
-
-#endif
-
-#ifndef FOR_GOTO 
-#define FOR_GOTO 1
-#endif
-
-#ifndef FOR_SPEED 
-#define FOR_SPEED 0
-#endif
-
-#ifndef OFF 
-#define OFF 0
-#endif
-
-#ifndef ON  
-#define ON  1
-#endif
-
-#ifndef SIDE_LEFT 
-#define SIDE_LEFT 0
-#endif
-
-#ifndef SIDE_RIGHT 
-#define SIDE_RIGHT 1
-#endif
-
-#ifndef SIDE_BOTH 
-#define SIDE_BOTH 2
-#endif
-
-#ifndef ABD60_PIN_CTRL_L 
-#define ABD60_PIN_CTRL_L 12
-#endif
-
-#ifndef ABD60_PIN_FB_L 
-#define ABD60_PIN_FB_L 14
-#endif
-
-#ifndef ABD360_PIN_CTRL_R 
-#define ABD360_PIN_CTRL_R 13
-#endif
-
-#ifndef ABD360_PIN_FB_R 
-#define ABD360_PIN_FB_R 15
-#endif
-
-#ifndef ABD360_UNITS_REV 
-#define ABD360_UNITS_REV 64
-#endif
-
-#ifndef ABD_RAMP_STEP 
-#define ABD_RAMP_STEP 12
-#endif
-
-#ifndef ABD_SPEED_LIMIT 
-#define ABD_SPEED_LIMIT 128
-#endif
-
-#ifndef ABD_GOTO_SPEED_LIMIT 
-#define ABD_GOTO_SPEED_LIMIT 64
-#endif
-
-#ifndef ABD_GOTO_RAMP_STEP 
-#define ABD_GOTO_RAMP_STEP 8
-#endif
-
-
-//#define ABD_NUDGE_SPEED 4
-//#define ABD_STOP_50ths 5
-
-#ifndef _AB360_EE_Start_
-/**
-  
-   @brief ActivityBot EEPROM calibration data start address.
-*/
-#define _AB360_EE_Start_ 63418
-#endif
-
-#ifndef _AB360_EE_Pins_
-#define _AB360_EE_Pins_ 12
-#endif
-
-#ifndef _AB360_EE_mVccwL_
-#define _AB360_EE_mVccwL_ 28
-#endif
-
-#ifndef _AB360_EE_bVccwL_
-#define _AB360_EE_bVccwL_ 32
-#endif
-
-#ifndef _AB360_EE_mVcwL_
-#define _AB360_EE_mVcwL_ 36
-#endif
-
-#ifndef _AB360_EE_bVcwL_
-#define _AB360_EE_bVcwL_ 40
-#endif
-
-#ifndef _AB360_EE_mVccwR_
-#define _AB360_EE_mVccwR_ 44
-#endif
-
-#ifndef _AB360_EE_bVccwR_
-#define _AB360_EE_bVccwR_ 48
-#endif
-
-#ifndef _AB360_EE_mVcwR_
-#define _AB360_EE_mVcwR_ 52
-#endif
-
-#ifndef _AB360_EE_bVcwR_
-#define _AB360_EE_bVcwR_ 56
-#endif
-
-#ifndef _AB360_EE_End_
-/**
-  
-   @brief ActivityBot EEPROM calibration data end address.
-*/
-#define _AB360_EE_End_ _AB360_EE_Start_ + 60
-#endif
-
-
-extern volatile int abd360_initialized;
-
-extern volatile int abd360_unitsPerRev;
-
-extern volatile int abd360_pinCtrlLeft;
-extern volatile int abd360_pinCtrlRight;
-extern volatile int abd360_pinFbLeft;
-extern volatile int abd360_pinFbRight;
-
-extern volatile int abd360_speedLimit;
-extern volatile int abd360_rampStep;
-extern volatile int abd360_setRampStep;
-extern volatile int abd360_speedLimitGoto;
-extern volatile int abd360_rampStepGoto;
-
-extern volatile int abd360_gotoMode;
-
-
-void drive_init(void);
-
-void drive360_ticksPerRev(int units);
-
-
-/**
-   @}  // /Private
-*/
-
-#endif // DOXYGEN_SHOULD_SKIP_THIS
 
 
 
