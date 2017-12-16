@@ -6,7 +6,7 @@
   @copyright
   Copyright (C) Parallax Inc. 2017. All Rights MIT Licensed.  See end of file.
  
-  @brief 
+  @brief Parallax Feedback 360 High Speed Servo control and monitoring functions.
 */
 
 
@@ -307,85 +307,127 @@ extern volatile servo360_t _fs[S360_DEVS_MAX];
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
 
-
 /**
-  @brief Initializes a connection to a Parallax Feedback 360 servo.
+  @brief Initializes a connection to a Parallax Feedback 360 servo.  The current
+  position of the servo during the call will be used as the 0-degree position.
+  
+  @details Error codes:  
+                        -4 control pin already allocated, 
+                        -5 feedback pin already allocated, 
+                        -6 control or feedback pin out of 0...27 range, 
+                        -7 too many devices, 
+                        -8 no feedback signal found on pinFeedback.
   
   @param pinControl I/O pin connected to the servo's white control signal line.
   
   @param pinFeedback I/O pin connected to the servo's yellow feedback line.
+  
+  @returns 0 or higher if success.  See details section for list of negative value
+  error codes.
 */  
 int servo360_connect(int pinControl, int pinFeedback);
 
 
 
 /**
-  @brief Set an angle for servo to move to and hold in degrees (360ths 
-  of a full circle).   
+  @brief Set an angle in degrees for servo to move to and hold.  The default 
+  degree is 1/360th of a full circle, and the default angle limits are 
+  +/- 524,287 degrees.  See details for more info.
   
-  @param 
+  @details These values can be adjusted with the servo360_setUnitsFullCircle 
+  and servo360_getAngleLimits functions. 
+
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @param position Angle in degrees from zero degrees.  The zero degree value 
+  is either the position when servo360_connect was called, or a custom position
+  relative to mechanical zero that can be set with the servo360_setAngleOffset
+  function.  
+  
+  @returns 0 or higher if success.
 */ 
 int servo360_angle(int pin, int position);
 
 
 /**
-  @brief 
+  @brief Get measured angle of servo in degree units.  
   
-  @param 
-  
-  @returns
+  @param pin Control pin used in servo360_connect call.  
+
+  @returns The current angle in degree units.
 */ int servo360_getAngle(int pin);
 
 
 
 /**
-  @brief 
+  @brief Set servo rotation speed in degrees per second.  The default max 
+  values range from 720 degrees per second (full speed counterclockwise)
+  to 0 (stop) to -720 degrees per second (full speed clockwise).  See the
+  details section for info on adjusting max speed, acceleration, and 
+  distance.
   
-  @param 
+  @details 
   
-  @returns
+  Max speed can be set with servo360_setMaxSpeed.  Acceleration can be set 
+  with a call to servo360_setAcceleration.  Max distance is 524,000 revolutions 
+  before a is needed.  Use servo360_getTurns if your application could 
+  potentially exceed this limit in a single session and 
+  servo360_setTurns(pin, 0) to accommodate another half million turns!
+  
+  @param pin Control pin used in servo360_connect call.  
+  
+  @param speed Speed in degrees per second.
+  
+  @returns 0 or higher if success.
 */ 
 int servo360_speed(int pin, int speed);
 
 
 /**
-  @brief 
+  @brief Measure the current speed.  For best results, take the 
+  average of multiple measurements.
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @returns The speed in degrees per second.  
 */ int servo360_getSpeed(int pin);
 
 
 /**
-  @brief 
+  @brief Go to a certain number of degrees from the current position.  Positive 
+  values are counterclockwise, negative values are clockwise.  This is a "set 
+  it and forget it" function that returns immediately after the maneuver has 
+  been initiated.  The maneuver's progress can be monitored with 
+  servo360_getCsop and also with servo360_getAngle.
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @returns 0 or higher if the goto maneuver has been successfully initiated.
 */ 
 int servo360_goto(int pin, int position);
 
 
 /**
-  @brief 
+  @brief Csop is an abbreviation for control system operation, which could be
+  speed, position, or goto control.  After a maneuver has been completed, goto
+  control transitions to position control.  
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @returns S360_SPEED (1), S360_POSITION, (2), or S360_GOTO (3), or -1 if the
+  I/O pin is not valid servo control or feedback pin.
 */ 
 int servo360_getCsop(int pin);
 
 
 
 /**
-  @brief 
+  @brief Stop servo motion if it is turning. It is equivalent to a call to 
+  servo360_speed(pin, 0). 
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @returns 0 or higher if success.
 */ 
 int servo360_stop(int pin);
 
@@ -399,63 +441,74 @@ int servo360_stop(int pin);
 
 
 /**
-  @brief 
+  @brief Set acceleration in terms of degrees per second squared. The default 
+  is 72 degrees per second squared.  
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @returns 0 or higher if success.
 */ 
 int servo360_setAcceleration(int pin, int unitsPerSecSquared);
 
 
 /**
-  @brief 
+  @brief Get current acceleration in terms of degrees per second squared.  
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @returns degrees per second squared acceleration setting for servo360_speed 
+  and servo360_goto.
 */ 
 int servo360_getAcceleration(int pin);
 
 
 
 /**
-  @brief 
+  @brief Set the maximum servo speed in terms of degrees per second squared.
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @param speed Speed in degrees per second.
+  
+  @returns 0 or higher if success.
 */ 
 int servo360_setMaxSpeed(int pin, int speed);
 
 
 /**
-  @brief 
+  @brief Get the max speed setting.
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @returns Current max speed setting in degrees per second.
 */ 
 int servo360_getMaxSpeed(int pin);
 
 
 
 /**
-  @brief 
+  @brief Set acceleration in terms of degrees per second per 50th of a second.  
+  For a more straightforward implementation, use servo360_setAcceleration.
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @param stepSize Max velocity change in degrees per second per 50th of a 
+  second.
+  
+  @returns 0 or higher if success.
 */ 
 int servo360_setRampStep(int pin, int stepSize);
 
 
 /**
-  @brief 
+  @brief Get current acceleration setting in terms of degrees per second per 
+  50th of a second.  For a more straightforward implementation, use 
+  servo360_getAcceleration instead.
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @returns stepSize Max velocity change in degrees per second per 50th of a 
+  second.
 */ 
 int servo360_getRampStep(int pin);
 
@@ -473,63 +526,81 @@ int servo360_getRampStep(int pin);
 
 
 /**
-  @brief 
+  @brief Set the angle limits the servo is allowed to turn to during position
+  control.  These limits only affect angle control, not speed or goto control.
+  The default angle limits are +/- 524287 degrees.
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @param ccwMax Limit for counterclockwise rotation.
+  
+  @param ccwMax Limit for clockwise rotation.
+  
+  @returns 0 or higher if success.
 */ 
 int servo360_setAngleLimits(int pin, int ccwMax, int cwMax);
 
 
 /**
-  @brief 
+  @brief Check the angle limits the servo is allowed to turn to during position
+  control.  These limits only affect angle control, not speed or goto control.
+  The default angle limits are +/- 524287 degrees.
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @returns Current angle limit.
 */ 
 int servo360_getAngleLimits(int pin, int *ccwMax, int *cwMax);
 
 
 
 /**
-  @brief 
+  @brief Set the maximum speed at which the servo is allowed to turn 
+  while adjusting to a new angle set point.
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @param speed Maximum speed in degrees per second.
+  
+  @returns 0 or higher if success.
 */ 
 int servo360_setAngleCtrlSpeedMax(int pin, int speed);
 
 
 /**
-  @brief 
+  @brief Check the maximum speed at which the servo is allowed to turn 
+  while adjusting to a new angle set point.
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @returns speed Maximum speed in degrees per second.
 */ 
 int servo360_getAngleCtrlSpeedMax(int pin);
 
 
 
 /**
-  @brief 
+  @brief Set the offset from the servo's mechanical 0 degree position.  If this
+  function is not called, the 0 degree position is the angle measured when 
+  servo_connect is called.
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @param Degree offset from the mechanical 0 degrees (0 to 360).
+  
+  @returns 0 or higher if success.
 */ 
 int servo360_setAngleOffset(int pin, int angle);
 
 
 /**
-  @brief 
+  @brief Check the offset from the servo's mechanical 0-degree position.  If 
+  servo360_setAngleOffset has not been called, the 0-degree position will be 
+  whatever angle was measured when servo_connect was called.
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @returns Degree offset from the mechanical 0 degrees (0 to 360).
 */ 
 int servo360_getAngleOffset(int pin);
 
@@ -547,63 +618,154 @@ int servo360_getAngleOffset(int pin);
 
 
 /**
-  @brief 
+  @brief Set the number of units in a full circle.  By default, this value is
+  360.  This function does not actually change acceleration or other settings.
+  IMPORTANT: This function DOES change the degrees value in any function called
+  after the new degree value has been set.  For example, the default max speed
+  setting is 720 degrees per second = 2 revolutions per second.  If you change 
+  the units to 64 degrees per full circle, the max speed will still be 2 
+  revolutions per second, but for max speed, the speed supplied to 
+  servo360_speed will have to be 128 instead of 720.  This applies to all other 
+  control and setting functions -they will be in terms of 64 (or whatever value 
+  you choose) instead of 360.
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @param units Number of degrees in a full circle.  The valid range is 32
+  to 360. 
+  
+  @returns 0 or higher if success.
 */ 
 int servo360_setUnitsFullCircle(int pin, int units);
 
 
 /**
-  @brief 
+  @brief Set the number of units in a full circle.  By default, this value is
+  360, but it can be changed with servo360_setUnitsFullCircle, and checked
+  with this function.
+  @param pin Control pin used in servo360_connect call.  
   
-  @param 
-  
-  @returns
+  @returns units The number of degrees in a full circle.  The valid range is 
+  32 to 360. 
 */ 
 int servo360_getUnitsFullCircle(int pin);
 
 
 
 /**
-  @brief 
+  @brief The servo360.h library is designed to use Proportional, Integral and
+  derivative (PID) control to maintain both speed and position.  The default 
+  values are mainly for no load or a light load.  This function can be used to 
+  change those settings to accommodate different loads or make the responses 
+  more peppy (at the expense of possible oscillations when the set point has
+  been reached).  An example of calling this function to restore the original 
+  proportional control setting would be 
+  servo360_setControlSys(pin, S360_SETTING_KPV, 500).
+  See the details section for setting names and default values.
   
-  @param 
+  @details Control System Settings <br>
+
+  Error units are in terms of 4096ths of a full circle, and the settings listed
+  below multiply by 1000ths.  For example, if the angular distance error during
+  a 1/50th of a second speed measurement is 128 4096ths of a circle, the 
+  effect of proportional control with the default setting will be 
+  (500 * 128) / 1000 = 64.  The result is that the control system will try to 
+  increase the speed by 64/4096ths of a full circle per second.
+
+  <b>Velocity Control System Constants</b><br>
   
-  @returns
+  Proportional <br>
+  constant name: S360_SETTING_KPV, default value: 500. <br>
+  Integral <br>
+  constant name: S360_SETTING_KIV, default value: 0. <br>
+  Derivative <br>
+  constant name: S360_SETTING_KDV, default value: 0. <br>
+  Max Integral Output <br>
+  constant name: S360_SETTING_KIV_MAX, default value: 0. <br>
+
+  <b>Angular Control System Constants</b><br>
+  
+  Proportional <br>
+  constant name: S360_SETTING_KPA, default value: 12000. <br>
+  Integral <br>
+  constant name: S360_SETTING_KIA, default value: 600. <br>
+  Derivatively <br>
+  constant name: S360_SETTING_KDA, default value: 6000. <br>
+  Max Integral Output <br>
+  constant name: S360_SETTING_KIA_MAX, default value: 1000. <br>
+
+  @param pin Control pin used in servo360_connect call.  
+  
+  @param constant Constant name of value to change (see details section).
+  
+  @param value New control system constant.  
+  
+  @returns 0 or higher if success.
 */ 
 int servo360_setControlSys(int pin, int constant, int value);
 
 
 /**
-  @brief 
+  @brief Check control system constant.  See the servo360_setControlSys
+  function for more info.
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @param constant Constant name of value to change (see details section).
+  
+  @returns value Value of the control system constant.  
 */ 
 int servo360_getControlSys(int pin, int constant);
 
 
 
 /**
-  @brief 
+  @brief Set servo rotation speed in degrees per second.  The default max 
+  values range from -720 degrees per second (full speed counterclockwise)
+  to 0 (stop) to 720 degrees per second (full speed clockwise).  See the
+  details section for info on adjusting max speed, acceleration, and 
+  distance.
   
-  @param 
+  @details 
   
-  @returns
+  Max speed can be set with servo360_setMaxSpeed.  Acceleration can be set 
+  with a call to servo360_setAcceleration.  Max distance is 524,000 revolutions 
+  before a is needed.  Use servo360_getTurns if your application could 
+  potentially exceed this limit in a single session and 
+  servo360_setTurns(pin, 0) to accommodate another half million turns!
+  
+  @param pin Control pin used in servo360_connect call.  
+  
+  @param speed The speed in degrees per second.
+  
+  @returns 0 or higher if success.
+*/ 
+
+/**
+  @brief Change the number of turns that have elapsed since the application has
+  started.  Use this function to reset to zero if the number of revolutions 
+  since the application started running approaches 524,000 under speed and/or
+  goto control.  For angular control, use it if the angle approaches +/- 524,287
+  degrees.  When the application is restarted with either RESET or by turning
+  power off and back on, the turns return to zero automatically.
+  
+  @param pin Control pin used in servo360_connect call.  
+  
+  @param turns The new number of turns that have elapsed since the start of
+  the application.
+  
+  @returns 0 or higher if success.
 */ 
 int servo360_setTurns(int pin, int turns);
 
 
 /**
-  @brief 
+  @brief Get the number of times the output shaft has rotated by 360 degrees
+  since the application started (either by power-on or press/release RESET).
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @returns 360 degree turns since the application started.
 */ 
 int servo360_getTurns(int pin);
 
@@ -621,21 +783,35 @@ int servo360_getTurns(int pin);
 
 
 /**
-  @brief 
+  @brief This function is used by the abdrive360 library to reduce the drive on 
+  a servo whose position is further ahead in relation to the calculated target 
+  position during a given 50th of a second.
   
-  @param 
+  @param pinA The control pin of one of the two coupled servos.  
   
-  @returns
+  @param pinB The control pin of the other coupled servo.  
+  
+  @returns 0 or higher if success.
 */ 
 int servo360_couple(int pinA, int pinB);
 
 
 /**
-  @brief 
+  @brief Change the scale factor, which is how much the control system subtracts
+  from the faster servo's drive level in response to differences between
+  two coupled servos distances from their respective distance set point for
+  that was calculated for that 50th of a second.
   
-  @param 
+  @param pinA Control pin of one of the two coupled servos.  
   
-  @returns
+  @param pinB Control pin of the other coupled servo.  
+  
+  @scale value by which the faster servo is slowed down.  The default value is
+  2000, which multiplies a distance error of 4096ths of a circle by 2 and 
+  adds/subtracts it to/from the requested drive speed to reduce the faster 
+  servos lead in its progress to the final angle. 
+  
+  @returns 0 or higher if success.
 */ 
 int servo360_setCoupleScale(int pinA, int pinB, int scale);
 
@@ -653,31 +829,41 @@ int servo360_setCoupleScale(int pinA, int pinB, int scale);
 
 
 /**
-  @brief 
+  @brief Enable or disable the control system signal.  
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @param state 1 enabled, 0 disabled
+  
+  @returns 0 or higher if success.
 */ 
 int servo360_enable(int pin, int state);
 
 
 /**
-  @brief 
+  @brief Enable or disable the feedback system.  If the feedback system is
+  disabled, the servo should only be controlled with servo360_set.  
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @param state 1 enabled, 0 disabled.
+  
+  @returns 0 or higher if success.
 */ 
 int servo360_feedback(int pin, int state);
 
 
 /**
-  @brief 
+  @brief Use pulse width control to set servo speed without feedback.  Make
+  sure to call serov360_feedback(pin, 0) before making any calls to this 
+  function.
   
-  @param 
+  @param pin Control pin used in servo360_connect call.  
   
-  @returns
+  @param time Control pulse time in microseconds of high time that will be 
+  repeated every 20 ms.
+  
+  @returns 0 or higher if success.
 */ 
 int servo360_set(int pinControl, int time);
 
@@ -763,25 +949,25 @@ int terminal_checkForValue(fdserial *connection, int *value);
 
 
 /**
- * TERMS OF USE: MIT License
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
+   TERMS OF USE: MIT License
+  
+   Permission is hereby granted, free of charge, to any person obtaining a
+   copy of this software and associated documentation files (the "Software"),
+   to deal in the Software without restriction, including without limitation
+   the rights to use, copy, modify, merge, publish, distribute, sublicense,
+   and/or sell copies of the Software, and to permit persons to whom the
+   Software is furnished to do so, subject to the following conditions:
+  
+   The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
+ 
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+   THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+   DEALINGS IN THE SOFTWARE.
  */
 
                                                                                 //
