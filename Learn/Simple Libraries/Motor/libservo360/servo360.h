@@ -1,4 +1,4 @@
-/*
+/**
   @file servo360.h
 
   @author Parallax Inc
@@ -36,40 +36,106 @@ extern "C" {
 
 
 
+#ifndef S360_UNITS_FULL_CIRCLE
 #define S360_UNITS_FULL_CIRCLE 360
-#define S360_MAX_SPEED 2 * 4096 
+#endif
 
+
+#ifndef S360_MAX_SPEED
+#define S360_MAX_SPEED 2 * 4096 
+#endif
+
+#ifndef S360_VM 
 #define S360_VM 180
+#endif
 //#define S360_VB_POS 200
 //#define S360_VB_NEG -200
+#ifndef S360_VM_CCW
 #define S360_VM_CCW S360_VM
-#define S360_VM_CW S360_VM
+#endif
 
-#define S360_VM_CCW S360_VM
+#ifndef S360_VM_CW
 #define S360_VM_CW S360_VM
+#endif
+
+#ifndef S360_VM_CCW
+#define S360_VM_CCW S360_VM
+#endif
+
+#ifndef S360_VM_CW
+#define S360_VM_CW S360_VM
+#endif
+
+#ifndef S360_VB_CCW
 #define S360_VB_CCW 200
+#endif
+
+#ifndef S360_VB_CW
 #define S360_VB_CW -200
+#endif
 
+
+#ifndef S360_DUTY_CYCLE_MIN
 #define S360_DUTY_CYCLE_MIN 290
+#endif
+
+#ifndef S360_DUTY_CYCLE_MAX
 #define S360_DUTY_CYCLE_MAX 9710
+#endif
 
+
+#ifndef S360_CCW_POS 
 #define S360_CCW_POS 1
-#define S360_CCW_NEG -1
+#endif
 
+#ifndef S360_CCW_NEG 
+#define S360_CCW_NEG -1
+#endif
+
+
+#ifndef S360_SPEED 
 #define S360_SPEED 1
+#endif
+
+#ifndef S360_POSITION 
 #define S360_POSITION 2
+#endif
+
+#ifndef S360_GOTO 
 #define S360_GOTO 3
+#endif
+
+#ifndef S360_MONITOR 
 #define S360_MONITOR 4
+#endif
+
+#ifndef S360_FREQ_CTRL_SIG 
 #define S360_FREQ_CTRL_SIG 50
+#endif
+
+#ifndef S360_DEVS_MAX 
 #define S360_DEVS_MAX 4
+#endif
 
 //#define S360_RAMP_STEP 10 * 4096 / 360;
-#define S360_RAMP_STEP 72 * 4096 / 360;
+
+#ifndef S360_RAMP_STEP
+#define S360_RAMP_STEP 72 * 4096 / 360
+#endif
 
 // Rename to indicate encoder
+
+#ifndef S360_M
 #define S360_M 4348
+#endif
+
+#ifndef S360_B
 #define S360_B -129
+#endif
+
+#ifndef S360_ENC_RES
 #define S360_ENC_RES 4096
+#endif
 
 /*
 #define S360_KPA 5000
@@ -80,11 +146,26 @@ extern "C" {
 */
 
 //
+
+#ifndef S360_KPA 
 #define S360_KPA 12000
+#endif
+
+#ifndef S360_KIA 
 #define S360_KIA 600
+#endif
+
+#ifndef S360_KDA 
 #define S360_KDA 6000
+#endif
+
+#ifndef S360_POS_INTGRL_MAX 
 #define S360_POS_INTGRL_MAX 600
+#endif
+
+#ifndef S360_SCALE_DEN_A 
 #define S360_SCALE_DEN_A 1000
+#endif
 //
 
 /*
@@ -93,40 +174,121 @@ extern "C" {
 #define S360_KDV 1600
 #define S360_VEL_INTGRL_MAX 325
 */
+
+#ifndef S360_KPV 
 #define S360_KPV 500
+#endif
+
+#ifndef S360_KIV 
 #define S360_KIV 0
+#endif
+
+#ifndef S360_KDV 
 #define S360_KDV 0
+#endif
+
+#ifndef S360_VEL_INTGRL_MAX 
 #define S360_VEL_INTGRL_MAX 0
+#endif
+
+#ifndef S360_SCALE_DEN_V 
 #define S360_SCALE_DEN_V 1000
+#endif
 
+
+#ifndef S360_PW_CENTER 
 #define S360_PW_CENTER 15000
-#define S360_CS_HZ 50
-#define S360_UNITS_ENCODER 4096
-#define S360_UNITS_REV 360
+#endif
 
+#ifndef S360_CS_HZ 
+#define S360_CS_HZ 50
+#endif
+
+#ifndef S360_UNITS_ENCODER 
+#define S360_UNITS_ENCODER 4096
+#endif
+
+#ifndef S360_UNITS_REV 
+#define S360_UNITS_REV 360
+#endif
+
+
+#ifndef S360_SETTING_KPV 
 #define S360_SETTING_KPV 1
+#endif
+
+#ifndef S360_SETTING_KIV 
 #define S360_SETTING_KIV 2
+#endif
+
+#ifndef S360_SETTING_KDV 
 #define S360_SETTING_KDV 3
+#endif
+
+#ifndef S360_SETTING_IV_MAX 
 #define S360_SETTING_IV_MAX 4
+#endif
+
+#ifndef S360_SETTING_KPA 
 #define S360_SETTING_KPA 5
+#endif
+
+#ifndef S360_SETTING_KIA 
 #define S360_SETTING_KIA 6
+#endif
+
+#ifndef S360_SETTING_KDA 
 #define S360_SETTING_KDA 7
+#endif
+
+#ifndef S360_SETTING_IA_MAX 
 #define S360_SETTING_IA_MAX 8
+#endif
+
+#ifndef S360_SETTING_VB_CCW 
 #define S360_SETTING_VB_CCW 9
+#endif
+
+#ifndef S360_SETTING_VB_CW 
 #define S360_SETTING_VB_CW 10
+#endif
+
+#ifndef S360_SETTING_VM_CCW 
 #define S360_SETTING_VM_CCW 11    
+#endif
+
+#ifndef S360_SETTING_VM_CW 
 #define S360_SETTING_VM_CW 12
+#endif
 
 //#define S360_A_MAX (((1 << 31) - 1)) / S360_UNITS_FULL_CIRCLE  // 524287 degrees
+
+#ifndef S360_A_MAX 
 #define S360_A_MAX 524287  
+#endif
 
+
+#ifndef S360_SCALE_DEN_COUPLE 
 #define S360_SCALE_DEN_COUPLE 1000        
+#endif
+
+#ifndef S360_SCALE_COUPLE 
 #define S360_SCALE_COUPLE 2000   
+#endif
 
+
+#ifndef S360_LATENCY 
 #define S360_LATENCY 3  
+#endif
 
+
+#ifndef S360_PWMAX 
 #define S360_PWMAX 2400 
+#endif
+
+#ifndef S360_PWMIN 
 #define S360_PWMIN -2400 
+#endif
 
 
 /*
@@ -305,6 +467,7 @@ extern volatile servo360_t _fs[S360_DEVS_MAX];
 
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
+
 
 
 /**
