@@ -53,13 +53,13 @@ fdserial *fdserial_open(int rxpin, int txpin, int mode, int baudrate)
   {
     fdptr->tx_pin = fdptr->rx_pin;
     fdptr->mode |= FDSERIAL_MODE_OPENDRAIN_TX;
-    fdptr->mode &= (~FDSERIAL_MODE_RX_ONLY);
-    fdptr->rxOnly = 1;
+    //fdptr->mode &= (~FDSERIAL_MODE_RX_ONLY);
+    //fdptr->rxOnly = 1;
   }
-  else
-  {
-    fdptr->rxOnly = 0;
-  }    
+  //else
+  //{
+  //  fdptr->rxOnly = 0;
+  //}    
 
   /* now start the kernel */
 #if defined(__PROPELLER_USE_XMM__)
@@ -142,7 +142,8 @@ int fdserial_txChar(fdserial *term, int txbyte)
 {
   int rc = -1;
   fdserial_st *fdptr = (fdserial_st *) term->devst;
-  if(!fdptr->rxOnly)
+  //if(!fdptr->rxOnly)
+  if(fdptr->mode & FDSERIAL_MODE_RX_ONLY)
   {    
     volatile fdserial_st* fdp = (fdserial_st*) term->devst;
     volatile char* txbuf = (volatile char*) fdp->buffptr + FDSERIAL_BUFF_MASK+1;

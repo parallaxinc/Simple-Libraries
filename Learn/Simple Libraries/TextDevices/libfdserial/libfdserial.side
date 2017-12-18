@@ -4,7 +4,7 @@ fdserial_utils.c
 pst.spin
 fdserial.c
 >compiler=C
->memtype=cmm main ram compact
+>memtype=lmm main ram
 >optimize=-Os
 >-m32bit-doubles
 >-Wall
