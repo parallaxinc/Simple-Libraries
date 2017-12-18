@@ -17,7 +17,7 @@ int main()                                      // main function
   while(1)                                      // Main loop
   {
     // Go forward for 1/50th of a second.
-    drive_speed(100, 100);                      // Go forward
+    drive_speed(64, 64);                        // Go forward
 
     // Check whisker states.
     int wL = input(7);                          // Left whisker -> wL variable
@@ -26,17 +26,17 @@ int main()                                      // main function
     // If whisker(s) pressed, avoid obstacle.
     if(wR == 0)                                 // Just right whisker
     {
-      drive_speed(-100, -100);                  // Back up 0.5 seconds
+      drive_speed(-64, -64);                    // Back up 1 second
+      pause(1000);
+      drive_speed(-64, 64);                     // Turn left 0.5 seconds
       pause(500);
-      drive_speed(-100, 100);                   // Turn left 0.22 seconds
-      pause(220);
     }
     else if(wL == 0)                            // Just left whisker
     {
-      drive_speed(-100, -100);                  // Back up 0.5 seconds
+      drive_speed(-64, -64);                    // Back up 1.0 second
+      pause(1000);
+      drive_speed(64, -64);                     // Turn right 0.5 seconds
       pause(500);
-      drive_speed(100, -100);                   // Turn right 0.25 seconds
-      pause(220);
     }
   }
 }
