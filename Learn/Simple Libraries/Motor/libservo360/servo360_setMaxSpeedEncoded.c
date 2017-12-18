@@ -25,6 +25,7 @@ int servo360_setMaxSpeedEncoded(int pin, int speed)
   if(speed <= S360_MAX_SPEED)
   {
     _fs[p].speedLimit = speed;
+    retVal = p;
   }    
   else
   {

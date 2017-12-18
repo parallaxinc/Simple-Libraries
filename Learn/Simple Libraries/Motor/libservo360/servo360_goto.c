@@ -38,6 +38,8 @@ int servo360_goto(int pin, int position)
   }    
   
   lockclr(_fb360c.lock360);
+  
+  return p;
 }
 
 
