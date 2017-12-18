@@ -24,7 +24,7 @@ int servo360_setUnitsFullCircle(int pin, int units)
   if(_fs[p].unitsRev <= S360_UNITS_FULL_CIRCLE)
   {
     _fs[p].unitsRev = units;
-    return 0;
+    return p;
   }
   else
   {
