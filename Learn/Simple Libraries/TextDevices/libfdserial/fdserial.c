@@ -143,7 +143,7 @@ int fdserial_txChar(fdserial *term, int txbyte)
   int rc = -1;
   fdserial_st *fdptr = (fdserial_st *) term->devst;
   //if(!fdptr->rxOnly)
-  if(fdptr->mode & FDSERIAL_MODE_RX_ONLY)
+  if(!(fdptr->mode & FDSERIAL_MODE_RX_ONLY))
   {    
     volatile fdserial_st* fdp = (fdserial_st*) term->devst;
     volatile char* txbuf = (volatile char*) fdp->buffptr + FDSERIAL_BUFF_MASK+1;
