@@ -124,7 +124,7 @@ extern "C" {
 #endif
 
 #ifndef ABD_RAMP_STEP 
-#define ABD_RAMP_STEP 12
+#define ABD_RAMP_STEP 7
 #endif
 
 #ifndef ABD_SPEED_LIMIT 
@@ -136,7 +136,7 @@ extern "C" {
 #endif
 
 #ifndef ABD_GOTO_RAMP_STEP 
-#define ABD_GOTO_RAMP_STEP 8
+#define ABD_GOTO_RAMP_STEP 6
 #endif
 
 

@@ -71,9 +71,10 @@ void servo360_mainLoop()
   
   while(1)
   {
+    _fb360c.pulseCount++;
+
     //while((CNT - _fb360c.t360) < _fb360c.dt360);
     //while((CNT - _fb360c.t360) < _fb360c.dt360);
-    
 
     for(int p = 0; p < S360_DEVS_MAX; p++)
     {
@@ -168,7 +169,6 @@ void servo360_mainLoop()
 
 void servo360_servoPulse(int p, int q)
 {
-  _fb360c.pulseCount++;
   int pinA = _fs[p].pinCtrl;
   int pinB = _fs[q].pinCtrl;
   

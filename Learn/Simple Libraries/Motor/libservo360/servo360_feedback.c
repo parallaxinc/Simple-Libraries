@@ -90,6 +90,11 @@ int servo360_feedback(int pin, int state)
   {
     //while(lockset(_fb360c.lock360));
     _fs[p].feedback = state;
+    
+    #ifdef _servo360_monitor_
+      _fs[p].csop = S360_MONITOR;
+    #endif
+    
     //while(lockset(_fb360c.lock360));
   }    
         
