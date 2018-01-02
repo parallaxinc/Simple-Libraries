@@ -8,11 +8,14 @@ void drive_ramp(int left, int right)
 {
   drive_speed(left, right);
   
-  int done = ( (abd_speed[0] > (left - 4)) && (abd_speed[0] < (left + 4)) ); 
-     done += ( (abd_speed[1] > (right - 4)) && (abd_speed[1] < (right + 4)) );
-  
-  if(done) return; 
-  pause(20);  
+  while(1)
+  {
+    int done = ( (abd_speed[0] > (left - 4)) && (abd_speed[0] < (left + 4)) ); 
+       done += ( (abd_speed[1] > (right - 4)) && (abd_speed[1] < (right + 4)) );
+    
+    if(done) return; 
+    pause(20); 
+  }     
 }
 
 
