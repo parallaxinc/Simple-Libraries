@@ -119,7 +119,7 @@ void console()
   
   fdserial_rxFlush(term);
   fdserial_txFlush(term);
-  dprint(term, "Enter value: ");
+  //dprint(term, "Enter value: ");
   
   int value = 0;
   int ready = 0;
