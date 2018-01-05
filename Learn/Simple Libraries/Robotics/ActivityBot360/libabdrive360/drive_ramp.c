@@ -17,6 +17,18 @@
 void drive_ramp(int left, int right)
 {
   drive_speed(left, right);
+  
+  while(1)
+  {
+    int speedL = servo360_getSpeed(abd360_pinCtrlLeft);
+    int speedR = servo360_getSpeed(abd360_pinCtrlRight);
+    
+    int done = ( (speedL > (left - 4)) && (speedL < (left + 4)) ); 
+       done += ( (speedR > (right - 4)) && (speedR < (right + 4)) );
+    
+    if(done) return; 
+    pause(20);  
+  }
 }
 
 

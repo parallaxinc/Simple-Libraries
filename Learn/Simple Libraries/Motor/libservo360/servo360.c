@@ -12,7 +12,7 @@
 
 #include "simpletools.h"  
 #include "servo360.h"
-#include "patch.h"
+//#include "patch.h"
 
 #define couple_servos
 
@@ -31,7 +31,7 @@ void servo360_patch(void)
 void servo360_run(void)
 {
   //ping_cm(26);
-  patch360forBlockly();
+  //patch360forBlockly();
   _fb360c.servoCog = cog_run(servo360_mainLoop, 512); 
   _fb360c.cntPrev = CNT;
   pause(500);
@@ -71,9 +71,10 @@ void servo360_mainLoop()
   
   while(1)
   {
+    _fb360c.pulseCount++;
+
     //while((CNT - _fb360c.t360) < _fb360c.dt360);
     //while((CNT - _fb360c.t360) < _fb360c.dt360);
-    
 
     for(int p = 0; p < S360_DEVS_MAX; p++)
     {
@@ -168,7 +169,6 @@ void servo360_mainLoop()
 
 void servo360_servoPulse(int p, int q)
 {
-  _fb360c.pulseCount++;
   int pinA = _fs[p].pinCtrl;
   int pinB = _fs[q].pinCtrl;
   
@@ -487,11 +487,48 @@ int servo360_pidV(int p)
   int opMax = _fs[p].speedLimit;
 
   _fs[p].speedMeasured = (_fs[p].angle - _fs[p].angleP) * 50; 
+  
   if(abs(_fs[p].angleError) < S360_UNITS_ENCODER/2)
   {
+
+
+
+    //
     _fs[p].angleDeltaCalc = _fs[p].speedTarget / S360_CS_HZ;
     _fs[p].angleCalc += _fs[p].angleDeltaCalc;
-  }    
+    //
+
+
+
+    /*
+    // This could remedy the overshoot problem, but it seems to reduce
+    // drive_goto accuracy.
+    if(_fs[p].speedTarget == _fs[p].speedTargetP)
+    {
+      _fs[p].offset--;
+      if(_fs[p].offset < 0) _fs[p].offset = 0;
+    }
+    else
+    {
+      _fs[p].offset++;
+      if(_fs[p].offset > FB360_OFFSET_MAX) _fs[p].offset = FB360_OFFSET_MAX;
+    }
+
+    int idx = _fb360c.pulseCount % FB360_V_ARRAY;
+    _fs[p].vT[idx] = _fs[p].speedTarget;
+
+    idx -= _fs[p].offset;
+    if(idx < 0) idx += FB360_V_ARRAY;
+    
+    _fs[p].speedTargetTemp = _fs[p].vT[_fs[p].offset];    
+
+    _fs[p].angleDeltaCalc = _fs[p].speedTargetTemp / S360_CS_HZ;
+    _fs[p].angleCalc += _fs[p].angleDeltaCalc;
+    */ 
+
+
+
+  }
 
   _fs[p].angleError = _fs[p].angleCalc - _fs[p].angle;
 
