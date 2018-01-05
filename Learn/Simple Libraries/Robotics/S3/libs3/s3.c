@@ -716,5 +716,5 @@ int32_t s3_memoryRead(int32_t Addr) {
 
 // Return the ADC reading in volt-hundreths
 int32_t s3_readADC(int32_t p) {
-  (scribbler_get_results(p) * 500) >> 16;
+  return (scribbler_get_results(p) * 500) >> 16;
 }
