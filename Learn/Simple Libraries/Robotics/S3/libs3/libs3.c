@@ -74,22 +74,12 @@ the Test Utility, cycle the Scribbler//s power switch.
 
 */
 
-#include "simpletools.h"
 #include "s3.h"
 
 
 
 // ------ Main Program ------
 int main() {
-  s3_setup();
-  pause(100);
-  simpleterm_reopen(31, 30, 0, 9600);
-  while (1) {
-    print("%d", s3_readADC(S3_ADC_A0));
-    print("%c", 13);
-    pause(500);
-  }
-
 }
 
 
