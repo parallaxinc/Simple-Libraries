@@ -33,7 +33,8 @@ int servo360_setTransferFunction(int pin, int constant, int value)
     case S360_SETTING_VB_CW:
       _fs[p].vbCw = value;
       break;
-  }  
+  } 
+  return p; 
 }    
 
 

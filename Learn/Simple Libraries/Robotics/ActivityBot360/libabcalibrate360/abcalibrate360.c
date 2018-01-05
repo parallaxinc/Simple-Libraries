@@ -278,7 +278,7 @@ int cal_getEepromPins()
     //abd360_pinCtrlLeft = (int) pinInfo[3];
     //abd360_pinCtrlRight = (int) pinInfo[6];
     print("Left servo: P%d\r", pinInfo[3]);    
-    print("right servo: P%d\r", pinInfo[6]);    
+    print("Right servo: P%d\r", pinInfo[6]);    
   }
   //
   else
@@ -295,7 +295,7 @@ int cal_getEepromPins()
     //abd360_pinFbLeft = (int) pinInfo[11];
     //abd360_pinFbRight = (int) pinInfo[14];
     print("Left servo: P%d\r", pinInfo[11]);    
-    print("right servo: P%d\r", pinInfo[14]);    
+    print("Right servo: P%d\r", pinInfo[14]);    
   }
   //
   else
@@ -374,14 +374,18 @@ void cal_displayData(void)
       }
     }                      
     return;
-  }    
+  } 
+  
+  //pause(100); 
   
   print("\r\rCalibration data stored in EEPROM:\r");
   print("===================================\r"); 
+  pause(100); 
+  
   for(int a = _AB360_EE_Start_; a < _AB360_EE_End_; a++)
   {
     char c = ee_getByte(a);
-    if(c >= ' ' && c <= 'z')
+    if((c >= ' ') && (c <= 'z'))
     {
       print("%c", c);
     }
@@ -389,7 +393,7 @@ void cal_displayData(void)
     {
       print("[%d]", c);
     }
-  }                      
+  }      
   return;
 }
 

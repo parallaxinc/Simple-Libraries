@@ -21,6 +21,8 @@
  * @par Memory Models
  * Use with CMM or LMM. 
  *
+ * @version 0.88 Add Rx-only
+ *
  * @version 0.86
  *
  * @par Help Improve this Library
@@ -80,6 +82,11 @@ typedef text_t fdserial;
 #define FDSERIAL_MODE_IGNORE_TX_ECHO 8
 
 /**
+ * Mode bit 4 can be set to 1 to only receive serial data but not transmit.
+ */
+#define FDSERIAL_MODE_RX_ONLY 16
+
+/**
  * @brief Defines fdserial interface structure of 9 contiguous longs + buffers.
  */
 typedef struct fdserial_struct
@@ -93,6 +100,7 @@ typedef struct fdserial_struct
     /** interface mode */       int  mode;      
     /** clkfreq / baud */       int  ticks;     
     /** pointer to rx buffer */ char *buffptr;   
+    /** rx-only mode */         //char  rxOnly;     
 } fdserial_st;
 
 /**
