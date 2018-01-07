@@ -74,9 +74,12 @@ the Test Utility, cycle the Scribbler//s power switch.
 
 */
 
-int main()
-{
+#include "s3.h"
 
+
+
+// ------ Main Program ------
+int main() {
 }
 
 
