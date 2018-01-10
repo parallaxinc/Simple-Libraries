@@ -34,13 +34,13 @@ void dht22_set_timeout_ignore(int dht_pin, char ignore_timeout) {
 
 
 int dht22_getTemp(char temp_units) {
-  
+  int tt = dht_last_temp;
   if (temp_units == KELVIN)
-    dht_last_temp += 2732;
+    tt += 2732;
   else if (temp_units == FAHRENHEIT)
-    dht_last_temp = dht_last_temp * 9 / 5 + 320;
+    tt = tt * 9 / 5 + 320;
   
-  return dht_last_temp;
+  return tt;
 }
 
 
