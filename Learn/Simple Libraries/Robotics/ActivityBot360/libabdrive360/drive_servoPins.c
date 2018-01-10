@@ -26,7 +26,7 @@ void drive_servoPins(int servoPinLeft, int servoPinRight)
 */
 
 //
-void drive_servoPins(int servoPinLeft, int servoPinRight)          // drivePins function
+void drive_servoPins(int controlPinLeft, int controlPinRight)          // drivePins function
 {
   //abd_sPinL = servoPinLeft;                                       // Local to global assignments
   //abd_sPinR = servoPinRight;
@@ -34,13 +34,13 @@ void drive_servoPins(int servoPinLeft, int servoPinRight)          // drivePins 
 
   int eeAddr = _AB360_EE_Start_  + _AB360_EE_Pins_;
   unsigned char pinInfo[8] = {'s', 'p', 'L', 12, ' ', 'R', 13, ' '};  
-  pinInfo[3] = (char) servoPinLeft;
-  pinInfo[6] = (char) servoPinRight;
+  pinInfo[3] = (char) controlPinLeft;
+  pinInfo[6] = (char) controlPinRight;
 
   ee_putStr(pinInfo, 8, eeAddr);
 
-  abd360_pinCtrlLeft = servoPinLeft;
-  abd360_pinCtrlRight = servoPinRight;
+  abd360_pinCtrlLeft = controlPinLeft;
+  abd360_pinCtrlRight = controlPinRight;
 
   //
   //if(!abd_intTabSetup)

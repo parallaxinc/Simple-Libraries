@@ -68,7 +68,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>This Propeller C library was created for the DHT22 temperature and humidity sensor module.  
+<p>This Propeller C library was created for the DHT22/AM2302/CM2302 temperature and humidity sensor module.  
 <a href="#details">More...</a></p>
 
 <p><a href="html/dht22_8h_source.html">Go to the source code of this file.</a></p>
@@ -88,16 +88,16 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aa0ef3a681a4ea35fec57bdb66cf1defe"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/dht22_8h.html#aa0ef3a681a4ea35fec57bdb66cf1defe">dht22_read</a> (int dht_pin)</td></tr>
-<tr class="memdesc:aa0ef3a681a4ea35fec57bdb66cf1defe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers a reading from the temperature and humidity from the sensor module.  <a href="#aa0ef3a681a4ea35fec57bdb66cf1defe">More...</a><br /></td></tr>
+<tr class="memdesc:aa0ef3a681a4ea35fec57bdb66cf1defe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers a reading of the temperature and relative humidity from the sensor module.  <a href="#aa0ef3a681a4ea35fec57bdb66cf1defe">More...</a><br /></td></tr>
 <tr class="separator:aa0ef3a681a4ea35fec57bdb66cf1defe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a962178baf9e88cef906cf929a534490d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/dht22_8h.html#a962178baf9e88cef906cf929a534490d">dht22_set_timeout_ignore</a> (int dht_pin, char ignore_timeout)</td></tr>
 <tr class="memdesc:a962178baf9e88cef906cf929a534490d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function is used to set or clear an ignore timeout instruction for modules connected to the specified pin.  <a href="#a962178baf9e88cef906cf929a534490d">More...</a><br /></td></tr>
 <tr class="separator:a962178baf9e88cef906cf929a534490d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab31d0dc6130448c86210d5a0fb44b907"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/dht22_8h.html#ab31d0dc6130448c86210d5a0fb44b907">dht22_getTemp</a> (char temp_units)</td></tr>
-<tr class="memdesc:ab31d0dc6130448c86210d5a0fb44b907"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the last temperature reading made by the read_dht22() function.  <a href="#ab31d0dc6130448c86210d5a0fb44b907">More...</a><br /></td></tr>
+<tr class="memdesc:ab31d0dc6130448c86210d5a0fb44b907"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the last temperature reading made by the dht22_read() function.  <a href="#ab31d0dc6130448c86210d5a0fb44b907">More...</a><br /></td></tr>
 <tr class="separator:ab31d0dc6130448c86210d5a0fb44b907"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a29d136dbd2cbf6a4aee10f5d40bbef"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="html/dht22_8h.html#a5a29d136dbd2cbf6a4aee10f5d40bbef">dht22_getHumidity</a> ()</td></tr>
-<tr class="memdesc:a5a29d136dbd2cbf6a4aee10f5d40bbef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the last humidity reading made by the read_dht22() function.  <a href="#a5a29d136dbd2cbf6a4aee10f5d40bbef">More...</a><br /></td></tr>
+<tr class="memdesc:a5a29d136dbd2cbf6a4aee10f5d40bbef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the last humidity reading made by the dht22_read() function.  <a href="#a5a29d136dbd2cbf6a4aee10f5d40bbef">More...</a><br /></td></tr>
 <tr class="separator:a5a29d136dbd2cbf6a4aee10f5d40bbef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -122,7 +122,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieves the last humidity reading made by the read_dht22() function. </p>
+<p>Retrieves the last humidity reading made by the dht22_read() function. </p>
 <dl class="section return"><dt>Returns</dt><dd>the last relative humidity read in tenths of a percent. </dd></dl>
 
 </div>
@@ -143,14 +143,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieves the last temperature reading made by the read_dht22() function. </p>
+<p>Retrieves the last temperature reading made by the dht22_read() function. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">temp_units</td><td>allows the temperature unit to be specified in (0) Celsius, (1) Fahrenheit, or (2) Kelvin.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the temperature read in degree-tenths. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the temperature read in degree-tenths of the unit specified. </dd></dl>
 
 </div>
 </div>
@@ -170,12 +170,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Triggers a reading from the temperature and humidity from the sensor module. </p>
-<p>This function instructs the temperature and humidity sensor module to take a reading.</p>
-<dl class="section note"><dt>Note</dt><dd>The sensor can be read every 500ms. If this function is called before 500ms from the previous call has elapsed, the function waits unless the <a class="el" href="html/dht22_8h.html#a962178baf9e88cef906cf929a534490d" title="The function is used to set or clear an ignore timeout instruction for modules connected to the speci...">dht22_set_timeout_ignore()</a> function was used to inttruct modules on that pin to ignore the 0.5 second minimum timeout.</dd></dl>
+<p>Triggers a reading of the temperature and relative humidity from the sensor module. </p>
+<p>This function instructs the temperature and relative humidity sensor module to take a reading.</p>
+<dl class="section note"><dt>Note</dt><dd>The sensor can be read every 500ms. If this function is called before 500ms from the previous call has elapsed, the function waits unless the <a class="el" href="html/dht22_8h.html#a962178baf9e88cef906cf929a534490d" title="The function is used to set or clear an ignore timeout instruction for modules connected to the speci...">dht22_set_timeout_ignore()</a> function was used to instruct modules on that pin to ignore the 0.5 second minimum timeout.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dht_pin</td><td>defines which pin the sensor is attached to. Requires a 10 kOhm pullup resistor to 3.3V when connecting to the Propeller MCU.</td></tr>
+    <tr><td class="paramname">dht_pin</td><td>defines which Propeller MCU I/O pin the sensor is attached to. Requires a 10 kOhm pullup resistor to 3.3V when connecting to the Propeller MCU.</td></tr>
   </table>
   </dd>
 </dl>
