@@ -18,7 +18,7 @@
   <br>
  
   @par Core Usage
-  A single additional core takes care of ActivityBot servo angle monitoring, 
+  A single additional core takes care of ActivityBot 360 servo angle monitoring, 
   control system algorithm execution, and servo control signaling.
  
   @par EEPROM Usage
@@ -235,7 +235,7 @@ void drive_speed(int left, int right);
 
 /**
   @brief Make the wheels travel a certain distance, measured in ticks.  
-  Each "tick" is a 64th of a wheel turn, and corresponds to an ActivityBot 
+  Each "tick" is a 64th of a wheel turn, and corresponds to an ActivityBot 360 
   rolling distance of about 3.25 mm.  Ramp up, cruise, ramp down and stop 
   are coordinated so that different left/right distances result in curves.  
   Same distances are straight lines, and same distances with opposite +/- 
@@ -254,7 +254,7 @@ void drive_goto(int distLeft, int distRight);
 /**
   @brief Get the measured number of ticks each servo has traveled since the
   program started running.  Each "tick" is a 64th of a wheel turn, and 
-  corresponds to an ActivityBot rolling distance of about 3.25 mm.   
+  corresponds to an ActivityBot 360 rolling distance of about 3.25 mm.   
   
   @param *left Pointer to variable to receive the measured left distance.  
 
@@ -290,14 +290,14 @@ void drive_getTicksCalc(int *left, int *right);
   need to call this function at the start of one program.  Programs after that 
   will get the modified port numbers from EEPROM.  
    
-  IMPORTANT This function should be called before any adbrive360 
+  IMPORTANT: This function should be called before any adbrive360 
   control functions (drive_speed, drive_goto, etc).
   
-  @param servoPinLeft I/O pin number for the left servo signal connection.
+  @param controlPinLeft I/O pin number for the left servo signal connection.
   
-  @param servoPinRight I/O pin number for the right servo signal connection.
+  @param controlPinRight I/O pin number for the right servo signal connection.
 */
-void drive_servoPins(int servoPinLeft, int servoPinRight);
+void drive_servoPins(int controlPinLeft, int controlPinRight);
 
 
 /**
@@ -359,21 +359,6 @@ void drive_gotoMode(int mode);
 
 
 /**
-  @brief Enables or disables encoder feedback for speed control.  
-  
-  @param enabled Set to 1 to enable feedback (default) or 0 to disable.
-*/
-void drive_feedback(int enabled); 
-
-
-
-/**
-  @name More Info
-  @{
-*/
-
-
-/**
   @brief After using drive_gotoMode(0) to cause the drive_goto function to 
   not wait until the maneuver is done before returning, checking the status of 
   a given maneuver can be useful.  This function reports the status of maneuver
@@ -385,6 +370,15 @@ void drive_feedback(int enabled);
   or 1 (maneuver still in progress).
 */
 int drive_gotoStatus(int side);
+
+
+
+/**
+  @brief Enables or disables encoder feedback for speed control.  
+  
+  @param enabled Set to 1 to enable feedback (default) or 0 to disable.
+*/
+void drive_feedback(int enabled); 
 
 
 
@@ -423,14 +417,14 @@ void drive_setRampStep(int stepsize);
   @brief This function allows your code to ask for a speed repeatedly in a loop, 
   but each time your code asks for that speed, it takes a step toward the speed.
   This helps cushion sudden maneuvers in sensor navigation, where the conditions
-  might change more rapidly than you would want your ActivityBot's speed to 
+  might change more rapidly than you would want your ActivityBot 360's speed to 
   change.  Note: drive_speed has built-in ramping and is recommended in place 
   of this function.  It can be called repeatedly the same way applications call
   this function.
    
   @param left Left wheel speed in ticks per second.
  
-  @param right Left wheel speed in ticks per second.
+  @param right Right wheel speed in ticks per second.
 */
 void drive_rampStep(int left, int right);
 
@@ -438,7 +432,7 @@ void drive_rampStep(int left, int right);
 /**
   @brief This function ramps up to a given speed and blocks execution until the
   speed is reached.  In practice, a call to drive_speed followed by a pause to 
-  reach the desired speed will have the same affect but does not have practical
+  reach the desired speed will have the same effect but does not have practical
   applications.  
 
   @param left Left wheel speed in ticks per second.

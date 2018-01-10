@@ -3,7 +3,7 @@
  *
  * @author Andy Lindsay
  *
- * @copyright Copyright (C) Parallax, Inc. 2013.  See end of file for
+ * @copyright Copyright (C) Parallax, Inc. 2018.  See end of file for
  * terms of use (MIT License).
  *
  * @brief This library has a functions you can call to calibrate your 
@@ -26,13 +26,11 @@
  * @par Memory Models
  * Use with CMM. 
  *
- * @version 0.90
+ * @version v0.90
  * @li add cal_servoPins and cal_encoderPins to change from default
- * I/O connections to ActivityBot servos and encoders.  Values used
- * will persist in EEPROM and be used by the abdrive library.
+ * I/O connections to ActivityBot 360 servos and feedback lines.  Values used
+ * will persist in EEPROM and be used by the abdrive360 library.
  * 
- * @version v0.90 
- *
  * @par Help Improve this Library
  * Please submit bug reports, suggestions, and improvements to this code to
  * editor@parallax.com.
@@ -129,9 +127,9 @@ void cal_activityBot(void);
 /**
   @brief Set the ActivityBot 360's servo pin connections to values
   other than the default P12 (left servo) and P13 (right servo).
-  This function stores values in EEPROM where the abdrive library
-  can access them.  So, the abdrive library will expect the 
-  servos to be connected to the I/O pins specified by the 
+  This function stores values in EEPROM where the abdrive360 library
+  can access them.  So, the abdrive360 library will expect the 
+  servos to be connected to the Propeller I/O pins specified by the 
   servoPinLeft and servoPinRight parameters.
   
   @param servoPinLeft Number of I/O pin connected to the left servo.
@@ -145,13 +143,15 @@ void cal_servoPins(int servoPinLeft, int servoPinRight);
   @brief Set the ActivityBot 360's feedback pin connections to 
   something other than the default P14 (left feedback) and P15 
   (right feedback).  This function stores values in EEPROM where 
-  the abdrive library can access them.  So, the abdrive library 
+  the abdrive360 library can access them.  So, the abdrive360 library 
   will expect the feedback pins to be connected to the I/O pins 
-  specified by the encPinLeft and encPinRight parameters.
+  specified by the fbPinLeft and fbPinRight parameters.
   
-  @param fbPinLeft Number of I/O pin connected to the left encoder.
+  @param fbPinLeft Number of Propeller I/O pin connected to the left 
+  encoder.
   
-  @param fbPinRight Number of I/O pin connected to the right encoder.
+  @param fbPinRight Number of Propeller I/O pin connected to the right 
+  encoder.
  */ 
 void cal_encoderPins(int fbPinLeft, int fbPinRight);
 
