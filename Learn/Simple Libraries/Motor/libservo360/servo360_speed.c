@@ -48,7 +48,8 @@ int servo360_speed(int pin, int speed)
       //_fs[p].pw = 0;
     }    
     
-  }    
+  }  
+  return p;  
   //servo360_waitServoCtrllEdgeNeg(_fb360c.devCount - 1);
 }  
 

@@ -52,7 +52,7 @@ int servo360_setTurns(int pin, int turns)
   
   lockclr(_fb360c.lock360);
   
-  return 0;
+  return p;
 }   
 
 

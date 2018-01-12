@@ -18,7 +18,7 @@ int servo360_checkDistanceRemaining(int pin, int speed, int finalAngle)
 {
   if(!_fb360c.servoCog) servo360_run();
   int p = servo360_findServoIndex(pin);
-  if(p == -1)return -1;
+  if(p == -1)return -1; else return p;
 }
 
 

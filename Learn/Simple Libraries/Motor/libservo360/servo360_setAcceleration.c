@@ -22,6 +22,7 @@ int servo360_setAcceleration(int pin, int unitsPerSecSquared)
   
   servo360_setRampStep(pin, unitsPerSecSquared * S360_UNITS_ENCODER 
                          / (S360_CS_HZ * _fs[p].unitsRev));  
+  return p;
 }
 
 

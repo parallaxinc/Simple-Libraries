@@ -17,6 +17,11 @@
 void drive_speed(int left, int right)
 {
   if(!abd360_initialized) drive_init();
+  
+  servo360_setAcceleration(abd360_pinCtrlLeft, abd360_rampStep * 50);
+  servo360_setAcceleration(abd360_pinCtrlRight, abd360_rampStep * 50);
+  servo360_setMaxSpeed(abd360_pinCtrlLeft, abd360_speedLimit);
+  servo360_setMaxSpeed(abd360_pinCtrlRight, abd360_speedLimit);
 
   servo360_speed(abd360_pinCtrlLeft, left);
   servo360_speed(abd360_pinCtrlRight, -right);

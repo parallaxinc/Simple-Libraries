@@ -42,6 +42,8 @@ int servo360_angle(int pin, int position)
   }    
   
   lockclr(_fb360c.lock360);
+  
+  return p;
 }  
 
 
