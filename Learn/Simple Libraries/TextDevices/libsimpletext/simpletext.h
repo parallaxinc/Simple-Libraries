@@ -228,6 +228,12 @@ typedef struct text_struct
 #define CLS    (16)
 #endif
 
+/**
+ * Mode bit 5 can be set to 1 to locally echo characters.
+ */
+#define TEXT_MODE_ECHO_RX_TO_TX 32
+
+
 
 typedef text_t terminal;
 
@@ -932,6 +938,7 @@ int  readBin(text_t *device);
 int  readHex(text_t *device);
 
 
+
 /**
  * @}
  *
@@ -1001,12 +1008,36 @@ static inline void simpleterm_set(text_t *ptr)
  */
 terminal *simpleterm_pointer(void);
 
+
+
+/**
+ * @}
+ *
+ * @name Echo Settings
+ * @{
+ */
  
+ 
+/**
+ * @brief Enable or disable serial echo.  This should only be used with 
+ *  devices that have significant delays between the characters they send. 
+ */
+void setEcho(text_t *text, int state);
+
+
+/**
+ * @brief Get echo setting for a given text device.
+ *
+ * @returns 1 = echo-on, 0 = echo-off.
+ */
+int checkEcho(text_t *text);
+
  /**
   * @}
   */
 
  
+
  /*  
   * @cond
   * API not intended for public use 

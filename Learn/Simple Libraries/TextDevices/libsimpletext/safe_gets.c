@@ -22,7 +22,9 @@ char* _safe_gets(text_t *text, char* origBuf, int count)
   while (count-- > 0)
   {
       int ch = text->rxChar(text);
-
+      
+      /*
+      
       if (ch == 8 || ch == 127)
       {
           if (buf > origBuf)
@@ -38,8 +40,11 @@ char* _safe_gets(text_t *text, char* origBuf, int count)
       }
 
       text->txChar(text, ch);
+      
       if (ch == '\r')
           text->txChar(text, '\n');
+          
+      */   
 
       if (ch == '\r' || ch == '\n')
           break;

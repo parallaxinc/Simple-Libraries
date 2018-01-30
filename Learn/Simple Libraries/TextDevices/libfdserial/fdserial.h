@@ -87,6 +87,11 @@ typedef text_t fdserial;
 #define FDSERIAL_MODE_RX_ONLY 16
 
 /**
+ * Mode bit 5 can be set to 1 to locally echo characters.
+ */
+#define FDSERIAL_MODE_ECHO_RX_TO_TX 32
+
+/**
  * @brief Defines fdserial interface structure of 9 contiguous longs + buffers.
  */
 typedef struct fdserial_struct
