@@ -55,6 +55,16 @@ extern "C"
 {
 #endif
 
+#define ST_SLASH_ReturN
+
+/**
+ * Mode bit 5 can be set to 1 to locally echo characters.
+ */
+#define ECHO_RX_TO_TX 32
+
+//extern volatile int simpleterm_echo;
+
+
 #if !defined(__PROPELLER_32BIT_DOUBLES__)
 #error "This library requires 32bit doubles"
 #endif
@@ -82,6 +92,7 @@ typedef struct text_struct
   /** Pointer to text device library's info. */ 
   volatile int lfcr;                          
 } text_t;
+
 
 /// @cond  doxygen_skip
 #define getStopCOGID(id) ((id)-(1))
@@ -231,13 +242,6 @@ typedef struct text_struct
  */
 #define CLS    (16)
 #endif
-
-/**
- * Mode bit 5 can be set to 1 to locally echo characters.
- */
-#define ECHO_RX_TO_TX 32
-
-//extern volatile int simpleterm_echo;
 
 typedef text_t terminal;
 

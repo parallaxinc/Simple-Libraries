@@ -27,8 +27,12 @@ void putChar(char c)
 void putChar(char c)
 {
   extern text_t *dport_ptr;
+
+  #ifdef ST_SLASH_ReturN
   if(c == '\n')
     dport_ptr->txChar(dport_ptr, '\r');
+  #endif
+    
   dport_ptr->txChar(dport_ptr, c);
 }
 

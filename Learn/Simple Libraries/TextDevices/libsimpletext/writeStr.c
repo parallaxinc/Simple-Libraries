@@ -11,8 +11,10 @@ int writeStr(text_t *p, char *str)
 {
   int n = 0;
   while(*str) {
+    #ifdef ST_SLASH_ReturN
     if(*str == '\n')
       writeChar(p, '\r');
+    #endif  
     writeChar(p, *str);
     str++;
     n++;

@@ -16,6 +16,8 @@
 #include <ctype.h>
 #include "simpletext.h"
 
+
+
 char* _safe_gets(text_t *text, char* origBuf, int count)
 {
   char* buf = origBuf;
@@ -41,8 +43,10 @@ char* _safe_gets(text_t *text, char* origBuf, int count)
       
       text->txChar(text, ch);
       
-      //if (ch == '\r')
-      //    text->txChar(text, '\n');
+      #ifdef ST_SLASH_ReturN
+      if (ch == '\r')
+          text->txChar(text, '\n');
+      #endif    
           
     }   
 
