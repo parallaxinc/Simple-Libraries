@@ -1026,7 +1026,7 @@ terminal *simpleterm_pointer(void);
  * @brief Enable or disable serial echo.  This should only be used with 
  *  devices that have significant delays between the characters they send. 
  */
-void terminal_echo(text_t *text, int state);
+void terminal_setEcho(text_t *text, int state);
 
 
 /**
@@ -1034,7 +1034,7 @@ void terminal_echo(text_t *text, int state);
  *
  * @returns 1 = echo-on, 0 = echo-off.
  */
-int checkEcho(text_t *text);
+int terminal_checkEcho(text_t *text);
 
  /**
   * @}
