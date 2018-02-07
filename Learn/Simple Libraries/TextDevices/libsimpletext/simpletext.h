@@ -77,6 +77,10 @@ typedef struct text_struct
   int  cogid[TERM_COG_LEN];                      
   /** Pointer to text device library's info. */ 
   volatile void *devst;                          
+  /** Pointer to text device library's info. */ 
+  volatile int terminalEcho;                          
+  /** Pointer to text device library's info. */ 
+  volatile int lfcr;                          
 } text_t;
 
 /// @cond  doxygen_skip
@@ -231,7 +235,7 @@ typedef struct text_struct
 /**
  * Mode bit 5 can be set to 1 to locally echo characters.
  */
-#define TEXT_MODE_ECHO_RX_TO_TX 32
+#define ECHO_RX_TO_TX 32
 
 
 
@@ -1022,7 +1026,7 @@ terminal *simpleterm_pointer(void);
  * @brief Enable or disable serial echo.  This should only be used with 
  *  devices that have significant delays between the characters they send. 
  */
-void setEcho(text_t *text, int state);
+void terminal_echo(text_t *text, int state);
 
 
 /**

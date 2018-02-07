@@ -21,7 +21,9 @@ terminal *simpleterm_open(void)
   if(dport_ptr != 0)
     return dport_ptr;
 
-  dport_ptr = serial_open(31,30,0,115200);
+  //dport_ptr = serial_open(31,30,0,115200);
+  dport_ptr = serial_open(31,30,ECHO_RX_TO_TX,115200);
+  
   waitcnt(CLKFREQ+CNT);
   return dport_ptr;
 }

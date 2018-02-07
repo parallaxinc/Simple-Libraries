@@ -1,17 +1,13 @@
 #include <ctype.h>
 #include "simpletext.h"
 
-void setEcho(text_t *textDev, int state)
+void terminal_setEcho(text_t *text, int state)
 {
-  /*
-  if(state) textDev->devst->mode |= TEXT_MODE_ECHO_RX_TO_TX;
-  */
+  text->terminalEcho = 1;
 }
 
-int checkEcho(text_t *textDev)
+int terminal_checkEcho(text_t *text)
 {
-  /*
-  return textDev->devst->mode & TEXT_MODE_ECHO_RX_TO_TX;
-  */
+  return text->terminalEcho;
 }
 

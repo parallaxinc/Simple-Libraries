@@ -5,6 +5,7 @@ int main()
 {
   high(26);
   high(27);
+  
   cal_servo360(12, 14);
   cal_servo360(13, 15);
   
