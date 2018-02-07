@@ -237,7 +237,7 @@ typedef struct text_struct
  */
 #define ECHO_RX_TO_TX 32
 
-
+//extern volatile int simpleterm_echo;
 
 typedef text_t terminal;
 

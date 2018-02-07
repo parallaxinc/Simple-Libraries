@@ -8,20 +8,21 @@
 #include "serial.h"
 
 extern HUBDATA terminal *dport_ptr;
+extern volatile int simpleterm_echo;
 
 void simpleterm_close()
 {
   extern text_t *dport_ptr;
   if(!dport_ptr)
     return;
+  simpleterm_echo = terminal_checkEcho(dport_ptr);  
   serial_close(dport_ptr);
-  //dport_ptr = 0;
-  //maybe need to clear all settings except echo here
+  dport_ptr = 0;
 }
 
 terminal *simpleterm_reopen(int rxpin, int txpin, int mode, int baud)
 {
-  if(dport_ptr->terminalEcho == 1) mode |= ECHO_RX_TO_TX;
+  if(simpleterm_echo) mode |= ECHO_RX_TO_TX;
   simpleterm_close();
   dport_ptr = serial_open(rxpin, txpin, mode, baud);
   return dport_ptr;
