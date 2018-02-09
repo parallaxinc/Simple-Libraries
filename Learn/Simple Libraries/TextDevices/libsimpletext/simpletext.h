@@ -55,8 +55,8 @@ extern "C"
 {
 #endif
 
-#define ST_SLASH_ReturN
-
+//#define ST_SLASH_ReturN
+#define SIMPLETEXT_ECS
 /**
  * Mode bit 5 can be set to 1 to locally echo characters.
  */
@@ -87,11 +87,19 @@ typedef struct text_struct
   int  cogid[TERM_COG_LEN];                      
   /** Pointer to text device library's info. */ 
   volatile void *devst;                          
-  /** Pointer to text device library's info. */ 
+  /** Echo setting, typically for usage with a terminal. */ 
   volatile int terminalEcho;                          
-  /** Pointer to text device library's info. */ 
-  volatile int lfcr;                          
+  /** List of end characters. */ 
+  volatile char ec[4];                          
+  /** End character sequence when an end character is encountered. */ 
+  volatile char ecs[4];                          
 } text_t;
+
+
+
+void set_endChars(text_t *text, char *endCharArray);
+void set_endCharSequence(text_t *text, char *endCharSeqArray);
+
 
 
 /// @cond  doxygen_skip

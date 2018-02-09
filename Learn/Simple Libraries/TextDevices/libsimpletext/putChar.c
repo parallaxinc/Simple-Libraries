@@ -31,9 +31,27 @@ void putChar(char c)
   #ifdef ST_SLASH_ReturN
   if(c == '\n')
     dport_ptr->txChar(dport_ptr, '\r');
-  #endif
-    
   dport_ptr->txChar(dport_ptr, c);
+  #endif
+  
+  
+  #ifdef SIMPLETEXT_ECS
+  if( (c == *(dport_ptr->ec)) || (c == *(dport_ptr->ec+1))  || (c == *(dport_ptr->ec+2))  || (c == *(dport_ptr->ec+3)) )
+  { 
+    int n = 0;
+    while(1)
+    {
+      if(*(dport_ptr->ecs+n) == 0 || c == 0) break;
+      dport_ptr->txChar(dport_ptr, *(dport_ptr->ecs+n));
+      n++;
+    }
+  }
+  else
+  {
+    dport_ptr->txChar(dport_ptr, c);
+  }        
+  #endif   
+    
 }
 
 /*

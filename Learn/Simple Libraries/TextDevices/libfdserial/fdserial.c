@@ -40,6 +40,8 @@ fdserial *fdserial_open(int rxpin, int txpin, int mode, int baudrate)
   term->txChar  = fdserial_txChar;
   term->rxChar  = fdserial_rxChar;  
   if(mode & ECHO_RX_TO_TX) term->terminalEcho = 1;
+  memcpy(&term->ec, "\r\n\0\0", 4);
+  memcpy(&term->ecs, "\r\0\0\0", 4);
 
 
   fdptr->rx_pin = rxpin; /* recieve pin */

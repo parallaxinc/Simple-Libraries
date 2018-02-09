@@ -41,13 +41,30 @@ char* _safe_gets(text_t *text, char* origBuf, int count)
           continue;
       }
       
-      text->txChar(text, ch);
+      #ifdef SIMPLETEXT_ECS
+      if( (ch == *(text->ec)) || (ch == *(text->ec+1))  || (ch == *(text->ec+2))  || (ch == *(text->ec+3)) )
+      { 
+        int n = 0;
+        while(1)
+        {
+          if(*(text->ecs+n) == 0 || ch == 0) break;
+          text->txChar(text, *(text->ecs+n));
+          n++;
+        }
+      }
+      else
+      {
+        text->txChar(text, ch);
+      }        
+      #endif   
+
       
       #ifdef ST_SLASH_ReturN
+      text->txChar(text, ch);
+
       if (ch == '\r')
           text->txChar(text, '\n');
-      #endif    
-          
+      #endif 
     }   
 
     if (ch == '\r' || ch == '\n')
