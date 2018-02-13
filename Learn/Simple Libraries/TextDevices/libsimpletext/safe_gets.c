@@ -42,20 +42,19 @@ char* _safe_gets(text_t *text, char* origBuf, int count)
       }
       
       #ifdef SIMPLETEXT_ECS
-      if( (ch == *(text->ec)) || (ch == *(text->ec+1))  || (ch == *(text->ec+2))  || (ch == *(text->ec+3)) )
-      { 
-        int n = 0;
-        while(1)
-        {
-          if(*(text->ecs+n) == 0 || ch == 0) break;
-          text->txChar(text, *(text->ecs+n));
-          n++;
-        }
+      
+      if( !( (ch == *(text->ec)) || (ch == *(text->ec+1)) ) )
+      {
+        text->txChar(text, ch);  
       }
       else
       {
-        text->txChar(text, ch);
-      }        
+        char t1 = *(text->ecs);
+        char t2 = *(text->ecs+1);
+        if(t1) text->txChar(text, t1); 
+        if(t2) text->txChar(text, t2); 
+      }
+     
       #endif   
 
       

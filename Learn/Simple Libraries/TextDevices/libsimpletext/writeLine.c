@@ -10,21 +10,14 @@
 int writeLine(text_t *p, char *str)
 {
   int n = 0;
-  while(*str) {
-    #ifdef ST_SLASH_ReturN
-    if(*str == '\n')
-      writeChar(p, '\r');
-    #endif  
+  while(*str) 
+  {
     writeChar(p, *str);
     str++;
     n++;
   }
 
-  #ifdef ST_SLASH_ReturN
-  writeChar(p, '\r');
-  #endif
-
-  writeChar(p, '\n');
+  writeChar(p, *(p->ec));
   return n;
 }
 

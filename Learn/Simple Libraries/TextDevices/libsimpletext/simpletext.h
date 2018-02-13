@@ -55,9 +55,9 @@ extern "C"
 {
 #endif
 
-//#define ST_SLASH_ReturN
+//#define ST_SLASH_  ReturN
 #define SIMPLETEXT_ECS
-//#define ST_NO_CHAR_SUBS
+//#define ST_NO_CHAR_  SUBS
 /**
  * Mode bit 5 can be set to 1 to locally echo characters.
  */
@@ -91,9 +91,9 @@ typedef struct text_struct
   /** Echo setting, typically for usage with a terminal. */ 
   volatile int terminalEcho;                          
   /** List of end characters. */ 
-  volatile char ec[3];                          
+  char ec[3];                          
   /** End character sequence when an end character is encountered. */ 
-  volatile char ecs[3];                          
+  char ecs[3];                          
 } text_t;
 
 

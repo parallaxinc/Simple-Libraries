@@ -8,15 +8,19 @@
  */
 #include "simpletext.h"
 
+extern HUBDATA terminal *dport_ptr;
+
 int putln(const char *str)
 {
   int n = 0;
-  while(*str) {
+  while(*str) 
+  {
     putChar(*str);
     str++;
     n++;
   }
-  putChar('\n');
+  //putChar('\n');
+  putChar(*(dport_ptr->ec));
   return n;
 }
 

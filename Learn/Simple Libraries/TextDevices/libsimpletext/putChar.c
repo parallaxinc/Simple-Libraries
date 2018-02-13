@@ -71,6 +71,8 @@ void putChar(char c)
   */
 
   //
+  //if(c)
+  //{
     if( !( (c == *(dport_ptr->ec)) || (c == *(dport_ptr->ec+1)) ) )
     {
       dport_ptr->txChar(dport_ptr, c);  
@@ -82,6 +84,7 @@ void putChar(char c)
       if(t1) dport_ptr->txChar(dport_ptr, t1); 
       if(t2) dport_ptr->txChar(dport_ptr, t2); 
     }
+  //}    
   //
 
   #endif 

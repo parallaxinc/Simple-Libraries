@@ -9,7 +9,31 @@
 
 void writeChar(text_t *p, char c)
 {
+  #ifdef ST_SLASH_ReturN
+  if(c == '\n')
+    writeChar(p, '\r');
+  #endif  
+  
+  #ifdef SIMPLETEXT_ECS
+  if(c)
+  {
+    if( !( (c == *(p->ec)) || (c == *(p->ec+1)) ) )
+    {
+      p->txChar(p, c);  
+    }
+    else
+    {
+      char t1 = *(p->ecs);
+      char t2 = *(p->ecs+1);
+      if(t1) p->txChar(p, t1); 
+      if(t2) p->txChar(p, t2); 
+    }
+  }    
+  #endif 
+   
+  #ifdef ST_NO_CHAR_SUBS
   p->txChar(p, c);
+  #endif
 }
 
 /*
