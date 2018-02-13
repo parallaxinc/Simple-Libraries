@@ -66,6 +66,11 @@ char* _safe_gets(text_t *text, char* origBuf, int count)
           text->txChar(text, '\n');
       #endif 
     }   
+    
+    #ifdef ST_NO_CHAR_SUBS
+    text->txChar(text, ch);
+    #endif
+
 
     if (ch == '\r' || ch == '\n')
         break;

@@ -38,8 +38,10 @@ serial *serial_open(int rxpin, int txpin, int mode, int baudrate)
   {
     text->terminalEcho = 1;
   } 
-  memcpy(&text->ec, "\r\n\0\0", 4);
-  memcpy(&text->ecs, "\r\0\0\0", 4);
+  //memcpy(&text->ec, "\r\n\0\0", 4);
+  //memcpy(&text->ecs, "\r\0\0\0", 4);
+  memcpy(&text->ec, "\r\n", 3);
+  memcpy(&text->ecs, "\r\0", 3);
 
   serptr->rx_pin  = rxpin; /* recieve pin */
   serptr->tx_pin  = txpin; /* transmit pin*/
