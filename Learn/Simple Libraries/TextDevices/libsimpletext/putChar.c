@@ -36,57 +36,17 @@ void putChar(char c)
   
   
   #ifdef SIMPLETEXT_ECS
-  /*
-  //if( (c == *(dport_ptr->ec)) || (c == *(dport_ptr->ec+1))  || (c == *(dport_ptr->ec+2))  || (c == *(dport_ptr->ec+3)) )
-  if( (c == *(dport_ptr->ec)) || (c == *(dport_ptr->ec+1)) )
-  { 
-    int n = 0;
-    while(1)
-    {
-      if(*(dport_ptr->ecs+n) == 0 || c == 0) break;
-      dport_ptr->txChar(dport_ptr, *(dport_ptr->ecs+n));
-      n++;
-    }
+  if( (c != *(dport_ptr->ec)) && (c != *(dport_ptr->ec+1)) )
+  {
+    dport_ptr->txChar(dport_ptr, c); 
   }
   else
   {
-    dport_ptr->txChar(dport_ptr, c);
-  }  
-  */
-
-  /*
-    if( !( (c == *(dport_ptr->ec)) || (c == *(dport_ptr->ec+1)) ) )
-    {
-      dport_ptr->txChar(dport_ptr, c);  
-    }
-    else
-    {
-      int n = 0;
-      while(*(dport_ptr->ecs+n)) 
-      {
-        dport_ptr->txChar(dport_ptr, *(dport_ptr->ecs+n));
-        n++;
-      }
-    }
-  */
-
-  //
-  //if(c)
-  //{
-    if( !( (c == *(dport_ptr->ec)) || (c == *(dport_ptr->ec+1)) ) )
-    {
-      dport_ptr->txChar(dport_ptr, c);  
-    }
-    else
-    {
-      char t1 = *(dport_ptr->ecs);
-      char t2 = *(dport_ptr->ecs+1);
-      if(t1) dport_ptr->txChar(dport_ptr, t1); 
-      if(t2) dport_ptr->txChar(dport_ptr, t2); 
-    }
-  //}    
-  //
-
+    char t1 = *(dport_ptr->ecs);
+    char t2 = *(dport_ptr->ecs+1);
+    if(t1) dport_ptr->txChar(dport_ptr, t1);
+    if(t2) dport_ptr->txChar(dport_ptr, t2);
+  }
   #endif 
   
   #ifdef ST_NO_CHAR_SUBS
