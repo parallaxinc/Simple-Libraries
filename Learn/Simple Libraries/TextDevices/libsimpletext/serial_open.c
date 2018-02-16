@@ -45,13 +45,21 @@ serial *serial_open(int rxpin, int txpin, int mode, int baudrate)
   //
   if(rxpin == 31 && txpin == 30)
   {
-    memcpy(&text->ec, "\r\n", 3);
-    memcpy(&text->ecs, "\r\0", 3);
+    //memcpy(&text->ec, "\r\n", 3);
+    //memcpy(&text->ecs, "\r\0", 3);
+    text->ecA = '\r';
+    text->ecB = '\n';
+    text->ecsA = '\r';
+    text->ecsB = 0;
   }
   else
   {    
-    memcpy(&text->ec, "\0\0", 3);
-    memcpy(&text->ecs, "\0\0", 3);
+    //memcpy(&text->ec, "\0\0", 3);
+    //memcpy(&text->ecs, "\0\0", 3);
+    text->ecA = 0;
+    text->ecB = 0;
+    text->ecsA = 0;
+    text->ecsB = 0;
   }    
   //
   serptr->rx_pin  = rxpin; /* recieve pin */

@@ -16,17 +16,18 @@ void writeChar(text_t *p, char c)
   #endif  
   
   #ifdef SIMPLETEXT_ECS
-  if( (c != *(p->ec)) && (c != *(p->ec+1)) )
+  //
+  if((c != p->ecA) && (c != p->ecB))
   {
     p->txChar(p, c); 
   }
   else
   {
-    char t1 = *(p->ecs);
-    char t2 = *(p->ecs+1);
-    if(t1) p->txChar(p, t1);
-    if(t2) p->txChar(p, t2);
+    if(p->ecsA) p->txChar(p, p->ecsA);
+    if(p->ecsB) p->txChar(p, p->ecsB);
   }
+  //
+
   #endif 
   
   #ifdef ST_NO_CHAR_SUBS

@@ -22,6 +22,9 @@ void putChar(char c)
 }
 */
 
+//static char t1 = 0;
+//static char t2 = 0;
+
 #include "simpletext.h"
 
 void putChar(char c)
@@ -36,17 +39,19 @@ void putChar(char c)
   
   
   #ifdef SIMPLETEXT_ECS
-  if( (c != *(dport_ptr->ec)) && (c != *(dport_ptr->ec+1)) )
+  //
+  if((c != dport_ptr->ecA) && (c != dport_ptr->ecB))
   {
     dport_ptr->txChar(dport_ptr, c); 
   }
   else
   {
-    char t1 = *(dport_ptr->ecs);
-    char t2 = *(dport_ptr->ecs+1);
-    if(t1) dport_ptr->txChar(dport_ptr, t1);
-    if(t2) dport_ptr->txChar(dport_ptr, t2);
+    char tA = dport_ptr->ecsA;
+    char tB = dport_ptr->ecsB;
+    if(tA) dport_ptr->txChar(dport_ptr, tA);
+    if(tB) dport_ptr->txChar(dport_ptr, tB);
   }
+  //
   #endif 
   
   #ifdef ST_NO_CHAR_SUBS

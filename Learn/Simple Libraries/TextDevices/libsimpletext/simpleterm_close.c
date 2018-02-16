@@ -9,8 +9,12 @@
 
 extern HUBDATA terminal *dport_ptr;
 extern volatile int simpleterm_echo;
-extern volatile char simpleterm_ec[3];
-extern volatile char simpleterm_ecs[3];
+//extern volatile char simpleterm_ec[3];
+//extern volatile char simpleterm_ecs[3];
+extern volatile char simpleterm_ecA;
+extern volatile char simpleterm_ecB;
+extern volatile char simpleterm_ecsA;
+extern volatile char simpleterm_ecsB;
 
 void simpleterm_close()
 {
@@ -18,8 +22,12 @@ void simpleterm_close()
   if(!dport_ptr)
     return;
   simpleterm_echo = terminal_checkEcho(dport_ptr);  
-  memcpy(simpleterm_ec, dport_ptr->ec, 3);
-  memcpy(simpleterm_ecs, dport_ptr->ecs, 3);
+  //memcpy(simpleterm_ec, dport_ptr->ec, 3);
+  //memcpy(simpleterm_ecs, dport_ptr->ecs, 3);
+  simpleterm_ecA = dport_ptr->ecA;
+  simpleterm_ecB = dport_ptr->ecB;
+  simpleterm_ecsA = dport_ptr->ecsA;
+  simpleterm_ecsB = dport_ptr->ecsB;
   serial_close(dport_ptr);
   dport_ptr = 0;
 }
@@ -29,8 +37,12 @@ terminal *simpleterm_reopen(int rxpin, int txpin, int mode, int baud)
   if(simpleterm_echo) mode |= ECHO_RX_TO_TX;
   simpleterm_close();
   dport_ptr = serial_open(rxpin, txpin, mode, baud);
-  memcpy(dport_ptr->ec, simpleterm_ec, 3);
-  memcpy(dport_ptr->ecs, simpleterm_ecs, 3);
+  //memcpy(dport_ptr->ec, simpleterm_ec, 3);
+  //memcpy(dport_ptr->ecs, simpleterm_ecs, 3);
+  dport_ptr->ecA = simpleterm_ecA;
+  dport_ptr->ecB = simpleterm_ecB;
+  dport_ptr->ecsA = simpleterm_ecsA;
+  dport_ptr->ecsB = simpleterm_ecsB;
   return dport_ptr;
 }
 

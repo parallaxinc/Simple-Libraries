@@ -20,7 +20,8 @@ int putln(const char *str)
     n++;
   }
   //putChar('\n');
-  putChar(*(dport_ptr->ec));
+  //putChar(*(dport_ptr->ec));
+  putChar(dport_ptr->ecA);
   return n;
 }
 

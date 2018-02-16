@@ -17,7 +17,7 @@ int writeLine(text_t *p, char *str)
     n++;
   }
 
-  writeChar(p, *(p->ec));
+  writeChar(p, p->ecA);
   return n;
 }
 

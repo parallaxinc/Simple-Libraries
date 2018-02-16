@@ -91,15 +91,22 @@ typedef struct text_struct
   /** Echo setting, typically for usage with a terminal. */ 
   volatile int terminalEcho;                          
   /** List of end characters. */ 
-  char ec[3];                          
+  //char ec[3];                          
   /** End character sequence when an end character is encountered. */ 
-  char ecs[3];                          
+  //char ecs[3];                          
+  volatile char ecA;
+  volatile char ecB;
+  volatile char ecsA;
+  volatile char ecsB;
 } text_t;
 
 
 
-void set_endChars(text_t *text, char *endCharArray);
-void set_endCharSequence(text_t *text, char *endCharSeqArray);
+//void set_endChars(text_t *text, char *endCharArray);
+//void set_endCharSequence(text_t *text, char *endCharSeqArray);
+void set_endChars(text_t *text, char cA, char cB);
+void set_endCharSequence(text_t *text, char cA, char cB);
+
 
 
 
