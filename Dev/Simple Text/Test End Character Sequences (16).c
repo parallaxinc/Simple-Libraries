@@ -12,10 +12,11 @@ Below is what the monitored output should look like.
  
 
 
+
 n = 0...
 n = 1...abc[D][A][D][A]def[D][A][D][A]abc[D][A][D][A]def[D][A][D][A]abc[D][A][D][A]def[D][A][D][A]
 n = 2...abc[D][D]def[D][D]abc[D][D]def[D][D]abc[D][D]def[D][D]
-n = 3...abc[A][A]def[A][A]abc[A][A]def[A][A]abc[A][A]def[A][A]
+n = d...abc[A][A]def[A][A]abc[A][A]def[A][A]abc[A][A]def[A][A]
 n = 4...abcdefabcdefabcdef
 n = 5...abc[D][A][A]def[D][A][A]abc[D][A][A]def[D][A][A]abc[D][A][A]def[D][A][A]
 n = 6...abc[D][A]def[D][A]abc[D][A]def[D][A]abc[D][A]def[D][A]
@@ -149,17 +150,17 @@ n = 128...xx
 #define __test_text__
 
 #include "simpletools.h"
-//#include "fdserial.h"
+#include "fdserial.h"
 
-//fdserial *monitor;
+fdserial *monitor;
+
+void serial_monitor();
 
 /*
 #ifdef __test_text__
 #include "simpletext.h"
 #endif
 */
-
-//void serial_monitor();
 
 /*
 char ecListRN[] = {'\r', '\n', 0, 0};    // List of recognized end characters
@@ -455,7 +456,7 @@ int main()
 int main()
 {
   
-  //cog_run(serial_monitor, 1024);
+  cog_run(serial_monitor, 1024);
   
   /* 0 */ pause(10); print("n = %d...", n++); getChar();
 
@@ -497,29 +498,29 @@ int main()
 #if 1
 
   /*  5  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\r\ndef\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  6  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\r\ndef\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  7  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\r\ndef\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  8  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\r\ndef\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -529,29 +530,29 @@ int main()
 
 
   /*  9  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\r\ndef\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  10  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\r\ndef\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  11  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\r\ndef\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  12  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\r\ndef\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -561,29 +562,29 @@ int main()
 
 
   /*  13  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\r\ndef\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  14  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\r\ndef\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  15  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\r\ndef\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  16  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\r\ndef\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -595,29 +596,29 @@ int main()
 
 
   /*  17  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  18  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  19  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  20  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -627,29 +628,29 @@ int main()
 
 
   /*  21  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  22  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  23  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  24  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -659,29 +660,29 @@ int main()
 
 
   /*  25  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  26  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  27  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  28  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -691,29 +692,29 @@ int main()
 
 
   /*  29  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  30  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  31  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  32  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\rdef\r", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -725,29 +726,29 @@ int main()
 
 
   /*  33  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  34  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  35  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  36  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -757,29 +758,29 @@ int main()
 
 
   /*  37  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  38  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  39  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  40  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -789,29 +790,29 @@ int main()
 
 
   /*  41  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  42  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  43  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  44  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -821,29 +822,29 @@ int main()
 
 
   /*  45  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  46  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  47  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  48  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\ndef\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -855,29 +856,29 @@ int main()
 
 
   /*  49  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  50  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  51  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  52  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -887,29 +888,29 @@ int main()
 
 
   /*  53  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  54  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  55  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  56  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -919,29 +920,29 @@ int main()
 
 
   /*  57  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  58  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  59  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  60  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -951,29 +952,29 @@ int main()
 
 
   /*  61  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  62  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  63  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  64  */  print("n = %d...", n++); getChar(); memcpy(str, "abc\0def\0", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1006,29 +1007,29 @@ int main()
   pause(10); 
 
   /*  65  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str); putChar('x'); putchar('x');
   print("%s", str); putChar('x'); putchar('x');
   print("%s", str);
 
   /*  66  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  67  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  68  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1038,29 +1039,29 @@ int main()
 
 
   /*  69  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  70  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  71  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  72  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1070,29 +1071,29 @@ int main()
 
 
   /*  73  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  74  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  75  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  76  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1102,29 +1103,29 @@ int main()
 
 
   /*  77  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  78  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  79  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  80  */  print("n = %d...", n++); getChar(); memcpy(str, "\r\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1136,29 +1137,29 @@ int main()
 
 
   /*  81  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  82  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  83  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  84  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1168,29 +1169,29 @@ int main()
 
 
   /*  85  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  86  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  87  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  88  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1200,29 +1201,29 @@ int main()
 
 
   /*  89  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  90  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  91  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  92  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1232,29 +1233,29 @@ int main()
 
 
   /*  93  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  94  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  95  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  96  */  print("n = %d...", n++); getChar(); memcpy(str, "\r", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1266,29 +1267,29 @@ int main()
 
 
   /*  97  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  98  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  99  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  100  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1298,29 +1299,29 @@ int main()
 
 
   /*  101  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  102  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  103  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  104  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1330,29 +1331,29 @@ int main()
 
 
   /*  105  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  106  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  107  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  108  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1362,29 +1363,29 @@ int main()
 
 
   /*  109  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  110  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  111  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  112  */  print("n = %d...", n++); getChar(); memcpy(str, "\n", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1396,29 +1397,29 @@ int main()
 
 
   /*  113  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  114  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  115  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  116  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListRN);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\r', '\n');
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1428,29 +1429,29 @@ int main()
 
 
   /*  117  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  118  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  119  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  120  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListR);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\r', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1460,29 +1461,29 @@ int main()
 
 
   /*  121  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  122  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  123  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  124  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListN);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), '\n', 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1492,29 +1493,29 @@ int main()
 
 
   /*  125  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsrn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', '\n');
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  126  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsr);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\r', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  127  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsn);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), '\n', 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
 
   /*  128  */  print("n = %d...", n++); getChar(); memcpy(str, "\0", 13);
-  set_endChars(simpleterm_pointer(), ecListZ);
-  set_endCharSequence(simpleterm_pointer(), ecsz);
+  set_endChars(simpleterm_pointer(), 0, 0);
+  set_endCharSequence(simpleterm_pointer(), 0, 0);
   print("%s", str);
   print("%s", str);
   print("%s", str);
@@ -1531,7 +1532,7 @@ int main()
 
 
 
-/*
+//
 void serial_monitor()
 {
   char hexDig[] = "0123456789ABCDEF";
@@ -1557,4 +1558,4 @@ void serial_monitor()
     }              
   }
 }  
-*/
+//
