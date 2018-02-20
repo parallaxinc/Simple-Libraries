@@ -16,7 +16,7 @@ Below is what the monitored output should look like.
 n = 0...
 n = 1...abc[D][A][D][A]def[D][A][D][A]abc[D][A][D][A]def[D][A][D][A]abc[D][A][D][A]def[D][A][D][A]
 n = 2...abc[D][D]def[D][D]abc[D][D]def[D][D]abc[D][D]def[D][D]
-n = d...abc[A][A]def[A][A]abc[A][A]def[A][A]abc[A][A]def[A][A]
+n = 3...abc[A][A]def[A][A]abc[A][A]def[A][A]abc[A][A]def[A][A]
 n = 4...abcdefabcdefabcdef
 n = 5...abc[D][A][A]def[D][A][A]abc[D][A][A]def[D][A][A]abc[D][A][A]def[D][A][A]
 n = 6...abc[D][A]def[D][A]abc[D][A]def[D][A]abc[D][A]def[D][A]
@@ -474,7 +474,7 @@ int main()
   print("%s", str);
   print("%s", str);
 
-  /*  3  */  print("n = d...", n++); getChar(); memcpy(str, "abc\r\ndef\r\n", 13);
+  /*  3  */  print("n = 3...", n++); getChar(); memcpy(str, "abc\r\ndef\r\n", 13);
   /*  3  */  //print("n = %d...", n++); getChar(); memcpy(str, "abcndef\r\n", 13);
   set_endChars(simpleterm_pointer(), '\r', '\n');
   set_endCharSequence(simpleterm_pointer(), '\n', 0);
