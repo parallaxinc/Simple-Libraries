@@ -1,4 +1,4 @@
-Test End Character Sequences (FINAL).c
+Test End Character Sequences (FINAL) (1).c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
