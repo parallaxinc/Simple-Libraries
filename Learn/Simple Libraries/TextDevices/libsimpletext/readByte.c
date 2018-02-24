@@ -1,39 +1,16 @@
 /*
- * @file writeChar.c
- * Function to print a char to the terminal.
+ * @file getChar.c
+ * Simple Terminal getchar function.
  *
- * Copyright (c) 2013, Parallax Inc.
+ * Copyright (C) 2013, Parallax Inc.
  * Written by Steve Denson
+ * See end of file for terms of use.
  */
-
 #include "simpletext.h"
 
-void writeChar(text_t *p, char c)
+int readByte(text_t *text)
 {
-  #ifdef ST_SLASH_ReturN
-  if(c == '\n')
-    p->txChar(p, '\r');
-  p->txChar(p, c);
-  #endif  
-  
-  #ifdef SIMPLETEXT_ECS
-  //
-  if((c != p->ecA) && (c != p->ecB))
-  {
-    p->txChar(p, c); 
-  }
-  else
-  {
-    if(p->ecsA) p->txChar(p, p->ecsA);
-    if(p->ecsB) p->txChar(p, p->ecsB);
-  }
-  //
-
-  #endif 
-  
-  #ifdef ST_NO_CHAR_SUBS
-  p->txChar(p, c);
-  #endif
+  return text->rxChar(text);
 }
 
 /*
@@ -60,4 +37,3 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 +--------------------------------------------------------------------
 */
-

@@ -106,8 +106,12 @@ typedef struct text_struct
 //void set_endCharSequence(text_t *text, char *endCharSeqArray);
 void set_endChars(text_t *text, char cA, char cB);
 void set_endCharSequence(text_t *text, char cA, char cB);
-
-
+void putByte(char c);
+int getByte(void);
+int readByte(text_t *text);
+void writeByte(text_t *p, char c);
+void terminal_setEcho(text_t *text, int state);
+int terminal_checkEcho(text_t *text);
 
 
 /// @cond  doxygen_skip
@@ -1046,7 +1050,7 @@ terminal *simpleterm_pointer(void);
  * @brief Enable or disable serial echo.  This should only be used with 
  *  devices that have significant delays between the characters they send. 
  */
-void terminal_setEcho(text_t *text, int state);
+//void terminal_setEcho(text_t *text, int state);
 
 
 /**
@@ -1054,7 +1058,7 @@ void terminal_setEcho(text_t *text, int state);
  *
  * @returns 1 = echo-on, 0 = echo-off.
  */
-int terminal_checkEcho(text_t *text);
+//int terminal_checkEcho(text_t *text);
 
  /**
   * @}

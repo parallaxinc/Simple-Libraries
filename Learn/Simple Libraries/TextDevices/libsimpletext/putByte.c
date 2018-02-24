@@ -1,39 +1,37 @@
 /*
- * @file writeChar.c
- * Function to print a char to the terminal.
+ * @file putChar.c
+ * Function to print a char to the default terminal.
+ * If c is \n, append \r.
  *
  * Copyright (c) 2013, Parallax Inc.
  * Written by Steve Denson
+ * 
+ * Modified by Andy Lindsay to correct bug in terminal cursor control
+ * with 2, 14, and 15.
  */
+
+/*
+#include "simpletext.h"
+
+void putChar(char c)
+{
+  extern text_t *dport_ptr;
+  if(c == '\n')
+    dport_ptr->txChar(dport_ptr, '\r');
+  dport_ptr->txChar(dport_ptr, c);
+}
+*/
+
+//static char t1 = 0;
+//static char t2 = 0;
 
 #include "simpletext.h"
 
-void writeChar(text_t *p, char c)
+void putByte(char c)
 {
-  #ifdef ST_SLASH_ReturN
-  if(c == '\n')
-    p->txChar(p, '\r');
-  p->txChar(p, c);
-  #endif  
-  
-  #ifdef SIMPLETEXT_ECS
-  //
-  if((c != p->ecA) && (c != p->ecB))
-  {
-    p->txChar(p, c); 
-  }
-  else
-  {
-    if(p->ecsA) p->txChar(p, p->ecsA);
-    if(p->ecsB) p->txChar(p, p->ecsB);
-  }
-  //
+  extern text_t *dport_ptr;
 
-  #endif 
-  
-  #ifdef ST_NO_CHAR_SUBS
-  p->txChar(p, c);
-  #endif
+  dport_ptr->txChar(dport_ptr, c); 
 }
 
 /*
