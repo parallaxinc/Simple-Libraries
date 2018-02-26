@@ -1,4 +1,4 @@
-Test ColorPAL.c
+Colorpal (simpletext Library Test).c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

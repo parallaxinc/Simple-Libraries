@@ -1,4 +1,4 @@
-Test ColorPAL.c
+XBee UART Command Mode Example.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

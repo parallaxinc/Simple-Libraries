@@ -34,10 +34,16 @@ serial *serial_open(int rxpin, int txpin, int mode, int baudrate)
   
   text->txChar    = serial_txChar;     /* required for terminal to work */
   text->rxChar    = serial_rxChar;     /* required for terminal to work */
+  //
   if((mode & ECHO_RX_TO_TX) || (rxpin == 31 && txpin == 30))
   {
     text->terminalEcho = 1;
   } 
+  else
+  {
+    text->terminalEcho = 0;
+  }    
+  //
   /*
   memcpy(&text->ec, "\r\n", 3);
   memcpy(&text->ecs, "\r\0", 3);

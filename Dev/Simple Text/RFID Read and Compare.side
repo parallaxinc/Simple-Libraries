@@ -1,4 +1,4 @@
-Test ColorPAL.c
+RFID Read and Compare.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

@@ -1,4 +1,4 @@
-Test ColorPAL.c
+Leave a Network.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

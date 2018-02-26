@@ -1,4 +1,4 @@
-Test ColorPAL.c
+XBee COM Home (simpletext Library Test).c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

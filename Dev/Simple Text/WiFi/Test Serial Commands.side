@@ -1,4 +1,4 @@
-Test ColorPAL.c
+Test Serial Commands.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

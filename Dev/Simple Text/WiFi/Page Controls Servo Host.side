@@ -1,4 +1,4 @@
-Test ColorPAL.c
+Page Controls Servo Host.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
@@ -6,4 +6,5 @@ Test ColorPAL.c
 >-fno-exceptions
 >defs::-std=c99
 >-lm
+>-create_library
 >BOARD::ACTIVITYBOARD

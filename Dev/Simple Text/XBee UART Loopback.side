@@ -1,4 +1,4 @@
-Test ColorPAL.c
+XBee UART Loopback.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
