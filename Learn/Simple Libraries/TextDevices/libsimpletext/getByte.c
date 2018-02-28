@@ -1,28 +1,19 @@
 /*
- * @file writeStrDigits.c
- * Function to print a string of specified width to the pointer.
+ * @file getChar.c
+ * Simple Terminal getchar function.
  *
- * Copyright (c) 2013, Parallax Inc.
+ * Copyright (C) 2013, Parallax Inc.
  * Written by Steve Denson
+ * See end of file for terms of use.
  */
-#include <ctype.h>
 #include "simpletext.h"
 
-int putStrLen(char *str, int width)
+int getByte(void)
 {
   extern text_t *dport_ptr;
-  int n;
-  for(n = 0; isalnum(*(str+n)); n++)
-    ;
-  for( ; n < width; n++)
-    writeChar(dport_ptr, ' ');
-  while(*str && width--) 
-  {
-    writeChar(dport_ptr, *str);
-    str++;
-  }
-  return n;
+  return dport_ptr->rxChar(dport_ptr);
 }
+
 
 /*
 +--------------------------------------------------------------------
@@ -48,4 +39,3 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 +--------------------------------------------------------------------
 */
-

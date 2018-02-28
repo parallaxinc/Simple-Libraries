@@ -38,7 +38,11 @@ fdserial *fdserial_open(int rxpin, int txpin, int mode, int baudrate)
 
   /* required for terminal to work */
   term->txChar  = fdserial_txChar;
-  term->rxChar  = fdserial_rxChar;
+  term->rxChar  = fdserial_rxChar;  
+  if(mode & ECHO_RX_TO_TX) term->terminalEcho = 1;
+  memcpy(&term->ec, "\0\0", 3);
+  memcpy(&term->ecs, "\0\0", 3);
+
 
   fdptr->rx_pin = rxpin; /* recieve pin */
   fdptr->tx_pin = txpin; /* transmit pin */

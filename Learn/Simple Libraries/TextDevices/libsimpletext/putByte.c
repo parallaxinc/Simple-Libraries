@@ -1,27 +1,37 @@
 /*
- * @file writeStrDigits.c
- * Function to print a string of specified width to the pointer.
+ * @file putChar.c
+ * Function to print a char to the default terminal.
+ * If c is \n, append \r.
  *
  * Copyright (c) 2013, Parallax Inc.
  * Written by Steve Denson
+ * 
+ * Modified by Andy Lindsay to correct bug in terminal cursor control
+ * with 2, 14, and 15.
  */
-#include <ctype.h>
+
+/*
 #include "simpletext.h"
 
-int putStrLen(char *str, int width)
+void putChar(char c)
 {
   extern text_t *dport_ptr;
-  int n;
-  for(n = 0; isalnum(*(str+n)); n++)
-    ;
-  for( ; n < width; n++)
-    writeChar(dport_ptr, ' ');
-  while(*str && width--) 
-  {
-    writeChar(dport_ptr, *str);
-    str++;
-  }
-  return n;
+  if(c == '\n')
+    dport_ptr->txChar(dport_ptr, '\r');
+  dport_ptr->txChar(dport_ptr, c);
+}
+*/
+
+//static char t1 = 0;
+//static char t2 = 0;
+
+#include "simpletext.h"
+
+void putByte(char c)
+{
+  extern text_t *dport_ptr;
+
+  dport_ptr->txChar(dport_ptr, c); 
 }
 
 /*

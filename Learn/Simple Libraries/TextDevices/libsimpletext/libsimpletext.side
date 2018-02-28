@@ -56,6 +56,12 @@ dprinti.c
 sprinti.c
 printi.c
 putStrDigits.c
+echo.c
+endChars.c
+writeByte.c
+putByte.c
+getByte.c
+readByte.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
