@@ -29,7 +29,8 @@ terminal *simpleterm_open(void)
     return dport_ptr;
 
   //dport_ptr = serial_open(31,30,0,115200);
-  dport_ptr = serial_open(31,30,ECHO_RX_TO_TX,115200);
+  //dport_ptr = serial_open(31,30,ECHO_RX_TO_TX,115200);
+  dport_ptr = serial_open(31,30,0,115200);
   
   //memcpy(&dport_ptr->ec, "\r\n", 3);
   dport_ptr->ecA = '\r';
