@@ -35,7 +35,8 @@ serial *serial_open(int rxpin, int txpin, int mode, int baudrate)
   text->txChar    = serial_txChar;     /* required for terminal to work */
   text->rxChar    = serial_rxChar;     /* required for terminal to work */
   //
-  if((mode & ECHO_RX_TO_TX) || (rxpin == 31 && txpin == 30))
+  //if((mode & ECHO_RX_TO_TX) || (rxpin == 31 && txpin == 30))
+  if((mode & ECHO_RX_TO_TX))
   {
     text->terminalEcho = 1;
   } 
