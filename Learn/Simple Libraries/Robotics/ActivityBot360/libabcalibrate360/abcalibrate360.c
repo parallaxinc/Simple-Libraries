@@ -25,8 +25,11 @@ void cal_activityBot(void)
 
   servo360_connect(abd360_pinCtrlLeft, abd360_pinFbLeft);
   servo360_feedback(abd360_pinCtrlLeft, 0);
+
+  servo360_connect(abd360_pinCtrlRight, abd360_pinFbRight);
+  servo360_feedback(abd360_pinCtrlRight, 0);
   
-  int n, x, angle, angleP; 
+  int n, x, y, angle, angleP; 
   int mVccwL, mVcwL, bVccwL, bVcwL;
   int mVccwR, mVcwR, bVccwR, bVcwR;
   int increases = 0, decreases = 0, diffCount = 0;
@@ -34,14 +37,56 @@ void cal_activityBot(void)
   servo360_set(abd360_pinCtrlLeft, 1500+240);
   pause(2000);
   x = servo360_getAngle12Bit(abd360_pinCtrlLeft);
+  y = servo360_getAngle12Bit(abd360_pinCtrlRight);
   print("x = %d\r", x);
   pause(1000);
   x = servo360_getAngle12Bit(abd360_pinCtrlLeft) - x;
+  y = servo360_getAngle12Bit(abd360_pinCtrlRight) - y;
   print("x = %d\r", x);
   //x1 &= 0xFFF;
   //print("x1 = %d\r", x1);
 
   servo360_set(abd360_pinCtrlLeft, 1500);
+  
+  if(y > x)
+  {
+    print("Cable swap???\r");
+
+    for(int i = 0; i < 3; i++)
+    {
+      print("i = %d\r", i);
+      for(int j = 0 ; j < 5; j++)
+      {
+        print("j = %d\r", j);
+        servo360_set(abd360_pinCtrlLeft, 1500+80);
+        servo360_set(abd360_pinCtrlRight, 1500+80);
+        pause(100);
+        servo360_set(abd360_pinCtrlLeft, 1500-80);
+        servo360_set(abd360_pinCtrlRight, 1500-80);
+        pause(100);
+      }
+      servo360_set(abd360_pinCtrlLeft, 1500);
+      servo360_set(abd360_pinCtrlRight, 1500);
+
+      pause(100);
+      
+      for(int j = 0 ; j < 3; j++)
+      {
+        print("j = %d\r", j);
+        for(int k = 0; k < 5; k++)
+        {
+          print("k = %d\r", k);
+          high(26); high(27);
+          pause(5);
+          low(26); low(27);
+          pause(50);
+        }        
+        pause(120);
+      }
+    }      
+    while(1);      
+  }    
+
   
   pause(2000);
 
