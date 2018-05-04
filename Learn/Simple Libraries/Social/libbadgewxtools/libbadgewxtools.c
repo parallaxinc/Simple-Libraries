@@ -17,19 +17,29 @@ int main(void)
 {
   badge_setup();
   ws2812b = ws2812b_open();
-
+  ws2812_set(ws2812b, RGB_PIN, RGBleds, LED_COUNT);
   pause(1000);
   
   print("LED light control\n\n");
   oledprint("  LEDs  ");
   pause(500);
-  high(LED_PIN);
+
+  for (int zz = 0; zz < 3; zz++) {
+    for (int z = 0; z < 15; z++) {
+      led_pwm_set(0, z);
+      led_pwm_set(1, 15-z);
+      pause(50);
+    }
+    for (int z = 0; z < 15; z++) {
+      led_pwm_set(1, z);
+      led_pwm_set(0, 15-z);
+      pause(50);
+    }
+  }  
   
-  pause(500);
-  low(LED_PIN);
-  
-  pause(500);
-  input(LED_PIN);
+  led_pwm_set(0, 0);
+  led_pwm_set(1, 0);
+
 
   print("RGB light control\n\n");
   cursor(2, 1);
@@ -58,6 +68,7 @@ int main(void)
     RGBleds[i] = 0x000000;
   }
   ws2812_set(ws2812b, RGB_PIN, RGBleds, LED_COUNT);
+
 
   // Touch pad monitoring
   print("Press B to exit.\n\n");
