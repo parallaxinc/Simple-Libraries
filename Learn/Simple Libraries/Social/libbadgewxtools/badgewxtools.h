@@ -1,5 +1,5 @@
 /**
- * @file badgetools.h
+ * @file badgewxtools.h
  *
  * @author Parallax Inc.
  *
@@ -210,6 +210,14 @@ char button( char b );
  * the 5th from the right, 
  */
 unsigned char buttons( void );
+
+/**
+ * @brief Used to set the RC time threshold used to detect a button press on the
+ * A and B touchpads on the back of the BadgeWX's PCB.  Range is from 
+ * 0 (low sensitivity) to 15 (high sensitivity).  Default is 7.
+ */
+void touch_sensitivity_set( char sens );
+
 
 /**
  * @}
@@ -506,6 +514,27 @@ void ee_writeStr(char *s, int n, int addr);
  * were fetched.
  */
 char* ee_readStr(unsigned char *s, int n, int addr);
+
+
+/**
+ * @brief Start the PWM driver for the discrete LEDs. Uses a cog. 
+ */
+void led_pwm_start( void );
+
+/**
+ * @brief Stop the PWM driver for the discrete LEDs.  Frees the cog used by the driver.  
+ */
+void led_pwm_stop( void );
+
+/**
+ * @brief Set the brightness of the two discrete LEDs.  
+ *
+ * @param side Which discrete LED to change (0-left or 1-right).
+ *
+ * @param led_right The brightness of the specified discrete LED, ranges from 0 (off) to 15 (full brightness).
+ */
+void led_pwm_set( char side, char level );
+
 
 
 //void contacts_clear(void);
@@ -1002,23 +1031,25 @@ int32_t ircom_rjdec(int32_t val, int32_t width, int32_t pchar);
 int32_t ircom_hex(int32_t value, int32_t digits);
 int32_t ircom_tx_bin(int32_t value, int32_t digits);
 int32_t ircom_txflush(void);
-
+void led_pwm(void);
 
 
 //extern char beanie[LCD_BUFFER_SIZE_BOTH_TYPES];
 
 // LED pins
 #ifndef  RGB_PIN
-#define RGB_PIN (10)
+#define  RGB_PIN (10)
 #endif
 
 #ifndef  LED_PIN
-#define LED_PIN (3)
+#define  LED_PIN (9)
 #endif
+
+
 
 // touch buttons and nav sliders
 #ifndef  NAV_L
-#define  NAV_L  (11)
+#define  NAV_L  (13)
 #endif
 
 #ifndef  NAV_C
@@ -1026,7 +1057,7 @@ int32_t ircom_txflush(void);
 #endif
 
 #ifndef  NAV_R
-#define  NAV_R  (13)
+#define  NAV_R  (11)
 #endif
 
 #ifndef  NAV_COM_L
@@ -1042,7 +1073,7 @@ int32_t ircom_txflush(void);
 #endif
 
 #ifndef  NAV_TOUCH_R
-#define  NAV_TOUCH_R  (27)
+#define  NAV_TOUCH_R  (2)
 #endif
 
 
@@ -1050,6 +1081,7 @@ int32_t ircom_txflush(void);
 #ifndef IR_BAUD
 #define IR_BAUD (2400)
 #endif
+
 /*  matches receiver on DC22 badge  */
 #ifndef IR_FREQ
 #define IR_FREQ (36000)
@@ -1106,8 +1138,8 @@ int32_t ircom_txflush(void);
 #define AUD_LF (0)
 #endif
 
-#ifndef STX                                                        //serial framing bytes
-#define STX 2                                                        //serial framing bytes
+#ifndef STX
+#define STX 2                                                      //serial framing bytes
 #endif
 
 #ifndef ETX
