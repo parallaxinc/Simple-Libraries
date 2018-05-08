@@ -112,6 +112,21 @@ extern "C" {
 #endif
 
 
+                                               //
+#define AB360_ERROR_NONE                 0     //
+#define AB360_ERROR_CABLE_SWAP          -1     //
+#define AB360_ERROR_NO_ENC_SIG_BOTH     -2     //
+#define AB360_ERROR_NO_ENC_SIG_LEFT     -3     //
+#define AB360_ERROR_NO_ENC_SIG_RIGHT    -4     //
+#define AB360_ERROR_NO_MOTION_LEFT      -5     //
+#define AB360_ERROR_NO_MOTION_RIGHT     -6     //
+#define AB360_ERROR_NO_MOTION_BOTH      -7     //
+#define AB360_ERROR_BATTERIES_TOO_LOW   -8
+#define AB360_ERROR_BATTERIES_TOO_HIGH  -9
+#define AB360_ERROR_XFER_OUT_OF_RANGE   -10
+#define AB360_ERROR_CONDITION_UNKNOWN   -11
+
+
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
