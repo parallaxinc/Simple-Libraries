@@ -87,6 +87,7 @@ peb_store.c
 peb_stringView.c
 peb_text.c
 sscan_ct.c
+led_pwm.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

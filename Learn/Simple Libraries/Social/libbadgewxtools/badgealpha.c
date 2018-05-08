@@ -30,6 +30,7 @@ int32_t badge_setup(void)
     eei2cLockFlag = 1;
   }
   init_MMA7660FC();
+  led_pwm_start();
   if(!st_eeInitFlag) ee_init();
   cogIRcom = ircom_start(IR_IN, IR_OUT, 2400, 38500);
   screen_init(OLED_CS, OLED_DC, OLED_DAT, OLED_CLK, OLED_RST, SSD1306_SWITCHCAPVCC, TYPE_128X64);
