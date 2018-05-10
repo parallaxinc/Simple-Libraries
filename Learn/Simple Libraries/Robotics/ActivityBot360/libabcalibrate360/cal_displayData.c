@@ -13,11 +13,21 @@ void cal_displayData(void)
   ee_getStr(str, 12, _AB360_EE_Start_);
   str[11] = 0;
   
-  if(!strcmp(str, "AB360      "))
+  //if(!strcmp(str, "AB360      "))
+  if(!strncmp(str, "AB360", 5))
   {
     //print("!!! AB360 SETTINGS NOT FOUND, RETURNING !!!\r");
     //return -1;
-    print("Calibration record found.\r\r\r");
+    if(!strcmp(str, "AB360      "))
+    {
+      print("Calibration record found.\r\r\r");
+    }
+    else
+    {
+      print("Calibration data either not found or has errors.\r");
+      print("Try cal_displayResults() for more info.\r");
+      print("\rRaw data from EEPROM:\r\r");
+    }      
     
     cal_getEepromPins();
     
@@ -92,7 +102,8 @@ void cal_displayData(void)
     {
       print("[%d]", c);
     }
-  }                      
+  } 
+  print("\r");                     
   return;
 }
 

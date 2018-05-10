@@ -6,14 +6,14 @@ int main()
 {
   high(26);
   high(27);
-  cal_activityBot();
+  //cal_activityBot();
   low(26);
   low(27);
 
   //ee_putStr("ActivityBot", 12, _AB360_EE_Start_);
   //ee_putStr("AB360 -11  ", 12, _AB360_EE_Start_);
   
-  //cal_displayResults();
+  cal_displayResults();
 
   //cal_displayData();
 
@@ -130,202 +130,45 @@ int main()
 */  
 
 
-// IR + Ping Bot
+
 
 /*
   5x new batteries = 7.65 V
   ------------------------------
   Left Servo, Counterclockwise
-  m = 155
-  b = 186
-  
-  Left Servo, Clockwise
-  m = 174
-  b = 20
-  
-  Right Servo, Counterclockwise
-  m = 166
-  b = 173
-  
-  Right Servo, Clockwise
-  m = 161
+  m = 168
   b = 246
-
-
-
-  5 x new AA = 5 V Jumper
-  ===================================
-  Left Servo, Counterclockwise
-  m = 267
-  b = 53
   
   Left Servo, Clockwise
-  m = 243
-  b = 260
+  m = 183
+  b = 93
   
   Right Servo, Counterclockwise
-  m = 275
-  b = 86
+  m = 175
+  b = 226
   
   Right Servo, Clockwise
-  m = 241
-  b = 313
-*/  
-
-
-
-
-// Ping bot
-
-/*
-  5x new batteries = 7.65 V
-  ------------------------------
-  Left Servo, Counterclockwise
-  m = 173
-  b = 260
-  
-  Left Servo, Clockwise
-  m = 193
-  b = 106
-  
-  Right Servo, Counterclockwise
-  m = 178
-  b = 260
-  
-  Right Servo, Clockwise
-  m = 191
-  b = 113
-
+  m = 183
+  b = 113  
 
 
   5 x new AA = 5 V Jumper
   ===================================
   Left Servo, Counterclockwise
   m = 242
-  b = 260
+  b = 306
   
   Left Servo, Clockwise
   m = 258
-  b = 146
+  b = 180
   
   Right Servo, Counterclockwise
-  m = 240
-  b = 313
-  
-  Right Servo, Clockwise
-  m = 262
-  b = 173
-*/  
-
-
-
-
-// Tilt bot
-
-/*
-  5x new batteries = 7.2 V
-  ------------------------------
-  Left Servo, Counterclockwise
-  m = 191
-  b = 220
-  
-  Left Servo, Clockwise
-  m = 185
-  b = 260
-  
-  Right Servo, Counterclockwise
-  m = 179
-  b = 193
-  
-  Right Servo, Clockwise
-  m = 168
-  b = 266
-
-
-
-  5 x new AA = 5 V Jumper
-  ===================================
-  Left Servo, Counterclockwise
-  m = 255
+  m = 257
   b = 246
   
-  Left Servo, Clockwise
-  m = 245
-  b = 313
-  
-  Right Servo, Counterclockwise
-  m = 240
-  b = 233
-  
   Right Servo, Clockwise
-  m = 228
-  b = 333
-*/  
-
-
-
-
-// Juke bot
-
-/*
-  5x new batteries = 7.6 V
-  ------------------------------
-  Left Servo, Counterclockwise
-  m = 174
-  b = 233
-  
-  Left Servo, Clockwise
-  m = 171
-  b = 220
-  
-  Right Servo, Counterclockwise
-  m = 176
-  b = 220
-  
-  Right Servo, Clockwise
-  m = 173
-  b = 240
-
-
-
-  5x Tired Alkaline = 6.9 V
-  ------------------------------
-  Left Servo, Counterclockwise
-  m = 189
-  b = 246
-  
-  Left Servo, Clockwise
-  m = 186
-  b = 266
-  
-  Right Servo, Counterclockwise
-  m = 194
-  b = 266
-  
-  Right Servo, Clockwise
-  m = 196
-  b = 246
-
-
-
-  5 x new AA = 5 V Jumper
-  ===================================
-  Left Servo, Counterclockwise
-  m = 241
-  b = 293
-  
-  Left Servo, Clockwise
-  m = 246
-  b = 266
-  
-  Right Servo, Counterclockwise
-  m = 256
-  b = 273
-  
-  Right Servo, Clockwise
-  m = 251
-  b = 300
-
+  m = 265
+  b = 180
 
 */  
 
