@@ -1,0 +1,15 @@
+/* Volts-DividerVoltage.c */
+
+#include "simpletools.h"                      // Library includes
+#include "boevolts.h"                          // Must include to use abvolts
+
+int main()                                    // Main function
+{
+  while(1)
+  {
+    float volts = ad_volts(2);                  // Get A/D3 volts
+    print("A/D2 = %1.3f V\n", volts);           // Display result
+    pause(500);
+  }    
+  print("\nDone!");                           // Announce program done
+}
