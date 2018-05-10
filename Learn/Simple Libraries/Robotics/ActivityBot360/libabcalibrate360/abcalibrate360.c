@@ -421,6 +421,17 @@ void cal_activityBot(void)
     // print("mVcwR = %d\r", mVcwR); 
     // print("bVcwR = %d\r", bVcwR); 
     //
+    
+    ee_putInt(mVccwL, _AB360_EE_Start_ + _AB360_EE_mVccwL_);
+    ee_putInt(bVccwL, _AB360_EE_Start_ + _AB360_EE_bVccwL_);
+    ee_putInt(mVcwL, _AB360_EE_Start_ + _AB360_EE_mVcwL_);
+    ee_putInt(bVcwL, _AB360_EE_Start_ + _AB360_EE_bVcwL_);
+  
+    ee_putInt(mVccwR, _AB360_EE_Start_ + _AB360_EE_mVccwR_);
+    ee_putInt(bVccwR, _AB360_EE_Start_ + _AB360_EE_bVccwR_);
+    ee_putInt(mVcwR, _AB360_EE_Start_ + _AB360_EE_mVcwR_);
+    ee_putInt(bVcwR, _AB360_EE_Start_ + _AB360_EE_bVcwR_);
+    
     if
     (
       (mVccwL > (S360_VM_CCW * 3)) 
@@ -468,16 +479,6 @@ void cal_activityBot(void)
     }      
     else
     {
-      ee_putInt(mVccwL, _AB360_EE_Start_ + _AB360_EE_mVccwL_);
-      ee_putInt(bVccwL, _AB360_EE_Start_ + _AB360_EE_bVccwL_);
-      ee_putInt(mVcwL, _AB360_EE_Start_ + _AB360_EE_mVcwL_);
-      ee_putInt(bVcwL, _AB360_EE_Start_ + _AB360_EE_bVcwL_);
-    
-      ee_putInt(mVccwR, _AB360_EE_Start_ + _AB360_EE_mVccwR_);
-      ee_putInt(bVccwR, _AB360_EE_Start_ + _AB360_EE_bVccwR_);
-      ee_putInt(mVcwR, _AB360_EE_Start_ + _AB360_EE_mVcwR_);
-      ee_putInt(bVcwR, _AB360_EE_Start_ + _AB360_EE_bVcwR_);
-      
       ee_putStr("AB360      ", 12, _AB360_EE_Start_);
       
       //drive_speed(48, 48);
