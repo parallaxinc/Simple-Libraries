@@ -17,7 +17,6 @@ int *cogPulseRight;
 volatile int pulseLeft;
 volatile int pulseRight;
 
-
 /*
   VM_CCW = 180
   VB_CCW 200
@@ -70,11 +69,40 @@ void get_pulse_right()
 void cal_activityBot(void)                    
 {
   //ee_putStr("AB360      ", 12, _AB360_EE_Start_);
+  /*
+  unsigned char str[12];
+  ee_getStr(str, 12, _AB360_EE_Start_);
+
+  str[11] = 0;
+  
+  if(strcmp(str, "AB360 wait "))
+  {
+    print("Calibration program loaded.\r\r");
+    print("Set the PWR switch to 0.\r\r");
+    print("Set your ActivityBot 360 on the floor.\r\r");
+    print("Set the PWR switch to 2.\r\r");
+    print("The yellow P26 and P27 lights will turn on.\r\r");
+    print("When the lights either turn off or start flickering,\r");
+    print("set PWR back to 0.\r\r");
+    
+    print("If the lights flicker, it means there's a problem\r");
+    print("for you to fix.  Use Display Calibration Results\r");
+    print("to find out more.\r\r");
+    
+    print("If the lights stay on, wait while the ActivityBot 360\r");
+    print("performs its calibration maneuvers.  When it is done\r");
+    print("the lights will turn back off.  At that point, your\r");
+    print("ActivityBot 360 will be calibrated and ready for the\r");
+    print("next program.\r\r");
+    ee_putStr("AB360 wait ", 12, _AB360_EE_Start_);
+    while(1);
+  } 
+  */
   
   cog_run(get_pulse_left, 128);
   cog_run(get_pulse_right, 128);
   
-  int dt = CLKFREQ * 4;
+  int dt = CLKFREQ * 10;
   int t = CNT;
   
   //int errorVal = AB360_ERROR_CABLE_SWAP;
