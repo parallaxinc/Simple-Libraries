@@ -1560,7 +1560,7 @@ void endianSwap(void *resultAddr, void *varAddr, int byteCount);
 * @returns A result with a position in the new range that's equivalent to value's
 * position in its range.
 */
-float mapfloat(float value, float fromMin, float fromMax, float toMin, float toMax);
+float mapFloat(float value, float fromMin, float fromMax, float toMin, float toMax);
 
 
 /**

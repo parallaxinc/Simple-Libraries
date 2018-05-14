@@ -18,7 +18,7 @@
 
 #include "simpletools.h"
 
-float mapfloat(float value, float fromMin, float fromMax, float toMin, float toMax) 
+float mapFloat(float value, float fromMin, float fromMax, float toMin, float toMax) 
 {
   //   n - numerator
   //   d - denomenator
