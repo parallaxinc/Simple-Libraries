@@ -54,15 +54,18 @@ void cal_fail_dance(void);
 
 void get_pulse_left()
 {
-  pulseLeft = pulse_in(14, 1);
-  while(1);
+  while(1)
+  {
+      pulseLeft = pulse_in(14, 1);
+  }  
 }  
 
   
 void get_pulse_right()
 {
-  pulseRight = pulse_in(15, 1);
-  while(1);
+  {
+      pulseRight = pulse_in(15, 1);
+  }  
 }  
 
 
@@ -171,13 +174,20 @@ void cal_activityBot(void)
   //print("errorVal = %d \r", errorVal);
   
   
+  servo360_connect(abd360_pinCtrlLeft, abd360_pinFbLeft);
+  servo360_feedback(abd360_pinCtrlLeft, 0);
+  servo360_connect(abd360_pinCtrlRight, abd360_pinFbRight);
+  servo360_feedback(abd360_pinCtrlRight, 0);
+
   int brad12bitL, brad12bitR;
   if(errorVal == 0)
   {
+    /*
     servo360_connect(abd360_pinCtrlLeft, abd360_pinFbLeft);
     servo360_feedback(abd360_pinCtrlLeft, 0);
     servo360_connect(abd360_pinCtrlRight, abd360_pinFbRight);
     servo360_feedback(abd360_pinCtrlRight, 0);
+    */
     
     pause(100);  
     
@@ -260,7 +270,37 @@ void cal_activityBot(void)
 
     // print("errorVal = %d \r", errorVal);
 
-  }   
+  }
+  
+  print("error = %d\r\r", errorVal);
+  
+  if(errorVal == AB360_ERROR_NO_ENC_SIG_BOTH)
+  {
+    int pulseLeftPrev = pulseLeft;
+    int pulseRightPrev = pulseRight;
+    int countLeft = 0, countRight = 0;
+    for(int n = 0; n < 50; n++)
+    {
+      pulse_out(12, 1500 + 60);
+      pulse_out(13, 1500 - 60);   
+      if(pulseLeft != pulseLeftPrev) 
+      {
+        countLeft++;
+        pulseLeftPrev = pulseLeft;
+      }
+      if(pulseRight != pulseRightPrev) 
+      {
+        countRight++;
+        pulseRightPrev = pulseRight;
+      }
+      pause(20);
+    }
+    if((countLeft > 3) || (countRight > 3))
+    {
+      errorVal = AB360_ERROR_POSSIBLE_AB_NOT_360;
+    }      
+  }          
+      
   
   if(errorVal == 0)
   {

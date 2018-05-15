@@ -165,6 +165,12 @@ void cal_displayResults(void)
         print("  Did you place the ActivityBot on its wheels on the floor to\r");
         print("  execute its calibration maneuvers?\r\r");
         break;
+      case AB360_ERROR_POSSIBLE_AB_NOT_360:
+        print("Encoder signals could be non-360 ActivityBot.\r\r");
+        print("  Does your ActivityBot have external encoders attached between the\r");
+        print("  wheels and chassis?  Are there four 3-wire cables attached to\r");
+        print("  P12, P13, P14, and P15?\r\r");
+        break;
       case AB360_ERROR_XFER_OUT_OF_RANGE:
       default:
         print("Something isn't right, but this diagnostic cannot\r");
@@ -202,7 +208,17 @@ void cal_displayResults(void)
       print(" - Check for anything that's preventing.\r");
       print("   the wheel from turning, and remove any.\r");
       print("   obstructions.\r");
-    }      
+    }
+    else if
+    (
+      (errorVal == AB360_ERROR_POSSIBLE_AB_NOT_360) 
+    )
+    {
+      print(" - Check the web/book instructions to find out if you have.\r");
+      print("   an ActivityBot, or an ActivityBot 360.  Then, follow the.\r");
+      print("   calibration instructions for your version of ActivityBot.\r");
+    }
+          
     print(" - Re-run the calibration program.\r");
     print(" - If you get another uh-oh, re-run this\r");
     print("   calibration results program.\r");       
