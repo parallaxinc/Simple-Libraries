@@ -27,10 +27,15 @@ int servo360_goto(int pin, int position)
   //180516 offset = _fs[p].angleCalc;
 
 
-  if( (_fs[p].csop == S360_POSITION) || (_fs[p].csop == S360_GOTO))
+  if(_fs[p].csop == S360_POSITION) 
+  {
+    offset = _fs[p].sp;
+    _fs[p].angleCalc = _fs[p].sp;
+  }
+  else if(_fs[p].csop == S360_GOTO)
   {
     offset = _fs[p].angleTarget;
-  }
+  }    
   else
   {
     offset = _fs[p].angleCalc;
