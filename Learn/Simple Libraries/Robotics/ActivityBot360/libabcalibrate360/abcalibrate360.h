@@ -45,6 +45,7 @@ extern "C" {
 
 #include "simpletools.h"
 #include "servo360.h"
+#include "abdrive360.h"
 
 
 
@@ -110,6 +111,22 @@ extern "C" {
  */
 #define _AB360_EE_End_ _AB360_EE_Start_ + 60
 #endif
+
+
+                                               //
+#define AB360_ERROR_NONE                 0     //
+#define AB360_ERROR_CABLE_SWAP          -1     //
+#define AB360_ERROR_NO_ENC_SIG_BOTH     -2     //
+#define AB360_ERROR_NO_ENC_SIG_LEFT     -3     //
+#define AB360_ERROR_NO_ENC_SIG_RIGHT    -4     //
+#define AB360_ERROR_NO_MOTION_LEFT      -5     //
+#define AB360_ERROR_NO_MOTION_RIGHT     -6     //
+#define AB360_ERROR_NO_MOTION_BOTH      -7     //
+#define AB360_ERROR_BATTERIES_TOO_LOW   -8
+#define AB360_ERROR_BATTERIES_TOO_HIGH  -9
+#define AB360_ERROR_XFER_OUT_OF_RANGE   -10
+#define AB360_ERROR_POSSIBLE_AB_NOT_360 -11
+#define AB360_ERROR_CONDITION_UNKNOWN   -12
 
 
 

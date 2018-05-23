@@ -58,6 +58,8 @@
  * Use with CMM or LMM.
  * 
  * @version
+ * 1.1.8 Add constrainFloat, constrainInt, mapFloat, mapInt, and random.  
+ * @par
  * 1.1.7 Update pause function for up to 2,147,483,647 ms.  
  * @par
  * 0.98.2 Add term_cmd function for SimpleIDE Terminal cursor, screen, and audio
@@ -1479,37 +1481,132 @@ void term_cmd(int termConst, ...);
 
 
 /**
- * @}
- *
- * @name Miscellaneous
- * @{
- */
+* @}
+*
+* @name Calculation Extras
+* @{
+*/
 
 
 
 /**
- * @brief Take bytes in one variable at varAddr, swap their order, and store them 
- * in another variable at resultAddr.  This is useful for communication with peripherals
- * that transmit/receive bytes in multi-byte values in reverse order from how the 
- * Propeller stores it in RAM.  
- *
- * @param *resultAddr Address of variable to store result.  Make sure it's the
- * same type as the varAddr parameter.
- *
- * @param *varAddr Address of source variable.  Accepts any variable type.
- *
- * @param *byteCount Number of bytes in the variable.
- */
+* @brief Constrains a floating point value to a range from a minimum value to a
+* maximum value. If the value is above the max constraint, this function returns
+* the maximum constraint value. If the value is below the min constraint, it returns 
+* the minimum constraint value. If value falls between the max and min constraints, 
+* it returns the same value that was received. 
+*
+* @param value Value to constrain.
+*
+* @param min Minimum constraint.
+*
+* @param max Maximum constraint.
+*
+* @returns Constrained result.
+*/
+float constrainFloat(float value, float min, float max); 
+
+
+/**
+* @brief Constrains an integer value to a range from a minimum value to a
+* maximum value. If the value is above the max constraint, this function returns
+* the maximum constraint value. If the value is below the min constraint, it returns 
+* the minimum constraint value. If value falls between the max and min constraints, 
+* it returns the same value that was received. 
+*
+* @param value Value to constrain.
+*
+* @param min Minimum constraint.
+*
+* @param max Maximum constraint.
+*
+* @returns Constrained result.
+*/
+int constrainInt(int value, int min, int max);
+
+
+/**
+* @brief Take bytes in one variable at varAddr, swap their order, and store them 
+* in another variable at resultAddr. This is useful for communication with peripherals
+* that transmit/receive bytes in multi-byte values in reverse order from how the 
+* Propeller stores it in RAM. 
+*
+* @param *resultAddr Address of variable to store result. Make sure it's the
+* same type as the varAddr parameter.
+*
+* @param *varAddr Address of source variable. Accepts any variable type.
+*
+* @param *byteCount Number of bytes in the variable.
+*/
 void endianSwap(void *resultAddr, void *varAddr, int byteCount);
 
 
+/**
+* @brief Maps a floating point value from its position in one range to its corresponding. 
+* position in a different range. For example, 3.0 in a range of 0.0 to 10.0 would map to
+* 30.0 in a range of 0.0 to 100.0. Note: In some cases, 32 bit floating point values will 
+* round slightly. For example 2.0/3.0 = 0.666667. 
+*
+* @param value The value to map.
+*
+* @param fromMin Minimum in value's range.
+*
+* @param fromMax Maxiumum in value's range.
+*
+* @param toMin New range's minimum.
+*
+* @param toMax New ranges maximum.
+*
+* @returns A result with a position in the new range that's equivalent to value's
+* position in its range.
+*/
+float mapFloat(float value, float fromMin, float fromMax, float toMin, float toMax);
+
 
 /**
- * @}
- *
- * @name Deprecated
- * @{
- */
+* @brief Maps an integer value from its position in one range to its corresponding. 
+* position in a different range. For example, 3 in a range of 0 to 10 would map to
+* 30 in a range of 0 to 100. 
+*
+* @param value The value to map.
+*
+* @param fromMin Minimum in value's range.
+*
+* @param fromMax Maximum in value's range.
+*
+* @param toMin New range's minimum.
+*
+* @param toMax New ranges maximum.
+*
+* @returns A result with a position in the new range that's equivalent to value's
+* position in its range.
+*/
+int mapInt(int value, int fromMin, int fromMax, int toMin, int toMax);
+
+
+/**
+* @brief Generates a pseudo-random integer value that falls in a range from 
+* limitLow to limitHigh. This function uses the system clock and I/O registers
+* to create a new seed with each call, so it is very unlikely to generate the 
+* same sequence twice in a row. 
+*
+* @param limitLow Minimum limit in the random number's range.
+*
+* @param limitHigh Maximum limit in the random number's range.
+*
+* @returns A pseudo-random number within the defined range.
+*/
+int random(int limitLow, int limitHigh);
+
+
+
+
+/**
+* @}
+*
+* @name Deprecated
+* @{
+*/
 
 
 
@@ -1528,6 +1625,7 @@ void endianSwap(void *resultAddr, void *varAddr, int byteCount);
  * @endcode
  */
 void mark(void);
+
 
 /**
  * @brief Compares the time against the time elapsed since mark (deprecated).

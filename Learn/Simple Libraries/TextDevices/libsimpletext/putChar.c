@@ -22,14 +22,41 @@ void putChar(char c)
 }
 */
 
+//static char t1 = 0;
+//static char t2 = 0;
+
 #include "simpletext.h"
 
 void putChar(char c)
 {
   extern text_t *dport_ptr;
+
+  #ifdef ST_SLASH_ReturN
   if(c == '\n')
     dport_ptr->txChar(dport_ptr, '\r');
   dport_ptr->txChar(dport_ptr, c);
+  #endif
+  
+  
+  #ifdef SIMPLETEXT_ECS
+  //
+  if((c != dport_ptr->ecA) && (c != dport_ptr->ecB))
+  {
+    dport_ptr->txChar(dport_ptr, c); 
+  }
+  else
+  {
+    char tA = dport_ptr->ecsA;
+    char tB = dport_ptr->ecsB;
+    if(tA) dport_ptr->txChar(dport_ptr, tA);
+    if(tB) dport_ptr->txChar(dport_ptr, tB);
+  }
+  //
+  #endif 
+  
+  #ifdef ST_NO_CHAR_SUBS
+  dport_ptr->txChar(dport_ptr, c);
+  #endif
 }
 
 /*
