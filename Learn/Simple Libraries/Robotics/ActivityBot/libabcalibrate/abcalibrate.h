@@ -82,6 +82,9 @@ extern "C" {
 #define _ActivityBot_EE_End_ 63418 + 2052
 #endif
 
+void cal_displayData(void);
+void cal_displayResults(void);
+
 /**
  * @brief Run the ActivityBot calibration function.  Let it run until the
  * P26 and P27 lights turn off.  It'll take about 1 minute, 20 seconds.
