@@ -48,7 +48,7 @@ extern "C" {
 #include "servo.h"
 #include "simpletools.h"                      // Include simple tools
 #include "fdserial.h"
-
+#include "abdrive.h"
 
 #ifndef _ActivityBot_EE_Start_
 /**
@@ -81,6 +81,9 @@ extern "C" {
  */
 #define _ActivityBot_EE_End_ 63418 + 2052
 #endif
+
+void cal_displayData(void);
+void cal_displayResults(void);
 
 /**
  * @brief Run the ActivityBot calibration function.  Let it run until the
