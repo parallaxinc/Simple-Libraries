@@ -37,67 +37,83 @@ char wifi_event;
 int main()
 {
   wifi_start(31, 30, 115200, WX_ALL_COM);
+  //wifi_start(9, 8, 115200, USB_PGM_TERM);
   wifi_setBuffer(str, sizeof(str));
-
-  int tcpHandle = wifi_connect("api.openweathermap.org", 80);
   
-  print("tcpHandle = %d\r", tcpHandle);
+  pause(5000);
   
-  pause(2000);
-  
-  // IMPORTANT: Replace YourKeyYourKey... with the API key you 
-  // obtain from openweathermap.com when you create a free 
-  // account. 
-
-  char request[] = 
-  "GET /data/2.5/weather?zip=95677,us"\
-  "&appid=YourKeyYourKeyYourKeyYourKeyYour"\
-  " HTTP/1.1\r\n"\
-  "Host: api.openweathermap.org\r\n"\
-  "Connection: keep-alive\r\n"\
-  "Accept: *" "/" "*\r\n\r\n";
-
-  int size = strlen(request);
-  
-  print("GET req size: %d\r", size);
-  
-  pause(2000);
-
-  wifi_print(TCP, tcpHandle, "%s", request);
-  event = wifi_event;
-  
-  pause(2000);
-  size = strlen(str);
-  print("size = %d", size);
-  
-  pause(2000);
-  wifi_scan(TCP, tcpHandle, "%s", str); 
-  for(int n = 0; n < sizeof(str); n++)
+  while(1)
   {
-    if(str[n] <= 'z' && str[n] >= ' ')
+    memset(str, 0, sizeof(str));
+
+    int tcpHandle = wifi_connect("api.openweathermap.org", 80);
+    
+    pause(2000);
+    
+    print("tcpHandle = %d\r", tcpHandle);
+    
+    pause(2000);
+    
+    // IMPORTANT: Replace YourKeyYourKey... with the API key you 
+    // obtain from openweathermap.com when you create a free 
+    // account. 
+  
+    char request[] = 
+    "GET /data/2.5/weather?zip=95677,us"\
+    "&appid=YourKeyYourKeyYourKeyYourKeyYour"\
+    " HTTP/1.1\r\n"\
+    "Host: api.openweathermap.org\r\n"\
+    "Connection: keep-alive\r\n"\
+    "Accept: *" "/" "*\r\n\r\n";
+  
+    int size = strlen(request);
+    
+    print("GET req size: %d\r", size);
+    
+    pause(2000);
+  
+    wifi_print(TCP, tcpHandle, "%s", request);
+    event = wifi_event;
+    
+    pause(2000);
+    size = strlen(str);
+    print("size = %d", size);
+    
+    pause(2000);
+    wifi_scan(TCP, tcpHandle, "%s", str); 
+    for(int n = 0; n < sizeof(str); n++)
     {
-      print("%c", str[n]);
-    }      
-    else if(str[n] == 0)
-    {
-      print("[%d]", str[n]);
-      break;
-    }      
-    else if(str[n] == '\n')
-    {
-      print("\r", str[n]);
-    }      
-    else
-    {
-      print("[%d]", str[n]);
-    }      
-  }
-  char *loc = strstr(str, "temp");
-  print("\rloc = %d\r", loc);
-  float temp = 0;
-  sscan(loc+5, "%f", &temp);
-  float degC = temp -273.15;
-  print("temp = %6.2f deg C\r", degC); 
-  float degF = degC * 9.0 / 5.0 + 32.0;
-  print("temp = %6.2f deg C\r", degF); 
+      if(str[n] <= 'z' && str[n] >= ' ')
+      {
+        print("%c", str[n]);
+      }      
+      else if(str[n] == 0)
+      {
+        print("[%d]", str[n]);
+        break;
+      }      
+      else if(str[n] == '\n')
+      {
+        print("\r", str[n]);
+      }      
+      else
+      {
+        print("[%d]", str[n]);
+      }      
+    }
+    char *loc = strstr(str, "temp");
+    print("\rloc = %d\r", loc);
+    float temp = 0;
+    sscan(loc+5, "%f", &temp);
+    float degC = temp -273.15;
+    print("temp = %6.2f deg C\r", degC); 
+    float degF = degC * 9.0 / 5.0 + 32.0;
+    print("temp = %6.2f deg C\r", degF); 
+    
+    wifi_disconnect(tcpHandle);
+
+    print("\rdelay...");
+    pause(20000);
+    print("done!\r\r\r");
+  }    
 }
