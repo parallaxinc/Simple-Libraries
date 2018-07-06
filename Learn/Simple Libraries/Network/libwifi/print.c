@@ -98,7 +98,8 @@ int wifi_print(int protocol, int handle, const char *fmt, ...)
       break;
     case TCP:
       dprint(wifi_fds, "%c%c%d,%d\r", CMD, SEND, handle, size);
-      for(int n = 0; n <= size; n++)
+
+      for(int n = 0; n < size; n++)
       {
         fdserial_txChar(wifi_fds, wifi_buf[n]);
         if(n > 32)
