@@ -1,9 +1,0 @@
-Test End Character Sequences (5) [works].c
->-fno-exceptions
->-lm
->-m32bit-doubles
->BOARD::ACTIVITYBOARD
->compiler=C
->defs::-std=c99
->memtype=cmm main ram compact
->optimize=-Os

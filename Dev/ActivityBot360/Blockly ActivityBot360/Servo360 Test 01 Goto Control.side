@@ -1,9 +1,0 @@
-Servo360 Test 01 Goto Control.c
->compiler=C
->memtype=cmm main ram compact
->optimize=-Os
->-m32bit-doubles
->-fno-exceptions
->defs::-std=c99
->-lm
->BOARD::ACTIVITYBOARD
