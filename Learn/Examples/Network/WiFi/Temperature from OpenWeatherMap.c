@@ -32,15 +32,22 @@
 
 int event, id, handle;
 char str[1024];
-char wifi_event;
+char getReplyContent[512];
+char getReplyHeader[356];
+
+int wifi_termShowStrAndNPCs(char *s);
+
+int wifi_getNamedValue(char *strSource, char *strName, char *fmt, ...);
 
 int main()
 {
-  wifi_start(31, 30, 115200, WX_ALL_COM);
-  //wifi_start(9, 8, 115200, USB_PGM_TERM);
+  //wifi_start(31, 30, 115200, WX_ALL_COM);
+  wifi_start(9, 8, 115200, USB_PGM_TERM);
   wifi_setBuffer(str, sizeof(str));
   
-  pause(5000);
+  print("Waiting 10 s...");
+  pause(10000);
+  print("done!\r\r");
   
   while(1)
   {
@@ -50,7 +57,7 @@ int main()
     
     pause(2000);
     
-    print("tcpHandle = %d\r", tcpHandle);
+    print("tcpHandle: %d\r", tcpHandle);
     
     pause(2000);
     
@@ -65,55 +72,87 @@ int main()
     "Host: api.openweathermap.org\r\n"\
     "Connection: keep-alive\r\n"\
     "Accept: *" "/" "*\r\n\r\n";
-  
-    int size = strlen(request);
     
-    print("GET req size: %d\r", size);
+    int length = strlen(request);
+    
+    print("GET request length: %d\r", length);
+    print("GET request\r======================================\r");
+    wifi_termShowStrAndNPCs(request);
+    print("\r------------------------------------\rEnd of GET request\r\r\r");
     
     pause(2000);
   
     wifi_print(TCP, tcpHandle, "%s", request);
-    event = wifi_event;
     
     pause(2000);
-    size = strlen(str);
-    print("size = %d", size);
+    print("WX serial response: %s\r\r", str);
     
     pause(2000);
     wifi_scan(TCP, tcpHandle, "%s", str); 
-    for(int n = 0; n < sizeof(str); n++)
-    {
-      if(str[n] <= 'z' && str[n] >= ' ')
-      {
-        print("%c", str[n]);
-      }      
-      else if(str[n] == 0)
-      {
-        print("[%d]", str[n]);
-        break;
-      }      
-      else if(str[n] == '\n')
-      {
-        print("\r", str[n]);
-      }      
-      else
-      {
-        print("[%d]", str[n]);
-      }      
-    }
-    char *loc = strstr(str, "temp");
-    print("\rloc = %d\r", loc);
+    
+    length = strlen(str);
+    print("Server response length: %d\r", length); 
+    print("Server response to GET request\r");
+    print("======================================\r");
+    wifi_termShowStrAndNPCs(str);
+    print("\r------------------------------------\r");
+    print( "End of server response to GET request\r\r");
+    
     float temp = 0;
-    sscan(loc+5, "%f", &temp);
+    wifi_getNamedValue(str, "temp", "%f", &temp);
+    print("temp = %6.2f deg K\r", temp);
+
+    wifi_disconnect(tcpHandle);
     float degC = temp -273.15;
     print("temp = %6.2f deg C\r", degC); 
     float degF = degC * 9.0 / 5.0 + 32.0;
     print("temp = %6.2f deg C\r", degF); 
     
-    wifi_disconnect(tcpHandle);
-
     print("\rdelay...");
     pause(20000);
     print("done!\r\r\r");
   }    
 }
+
+
+int wifi_termShowStrAndNPCs(char *s)
+{
+  int size = strlen(s);
+  for(int n = 0; n <= size; n++)
+  {
+    if(s[n] <= 'z' && s[n] >= ' ')
+    {
+      print("%c", s[n]);
+    }      
+    else if(s[n] == 0)
+    {
+      print("[%d]", s[n]);
+      break;
+    }  
+    else if(s[n] == '\n' || s[n] == '\r')
+    {
+      print("[%d]%c", s[n], s[n]);
+    }      
+    else
+    {
+      print("[%d]", s[n]);
+    }   
+    //pause(10);   
+  }
+  pause(10);
+  return size;
+}  
+
+
+int wifi_getNamedValue(char *strSource, char *strName, char *fmt, ...)
+{
+  char *loc = strstr(strSource, strName);
+  loc += strlen(strName);
+  va_list args;
+  va_start(args, fmt);
+  int n = _doscanf(loc, fmt, args);
+  va_end(args);
+  return n;
+}  
+
+
