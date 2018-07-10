@@ -19,11 +19,10 @@
   match the COM control circuit you choose.
   
   This application does not make the Wi-Fi module serve
-  and monitor a page.  Instead, it grabs text from this
-  page on the Internet: 
-    www-eng-x.llnl.gov//documents/a_document.txt
+  and monitor a page.  Instead, it gets weather information
+  over the Internet from openweathermap.com 
   
-  Note: This example relies on the 0.8 version of the wifi library.  
+  Note: This example relies on the 0.82 version of the wifi library.  
   Updates may change some function behaviors in later releases.
 */
 
@@ -32,7 +31,7 @@
 
 int event, id, handle;
 char str[1024];
-char wifi_event;
+float temp, degC, degF;
 
 int main()
 {
@@ -40,7 +39,9 @@ int main()
   //wifi_start(9, 8, 115200, USB_PGM_TERM);
   wifi_setBuffer(str, sizeof(str));
   
-  pause(5000);
+  print("Waiting 10 s...");
+  pause(10000);
+  print("done!\r\r");
   
   while(1)
   {
@@ -50,7 +51,7 @@ int main()
     
     pause(2000);
     
-    print("tcpHandle = %d\r", tcpHandle);
+    print("tcpHandle: %d\r", tcpHandle);
     
     pause(2000);
     
@@ -65,55 +66,47 @@ int main()
     "Host: api.openweathermap.org\r\n"\
     "Connection: keep-alive\r\n"\
     "Accept: *" "/" "*\r\n\r\n";
-  
-    int size = strlen(request);
     
-    print("GET req size: %d\r", size);
+    int length = strlen(request);
+    
+    print("GET request length: %d\r", length);
+    print("GET request\r======================================\r");
+    putStrWithNpcVals(request);
+    print("\r------------------------------------\rEnd of GET request\r\r\r");
     
     pause(2000);
   
     wifi_print(TCP, tcpHandle, "%s", request);
-    event = wifi_event;
     
     pause(2000);
-    size = strlen(str);
-    print("size = %d", size);
+    print("WX serial response: %s\r\r", str);
     
     pause(2000);
     wifi_scan(TCP, tcpHandle, "%s", str); 
-    for(int n = 0; n < sizeof(str); n++)
-    {
-      if(str[n] <= 'z' && str[n] >= ' ')
-      {
-        print("%c", str[n]);
-      }      
-      else if(str[n] == 0)
-      {
-        print("[%d]", str[n]);
-        break;
-      }      
-      else if(str[n] == '\n')
-      {
-        print("\r", str[n]);
-      }      
-      else
-      {
-        print("[%d]", str[n]);
-      }      
-    }
-    char *loc = strstr(str, "temp");
-    print("\rloc = %d\r", loc);
-    float temp = 0;
-    sscan(loc+5, "%f", &temp);
-    float degC = temp -273.15;
+    
+    length = strlen(str);
+    print("Server response length: %d\r", length); 
+    print("Server response to GET request\r");
+    print("======================================\r");
+    putStrWithNpcVals(str);
+    print("\r------------------------------------\r");
+    print( "End of server response to GET request\r\r");
+    
+    temp = 0;
+    sscanAfterStr(str, "\"temp\":", "%f", &temp);
+    print("temp = %6.2f deg K\r", temp);
+
+    wifi_disconnect(tcpHandle);
+    degC = temp -273.15;
     print("temp = %6.2f deg C\r", degC); 
-    float degF = degC * 9.0 / 5.0 + 32.0;
+    degF = degC * 9.0 / 5.0 + 32.0;
     print("temp = %6.2f deg C\r", degF); 
     
-    wifi_disconnect(tcpHandle);
-
     print("\rdelay...");
     pause(20000);
     print("done!\r\r\r");
   }    
 }
+
+
+

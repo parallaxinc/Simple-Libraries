@@ -62,6 +62,9 @@ writeByte.c
 putByte.c
 getByte.c
 readByte.c
+scanAfterStr.c
+sscanAfterStr.c
+putStrWithNpcVals.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
