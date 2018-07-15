@@ -10,15 +10,14 @@
 int writeLine(text_t *p, char *str)
 {
   int n = 0;
-  while(*str) {
-    if(*str == '\n')
-      writeChar(p, '\r');
+  while(*str) 
+  {
     writeChar(p, *str);
     str++;
     n++;
   }
-  writeChar(p, '\r');
-  writeChar(p, '\n');
+
+  writeChar(p, p->ecA);
   return n;
 }
 

@@ -55,6 +55,17 @@ extern "C"
 {
 #endif
 
+//#define ST_SLASH_  ReturN
+#define SIMPLETEXT_ECS
+//#define ST_NO_CHAR_  SUBS
+/**
+ * Mode bit 5 can be set to 1 to locally echo characters.
+ */
+#define ECHO_RX_TO_TX 32
+
+//extern volatile int simpleterm_echo;
+
+
 #if !defined(__PROPELLER_32BIT_DOUBLES__)
 #error "This library requires 32bit doubles"
 #endif
@@ -77,7 +88,31 @@ typedef struct text_struct
   int  cogid[TERM_COG_LEN];                      
   /** Pointer to text device library's info. */ 
   volatile void *devst;                          
+  /** Echo setting, typically for usage with a terminal. */ 
+  volatile int terminalEcho;                          
+  /** List of end characters. */ 
+  //char ec[3];                          
+  /** End character sequence when an end character is encountered. */ 
+  //char ecs[3];                          
+  volatile char ecA;
+  volatile char ecB;
+  volatile char ecsA;
+  volatile char ecsB;
 } text_t;
+
+
+
+//void set_endChars(text_t *text, char *endCharArray);
+//void set_endCharSequence(text_t *text, char *endCharSeqArray);
+void set_endChars(text_t *text, char cA, char cB);
+void set_endCharSequence(text_t *text, char cA, char cB);
+void putByte(char c);
+int getByte(void);
+int readByte(text_t *text);
+void writeByte(text_t *p, char c);
+void terminal_setEcho(text_t *text, int state);
+int terminal_checkEcho(text_t *text);
+
 
 /// @cond  doxygen_skip
 #define getStopCOGID(id) ((id)-(1))
@@ -228,7 +263,6 @@ typedef struct text_struct
 #define CLS    (16)
 #endif
 
-
 typedef text_t terminal;
 
  
@@ -349,6 +383,27 @@ int sprint(char *buffer, const char *format, ...) __attribute__((format (printf,
  * @returns Number of bytes placed into the buffer.
  */
 int sscan(const char *buffer, const char *fmt, ...) __attribute__((format (printf, 2, 3)));
+
+
+/**
+ * @brief Store values represented by characters in a buffer in variable list 
+ *        using "..." args.
+ *
+ * @note See scan for format specifiers.
+ *
+ * @param *buffer Pointer to string with formatted values.
+ *
+ * @param *str String to find before scanning.  Scanning starts after the last character.
+ *        in this string.
+ *
+ * @param *fmt C printf comparable format string.
+ *
+ * @param ... Arguments where output will go and must be pointers.
+ * 
+ * @returns Number of % specifiers successfully matched.
+ */
+int sscanAfterStr(char *buffer, char *str, char *fmt, ...) __attribute__((format (printf, 3, 4)));
+
 
 
 /**
@@ -632,6 +687,18 @@ int  putln(const char* str);
  * @param *str Null terminated string to send. 
  */
 int  putLine(const char* str);
+
+
+/**
+ * @brief Print string to the debug port, and display all non printable characters
+ * (NPCs) as decimal ASCII values in brackets.  For example, delete would be [127].
+ * This function also displays the null [0] terminator.
+ * 
+ * @param *str Null terminated string to send. 
+ */
+int putStrWithNpcVals(const char *s);
+                                
+
 
 
 /**
@@ -932,6 +999,7 @@ int  readBin(text_t *device);
 int  readHex(text_t *device);
 
 
+
 /**
  * @}
  *
@@ -1001,12 +1069,36 @@ static inline void simpleterm_set(text_t *ptr)
  */
 terminal *simpleterm_pointer(void);
 
+
+
+/**
+ * @}
+ *
+ * @name Echo Settings
+ * @{
+ */
  
+ 
+/**
+ * @brief Enable or disable serial echo.  This should only be used with 
+ *  devices that have significant delays between the characters they send. 
+ */
+//void terminal_setEcho(text_t *text, int state);
+
+
+/**
+ * @brief Get echo setting for a given text device.
+ *
+ * @returns 1 = echo-on, 0 = echo-off.
+ */
+//int terminal_checkEcho(text_t *text);
+
  /**
   * @}
   */
 
  
+
  /*  
   * @cond
   * API not intended for public use 

@@ -438,7 +438,7 @@ int servo360_pidA(int p)
     _fs[p].dV = 0;
     _fs[p].opPidV = 0;
 
-    _fs[p].angleCalc = _fs[p].angle;
+    //180516 _fs[p].angleCalc = _fs[p].angle;
     //_fs[p].angleCalcP = _fs[p].angleCalc;
   }    
   
