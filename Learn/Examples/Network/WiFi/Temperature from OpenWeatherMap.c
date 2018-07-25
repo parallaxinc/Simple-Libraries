@@ -79,7 +79,9 @@ int main()
     wifi_print(TCP, tcpHandle, "%s", request);
     
     pause(2000);
-    print("WX serial response: %s\r\r", str);
+    //print("WX serial response: %s\r\r", str);
+    putStrWithNpcVals("WX serial response: ");
+    putStrWithNpcVals(str);
     
     pause(2000);
     wifi_scan(TCP, tcpHandle, "%s", str); 
