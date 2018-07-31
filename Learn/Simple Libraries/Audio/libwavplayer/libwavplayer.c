@@ -16,8 +16,7 @@ int main()
 {
   int DO = 22, CLK = 23, DI = 24, CS = 25;
   sd_mount(DO, CLK, DI, CS);
-  wav_set_pins(4, -1);
-/*  
+
   const char levels[] = {"levels.wav"};
   wav_play(levels);
   
@@ -30,9 +29,8 @@ int main()
   pause(6000);
   wav_stop();
   pause(1000);
-*/  
-  const char crazy[] = {"99RED.WAV"};
-  wav_volume(10); 
+
+  const char crazy[] = {"crazy.wav"};
   wav_play(crazy);
   while(1);
 }
