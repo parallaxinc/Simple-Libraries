@@ -2,7 +2,7 @@ libwavplayer.c
 wavplayer.h
 wavplayer.c
 >compiler=C
->memtype=cmm main ram compact
+>memtype=lmm main ram
 >optimize=-O2
 >-m32bit-doubles
 >-fno-exceptions

@@ -75,6 +75,15 @@ void wav_stop(void);
 void wav_close(void);
 
 
+/**
+ * @brief Change the default pins used by the wav player library.
+ * 
+ * @param lp pin to output left channel audio on (default is 27).
+ *
+ * @param rp pin to output right channel audio on (default is 26).  Set to -1 to output to only 1 pin.
+ */ 
+void wav_set_pins(int lp, int rp);
+
 #if defined(__cplusplus)
 }
 #endif
