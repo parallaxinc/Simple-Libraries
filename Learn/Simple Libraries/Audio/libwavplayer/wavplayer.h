@@ -18,7 +18,8 @@
  * @par Memory Models
  * Use with CMM or LMM. 
  *
- * @version v0.90 
+ * @version v0.91
+ * @li Added function to change the default pins for wav sound output 
  * @li Clicks between tracks removed
  * @li Bug that prevented later tracks in a sequence from being played 
  * is fixed 
@@ -74,6 +75,18 @@ void wav_stop(void);
  */ 
 void wav_close(void);
 
+
+/**
+ * @brief Change the default pins used by the wav player library.  Only call
+ * before calling wav_play for the first time or after calling wav_close.
+ * 
+ * @param left_pin pin to output left channel audio on (default is 27).  
+ * Set to -1 to disable this output.
+ *
+ * @param right_pin pin to output right channel audio on (default is 26).
+ * Set to -1 to disable this output.
+ */ 
+void wav_set_pins(int left_pin, int right_pin);
 
 #if defined(__cplusplus)
 }

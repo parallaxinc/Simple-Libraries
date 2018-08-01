@@ -1,0 +1,22 @@
+liblcdParalleli2c.c
+lcdParallel.h
+lcdParallel_clear.c
+lcdParallel_createChar.c
+lcdParallel_cursor.c
+lcdParallel_direction.c
+lcdParallel_display.c
+lcdParallel_home.c
+lcdParallel_init.c
+lcdParallel_print.c
+lcdParallel_scroll.c
+lcdParallel_send.c
+lcdParallel_setCursor.c
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>defs::-std=c99
+>-lm
+>-create_library
+>BOARD::ACTIVITYBOARD
