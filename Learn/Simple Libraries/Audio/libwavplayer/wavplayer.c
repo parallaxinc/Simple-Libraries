@@ -209,26 +209,29 @@ void wav_reader(void *par)
   }
 }
 
-void wav_set_pins(int lp, int rp) {
-  _wav_pin_left = lp;
-  _wav_pin_right = rp;
+void wav_set_pins(int left_pin, int right_pin) {
+  _wav_pin_left = left_pin;
+  _wav_pin_right = right_pin;
 }  
 
 //__attribute__((fcache))
 void audio_dac(void *par)
 {
   while(!playing);
-
-  char _stereo = 0;
   
-  CTRA = 0x18000000 + _wav_pin_left;
-  DIRA |= (1 << _wav_pin_left);
+  if (_wav_pin_left > -1 && _wav_pin_left < 33) {
+    CTRA = 0x18000000 + _wav_pin_left;
+    DIRA |= (1 << _wav_pin_left);
+  } else {
+    CTRA = 0;
+  }        
 
   if (_wav_pin_right > -1 && _wav_pin_right < 33) {
     CTRB = 0x18000000 + _wav_pin_right;
     DIRA |= (1 << _wav_pin_right);
-    _stereo = 1;
-  }    
+  } else {
+    CTRB = 0;
+  }        
 
   dtSample = CLKFREQ/sampleRate;
   int i;
@@ -245,7 +248,7 @@ void audio_dac(void *par)
         wavVal = wavDacBufferL[i] | wavDacBufferL[i+1]<<8;
         dacVal = (wavVal + 32768) * volume;
         FRQA = dacVal;
-        if (_stereo) FRQB = dacVal;
+        FRQB = dacVal;
         waitcnt(t+=dtSample);
       }
       swap = 2;
@@ -254,7 +257,7 @@ void audio_dac(void *par)
         wavVal = wavDacBufferH[i] | wavDacBufferH[i+1]<<8;
         dacVal = (wavVal + 32768) * volume;
         FRQA = dacVal;
-        if (_stereo) FRQB = dacVal;
+        FRQB = dacVal;
         waitcnt(t+=dtSample);
       }
     }
@@ -262,7 +265,7 @@ void audio_dac(void *par)
     {
       dacVal = 32768 * volume;
       FRQA = dacVal;
-      if (_stereo) FRQB = dacVal;
+      FRQB = dacVal;
       waitcnt(t+=dtSample);
     }
   }
