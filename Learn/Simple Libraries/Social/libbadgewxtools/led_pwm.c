@@ -22,11 +22,11 @@ void led_pwm() {
     
     // Toggle the state of the LED_PIN
     OUTA ^= (-led_pin_state ^ OUTA) & mask;
-    //set_output(LED_PIN, led_pin_state);
+    // set_output(LED_PIN, led_pin_state);
     
     // Set the LED_PIN as input or output 
     set_direction(LED_PIN, led_bit);
-    //usleep(10);
+    // usleep(10);
     
   }  
 }
@@ -55,7 +55,7 @@ void led_pwm_set(char side, char level) {
   level = level > 15 ? 15 : level;
   level = level < 0  ?  0 : level;
 
-  led_brightness[side] = led_levels[level];
+  led_brightness[(int) side] = led_levels[(int) level];
 }
 
 void led_pwm_start() {

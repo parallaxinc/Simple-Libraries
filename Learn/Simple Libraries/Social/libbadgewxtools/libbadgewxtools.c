@@ -3,6 +3,7 @@
   Test harness for the badgealpha library
 */
 
+
 #include "simpletools.h"
 #include "badgewxtools.h"
 #include "ws2812.h"
@@ -16,6 +17,8 @@ int x, y, z;
 int main(void)
 {
   badge_setup();
+  pause(1000);
+  print("%d", CLKFREQ);
   ws2812b = ws2812b_open();
   ws2812_set(ws2812b, RGB_PIN, RGBleds, LED_COUNT);
   pause(1000);
