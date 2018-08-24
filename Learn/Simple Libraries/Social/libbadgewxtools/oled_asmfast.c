@@ -70,7 +70,8 @@ Note: The splash screen is way down in the DAT section of this file.
          
  */
 #include <stdlib.h>
-#include <propeller.h>
+#include "simpletools.h"
+//#include <propeller.h>
 #include "badgewxtools.h"
 
 screen *screen_dataAddr();                     // Added 8/23 5:12 PM
@@ -318,11 +319,17 @@ int32_t screen_init(int32_t ChipSelect, int32_t DataCommand, int32_t TheData, in
   // Setup reset and pin direction  
   screen_HIGH(self->RST);
   // VDD (3.3V) goes high at start; wait for a ms
-  waitcnt(((CLKFREQ / 100000) + CNT));
+  
+  pause(1);
+  //waitcnt(((CLKFREQ / 100000) + CNT));
+  
   // force reset low
   screen_LOW(self->RST);
   // wait 10ms
-  waitcnt(((CLKFREQ / 100000) + CNT));
+  
+  pause(10);
+  //waitcnt(((CLKFREQ / 100000) + CNT));
+  
   // remove reset
   screen_HIGH(self->RST);
   if (self->displayType == TYPE_128X32) {
