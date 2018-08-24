@@ -132,7 +132,7 @@ extern "C" {
 
 #endif // DOXYGEN_SHOULD_SKIP_THIS
 
-
+void cal_supply5V(int setting);
 
 /**
   @brief Run the ActivityBot 360 calibration function.  Let it run until the
