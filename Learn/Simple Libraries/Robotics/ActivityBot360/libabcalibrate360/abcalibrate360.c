@@ -16,6 +16,7 @@ int *cogPulseLeft;
 int *cogPulseRight;
 volatile int pulseLeft;
 volatile int pulseRight;
+static int ignore_low_battery;
 
 /*
   VM_CCW = 180
@@ -25,6 +26,11 @@ volatile int pulseRight;
 */
 
 static int errorVal = AB360_ERROR_CONDITION_UNKNOWN;
+
+void cal_supply5V(int setting)
+{
+  ignore_low_battery = setting;
+}  
 
 void playNotes(float tempo, float beatVal, int *note, float *hold);
 
@@ -537,7 +543,7 @@ void cal_activityBot(void)
     {
       errorVal = AB360_ERROR_XFER_OUT_OF_RANGE;
     }
-    else if( (mVccwL+mVccwR+mVcwR+mVcwL) > 940)
+    else if( ((mVccwL+mVccwR+mVcwR+mVcwL) > 940) && (!ignore_low_battery))
     {
       errorVal = AB360_ERROR_BATTERIES_TOO_LOW;
     }      
