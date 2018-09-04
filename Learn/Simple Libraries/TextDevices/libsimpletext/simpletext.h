@@ -386,6 +386,27 @@ int sscan(const char *buffer, const char *fmt, ...) __attribute__((format (print
 
 
 /**
+ * @brief Store values represented by characters in a buffer in variable list 
+ *        using "..." args.
+ *
+ * @note See scan for format specifiers.
+ *
+ * @param *buffer Pointer to string with formatted values.
+ *
+ * @param *str String to find before scanning.  Scanning starts after the last character.
+ *        in this string.
+ *
+ * @param *fmt C printf comparable format string.
+ *
+ * @param ... Arguments where output will go and must be pointers.
+ * 
+ * @returns Number of % specifiers successfully matched.
+ */
+int sscanAfterStr(char *buffer, char *str, char *fmt, ...) __attribute__((format (printf, 3, 4)));
+
+
+
+/**
  * @name Print/Scan for Device Communication
  * @{
  */
@@ -666,6 +687,18 @@ int  putln(const char* str);
  * @param *str Null terminated string to send. 
  */
 int  putLine(const char* str);
+
+
+/**
+ * @brief Print string to the debug port, and display all non printable characters
+ * (NPCs) as decimal ASCII values in brackets.  For example, delete would be [127].
+ * This function also displays the null [0] terminator.
+ * 
+ * @param *str Null terminated string to send. 
+ */
+int putStrWithNpcVals(const char *s);
+                                
+
 
 
 /**

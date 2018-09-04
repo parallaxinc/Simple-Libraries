@@ -17,6 +17,8 @@
 #include "simpletools.h"
 #include "lsm9ds1.h"
 
+i2c *eeBus;                                   // I2C bus ID
+
 int __pinAG, __pinM, __pinSDIO, __pinSCL;
 char __autoCalc = 0;
 
@@ -67,6 +69,44 @@ int imu_init(int pinSCL, int pinSDIO, int pinAG, int pinM)
   imu_setGyroScale(500);
   imu_setAccelScale(8);
   imu_setMagScale(12);
+  
+  //Look for calibrations in EEPROM
+  char biasStamp[7];
+  char mBiasStored[7];
+  char aBiasStored[7];
+  char gBiasStored[7];
+  i2c_in(eeBus, 0b1010000, 63280, 2, biasStamp, 7);
+  i2c_in(eeBus, 0b1010000, 63287, 2, mBiasStored, 7);
+  i2c_in(eeBus, 0b1010000, 63294, 2, aBiasStored, 7);
+  i2c_in(eeBus, 0b1010000, 63301, 2, gBiasStored, 7);
+  
+  if(strcmp(biasStamp, "LSM9DS1") == 0) {
+    if(mBiasStored[0] = 'm') {
+      int mxB = (mBiasStored[1] << 8) | mBiasStored[2];
+      int myB = (mBiasStored[3] << 8) | mBiasStored[4];
+      int mzB = (mBiasStored[5] << 8) | mBiasStored[6];
+      
+      imu_setMagCalibration(mxB, myB, mzB);
+    }
+
+    if(aBiasStored[0] = 'a') {
+      int axB = (aBiasStored[1] << 8) | aBiasStored[2];
+      int ayB = (aBiasStored[3] << 8) | aBiasStored[4];
+      int azB = (aBiasStored[5] << 8) | aBiasStored[6];
+      
+      imu_setAccelCalibration(axB, ayB, azB);
+    }
+
+    if(gBiasStored[0] = 'g') {
+      int gxB = (gBiasStored[1] << 8) | gBiasStored[2];
+      int gyB = (gBiasStored[3] << 8) | gBiasStored[4];
+      int gzB = (gBiasStored[5] << 8) | gBiasStored[6];
+      
+      imu_setGyroCalibration(gxB, gyB, gzB);
+    }
+  }    
+  
+      
 
   // Once everything is initialized, return the WHO_AM_I registers we read:
   return whoAmICombined;

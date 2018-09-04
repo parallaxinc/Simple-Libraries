@@ -19,7 +19,6 @@
 int __pinAG;
 
 float __gRes;
-float __gBias[3];
 int __gBiasRaw[3];
 char __autoCalc;
 
@@ -38,7 +37,7 @@ void imu_readGyro(int *gx, int *gy, int *gz)
   *gy = (int) tempY;
   *gz = (int) tempZ;
   
-  if (__autoCalc)
+  if (__autoCalc & 0b01)
   {
     *gx -= __gBiasRaw[X_AXIS];
     *gy -= __gBiasRaw[Y_AXIS];

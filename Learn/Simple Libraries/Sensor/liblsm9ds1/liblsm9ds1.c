@@ -13,29 +13,41 @@
  */
 
 
-#include "lsm9ds1.h"
 #include "simpletools.h"
-
-//#define TEST_HARNESS    1
-
+#include "lsm9ds1.h"
 
 
-float gx, gy, gz; // x, y, and z axis readings of the gyroscope
-float ax, ay, az; // x, y, and z axis readings of the accelerometer
-float mx, my, mz; // x, y, and z axis readings of the magnetometer
-float tmp;
+#define TEST_HARNESS    1
 
 
 int main() {
   
 #ifdef TEST_HARNESS
   
-  int whoAmI = imu_init(6, 7, 8, 9);
+  float gx, gy, gz; // x, y, and z axis readings of the gyroscope
+  float ax, ay, az; // x, y, and z axis readings of the accelerometer
+  float mx, my, mz; // x, y, and z axis readings of the magnetometer
+  float tmp;
+  
+  int whoAmI = imu_init(0, 1, 2, 3);
 
   print("Who Am I? %x\r", whoAmI);
   
+  
+  
   imu_clearAccelInterrupt();
-  imu_setAccelInterrupt(Y_AXIS, 1.1, 20, 1, 0);
+  //imu_setAccelInterrupt(Y_AXIS, 1.1, 20, 1, 0);
+  
+  high(26);
+  imu_calibrateMag();
+  low(26);
+  
+  pause(3000);
+  high(26);
+  //imu_calibrateAG();
+  low(26);
+  
+  pause(3000);
 
   while(1) {
 /*
@@ -59,8 +71,8 @@ int main() {
     imu_readAccelCalculated(&ax, &ay, &az);  
     print("Accel:\t%.2f\t%.2f\t%.2f\r", ax, ay, az);
   
-    imu_readMagCalculated(&mz, &my, &mz);
-    print("Mag:\t%.2f\t%.2f\t%.2f\r", mz, my, mz);
+    imu_readMagCalculated(&mx, &my, &mz);
+    print("Mag:\t%.2f\t%.2f\t%.2f\r", mx, my, mz);
     
     imu_readTempCalculated(&tmp, FAHRENHEIT);
     print("Temp:\t%.2f\r\r", tmp);
