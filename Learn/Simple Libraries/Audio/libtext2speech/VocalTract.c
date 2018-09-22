@@ -195,6 +195,18 @@ int32_t VocalTract_start(VocalTract *self, int32_t tract_ptr, int32_t pos_pin, i
   self->tract = tract_ptr;
   // Initialize pace to 100%
   self->pace = 100;
+  
+  // Remove first pin cannot be -1 caviat.
+  if( (pos_pin < 0) && (neg_pin > -1) ) 
+  {
+    pos_pin = neg_pin;
+    neg_pin = -1;
+  } 
+  if( pos_pin == neg_pin)
+  {
+    neg_pin = -1;
+  }      
+     
   // If delta-modulation pin(s) enabled, ready output(s) and ready ctrb for duty mode
   if (pos_pin > (-1)) {
     (&self->dira_)[((Shr__(pos_pin, 5)) & 0x1)] = (&self->dira_)[((Shr__(pos_pin, 5)) & 0x1)] | ((1<<pos_pin));
