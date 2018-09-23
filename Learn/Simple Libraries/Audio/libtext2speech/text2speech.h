@@ -11,7 +11,7 @@
   heavily on work done by D.H. Klatt in the "KLSYN" formant synthesis 
   program.
  
-  @version 0.5 
+  @version 0.55 
 
   @copyright
   This library is under the GNU General Public License from its original 
@@ -246,7 +246,18 @@ int32_t talk_spell( talk *talkId, char *ptr);
       j         J, as in Job.
 
 */    
-  int32_t talk_say( talk *talkId, char *ptr);
+int32_t talk_say( talk *talkId, char *ptr);
+  
+  
+/**
+  @brief set volume for all speakers.
+  
+  @param *self speech2text process ID.
+  
+  @param level (quietest) 0...7 (loudest).
+*/ 
+void talk_setVolume(talk *self, int level);
+  
 
 #endif //talk_Class_Defined__
 
