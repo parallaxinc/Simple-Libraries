@@ -488,8 +488,8 @@ int servo360_pidV(int p)
 
   _fs[p].speedMeasured = (_fs[p].angle - _fs[p].angleP) * 50; 
   
-  if(abs(_fs[p].angleError) < S360_UNITS_ENCODER/2)
-  {
+  //if(abs(_fs[p].angleError) < S360_UNITS_ENCODER/2)
+  //{
 
 
 
@@ -528,9 +528,25 @@ int servo360_pidV(int p)
 
 
 
-  }
+  //}
+  
+  //
+  
+  int angleErrorPrev = _fs[p].angleError;
 
   _fs[p].angleError = _fs[p].angleCalc - _fs[p].angle;
+  
+  if(abs(_fs[p].angleError) >= S360_UNITS_ENCODER/2)
+  {
+    if(abs(_fs[p].angleError) > abs(angleErrorPrev))
+    {
+      _fs[p].angleCalc -= _fs[p].angleDeltaCalc;
+      _fs[p].angleError = angleErrorPrev;
+    }
+  }
+  //          
+
+
 
   if(abs(_fs[p].angleError) < S360_UNITS_ENCODER/2)
   {
