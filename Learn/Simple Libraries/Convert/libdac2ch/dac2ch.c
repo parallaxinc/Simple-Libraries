@@ -1,85 +1,87 @@
 /*
- * @file pwm2ch.c
- *
- * @author Andy Lindsay
- *
- * @version 0.85
- *
- * @copyright Copyright (C) Parallax, Inc. 2018.  See end of file for
- * terms of use (MIT License).
- *
- * @brief pwm function source, see simpletools.h for documentation.
- *
- * @detail Please submit bug reports, suggestions, and improvements to
- * this code to editor@parallax.com.
- */
+  @file dac2ch.c
+ 
+  @author Andy Lindsay
+ 
+  @version 0.5
+ 
+  @copyright Copyright (C) Parallax, Inc. 2018.  See end of file for
+  terms of use (MIT License).
+ 
+  @brief dac2ch function source, see dac2ch.h for documentation.
+ 
+  @detail Please submit bug reports, suggestions, and improvements to
+  this code to editor@parallax.com.
+*/
 
 #include "simpletools.h"
-#include "pwm2ch.h"
+#include "dac2ch.h"
 
-#ifndef NCO_PWM_1
-#define NCO_PWM_1 0b00100 << 26
+#ifndef DUTY_SE
+#define DUTY_SE (0b110 << 26)
 #endif
 
-void pwm2chDriver(void *par);
+void dac2chDriver(void *par);
 
-pwm2ch *pwm2ch_start(unsigned int cycleMicroseconds)
+dac2ch *dac2ch_start(int bits)
 {
-  pwm2ch *device;
-  device = (void *) malloc(sizeof(pwm2ch));
-  //device->tCycle = cycleMicroseconds * st_usTicks;
-  device->tCycle = cycleMicroseconds * (CLKFREQ / 1000000);
+  dac2ch *device;
+  device = (void *) malloc(sizeof(dac2ch));
+  device->dacCtrBits = bits;
+  device->dacBitX = 32 - device->dacCtrBits;
   device->ctra = 0;
   device->ctrb = 0;
-  device->pwm2cog = cogstart(pwm2chDriver, device, device->pwm2stack, sizeof(device->pwm2stack)) + 1;  
+  device->dac2chCog = cogstart(dac2chDriver, device, device->dac2chStack, sizeof(device->dac2chStack)) + 1;  
   return device;
 }
 
-void pwm2ch_set(pwm2ch *device, int pin, int channel, int tHigh)
+void dac2ch_stop(dac2ch *device)
 {
+  if(device->dac2chCog) cogstop(device->dac2chCog - 1);  
+  device->dac2chCog = 0;
+  free(device);
+}
+
+void dac2ch_set(dac2ch *device, int pin, int channel, int dacVal)
+{
+  int temp = DUTY_SE;
+  temp |= pin;
+
   if(!channel)
   {
-    int temp = NCO_PWM_1;
-    temp |= pin;
-    device->ctra = temp;
-    device->ticksA = tHigh * st_usTicks;
-    if(tHigh < 0)
+    if(dacVal >= 0)
+    {
+      device->ctra = temp;
+      device->frqa = (dacVal << device->dacBitX);
+    }      
+    else 
     {
       device->ctra = 0;
+      device->frqa = 0;
     }      
   }
   else
   {
-    int temp = NCO_PWM_1;
-    temp |= pin;
-    device->ctrb = temp;
-    device->ticksB = tHigh * st_usTicks;
-    if(tHigh < 0)
+    if(dacVal >= 0)
+    {
+      device->ctrb = temp;
+      device->frqb = (dacVal << device->dacBitX);
+    }      
+    else 
     {
       device->ctrb = 0;
+      device->frqb = 0;
     }      
-  }
+  }    
 }
 
-void pwm2ch_stop(pwm2ch *device)
+void dac2chDriver(void *par)
 {
-  if(device->pwm2cog) cogstop(device->pwm2cog - 1);  
-  device->pwm2cog = 0;
-  free(device);
-}
-
-void pwm2chDriver(void *par)
-{
-  pwm2ch *device = (pwm2ch *) par;
+  dac2ch *device = (dac2ch *) par;
   FRQA = 1;
   FRQB = 1;
-  //int pin;
-  unsigned int dt = device->tCycle;
-  unsigned int t = CNT;
   while(1)
   {
-    waitcnt(t+=dt);
-    //int temp = CTRA;
     if(device->ctra != CTRA)
     {
       if(CTRA != 0)
@@ -87,30 +89,35 @@ void pwm2chDriver(void *par)
         device->pin = CTRA & 0b111111;
         DIRA &= ~(1 << device->pin);
       }
+      
       CTRA = device->ctra;
+      
       if(device->ctra != 0)
       {
         device->pin = CTRA & 0b111111;      
         DIRA |= (1 << device->pin);
       }        
     }
-    //temp = CTRB;
+
     if(device->ctrb != CTRB)
     {
       if(CTRB != 0)
       {
         device->pin = CTRB & 0b111111;
-        DIRB &= ~(1 << device->pin);
+        DIRA &= ~(1 << device->pin);
       }
+      
       CTRB = device->ctrb;
+      
       if(device->ctrb != 0)
       {
         device->pin = CTRB & 0b111111;      
         DIRA |= (1 << device->pin);
       }        
     }
-    PHSA = -device->ticksA;    
-    PHSB = -device->ticksB;
+    
+    FRQA = device->frqa;    
+    FRQB = device->frqb;
     //    
   }
 }
