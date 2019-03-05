@@ -6,7 +6,7 @@
 #include <propeller.h>
 #include "badgewxtools.h"
 
-char touchpad_sensitivity = 8;
+char touchpad_sensitivity = 4;
 
 // ------ Buttons function ------
 unsigned char buttons() {
@@ -41,11 +41,11 @@ unsigned char buttons() {
   input(NAV_R);
     
   high(NAV_TOUCH_L);
-  waitcnt(CLKFREQ/4000 + CNT);
+  pause(1);
   tDecay[1] = rc_time(NAV_TOUCH_L,1);
 
   high(NAV_TOUCH_R);
-  waitcnt(CLKFREQ/4000 + CNT);
+  pause(1);
   tDecay[0] = rc_time(NAV_TOUCH_R,1);
     
   btns |= ((tDecay[0] > touchpad_sensitivity ? 1 : 0) << 7);
@@ -66,7 +66,7 @@ char button(char b) {
 void touch_sensitivity_set (char sens) {
   sens = (sens < 0 ? 0 : sens);
   sens = (sens > 15 ? 15 : sens);
-  sens = 19 - sens;
+  sens = 16 - sens;
 
 
   touchpad_sensitivity = sens;

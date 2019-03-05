@@ -3,7 +3,7 @@
 
   @author Parallax Inc
   
-  @version 0.9.1
+  @version 0.9.2
 
   @copyright
   Copyright (C) Parallax Inc. 2017. All Rights MIT Licensed.  See end of file.
@@ -983,9 +983,6 @@ int servo360_setCoupleScale(int pinA, int pinB, int scale);
 */
 
 
-
-
-
 /**
   @brief Enable or disable the control system signal.  
   
@@ -1025,6 +1022,47 @@ int servo360_feedback(int pin, int state);
 */ 
 int servo360_set(int pinControl, int time);
 
+
+/**
+  @brief During servo360_speed maneuvers, the target position gets recalculated
+  every 50th of a second.  The control system code compares this calculated
+  position against the measured position from servo360_getAngle to make adjustments
+  to maintain a given speed.  This call is typically used in applications where
+  there is some difference between the calculated and actual position due to 
+  external factors, such as a robot pushing against a wall.  If the wall prevents
+  the wheels from turning, this calculated angle can be changed to the result of
+  the servo360_getAngle function to make the control system stop applying pressure
+  to the wall, without making the application reverse the wheel direction for a 
+  certain amount of time.
+  
+  @param pin Control pin used in servo360_connect call.  
+  
+  @param angle The new target angle value in terms of servo360_setUnitsFullCircle
+  units.  The default is degrees -360ths of a full circle.  If this function is 
+  called for an ActivityBot 360 servo after calling an abdrive360.h function, the 
+  angle for either of its drive servos will be 64ths of a full circle.
+   
+  @returns 0 or higher if success.
+*/ 
+int servo360_setAngleCalc(int pin, int angle);
+
+
+/**
+  @brief During servo360_speed maneuvers, the target position gets recalculated
+  every 50th of a second.  The control system code compares this calculated
+  position against the measured position from servo360_getAngle to make adjustments
+  to maintain a given speed.  This call can be used to check the calculated angle,
+  which can be compared to servo360_getAngle call results to gain insights
+  into certain servo360 behaviors.
+  
+  @param pin Control pin used in servo360_connect call.  
+  
+  @returns angle The target angle value in terms of servo360_setUnitsFullCircle
+  units.  The default is degrees -360ths of a full circle.  If this function is 
+  called for an ActivityBot 360 servo after calling an abdrive360.h function, the 
+  angle for either of its drive servos will be 64ths of a full circle.  
+*/ 
+int servo360_getAngleCalc(int pin);
 
 
 /**
@@ -1078,7 +1116,7 @@ int servo360_setTransferFunction(int pin, int constant, int value);
 
 int servo360_getAngle12Bit(int pin);
 int servo360_getAngleFixedOrigin(int pin);
-int servo360_getAngleCalc(int pin);
+
 
 /*
 __attribute__((constructor))
