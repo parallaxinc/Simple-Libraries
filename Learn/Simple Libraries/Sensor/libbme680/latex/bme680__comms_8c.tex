@@ -1,0 +1,74 @@
+\hypertarget{bme680__comms_8c}{}\section{bme680\+\_\+comms.\+c File Reference}
+\label{bme680__comms_8c}\index{bme680\+\_\+comms.\+c@{bme680\+\_\+comms.\+c}}
+
+
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings.  
+
+
+{\ttfamily \#include \char`\"{}bme680.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{bme680__comms_8c_a854d2f7a70cb387c2a0cc3cabb796fd4}{bme680\+\_\+read}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev, unsigned char reg\+\_\+addr, unsigned char $\ast$reg\+\_\+data, unsigned short len)
+\begin{DoxyCompactList}\small\item\em Internal function used to write values to the specified registers of the B\+M\+E680 sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bme680__comms_8c_a0d790c6ff6278ced8ac96767bd4e524d}{bme680\+\_\+write}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev, unsigned char reg\+\_\+addr, unsigned char $\ast$reg\+\_\+data, unsigned short len)
+\begin{DoxyCompactList}\small\item\em Internal function used to read values from the specified registers of the B\+M\+E680 sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings. 
+
+\begin{DoxyAuthor}{Author}
+Matthew Matz
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+5
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (C) Parallax, Inc. 2019. All Rights M\+IT Licensed. 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{bme680__comms_8c_a854d2f7a70cb387c2a0cc3cabb796fd4}\label{bme680__comms_8c_a854d2f7a70cb387c2a0cc3cabb796fd4}} 
+\index{bme680\+\_\+comms.\+c@{bme680\+\_\+comms.\+c}!bme680\+\_\+read@{bme680\+\_\+read}}
+\index{bme680\+\_\+read@{bme680\+\_\+read}!bme680\+\_\+comms.\+c@{bme680\+\_\+comms.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+read()}{bme680\_read()}}
+{\footnotesize\ttfamily void bme680\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev,  }\item[{unsigned char}]{reg\+\_\+addr,  }\item[{unsigned char $\ast$}]{reg\+\_\+data,  }\item[{unsigned short}]{len }\end{DoxyParamCaption})}
+
+
+
+Internal function used to write values to the specified registers of the B\+M\+E680 sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device.\\
+\hline
+{\em reg\+\_\+addr} & the address of first register to write to.\\
+\hline
+{\em $\ast$reg\+\_\+data} & the array containing alternating data and address bytes to write.\\
+\hline
+{\em len} & the total number of data and address bytes to write. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680__comms_8c_a0d790c6ff6278ced8ac96767bd4e524d}\label{bme680__comms_8c_a0d790c6ff6278ced8ac96767bd4e524d}} 
+\index{bme680\+\_\+comms.\+c@{bme680\+\_\+comms.\+c}!bme680\+\_\+write@{bme680\+\_\+write}}
+\index{bme680\+\_\+write@{bme680\+\_\+write}!bme680\+\_\+comms.\+c@{bme680\+\_\+comms.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+write()}{bme680\_write()}}
+{\footnotesize\ttfamily void bme680\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev,  }\item[{unsigned char}]{reg\+\_\+addr,  }\item[{unsigned char $\ast$}]{reg\+\_\+data,  }\item[{unsigned short}]{len }\end{DoxyParamCaption})}
+
+
+
+Internal function used to read values from the specified registers of the B\+M\+E680 sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device.\\
+\hline
+{\em reg\+\_\+addr} & the address of register to begin reading from.\\
+\hline
+{\em $\ast$reg\+\_\+data} & the array to store the received data into.\\
+\hline
+{\em len} & the number of bytes to read. \\
+\hline
+\end{DoxyParams}

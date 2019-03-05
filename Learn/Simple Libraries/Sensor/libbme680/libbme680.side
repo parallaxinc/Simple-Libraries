@@ -1,0 +1,22 @@
+libbme680.c
+bme680.h
+bme680_comms.c
+bme680_init.c
+bme680_read.c
+bme680_settings.c
+bme680_temperature.c
+bme680_pressure.c
+bme680_humidity.c
+bme680_altitude.c
+bme680_gasResistance.c
+bme680_begin.c
+bme680_heater.c
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>defs::-std=c99
+>-lm
+>-create_library
+>BOARD::ACTIVITYBOARD
