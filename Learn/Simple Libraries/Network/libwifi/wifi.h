@@ -3,7 +3,7 @@
                                                                                //
   @author Andy Lindsay
 
-  @version 0.81 for firmware 1.0
+  @version 0.82 for firmware 1.0
 
   @copyright
   Copyright (C) Parallax, Inc. 2017. All Rights MIT Licensed.
@@ -933,9 +933,11 @@ int  wifi_replyStringCopy(char *targetStr);
   Supported: "%b" (binary), "%c" (character), "%d" (integer), "%f" (32-bit 
   floating point), "%s" (string) and "%x" (hexadecimal).  For POST requests,
   the name in the name/value pair should be prepended.  For example, note the
-  io in wifi_scan(POST, handle, "io%d%d", &pin, &state);  Note, in v0.80, 
-  if the protocol is TCP, only one "%s" is supported.  After updates to 
-  the simpletext library, this will likely support more options.
+  io in wifi_scan(POST, handle, "io%d%d", &pin, &state);  Note, in v0.82, 
+  if the protocol is TCP, only one "%s" is supported.  Also for TCP, it must 
+  only use the string created and passed to wifi_setBuffer during initialization.
+  See ...Documents\SimpleIDE\Learn\Examples\Network\WiFi\Temperature from 
+  OpenWeatherMap.side for an example.
  
   @param ... The argument list, typically pointers to the variables that 
   correspond to format string elements.  Use "&variable" for char, int, 

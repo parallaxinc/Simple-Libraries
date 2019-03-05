@@ -14,6 +14,13 @@
  * Removed confusing #ifdef. Startup delay moved from serial_open to here.
  */
 HUBDATA terminal *dport_ptr = 0;
+volatile int simpleterm_echo;
+//volatile char simpleterm_ec[3];
+//volatile char simpleterm_ecs[3];
+volatile char simpleterm_ecA;
+volatile char simpleterm_ecB;
+volatile char simpleterm_ecsA;
+volatile char simpleterm_ecsB;
 
 __attribute__((constructor))
 terminal *simpleterm_open(void)
@@ -21,7 +28,19 @@ terminal *simpleterm_open(void)
   if(dport_ptr != 0)
     return dport_ptr;
 
+  //dport_ptr = serial_open(31,30,0,115200);
+  //dport_ptr = serial_open(31,30,ECHO_RX_TO_TX,115200);
   dport_ptr = serial_open(31,30,0,115200);
+  
+  //memcpy(&dport_ptr->ec, "\r\n", 3);
+  dport_ptr->ecA = '\r';
+  dport_ptr->ecB = '\n';
+  //memcpy(&dport_ptr->ecs, "\r\0", 3);
+  dport_ptr->ecsA = '\r';
+  dport_ptr->ecsB = 0;
+  
+  
+  
   waitcnt(CLKFREQ+CNT);
   return dport_ptr;
 }

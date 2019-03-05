@@ -1,6 +1,9 @@
 libabcalibrate360.c
 abcalibrate360.h
 abcalibrate360.c
+cal_displayResults.c
+cal_displayData.c
+cal_getEepromPins.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

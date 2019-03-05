@@ -13,7 +13,6 @@
 #include "simpletools.h"  
 #include "servo360.h"
 
-
 int servo360_goto(int pin, int position)
 {
   int target, offset;
@@ -23,10 +22,31 @@ int servo360_goto(int pin, int position)
 
   while(lockset(_fb360c.lock360));
 
-  offset = _fs[p].angleTarget;
+  //offset = _fs[p].angleTarget;
+  //print("%d, %d\r", p, _fs[p].angleCalc);
+  //180516 offset = _fs[p].angleCalc;
+
+
+  if(_fs[p].csop == S360_POSITION) 
+  {
+    offset = _fs[p].sp;
+    _fs[p].angleCalc = _fs[p].sp;
+  }
+  else if(_fs[p].csop == S360_GOTO)
+  {
+    offset = _fs[p].angleTarget;
+  }    
+  else
+  {
+    offset = _fs[p].angleCalc;
+  }    
+
+  //print("%d, %d\r", p, _fs[p].angleCalc);
   target = position * S360_UNITS_ENCODER / _fs[p].unitsRev;
 
   _fs[p].angleTarget = target + offset;
+
+  // print("%d, %d\r", p, _fs[p].angleTarget);
 
   if(_fs[p].csop != S360_GOTO)
   {
@@ -38,6 +58,8 @@ int servo360_goto(int pin, int position)
   }    
   
   lockclr(_fb360c.lock360);
+  
+  return p;
 }
 
 

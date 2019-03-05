@@ -48,6 +48,7 @@ int servo360_setControlSys(int pin, int constant, int value)
       _fs[p].iMin = -value;
       break;
   }  
+  return p;
 }    
 
 

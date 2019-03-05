@@ -26,6 +26,11 @@ int servo360_speed(int pin, int speed)
   {
     while(lockset(_fb360c.lock360));
   
+    if( (_fs[p].csop == S360_POSITION) || (_fs[p].csop == S360_GOTO))
+    {
+      _fs[p].angleCalc = _fs[p].angleTarget;
+    }
+  
     if(speed > _fs[p].speedLimit)
       _fs[p].speedReq = _fs[p].speedLimit;
     else if(speed < -_fs[p].speedLimit)
@@ -48,7 +53,8 @@ int servo360_speed(int pin, int speed)
       //_fs[p].pw = 0;
     }    
     
-  }    
+  }  
+  return p;  
   //servo360_waitServoCtrllEdgeNeg(_fb360c.devCount - 1);
 }  
 

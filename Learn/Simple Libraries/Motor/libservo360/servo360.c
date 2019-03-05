@@ -71,9 +71,10 @@ void servo360_mainLoop()
   
   while(1)
   {
+    _fb360c.pulseCount++;
+
     //while((CNT - _fb360c.t360) < _fb360c.dt360);
     //while((CNT - _fb360c.t360) < _fb360c.dt360);
-    
 
     for(int p = 0; p < S360_DEVS_MAX; p++)
     {
@@ -168,7 +169,6 @@ void servo360_mainLoop()
 
 void servo360_servoPulse(int p, int q)
 {
-  _fb360c.pulseCount++;
   int pinA = _fs[p].pinCtrl;
   int pinB = _fs[q].pinCtrl;
   
@@ -438,7 +438,7 @@ int servo360_pidA(int p)
     _fs[p].dV = 0;
     _fs[p].opPidV = 0;
 
-    _fs[p].angleCalc = _fs[p].angle;
+    //180516 _fs[p].angleCalc = _fs[p].angle;
     //_fs[p].angleCalcP = _fs[p].angleCalc;
   }    
   
@@ -488,8 +488,8 @@ int servo360_pidV(int p)
 
   _fs[p].speedMeasured = (_fs[p].angle - _fs[p].angleP) * 50; 
   
-  if(abs(_fs[p].angleError) < S360_UNITS_ENCODER/2)
-  {
+  //if(abs(_fs[p].angleError) < S360_UNITS_ENCODER/2)
+  //{
 
 
 
@@ -528,9 +528,25 @@ int servo360_pidV(int p)
 
 
 
-  }
+  //}
+  
+  //
+  
+  int angleErrorPrev = _fs[p].angleError;
 
   _fs[p].angleError = _fs[p].angleCalc - _fs[p].angle;
+  
+  if(abs(_fs[p].angleError) >= S360_UNITS_ENCODER/2)
+  {
+    if(abs(_fs[p].angleError) > abs(angleErrorPrev))
+    {
+      _fs[p].angleCalc -= _fs[p].angleDeltaCalc;
+      _fs[p].angleError = angleErrorPrev;
+    }
+  }
+  //          
+
+
 
   if(abs(_fs[p].angleError) < S360_UNITS_ENCODER/2)
   {

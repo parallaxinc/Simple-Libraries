@@ -23,6 +23,7 @@ int servo360_setAngleOffset(int pin, int angle)
   //while(lockset(_fb360c.lock360));
   _fs[p].pvOffset = angle * S360_UNITS_ENCODER / _fs[p].unitsRev;
   //lockclr(_fb360c.lock360);
+  return p;
 }  
 
 
