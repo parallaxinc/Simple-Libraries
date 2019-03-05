@@ -1,0 +1,93 @@
+\hypertarget{bme680__init_8c}{}\section{bme680\+\_\+init.\+c File Reference}
+\label{bme680__init_8c}\index{bme680\+\_\+init.\+c@{bme680\+\_\+init.\+c}}
+
+
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings.  
+
+
+{\ttfamily \#include \char`\"{}bme680.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$ \mbox{\hyperlink{bme680__init_8c_ae57fcac45ea7a45271db383809d46a73}{bme680\+\_\+open\+I2C}} (i2c $\ast$i2c\+\_\+bus, char i2c\+\_\+addr)
+\begin{DoxyCompactList}\small\item\em Initialize a B\+M\+E680 sensor into i2c mode. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$ \mbox{\hyperlink{bme680__init_8c_aca2e9d575f1a30f88cd45e19434f8ef1}{bme680\+\_\+open\+S\+PI}} (char pin\+\_\+sdo, char pin\+\_\+clk, char pin\+\_\+sdi, char pin\+\_\+cs)
+\begin{DoxyCompactList}\small\item\em Initialize a B\+M\+E680 sensor into 4-\/wire S\+PI mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bme680__init_8c_a022cf63aa99c565ce62cf4dcde5222d9}{bme680\+\_\+close}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev)
+\begin{DoxyCompactList}\small\item\em Close and free the memory used by the bme680 device structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings. 
+
+\begin{DoxyAuthor}{Author}
+Matthew Matz
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+5
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (C) Parallax, Inc. 2019. All Rights M\+IT Licensed. 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{bme680__init_8c_a022cf63aa99c565ce62cf4dcde5222d9}\label{bme680__init_8c_a022cf63aa99c565ce62cf4dcde5222d9}} 
+\index{bme680\+\_\+init.\+c@{bme680\+\_\+init.\+c}!bme680\+\_\+close@{bme680\+\_\+close}}
+\index{bme680\+\_\+close@{bme680\+\_\+close}!bme680\+\_\+init.\+c@{bme680\+\_\+init.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+close()}{bme680\_close()}}
+{\footnotesize\ttfamily void bme680\+\_\+close (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev }\end{DoxyParamCaption})}
+
+
+
+Close and free the memory used by the bme680 device structure. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680__init_8c_ae57fcac45ea7a45271db383809d46a73}\label{bme680__init_8c_ae57fcac45ea7a45271db383809d46a73}} 
+\index{bme680\+\_\+init.\+c@{bme680\+\_\+init.\+c}!bme680\+\_\+open\+I2C@{bme680\+\_\+open\+I2C}}
+\index{bme680\+\_\+open\+I2C@{bme680\+\_\+open\+I2C}!bme680\+\_\+init.\+c@{bme680\+\_\+init.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+open\+I2\+C()}{bme680\_openI2C()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}}$\ast$ bme680\+\_\+open\+I2C (\begin{DoxyParamCaption}\item[{i2c $\ast$}]{i2c\+\_\+bus,  }\item[{char}]{i2c\+\_\+addr }\end{DoxyParamCaption})}
+
+
+
+Initialize a B\+M\+E680 sensor into i2c mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$i2c\+\_\+bus} & pointer to an i2c bus that has already been opened with i2c\+\_\+open();.\\
+\hline
+{\em i2c\+\_\+addr} & the i2c address of the device, usualy 0x76 or 0x77.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bme680\+\_\+t device identifier for use with functions in bme680 library. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{bme680__init_8c_aca2e9d575f1a30f88cd45e19434f8ef1}\label{bme680__init_8c_aca2e9d575f1a30f88cd45e19434f8ef1}} 
+\index{bme680\+\_\+init.\+c@{bme680\+\_\+init.\+c}!bme680\+\_\+open\+S\+PI@{bme680\+\_\+open\+S\+PI}}
+\index{bme680\+\_\+open\+S\+PI@{bme680\+\_\+open\+S\+PI}!bme680\+\_\+init.\+c@{bme680\+\_\+init.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+open\+S\+P\+I()}{bme680\_openSPI()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}}$\ast$ bme680\+\_\+open\+S\+PI (\begin{DoxyParamCaption}\item[{char}]{pin\+\_\+sdo,  }\item[{char}]{pin\+\_\+clk,  }\item[{char}]{pin\+\_\+sdi,  }\item[{char}]{pin\+\_\+cs }\end{DoxyParamCaption})}
+
+
+
+Initialize a B\+M\+E680 sensor into 4-\/wire S\+PI mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pin\+\_\+sdo} & the B\+M\+E680\textquotesingle{}s S\+DO (M\+I\+SO) pin.\\
+\hline
+{\em pin\+\_\+clk} & the B\+M\+E680\textquotesingle{}s C\+LK (clock) pin.\\
+\hline
+{\em pin\+\_\+sdi} & the B\+M\+E680\textquotesingle{}s S\+DI (M\+O\+SI) pin.\\
+\hline
+{\em pin\+\_\+cs} & the B\+M\+E680\textquotesingle{}s CS (select) pin.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bme680\+\_\+t device identifier for use with functions in bme680 library. 
+\end{DoxyReturn}

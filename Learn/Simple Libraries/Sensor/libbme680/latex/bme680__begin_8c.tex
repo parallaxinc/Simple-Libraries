@@ -1,0 +1,45 @@
+\hypertarget{bme680__begin_8c}{}\section{bme680\+\_\+begin.\+c File Reference}
+\label{bme680__begin_8c}\index{bme680\+\_\+begin.\+c@{bme680\+\_\+begin.\+c}}
+
+
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings.  
+
+
+{\ttfamily \#include \char`\"{}bme680.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{bme680__begin_8c_aa36ad4b17babe7c97134c5b56d54d3ab}{bme680\+\_\+begin}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev)
+\begin{DoxyCompactList}\small\item\em Internal function used to set the values in the bme680\+\_\+t structure to their default values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings. 
+
+\begin{DoxyAuthor}{Author}
+Matthew Matz
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+5
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (C) Parallax, Inc. 2019. All Rights M\+IT Licensed. 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{bme680__begin_8c_aa36ad4b17babe7c97134c5b56d54d3ab}\label{bme680__begin_8c_aa36ad4b17babe7c97134c5b56d54d3ab}} 
+\index{bme680\+\_\+begin.\+c@{bme680\+\_\+begin.\+c}!bme680\+\_\+begin@{bme680\+\_\+begin}}
+\index{bme680\+\_\+begin@{bme680\+\_\+begin}!bme680\+\_\+begin.\+c@{bme680\+\_\+begin.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+begin()}{bme680\_begin()}}
+{\footnotesize\ttfamily void bme680\+\_\+begin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev }\end{DoxyParamCaption})}
+
+
+
+Internal function used to set the values in the bme680\+\_\+t structure to their default values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device. \\
+\hline
+\end{DoxyParams}
