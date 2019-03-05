@@ -547,7 +547,7 @@ void cal_activityBot(void)
     {
       errorVal = AB360_ERROR_BATTERIES_TOO_LOW;
     }      
-    else if( (mVccwL+mVccwR+mVcwR+mVcwL) < 625)
+    else if( (mVccwL+mVccwR+mVcwR+mVcwL) < 575)
     {
       errorVal = AB360_ERROR_BATTERIES_TOO_HIGH;
     }      
