@@ -35,11 +35,21 @@ volatile int abd360_rampStepGoto = ABD_GOTO_RAMP_STEP;
 
 volatile int abd360_gotoMode = ABD360_GOTO_BLOCK;
 
+volatile int abd360_suppress_eeprom = 0;
+
+void drive_suppress_eeprom(int state)
+{
+  abd360_suppress_eeprom = state;
+}  
+
 
 void drive_init(void)
 {
 
-  abdrive360_getEepromPins();
+  if(!abd360_suppress_eeprom)
+  {
+    abdrive360_getEepromPins();
+  }    
   
   int result, flag = 0;
   do
@@ -86,7 +96,10 @@ void drive_init(void)
   servo360_setControlSys(abd360_pinCtrlLeft, S360_SETTING_IA_MAX, 150);            // FB360_VEL_INTGRL_MAX
   servo360_setControlSys(abd360_pinCtrlRight, S360_SETTING_IA_MAX, 150);            // FB360_VEL_INTGRL_MAX
   
-  abdrive360_getEepromTransfer();
+  if(!abd360_suppress_eeprom)
+  {
+    abdrive360_getEepromTransfer();
+  }    
   
   abd360_initialized = 1;
 }

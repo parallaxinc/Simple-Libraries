@@ -381,6 +381,7 @@ int drive_gotoStatus(int side);
 void drive_feedback(int enabled); 
 
 
+void drive_suppress_eeprom(int state);
 
 /**
   @}
