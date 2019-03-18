@@ -52,6 +52,8 @@ int wifi_print(int protocol, int handle, const char *fmt, ...)
 
   int n = 0;
   
+  /*
+  
   char *txt;
 
   if(protocol != TCP)
@@ -64,36 +66,42 @@ int wifi_print(int protocol, int handle, const char *fmt, ...)
   {
     char *txt = wifi_buf; 
     wifi_buf[0] = 0; 
-  }      
+  }  
+  
+  */    
+
+  //wifi_buf[0] = 0; 
+  memset(wifi_buf, 0, wifi_buf_size);
   
   va_list args;
   va_start(args, fmt);
-  n = _dosprnt(fmt, args, txt);
+  n = _dosprnt(fmt, args, wifi_buf);
   va_end(args);
 
   wifi_simpletermSuspend();
-  int size = strlen(txt);
+  int size = strlen(wifi_buf);
 
   switch(protocol)
   {
     case GET:
-      dprint(wifi_fds, "%c%c%d,200,%d\r%s", CMD, REPLY, handle, size, txt);
+      dprint(wifi_fds, "%c%c%d,200,%d\r%s", CMD, REPLY, handle, size, wifi_buf);
       break;
     case WS:
-      dprint(wifi_fds, "%c%c%d,%d\r%s", CMD, SEND, handle, size, txt);
+      dprint(wifi_fds, "%c%c%d,%d\r%s", CMD, SEND, handle, size, wifi_buf);
       break;
     case CMD:
       #ifdef WIFI_DEBUG
       //wifi_stringDisplay("txt: ", txt);
-      wifi_replyStringDisplay("txt: ");
+      wifi_replyStringDisplay("wifi_buf: ");
       #endif
-      dprint(wifi_fds, "%s", txt);
+      dprint(wifi_fds, "%s", wifi_buf);
       break;
     case TCP:
       dprint(wifi_fds, "%c%c%d,%d\r", CMD, SEND, handle, size);
-      for(int n = 0; n <= size; n++)
+
+      for(int n = 0; n < size; n++)
       {
-        fdserial_txChar(wifi_fds, txt[n]);
+        fdserial_txChar(wifi_fds, wifi_buf[n]);
         if(n > 32)
         waitcnt(CNT + (2 * (CLKFREQ/115200)));    //////////
       } 

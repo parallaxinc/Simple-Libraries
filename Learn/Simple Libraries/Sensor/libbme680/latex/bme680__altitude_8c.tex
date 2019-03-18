@@ -1,0 +1,51 @@
+\hypertarget{bme680__altitude_8c}{}\section{bme680\+\_\+altitude.\+c File Reference}
+\label{bme680__altitude_8c}\index{bme680\+\_\+altitude.\+c@{bme680\+\_\+altitude.\+c}}
+
+
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings.  
+
+
+{\ttfamily \#include \char`\"{}bme680.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{bme680__altitude_8c_ad426c7481b6f6c6c598e640a7ccfcbd9}{bme680\+\_\+altitude}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev, char unit)
+\begin{DoxyCompactList}\small\item\em Retrieve the estimated altitude from the last read of the B\+M\+E680 device. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings. 
+
+\begin{DoxyAuthor}{Author}
+Matthew Matz
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+5
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (C) Parallax, Inc. 2019. All Rights M\+IT Licensed. 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{bme680__altitude_8c_ad426c7481b6f6c6c598e640a7ccfcbd9}\label{bme680__altitude_8c_ad426c7481b6f6c6c598e640a7ccfcbd9}} 
+\index{bme680\+\_\+altitude.\+c@{bme680\+\_\+altitude.\+c}!bme680\+\_\+altitude@{bme680\+\_\+altitude}}
+\index{bme680\+\_\+altitude@{bme680\+\_\+altitude}!bme680\+\_\+altitude.\+c@{bme680\+\_\+altitude.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+altitude()}{bme680\_altitude()}}
+{\footnotesize\ttfamily float bme680\+\_\+altitude (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev,  }\item[{char}]{unit }\end{DoxyParamCaption})}
+
+
+
+Retrieve the estimated altitude from the last read of the B\+M\+E680 device. 
+
+\begin{DoxyNote}{Note}
+this is calcualted from the pressure measurement. It is not reliable for high altitudes, and it is affected by the ambient (barometric) pressure due to weather. For that reason, the B\+M\+E680 is better for measuring changes in altitude versus absolute altitude.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & Pointer to the bme680 device.\\
+\hline
+{\em unit} & Unit of meaure to return the measurement in. ~\newline
+May be M\+E\+T\+E\+RS or F\+E\+ET. \\
+\hline
+\end{DoxyParams}

@@ -15,9 +15,8 @@ int writeStrLen(text_t *p, char *str, int width)
     ;
   for( ; n < width; n++)
     writeChar(p, ' ');
-  while(*str && width--) {
-    if(*str == '\n')
-      writeChar(p, '\r');
+  while(*str && width--) 
+  {
     writeChar(p, *str);
     str++;
   }

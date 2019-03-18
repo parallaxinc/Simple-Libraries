@@ -127,8 +127,9 @@ extern "C" {                                                 // Compile for C
  * @brief Initializes the LSM9DS1 IMU module.
  *
  * @details This function initializes the LSM9DS1 IMU module.  It sets
- * the chip to 3-wire SPI mode and starts up the 
- * accelerometer, gyroscope, and magnetometer. 
+ * the chip to 3-wire SPI mode and starts up the accelerometer, 
+ * gyroscope, and magnetometer. It also looks for calibration (bias) data
+ * stored in addresses 63280-63307 of EEPROM and applies them if found.
  *
  * @note Defaults the Accelerometer scale to +/-8g, the Gryoscope 
  * scale to +/- 500 DPS, and the Magnetometer scale to +/-12 gauss.
@@ -153,12 +154,13 @@ int imu_init(int pinSCL, int pinSDIO, int pinAG, int pinM);
  * @details This is a function that uses the FIFO to accumulate sample of accelerometer and gyro data, averages
  * them, scales them to  gs and deg/s, respectively, and then passes the biases to variables in the library
  * for subtraction from all subsequent data.  Results in a more accurate measurement in general and can
- * remove errors due to imprecise or varying initial placement.
+ * remove errors due to imprecise or varying initial placement.  The biases are also stored in addresses
+ * 63280-63307 of EEPROM.
  *
  * @note Accel/Gyro Calibration values are NOT stored in the LSM9DS1.  They can be retireved and set using other
  * functions in this library.
  */
-void imu_calibrateAG();
+void imu_calibrateAG( void );
 
 
 /**
@@ -168,14 +170,14 @@ void imu_calibrateAG();
  * them, and then passes the biases back to the LSM9DS1 for subtraction from
  * all subsequent data.  Results in a more accurate measurement in general and can
  * remove errors due to imprecise or varying initial placement.  The calibration 
- * function uses the accelerometer to verify that each of the 3 axes has been pointed 
- * straight up and straight down slowly enough to get good magnetometer readings in 
- * each dimension.
+ * collects measurements for ~30 seconds (1200 samples) and uses that data to determine
+ * the biases for each axis of the magnetometer.  The biases are also stored in addresses
+ * 63280-63307 of EEPROM.
  *
  * @note Mag Calibration values ARE stored in the LSM9DS1 and variables that can be retireved and set using other
  * functions in this library.
  */
-void imu_calibrateMag();
+void imu_calibrateMag( void );
 
 
 /**
@@ -183,9 +185,6 @@ void imu_calibrateMag();
  *
  * @details This function retrieves the calibration biases for each Magnetometer axis.
  * Biases can be retrieved after a Magnetometer calibration has been performed.
- *
- * @note A Magmetometer Calibration must be preformed before calling this function. This function retireves
- * the biases from RAM (so they are lost if the Propeller is powered off).
  * 
  * @param *mxBias variable to store Magnetometer x-axis bias into.
  *
@@ -202,9 +201,6 @@ void imu_getMagCalibration(int *mxBias, int *myBias, int *mzBias);
  *
  * @details This function retrieves the calibration biases for each Accelreometer axis.
  * Biases can be retrieved after a Accelreometer calibration has been performed.
- *
- * @note An Accel/Gyro Calibration must be preformed before calling this function. This function retireves
- * the biases from RAM (so they are lost if the Propeller is powered off).
  * 
  * @param *axBias variable to store Accelreometer x-axis bias into.
  *
@@ -221,9 +217,6 @@ void imu_getAccelCalibration(int *axBias, int *ayBias, int *azBias);
  *
  * @details This function retrieves the calibration biases for each Gyroscope axis.
  * Biases can be retrieved after a Gyroscope calibration has been performed.
- *
- * @note An Accel/Gyro Calibration must be preformed before calling this function. This function retireves
- * the biases from RAM (so they are lost if the Propeller is powered off).
  * 
  * @param *gxBias variable to store Gyroscope x-axis bias into.
  *
@@ -241,7 +234,8 @@ void imu_getGyroCalibration(int *gxBias, int *gyBias, int *gzBias);
  * @details This function sets the calibration biases for each Magnetometer axis.
  * Biases can be retrieved after the Magnetometers calibration has been set.
  *
- * @note Mag Calibration values ARE stored in the LSM9DS1 and will persist after a power cycle.
+ * @note Mag Calibration values ARE stored in the LSM9DS1 and in EEPROM
+ * and will persist after a power cycle.
  * 
  * @param mxBias Value to set Magnetometer x-axis bias to.
  *
@@ -259,7 +253,8 @@ void imu_setMagCalibration(int mxBias, int myBias, int mzBias);
  * @details This function sets the calibration biases for each Accelerometer axis.
  * Biases can be retrieved after the Accelerometer calibration has been set.
  *
- * @note Accelerometer Calibration values ARE NOT stored in the LSM9DS1 and will not persist after a power cycle.
+ * @note Accelerometer Calibration values are stored in EEPROM and reapplied
+ * during the initialization upon power-up.
  * 
  * @param axBias Value to set Accelerometer x-axis bias to.
  *
@@ -277,7 +272,8 @@ void imu_setAccelCalibration(int axBias, int ayBias, int azBias);
  * @details This function sets the calibration biases for each Gyroscope axis.
  * Biases can be retrieved after the Gyroscope calibration has been set.
  *
- * @note Gyroscope Calibration values ARE NOT stored in the LSM9DS1 and will not persist after a power cycle.
+ * @note Gyroscope Calibration values are stored in EEPROM and reapplied
+ * during the initialization upon power-up.
  * 
  * @param gxBias Value to set Gyroscope x-axis bias to.
  *
@@ -469,7 +465,7 @@ void imu_setAccelScale(unsigned char aScl);
  * @brief Sets the full-scale range of the Magnetometer.
  * 
  * @details This function can be called to set the scale of the Magnetometer to 
- * 2, 4, 8, or 12 gauss.
+ * 4, 8, 12 or 16 gauss.
  *
  * @param mScl Value of the desired Magnetometer scale. Must be 4, 8, 12 or 16.
  */
