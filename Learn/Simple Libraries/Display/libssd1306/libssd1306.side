@@ -1,0 +1,16 @@
+libssd1306.c
+ssd1306.c
+ssd1306.h
+ssd1306_spiWrite.c
+ssd1306_drawPixel.c
+ssd1306_drawFastLine.c
+ssd1306_updateDisplay.c
+ssd1306_controlDisplay.c
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>defs::-std=c99
+>-lm
+>BOARD::GENERIC
