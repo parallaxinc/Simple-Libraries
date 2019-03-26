@@ -45,12 +45,11 @@ void il3820_updateDisplay(screen_t *dev)
   il3820_spiWrite(mask_cs, mask_sdi, mask_clk, mask_dc, 0, 1);
   il3820_spiWrite(mask_cs, mask_sdi, mask_clk, mask_dc, 0, 1);
 
-  // TODO: is this needed?
-  //while (input(dev->status_pin) == 1) pause(10);        //0: idle, 1: busy
+  while (input(dev->status_pin) == 1);                  //0: idle, 1: busy
 
   il3820_spiWrite(mask_cs, mask_sdi, mask_clk, mask_dc, IL3820_WRITE_RAM, 0);
   
-  OUTA |= mask_dc;                                   // force data mode
+  OUTA |= mask_dc;                                      // force data mode
   il3820_spiWriteBytes(mask_cs, mask_sdi, mask_clk, mask_dc, dev->image_ptr, dev->image_size);
   
   // Update display
@@ -61,7 +60,7 @@ void il3820_updateDisplay(screen_t *dev)
   
   il3820_writeLockClear(dev->dev_id);
   
-  while (input(dev->status_pin) == 1) pause(2);        //0: idle, 1: busy
+  while (input(dev->status_pin) == 1);                 //0: idle, 1: busy
 }
 
 

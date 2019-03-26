@@ -46,27 +46,22 @@ void fillRect(screen_t *dev, int x, int y, int w, int h, int color) {
       if((x + w) > dw) {         // Clip right
         w = (dw - x);
       }
-      dh = h;
-      dw = w;
+      int x1 = x + w - 1;
+      int y1 = y + h - 1;
       switch(dev->rotation) {
+       case 0:
+        dev->deviceFillRect(dev, x, y, x1, y1, color);
+        break;
        case 1:
-        gfx_swap(x, y);
-        x = dev->width - x - 1;
-        dh = w;
-        dw = h;
+        dev->deviceFillRect(dev, dev->width - y1, x, dev->width - y, x1, color);
         break;
        case 2:
-        x = dev->width  - x - 1;
-        y = dev->height - y - 1;
+        dev->deviceFillRect(dev, dev->width - x1, dev->height - y1, dev->width - x, dev->height - y, color);
         break;
        case 3:
-        gfx_swap(x, y);
-        y = dev->height - y - 1;
-        dh = w;
-        dw = h;
+        dev->deviceFillRect(dev, y, dev->height - x1, y1, dev->height - x, color);
         break;
       }
-      dev->deviceFillRect(dev, x, y, dw, dh, color);
     }    
   } else {     
     for (int idx = y; idx < y + h; idx++) {

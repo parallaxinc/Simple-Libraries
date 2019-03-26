@@ -32,7 +32,6 @@ void fillCircleHelper(screen_t *dev, int x0, int y0, int r, char cornername, int
   int ddF_y = -2 * r;
   int x     = 0;
   int y     = r;
-
   while (x < y)
   {
     if (f >= 0) {
@@ -44,11 +43,8 @@ void fillCircleHelper(screen_t *dev, int x0, int y0, int r, char cornername, int
     ddF_x += 2;
     f     += ddF_x;
 
-    int yD = 2 * y + 1 + delta;
-    int xD = 2 * x + 1 + delta;
-    
-    if(y0 - y + yD > dev->height) yD = dev->height - y0 + y;
-    if(y0 - y + xD > dev->height) xD = dev->height - y0 + y; 
+    int yD = (y << 1) + 1 + delta;
+    int xD = (x << 1) + 1 + delta;
          
     if (cornername & 0x1) {
       drawLine(dev, x0 + x, y0 - y, x0 + x, y0 - y + yD - 1, color);

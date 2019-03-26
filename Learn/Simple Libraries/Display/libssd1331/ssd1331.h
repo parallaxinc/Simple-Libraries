@@ -289,15 +289,6 @@
 #endif
 
 
-#ifndef SSD1331_STATUS_INVERTED
-  #define SSD1331_STATUS_INVERTED     0b10
-#endif
-
-#ifndef SSD1331_STATUS_SCROLLING
-  #define SSD1331_STATUS_SCROLLING    0b01
-#endif
-
-
 
 
 
@@ -471,15 +462,15 @@ void ssd1331_copy(screen_t* dev, int x0, int y0, int w, int h, int x2, int y2);
 void ssd1331_scrollStart(screen_t* dev, char h, char v);
 
 /**
- * @brief Stops scrolling the screen.
- *
- * @param dev Pointer to the display's device structure returned by the initialization function.
- */
-void ssd1331_scrollStop(screen_t* dev);
-
-/**
  * @brief Inverts the screen.
  *
  * @param dev Pointer to the display's device structure returned by the initialization function.
  */
-void ssd1331_invertDisplay(screen_t *dev);
+void ssd1331_invertDisplay(screen_t *dev, char i);
+
+/**
+ * @brief Sleeps or Wakes the display.
+ *
+ * @param dev Pointer to the display's device structure returned by the initialization function.
+ */
+void ssd1331_sleepWakeDisplay(screen_t *dev, char i);

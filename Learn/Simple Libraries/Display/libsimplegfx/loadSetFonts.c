@@ -39,6 +39,7 @@ void loadFonts(screen_t *dev, i2c *eeBus) {
       testStr[5] == '!')  {
      
     // Set a default font by setting EEPROM addresses
+    dev->font[0] = 1;
     setTextFont(dev, 0);
   }    
 }  
