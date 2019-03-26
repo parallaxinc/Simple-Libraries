@@ -41,17 +41,18 @@ screen_t* ssd1331_init(char sdi, char sclk, char cs, char rs, char rst, int _wid
   dev->text_color = WHITE;
   dev->bg_color =   WHITE;
   
-  dev->deviceDrawPixel =     ssd1331_drawPixel;
-  dev->deviceDrawLine =      ssd1331_drawLine;       // Use if device has hardware accelerated line drawing (otherwise 0)
-  dev->deviceDrawFastHLine = ssd1331_drawFastHLine;
-  dev->deviceDrawFastVLine = ssd1331_drawFastVLine;
-  dev->deviceFillRect =      ssd1331_fillRect;       // Use if device has hardware accelerated filled rectagle drawing (otherwise 0)
+  dev->deviceDrawPixel =        ssd1331_drawPixel;
+  dev->deviceDrawLine =         ssd1331_drawLine;       // Use if device has hardware accelerated line drawing (otherwise 0)
+  dev->deviceDrawFastHLine =    ssd1331_drawFastHLine;
+  dev->deviceDrawFastVLine =    ssd1331_drawFastVLine;
+  dev->deviceFillRect =         ssd1331_fillRect;       // Use if device has hardware accelerated filled rectagle drawing (otherwise 0)
 
-  dev->deviceInterface =     INTF_SPI_NO_BUFFER;     // interface type (bit 1) (1-i2c/0-SPI) and buffer (bit 0) (0-yes/1-no)
+  dev->deviceInterface =        INTF_SPI_NO_BUFFER;     // interface type (bit 1) (1-i2c/0-SPI) and buffer (bit 0) (0-yes/1-no)
 
-  dev->deviceClearDisplay =  ssd1331_clearDisplay;
-  dev->deviceResetDisplay =  ssd1331_resetDisplay;
-
+  dev->deviceClearDisplay =     ssd1331_clearDisplay;
+  dev->deviceResetDisplay =     ssd1331_resetDisplay;
+  dev->deviceInvertDisplay =    ssd1331_invertDisplay;
+  dev->deviceSleepWakeDisplay = ssd1331_sleepWakeDisplay;
 
   // set pin directions
   set_direction(sclk, 1);
@@ -71,6 +72,8 @@ screen_t* ssd1331_init(char sdi, char sclk, char cs, char rs, char rst, int _wid
   int mask_clk = (1 << sclk);
   int mask_dc =  (1 << rs);
 
+  ssd1331_writeLockSet(dev->dev_id);
+  
   // Initialization Sequence
   ssd1331_writeByte(mask_cs, mask_sdi, mask_clk, mask_dc, SSD1331_CMD_DISPLAYOFF, 0);     // 0xAE
   ssd1331_writeByte(mask_cs, mask_sdi, mask_clk, mask_dc, SSD1331_CMD_SETREMAP, 0);       // 0xA0
@@ -115,6 +118,8 @@ screen_t* ssd1331_init(char sdi, char sclk, char cs, char rs, char rst, int _wid
   ssd1331_writeByte(mask_cs, mask_sdi, mask_clk, mask_dc, 0x00, 0);
   ssd1331_writeByte(mask_cs, mask_sdi, mask_clk, mask_dc, _width - 1, 0);
   ssd1331_writeByte(mask_cs, mask_sdi, mask_clk, mask_dc, _height - 1, 0);
+  
+  ssd1331_writeLockClear(dev->dev_id);
   
   pause(25);
   

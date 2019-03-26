@@ -27,9 +27,10 @@ screen *epd;
 int main() 
 {
   //set up the ePaper screen
-  epd = il3820_init(16, 17, 18, 19, 20, 21, 128, 296);
+  epd = il3820_init(10, 11, 12, 13, 14, 15, 128, 296);
  
   setDisplayRotation(epd, 1);
+  drawLine(epd, 0,0,50,0, 0);
 
   fillRect(epd, 20, 20, 60, 60, BLACK);
 
