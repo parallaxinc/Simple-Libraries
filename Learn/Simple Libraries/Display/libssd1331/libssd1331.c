@@ -14,12 +14,12 @@ int main()                                    // Main function
   setDisplayRotation(oledc, 1);
   toggle(26);
   set_direction(26, 1);
-  fillCircle(oledc, 60, 60, 15, remapColor(0xff0000, "8R8G8B", "5R6G5B"));
-  fillCircle(oledc, 40, 40, 15, remapColor(0xff0000, "8R8G8B", "5R6G5B"));
+  fillCircle(oledc, 60, 60, 15, remapColor888to565(0xff0000));
+  fillCircle(oledc, 40, 40, 15, remapColor888to565(0xff0000));
   
   drawLine(oledc, 0, 0, 95, 63, BLUE);
   pause(1000);
-  drawPrint(oledc, "hello world!");
+  //drawPrint(oledc, "hello world!");
   while (1) {
     invertDisplay(oledc, 1);
     pause(1000);

@@ -25,7 +25,7 @@ screen_t* ssd1331_init(char sdi, char sclk, char cs, char rs, char rst, int _wid
   screen_t* dev = (screen_t*) malloc(sizeof(screen_t));
   memset(dev, 0, sizeof(screen_t));
 
-  strcpy(dev->color_depth, "R5G6B5");  // Set the color depth 16 bits
+  dev->color_depth = 16;  // Set the color depth 16 bits
 
   dev->dev_id =     cs;
   dev->dc_pin =     rs;

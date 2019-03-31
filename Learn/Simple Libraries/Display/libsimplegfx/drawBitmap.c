@@ -18,51 +18,99 @@
  * were dervied from the Adafruit GFX library for Arduino.  Please submit bug reports, 
  * suggestions, and improvements to this code to editor@parallax.com.
  * 
- * @note This library should not be called on its own - it is called by If fonts are installed, they occupy EEPROM addresses 40576 to 63359.
+ * @note This library should not be called on its own - it is called by the display's
+ * library.
+ * If fonts are installed, they occupy EEPROM addresses 40576 to 63359.
  */
 
 #include "simplegfx.h"
+#include "colormath.h"
+
+
+int getMonoColor16(int color) {
+  //return ((color & 0b1000010000010000) ? (int) 1 : (int) 0);
+  
+  int r = (color >> 11) & 0b11111;
+  int g = (color >> 6)  & 0b11111;
+  int b = (color)       & 0b11111;
+  return (((r + g + b) > 45) ? 1 : 0);
+  
+}
+
+int getMonoColor24(int color) {
+  //return ((color & 0b100000001000000010000000) ? (int) 1 : (int) 0);
+  
+  int r = (color >> 16) & 255;
+  int g = (color >>  8) & 255;
+  int b = (color)       & 255;
+  return (((r + g + b) > 381) ? 1 : 0);
+  
+}   
+
+
 
 // Draw an image (bitmap) at the specified (x,y) position
-
 void drawBitmap(screen_t *dev, char *imgdir, int x, int y) {
-
-  int x0, y0;
   
-  char imgdat[dev->width * 2];                      // Buffer for characters
+  char imgdat[32];                                  // Buffer for image data
   FILE* fp = fopen(imgdir, "r");                    // Open file for reading
 
   fread(imgdat, 1, 30, fp);                         // Read 30 characters
   
-  int img_width = (imgdat[18] << 1);                // get the image width in pixels
-  int img_height = imgdat[22];                      // get the image height in pixels
-  if(img_width > (dev->width * 2) || 
-      img_height > (dev->height * 2)) return;       // image is too large for the function to display it
-  int img_offset = imgdat[10];                      // find the byte (pointer) where the image data begins
-  fread(imgdat, 1, img_offset - 30, fp);            // advance the file pointer to the image data by reading it
+  int img_width = imgdat[18] | (imgdat[19] << 8) | (imgdat[20] << 16) | (imgdat[21] << 24);   // get the image width in pixels
+  int img_height = imgdat[22] | (imgdat[23] << 8) | (imgdat[24] << 16) | (imgdat[25] << 24);  // get the image height in pixels
+  int img_color_depth = ((imgdat[28] | (imgdat[29] << 8)) >> 3);                              // get the image height in bits, convert to bytes
+  if (img_color_depth < 2 || img_color_depth > 4) return;                                     // exit if the image's color depth isn't supported
   
-  int k = 0;
-  while(k < img_height) {
-    fread(imgdat, 1, img_width, fp);
-    int y0 = y + img_height - 1 - k;
-    if(y0 >= 0 && y0 < dev->height) {
-      int j = 1;
-      while(j < img_width) {
-        x0 = (j >> 1) + x;
-        while(x0 < 0) j+= 2;
-        while(x0 < dev->width) {
-          int c = (imgdat[j] << 8) | imgdat[j-1];
-          drawPixel(dev, x0, y0, c);
-          j += 2;
-          if(j > img_width) break;
-        }
-        j += 2;
+  //if(img_width > (dev->width << 1) || 
+  //    img_height > (dev->height << 1)) return;     // image is too large for the function to display it
+      
+  int img_offset = imgdat[10];                      // find the byte (pointer) where the image data begins
+  fseek(fp, img_offset - 30, SEEK_CUR);             // advance the file pointer to the image data
+  
+  int flip = 0;
+  if (img_height < 0) {                             // If the height is negative, then tell the function to flip the image
+    img_height *= -1;
+    flip = 1;
+  }    
+
+  if (dev->color_depth != 1 && dev->color_depth != 16) return;  // exit if the screen's color depth isn't supported
+
+  for (int k = img_height; k >= 0; k--) {
+    int y0 = y;
+    
+    if (flip) y0 += img_height - 1 - k;             // Some bitmaps are drawn top-down
+    else      y0 += k - 1;                          // Others are bottom-up
+    
+    if (y0 >= 0 && y0 < getDisplayHeight(dev)) {             // Is the pixel on screen?
+      
+      for(int j = 0; j < img_width; j++) {
+        int x0 = j + x;
+        
+        if (x0 >= 0 && x0 < getDisplayWidth(dev)) {          // Is the pixel on screen?
+          fread(imgdat, 1, img_color_depth, fp);
+          
+          if (img_color_depth == 2) {
+            if (dev->color_depth == 16) 
+              drawPixel(dev, x0, y0, (imgdat[1] << 8) | imgdat[j]);
+            else 
+              drawPixel(dev, x0, y0, getMonoColor16((imgdat[1] << 8) | imgdat[j]));
+          } else {
+            if (dev->color_depth == 16) 
+              drawPixel(dev, x0, y0, ((imgdat[2] >> 3) << 11) | ((imgdat[1] >> 2) << 5) | (imgdat[0] >> 3));
+            else 
+              drawPixel(dev, x0, y0, getMonoColor24((imgdat[2] << 16) | (imgdat[1] << 8) | imgdat[j]));
+          }
+          
+        } else {
+          fseek(fp, img_color_depth, SEEK_CUR);     // Skip image data that isn't on screen
+        }        
       }
-    }
-    k++;
+    } else {
+      fseek(fp, img_color_depth * img_width, SEEK_CUR);  // Skip image data that isn't on screen
+    }            
   }
-   
-  fclose(fp);                                 // Close the file  
+  fclose(fp);                                       // Close the file
 }
 
 /**

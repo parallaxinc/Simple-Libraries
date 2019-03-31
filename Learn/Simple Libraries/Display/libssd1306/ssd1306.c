@@ -101,6 +101,7 @@ void ssd1306_begin(screen_t* dev) {
   dev->text_wrap = 1;
   dev->text_color = WHITE;
   dev->bg_color = WHITE;
+  dev->color_depth = 1;
   
   dev->deviceDrawPixel = ssd1306_drawPixel;
   dev->deviceDrawFastHLine = ssd1306_drawFastHLine;

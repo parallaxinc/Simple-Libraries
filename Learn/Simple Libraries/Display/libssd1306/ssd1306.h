@@ -385,7 +385,7 @@ void         ssd1306_spiWrite(int mask_cs, int mask_sdi, int mask_clk, int mask_
  *
  * @param n TODO
  */
-void         ssd1306_spiWriteBytes(int mask_cs, int mask_sdi, int mask_clk, int mask_dc, const unsigned char* data, int n);
+void         ssd1306_spiWriteBytes(int mask_cs, int mask_sdi, int mask_clk, int mask_dc, const unsigned char* data, char dc, int n);
   
 #if defined(__cplusplus)
 }                                             // End compile for C block
