@@ -49,6 +49,7 @@ screen_t *il3820_init(char sdi, char sclk, char cs, char rs, char rst, char busy
   dev->text_wrap = 1;
   dev->text_color = BLACK;
   dev->bg_color = BLACK;
+  dev->color_depth = 1;
   
   dev->deviceDrawPixel = il3820_drawPixel;
   dev->deviceDrawFastHLine = il3820_drawFastHLine;

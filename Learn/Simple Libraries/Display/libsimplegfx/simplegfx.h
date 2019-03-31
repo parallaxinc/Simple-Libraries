@@ -128,7 +128,7 @@ typedef struct screen_st {
   int                           font[5];
 
   /** String representing color-depth of display in bits/channel */
-  char                          color_depth[6];
+  char                          color_depth;
 
   /** Current text size */
   char                          text_size;
