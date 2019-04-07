@@ -13,4 +13,5 @@ ssd1306_controlDisplay.c
 >-fno-exceptions
 >defs::-std=c99
 >-lm
+>-create_library
 >BOARD::GENERIC

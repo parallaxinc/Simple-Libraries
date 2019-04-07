@@ -24,13 +24,10 @@
 
 #include "simplegfx.h"
 
-
-
-int main()                                    // Main function
+int main()
 {
 
 }
-
 
 /**
  * TERMS OF USE: MIT License

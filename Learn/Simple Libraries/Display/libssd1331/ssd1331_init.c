@@ -46,6 +46,7 @@ screen_t* ssd1331_init(char sdi, char sclk, char cs, char rs, char rst, int _wid
   dev->deviceDrawFastHLine =    ssd1331_drawFastHLine;
   dev->deviceDrawFastVLine =    ssd1331_drawFastVLine;
   dev->deviceFillRect =         ssd1331_fillRect;       // Use if device has hardware accelerated filled rectagle drawing (otherwise 0)
+  dev->deviceCopyRect =         ssd1331_copy;
 
   dev->deviceInterface =        INTF_SPI_NO_BUFFER;     // interface type (bit 1) (1-i2c/0-SPI) and buffer (bit 0) (0-yes/1-no)
 

@@ -20,6 +20,7 @@ drawPrint.c
 setText.c
 fillTriangle.c
 drawBitmap.c
+drawCopy.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

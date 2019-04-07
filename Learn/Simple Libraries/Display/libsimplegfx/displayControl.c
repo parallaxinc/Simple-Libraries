@@ -61,10 +61,6 @@ int getDisplayHeight(screen_t *dev) {
   }        
 }
 
-void drawCopy(screen_t *dev, int x, int y, int w, int h, int x1, int y1) {
-  dev->deviceCopyRect(dev, x, y, w, h, x1, y1);
-}
-
 void invertDisplay(screen_t *dev, char i) {                           
   dev->deviceInvertDisplay(dev, i);
   if (i) dev->display_mode |=  (i & 0b01);

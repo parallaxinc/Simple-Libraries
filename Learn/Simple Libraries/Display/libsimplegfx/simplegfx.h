@@ -222,7 +222,7 @@ typedef struct screen_st {
   void (*deviceFillRect)        (struct screen_st*, int  x, int y, int w, int h, int color);
 
   /** Use if device has a native copy function */
-  void (*deviceCopyRect)        (struct screen_st*, int  x, int y, int w, int h, int x1, int y1);
+  void (*deviceCopyRect)        (struct screen_st*, int  x, int y, int x0, int y0, int x1, int y1);
 
 
   /** Device native function for clearing the display and setting it all to the default blank color */
