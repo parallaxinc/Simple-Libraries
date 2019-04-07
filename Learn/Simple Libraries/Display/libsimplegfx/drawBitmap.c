@@ -24,29 +24,6 @@
  */
 
 #include "simplegfx.h"
-#include "colormath.h"
-
-
-int getMonoColor16(int color) {
-  //return ((color & 0b1000010000010000) ? (int) 1 : (int) 0);
-  
-  int r = (color >> 11) & 0b11111;
-  int g = (color >> 6)  & 0b11111;
-  int b = (color)       & 0b11111;
-  return (((r + g + b) > 45) ? 1 : 0);
-  
-}
-
-int getMonoColor24(int color) {
-  //return ((color & 0b100000001000000010000000) ? (int) 1 : (int) 0);
-  
-  int r = (color >> 16) & 255;
-  int g = (color >>  8) & 255;
-  int b = (color)       & 255;
-  return (((r + g + b) > 381) ? 1 : 0);
-  
-}   
-
 
 
 // Draw an image (bitmap) at the specified (x,y) position
@@ -92,14 +69,15 @@ void drawBitmap(screen_t *dev, char *imgdir, int x, int y) {
           
           if (img_color_depth == 2) {
             if (dev->color_depth == 16) 
-              drawPixel(dev, x0, y0, (imgdat[1] << 8) | imgdat[j]);
+              drawPixel(dev, x0, y0, (imgdat[1] << 8) | imgdat[0]);
             else 
-              drawPixel(dev, x0, y0, getMonoColor16((imgdat[1] << 8) | imgdat[j]));
+              drawPixel(dev, x0, y0, ((((imgdat[1] >> 5) + (imgdat[1] & 0b111) + ((imgdat[0] >> 2) & 0b111)) > 10) ? 1 : 0));
           } else {
             if (dev->color_depth == 16) 
               drawPixel(dev, x0, y0, ((imgdat[2] >> 3) << 11) | ((imgdat[1] >> 2) << 5) | (imgdat[0] >> 3));
-            else 
-              drawPixel(dev, x0, y0, getMonoColor24((imgdat[2] << 16) | (imgdat[1] << 8) | imgdat[j]));
+            else {
+              drawPixel(dev, x0, y0, (((((int) imgdat[2]) + ((int) imgdat[1]) + ((int) imgdat[0])) > 381) ? 1 : 0));
+            }              
           }
           
         } else {
