@@ -1,15 +1,14 @@
 /**
  * @file gps.h
  *
- * @author Daniel Harris
+ * @author Daniel Harris, Matthew Matz
  *
  * @copyright
- * Copyright (C) Parallax, Inc. 2014. All Rights MIT Licensed.
+ * Copyright (C) Parallax, Inc. 2019. All Rights MIT Licensed.
  *
  * @brief   This library provides basic NMEA parsing  capabilities.  It is designed to take raw NMEA strings,
-  parse the data out of them, and make the data available to a parent application through accessor
-  functions.
-
+ * parse the data out of them, and make the data available to a parent application through accessor
+ * functions.
  *
  * @par Core Usage
  * Each call to rfid_open launches a serial communication process into another core.
@@ -17,7 +16,7 @@
  * @par Memory Models
  * Use with CMM or LMM.
  *
- * @version 0.50
+ * @version 0.6
  */
 
 #ifndef __SIMPLE_NMEA_PARSER__
@@ -57,6 +56,7 @@ typedef struct nmea_data_s
   float date;         //current date, raw format with tenths of second, as float
   int time;           //current UTC time, raw format, as integer
   float mag_var;      //current magnetic variation, as float
+  char talker_ids[65];  //constellation ('P'=GPS, 'N'=GLONASS, Galileo, BeiDou, etc.) codes from the last positioning reads)
 
 } nmea_data;
 
@@ -193,6 +193,14 @@ float gps_magneticVariation();
  * @returns None.
  */
 void gps_txByte(int txByte);
+
+
+/**
+ * @brief Provides the caller with a string containing the sources (Talker IDs) of the last 64 positioning reads.  The most recent read is stored at character 0.
+ *
+ * @returns A string of length 65 (including null terminator) containing the second letter of the source's talker-ID.  See http://catb.org/gpsd/NMEA.html#_talker_ids for more info.
+ */
+char* gps_sources();
 
 #if defined(__cplusplus)
 }
