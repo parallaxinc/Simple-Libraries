@@ -25,6 +25,8 @@ void drive_servoPins(int servoPinLeft, int servoPinRight)
 }
 */
 
+volatile int abd360_suppress_eeprom;
+
 //
 void drive_servoPins(int controlPinLeft, int controlPinRight)          // drivePins function
 {
@@ -37,7 +39,10 @@ void drive_servoPins(int controlPinLeft, int controlPinRight)          // driveP
   pinInfo[3] = (char) controlPinLeft;
   pinInfo[6] = (char) controlPinRight;
 
-  ee_putStr(pinInfo, 8, eeAddr);
+  if(!abd360_suppress_eeprom)
+  {
+    ee_putStr(pinInfo, 8, eeAddr);
+  }    
 
   abd360_pinCtrlLeft = controlPinLeft;
   abd360_pinCtrlRight = controlPinRight;
