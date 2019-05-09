@@ -21,7 +21,7 @@ fdserial *wifi_fds;
 int wifi_pin_do;
 int wifi_pin_di;
 int wifi_baud;
-int wifi_comSelect;
+int wifi_comSelectPin;
 int simpleterm_fromTxDo = 31;
 int simpleterm_toRxDi = 30;
 
@@ -55,7 +55,7 @@ fdserial *wifi_start(int fromDO, int toDI, int baud, int comSelect)
   wifi_pin_do = fromDO;
   wifi_pin_di = toDI;
   wifi_baud = baud;
-  wifi_comSelect = comSelect;
+  wifi_comSelectPin = comSelect;
   
   if(comSelect == USB_PGM) 
   {
