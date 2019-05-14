@@ -25,7 +25,8 @@ int ws2812b_start(ws2812_t *state)
   
   // usreset, ns0h, ns0l, ns1h, ns1l, int type)
   //return ws_start(state, 50, 350, 900, 900, 350, TYPE_GRB);
-  //return ws_start(state, 280, 410, 875, 875, 410, TYPE_GRB);
+  
+  // Actual us values suggested by DC 280, 410, 875, 875, 410
 
   //                            523, 1070, 1040, 563, 
   //return ws_start(state, 280, 410,  875,  875, 410, TYPE_GRB);
@@ -41,10 +42,12 @@ int ws2812b_start(ws2812_t *state)
   //return ws_start(state, 280, 300,  670,  715, 265, TYPE_GRB);
   //                            404,  871,  878, 407, 
   //return ws_start(state, 280, 295,  675,  715, 265, TYPE_GRB);
-
   //               want       410,  875,  875,  410          
   //               measured   404,  871,  878,  408, 
-  return ws_start(state, 280, 300,  675,  715,  270, TYPE_GRB);
+  //return ws_start(state, 280, 300,  675,  715,  270, TYPE_GRB);
+
+  // Start call suggested by MV after testing
+  return ws_start(state, 300, 200,  600,  600,  200, TYPE_GRB);
 }
 
 /**
