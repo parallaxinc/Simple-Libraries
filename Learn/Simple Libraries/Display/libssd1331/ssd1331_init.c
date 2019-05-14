@@ -54,6 +54,11 @@ screen_t* ssd1331_init(char sdi, char sclk, char cs, char rs, char rst, int _wid
   dev->deviceResetDisplay =     ssd1331_resetDisplay;
   dev->deviceInvertDisplay =    ssd1331_invertDisplay;
   dev->deviceSleepWakeDisplay = ssd1331_sleepWakeDisplay;
+  dev->deviceScrollDisplay =    ssd1331_scrollDisplay;
+
+  // set up fonts
+  i2c *eeBus = i2c_newbus(28, 29, 0); 
+  loadFonts(dev, eeBus);
 
   // set pin directions
   set_direction(sclk, 1);
