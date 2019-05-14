@@ -449,7 +449,8 @@ void ssd1331_copy(screen_t* dev, int x0, int y0, int w, int h, int x2, int y2);
  *
  * @param dev Pointer to the display's device structure returned by the initialization function.
  *
- * @note the screen's horizontal displacement will persist after scrolling has stopped, but its vertical displacement will not.
+ * @note the screen's horizontal displacement will persist after scrolling has stopped, 
+ * but its vertical displacement will not.
  *
  * @param h Horizontal scrolling in rows per interval.
  * (0) turns off horizontal scrolling, negative integers scroll
@@ -459,7 +460,7 @@ void ssd1331_copy(screen_t* dev, int x0, int y0, int w, int h, int x2, int y2);
  * (0) turns off vertical scrolling, negative integers scroll
  * down and positive integers scroll up.
  */
-void ssd1331_scrollStart(screen_t* dev, char h, char v);
+void ssd1331_scrollDisplay(screen_t* dev, int h, int v);
 
 /**
  * @brief Inverts the screen.

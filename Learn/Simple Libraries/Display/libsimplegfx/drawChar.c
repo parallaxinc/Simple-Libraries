@@ -138,7 +138,7 @@ void drawCharSmall(screen_t *dev, unsigned char c)
     for (char j = 0; j < 8; j++, li >>= 1) 
     {
       if (li & 0x1)                               drawPixel(dev, dev->cursor_x + i, dev->cursor_y + j, dev->text_color);
-      else if (dev->text_color != dev->bg_color)  drawPixel(dev, dev->cursor_x + i, dev->cursor_y + j, dev->bg_color);
+      //else if (dev->text_color != dev->bg_color)  drawPixel(dev, dev->cursor_x + i, dev->cursor_y + j, dev->bg_color);
     }        
   }
 }
@@ -165,7 +165,7 @@ void drawCharMedium(screen_t *dev, unsigned char c)
     for (char j = 0; j < 16; j++, li >>= 1) 
     {
       if (li & 0x1)                               drawPixel(dev, dev->cursor_x + (i >> 1), dev->cursor_y + j, dev->text_color);
-      else if (dev->text_color != dev->bg_color)  drawPixel(dev, dev->cursor_x + (i >> 1), dev->cursor_y + j, dev->bg_color);
+      //else if (dev->text_color != dev->bg_color)  drawPixel(dev, dev->cursor_x + (i >> 1), dev->cursor_y + j, dev->bg_color);
     }
   }
 } 
@@ -229,7 +229,7 @@ void drawCharLarge(screen_t *dev, unsigned char c)
     for (char j = 0; j < 23; j++, lj >>= 1) 
     {
       if (lj & 0x1)                               drawPixel(dev, dev->cursor_x + i / 3, dev->cursor_y + j, dev->text_color);
-      else if (dev->text_color != dev->bg_color)  drawPixel(dev, dev->cursor_x + i / 3, dev->cursor_y + j, dev->bg_color);
+      //else if (dev->text_color != dev->bg_color)  drawPixel(dev, dev->cursor_x + i / 3, dev->cursor_y + j, dev->bg_color);
     }
   }
 }

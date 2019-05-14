@@ -41,13 +41,18 @@ void drawChar(screen_t *dev, char c) {
       dev->cursor_x  = 0;                     // Reset x to zero
       dev->cursor_y += (dev->text_size << 3); // Advance y one line
     }
-    if (dev->text_wrap && ((dev->cursor_y + (dev->text_size << 3)) > getDisplayWidth(dev))) { // Heading below bottom?
+    if (dev->text_wrap && ((dev->cursor_y + (dev->text_size << 3)) > getDisplayHeight(dev))) { // Heading below bottom?
       dev->cursor_x = 0;
       dev->cursor_y = 0;
     }
     if (c < 32 || c > 126) { // draw unknown charachters as boxes
-      fillRect(dev, dev->cursor_x + dev->text_size + 1, dev->cursor_y + dev->text_size + 1, (dev->text_size << 2) - 2, dev->text_size * 6 - 2, dev->bg_color);
-      drawRect(dev, dev->cursor_x + dev->text_size, dev->cursor_y + dev->text_size, (dev->text_size << 2), dev->text_size * 6, dev->text_color);
+      fillRect(dev, dev->cursor_x + 1, dev->cursor_y + 1, (dev->text_size << 2) - 2, dev->text_size * 6 - 2, dev->bg_color);
+      drawRect(dev, dev->cursor_x, dev->cursor_y, (dev->text_size << 2), dev->text_size * 6, dev->text_color);
+
+      if (dev->text_color != dev->bg_color) fillRect(dev, dev->cursor_x, dev->cursor_y, dev->text_size * 6, dev->text_size << 3, dev->bg_color);
+      drawRect(dev, dev->cursor_x + 1, dev->cursor_y + 1, dev->text_size * 6 - 2, (dev->text_size << 3) - 2, dev->text_color);
+      if (dev->text_size > 1) drawRect(dev, dev->cursor_x + 2, dev->cursor_y + 2, dev->text_size * 6 - 4, (dev->text_size << 3) - 4, dev->text_color);
+      if (dev->text_size > 2) drawRect(dev, dev->cursor_x + 3, dev->cursor_y + 3, dev->text_size * 6 - 6, (dev->text_size << 3) - 6, dev->text_color);
 
     } else { 
       if ((dev->cursor_x >= getDisplayWidth(dev))        || // Clip right
@@ -56,12 +61,13 @@ void drawChar(screen_t *dev, char c) {
       ((dev->cursor_y + (dev->text_size << 3) - 1) < 0))       // Clip top
       return;
 
+      if (dev->text_color != dev->bg_color) {
+        fillRect(dev, dev->cursor_x, dev->cursor_y, (dev->text_size << 2) - 1, dev->text_size * 6 - 1, dev->bg_color);
+      }
       if (c != 32) {
         if (dev->text_size < 2)  drawCharSmall(dev, c);
         if (dev->text_size == 2) drawCharMedium(dev, c);
         if (dev->text_size == 3) drawCharLarge(dev, c);
-      } else if (dev->text_color != dev->bg_color) {
-        fillRect(dev, dev->cursor_x + dev->text_size, dev->cursor_y + dev->text_size, (dev->text_size << 2), dev->text_size * 6, dev->bg_color);
       }        
     }
     dev->cursor_x += dev->text_size * 6;
