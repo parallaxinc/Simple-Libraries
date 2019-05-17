@@ -13,6 +13,7 @@ ssd1331_scroll.c
 >memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
+>-Wall
 >-fno-exceptions
 >defs::-std=c99
 >-lm
