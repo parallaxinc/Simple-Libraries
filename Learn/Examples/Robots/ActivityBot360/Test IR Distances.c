@@ -23,7 +23,7 @@ int main()                                      // Main function
     // brightness.  Keep track of the number of times an object is NOT
     // detected.  That's its distance value.  
     
-    for(int da = 112; da >= 0; da -= 16)        // Sweep da pins 
+    for(int da = 448; da >= 0; da -= 64)        // Sweep da pins 
     {
       da_out(0, da);                            // Set IR LED cathode volts
       da_out(1, da);

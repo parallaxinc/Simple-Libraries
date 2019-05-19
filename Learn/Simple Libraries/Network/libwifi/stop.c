@@ -56,7 +56,7 @@ void wifi_stop(void)
   wifi_pin_do = 0;
   wifi_pin_di = 0;
   wifi_baud = 0;
-  wifi_comSelectPin = 0;
+  wifi_comSelectPin = -100;
   
   simpleterm_fromTxDo = 0;
   simpleterm_toRxDi = 0;
