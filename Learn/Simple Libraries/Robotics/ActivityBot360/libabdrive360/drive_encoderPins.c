@@ -22,6 +22,7 @@ void drive_encoderPins(int encPinLeft, int encPinRight)
   abd360_pinFbRight = encPinRight;
 }  
 */
+volatile int abd360_suppress_eeprom;
 
 //
 void drive_encoderPins(int encPinLeft, int encPinRight)          // drivePins function
@@ -35,7 +36,10 @@ void drive_encoderPins(int encPinLeft, int encPinRight)          // drivePins fu
   pinInfo[3] = (char) encPinLeft;
   pinInfo[6] = (char) encPinRight;
 
-  ee_putStr(pinInfo, 8, eeAddr);
+  if(!abd360_suppress_eeprom)
+  {
+    ee_putStr(pinInfo, 8, eeAddr);
+  }    
 
   abd360_pinFbLeft = encPinLeft;
   abd360_pinFbRight = encPinRight;
