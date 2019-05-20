@@ -18,7 +18,7 @@
 #include "ssd1331.h"
 
 // ------------------- low level pin interface --------------------
-char _writeLock;
+static char _writeLock;
 
 
 __attribute__((fcache))                    // allows function to run directly from cog ram, 10x+ speed increase

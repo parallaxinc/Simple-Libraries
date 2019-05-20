@@ -2,6 +2,8 @@
   Blank Simple Project.c
   http://learn.parallax.com/propeller-c-tutorials 
 */
+
+
 #include "ssd1331.h"                      // Include simple tools
 #include "colormath.h"
 
