@@ -69,7 +69,7 @@ void il3820_resetDisplay(screen_t *dev)
   il3820_spiWrite(mask_cs, mask_sdi, mask_clk, mask_dc, 0x03, 1);                     // X increment; Y increment
   il3820_spiWrite(mask_cs, mask_sdi, mask_clk, mask_dc, IL3820_WRITE_LUT_REGISTER, 0);
   OUTA |= mask_dc;
-  il3820_spiWriteBytes(mask_cs, mask_sdi, mask_clk, mask_dc, lut_full_update, 30);
+  il3820_spiWriteBytes(mask_cs, mask_sdi, mask_clk, lut_full_update, 30);
 
   il3820_writeLockClear(dev->dev_id);
 

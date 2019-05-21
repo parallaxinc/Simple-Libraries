@@ -20,13 +20,14 @@
 
 void il3820_updateDisplay(screen_t *dev)
 {
-  il3820_writeLockSet(dev->dev_id);
 
   int mask_cs =  (1 << dev->dev_id);
   int mask_sdi = (1 << dev->sdi_pin);
   int mask_clk = (1 << dev->clk_pin);
   int mask_dc =  (1 << dev->dc_pin);
   
+  il3820_writeLockSet(dev->dev_id);
+
   il3820_spiWrite(mask_cs, mask_sdi, mask_clk, mask_dc, IL3820_SET_RAM_X_ADDRESS_POSITION, 0);
   
   /* x point must be the multiple of 8 or the last 3 bits will be ignored */
@@ -50,7 +51,7 @@ void il3820_updateDisplay(screen_t *dev)
   il3820_spiWrite(mask_cs, mask_sdi, mask_clk, mask_dc, IL3820_WRITE_RAM, 0);
   
   OUTA |= mask_dc;                                      // force data mode
-  il3820_spiWriteBytes(mask_cs, mask_sdi, mask_clk, mask_dc, dev->image_ptr, dev->image_size);
+  il3820_spiWriteBytes(mask_cs, mask_sdi, mask_clk, dev->image_ptr, dev->image_size);
   
   // Update display
   il3820_spiWrite(mask_cs, mask_sdi, mask_clk, mask_dc, IL3820_DISPLAY_UPDATE_2, 0);

@@ -1,3 +1,7 @@
+
+
+
+
 /*
  * @file libil3820.c
  *
@@ -16,6 +20,7 @@
 
 
 
+
 #include "il3820.h"
 #include "simpletools.h"
 
@@ -26,8 +31,10 @@ screen *epd;
 
 int main() 
 {
+
   //set up the ePaper screen
   epd = il3820_init(0, 1, 2, 3, 4, 5, 128, 296);
+  fillRoundRect(epd, 30, 30, 30, 30, 5, 0);
  
   setDisplayRotation(epd, 1);
   drawLine(epd, 0,0,50,0, 0);
