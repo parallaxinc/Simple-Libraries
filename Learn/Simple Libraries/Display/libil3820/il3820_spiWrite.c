@@ -21,7 +21,6 @@
 // ------------------- low level pin interface --------------------
 static char _writeLock = 0;
 
-__attribute__((fcache))                    // allows function to run directly from cog ram, 10x+ speed increase
 void il3820_spiWrite(int mask_cs, int mask_sdi, int mask_clk, int mask_dc, char c, char dc) {
   
   // Conditionally set _rs (Source: https://graphics.stanford.edu/~seander/bithacks.html)
@@ -43,7 +42,7 @@ void il3820_spiWrite(int mask_cs, int mask_sdi, int mask_clk, int mask_dc, char 
 
 
 __attribute__((fcache))                    // allows function to run directly from cog ram, 10x+ speed increase
-void il3820_spiWriteBytes(int mask_cs, int mask_sdi, int mask_clk, int mask_dc, const unsigned char* data, int numBytes) {
+void il3820_spiWriteBytes(int mask_cs, int mask_sdi, int mask_clk, const unsigned char* data, int numBytes) {
     OUTA &= ~mask_cs;
     OUTA &= ~mask_clk;                                        // Pin output state to low
     DIRA |= mask_clk;                                         // Pin direction to output

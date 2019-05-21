@@ -30,7 +30,7 @@ screen_t *il3820_init(char sdi, char sclk, char cs, char rs, char rst, char busy
   unsigned char* _image = (char*) malloc(_width * ((_height + 7) >> 3));
   memset(_image, 0xff, (_width * ((_height + 7) >> 3)));
   
-  strcpy(dev->color_depth, "R0G1B0");  // Set the color depth to monochrome
+  dev->color_depth = 1;  // Set the color depth to monochrome
 
   dev->image_ptr = _image;
   dev->image_size = (_width * ((_height + 7) >> 3));  

@@ -202,7 +202,7 @@ void il3820_spiWrite(int mask_cs, int mask_sdi, int mask_clk, int mask_dc, char 
  *
  * @param numBytes The number of bytes in the buffer to send.
  */
-void il3820_spiWriteBytes(int mask_cs, int mask_sdi, int mask_clk, int mask_dc, const unsigned char* data, int numBytes);
+void il3820_spiWriteBytes(int mask_cs, int mask_sdi, int mask_clk, const unsigned char* data, int numBytes);
 
 
 /**
