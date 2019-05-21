@@ -256,17 +256,17 @@ bme680_t *bme680_openI2C(i2c *i2c_bus, char i2c_addr);
 /**
  * @brief Initialize a BME680 sensor into 4-wire SPI mode.
  *
- * @param pin_sdo the BME680's SDO (MISO) pin.
- *
  * @param pin_clk the BME680's CLK (clock) pin.
  *
  * @param pin_sdi the BME680's SDI (MOSI) pin.
+ *
+ * @param pin_sdo the BME680's SDO (MISO) pin.
  *
  * @param pin_cs the BME680's CS (select) pin.
  *
  * @returns bme680_t device identifier for use with functions in bme680 library. 
  */
-bme680_t *bme680_openSPI(char pin_sdo, char pin_clk, char pin_sdi, char pin_cs);
+bme680_t *bme680_openSPI(char pin_clk, char pin_sdi, char pin_sdo, char pin_cs);
 
 /**
  * @brief Internal function used to set the values in the bme680_t structure

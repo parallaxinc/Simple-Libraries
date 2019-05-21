@@ -85,7 +85,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ae57fcac45ea7a45271db383809d46a73"><td class="memItemLeft" align="right" valign="top"><a class="el" href="html/structbme680__st.html">bme680_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae57fcac45ea7a45271db383809d46a73">bme680_openI2C</a> (i2c *i2c_bus, char i2c_addr)</td></tr>
 <tr class="memdesc:ae57fcac45ea7a45271db383809d46a73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a BME680 sensor into i2c mode.  <a href="#ae57fcac45ea7a45271db383809d46a73">More...</a><br /></td></tr>
 <tr class="separator:ae57fcac45ea7a45271db383809d46a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca2e9d575f1a30f88cd45e19434f8ef1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="html/structbme680__st.html">bme680_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca2e9d575f1a30f88cd45e19434f8ef1">bme680_openSPI</a> (char pin_sdo, char pin_clk, char pin_sdi, char pin_cs)</td></tr>
+<tr class="memitem:aca2e9d575f1a30f88cd45e19434f8ef1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="html/structbme680__st.html">bme680_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca2e9d575f1a30f88cd45e19434f8ef1">bme680_openSPI</a> (char pin_clk, char pin_sdi, char pin_sdo,  char pin_cs)</td></tr>
 <tr class="memdesc:aca2e9d575f1a30f88cd45e19434f8ef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a BME680 sensor into 4-wire SPI mode.  <a href="#aca2e9d575f1a30f88cd45e19434f8ef1">More...</a><br /></td></tr>
 <tr class="separator:aca2e9d575f1a30f88cd45e19434f8ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa36ad4b17babe7c97134c5b56d54d3ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa36ad4b17babe7c97134c5b56d54d3ab">bme680_begin</a> (<a class="el" href="html/structbme680__st.html">bme680_t</a> *dev)</td></tr>
@@ -989,12 +989,6 @@ May be METERS or FEET. </td></tr>
           <td class="memname"><a class="el" href="html/structbme680__st.html">bme680_t</a>* bme680_openSPI </td>
           <td>(</td>
           <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>pin_sdo</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char&#160;</td>
           <td class="paramname"><em>pin_clk</em>, </td>
         </tr>
         <tr>
@@ -1002,6 +996,12 @@ May be METERS or FEET. </td></tr>
           <td></td>
           <td class="paramtype">char&#160;</td>
           <td class="paramname"><em>pin_sdi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>pin_sdo</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1020,9 +1020,9 @@ May be METERS or FEET. </td></tr>
 <p>Initialize a BME680 sensor into 4-wire SPI mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pin_sdo</td><td>the BME680's SDO (MISO) pin.</td></tr>
     <tr><td class="paramname">pin_clk</td><td>the BME680's CLK (clock) pin.</td></tr>
     <tr><td class="paramname">pin_sdi</td><td>the BME680's SDI (MOSI) pin.</td></tr>
+    <tr><td class="paramname">pin_sdo</td><td>the BME680's SDO (MISO) pin.</td></tr>
     <tr><td class="paramname">pin_cs</td><td>the BME680's CS (select) pin.</td></tr>
   </table>
   </dd>
