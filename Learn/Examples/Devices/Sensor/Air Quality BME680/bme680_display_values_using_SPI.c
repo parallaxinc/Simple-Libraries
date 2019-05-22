@@ -25,7 +25,7 @@ bme680 *mySensor;                             // Create a new sensor instance
 int main() {
 
   // Open the sensor using an SPI interface
-  // SDO, CLK, SDI, CS
+  // CLK, SDI, SDO, CS
   mySensor = bme680_openSPI(20, 21, 22, 23);
     
   while(1) {

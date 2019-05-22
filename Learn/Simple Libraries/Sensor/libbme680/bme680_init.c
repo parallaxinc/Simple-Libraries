@@ -32,7 +32,7 @@ bme680_t *bme680_openI2C(i2c *i2c_bus, char i2c_addr) {
   return dev;
 }
 
-bme680_t *bme680_openSPI(char pin_sdo, char pin_clk, char pin_sdi, char pin_cs) {
+bme680_t *bme680_openSPI(char pin_clk, char pin_sdi, char pin_sdo, char pin_cs) {
 
   bme680_t* dev = (bme680_t*) malloc(sizeof(bme680_t));
   memset(dev, 0, sizeof(bme680_t));
