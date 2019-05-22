@@ -22,8 +22,8 @@
 //#define ENABLE_LCD
 #define ENABLE_PC
 
-#define GPS_RXIN_PIN  0
-#define GPS_TXOUT_PIN 1
+#define GPS_RXIN_PIN  13
+#define GPS_TXOUT_PIN -1
 #define GPS_BAUD      9600
 
 #define LCD_PIN       14
@@ -86,7 +86,7 @@ int main()                                    // main() function
     print("%f  %f", gps_latitude(), gps_longitude());
 
     //sleep for 1/4 second
-    usleep(250000);
+    pause(250);
 
 #endif                //end ENABLE_PC
 
