@@ -11,6 +11,7 @@ screen *oledc;
 
 int main()                                    // Main function
 {
+  
   oledc = ssd1331_init(6, 7, 8, 9, 10, 96, 64);
   setDisplayRotation(oledc, 0);
   setDisplayRotation(oledc, 1);

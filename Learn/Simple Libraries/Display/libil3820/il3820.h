@@ -11,12 +11,12 @@
  * @brief This is a driver that allows the Propeller Multicore Microcontroller to
  * draw text, shapes, and bitmap files on the Waveshare ePaper display.
  *
- * @detail TODO This high-speed driver allows the Propeller Multicore Microcontroller to
- * draw pixels, lines, circles, recatngles, rounded rectagles, triangles, formatted text
- * in multiple fonts, bitmap images stored on an SD card on a WaveShare ePaper screen.
- * At Parallax, we would like to thank Adafruit Industries as parts of this library
- * were dervied from the Adafruit GFX library for Arduino.  Please submit bug reports,
- * suggestions, and improvements to this code to editor@parallax.com.
+ * @detail This driver must be used with simplegfx.h.  When used with the simplegfx
+ * library, it allows the Propeller Multicore Microcontroller tondraw pixels, 
+ * lines, circles, recatngles, rounded rectagles, triangles, formatted text in
+ * multiple fonts, and bitmap images stored on an SD card on a WaveShare ePaper
+ * screen.  Please submit bug reports, suggestions, and improvements to this code 
+ * to editor@parallax.com.
  */
 
 #ifndef IL3820_H                              // Prevents duplicate
@@ -147,12 +147,11 @@ extern "C" {                                  // Compile for C
  *
  * @param busy which pin is connected to the Busy pin, marked "BUSY".
  *
- * @param _width TODO
+ * @param width Width of the display in pixels.
  *
- * @param _height TODO
+ * @param height Height of the displayin pixels.
  */
-screen_t *il3820_init(char sid, char sclk, char cs, char rs, char rst, char busy, int _width, int _height);
-
+screen_t *il3820_init(char sid, char sclk, char cs, char rs, char rst, char busy, int width, int height);
 
 /**
  * @brief Turn the display off without changing it's contents (make it sleep).
@@ -173,30 +172,30 @@ void il3820_wakeDisplay(screen_t *dev);
 /**
  * @brief Low-level driver for sending a byte to the ePaper screen.
  *
- * @param mask_cs TODO
+ * @param mask_cs Pin mask for the display's chip select pin.
  *
- * @param mask_sdi TODO
+ * @param mask_sdi Pin mask for the display's serial data in pin.
  *
- * @param mask_clk TODO
+ * @param mask_clk Pin mask for the display's clock pin.
  *
- * @param mask_dc TODO
+ * @param mask_dc Pin mask for the display's data/command pin.
  *
- * @param c TODO
+ * @param c Byte to be transferred.
  *
- * @param dc TODO
+ * @param dc Toggle whether the byte is a command or data.
  */
 void il3820_spiWrite(int mask_cs, int mask_sdi, int mask_clk, int mask_dc, char c, char dc);
 
 /**
- * @brief Transfers bytes to the screen.
+ * @brief Low-level driver for sending multiple bytes to the ePaper screen.
  *
- * @param mask_cs TODO
+ * @param mask_cs Pin mask for the display's chip select pin.
  *
- * @param mask_sdi TODO
+ * @param mask_sdi Pin mask for the display's serial data in pin.
  *
- * @param mask_clk TODO
+ * @param mask_clk Pin mask for the display's clock pin.
  *
- * @param mask_dc TODO
+ * @param mask_dc Pin mask for the display's data/command pin.
  *
  * @param data Pointer to buffer of bytes to send
  *
@@ -213,14 +212,14 @@ char il3820_writeLock();
 /**
  * @brief Sets the SPI communication lockout
  *
- * @param devId TODO
+ * @param devId The ID of the device (usually the chip select pin).
  */
 void il3820_writeLockSet(char devId);
 
 /**
  * @brief Clears the SPI communication lockout
  *
- * @param devId TODO
+ * @param devId The ID of the device (usually the chip select pin).
  */
 void il3820_writeLockClear(char devId);
 
@@ -270,7 +269,7 @@ void il3820_drawFastVLine(screen_t *dev, int y0, int y1, int x, int color);
 
 
 /**
- * @brief TODO
+ * @brief Clears the screen by setting the full area of the display to white.
  *
  * @param dev Pointer to the display's device structure returned by the initialization function.
  */
@@ -278,15 +277,15 @@ void il3820_clearDisplay(screen_t *dev);
 
 
 /**
- * @brief: update the display with whatever is in the frame memory.
- *          You need to have updated the frame memory with _image first
+ * @brief Update the display with whatever is in the frame memory.
+ * You need to have updated the frame memory with _image first
  *
  * @param dev Pointer to the display's device structure returned by the initialization function.
  */
 void il3820_updateDisplay(screen_t *dev);
 
 /**
- * @brief TODO
+ * @brief Resets the display.
  *
  * @param dev Pointer to the display's device structure returned by the initialization function.
  */

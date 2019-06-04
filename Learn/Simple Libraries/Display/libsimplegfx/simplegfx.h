@@ -756,7 +756,7 @@ void invertDisplay(screen_t *dev, char i);
  *
  * @param i Set to 0 for awake and 1 for asleep.
  */
-void sleepWakeDisplay(struct screen_st*, char i);
+void sleepWakeDisplay(screen_t *dev, char i);
 
 /**
  * @brief Set the display's vertical or hrizontal scrolling functions.  
@@ -772,7 +772,7 @@ void sleepWakeDisplay(struct screen_st*, char i);
  * any non-zero value will trigger a vertical scroll.  Enter zero to stop 
  * vertical scrolling.
  */
-void scrollDisplay(struct screen_st*, int  h, int v);
+void scrollDisplay(screen_t *dev, int  h, int v);
 
 /**
  * @brief Returns the status of the screen's colors - normal or inverted
