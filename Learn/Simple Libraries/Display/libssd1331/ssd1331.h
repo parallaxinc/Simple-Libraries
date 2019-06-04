@@ -335,11 +335,11 @@ void ssd1331_drawLine(screen_t* dev, int x0, int y0, int x1, int y1, int color);
  *
  * @param x Horizontal coordinate of the line.
  *
- * @param y vertical coordinate of the line, counted down from the top of the screen.
+ * @param y Vertical coordinate of the line, counted down from the top of the screen.
  *
- * @param w TODO
+ * @param w Length of the line in pixels.
  *
- * @param color Color of the pixel.
+ * @param color Color of the line.
  */
 void ssd1331_drawFastVLine(screen_t* dev, int x, int y, int w, int color);
 
@@ -348,13 +348,13 @@ void ssd1331_drawFastVLine(screen_t* dev, int x, int y, int w, int color);
  *
  * @param dev Pointer to the display's device structure returned by the initialization function.
  *
- * @param x horizontal coordinate of the line, counted from the left side of the screen.
+ * @param x Horizontal coordinate of the line, counted from the left side of the screen.
  *
  * @param y Vertical coordinate of the line.
  *
- * @param h TODO
+ * @param h Length of the line in pixels.
  *
- * @param color Color of the pixel.
+ * @param color Color of the line.
  */
 void ssd1331_drawFastHLine(screen_t* dev, int x, int y, int h, int color);
 
@@ -367,42 +367,42 @@ void ssd1331_drawFastHLine(screen_t* dev, int x, int y, int h, int color);
  *
  * @param y0 Starting vertical coordinate of the rectangle, counted down from the top of the screen.
  *
- * @param x1 TODO
+ * @param x1 Ending horizontal coordinate of the rectangle, counted from the left side of the screen.
  *
- * @param y1 TODO
+ * @param y1 Ending vertical coordinate of the rectangle, counted down from the top of the screen.
  *
  * @param color Color of the rectangle, in r5g6b5 format.
  */
 void ssd1331_fillRect(screen_t* dev, int x0, int y0, int x1, int y1, int color);
 
 /**
- * @brief TODO
+ * @brief Clears the screen by setting the full area of the display to black.
  *
- * @param dev TODO
+ * @param dev Pointer to the display's device structure returned by the initialization function.
  */
 void ssd1331_clearDisplay(screen_t* dev);
 
 /**
- * @brief TODO
+ * @brief Resets the display.
  *
- * @param dev TODO
+ * @param dev Pointer to the display's device structure returned by the initialization function.
  */
 void ssd1331_resetDisplay(screen_t* dev);
 
 /**
- * @brief Transfers bytes to the screen.
+ * @brief Low level function that transfers bytes to the screen.
  *
- * @param mask_cs TODO
+ * @param mask_cs Pin mask for the display's chip select pin.
  *
- * @param mask_sdi TODO
+ * @param mask_sdi Pin mask for the display's serial data in pin.
  *
- * @param mask_clk TODO
+ * @param mask_clk Pin mask for the display's clock pin.
  *
- * @param mask_dc TODO
+ * @param mask_dc Pin mask for the display's data/command pin.
  *
- * @param c TODO
+ * @param c Byte to be transferred.
  *
- * @param dc TODO
+ * @param dc Toggle whether the byte is a command or data.
  */
 void ssd1331_writeByte(int mask_cs, int mask_sdi, int mask_clk, int mask_dc, char c, char dc);
 
@@ -414,14 +414,14 @@ char ssd1331_writeLock();
 /**
  * @brief Sets the SPI communication lockout
  *
- * @param devId TODO
+ * @param devId The ID of the device (usually the chip select pin).
  */
 void ssd1331_writeLockSet(char devId);
 
 /**
  * @brief Clears the SPI communication lockout
  *
- * @param devId TODO
+ * @param devId The ID of the device (usually the chip select pin).
  */
 void ssd1331_writeLockClear(char devId);
 
@@ -436,7 +436,7 @@ void ssd1331_writeLockClear(char devId);
  *
  * @param w Width of the box to be copied.
  *
- * @param h height of the box to be copied.
+ * @param h Height of the box to be copied.
  *
  * @param x2 Horizontal coordinate where the copied box is to be pasted.
  *
@@ -466,6 +466,9 @@ void ssd1331_scrollDisplay(screen_t* dev, int h, int v);
  * @brief Inverts the screen.
  *
  * @param dev Pointer to the display's device structure returned by the initialization function.
+ *
+ * @param i Mode to set the inversion to: (0) sets the display to normal and (1) inverts the
+ * colors of the display.
  */
 void ssd1331_invertDisplay(screen_t *dev, char i);
 
@@ -473,5 +476,7 @@ void ssd1331_invertDisplay(screen_t *dev, char i);
  * @brief Sleeps or Wakes the display.
  *
  * @param dev Pointer to the display's device structure returned by the initialization function.
+ *
+ * @param i Mode to set the display to: (0) wakes the display (1) sleeps the display.
  */
 void ssd1331_sleepWakeDisplay(screen_t *dev, char i);
