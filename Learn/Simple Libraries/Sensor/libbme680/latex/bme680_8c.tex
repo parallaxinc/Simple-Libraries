@@ -1,0 +1,65 @@
+\hypertarget{bme680_8c}{}\section{bme680.\+c File Reference}
+\label{bme680_8c}\index{bme680.\+c@{bme680.\+c}}
+{\ttfamily \#include \char`\"{}bme680.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bme680\+\_\+device $\ast$ \mbox{\hyperlink{bme680_8c_ae131733dcc684805e953351de68edb4d}{bme680\+\_\+init\+\_\+i2c}} (i2c $\ast$i2c\+\_\+bus, char i2c\+\_\+addr)
+\item 
+bme680\+\_\+device $\ast$ \mbox{\hyperlink{bme680_8c_a65ce54a8a0f8168745e1a846a8f95d57}{bme680\+\_\+init\+\_\+spi}} (char pin\+\_\+sdo, char pin\+\_\+clk, char pin\+\_\+sdi, char pin\+\_\+cs)
+\item 
+void \mbox{\hyperlink{bme680_8c_af3bce5c63faca37adb7d3ef34c24b2a9}{bme680\+\_\+begin}} (bme680\+\_\+device $\ast$dev)
+\item 
+char \mbox{\hyperlink{bme680_8c_a0183a3d602579ea5e98a085f3b1d40ef}{bme680\+\_\+read\+Sensor}} (bme680\+\_\+device $\ast$dev)
+\item 
+char \mbox{\hyperlink{bme680_8c_a0fae6895511de53f97cc471480a253ba}{bme680\+\_\+load\+Settings}} (bme680\+\_\+device $\ast$dev)
+\item 
+void \mbox{\hyperlink{bme680_8c_adbd7e2a2592f04cd5fc1e6e4e4f9c36d}{bme680\+\_\+read}} (bme680\+\_\+device $\ast$dev, unsigned char reg\+\_\+addr, unsigned char $\ast$reg\+\_\+data, unsigned short len)
+\item 
+void \mbox{\hyperlink{bme680_8c_a88742aea494880f27d8f378568f9278f}{bme680\+\_\+write}} (bme680\+\_\+device $\ast$dev, unsigned char reg\+\_\+addr, unsigned char $\ast$reg\+\_\+data, unsigned short len)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{bme680_8c_af3bce5c63faca37adb7d3ef34c24b2a9}\label{bme680_8c_af3bce5c63faca37adb7d3ef34c24b2a9}} 
+\index{bme680.\+c@{bme680.\+c}!bme680\+\_\+begin@{bme680\+\_\+begin}}
+\index{bme680\+\_\+begin@{bme680\+\_\+begin}!bme680.\+c@{bme680.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+begin()}{bme680\_begin()}}
+{\footnotesize\ttfamily void bme680\+\_\+begin (\begin{DoxyParamCaption}\item[{bme680\+\_\+device $\ast$}]{dev }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{bme680_8c_ae131733dcc684805e953351de68edb4d}\label{bme680_8c_ae131733dcc684805e953351de68edb4d}} 
+\index{bme680.\+c@{bme680.\+c}!bme680\+\_\+init\+\_\+i2c@{bme680\+\_\+init\+\_\+i2c}}
+\index{bme680\+\_\+init\+\_\+i2c@{bme680\+\_\+init\+\_\+i2c}!bme680.\+c@{bme680.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+init\+\_\+i2c()}{bme680\_init\_i2c()}}
+{\footnotesize\ttfamily bme680\+\_\+device$\ast$ bme680\+\_\+init\+\_\+i2c (\begin{DoxyParamCaption}\item[{i2c $\ast$}]{i2c\+\_\+bus,  }\item[{char}]{i2c\+\_\+addr }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{bme680_8c_a65ce54a8a0f8168745e1a846a8f95d57}\label{bme680_8c_a65ce54a8a0f8168745e1a846a8f95d57}} 
+\index{bme680.\+c@{bme680.\+c}!bme680\+\_\+init\+\_\+spi@{bme680\+\_\+init\+\_\+spi}}
+\index{bme680\+\_\+init\+\_\+spi@{bme680\+\_\+init\+\_\+spi}!bme680.\+c@{bme680.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+init\+\_\+spi()}{bme680\_init\_spi()}}
+{\footnotesize\ttfamily bme680\+\_\+device$\ast$ bme680\+\_\+init\+\_\+spi (\begin{DoxyParamCaption}\item[{char}]{pin\+\_\+sdo,  }\item[{char}]{pin\+\_\+clk,  }\item[{char}]{pin\+\_\+sdi,  }\item[{char}]{pin\+\_\+cs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{bme680_8c_a0fae6895511de53f97cc471480a253ba}\label{bme680_8c_a0fae6895511de53f97cc471480a253ba}} 
+\index{bme680.\+c@{bme680.\+c}!bme680\+\_\+load\+Settings@{bme680\+\_\+load\+Settings}}
+\index{bme680\+\_\+load\+Settings@{bme680\+\_\+load\+Settings}!bme680.\+c@{bme680.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+load\+Settings()}{bme680\_loadSettings()}}
+{\footnotesize\ttfamily char bme680\+\_\+load\+Settings (\begin{DoxyParamCaption}\item[{bme680\+\_\+device $\ast$}]{dev }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{bme680_8c_adbd7e2a2592f04cd5fc1e6e4e4f9c36d}\label{bme680_8c_adbd7e2a2592f04cd5fc1e6e4e4f9c36d}} 
+\index{bme680.\+c@{bme680.\+c}!bme680\+\_\+read@{bme680\+\_\+read}}
+\index{bme680\+\_\+read@{bme680\+\_\+read}!bme680.\+c@{bme680.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+read()}{bme680\_read()}}
+{\footnotesize\ttfamily void bme680\+\_\+read (\begin{DoxyParamCaption}\item[{bme680\+\_\+device $\ast$}]{dev,  }\item[{unsigned char}]{reg\+\_\+addr,  }\item[{unsigned char $\ast$}]{reg\+\_\+data,  }\item[{unsigned short}]{len }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{bme680_8c_a0183a3d602579ea5e98a085f3b1d40ef}\label{bme680_8c_a0183a3d602579ea5e98a085f3b1d40ef}} 
+\index{bme680.\+c@{bme680.\+c}!bme680\+\_\+read\+Sensor@{bme680\+\_\+read\+Sensor}}
+\index{bme680\+\_\+read\+Sensor@{bme680\+\_\+read\+Sensor}!bme680.\+c@{bme680.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+read\+Sensor()}{bme680\_readSensor()}}
+{\footnotesize\ttfamily char bme680\+\_\+read\+Sensor (\begin{DoxyParamCaption}\item[{bme680\+\_\+device $\ast$}]{dev }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{bme680_8c_a88742aea494880f27d8f378568f9278f}\label{bme680_8c_a88742aea494880f27d8f378568f9278f}} 
+\index{bme680.\+c@{bme680.\+c}!bme680\+\_\+write@{bme680\+\_\+write}}
+\index{bme680\+\_\+write@{bme680\+\_\+write}!bme680.\+c@{bme680.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+write()}{bme680\_write()}}
+{\footnotesize\ttfamily void bme680\+\_\+write (\begin{DoxyParamCaption}\item[{bme680\+\_\+device $\ast$}]{dev,  }\item[{unsigned char}]{reg\+\_\+addr,  }\item[{unsigned char $\ast$}]{reg\+\_\+data,  }\item[{unsigned short}]{len }\end{DoxyParamCaption})}
+

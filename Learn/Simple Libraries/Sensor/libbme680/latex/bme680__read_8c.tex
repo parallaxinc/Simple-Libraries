@@ -1,0 +1,50 @@
+\hypertarget{bme680__read_8c}{}\section{bme680\+\_\+read.\+c File Reference}
+\label{bme680__read_8c}\index{bme680\+\_\+read.\+c@{bme680\+\_\+read.\+c}}
+
+
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings.  
+
+
+{\ttfamily \#include \char`\"{}bme680.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{bme680__read_8c_a86947115b13a7f6d47000c90d81856fe}{bme680\+\_\+read\+Sensor}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev)
+\begin{DoxyCompactList}\small\item\em Instructs the B\+M\+E680 sensor to take a reading. ~\newline
+Readings take approximately 200ms and should be retireved using \mbox{\hyperlink{bme680_8h_ad7af0adf6129d79563a0aabfa9410d24}{bme680\+\_\+temperature()}}, \mbox{\hyperlink{bme680_8h_a276af4d8f33303b84fac4ee9b56e9394}{bme680\+\_\+pressure()}}, \mbox{\hyperlink{bme680_8h_ac863dd58a93cc5cbe5a956ebfb006049}{bme680\+\_\+humidity()}}, \mbox{\hyperlink{bme680_8h_ad426c7481b6f6c6c598e640a7ccfcbd9}{bme680\+\_\+altitude()}}, and \mbox{\hyperlink{bme680_8h_a49120f07f144b49d94e92e0ca3cb2c7d}{bme680\+\_\+gas\+Resistance()}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings. 
+
+\begin{DoxyAuthor}{Author}
+Matthew Matz
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+5
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (C) Parallax, Inc. 2019. All Rights M\+IT Licensed. 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{bme680__read_8c_a86947115b13a7f6d47000c90d81856fe}\label{bme680__read_8c_a86947115b13a7f6d47000c90d81856fe}} 
+\index{bme680\+\_\+read.\+c@{bme680\+\_\+read.\+c}!bme680\+\_\+read\+Sensor@{bme680\+\_\+read\+Sensor}}
+\index{bme680\+\_\+read\+Sensor@{bme680\+\_\+read\+Sensor}!bme680\+\_\+read.\+c@{bme680\+\_\+read.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+read\+Sensor()}{bme680\_readSensor()}}
+{\footnotesize\ttfamily char bme680\+\_\+read\+Sensor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev }\end{DoxyParamCaption})}
+
+
+
+Instructs the B\+M\+E680 sensor to take a reading. ~\newline
+Readings take approximately 200ms and should be retireved using \mbox{\hyperlink{bme680_8h_ad7af0adf6129d79563a0aabfa9410d24}{bme680\+\_\+temperature()}}, \mbox{\hyperlink{bme680_8h_a276af4d8f33303b84fac4ee9b56e9394}{bme680\+\_\+pressure()}}, \mbox{\hyperlink{bme680_8h_ac863dd58a93cc5cbe5a956ebfb006049}{bme680\+\_\+humidity()}}, \mbox{\hyperlink{bme680_8h_ad426c7481b6f6c6c598e640a7ccfcbd9}{bme680\+\_\+altitude()}}, and \mbox{\hyperlink{bme680_8h_a49120f07f144b49d94e92e0ca3cb2c7d}{bme680\+\_\+gas\+Resistance()}}. 
+
+\begin{DoxyNote}{Note}
+The internal heating element for the gas (V\+OC) sensor can skew temperature and humidity readings if the sensor is read at intervals of under 3 seconds. If frequent temperature and humidity readings are desired, use \mbox{\hyperlink{bme680_8h_a8f6333a32855ebf39c0c43fc381268b2}{bme680\+\_\+heater\+Disable()}} to prevent the heating element from turning on.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device. \\
+\hline
+\end{DoxyParams}

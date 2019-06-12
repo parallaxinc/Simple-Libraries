@@ -1,0 +1,48 @@
+\hypertarget{bme680__pressure_8c}{}\section{bme680\+\_\+pressure.\+c File Reference}
+\label{bme680__pressure_8c}\index{bme680\+\_\+pressure.\+c@{bme680\+\_\+pressure.\+c}}
+
+
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings.  
+
+
+{\ttfamily \#include \char`\"{}bme680.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{bme680__pressure_8c_a276af4d8f33303b84fac4ee9b56e9394}{bme680\+\_\+pressure}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev, char unit)
+\begin{DoxyCompactList}\small\item\em Retrieve the temperature from the last read of the B\+M\+E680 device. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings. 
+
+\begin{DoxyAuthor}{Author}
+Matthew Matz
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+5
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (C) Parallax, Inc. 2019. All Rights M\+IT Licensed. 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{bme680__pressure_8c_a276af4d8f33303b84fac4ee9b56e9394}\label{bme680__pressure_8c_a276af4d8f33303b84fac4ee9b56e9394}} 
+\index{bme680\+\_\+pressure.\+c@{bme680\+\_\+pressure.\+c}!bme680\+\_\+pressure@{bme680\+\_\+pressure}}
+\index{bme680\+\_\+pressure@{bme680\+\_\+pressure}!bme680\+\_\+pressure.\+c@{bme680\+\_\+pressure.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+pressure()}{bme680\_pressure()}}
+{\footnotesize\ttfamily float bme680\+\_\+pressure (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev,  }\item[{char}]{unit }\end{DoxyParamCaption})}
+
+
+
+Retrieve the temperature from the last read of the B\+M\+E680 device. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device.\\
+\hline
+{\em unit} & Unit of meaure to return the measurement in. ~\newline
+May be P\+A\+S\+C\+A\+LS, M\+M\+HG, I\+N\+HG, or P\+SI. \\
+\hline
+\end{DoxyParams}

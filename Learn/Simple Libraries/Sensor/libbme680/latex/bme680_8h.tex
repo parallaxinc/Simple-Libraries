@@ -1,0 +1,618 @@
+\hypertarget{bme680_8h}{}\section{bme680.\+h File Reference}
+\label{bme680_8h}\index{bme680.\+h@{bme680.\+h}}
+
+
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings.  
+
+
+{\ttfamily \#include \char`\"{}simpletools.\+h\char`\"{}}\newline
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structbme680__st}{bme680\+\_\+st}}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{bme680_8h_aff828ac6f52afb978595cdb3c9ffff32}\label{bme680_8h_aff828ac6f52afb978595cdb3c9ffff32}} 
+\#define {\bfseries B\+M\+E680\+\_\+H}
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a65ccf5fa03371fc8348b57885c38cec3}{C\+E\+L\+S\+I\+US}}~(0)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a8906b6bd0382be0c84525750618df0b3}{F\+A\+H\+R\+E\+N\+H\+E\+IT}}~(1)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a8764db1b23fb32adc88292922df60835}{K\+E\+L\+V\+IN}}~(2)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a1695904ae60877f40194a584ee1a772c}{P\+A\+S\+C\+A\+LS}}~(0)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a48d6f624ca85cfc6dba9d9c36de3d648}{M\+M\+HG}}~(1)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_aa291cf70fc907e22d34996b9b342d818}{I\+N\+HG}}~(2)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_afecb0a00a3c2aa965c6fb5b87d8a56bb}{P\+SI}}~(3)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_aa2d1ce652c65764c67dcca938d0aca3e}{M\+E\+T\+E\+RS}}~(0)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a28d0a350336a03ed8ae1bf24c1dc9add}{F\+E\+ET}}~(1)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a5ba113b3902da4c9baf45da5f32958d0}{B\+M\+E680\+\_\+\+O\+S\+\_\+\+N\+O\+NE}}~(0)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a90f5a043c6dcb6382136d674bdddaf9f}{B\+M\+E680\+\_\+\+O\+S\+\_\+1X}}~(1)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a52e63cfbad8239eefa594fc823306dfb}{B\+M\+E680\+\_\+\+O\+S\+\_\+2X}}~(2)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a4c3caae2c0b27b0abf1dec7cddcd5c8d}{B\+M\+E680\+\_\+\+O\+S\+\_\+4X}}~(3)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_ae262407360d48abca904e671cc824466}{B\+M\+E680\+\_\+\+O\+S\+\_\+8X}}~(4)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_abba27bfd061689ca82ee9bac3a11f31e}{B\+M\+E680\+\_\+\+O\+S\+\_\+16X}}~(5)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a5edcb9fcb77440f52d2b2865a89b5475}{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+0}}~(0)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a577fdee6366e9677903cc5b80be9348d}{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+1}}~(1)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a8827e54c9ae9a50b5b86024369428fa4}{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+3}}~(2)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_ab5678e5df2163711af64b392bff862b9}{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+7}}~(3)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_aeb92ac0b2821a64b8fd76f24a1e60485}{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+15}}~(4)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a2f3b3c9a71391d53ca2649ab6d823592}{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+31}}~(5)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a6f71fe46cd0b97165d8dd4fce562dbf8}{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+63}}~(6)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a5b5941f3e4e6344b6e2b3e28e6356074}{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+127}}~(7)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a3886caa6dbbcfa4f11a140119702c1aa}{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+A\+M\+B\+\_\+\+T\+E\+MP}}~(0)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a8c704917daa318b0c135fc2d9ee883ca}{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+T\+E\+MP}}~(1)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a3ac04b78bfde9413a6064ca24c79d368}{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+D\+U\+R\+A\+T\+I\+ON}}~(2)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_aed8f92737181d895daabf3d62fd283e4}{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+ZE}}~(3)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_ac24aa647e1e6492498aa0820c45c21e7}{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+T\+E\+M\+P\+\_\+\+S\+A\+M\+P\+L\+ES}}~(4)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_a1c9eed71659e1be2f94b24b5e8702628}{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+P\+R\+E\+S\+S\+U\+R\+E\+\_\+\+S\+A\+M\+P\+L\+ES}}~(5)
+\item 
+\#define \mbox{\hyperlink{bme680_8h_ad0b01eb06117e67614f5966eebecea02}{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+U\+M\+I\+D\+I\+T\+Y\+\_\+\+S\+A\+M\+P\+L\+ES}}~(6)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{bme680_8h_af84aa1a963c55bcac4dece8775f1d5f5}\label{bme680_8h_af84aa1a963c55bcac4dece8775f1d5f5}} 
+typedef struct \mbox{\hyperlink{structbme680__st}{bme680\+\_\+st}} {\bfseries bme680\+\_\+t}
+\item 
+\mbox{\Hypertarget{bme680_8h_acccf3698fa1e9cedb029779781854be3}\label{bme680_8h_acccf3698fa1e9cedb029779781854be3}} 
+typedef \mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} {\bfseries bme680}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$ \mbox{\hyperlink{bme680_8h_ae57fcac45ea7a45271db383809d46a73}{bme680\+\_\+open\+I2C}} (i2c $\ast$i2c\+\_\+bus, char i2c\+\_\+addr)
+\begin{DoxyCompactList}\small\item\em Initialize a B\+M\+E680 sensor into i2c mode. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$ \mbox{\hyperlink{bme680_8h_aca2e9d575f1a30f88cd45e19434f8ef1}{bme680\+\_\+open\+S\+PI}} (char pin\+\_\+sdo, char pin\+\_\+clk, char pin\+\_\+sdi, char pin\+\_\+cs)
+\begin{DoxyCompactList}\small\item\em Initialize a B\+M\+E680 sensor into 4-\/wire S\+PI mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bme680_8h_aa36ad4b17babe7c97134c5b56d54d3ab}{bme680\+\_\+begin}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev)
+\begin{DoxyCompactList}\small\item\em Internal function used to set the values in the bme680\+\_\+t structure to their default values. \end{DoxyCompactList}\item 
+char \mbox{\hyperlink{bme680_8h_aaf708715bd6440913d8224b8732e4e9e}{bme680\+\_\+load\+Settings}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev)
+\begin{DoxyCompactList}\small\item\em Loads settings values that have been saved in the bme680\+\_\+t structure into the B\+M\+E680 sensor. \end{DoxyCompactList}\item 
+char \mbox{\hyperlink{bme680_8h_a86947115b13a7f6d47000c90d81856fe}{bme680\+\_\+read\+Sensor}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev)
+\begin{DoxyCompactList}\small\item\em Instructs the B\+M\+E680 sensor to take a reading. ~\newline
+Readings take approximately 200ms and should be retireved using \mbox{\hyperlink{bme680_8h_ad7af0adf6129d79563a0aabfa9410d24}{bme680\+\_\+temperature()}}, \mbox{\hyperlink{bme680_8h_a276af4d8f33303b84fac4ee9b56e9394}{bme680\+\_\+pressure()}}, \mbox{\hyperlink{bme680_8h_ac863dd58a93cc5cbe5a956ebfb006049}{bme680\+\_\+humidity()}}, \mbox{\hyperlink{bme680_8h_ad426c7481b6f6c6c598e640a7ccfcbd9}{bme680\+\_\+altitude()}}, and \mbox{\hyperlink{bme680_8h_a49120f07f144b49d94e92e0ca3cb2c7d}{bme680\+\_\+gas\+Resistance()}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bme680_8h_a0d790c6ff6278ced8ac96767bd4e524d}{bme680\+\_\+write}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev, unsigned char reg\+\_\+addr, unsigned char $\ast$reg\+\_\+data, unsigned short len)
+\begin{DoxyCompactList}\small\item\em Internal function used to read values from the specified registers of the B\+M\+E680 sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bme680_8h_a854d2f7a70cb387c2a0cc3cabb796fd4}{bme680\+\_\+read}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev, unsigned char reg\+\_\+addr, unsigned char $\ast$reg\+\_\+data, unsigned short len)
+\begin{DoxyCompactList}\small\item\em Internal function used to write values to the specified registers of the B\+M\+E680 sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev, char setting, int value)
+\begin{DoxyCompactList}\small\item\em Change configurable settings for the B\+M\+E680 sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bme680_8h_a022cf63aa99c565ce62cf4dcde5222d9}{bme680\+\_\+close}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev)
+\begin{DoxyCompactList}\small\item\em Close and free the memory used by the bme680 device structure. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{bme680_8h_ad7af0adf6129d79563a0aabfa9410d24}{bme680\+\_\+temperature}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev, char unit)
+\begin{DoxyCompactList}\small\item\em Retrieve the temperature from the last read of the B\+M\+E680 device. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{bme680_8h_a276af4d8f33303b84fac4ee9b56e9394}{bme680\+\_\+pressure}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev, char unit)
+\begin{DoxyCompactList}\small\item\em Retrieve the temperature from the last read of the B\+M\+E680 device. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{bme680_8h_ad426c7481b6f6c6c598e640a7ccfcbd9}{bme680\+\_\+altitude}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev, char unit)
+\begin{DoxyCompactList}\small\item\em Retrieve the estimated altitude from the last read of the B\+M\+E680 device. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{bme680_8h_ac863dd58a93cc5cbe5a956ebfb006049}{bme680\+\_\+humidity}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev)
+\begin{DoxyCompactList}\small\item\em Retrieve the relative humidity as a percentage from the last read of the B\+M\+E680 device. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{bme680_8h_a49120f07f144b49d94e92e0ca3cb2c7d}{bme680\+\_\+gas\+Resistance}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev)
+\begin{DoxyCompactList}\small\item\em Retrieve the relative humidity as a percentage from the last read of the B\+M\+E680 device. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bme680_8h_aee047e78105f66a29522ebd294d454cd}{bme680\+\_\+heater\+Enable}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev)
+\begin{DoxyCompactList}\small\item\em Allows the B\+M\+E680 to send current to the heating element for its gas sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bme680_8h_a8f6333a32855ebf39c0c43fc381268b2}{bme680\+\_\+heater\+Disable}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev)
+\begin{DoxyCompactList}\small\item\em Turns off the current that the B\+M\+E680 sends to the heating element for its gas sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings. 
+
+\begin{DoxyAuthor}{Author}
+Matthew Matz
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+5
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (C) Parallax, Inc. 2019. All Rights M\+IT Licensed. 
+\end{DoxyCopyright}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{bme680_8h_a5edcb9fcb77440f52d2b2865a89b5475}\label{bme680_8h_a5edcb9fcb77440f52d2b2865a89b5475}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+0@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+0}}
+\index{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+0@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+0}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+0}{BME680\_FILTER\_SIZE\_0}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+0~(0)}
+
+I\+IR (Low-\/pass) filter setting used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_a577fdee6366e9677903cc5b80be9348d}\label{bme680_8h_a577fdee6366e9677903cc5b80be9348d}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+1@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+1}}
+\index{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+1@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+1}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+1}{BME680\_FILTER\_SIZE\_1}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+1~(1)}
+
+I\+IR (Low-\/pass) filter setting used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_a5b5941f3e4e6344b6e2b3e28e6356074}\label{bme680_8h_a5b5941f3e4e6344b6e2b3e28e6356074}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+127@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+127}}
+\index{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+127@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+127}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+127}{BME680\_FILTER\_SIZE\_127}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+127~(7)}
+
+I\+IR (Low-\/pass) filter setting used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_aeb92ac0b2821a64b8fd76f24a1e60485}\label{bme680_8h_aeb92ac0b2821a64b8fd76f24a1e60485}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+15@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+15}}
+\index{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+15@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+15}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+15}{BME680\_FILTER\_SIZE\_15}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+15~(4)}
+
+I\+IR (Low-\/pass) filter setting used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_a8827e54c9ae9a50b5b86024369428fa4}\label{bme680_8h_a8827e54c9ae9a50b5b86024369428fa4}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+3@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+3}}
+\index{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+3@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+3}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+3}{BME680\_FILTER\_SIZE\_3}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+3~(2)}
+
+I\+IR (Low-\/pass) filter setting used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_a2f3b3c9a71391d53ca2649ab6d823592}\label{bme680_8h_a2f3b3c9a71391d53ca2649ab6d823592}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+31@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+31}}
+\index{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+31@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+31}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+31}{BME680\_FILTER\_SIZE\_31}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+31~(5)}
+
+I\+IR (Low-\/pass) filter setting used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_a6f71fe46cd0b97165d8dd4fce562dbf8}\label{bme680_8h_a6f71fe46cd0b97165d8dd4fce562dbf8}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+63@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+63}}
+\index{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+63@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+63}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+63}{BME680\_FILTER\_SIZE\_63}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+63~(6)}
+
+I\+IR (Low-\/pass) filter setting used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_ab5678e5df2163711af64b392bff862b9}\label{bme680_8h_ab5678e5df2163711af64b392bff862b9}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+7@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+7}}
+\index{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+7@{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+7}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+7}{BME680\_FILTER\_SIZE\_7}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+7~(3)}
+
+I\+IR (Low-\/pass) filter setting used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_abba27bfd061689ca82ee9bac3a11f31e}\label{bme680_8h_abba27bfd061689ca82ee9bac3a11f31e}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+O\+S\+\_\+16X@{B\+M\+E680\+\_\+\+O\+S\+\_\+16X}}
+\index{B\+M\+E680\+\_\+\+O\+S\+\_\+16X@{B\+M\+E680\+\_\+\+O\+S\+\_\+16X}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+O\+S\+\_\+16X}{BME680\_OS\_16X}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+O\+S\+\_\+16X~(5)}
+
+Over-\/sampling setting (16x) used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_a90f5a043c6dcb6382136d674bdddaf9f}\label{bme680_8h_a90f5a043c6dcb6382136d674bdddaf9f}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+O\+S\+\_\+1X@{B\+M\+E680\+\_\+\+O\+S\+\_\+1X}}
+\index{B\+M\+E680\+\_\+\+O\+S\+\_\+1X@{B\+M\+E680\+\_\+\+O\+S\+\_\+1X}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+O\+S\+\_\+1X}{BME680\_OS\_1X}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+O\+S\+\_\+1X~(1)}
+
+Over-\/sampling setting (1x) used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_a52e63cfbad8239eefa594fc823306dfb}\label{bme680_8h_a52e63cfbad8239eefa594fc823306dfb}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+O\+S\+\_\+2X@{B\+M\+E680\+\_\+\+O\+S\+\_\+2X}}
+\index{B\+M\+E680\+\_\+\+O\+S\+\_\+2X@{B\+M\+E680\+\_\+\+O\+S\+\_\+2X}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+O\+S\+\_\+2X}{BME680\_OS\_2X}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+O\+S\+\_\+2X~(2)}
+
+Over-\/sampling setting (2x) used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_a4c3caae2c0b27b0abf1dec7cddcd5c8d}\label{bme680_8h_a4c3caae2c0b27b0abf1dec7cddcd5c8d}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+O\+S\+\_\+4X@{B\+M\+E680\+\_\+\+O\+S\+\_\+4X}}
+\index{B\+M\+E680\+\_\+\+O\+S\+\_\+4X@{B\+M\+E680\+\_\+\+O\+S\+\_\+4X}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+O\+S\+\_\+4X}{BME680\_OS\_4X}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+O\+S\+\_\+4X~(3)}
+
+Over-\/sampling setting (4x) used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_ae262407360d48abca904e671cc824466}\label{bme680_8h_ae262407360d48abca904e671cc824466}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+O\+S\+\_\+8X@{B\+M\+E680\+\_\+\+O\+S\+\_\+8X}}
+\index{B\+M\+E680\+\_\+\+O\+S\+\_\+8X@{B\+M\+E680\+\_\+\+O\+S\+\_\+8X}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+O\+S\+\_\+8X}{BME680\_OS\_8X}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+O\+S\+\_\+8X~(4)}
+
+Over-\/sampling setting (8x) used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_a5ba113b3902da4c9baf45da5f32958d0}\label{bme680_8h_a5ba113b3902da4c9baf45da5f32958d0}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+O\+S\+\_\+\+N\+O\+NE@{B\+M\+E680\+\_\+\+O\+S\+\_\+\+N\+O\+NE}}
+\index{B\+M\+E680\+\_\+\+O\+S\+\_\+\+N\+O\+NE@{B\+M\+E680\+\_\+\+O\+S\+\_\+\+N\+O\+NE}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+O\+S\+\_\+\+N\+O\+NE}{BME680\_OS\_NONE}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+O\+S\+\_\+\+N\+O\+NE~(0)}
+
+Over-\/sampling setting (None) used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_a3886caa6dbbcfa4f11a140119702c1aa}\label{bme680_8h_a3886caa6dbbcfa4f11a140119702c1aa}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+A\+M\+B\+\_\+\+T\+E\+MP@{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+A\+M\+B\+\_\+\+T\+E\+MP}}
+\index{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+A\+M\+B\+\_\+\+T\+E\+MP@{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+A\+M\+B\+\_\+\+T\+E\+MP}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+A\+M\+B\+\_\+\+T\+E\+MP}{BME680\_SETTING\_AMB\_TEMP}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+A\+M\+B\+\_\+\+T\+E\+MP~(0)}
+
+Setting constant used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_aed8f92737181d895daabf3d62fd283e4}\label{bme680_8h_aed8f92737181d895daabf3d62fd283e4}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+ZE@{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+ZE@{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+ZE}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+ZE}{BME680\_SETTING\_FILTER\_SIZE}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+ZE~(3)}
+
+Setting constant used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_a3ac04b78bfde9413a6064ca24c79d368}\label{bme680_8h_a3ac04b78bfde9413a6064ca24c79d368}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+D\+U\+R\+A\+T\+I\+ON@{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+D\+U\+R\+A\+T\+I\+ON}}
+\index{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+D\+U\+R\+A\+T\+I\+ON@{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+D\+U\+R\+A\+T\+I\+ON}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+D\+U\+R\+A\+T\+I\+ON}{BME680\_SETTING\_HEATER\_DURATION}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+D\+U\+R\+A\+T\+I\+ON~(2)}
+
+Setting constant used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_a8c704917daa318b0c135fc2d9ee883ca}\label{bme680_8h_a8c704917daa318b0c135fc2d9ee883ca}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+T\+E\+MP@{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+T\+E\+MP}}
+\index{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+T\+E\+MP@{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+T\+E\+MP}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+T\+E\+MP}{BME680\_SETTING\_HEATER\_TEMP}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+T\+E\+MP~(1)}
+
+Setting constant used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_ad0b01eb06117e67614f5966eebecea02}\label{bme680_8h_ad0b01eb06117e67614f5966eebecea02}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+U\+M\+I\+D\+I\+T\+Y\+\_\+\+S\+A\+M\+P\+L\+ES@{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+U\+M\+I\+D\+I\+T\+Y\+\_\+\+S\+A\+M\+P\+L\+ES}}
+\index{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+U\+M\+I\+D\+I\+T\+Y\+\_\+\+S\+A\+M\+P\+L\+ES@{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+U\+M\+I\+D\+I\+T\+Y\+\_\+\+S\+A\+M\+P\+L\+ES}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+U\+M\+I\+D\+I\+T\+Y\+\_\+\+S\+A\+M\+P\+L\+ES}{BME680\_SETTING\_HUMIDITY\_SAMPLES}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+U\+M\+I\+D\+I\+T\+Y\+\_\+\+S\+A\+M\+P\+L\+ES~(6)}
+
+Setting constant used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_a1c9eed71659e1be2f94b24b5e8702628}\label{bme680_8h_a1c9eed71659e1be2f94b24b5e8702628}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+P\+R\+E\+S\+S\+U\+R\+E\+\_\+\+S\+A\+M\+P\+L\+ES@{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+P\+R\+E\+S\+S\+U\+R\+E\+\_\+\+S\+A\+M\+P\+L\+ES}}
+\index{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+P\+R\+E\+S\+S\+U\+R\+E\+\_\+\+S\+A\+M\+P\+L\+ES@{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+P\+R\+E\+S\+S\+U\+R\+E\+\_\+\+S\+A\+M\+P\+L\+ES}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+P\+R\+E\+S\+S\+U\+R\+E\+\_\+\+S\+A\+M\+P\+L\+ES}{BME680\_SETTING\_PRESSURE\_SAMPLES}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+P\+R\+E\+S\+S\+U\+R\+E\+\_\+\+S\+A\+M\+P\+L\+ES~(5)}
+
+Setting constant used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_ac24aa647e1e6492498aa0820c45c21e7}\label{bme680_8h_ac24aa647e1e6492498aa0820c45c21e7}} 
+\index{bme680.\+h@{bme680.\+h}!B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+T\+E\+M\+P\+\_\+\+S\+A\+M\+P\+L\+ES@{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+T\+E\+M\+P\+\_\+\+S\+A\+M\+P\+L\+ES}}
+\index{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+T\+E\+M\+P\+\_\+\+S\+A\+M\+P\+L\+ES@{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+T\+E\+M\+P\+\_\+\+S\+A\+M\+P\+L\+ES}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+T\+E\+M\+P\+\_\+\+S\+A\+M\+P\+L\+ES}{BME680\_SETTING\_TEMP\_SAMPLES}}
+{\footnotesize\ttfamily \#define B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+T\+E\+M\+P\+\_\+\+S\+A\+M\+P\+L\+ES~(4)}
+
+Setting constant used in \mbox{\hyperlink{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure()}} \mbox{\Hypertarget{bme680_8h_a65ccf5fa03371fc8348b57885c38cec3}\label{bme680_8h_a65ccf5fa03371fc8348b57885c38cec3}} 
+\index{bme680.\+h@{bme680.\+h}!C\+E\+L\+S\+I\+US@{C\+E\+L\+S\+I\+US}}
+\index{C\+E\+L\+S\+I\+US@{C\+E\+L\+S\+I\+US}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{C\+E\+L\+S\+I\+US}{CELSIUS}}
+{\footnotesize\ttfamily \#define C\+E\+L\+S\+I\+US~(0)}
+
+Measurement Unit for \mbox{\hyperlink{bme680_8h_ad7af0adf6129d79563a0aabfa9410d24}{bme680\+\_\+temperature()}} \mbox{\Hypertarget{bme680_8h_a8906b6bd0382be0c84525750618df0b3}\label{bme680_8h_a8906b6bd0382be0c84525750618df0b3}} 
+\index{bme680.\+h@{bme680.\+h}!F\+A\+H\+R\+E\+N\+H\+E\+IT@{F\+A\+H\+R\+E\+N\+H\+E\+IT}}
+\index{F\+A\+H\+R\+E\+N\+H\+E\+IT@{F\+A\+H\+R\+E\+N\+H\+E\+IT}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{F\+A\+H\+R\+E\+N\+H\+E\+IT}{FAHRENHEIT}}
+{\footnotesize\ttfamily \#define F\+A\+H\+R\+E\+N\+H\+E\+IT~(1)}
+
+Measurement Unit for \mbox{\hyperlink{bme680_8h_ad7af0adf6129d79563a0aabfa9410d24}{bme680\+\_\+temperature()}} \mbox{\Hypertarget{bme680_8h_a28d0a350336a03ed8ae1bf24c1dc9add}\label{bme680_8h_a28d0a350336a03ed8ae1bf24c1dc9add}} 
+\index{bme680.\+h@{bme680.\+h}!F\+E\+ET@{F\+E\+ET}}
+\index{F\+E\+ET@{F\+E\+ET}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{F\+E\+ET}{FEET}}
+{\footnotesize\ttfamily \#define F\+E\+ET~(1)}
+
+Measurement Unit for \mbox{\hyperlink{bme680_8h_ad426c7481b6f6c6c598e640a7ccfcbd9}{bme680\+\_\+altitude()}} \mbox{\Hypertarget{bme680_8h_aa291cf70fc907e22d34996b9b342d818}\label{bme680_8h_aa291cf70fc907e22d34996b9b342d818}} 
+\index{bme680.\+h@{bme680.\+h}!I\+N\+HG@{I\+N\+HG}}
+\index{I\+N\+HG@{I\+N\+HG}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{I\+N\+HG}{INHG}}
+{\footnotesize\ttfamily \#define I\+N\+HG~(2)}
+
+Measurement Unit for \mbox{\hyperlink{bme680_8h_a276af4d8f33303b84fac4ee9b56e9394}{bme680\+\_\+pressure()}} \mbox{\Hypertarget{bme680_8h_a8764db1b23fb32adc88292922df60835}\label{bme680_8h_a8764db1b23fb32adc88292922df60835}} 
+\index{bme680.\+h@{bme680.\+h}!K\+E\+L\+V\+IN@{K\+E\+L\+V\+IN}}
+\index{K\+E\+L\+V\+IN@{K\+E\+L\+V\+IN}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{K\+E\+L\+V\+IN}{KELVIN}}
+{\footnotesize\ttfamily \#define K\+E\+L\+V\+IN~(2)}
+
+Measurement Unit for \mbox{\hyperlink{bme680_8h_ad7af0adf6129d79563a0aabfa9410d24}{bme680\+\_\+temperature()}} \mbox{\Hypertarget{bme680_8h_aa2d1ce652c65764c67dcca938d0aca3e}\label{bme680_8h_aa2d1ce652c65764c67dcca938d0aca3e}} 
+\index{bme680.\+h@{bme680.\+h}!M\+E\+T\+E\+RS@{M\+E\+T\+E\+RS}}
+\index{M\+E\+T\+E\+RS@{M\+E\+T\+E\+RS}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{M\+E\+T\+E\+RS}{METERS}}
+{\footnotesize\ttfamily \#define M\+E\+T\+E\+RS~(0)}
+
+Measurement Unit for \mbox{\hyperlink{bme680_8h_ad426c7481b6f6c6c598e640a7ccfcbd9}{bme680\+\_\+altitude()}} \mbox{\Hypertarget{bme680_8h_a48d6f624ca85cfc6dba9d9c36de3d648}\label{bme680_8h_a48d6f624ca85cfc6dba9d9c36de3d648}} 
+\index{bme680.\+h@{bme680.\+h}!M\+M\+HG@{M\+M\+HG}}
+\index{M\+M\+HG@{M\+M\+HG}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{M\+M\+HG}{MMHG}}
+{\footnotesize\ttfamily \#define M\+M\+HG~(1)}
+
+Measurement Unit for \mbox{\hyperlink{bme680_8h_a276af4d8f33303b84fac4ee9b56e9394}{bme680\+\_\+pressure()}} \mbox{\Hypertarget{bme680_8h_a1695904ae60877f40194a584ee1a772c}\label{bme680_8h_a1695904ae60877f40194a584ee1a772c}} 
+\index{bme680.\+h@{bme680.\+h}!P\+A\+S\+C\+A\+LS@{P\+A\+S\+C\+A\+LS}}
+\index{P\+A\+S\+C\+A\+LS@{P\+A\+S\+C\+A\+LS}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{P\+A\+S\+C\+A\+LS}{PASCALS}}
+{\footnotesize\ttfamily \#define P\+A\+S\+C\+A\+LS~(0)}
+
+Measurement Unit for \mbox{\hyperlink{bme680_8h_a276af4d8f33303b84fac4ee9b56e9394}{bme680\+\_\+pressure()}} \mbox{\Hypertarget{bme680_8h_afecb0a00a3c2aa965c6fb5b87d8a56bb}\label{bme680_8h_afecb0a00a3c2aa965c6fb5b87d8a56bb}} 
+\index{bme680.\+h@{bme680.\+h}!P\+SI@{P\+SI}}
+\index{P\+SI@{P\+SI}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{P\+SI}{PSI}}
+{\footnotesize\ttfamily \#define P\+SI~(3)}
+
+Measurement Unit for \mbox{\hyperlink{bme680_8h_a276af4d8f33303b84fac4ee9b56e9394}{bme680\+\_\+pressure()}} 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{bme680_8h_ad426c7481b6f6c6c598e640a7ccfcbd9}\label{bme680_8h_ad426c7481b6f6c6c598e640a7ccfcbd9}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+altitude@{bme680\+\_\+altitude}}
+\index{bme680\+\_\+altitude@{bme680\+\_\+altitude}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+altitude()}{bme680\_altitude()}}
+{\footnotesize\ttfamily float bme680\+\_\+altitude (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev,  }\item[{char}]{unit }\end{DoxyParamCaption})}
+
+
+
+Retrieve the estimated altitude from the last read of the B\+M\+E680 device. 
+
+\begin{DoxyNote}{Note}
+this is calcualted from the pressure measurement. It is not reliable for high altitudes, and it is affected by the ambient (barometric) pressure due to weather. For that reason, the B\+M\+E680 is better for measuring changes in altitude versus absolute altitude.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & Pointer to the bme680 device.\\
+\hline
+{\em unit} & Unit of meaure to return the measurement in. ~\newline
+May be M\+E\+T\+E\+RS or F\+E\+ET. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680_8h_aa36ad4b17babe7c97134c5b56d54d3ab}\label{bme680_8h_aa36ad4b17babe7c97134c5b56d54d3ab}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+begin@{bme680\+\_\+begin}}
+\index{bme680\+\_\+begin@{bme680\+\_\+begin}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+begin()}{bme680\_begin()}}
+{\footnotesize\ttfamily void bme680\+\_\+begin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev }\end{DoxyParamCaption})}
+
+
+
+Internal function used to set the values in the bme680\+\_\+t structure to their default values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680_8h_a022cf63aa99c565ce62cf4dcde5222d9}\label{bme680_8h_a022cf63aa99c565ce62cf4dcde5222d9}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+close@{bme680\+\_\+close}}
+\index{bme680\+\_\+close@{bme680\+\_\+close}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+close()}{bme680\_close()}}
+{\footnotesize\ttfamily void bme680\+\_\+close (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev }\end{DoxyParamCaption})}
+
+
+
+Close and free the memory used by the bme680 device structure. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}\label{bme680_8h_a302c97dda3ef198d369b3c514506d0d4}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+configure@{bme680\+\_\+configure}}
+\index{bme680\+\_\+configure@{bme680\+\_\+configure}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+configure()}{bme680\_configure()}}
+{\footnotesize\ttfamily void bme680\+\_\+configure (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev,  }\item[{char}]{setting,  }\item[{int}]{value }\end{DoxyParamCaption})}
+
+
+
+Change configurable settings for the B\+M\+E680 sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device.\\
+\hline
+{\em setting} & the setting to change. May be\\
+\hline
+\end{DoxyParams}
+Ambient Temperature in deg C (B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+A\+M\+B\+\_\+\+T\+E\+MP) -\/ default is 25. Heater Temperature in deg C (B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+T\+E\+MP) -\/ default is 320. Heater Duration in ms (B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+D\+U\+R\+A\+T\+I\+ON) -\/ default is 150. Low-\/pass filter size (B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+ZE) -\/ default is B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+3. Temperature samples to take (B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+T\+E\+M\+P\+\_\+\+S\+A\+M\+P\+L\+ES) -\/ default is B\+M\+E680\+\_\+\+O\+S\+\_\+8X. Pressure samples to take (B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+P\+R\+E\+S\+S\+U\+R\+E\+\_\+\+S\+A\+M\+P\+L\+ES) -\/ default is B\+M\+E680\+\_\+\+O\+S\+\_\+4X. Humidity samples to take (B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+U\+M\+I\+D\+I\+T\+Y\+\_\+\+S\+A\+M\+P\+L\+ES) -\/ default is B\+M\+E680\+\_\+\+O\+S\+\_\+2X.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & the value to write into that setting. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680_8h_a49120f07f144b49d94e92e0ca3cb2c7d}\label{bme680_8h_a49120f07f144b49d94e92e0ca3cb2c7d}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+gas\+Resistance@{bme680\+\_\+gas\+Resistance}}
+\index{bme680\+\_\+gas\+Resistance@{bme680\+\_\+gas\+Resistance}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+gas\+Resistance()}{bme680\_gasResistance()}}
+{\footnotesize\ttfamily float bme680\+\_\+gas\+Resistance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev }\end{DoxyParamCaption})}
+
+
+
+Retrieve the relative humidity as a percentage from the last read of the B\+M\+E680 device. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680_8h_a8f6333a32855ebf39c0c43fc381268b2}\label{bme680_8h_a8f6333a32855ebf39c0c43fc381268b2}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+heater\+Disable@{bme680\+\_\+heater\+Disable}}
+\index{bme680\+\_\+heater\+Disable@{bme680\+\_\+heater\+Disable}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+heater\+Disable()}{bme680\_heaterDisable()}}
+{\footnotesize\ttfamily void bme680\+\_\+heater\+Disable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev }\end{DoxyParamCaption})}
+
+
+
+Turns off the current that the B\+M\+E680 sends to the heating element for its gas sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680_8h_aee047e78105f66a29522ebd294d454cd}\label{bme680_8h_aee047e78105f66a29522ebd294d454cd}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+heater\+Enable@{bme680\+\_\+heater\+Enable}}
+\index{bme680\+\_\+heater\+Enable@{bme680\+\_\+heater\+Enable}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+heater\+Enable()}{bme680\_heaterEnable()}}
+{\footnotesize\ttfamily void bme680\+\_\+heater\+Enable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev }\end{DoxyParamCaption})}
+
+
+
+Allows the B\+M\+E680 to send current to the heating element for its gas sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680_8h_ac863dd58a93cc5cbe5a956ebfb006049}\label{bme680_8h_ac863dd58a93cc5cbe5a956ebfb006049}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+humidity@{bme680\+\_\+humidity}}
+\index{bme680\+\_\+humidity@{bme680\+\_\+humidity}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+humidity()}{bme680\_humidity()}}
+{\footnotesize\ttfamily float bme680\+\_\+humidity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev }\end{DoxyParamCaption})}
+
+
+
+Retrieve the relative humidity as a percentage from the last read of the B\+M\+E680 device. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680_8h_aaf708715bd6440913d8224b8732e4e9e}\label{bme680_8h_aaf708715bd6440913d8224b8732e4e9e}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+load\+Settings@{bme680\+\_\+load\+Settings}}
+\index{bme680\+\_\+load\+Settings@{bme680\+\_\+load\+Settings}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+load\+Settings()}{bme680\_loadSettings()}}
+{\footnotesize\ttfamily char bme680\+\_\+load\+Settings (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev }\end{DoxyParamCaption})}
+
+
+
+Loads settings values that have been saved in the bme680\+\_\+t structure into the B\+M\+E680 sensor. 
+
+\begin{DoxyNote}{Note}
+Must be called after calling bem680\+\_\+init...() and before calling bme\+\_\+read\+Sensor().
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680_8h_ae57fcac45ea7a45271db383809d46a73}\label{bme680_8h_ae57fcac45ea7a45271db383809d46a73}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+open\+I2C@{bme680\+\_\+open\+I2C}}
+\index{bme680\+\_\+open\+I2C@{bme680\+\_\+open\+I2C}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+open\+I2\+C()}{bme680\_openI2C()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}}$\ast$ bme680\+\_\+open\+I2C (\begin{DoxyParamCaption}\item[{i2c $\ast$}]{i2c\+\_\+bus,  }\item[{char}]{i2c\+\_\+addr }\end{DoxyParamCaption})}
+
+
+
+Initialize a B\+M\+E680 sensor into i2c mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$i2c\+\_\+bus} & pointer to an i2c bus that has already been opened with i2c\+\_\+open();.\\
+\hline
+{\em i2c\+\_\+addr} & the i2c address of the device, usualy 0x76 or 0x77.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bme680\+\_\+t device identifier for use with functions in bme680 library. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{bme680_8h_aca2e9d575f1a30f88cd45e19434f8ef1}\label{bme680_8h_aca2e9d575f1a30f88cd45e19434f8ef1}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+open\+S\+PI@{bme680\+\_\+open\+S\+PI}}
+\index{bme680\+\_\+open\+S\+PI@{bme680\+\_\+open\+S\+PI}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+open\+S\+P\+I()}{bme680\_openSPI()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}}$\ast$ bme680\+\_\+open\+S\+PI (\begin{DoxyParamCaption}\item[{char}]{pin\+\_\+sdo,  }\item[{char}]{pin\+\_\+clk,  }\item[{char}]{pin\+\_\+sdi,  }\item[{char}]{pin\+\_\+cs }\end{DoxyParamCaption})}
+
+
+
+Initialize a B\+M\+E680 sensor into 4-\/wire S\+PI mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pin\+\_\+sdo} & the B\+M\+E680\textquotesingle{}s S\+DO (M\+I\+SO) pin.\\
+\hline
+{\em pin\+\_\+clk} & the B\+M\+E680\textquotesingle{}s C\+LK (clock) pin.\\
+\hline
+{\em pin\+\_\+sdi} & the B\+M\+E680\textquotesingle{}s S\+DI (M\+O\+SI) pin.\\
+\hline
+{\em pin\+\_\+cs} & the B\+M\+E680\textquotesingle{}s CS (select) pin.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bme680\+\_\+t device identifier for use with functions in bme680 library. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{bme680_8h_a276af4d8f33303b84fac4ee9b56e9394}\label{bme680_8h_a276af4d8f33303b84fac4ee9b56e9394}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+pressure@{bme680\+\_\+pressure}}
+\index{bme680\+\_\+pressure@{bme680\+\_\+pressure}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+pressure()}{bme680\_pressure()}}
+{\footnotesize\ttfamily float bme680\+\_\+pressure (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev,  }\item[{char}]{unit }\end{DoxyParamCaption})}
+
+
+
+Retrieve the temperature from the last read of the B\+M\+E680 device. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device.\\
+\hline
+{\em unit} & Unit of meaure to return the measurement in. ~\newline
+May be P\+A\+S\+C\+A\+LS, M\+M\+HG, I\+N\+HG, or P\+SI. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680_8h_a854d2f7a70cb387c2a0cc3cabb796fd4}\label{bme680_8h_a854d2f7a70cb387c2a0cc3cabb796fd4}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+read@{bme680\+\_\+read}}
+\index{bme680\+\_\+read@{bme680\+\_\+read}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+read()}{bme680\_read()}}
+{\footnotesize\ttfamily void bme680\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev,  }\item[{unsigned char}]{reg\+\_\+addr,  }\item[{unsigned char $\ast$}]{reg\+\_\+data,  }\item[{unsigned short}]{len }\end{DoxyParamCaption})}
+
+
+
+Internal function used to write values to the specified registers of the B\+M\+E680 sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device.\\
+\hline
+{\em reg\+\_\+addr} & the address of first register to write to.\\
+\hline
+{\em $\ast$reg\+\_\+data} & the array containing alternating data and address bytes to write.\\
+\hline
+{\em len} & the total number of data and address bytes to write. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680_8h_a86947115b13a7f6d47000c90d81856fe}\label{bme680_8h_a86947115b13a7f6d47000c90d81856fe}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+read\+Sensor@{bme680\+\_\+read\+Sensor}}
+\index{bme680\+\_\+read\+Sensor@{bme680\+\_\+read\+Sensor}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+read\+Sensor()}{bme680\_readSensor()}}
+{\footnotesize\ttfamily char bme680\+\_\+read\+Sensor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev }\end{DoxyParamCaption})}
+
+
+
+Instructs the B\+M\+E680 sensor to take a reading. ~\newline
+Readings take approximately 200ms and should be retireved using \mbox{\hyperlink{bme680_8h_ad7af0adf6129d79563a0aabfa9410d24}{bme680\+\_\+temperature()}}, \mbox{\hyperlink{bme680_8h_a276af4d8f33303b84fac4ee9b56e9394}{bme680\+\_\+pressure()}}, \mbox{\hyperlink{bme680_8h_ac863dd58a93cc5cbe5a956ebfb006049}{bme680\+\_\+humidity()}}, \mbox{\hyperlink{bme680_8h_ad426c7481b6f6c6c598e640a7ccfcbd9}{bme680\+\_\+altitude()}}, and \mbox{\hyperlink{bme680_8h_a49120f07f144b49d94e92e0ca3cb2c7d}{bme680\+\_\+gas\+Resistance()}}. 
+
+\begin{DoxyNote}{Note}
+The internal heating element for the gas (V\+OC) sensor can skew temperature and humidity readings if the sensor is read at intervals of under 3 seconds. If frequent temperature and humidity readings are desired, use \mbox{\hyperlink{bme680_8h_a8f6333a32855ebf39c0c43fc381268b2}{bme680\+\_\+heater\+Disable()}} to prevent the heating element from turning on.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680_8h_ad7af0adf6129d79563a0aabfa9410d24}\label{bme680_8h_ad7af0adf6129d79563a0aabfa9410d24}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+temperature@{bme680\+\_\+temperature}}
+\index{bme680\+\_\+temperature@{bme680\+\_\+temperature}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+temperature()}{bme680\_temperature()}}
+{\footnotesize\ttfamily float bme680\+\_\+temperature (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev,  }\item[{char}]{unit }\end{DoxyParamCaption})}
+
+
+
+Retrieve the temperature from the last read of the B\+M\+E680 device. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & Pointer to the bme680 device.\\
+\hline
+{\em unit} & Unit of meaure to return the measurement in. ~\newline
+May be C\+E\+L\+S\+I\+US, F\+A\+H\+R\+E\+N\+H\+E\+IT, or K\+E\+L\+V\+IN \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680_8h_a0d790c6ff6278ced8ac96767bd4e524d}\label{bme680_8h_a0d790c6ff6278ced8ac96767bd4e524d}} 
+\index{bme680.\+h@{bme680.\+h}!bme680\+\_\+write@{bme680\+\_\+write}}
+\index{bme680\+\_\+write@{bme680\+\_\+write}!bme680.\+h@{bme680.\+h}}
+\subsubsection{\texorpdfstring{bme680\+\_\+write()}{bme680\_write()}}
+{\footnotesize\ttfamily void bme680\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev,  }\item[{unsigned char}]{reg\+\_\+addr,  }\item[{unsigned char $\ast$}]{reg\+\_\+data,  }\item[{unsigned short}]{len }\end{DoxyParamCaption})}
+
+
+
+Internal function used to read values from the specified registers of the B\+M\+E680 sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device.\\
+\hline
+{\em reg\+\_\+addr} & the address of register to begin reading from.\\
+\hline
+{\em $\ast$reg\+\_\+data} & the array to store the received data into.\\
+\hline
+{\em len} & the number of bytes to read. \\
+\hline
+\end{DoxyParams}

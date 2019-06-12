@@ -1,0 +1,19 @@
+libil3820.c
+il3820_spiWrite.c
+il3820_init.c
+il3820_sleepWake.c
+il3820_drawPixel.c
+il3820_drawLine.c
+il3820.h
+il3820_reset.c
+il3820_update.c
+il3820_clear.c
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>defs::-std=c99
+>-lm
+>-create_library
+>BOARD::ACTIVITYBOARD

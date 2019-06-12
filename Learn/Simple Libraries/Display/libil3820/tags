@@ -1,0 +1,53 @@
+!_TAG_FILE_FORMAT	1	/original ctags format/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BLACK	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	38
+BOOSTER_SOFT_START_CONTROL	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	93
+BORDER_WAVEFORM_CONTROL	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	107
+DATA_ENTRY_MODE_SETTING	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	96
+DEEP_SLEEP_MODE	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	95
+DISPLAY_UPDATE_CONTROL_1	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	100
+DISPLAY_UPDATE_CONTROL_2	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	101
+DRIVER_OUTPUT_CONTROL	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	92
+GATE_SCAN_START_POSITION	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	94
+IL3820_H	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	26
+INVERSE	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	40
+MASTER_ACTIVATION	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	99
+SET_DUMMY_LINE_PERIOD	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	105
+SET_GATE_TIME	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	106
+SET_RAM_X_ADDRESS_COUNTER	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	110
+SET_RAM_X_ADDRESS_START_END_POSITION	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	108
+SET_RAM_Y_ADDRESS_COUNTER	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	111
+SET_RAM_Y_ADDRESS_START_END_POSITION	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	109
+SW_RESET	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	97
+TEMPERATURE_SENSOR_CONTROL	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	98
+TERMINATE_FRAME_READ_WRITE	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	112
+WHITE	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	39
+WRITE_LUT_REGISTER	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	104
+WRITE_RAM	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	102
+WRITE_VCOM_REGISTER	/Users/mmatz/Desktop/Library work/libil3820/il3820.h	103
+_clk	/Users/mmatz/Desktop/Library work/libil3820/il3820_init.c	/^char _sdi, _dc, _clk, _rst;$/
+_dc	/Users/mmatz/Desktop/Library work/libil3820/il3820_init.c	/^char _sdi, _dc, _clk, _rst;$/
+_rst	/Users/mmatz/Desktop/Library work/libil3820/il3820_init.c	/^char _sdi, _dc, _clk, _rst;$/
+_sdi	/Users/mmatz/Desktop/Library work/libil3820/il3820_init.c	/^char _sdi, _dc, _clk, _rst;$/
+_writeLock	/Users/mmatz/Desktop/Library work/libil3820/il3820_spiWrite.c	/^static char _writeLock = 0;$/
+epd	/Users/mmatz/Desktop/Library work/libil3820/libil3280.c	/^screen *epd;$/
+il3820_clearDisplay	/Users/mmatz/Desktop/Library work/libil3820/il3820_clear.c	/^void il3820_clearDisplay(screen_t *dev) {$/
+il3820_drawFastHLine	/Users/mmatz/Desktop/Library work/libil3820/il3820_drawLine.c	/^void il3820_drawFastHLine(screen *dev, int x, int y, int w, int color) {$/
+il3820_drawFastVLine	/Users/mmatz/Desktop/Library work/libil3820/il3820_drawLine.c	/^void il3820_drawFastVLine(screen *dev, int x, int y, int w, int color) {$/
+il3820_drawPixel	/Users/mmatz/Desktop/Library work/libil3820/il3820_drawPixel.c	/^void il3820_drawPixel(screen *dev, int x, int y, int color)$/
+il3820_init	/Users/mmatz/Desktop/Library work/libil3820/il3820_init.c	/^screen_t *il3820_init(char sdi, char sclk, char cs, char rs, char rst, char busy, int _width, int _height) {$/
+il3820_resetDisplay	/Users/mmatz/Desktop/Library work/libil3820/il3820_reset.c	/^void il3820_resetDisplay(screen_t *dev)$/
+il3820_sleepDisplay	/Users/mmatz/Desktop/Library work/libil3820/il3820_sleepWake.c	/^void il3820_sleepDisplay(screen_t *dev) $/
+il3820_spiWrite	/Users/mmatz/Desktop/Library work/libil3820/il3820_spiWrite.c	/^void il3820_spiWrite(int mask_cs, int mask_sdi, int mask_clk, int mask_dc, char c, char dc) {$/
+il3820_spiWriteBytes	/Users/mmatz/Desktop/Library work/libil3820/il3820_spiWrite.c	/^void il3820_spiWriteBytes(int mask_cs, int mask_sdi, int mask_clk, int mask_dc, const unsigned char* data, int numBytes) {$/
+il3820_updateDisplay	/Users/mmatz/Desktop/Library work/libil3820/il3820_update.c	/^void il3820_updateDisplay(screen_t *dev)$/
+il3820_wakeDisplay	/Users/mmatz/Desktop/Library work/libil3820/il3820_sleepWake.c	/^void il3820_wakeDisplay(screen_t *dev) $/
+il3820_writeLock	/Users/mmatz/Desktop/Library work/libil3820/il3820_spiWrite.c	/^char il3820_writeLock() {$/
+il3820_writeLockClear	/Users/mmatz/Desktop/Library work/libil3820/il3820_spiWrite.c	/^void il3820_writeLockClear(char devId) {$/
+il3820_writeLockSet	/Users/mmatz/Desktop/Library work/libil3820/il3820_spiWrite.c	/^void il3820_writeLockSet(char devId) {$/
+lut_full_update	/Users/mmatz/Desktop/Library work/libil3820/il3820_reset.c	/^const unsigned char lut_full_update[] = {$/
+main	/Users/mmatz/Desktop/Library work/libil3820/libil3280.c	/^int main() $/

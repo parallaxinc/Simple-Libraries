@@ -1,0 +1,74 @@
+\hypertarget{bme680__settings_8c}{}\section{bme680\+\_\+settings.\+c File Reference}
+\label{bme680__settings_8c}\index{bme680\+\_\+settings.\+c@{bme680\+\_\+settings.\+c}}
+
+
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings.  
+
+
+{\ttfamily \#include \char`\"{}bme680.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{bme680__settings_8c_aaf708715bd6440913d8224b8732e4e9e}{bme680\+\_\+load\+Settings}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev)
+\begin{DoxyCompactList}\small\item\em Loads settings values that have been saved in the bme680\+\_\+t structure into the B\+M\+E680 sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bme680__settings_8c_a302c97dda3ef198d369b3c514506d0d4}{bme680\+\_\+configure}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev, char setting, int value)
+\begin{DoxyCompactList}\small\item\em Change configurable settings for the B\+M\+E680 sensor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings. 
+
+\begin{DoxyAuthor}{Author}
+Matthew Matz
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+5
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (C) Parallax, Inc. 2019. All Rights M\+IT Licensed. 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{bme680__settings_8c_a302c97dda3ef198d369b3c514506d0d4}\label{bme680__settings_8c_a302c97dda3ef198d369b3c514506d0d4}} 
+\index{bme680\+\_\+settings.\+c@{bme680\+\_\+settings.\+c}!bme680\+\_\+configure@{bme680\+\_\+configure}}
+\index{bme680\+\_\+configure@{bme680\+\_\+configure}!bme680\+\_\+settings.\+c@{bme680\+\_\+settings.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+configure()}{bme680\_configure()}}
+{\footnotesize\ttfamily void bme680\+\_\+configure (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev,  }\item[{char}]{setting,  }\item[{int}]{value }\end{DoxyParamCaption})}
+
+
+
+Change configurable settings for the B\+M\+E680 sensor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device.\\
+\hline
+{\em setting} & the setting to change. May be\\
+\hline
+\end{DoxyParams}
+Ambient Temperature in deg C (B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+A\+M\+B\+\_\+\+T\+E\+MP) -\/ default is 25. Heater Temperature in deg C (B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+T\+E\+MP) -\/ default is 320. Heater Duration in ms (B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+E\+A\+T\+E\+R\+\_\+\+D\+U\+R\+A\+T\+I\+ON) -\/ default is 150. Low-\/pass filter size (B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+ZE) -\/ default is B\+M\+E680\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+3. Temperature samples to take (B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+T\+E\+M\+P\+\_\+\+S\+A\+M\+P\+L\+ES) -\/ default is B\+M\+E680\+\_\+\+O\+S\+\_\+8X. Pressure samples to take (B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+P\+R\+E\+S\+S\+U\+R\+E\+\_\+\+S\+A\+M\+P\+L\+ES) -\/ default is B\+M\+E680\+\_\+\+O\+S\+\_\+4X. Humidity samples to take (B\+M\+E680\+\_\+\+S\+E\+T\+T\+I\+N\+G\+\_\+\+H\+U\+M\+I\+D\+I\+T\+Y\+\_\+\+S\+A\+M\+P\+L\+ES) -\/ default is B\+M\+E680\+\_\+\+O\+S\+\_\+2X.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & the value to write into that setting. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{bme680__settings_8c_aaf708715bd6440913d8224b8732e4e9e}\label{bme680__settings_8c_aaf708715bd6440913d8224b8732e4e9e}} 
+\index{bme680\+\_\+settings.\+c@{bme680\+\_\+settings.\+c}!bme680\+\_\+load\+Settings@{bme680\+\_\+load\+Settings}}
+\index{bme680\+\_\+load\+Settings@{bme680\+\_\+load\+Settings}!bme680\+\_\+settings.\+c@{bme680\+\_\+settings.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+load\+Settings()}{bme680\_loadSettings()}}
+{\footnotesize\ttfamily char bme680\+\_\+load\+Settings (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev }\end{DoxyParamCaption})}
+
+
+
+Loads settings values that have been saved in the bme680\+\_\+t structure into the B\+M\+E680 sensor. 
+
+\begin{DoxyNote}{Note}
+Must be called after calling bem680\+\_\+init...() and before calling bme\+\_\+read\+Sensor().
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device. \\
+\hline
+\end{DoxyParams}
