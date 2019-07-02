@@ -381,6 +381,13 @@ int drive_gotoStatus(int side);
 void drive_feedback(int enabled); 
 
 
+/**
+  @brief Enables or disables ignore calibration settings stored in EEPROM.  
+  This feature allows an ActivityBot application to initialize using I/O
+  pins that are different from the ones stored in EEPROM.   
+  
+  @param enabled Set to 1 to enable or 0 (default) to disable.
+*/
 void drive_suppress_eeprom(int state);
 
 /**
