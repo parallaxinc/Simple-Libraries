@@ -68,7 +68,7 @@ int get8bitColor(int c, char *i);
 
 
 /**
- * @brief Remaps a color stored as a simgle integer.
+ * @brief Remaps a color stored as a single integer.
  *
  * @param c The color stored as an integer to be remapped.
  *
@@ -85,6 +85,17 @@ int get8bitColor(int c, char *i);
  */
 int remapColor(int c, char *f1, char *f2);
 
+
+/**
+ * @brief Remaps a 24-bit (8R8G8B) color as a single integer to a 16-bit (5R6G5B)
+ * color.  This function is provided as it is the most commonly needed remap, and is
+ * significantly faster than the generic remapColor() function.
+ *
+ * @param c The 24-bit color stored as an integer to be remapped.
+ *  
+ * @return A 16-bit color stored as a single integer.
+ */
+int remapColor888to565(int c);
 
 
 
