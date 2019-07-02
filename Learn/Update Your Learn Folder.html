@@ -56,6 +56,43 @@ learn@parallax.com</a>.
 
  
 <p>
+Update 7/1/2019
+<ul>
+<li>Example programs for new libraries: ePaper (il3820.h with simplegfx.h support) 
+and environmental sensing (bme680.h).</li>
+<li>simplegfx library - New, provides text and graphics features for a variety of displays.  
+Compatible with multiple displays in a single application.</li>
+<li>il3820 library - New for controlling the 296 x 128 2.9 inch ePaper Display (#28084).  
+Compatible with the simplegfx library.</li>
+<li>ssd1331 library - A new alternative to the oledc library that is compatible with the 
+simplegfx library.</li>
+<li>bme680 library - New for the BME680 Sensor (#28061), measuring temperature, humidity, 
+barometric pressure, VOCs.</li>
+<li>oledc library - Add fast remap function named remapColor888to565.</li>
+<li>abdrive360 library - Add drive_suppress_eeprom function to allow ActivityBot 360&#176 
+applications to temporarily operate with servo I/O pins that are different from the ones 
+stored in the calibration settings.</li>
+<li>gps library - Add functions for determining GPS unit's talker ID.</li>
+
+<br>
+The rest of the items in this 7/1/2019 list are library adjustments for reliability.  
+They do not change the way you will write your programs.
+<br><br>
+
+<li>wifi library - Fix bug that allowed the library to change the direction of P0 
+to output without warning.</li>
+<li>ws2812 library for RGB LEDs - Adjust initialization constants to improve signal 
+timing.  These constants address offsets in the driver code signal timing 
+and were determined through trial and error measurements with an oscilloscope.  When the 
+driver code is updated, the initialization constants will have to be changed again.</li>
+<li>abcalibrate360 library for the ActivityBot 360&#176 - Increase ceiling speed during 
+calibration by a small amount.  This ceiling speed is used in in the calibration's 
+self-diagnostic routines to detect if a custom battery pack is in use that might 
+have a supply voltage level that is too high.</li>
+</ul>
+</p>  
+
+<p>
 Update 11/5/2018
 <ul>
 <li>Add ActivityBot 360 IR distance detection and robot following examples.</li>
