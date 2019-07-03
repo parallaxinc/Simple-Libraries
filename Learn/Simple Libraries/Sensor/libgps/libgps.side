@@ -16,6 +16,7 @@ gps_satsTracked.c
 gps_velocity.c
 gps.h
 gps_txByte.c
+gps_sources.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

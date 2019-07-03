@@ -118,7 +118,15 @@ int remapColor(int c, char *f1, char *f2)
 }
   
   
-  
+int remapColor888to565(int c)                  // Higher-speed remap than the function above
+{
+  c &= 0xffffff;                               // make sure that if there is an alpha channel it's filtered out
+  int r = (c >> 8) & 0b1111100000000000;
+  int g = (c >> 5) & 0b0000011111100000;
+  int b = (c >> 3) & 0b0000000000011111;
+
+  return r | g | b;
+}
   
 /**
  * TERMS OF USE: MIT License
