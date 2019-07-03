@@ -67,7 +67,11 @@ int wifi_recv(int handle, char *data, int size)
       //wifi_replyStringDisplay("reply\n");
       #endif  //WIFI_DEBUG
       sscan(&wifi_buf[2], "%c%d", &wifi_event, &bytesReady);
-      if(bytesReady == 0) return 0;
+      if(bytesReady == 0) 
+      {
+	wifi_simpletermResume();
+	return 0;
+      }
       while((n < bytesReady) && (n < size))
       {  
         if(fdserial_rxCount(wifi_fds) > 0)
