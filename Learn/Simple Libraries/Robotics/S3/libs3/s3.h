@@ -44,7 +44,7 @@
 
 
 //    Control Character Constants
-// ─────────────────────────────────────
+// ---------------------------------
 // CS: Clear Screen
 #define S3_CS (16)
 // PC: Position Cursor in x,y
