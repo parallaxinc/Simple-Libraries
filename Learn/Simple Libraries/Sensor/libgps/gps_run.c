@@ -21,7 +21,7 @@ gps_byte_t *ptrBuff;
 
 fdserial *gps_ser;
 
-
+void ParseTID(char tid);
 void ParseRMC();
 void ParseGGA();
 void PrepBuff();
@@ -31,6 +31,10 @@ void gps_run(void *par)
   gps_byte_t tempBuff[16];
   gps_byte_t ch;
   int idx;
+  
+  // Set the string of constellation sources read to all <space> characters
+  memset(gps_data.talker_ids, ' ', sizeof(gps_data.talker_ids));
+  gps_data.talker_ids[64] = 0;
 
   gps_ser = fdserial_open(_gps_rx_pin, _gps_tx_pin, 0, _gps_baud);
   for(;;)
@@ -54,20 +58,51 @@ void gps_run(void *par)
     {
       ch = fdserial_rxChar(gps_ser);
       inBuff[idx++] = ch;      
-    }while(ch != 13);
+    } while(ch != 13);
     inBuff[idx] = 0;      //null terminate
 
     //got the full sentence, do a little prep work to get ready for parsing.
     //modifies inBuff!
     PrepBuff();
 
-    if(strncmp(inBuff, "GPRMC", 5) == 0)
-      ParseRMC();
-    if(strncmp(inBuff, "GPGGA", 5) == 0)
-      ParseGGA();
+    // Determine Constellation/Transmission Source:
+    // More info here: http://catb.org/gpsd/NMEA.html#_talker_ids
+    if(inBuff[0] == 'G' || inBuff[0] == 'B' || inBuff[0] == 'Q') 
+    {
+      if(inBuff[0] == 'B' && inBuff[1] == 'D')
+      {
+        // BeiDou has two different codes
+        // this sets the second char to 'B' if it's BeiDou.
+        inBuff[1] = 'B';
+      }        
+      
+      if(inBuff[2] == 'R' && inBuff[3] == 'M' && inBuff[4] == 'C') 
+      {
+        ParseTID(inBuff[1]);
+        ParseRMC();
+      }     
+         
+      if(inBuff[2] == 'G' && inBuff[3] == 'G' && inBuff[4] == 'A') 
+      {
+        ParseTID(inBuff[1]);
+        ParseGGA();
+      }        
+    }      
   }
 }
 
+void ParseTID(char tid)
+{
+  int gcr;
+  // Copy the letter-code for the constellation read from into the string
+  for (gcr = 0; gcr < 64; gcr++) 
+  {
+    gps_data.talker_ids[gcr + 1] = gps_data.talker_ids[gcr];
+  }
+  gps_data.talker_ids[64] = 0;
+  gps_data.talker_ids[0] = tid;
+} 
+ 
 void ParseRMC()
 {
   int i;
@@ -131,8 +166,6 @@ void ParseRMC()
     ptrBuff = strtok(NULL,",");
     i++;
   }
-
-
 }
 
 void ParseGGA()

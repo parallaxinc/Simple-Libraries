@@ -39,6 +39,9 @@ static volatile const unsigned int BUF_SIZE = 512;
 static unsigned int stack[44 + 28];
 static unsigned int stack2[44 + 128];
 
+static volatile int _wav_pin_left = 27;
+static volatile int _wav_pin_right = 26;
+
 void play(void);
 void wav_reader(void *par);
 void audio_dac(void *par);
@@ -81,7 +84,7 @@ void wav_volume(int vol)
     if(vf > volume) volume++;
     if(vf < volume) volume--;
     if(volume == vf) break;  
-  } 
+  }
 }
 
 void wav_stop(void)
@@ -206,15 +209,29 @@ void wav_reader(void *par)
   }
 }
 
+void wav_set_pins(int left_pin, int right_pin) {
+  _wav_pin_left = left_pin;
+  _wav_pin_right = right_pin;
+}  
+
 //__attribute__((fcache))
 void audio_dac(void *par)
 {
   while(!playing);
+  
+  if (_wav_pin_left > -1 && _wav_pin_left < 33) {
+    CTRA = 0x18000000 + _wav_pin_left;
+    DIRA |= (1 << _wav_pin_left);
+  } else {
+    CTRA = 0;
+  }        
 
-  CTRA = 0x18000000 + 27;
-  CTRB = 0x18000000 + 26;
-  DIRA |= (1<<27);
-  DIRA |= (1<<26);
+  if (_wav_pin_right > -1 && _wav_pin_right < 33) {
+    CTRB = 0x18000000 + _wav_pin_right;
+    DIRA |= (1 << _wav_pin_right);
+  } else {
+    CTRB = 0;
+  }        
 
   dtSample = CLKFREQ/sampleRate;
   int i;

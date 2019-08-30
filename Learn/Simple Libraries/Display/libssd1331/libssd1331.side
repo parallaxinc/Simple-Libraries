@@ -1,0 +1,21 @@
+libssd1331.c
+ssd1331.h
+ssd1331_init.c
+ssd1331_spiWrite.c
+ssd1331_drawLine.c
+ssd1331_fillRect.c
+ssd1331_drawPixel.c
+ssd1331_copy.c
+ssd1331_sleepWake.c
+ssd1331_invertDisplay.c
+ssd1331_scroll.c
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-Wall
+>-fno-exceptions
+>defs::-std=c99
+>-lm
+>-create_library
+>BOARD::ACTIVITYBOARD

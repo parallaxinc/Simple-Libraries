@@ -21,6 +21,7 @@ int  wifi_replyStringIn(int maxByteCount);
 void wifi_replyStringDisplay(char *s);
 void wifi_simpletermSuspend(void);
 void wifi_simpletermResume(void);
+int wifi_replyStringInAlt(char *buffer, int maxByteCount);
 
 
 fdserial *wifi_fds;
@@ -53,9 +54,12 @@ void wifi_poll(int *event, int *id, int *handle)
   wifi_simpletermSuspend();
 
   dprint(wifi_fds, "%c%c\r", CMD, POLL);
-  wifi_replyStringIn(wifi_buf_size - 1);      
+  //wifi_replyStringIn(wifi_buf_size - 1);      
+  char buffer[32];
+  memset(buffer, 0, 32);
+  wifi_replyStringInAlt(buffer, sizeof(buffer) - 1);
 
-  sscan(&wifi_buf[2], "%c%d%d", &wifi_event, &wifi_handle, &wifi_id);
+  sscan(&buffer[2], "%c%d%d", &wifi_event, &wifi_handle, &wifi_id);
 
   wifi_simpletermResume();
 
@@ -63,6 +67,32 @@ void wifi_poll(int *event, int *id, int *handle)
   *handle = wifi_handle;
   *id = wifi_id;
 } 
+
+int wifi_replyStringInAlt(char *buffer, int maxByteCount)
+{
+  wifi_timeoutFlag = 0;
+  int n = 0;
+  buffer[n] = 0;
+
+  volatile int dt = CLKFREQ;
+  volatile int t = CNT;
+  while(1) 
+  {
+    if((CNT - t) > dt)
+    {
+      wifi_timeoutFlag = 1;
+      break;
+    }      
+    if(fdserial_rxCount(wifi_fds) > 0)
+    {
+      buffer[n] = fdserial_rxChar(wifi_fds);
+      n++;
+      buffer[n] = 0;
+      if( (buffer[n-1] == '\r') || (n == maxByteCount - 1) ) break;
+    }
+  } 
+  return n;
+}  
 
 
 /**

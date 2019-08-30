@@ -38,8 +38,43 @@ fdserial *fdserial_open(int rxpin, int txpin, int mode, int baudrate)
 
   /* required for terminal to work */
   term->txChar  = fdserial_txChar;
-  term->rxChar  = fdserial_rxChar;
-
+  term->rxChar  = fdserial_rxChar;  
+  //if(mode & ECHO_RX_TO_TX) term->terminalEcho = 1;
+  //memcpy(&term->ec, "\0\0", 3);
+  //memcpy(&term->ecs, "\0\0", 3);
+  if((mode & ECHO_RX_TO_TX))
+  {
+    term->terminalEcho = 1;
+  } 
+  else
+  {
+    term->terminalEcho = 0;
+  }    
+  //
+  /*
+  memcpy(&text->ec, "\r\n", 3);
+  memcpy(&text->ecs, "\r\0", 3);
+  */
+  //
+  if(rxpin == 31 && txpin == 30)
+  {
+    //memcpy(&text->ec, "\r\n", 3);
+    //memcpy(&text->ecs, "\r\0", 3);
+    term->ecA = '\r';
+    term->ecB = '\n';
+    term->ecsA = '\r';
+    term->ecsB = 0;
+  }
+  else
+  {    
+    //memcpy(&text->ec, "\0\0", 3);
+    //memcpy(&text->ecs, "\0\0", 3);
+    term->ecA = 0;
+    term->ecB = 0;
+    term->ecsA = 0;
+    term->ecsB = 0;
+  }    
+  
   fdptr->rx_pin = rxpin; /* recieve pin */
   fdptr->tx_pin = txpin; /* transmit pin */
   fdptr->mode   = mode;  /* interface mode */
@@ -48,6 +83,18 @@ fdserial *fdserial_open(int rxpin, int txpin, int mode, int baudrate)
   fdptr->ticks   = CLKFREQ/baudrate;
 
   fdptr->buffptr = bufptr; /* receive and transmit buffer */
+
+  if((mode & FDSERIAL_MODE_RX_ONLY) || (txpin > 31) || (txpin < 0))
+  {
+    fdptr->tx_pin = fdptr->rx_pin;
+    fdptr->mode |= FDSERIAL_MODE_OPENDRAIN_TX;
+    //fdptr->mode &= (~FDSERIAL_MODE_RX_ONLY);
+    //fdptr->rxOnly = 1;
+  }
+  //else
+  //{
+  //  fdptr->rxOnly = 0;
+  //}    
 
   /* now start the kernel */
 #if defined(__PROPELLER_USE_XMM__)
@@ -129,15 +176,20 @@ int fdserial_rxChar(fdserial *term)
 int fdserial_txChar(fdserial *term, int txbyte)
 {
   int rc = -1;
-  volatile fdserial_st* fdp = (fdserial_st*) term->devst;
-  volatile char* txbuf = (volatile char*) fdp->buffptr + FDSERIAL_BUFF_MASK+1;
-
-  while(fdp->tx_tail == ((fdp->tx_head+1) & FDSERIAL_BUFF_MASK))
-      ; // wait for queue to be empty
-  txbuf[fdp->tx_head] = txbyte;
-  fdp->tx_head = (fdp->tx_head+1) & FDSERIAL_BUFF_MASK;
-  if(fdp->mode & FDSERIAL_MODE_IGNORE_TX_ECHO)
-      rc = fdserial_rxChar(term); // why not rxcheck or timeout ... this blocks for char
+  fdserial_st *fdptr = (fdserial_st *) term->devst;
+  //if(!fdptr->rxOnly)
+  if(!(fdptr->mode & FDSERIAL_MODE_RX_ONLY))
+  {    
+    volatile fdserial_st* fdp = (fdserial_st*) term->devst;
+    volatile char* txbuf = (volatile char*) fdp->buffptr + FDSERIAL_BUFF_MASK+1;
+  
+    while(fdp->tx_tail == ((fdp->tx_head+1) & FDSERIAL_BUFF_MASK))
+        ; // wait for queue to be empty
+    txbuf[fdp->tx_head] = txbyte;
+    fdp->tx_head = (fdp->tx_head+1) & FDSERIAL_BUFF_MASK;
+    if(fdp->mode & FDSERIAL_MODE_IGNORE_TX_ECHO)
+        rc = fdserial_rxChar(term); // why not rxcheck or timeout ... this blocks for char
+  }        
   return rc;
 }
 

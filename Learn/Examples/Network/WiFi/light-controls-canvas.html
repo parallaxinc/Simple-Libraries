@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+  <!-- Start of section to delete -->
+    <b>Setup:</b><br>
+    &nbsp &nbsp &#9989 &nbsp Upload this page to your Wi-Fi module.<br>
+    &nbsp &nbsp &#9989 &nbsp Open this page from http://your-wi-fi-module's-ip/files/light-controls-canvas.html.<br>
+    &nbsp &nbsp &#9989 &nbsp Open "Light Controls Canvas Host.side" with SimpleIDE,<br> 
+    and load the .c program into your Propeller board. <br>
+    &nbsp &nbsp &#x1F56E &nbsp More info at http://learn.parallax.com/propeller-c-wx-wi-fi
+    <br><br>
+  <!-- End of section to delete -->
+
+<body>
+
+  <canvas 
+    id="myCanvas" width="300" height="150" 
+    style="border:1px solid gray;">
+  </canvas>
+
+  <!--input type = "text" id = "lightMeasured" maxlength = "5" value = "0" 
+   onchange = "useMcuReply(this.value)" style="width: 300px; text-align: center"--> 
+  <p id="textLightVal" style="width: 300px; text-align: center">
+   light = (waiting...)</p>
+  
+  <input type = "text" id = "lightHigh" maxlength = "5" value = "0" 
+   onchange = "setMaxMin()" style="width: 145px">
+  <input type = "text" id = "lightLow" maxlength = "5" value = "4000"  
+   onchange = "setMaxMin()"  style="width: 145px; text-align: right"> Light range
+
+<script>
+
+var myTimer = setInterval(getFromMcu, 1000);
+
+var lightMax = 4000, lightMin = 0, myRange = lightMax - lightMin;
+grayScaleCanvas("position");
+
+function useMcuReply(response)
+{
+  document.getElementById("textLightVal").innerHTML = 
+  "light = " + response;
+  var light = Number(response);
+  grayScaleCanvas(light);
+}
+
+function getFromMcu()
+{
+  httpGet("/light", useMcuReply);
+}
+
+function httpGet(path, callback)
+{
+  var req = new XMLHttpRequest();
+  req.open("GET", path, true); 
+  req.onreadystatechange = function() 
+  { 
+    if (req.readyState == 4)
+    if(req.status == 200)
+      callback(req.responseText);
+    else
+      callback("Waiting...");
+  }
+  req.send(null);
+}
+
+function setMaxMin()
+{
+  lightMin = Number(document.getElementById("lightHigh").value);
+  lightMax = Number(document.getElementById("lightLow").value);
+  console.log(lightMin);
+  console.log(typeof lightMin);
+  myRange = lightMax - lightMin;
+}  
+
+function grayScaleCanvas(lightLevel) 
+{
+  var canvas = document.getElementById("myCanvas");
+  console.log("lightLevel (before) = ", lightLevel);
+  if(lightLevel < lightMin) lightLevel = lightMin;
+  if(lightLevel > lightMax) lightLevel = lightMax;
+  console.log("lightLevel (trimmed) = ", lightLevel);
+  lightLevel -= lightMin; 
+  lightLevel = myRange - lightLevel;
+  console.log("lightLevel (after) = ", lightLevel);
+  lightLevel *= 15;
+  lightLevel = lightLevel / myRange;
+  lightLevel = Math.round(lightLevel);
+  console.log("myRange = ", myRange);
+  var colorStr = lightLevel.toString(16);
+  var colorStr = "#" + colorStr + colorStr + colorStr;
+  canvas.style.background = colorStr;  
+  console.log(colorStr);
+}
+
+  </script>
+
+</body>
+</html>

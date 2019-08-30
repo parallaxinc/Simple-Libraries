@@ -24,7 +24,7 @@ void imu_getMagCalibration(int *mxBias, int *myBias, int *mzBias)
 {
   *mxBias = __mBiasRaw[X_AXIS];
   *myBias = __mBiasRaw[Y_AXIS];
-  *mzBias = __mBiasRaw[Z_AXIS];  
+  *mzBias = __mBiasRaw[Z_AXIS];
 }  
 
 void imu_getAccelCalibration(int *axBias, int *ayBias, int *azBias)

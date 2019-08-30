@@ -74,34 +74,13 @@ the Test Utility, cycle the Scribbler//s power switch.
 
 */
 
-
-/* SERIAL_TERMINAL USED */
-#include "simpletools.h"
 #include "s3.h"
 
-int list[5];
 
-int main()
-{
 
-int __tmpArr[] = {10,20,30,40,50};
-memcpy(list, __tmpArr, 5*sizeof(int));
-
-/*
-    simpleterm_reopen(31, 30, 0, 9600);
-    s3_setup();
-//    term_cmd(CLS);
-    while (1)
-    {
-        print("%d", (s3_lightSensor(S3_LEFT)));
-        print("%c", 13);
-        pause(1 * 1000);
-    }
-    
-*/
-
+// ------ Main Program ------
+int main() {
 }
-
 
 
 /*

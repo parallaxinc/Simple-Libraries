@@ -1,0 +1,45 @@
+\hypertarget{bme680__humidity_8c}{}\section{bme680\+\_\+humidity.\+c File Reference}
+\label{bme680__humidity_8c}\index{bme680\+\_\+humidity.\+c@{bme680\+\_\+humidity.\+c}}
+
+
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings.  
+
+
+{\ttfamily \#include \char`\"{}bme680.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{bme680__humidity_8c_ac863dd58a93cc5cbe5a956ebfb006049}{bme680\+\_\+humidity}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev)
+\begin{DoxyCompactList}\small\item\em Retrieve the relative humidity as a percentage from the last read of the B\+M\+E680 device. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings. 
+
+\begin{DoxyAuthor}{Author}
+Matthew Matz
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+5
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (C) Parallax, Inc. 2019. All Rights M\+IT Licensed. 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{bme680__humidity_8c_ac863dd58a93cc5cbe5a956ebfb006049}\label{bme680__humidity_8c_ac863dd58a93cc5cbe5a956ebfb006049}} 
+\index{bme680\+\_\+humidity.\+c@{bme680\+\_\+humidity.\+c}!bme680\+\_\+humidity@{bme680\+\_\+humidity}}
+\index{bme680\+\_\+humidity@{bme680\+\_\+humidity}!bme680\+\_\+humidity.\+c@{bme680\+\_\+humidity.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+humidity()}{bme680\_humidity()}}
+{\footnotesize\ttfamily float bme680\+\_\+humidity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev }\end{DoxyParamCaption})}
+
+
+
+Retrieve the relative humidity as a percentage from the last read of the B\+M\+E680 device. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device. \\
+\hline
+\end{DoxyParams}

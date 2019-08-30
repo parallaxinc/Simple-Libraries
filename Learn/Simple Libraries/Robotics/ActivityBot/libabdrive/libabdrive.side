@@ -17,6 +17,7 @@ rampStep.c
 ramp.c
 encoderLeds.c
 calibrationResults.c
+setErrorLimit.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
