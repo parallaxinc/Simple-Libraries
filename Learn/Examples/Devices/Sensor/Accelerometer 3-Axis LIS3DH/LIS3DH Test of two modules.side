@@ -1,0 +1,10 @@
+LIS3DH Test of two modules.c
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-Wall
+>-fno-exceptions
+>defs::-std=c99
+>-lm
+>BOARD::ACTIVITYBOARD
