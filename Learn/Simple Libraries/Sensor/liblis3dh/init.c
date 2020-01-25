@@ -12,8 +12,8 @@
  * 
  */
 
-#include <stdlib.h>
-//#include "simpletools.h"
+//#include <stdlib.h>
+#include "simpletools.h"
 #include "lis3dh.h"
 
 
@@ -36,7 +36,7 @@ lis3dh_t *lis3dh_init4wire(int pinSCK, int pinSDI, int pinSDO, int pinCS)
   if (!(device = (lis3dh_t *)malloc(sizeof(lis3dh_t))))
         return NULL;
   
-  
+  // Store IO pins
   device->sdi_pin = pinSDI;
   device->sdo_pin = pinSDO; // Set the same for 3-wire SPI mode
   device->sck_pin = pinSCK;
@@ -72,6 +72,16 @@ lis3dh_t *lis3dh_init4wire(int pinSCK, int pinSDI, int pinSDO, int pinCS)
   // Set resolution and range
   lis3dh_setResolution(device, 12); // 8, 10 or 12 (bit)
   lis3dh_setRange(device, 2);       // 2, 4, 8 or 16 (g)
+  
+  pause(100);
+  
+  
+  // Initialise tilt running averages based on current position of sensor
+  lis3dh_accel_mg(device, &device->tiltavgX, &device->tiltavgY, &device->tiltavgZ);
+  
+  // Set tilt moving average filter. Value represents the % of new data, for example 75 would represent 75% of new data, 25% old data    
+  device->tiltavg_factor = 100; // default to 100% of new data (ie. filter is off)
+       
   
   return device;
   
