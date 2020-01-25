@@ -1,5 +1,5 @@
 /*
-  LIS3DH Test Temperature Sensor.c
+  LIS3DH Test Tilt Angles.c
   
   http://learn.parallax.com/propeller-c-simple-devices/lis3dh-three-axis-accelerometer
  
@@ -15,22 +15,10 @@
   Also connect 3.3V and GND to the LIS3DH module
   Upload this code to the Propeller
   Open SimpleIDE Terminal or Parallax Serial Terminal at 115200 baud to view the output
-  
-  Notes about the Temperature Sensor:
-  
-  The LIS3DH chip includes an accurate relative temperature sensor, the output of which varies by 1 digit with each 1 degree Celcius change.
-  To use the temperature sensor, it is necessary to record the ambient starting temperature, 
-    which will be used by the sensor to calculate absolute temperature based on the relative output from the sensor. 
-  Using Celcius is the most accurate unit, 
-    as the sensor uses Celcius internally and therefore no temperature conversions are necessary which may result in conversion (rounding) errors.
-  Wrapper functions are provided for Fahrenheit calibration and temperature reading, which convert the Celcius data available from the sensor.
 */
 
 #include "simpletools.h"                            // Include simpletools header
 #include "lis3dh.h"                                 // Include lis3dh header 
-
-#define RoomTemperature_Degrees_Celcius 23          // Room temperature calibration value - Change this value to ambient (room) temperature!
-
 
 lis3dh *LIS3DH;
 
@@ -42,27 +30,31 @@ int main()                                          // Main function
   term_cmd(HOME);
  
   print("Parallax LIS3DH 3 Axis Accelerometer module with ADC %c \r", CLREOL);
-  print("Test Temperature Sensor %c \r\r", CLREOL);
+  print("Test Tilt Angles (Degrees from each Axis) %c \r\r", CLREOL);
+  print("Motion value is with reference to gravity, %c   with 0 being motionless at ground level. %c \r\r", LF, CLREOL);
   
   
-  
-  int t;
+  int x, y, z, motion;
   
   LIS3DH = lis3dh_init(8, 7, 6);                    // Initialize sensor with pins SCK, SDI, CS
   
+  //lis3dh_tiltConfig(LIS3DH, 0);                   // Optional config, to disable or configure tilt sensor low-pass filter 
   
-  // Set ambient (room) temperature - Use Celcius for best accuracy
-  lis3dh_tempCal_C(LIS3DH, RoomTemperature_Degrees_Celcius);
-  // lis3dh_tempCal_F(LIS3DH, RoomTemperature_Degrees_Fahrenheit);
-  
-   
   
   while(1) {                                        // Continuously read from sensor and print results to debug terminal
           
+    if (lis3dh_tilt(LIS3DH, &x, &y, &z, &motion)) { // XYZ Data Available
+                
+        print(" tilt : x = %d, y = %d, z = %d, motion = %d%c \r", 
+              x, y, z, motion, CLREOL );            // Display measurements
+          
+    } else { 
     
-    print("Temperature is %dC, %dF %c \r", lis3dh_temp_C(LIS3DH), lis3dh_temp_F(LIS3DH), CLREOL);
+        print("No xyz data %c \r\r", CLREOL ); 
+        
+    }
     
-    
+
     pause(500);                                     // 1/2 second pause before repeat
     
     print("%c", CRSRUP);                            // Terminal up one line

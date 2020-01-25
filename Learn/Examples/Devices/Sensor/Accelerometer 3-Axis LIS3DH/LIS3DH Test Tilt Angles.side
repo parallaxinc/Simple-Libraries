@@ -1,0 +1,8 @@
+LIS3DH Test Tilt Angles.c
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>-lm
+>BOARD::ACTIVITYBOARD

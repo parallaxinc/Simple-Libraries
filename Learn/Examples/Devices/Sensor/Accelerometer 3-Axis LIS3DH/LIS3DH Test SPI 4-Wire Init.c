@@ -1,28 +1,21 @@
 /*
   LIS3DH Test SPI 4-Wire Init.c
-  
-  Test Harness for the Parallax LIS3DH 3 Axis Accelerometer module with ADC.
-
+    
   http://learn.parallax.com/propeller-c-simple-devices/lis3dh-three-axis-accelerometer
- 
- 
+  
   I/O Pins connections: 
   
   P8  -> CLK      (SCK)
   P7  -> DATA     (SDI)
   P6 <-  DATA     (SDO)
   P5  -> /ENABLE  (CS)  
-  
-  
+    
   Instructions:
   
   Connect LIS3DH module to Propeller using the pins shown above
   Also connect 3.3V and GND to the LIS3DH module
   Upload this code to the Propeller
   Open SimpleIDE Terminal or Parallax Serial Terminal at 115200 baud to view the output
-  
-
-  
 */
 
 #include "simpletools.h"                            // Include simpletools header
