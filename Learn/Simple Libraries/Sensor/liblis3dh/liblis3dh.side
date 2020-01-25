@@ -19,8 +19,9 @@ temp.c
 setADCmode.c
 adc.c
 adc_mV.c
+tilt.c
 >compiler=C
->memtype=cmm main ram compact
+>memtype=lmm main ram
 >optimize=-Os
 >-m32bit-doubles
 >-Wall

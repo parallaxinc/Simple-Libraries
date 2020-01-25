@@ -122,7 +122,12 @@ extern "C" {
 typedef struct lis3dh_st
 {
   volatile int tempcalC; // for degrees Celcius
-    
+  
+  volatile int tiltavgX;
+  volatile int tiltavgY;
+  volatile int tiltavgZ;
+  volatile int tiltavg_factor;
+  
   int sdi_pin;
   int sdo_pin;
   int sck_pin;
@@ -147,6 +152,8 @@ typedef lis3dh_t lis3dh;
  *   
  */
 
+
+                      
 
 /**
  * @brief Initialize the sensor with typical configuration for reading axis and adc. Uses 3-Wire SPI mode
@@ -538,6 +545,53 @@ int lis3dh_accel_mg(lis3dh_t *device, int *xmg, int *ymg, int *zmg);
  * 
  */
 int lis3dh_getAccel_mg(lis3dh_t *device, int axis);
+
+
+
+/**
+ * @brief Gets tilt angle measurements for each axis, and magnitude of motion.
+ *
+ * @details Angle to each axis in degrees, 
+                  X relative to ground
+                  Y relative to ground
+                  Z relative to gravity.
+            Motion is the sum of g-force on all axis relative to gravity at ground level (1G). 
+                  0 is motionless, larger positve or negative values represent more intense motion.
+                  The motion value could be used on it's own for projects requiring vibration sensing.
+            
+ * 
+ * @param device Pointer to the sensor device structure
+ *
+ * @param *ax Variable to store angle of x axis relative to ground.
+ * 
+ * @param *ay Variable to store angle of y axis relative to ground.
+ * 
+ * @param *az Variable to store angle of z axis relative to gravity.
+ *
+ * @param *motion Variable to store positive or negative value representing intensity of motion, with 0 being motionless at ground level.
+ * 
+ * @returns 1 if new data is available, 0 if no new data is available, or invalid request.
+ * 
+ */
+int lis3dh_tilt(lis3dh_t *device, int *ax, int *ay, int *az, int *motion);
+
+
+/**
+ * @brief Optional configuration for tilt sensor.
+ *
+ * @details Values stored in RAM. Reasonable defaults are set by the library.
+ * 
+ * @param device Pointer to the sensor device structure
+ *
+ * @param avg_factor Percentage of new data added to tilt readings low pass filter (moving average).
+ *                   Valid values are 0 to 100. (Setting 0 or 100 will disable the filter.
+ *                   For example, if avg_factor is 75, moving average calculation will include 75% new data and 25% existing data.
+ *                   Default value = 100 (moving average low pass filter disabled).
+ *
+ * @returns 1 if operation successful, 0 if operation failed (invalid values).
+ * 
+ */
+int lis3dh_tiltConfig(lis3dh_t *device, int avg_factor); 
 
 
 

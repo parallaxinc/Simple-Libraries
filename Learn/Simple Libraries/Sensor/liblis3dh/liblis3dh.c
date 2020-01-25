@@ -34,8 +34,8 @@ lis3dh *LIS3DH;
 int main()  // Main function
 {
     
-  int x, y, z;
-  
+  int x, y, z, ax, ay, az, motion;
+    
   pause(1000); // Start-up pause for debug terminal
   term_cmd(CLS);
   term_cmd(HOME);
@@ -44,6 +44,8 @@ int main()  // Main function
     
   
   LIS3DH = lis3dh_init(8, 7, 6); // pinSCK, pinSDI, pinCS
+  
+    
   pause(100);
   
   print("%c \r", CLREOL);
@@ -67,6 +69,10 @@ int main()  // Main function
   
   print("Acceleration range is +-%dg, Resolution is %d bit %c \r\r", lis3dh_getRange(LIS3DH), lis3dh_getResolution(LIS3DH), CLREOL);
 
+
+  
+  //lis3dh_tiltConfig(LIS3DH, 75); // Set tilt sensor moving average factor (low-pass filter)
+    
   
   while(1) {
     
@@ -100,9 +106,17 @@ int main()  // Main function
     print(" temp : %dC, sensor relative value is %d %c \r", lis3dh_temp_C(LIS3DH), lis3dh_tempRaw(LIS3DH), CLREOL);  // Display measurements
      
      
+    // Angles
+    if (lis3dh_tilt(LIS3DH, &ax, &ay, &az, &motion)) {
+      
+      print(" tilt : ax = %d, ay = %d, az = %d, motion = %d%c \r", ax, ay, az, motion, CLREOL );  // Display measurements
+     
+    } else { print(" tilt : data not ready %c \r", CLREOL ); } 
+    
+     
     // Debug terminal adjustment        
         
-    print("%c%c%c%c%c", CRSRUP, CRSRUP, CRSRUP, CRSRUP, CRSRUP); // Terminal up two lines, so results write back over same two lines when viewing on SimpleIDE Terminal or Parallax Serial Terminal 
+    print("%c%c%c%c%c%c", CRSRUP, CRSRUP, CRSRUP, CRSRUP, CRSRUP, CRSRUP); // Terminal up two lines, so results write back over same two lines when viewing on SimpleIDE Terminal or Parallax Serial Terminal 
         
         
     pause(250); // Minimum pause must be ODR * 2 in milliseconds (Examples: 50Hz ODR = 40ms pause, 400Hz ODR = 5ms pause)
