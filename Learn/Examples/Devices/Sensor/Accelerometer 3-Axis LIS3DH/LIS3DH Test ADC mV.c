@@ -1,17 +1,13 @@
 /*
   LIS3DH Test ADC mV.c
   
-  Test Harness for the Parallax LIS3DH 3 Axis Accelerometer module with ADC.
-
   http://learn.parallax.com/propeller-c-simple-devices/lis3dh-three-axis-accelerometer
- 
  
   I/O Pins connections: 
   
   P8  -> CLK      (SCK)
   P7 <-> DATA     (SDI)
   P6  -> /ENABLE  (CS)
-  
    
   Instructions:
   
@@ -19,7 +15,6 @@
   Also connect 3.3V and GND to the LIS3DH module
   Upload this code to the Propeller
   Open SimpleIDE Terminal or Parallax Serial Terminal at 115200 baud to view the output
-
     
   Apply voltage to measure to any of the three ADC inputs:
   
@@ -30,9 +25,6 @@
   
   Note: Voltages lower or higher than the acceptable range will be rounded to 
         the minimum or maximum range value. Do NOT exceed 2.5VIN on AD2 or AD3.
-  
-  
-
 */
 
 #include "simpletools.h"                            // Include simpletools header

@@ -1,17 +1,13 @@
 /*
   LIS3DH Test ADC.c
   
-  Test Harness for the Parallax LIS3DH 3 Axis Accelerometer module with ADC.
-
   http://learn.parallax.com/propeller-c-simple-devices/lis3dh-three-axis-accelerometer
- 
  
   I/O Pins connections: 
   
   P8  -> CLK      (SCK)
   P7 <-> DATA     (SDI)
   P6  -> /ENABLE  (CS)
-  
    
   Instructions:
   
@@ -26,7 +22,6 @@
   AD1 (Sip header, accepts 0-8 VDC)
   AD2 (PCB top pad, accepts 900mV - 1800mV)
   AD3 (PCB top pad, accepts 900mV - 1800mV) 
-
 */
 
 #include "simpletools.h"                            // Include simpletools header
