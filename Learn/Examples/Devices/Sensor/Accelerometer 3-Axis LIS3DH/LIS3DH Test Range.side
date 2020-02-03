@@ -1,0 +1,7 @@
+LIS3DH Test Range.c
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>BOARD::ACTIVITYBOARD
