@@ -21,7 +21,7 @@ adc.c
 adc_mV.c
 tilt.c
 >compiler=C
->memtype=lmm main ram
+>memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-Wall

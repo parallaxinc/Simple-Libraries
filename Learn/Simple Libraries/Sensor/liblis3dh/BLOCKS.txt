@@ -62,9 +62,27 @@
   lis3dh_accel_mg(LIS3DH_1, &x, &y, &z);
   lis3dh_adc_mV(LIS3DH_1, &x, &y, &z);
   lis3dh_tilt(LIS3DH_1, &x, &y, &z, &m);
+
+
   
   
-   
+  // BLOCK: (OPTIONAL INIT ITEM - Appears when read mV block added to project). DEFAULT to 0
+  //		Set adc mV calibration value 0 (mV)
+  
+  // Examples:
+  Set adc mV calibrati0n value to -281 mV
+ 
+  
+  // Emits: (assuming global pointer name is LIS3DH_1)
+  lis3dh_adcCal_mV(LIS3DH_1, -281);
+  
+  
+  // Hint : Read AD1 whilst it's connected to GND, then use that value to set adcCal_mv 
+
+
+
+
+  
   // BLOCK: (OPTIONAL INIT ITEM - Appears when temperature read block added to project) 
   //		Set ambient temperature to ambient temperature(actualTempC/actualTempF), (dropdown: F or C)
   

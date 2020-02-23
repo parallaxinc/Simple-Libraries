@@ -36,6 +36,9 @@ lis3dh_t *lis3dh_init4wire(int pinSCK, int pinSDI, int pinSDO, int pinCS)
   if (!(device = (lis3dh_t *)malloc(sizeof(lis3dh_t))))
         return NULL;
   
+  // Default ADC calibration value
+  device->adccalmV = 0;
+  
   // Store IO pins
   device->sdi_pin = pinSDI;
   device->sdo_pin = pinSDO; // Set the same for 3-wire SPI mode
