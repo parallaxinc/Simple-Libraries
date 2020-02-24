@@ -122,6 +122,7 @@ extern "C" {
 typedef struct lis3dh_st
 {
   volatile int tempcalC; // for degrees Celcius
+  volatile int adccalmV; // for mV ADC offset
   
   volatile int tiltavgX;
   volatile int tiltavgY;
@@ -388,6 +389,19 @@ void lis3dh_adc_mV(lis3dh_t *device, int *ad1, int *ad2, int *ad3);
  */
 int lis3dh_getADC_mV(lis3dh_t *device, int channel);
 
+
+
+/**
+ * @brief Sets the adc calibration value for adc mV functions.
+ * 
+ * @details The internal adc has an initial tolerance of +-400mV, and may require calibration before use. 
+ *
+ * @param device Pointer to the sensor device structure
+ *
+ * @param value The ADC mV calibration reading, typically taken when the AD input is connected to GND.
+ *
+ */
+void lis3dh_adcCal_mV(lis3dh_t *device, int value);
 
 
 /**

@@ -46,7 +46,9 @@ int main()                                          // Main function
   int ad1, ad2, ad3;
   
   LIS3DH = lis3dh_init(8, 7, 6);                    // Initialize sensor with pins SCK, SDI, CS
-   
+  
+  lis3dh_adcCal_mV(LIS3DH, 0);						// Optional- Set adc mV calibration value. Read AD1 connected to ground, and use that value here.
+  
   
   while(1) { 
                                                     // Continuously read from sensor and print results to debug terminal

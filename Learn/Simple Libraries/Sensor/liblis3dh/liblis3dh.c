@@ -94,7 +94,7 @@ int main()  // Main function
  
  
     // ADC
- 
+    
     lis3dh_adc(LIS3DH, &x, &y, &z); // Get adc values
     print("  adc : 1 = %d, 2 = %d, 3 = %d %c \r", x, y, z, CLREOL );  // Display measurements
     
