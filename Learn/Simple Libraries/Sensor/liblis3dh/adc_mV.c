@@ -6,7 +6,7 @@
  * @version 1.0.0
  *
  * @copyright
- * Copyright (C) Parallax, Inc. 2019. All Rights MIT Licensed.
+ * Copyright (C) Parallax, Inc. 2020. All Rights MIT Licensed.
  *
  * @brief Reads mV adc measurements from the Parallax LIS3DH 3-Axis Accelerometer Module with ADC.
  * 
@@ -42,21 +42,21 @@ void lis3dh_adc_mV(lis3dh_t *device, int *ad1, int *ad2, int *ad3)
   
   if (res == 8) { // 8-bit samples
     
-    *ad1 = lis3dh_adcMap(a1,  69, -128,   0, 8000) - device->adccalmV;
-    *ad2 = lis3dh_adcMap(a2, 127, -128, 900, 1800) - device->adccalmV;
-    *ad3 = lis3dh_adcMap(a3, 127, -128, 900, 1800) - device->adccalmV; 
+    *ad1 = lis3dh_adcMap(a1,  69, -128,   0, 8000) + device->adccalmV;
+    *ad2 = lis3dh_adcMap(a2, 127, -128, 900, 1800) + device->adccalmV;
+    *ad3 = lis3dh_adcMap(a3, 127, -128, 900, 1800) + device->adccalmV; 
   
   } else if (res == 10) { // 10-bit samples
 
-    *ad1 = lis3dh_adcMap(a1, 400, -508,   0, 8000) - device->adccalmV;
-    *ad2 = lis3dh_adcMap(a2, 508, -508, 900, 1800) - device->adccalmV;
-    *ad3 = lis3dh_adcMap(a3, 508, -508, 900, 1800) - device->adccalmV;    
+    *ad1 = lis3dh_adcMap(a1, 400, -508,   0, 8000) + device->adccalmV;
+    *ad2 = lis3dh_adcMap(a2, 508, -508, 900, 1800) + device->adccalmV;
+    *ad3 = lis3dh_adcMap(a3, 508, -508, 900, 1800) + device->adccalmV;    
       
   } else { // 12-bit samples (Note- 10 bit is maximum ADC resolution, but data presented as 12-bit if XYZ sampling is 12-bit)
 
-    *ad1 = lis3dh_adcMap(a1, 1600, -2032,   0, 8000) - device->adccalmV;
-    *ad2 = lis3dh_adcMap(a2, 2032, -2032, 900, 1800) - device->adccalmV;
-    *ad3 = lis3dh_adcMap(a3, 2032, -2032, 900, 1800) - device->adccalmV;    
+    *ad1 = lis3dh_adcMap(a1, 1600, -2032,   0, 8000) + device->adccalmV;
+    *ad2 = lis3dh_adcMap(a2, 2032, -2032, 900, 1800) + device->adccalmV;
+    *ad3 = lis3dh_adcMap(a3, 2032, -2032, 900, 1800) + device->adccalmV;    
       
   }  
           
