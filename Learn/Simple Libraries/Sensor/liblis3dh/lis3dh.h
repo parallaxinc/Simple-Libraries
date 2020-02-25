@@ -6,7 +6,7 @@
  * @version 1.0.0
  *
  * @copyright
- * Copyright (C) Parallax, Inc. 2014. All Rights MIT Licensed.
+ * Copyright (C) Parallax, Inc. 2020. All Rights MIT Licensed.
  *
  * @brief Simplifies reading Parallax LIS3DH 3-Axis Accelerometer Module with ADC.
  */
@@ -398,7 +398,7 @@ int lis3dh_getADC_mV(lis3dh_t *device, int channel);
  *
  * @param device Pointer to the sensor device structure
  *
- * @param value The ADC mV calibration reading, typically taken when the AD input is connected to GND.
+ * @param value The ADC mV calibration reading (offset from expected voltage).
  *
  */
 void lis3dh_adcCal_mV(lis3dh_t *device, int value);
