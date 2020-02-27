@@ -3,10 +3,10 @@
  *
  * @author Michael Mulholland
  *
- * @version 1.0.0
+ * @version 1.0.1
  *
  * @copyright
- * Copyright (C) Parallax, Inc. 2019. All Rights MIT Licensed.
+ * Copyright (C) Parallax, Inc. 2020. All Rights MIT Licensed.
  *
  * @brief BlocklyProp Block definitions for the Parallax LIS3DH 3-Axis Accelerometer with ADC Module.
  * 
@@ -66,18 +66,21 @@
 
   
   
-  // BLOCK: (OPTIONAL INIT ITEM - Appears when read mV block added to project). DEFAULT to 0
-  //		Set adc mV calibration value 0 (mV)
+  // BLOCK: (OPTIONAL INIT ITEM - Appears when read mV block added to project). DEFAULT to 0, 0
+  //		Set adc mV calibration values 0 mV (AD1 connected to GND), 0 mV (AD1 connected 3.3V)
   
   // Examples:
-  Set adc mV calibrati0n value to -281 mV
- 
+  a) Set adc mV calibration values to -466 mV, 3104 mV
+  b) Set both values to ZERO to disable ADC calibration (DEFAULT state of block)
   
   // Emits: (assuming global pointer name is LIS3DH_1)
-  lis3dh_adcCal_mV(LIS3DH_1, -281);
+  a) lis3dh_adcCal_mV(LIS3DH, 0, 3300, -466, 3104);
+  b) lis3dh_adcCal_mV(LIS3DH, 0, 0, 0, 0);
   
   
-  // Hint : Read AD1 whilst it's connected to GND, then use that value to set adcCal_mv 
+  // Hint : Take two readings from AD1. Once whilst it's connected to GND, And again connected to 3.3V. Then use those two values to set adcCal_mv 
+  // Note : Whilst the C function allows the user to set the low and upper voltage read-points, Blocks are simplified to 0V and 3.3V fixed calibration points.
+  //        User could call the function in a user block, if they want to re-calibrate to different levels.
 
 
 

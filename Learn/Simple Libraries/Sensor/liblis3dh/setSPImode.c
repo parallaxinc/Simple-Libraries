@@ -6,7 +6,7 @@
  * @version 1.0.0
  *
  * @copyright
- * Copyright (C) Parallax, Inc. 2019. All Rights MIT Licensed.
+ * Copyright (C) Parallax, Inc. 2020. All Rights MIT Licensed.
  *
  * @brief Sets 3 or 4 wire SPI mode for the Parallax LIS3DH 3-Axis Accelerometer Module with ADC.
  * 

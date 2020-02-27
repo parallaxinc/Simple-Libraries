@@ -1,13 +1,17 @@
 /*
-  LIS3DH Test ADC mV.c
+  LIS3DH Test ADC mV with Calibration.c
   
+  Test Harness for the Parallax LIS3DH 3 Axis Accelerometer module with ADC.
+
   http://learn.parallax.com/propeller-c-simple-devices/lis3dh-three-axis-accelerometer
+ 
  
   I/O Pins connections: 
   
   P8  -> CLK      (SCK)
   P7 <-> DATA     (SDI)
   P6  -> /ENABLE  (CS)
+  
    
   Instructions:
   
@@ -15,16 +19,20 @@
   Also connect 3.3V and GND to the LIS3DH module
   Upload this code to the Propeller
   Open SimpleIDE Terminal or Parallax Serial Terminal at 115200 baud to view the output
+
     
   Apply voltage to measure to any of the three ADC inputs (measurement ranges +- 400mV):
   
-  AD1 (Sip header, accepts 0-8 VDC)
-  AD2 (PCB top pad, accepts 900mV - 1700mV)
-  AD3 (PCB top pad, accepts 900mV - 1700mV)
+  AD1 - Sip header, accepts 0-7800mV (+- 200mV)
+  AD2 - PCB top pad, accepts 900mV - 1700mV (+- 100mV)
+  AD3 - PCB top pad, accepts 900mV - 1700mV (+- 100mV)
   
   
   Note: Voltages lower or higher than the acceptable range will be rounded to 
         the minimum or maximum range value. Do NOT exceed 2.5VIN on AD2 or AD3.
+  
+  
+
 */
 
 #include "simpletools.h"                            // Include simpletools header
@@ -47,7 +55,21 @@ int main()                                          // Main function
   
   LIS3DH = lis3dh_init(8, 7, 6);                    // Initialize sensor with pins SCK, SDI, CS
   
- 
+  lis3dh_setResolution(LIS3DH, 12);                 // 8, 10 or 12 bit
+  
+  
+  lis3dh_adcCal_mV(LIS3DH, 0, 0, 0, 0);             // Disable ADC calibration
+  
+  
+  /* Example of setting calibration values
+     Substitute the values with your own readings, obtained with ADC calibration disabled
+     Parameters : (LIS3DH device reference, calibration mV #1, calibration mV #2, mV reading obtained at calibration voltage #1, mV reading obtained at calibration voltage #2)
+  
+     In the following example, -466 was measured at 0 mV, and 3104 was measured at 3300mV (3.3V) */
+  
+  
+  //lis3dh_adcCal_mV(LIS3DH, 0, 3300, -466, 3104);  // Uncomment to enable ADC Calibration
+  
   
   while(1) { 
                                                     // Continuously read from sensor and print results to debug terminal
