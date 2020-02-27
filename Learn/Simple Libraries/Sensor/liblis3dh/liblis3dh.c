@@ -36,7 +36,7 @@ int main()  // Main function
     
   int x, y, z, ax, ay, az, motion;
     
-  pause(1000); // Start-up pause for debug terminal
+  pause(1500); // Start-up pause for debug terminal
   term_cmd(CLS);
   term_cmd(HOME);
       
@@ -69,11 +69,10 @@ int main()  // Main function
   
   print("Acceleration range is +-%dg, Resolution is %d bit %c \r\r", lis3dh_getRange(LIS3DH), lis3dh_getResolution(LIS3DH), CLREOL);
 
-
   
   //lis3dh_tiltConfig(LIS3DH, 75); // Set tilt sensor moving average factor (low-pass filter)
-    
   
+     
   while(1) {
     
     

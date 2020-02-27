@@ -6,7 +6,7 @@
  * @version 1.0.0
  *
  * @copyright
- * Copyright (C) Parallax, Inc. 2019. All Rights MIT Licensed.
+ * Copyright (C) Parallax, Inc. 2020. All Rights MIT Licensed.
  *
  * @brief Initializes the Parallax LIS3DH 3-Axis Accelerometer Module with ADC.
  * 
@@ -36,8 +36,11 @@ lis3dh_t *lis3dh_init4wire(int pinSCK, int pinSDI, int pinSDO, int pinCS)
   if (!(device = (lis3dh_t *)malloc(sizeof(lis3dh_t))))
         return NULL;
   
-  // Default ADC calibration value
-  device->adccalmV = 0;
+  
+  // default - disable ADC calibration
+  device->adccal_m1000 = 0;
+  device->adccal_b1000 = 0;
+  
   
   // Store IO pins
   device->sdi_pin = pinSDI;
