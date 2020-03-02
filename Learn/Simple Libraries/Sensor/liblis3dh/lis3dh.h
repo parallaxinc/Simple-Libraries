@@ -3,10 +3,10 @@
  *
  * @author Michael Mulholland
  *
- * @version 1.0.0
+ * @version 1.0.1
  *
  * @copyright
- * Copyright (C) Parallax, Inc. 2014. All Rights MIT Licensed.
+ * Copyright (C) Parallax, Inc. 2020. All Rights MIT Licensed.
  *
  * @brief Simplifies reading Parallax LIS3DH 3-Axis Accelerometer Module with ADC.
  */
@@ -122,6 +122,9 @@ extern "C" {
 typedef struct lis3dh_st
 {
   volatile int tempcalC; // for degrees Celcius
+  
+  volatile int adccal_m1000; // for mV ADC calibration
+  volatile int adccal_b1000; // for mV ADC calibration
   
   volatile int tiltavgX;
   volatile int tiltavgY;
@@ -319,7 +322,7 @@ void lis3dh_setADCmode(lis3dh_t *device, int adcEnable, int tempEnable);
  * 
  * @details ADC resolution is user-configured in the sensor to 8 or 10 bit. (Refer to setResolution and getResolution functions).
  *
- * @note Channel 1 range is 0-8000mV. Channel 2 and 3 ranges are 900-1800mV.
+ * @note Channel 1 range is 0-7800mV (+- 200mV). Channel 2 and 3 ranges are 900-1700mV (+- 100mV).
  * 
  * @param device Pointer to the sensor device structure
  *
@@ -339,7 +342,7 @@ void lis3dh_adc(lis3dh_t *device, int *ad1, int *ad2, int *ad3);
  * 
  * @details ADC resolution is user-configured in the sensor to 8 or 10 bit. (Refer to setResolution and getResolution functions).
  *
- * @note Channel 1 range is 0-8000mV. Channel 2 and 3 ranges are 900-1800mV.
+ * @note Channel 1 range is 0-7800mV (+- 200mV). Channel 2 and 3 ranges are 900-1700mV (+- 100mV).
  * 
  * @param device Pointer to the sensor device structure
  * 
@@ -357,7 +360,7 @@ int lis3dh_getADC(lis3dh_t *device, int channel);
  *
  * @details ADC resolution is user-configured in the sensor to 8 or 10 bit. (Refer to setResolution and getResolution functions).
  * 
- * @note Channel 1 range is 0-8000mV. Channel 2 and 3 ranges are 900-1800mV.
+ * @note Channel 1 range is 0-7800mV (+- 200mV). Channel 2 and 3 ranges are 900-1700mV (+- 100mV).
  * 
  * @param device Pointer to the sensor device structure
  * 
@@ -377,7 +380,7 @@ void lis3dh_adc_mV(lis3dh_t *device, int *ad1, int *ad2, int *ad3);
  * 
  * @details ADC resolution is user-configured in the sensor to 8 or 10 bit. (Refer to setResolution and getResolution functions).
  *
- * @note Channel 1 range is 0-8000mV. Channel 2 and 3 ranges are 900-1800mV.
+ * @note Channel 1 range is 0-7800mV (+- 200mV). Channel 2 and 3 ranges are 900-1700mV (+- 100mV).
  * 
  * @param device Pointer to the sensor device structure
  * 
@@ -388,6 +391,22 @@ void lis3dh_adc_mV(lis3dh_t *device, int *ad1, int *ad2, int *ad3);
  */
 int lis3dh_getADC_mV(lis3dh_t *device, int channel);
 
+
+
+/**
+ * @brief Sets the adc calibration values for adc mV reading on AD1.
+ * 
+ * @details The internal adc has an initial tolerance of +-400mV, and may require calibration before use. 
+ *
+ * @param device Pointer to the sensor device structure
+ *
+ * @param mV_L Value for ADC mV calibration - voltage at which lower calibration reading taken, in millivolts
+ * @param mV_H Value for ADC mV calibration - voltage at which upper calibration reading taken, in millivolts
+ * @param value_L Value for ADC mV calibration - value measured at lower calibration voltage, in millivolts
+ * @param value_H Value for ADC mV calibration - value measured at upper calibration voltage, in millivolts
+ *
+ */
+void lis3dh_adcCal_mV(lis3dh_t *device, int mV_L, int mV_H, int value_L, int value_H);
 
 
 /**
@@ -489,7 +508,6 @@ int lis3dh_temp_F(lis3dh_t *device);
  * @returns 1 if new data is available, 0 if no new data is available.
  * 
  */
-//int lis3dh_accel(int *x, int *y, int *z);
 int lis3dh_accel(lis3dh_t *device, int *x, int *y, int *z);
 
 
@@ -604,7 +622,6 @@ int lis3dh_tiltConfig(lis3dh_t *device, int avg_factor);
  *
  * @param value Configuration value for the register.
  */
-//void lis3dh_writeByte(unsigned char address, unsigned char value);
 void lis3dh_writeByte(lis3dh_t *device, unsigned char address, unsigned char value);
 
 
@@ -617,7 +634,6 @@ void lis3dh_writeByte(lis3dh_t *device, unsigned char address, unsigned char val
  *
  * @returns Value stored by the LIS3DH register.
  */
-//unsigned char lis3dh_readByte(unsigned char address);
 unsigned char lis3dh_readByte(lis3dh_t *device, unsigned char address);
 
 /** @} */

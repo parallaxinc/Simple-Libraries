@@ -97,6 +97,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga120dc41c665944d3d82555e695a5b130"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group-4.html#ga120dc41c665944d3d82555e695a5b130">lis3dh_getADC_mV</a> (<a class="el" href="group__group-3.html#ga51984c362978748494df7552450a2e5c">lis3dh_t</a> *device, int channel)</td></tr>
 <tr class="memdesc:ga120dc41c665944d3d82555e695a5b130"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets mV adc measurement from a single ADC channel.  <a href="group__group-4.html#ga120dc41c665944d3d82555e695a5b130">More...</a><br /></td></tr>
 <tr class="separator:ga120dc41c665944d3d82555e695a5b130"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga89fc559ddf7c4a83adee50dbc8c19e92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group-4.html#ga89fc559ddf7c4a83adee50dbc8c19e92">lis3dh_adcCal_mV</a> (<a class="el" href="group__group-3.html#ga51984c362978748494df7552450a2e5c">lis3dh_t</a> *device, int mV_L, int mV_H, int value_L, int value_H)</td></tr>
+<tr class="memdesc:ga89fc559ddf7c4a83adee50dbc8c19e92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the adc calibration values for adc mV reading on AD1.  <a href="group__group-4.html#ga89fc559ddf7c4a83adee50dbc8c19e92">More...</a><br /></td></tr>
+<tr class="separator:ga89fc559ddf7c4a83adee50dbc8c19e92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaf0bcb15fc5c44d0459330f2547a3724"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group-4.html#gaaf0bcb15fc5c44d0459330f2547a3724">lis3dh_tempCal_C</a> (<a class="el" href="group__group-3.html#ga51984c362978748494df7552450a2e5c">lis3dh_t</a> *device, int actualTempC)</td></tr>
 <tr class="memdesc:gaaf0bcb15fc5c44d0459330f2547a3724"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the actual temperature to provide a reference for the relative temperature sensor.  <a href="group__group-4.html#gaaf0bcb15fc5c44d0459330f2547a3724">More...</a><br /></td></tr>
 <tr class="separator:gaaf0bcb15fc5c44d0459330f2547a3724"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,6 +127,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga758134cb151ff7eba3dc1696ac6bce1b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group-4.html#ga758134cb151ff7eba3dc1696ac6bce1b">lis3dh_getAccel_mg</a> (<a class="el" href="group__group-3.html#ga51984c362978748494df7552450a2e5c">lis3dh_t</a> *device, int axis)</td></tr>
 <tr class="memdesc:ga758134cb151ff7eba3dc1696ac6bce1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets mg (milli-g's) accelerometer measurements from a single axis (x, y, or z).  <a href="group__group-4.html#ga758134cb151ff7eba3dc1696ac6bce1b">More...</a><br /></td></tr>
 <tr class="separator:ga758134cb151ff7eba3dc1696ac6bce1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd687bcfb0d1fdc91727b443a2e84ccb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group-4.html#gadd687bcfb0d1fdc91727b443a2e84ccb">lis3dh_tilt</a> (<a class="el" href="group__group-3.html#ga51984c362978748494df7552450a2e5c">lis3dh_t</a> *device, int *ax, int *ay, int *az, int *motion)</td></tr>
+<tr class="memdesc:gadd687bcfb0d1fdc91727b443a2e84ccb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets tilt angle measurements for each axis, and magnitude of motion.  <a href="group__group-4.html#gadd687bcfb0d1fdc91727b443a2e84ccb">More...</a><br /></td></tr>
+<tr class="separator:gadd687bcfb0d1fdc91727b443a2e84ccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga223afc85a3bedafd9e1c94e4b3af618c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group-4.html#ga223afc85a3bedafd9e1c94e4b3af618c">lis3dh_tiltConfig</a> (<a class="el" href="group__group-3.html#ga51984c362978748494df7552450a2e5c">lis3dh_t</a> *device, int avg_factor)</td></tr>
+<tr class="memdesc:ga223afc85a3bedafd9e1c94e4b3af618c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional configuration for tilt sensor.  <a href="group__group-4.html#ga223afc85a3bedafd9e1c94e4b3af618c">More...</a><br /></td></tr>
+<tr class="separator:ga223afc85a3bedafd9e1c94e4b3af618c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga671f13418b4bcd90ef62a93000ceb4c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group-4.html#ga671f13418b4bcd90ef62a93000ceb4c5">lis3dh_writeByte</a> (<a class="el" href="group__group-3.html#ga51984c362978748494df7552450a2e5c">lis3dh_t</a> *device, unsigned char address, unsigned char value)</td></tr>
 <tr class="memdesc:ga671f13418b4bcd90ef62a93000ceb4c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">write a byte value to an LIS3DH register  <a href="group__group-4.html#ga671f13418b4bcd90ef62a93000ceb4c5">More...</a><br /></td></tr>
 <tr class="separator:ga671f13418b4bcd90ef62a93000ceb4c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -279,7 +288,7 @@ Functions</h2></td></tr>
 
 <p>Gets raw adc measurements from all three ADC channels. </p>
 <p>ADC resolution is user-configured in the sensor to 8 or 10 bit. (Refer to setResolution and getResolution functions).</p>
-<dl class="section note"><dt>Note</dt><dd>Channel 1 range is 0-8000mV. Channel 2 and 3 ranges are 900-1800mV.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Channel 1 range is 0-7800mV (+- 200mV). Channel 2 and 3 ranges are 900-1700mV (+- 100mV).</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">device</td><td>Pointer to the sensor device structure</td></tr>
@@ -332,13 +341,72 @@ Functions</h2></td></tr>
 
 <p>Gets mV adc measurements from all three ADC channels. </p>
 <p>ADC resolution is user-configured in the sensor to 8 or 10 bit. (Refer to setResolution and getResolution functions).</p>
-<dl class="section note"><dt>Note</dt><dd>Channel 1 range is 0-8000mV. Channel 2 and 3 ranges are 900-1800mV.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Channel 1 range is 0-7800mV (+- 200mV). Channel 2 and 3 ranges are 900-1700mV (+- 100mV).</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">device</td><td>Pointer to the sensor device structure</td></tr>
     <tr><td class="paramname">*ad1</td><td>Variable to store ADC channel 1 reading into, scaled to ADC resolution.</td></tr>
     <tr><td class="paramname">*ad2</td><td>Variable to store ADC channel 2 reading into, scaled to ADC resolution.</td></tr>
     <tr><td class="paramname">*ad3</td><td>Variable to store ADC channel 3 reading into, scaled to ADC resolution. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga89fc559ddf7c4a83adee50dbc8c19e92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga89fc559ddf7c4a83adee50dbc8c19e92">&#9670;&nbsp;</a></span>lis3dh_adcCal_mV()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lis3dh_adcCal_mV </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group-3.html#ga51984c362978748494df7552450a2e5c">lis3dh_t</a> *&#160;</td>
+          <td class="paramname"><em>device</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mV_L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mV_H</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>value_L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>value_H</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the adc calibration values for adc mV reading on AD1. </p>
+<p>The internal adc has an initial tolerance of +-400mV, and may require calibration before use.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">device</td><td>Pointer to the sensor device structure</td></tr>
+    <tr><td class="paramname">mV_L</td><td>Value for ADC mV calibration - voltage at which lower calibration reading taken, in millivolts </td></tr>
+    <tr><td class="paramname">mV_H</td><td>Value for ADC mV calibration - voltage at which upper calibration reading taken, in millivolts </td></tr>
+    <tr><td class="paramname">value_L</td><td>Value for ADC mV calibration - value measured at lower calibration voltage, in millivolts </td></tr>
+    <tr><td class="paramname">value_H</td><td>Value for ADC mV calibration - value measured at upper calibration voltage, in millivolts </td></tr>
   </table>
   </dd>
 </dl>
@@ -451,7 +519,7 @@ Functions</h2></td></tr>
 
 <p>Gets raw adc measurement from a single ADC channel. </p>
 <p>ADC resolution is user-configured in the sensor to 8 or 10 bit. (Refer to setResolution and getResolution functions).</p>
-<dl class="section note"><dt>Note</dt><dd>Channel 1 range is 0-8000mV. Channel 2 and 3 ranges are 900-1800mV.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Channel 1 range is 0-7800mV (+- 200mV). Channel 2 and 3 ranges are 900-1700mV (+- 100mV).</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">device</td><td>Pointer to the sensor device structure</td></tr>
@@ -491,7 +559,7 @@ Functions</h2></td></tr>
 
 <p>Gets mV adc measurement from a single ADC channel. </p>
 <p>ADC resolution is user-configured in the sensor to 8 or 10 bit. (Refer to setResolution and getResolution functions).</p>
-<dl class="section note"><dt>Note</dt><dd>Channel 1 range is 0-8000mV. Channel 2 and 3 ranges are 900-1800mV.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Channel 1 range is 0-7800mV (+- 200mV). Channel 2 and 3 ranges are 900-1700mV (+- 100mV).</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">device</td><td>Pointer to the sensor device structure</td></tr>
@@ -1132,6 +1200,105 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="gadd687bcfb0d1fdc91727b443a2e84ccb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadd687bcfb0d1fdc91727b443a2e84ccb">&#9670;&nbsp;</a></span>lis3dh_tilt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int lis3dh_tilt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group-3.html#ga51984c362978748494df7552450a2e5c">lis3dh_t</a> *&#160;</td>
+          <td class="paramname"><em>device</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>ax</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>ay</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>az</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>motion</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets tilt angle measurements for each axis, and magnitude of motion. </p>
+<p>Angle to each axis in degrees, X relative to ground Y relative to ground Z relative to gravity. Motion is the sum of g-force on all axis relative to gravity at ground level (1G). 0 is motionless, larger positve or negative values represent more intense motion. The motion value could be used on it's own for projects requiring vibration sensing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">device</td><td>Pointer to the sensor device structure</td></tr>
+    <tr><td class="paramname">*ax</td><td>Variable to store angle of x axis relative to ground.</td></tr>
+    <tr><td class="paramname">*ay</td><td>Variable to store angle of y axis relative to ground.</td></tr>
+    <tr><td class="paramname">*az</td><td>Variable to store angle of z axis relative to gravity.</td></tr>
+    <tr><td class="paramname">*motion</td><td>Variable to store positive or negative value representing intensity of motion, with 0 being motionless at ground level.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if new data is available, 0 if no new data is available, or invalid request. </dd></dl>
+
+</div>
+</div>
+<a id="ga223afc85a3bedafd9e1c94e4b3af618c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga223afc85a3bedafd9e1c94e4b3af618c">&#9670;&nbsp;</a></span>lis3dh_tiltConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int lis3dh_tiltConfig </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group-3.html#ga51984c362978748494df7552450a2e5c">lis3dh_t</a> *&#160;</td>
+          <td class="paramname"><em>device</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>avg_factor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Optional configuration for tilt sensor. </p>
+<p>Values stored in RAM. Reasonable defaults are set by the library.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">device</td><td>Pointer to the sensor device structure</td></tr>
+    <tr><td class="paramname">avg_factor</td><td>Percentage of new data added to tilt readings low pass filter (moving average). Valid values are 0 to 100. (Setting 0 or 100 will disable the filter. For example, if avg_factor is 75, moving average calculation will include 75% new data and 25% existing data. Default value = 100 (moving average low pass filter disabled).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if operation successful, 0 if operation failed (invalid values). </dd></dl>
+
+</div>
+</div>
 <a id="ga671f13418b4bcd90ef62a93000ceb4c5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga671f13418b4bcd90ef62a93000ceb4c5">&#9670;&nbsp;</a></span>lis3dh_writeByte()</h2>
 
@@ -1179,7 +1346,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 9 2019 17:20:55 for LIS3DH Propeller C library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 27 2020 17:17:04 for LIS3DH Propeller C library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.16
 </small></address>

@@ -123,157 +123,175 @@ $(function() {
 <div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="structlis3dh__st.html">  122</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structlis3dh__st.html">lis3dh_st</a></div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;{</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <span class="keyword">volatile</span> <span class="keywordtype">int</span> tempcalC; <span class="comment">// for degrees Celcius</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <span class="keywordtype">int</span> sdi_pin;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="keywordtype">int</span> sdo_pin;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  <span class="keywordtype">int</span> sck_pin;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="keywordtype">int</span> cs_pin;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;} <a class="code" href="group__group-3.html#ga51984c362978748494df7552450a2e5c">lis3dh_t</a>;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">// Simpler type name for use with SimpleIDE</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="keyword">typedef</span> <a class="code" href="structlis3dh__st.html">lis3dh_t</a> <a class="code" href="structlis3dh__st.html">lis3dh</a>;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <span class="keyword">volatile</span> <span class="keywordtype">int</span> adccal_m1000; <span class="comment">// for mV ADC calibration</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="keyword">volatile</span> <span class="keywordtype">int</span> adccal_b1000; <span class="comment">// for mV ADC calibration</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="keyword">volatile</span> <span class="keywordtype">int</span> tiltavgX;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <span class="keyword">volatile</span> <span class="keywordtype">int</span> tiltavgY;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <span class="keyword">volatile</span> <span class="keywordtype">int</span> tiltavgZ;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  <span class="keyword">volatile</span> <span class="keywordtype">int</span> tiltavg_factor;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <span class="keywordtype">int</span> sdi_pin;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <span class="keywordtype">int</span> sdo_pin;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  <span class="keywordtype">int</span> sck_pin;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  <span class="keywordtype">int</span> cs_pin;</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *<a class="code" href="group__group-4.html#gaed7f594aadb8d4b27d7fd3003c1881b2">lis3dh_init</a>(<span class="keywordtype">int</span> pinSCK, <span class="keywordtype">int</span> pinSDI, <span class="keywordtype">int</span> pinCS);</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *<a class="code" href="group__group-4.html#ga28b2012b50408d691b56f2b963ed93e8">lis3dh_init4wire</a>(<span class="keywordtype">int</span> pinSCK, <span class="keywordtype">int</span> pinSDI, <span class="keywordtype">int</span> pinSDO, <span class="keywordtype">int</span> pinCS);</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#ga6b54c04b3b1d55ca5d7e022c1dc0e2af">lis3dh_shutdown</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;} <a class="code" href="group__group-3.html#ga51984c362978748494df7552450a2e5c">lis3dh_t</a>;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="comment">// Simpler type name for use with SimpleIDE</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="keyword">typedef</span> <a class="code" href="structlis3dh__st.html">lis3dh_t</a> <a class="code" href="structlis3dh__st.html">lis3dh</a>;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *<a class="code" href="group__group-4.html#gaed7f594aadb8d4b27d7fd3003c1881b2">lis3dh_init</a>(<span class="keywordtype">int</span> pinSCK, <span class="keywordtype">int</span> pinSDI, <span class="keywordtype">int</span> pinCS);</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *<a class="code" href="group__group-4.html#ga28b2012b50408d691b56f2b963ed93e8">lis3dh_init4wire</a>(<span class="keywordtype">int</span> pinSCK, <span class="keywordtype">int</span> pinSDI, <span class="keywordtype">int</span> pinSDO, <span class="keywordtype">int</span> pinCS);</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga20ae23efb982f3f815160e65a6a98ca8">lis3dh_getWhoAmI</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#ga6b54c04b3b1d55ca5d7e022c1dc0e2af">lis3dh_shutdown</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#ga993c09ecb0b04543155c8f4886d6f6cb">lis3dh_setResolution</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> bits);</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#gaf6c595d62c5e843dc5a3708a8c8cf352">lis3dh_getResolution</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga20ae23efb982f3f815160e65a6a98ca8">lis3dh_getWhoAmI</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#ga993c09ecb0b04543155c8f4886d6f6cb">lis3dh_setResolution</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> bits);</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#gad1b0c07e102846d95920cd68935c9298">lis3dh_setRange</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> range);</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga501343ef2230444d1dfa432730267eef">lis3dh_getRange</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#gaf6c595d62c5e843dc5a3708a8c8cf352">lis3dh_getResolution</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#gad1b0c07e102846d95920cd68935c9298">lis3dh_setRange</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> range);</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160; </div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#gadfaa983fa024a5a800da51457b36862e">lis3dh_setSPImode</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> mode);</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga501343ef2230444d1dfa432730267eef">lis3dh_getRange</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#gacf2df3e2b8c29172cdb093628c47b5c6">lis3dh_getSPImode</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#gadfaa983fa024a5a800da51457b36862e">lis3dh_setSPImode</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> mode);</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160; </div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#ga8a0cf1d0a4193ff92856390b655c53b8">lis3dh_setBDUmode</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> mode);</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160; </div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#gaff6bb21fda65dcbaf7833cded7121e57">lis3dh_setADCmode</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> adcEnable, <span class="keywordtype">int</span> tempEnable);</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160; </div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160; </div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#ga59f365d7a45f5d966a2a099c84f75297">lis3dh_adc</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> *ad1, <span class="keywordtype">int</span> *ad2, <span class="keywordtype">int</span> *ad3);</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160; </div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                    </div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;                    </div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#gad37d573f1223f5c333b2fe2a5fbdf532">lis3dh_getADC</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> channel);                    </div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;                    </div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#ga1bf7b48cb813c5567cc30fa9e5d7f128">lis3dh_adc_mV</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> *ad1, <span class="keywordtype">int</span> *ad2, <span class="keywordtype">int</span> *ad3);</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160; </div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga120dc41c665944d3d82555e695a5b130">lis3dh_getADC_mV</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> channel);</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160; </div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160; </div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160; </div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#gaaf0bcb15fc5c44d0459330f2547a3724">lis3dh_tempCal_C</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> actualTempC);</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160; </div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160; </div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160; </div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#ga74069d152ceb76f688b90bf532bd687e">lis3dh_tempCal_F</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> actualTempF);</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160; </div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160; </div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160; </div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#gaf730b123cefce75666b9f91817afec70">lis3dh_tempRaw</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160; </div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160; </div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160; </div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga2e6a1e281c1f834f2f3ff76b21169bfc">lis3dh_temp_C</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160; </div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160; </div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160; </div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga508bfddbec00405921ab6b036265c340">lis3dh_temp_F</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160; </div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160; </div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160; </div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160; </div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;<span class="comment">//int lis3dh_accel(int *x, int *y, int *z);</span></div>
-<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga3e39708108dd4a447c93a83965eaa6b9">lis3dh_accel</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> *x, <span class="keywordtype">int</span> *y, <span class="keywordtype">int</span> *z);</div>
-<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160; </div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160; </div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga8ae1898878e7ec1fe87280e0cd7c41db">lis3dh_getAccel</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> axis);</div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160; </div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160; </div>
-<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160; </div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#gac6e040e48e2fef729a3c663e47cbb857">lis3dh_accel_mg</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> *xmg, <span class="keywordtype">int</span> *ymg, <span class="keywordtype">int</span> *zmg);</div>
-<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160; </div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160; </div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160; </div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga758134cb151ff7eba3dc1696ac6bce1b">lis3dh_getAccel_mg</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> axis);</div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160; </div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160; </div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160; </div>
-<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;<span class="comment">//void lis3dh_writeByte(unsigned char address, unsigned char value);</span></div>
-<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#ga671f13418b4bcd90ef62a93000ceb4c5">lis3dh_writeByte</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> address, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> value);</div>
-<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160; </div>
-<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160; </div>
-<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;<span class="comment">//unsigned char lis3dh_readByte(unsigned char address);</span></div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="group__group-4.html#ga32fe60ad7e7c4cda807d22712600b1c1">lis3dh_readByte</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> address);</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#gacf2df3e2b8c29172cdb093628c47b5c6">lis3dh_getSPImode</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160; </div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#ga8a0cf1d0a4193ff92856390b655c53b8">lis3dh_setBDUmode</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> mode);</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#gaff6bb21fda65dcbaf7833cded7121e57">lis3dh_setADCmode</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> adcEnable, <span class="keywordtype">int</span> tempEnable);</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160; </div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160; </div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#ga59f365d7a45f5d966a2a099c84f75297">lis3dh_adc</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> *ad1, <span class="keywordtype">int</span> *ad2, <span class="keywordtype">int</span> *ad3);</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160; </div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                    </div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;                    </div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#gad37d573f1223f5c333b2fe2a5fbdf532">lis3dh_getADC</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> channel);                    </div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;                    </div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160; </div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160; </div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#ga1bf7b48cb813c5567cc30fa9e5d7f128">lis3dh_adc_mV</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> *ad1, <span class="keywordtype">int</span> *ad2, <span class="keywordtype">int</span> *ad3);</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; </div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160; </div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga120dc41c665944d3d82555e695a5b130">lis3dh_getADC_mV</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> channel);</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160; </div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160; </div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#ga89fc559ddf7c4a83adee50dbc8c19e92">lis3dh_adcCal_mV</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> mV_L, <span class="keywordtype">int</span> mV_H, <span class="keywordtype">int</span> value_L, <span class="keywordtype">int</span> value_H);</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160; </div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160; </div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#gaaf0bcb15fc5c44d0459330f2547a3724">lis3dh_tempCal_C</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> actualTempC);</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160; </div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160; </div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160; </div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#ga74069d152ceb76f688b90bf532bd687e">lis3dh_tempCal_F</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> actualTempF);</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160; </div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160; </div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160; </div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#gaf730b123cefce75666b9f91817afec70">lis3dh_tempRaw</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160; </div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160; </div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160; </div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga2e6a1e281c1f834f2f3ff76b21169bfc">lis3dh_temp_C</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160; </div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160; </div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160; </div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga508bfddbec00405921ab6b036265c340">lis3dh_temp_F</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device);</div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160; </div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160; </div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160; </div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160; </div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga3e39708108dd4a447c93a83965eaa6b9">lis3dh_accel</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> *x, <span class="keywordtype">int</span> *y, <span class="keywordtype">int</span> *z);</div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160; </div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160; </div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga8ae1898878e7ec1fe87280e0cd7c41db">lis3dh_getAccel</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> axis);</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160; </div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160; </div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160; </div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#gac6e040e48e2fef729a3c663e47cbb857">lis3dh_accel_mg</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> *xmg, <span class="keywordtype">int</span> *ymg, <span class="keywordtype">int</span> *zmg);</div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160; </div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160; </div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160; </div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga758134cb151ff7eba3dc1696ac6bce1b">lis3dh_getAccel_mg</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> axis);</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160; </div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160; </div>
 <div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160; </div>
-<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;<span class="preprocessor">#if defined(__cplusplus)</span></div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;}</div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;<span class="comment">/* __cplusplus */</span> </div>
-<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;<span class="comment">/* LIS3DH_H */</span> </div>
-<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160; </div>
-<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160; </div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160; </div>
-<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160; </div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#gadd687bcfb0d1fdc91727b443a2e84ccb">lis3dh_tilt</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> *ax, <span class="keywordtype">int</span> *ay, <span class="keywordtype">int</span> *az, <span class="keywordtype">int</span> *motion);</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160; </div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160; </div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__group-4.html#ga223afc85a3bedafd9e1c94e4b3af618c">lis3dh_tiltConfig</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">int</span> avg_factor); </div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160; </div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160; </div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160; </div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__group-4.html#ga671f13418b4bcd90ef62a93000ceb4c5">lis3dh_writeByte</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> address, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> value);</div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160; </div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160; </div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="group__group-4.html#ga32fe60ad7e7c4cda807d22712600b1c1">lis3dh_readByte</a>(<a class="code" href="structlis3dh__st.html">lis3dh_t</a> *device, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> address);</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160; </div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;<span class="preprocessor">#if defined(__cplusplus)</span></div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;}</div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;<span class="comment">/* __cplusplus */</span> </div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;<span class="comment">/* LIS3DH_H */</span> </div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160; </div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160; </div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160; </div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160; </div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="agroup__group-4_html_gaaf0bcb15fc5c44d0459330f2547a3724"><div class="ttname"><a href="group__group-4.html#gaaf0bcb15fc5c44d0459330f2547a3724">lis3dh_tempCal_C</a></div><div class="ttdeci">void lis3dh_tempCal_C(lis3dh_t *device, int actualTempC)</div><div class="ttdoc">Sets the actual temperature to provide a reference for the relative temperature sensor.</div><div class="ttdef"><b>Definition:</b> temp.c:66</div></div>
 <div class="ttc" id="agroup__group-4_html_gaed7f594aadb8d4b27d7fd3003c1881b2"><div class="ttname"><a href="group__group-4.html#gaed7f594aadb8d4b27d7fd3003c1881b2">lis3dh_init</a></div><div class="ttdeci">lis3dh_t * lis3dh_init(int pinSCK, int pinSDI, int pinCS)</div><div class="ttdoc">Initialize the sensor with typical configuration for reading axis and adc. Uses 3-Wire SPI mode.</div><div class="ttdef"><b>Definition:</b> init.c:21</div></div>
 <div class="ttc" id="agroup__group-4_html_ga6b54c04b3b1d55ca5d7e022c1dc0e2af"><div class="ttname"><a href="group__group-4.html#ga6b54c04b3b1d55ca5d7e022c1dc0e2af">lis3dh_shutdown</a></div><div class="ttdeci">void lis3dh_shutdown(lis3dh_t *device)</div><div class="ttdoc">Shutdown the sensor, set configuration defaults with sensor disabled and clear buffers.</div><div class="ttdef"><b>Definition:</b> shutdown.c:21</div></div>
+<div class="ttc" id="agroup__group-4_html_ga223afc85a3bedafd9e1c94e4b3af618c"><div class="ttname"><a href="group__group-4.html#ga223afc85a3bedafd9e1c94e4b3af618c">lis3dh_tiltConfig</a></div><div class="ttdeci">int lis3dh_tiltConfig(lis3dh_t *device, int avg_factor)</div><div class="ttdoc">Optional configuration for tilt sensor.</div><div class="ttdef"><b>Definition:</b> tilt.c:106</div></div>
 <div class="ttc" id="agroup__group-4_html_ga501343ef2230444d1dfa432730267eef"><div class="ttname"><a href="group__group-4.html#ga501343ef2230444d1dfa432730267eef">lis3dh_getRange</a></div><div class="ttdeci">int lis3dh_getRange(lis3dh_t *device)</div><div class="ttdoc">Reads the g measurement range; one of +/- 2, +/-4, +/- 8, +- 16 g.</div><div class="ttdef"><b>Definition:</b> getRange.c:21</div></div>
 <div class="ttc" id="agroup__group-4_html_gad1b0c07e102846d95920cd68935c9298"><div class="ttname"><a href="group__group-4.html#gad1b0c07e102846d95920cd68935c9298">lis3dh_setRange</a></div><div class="ttdeci">void lis3dh_setRange(lis3dh_t *device, int range)</div><div class="ttdoc">Sets the g measurement range to +/- 2, +/-4, +/- 8, +- 16 g.</div><div class="ttdef"><b>Definition:</b> setRange.c:21</div></div>
 <div class="ttc" id="agroup__group-4_html_ga671f13418b4bcd90ef62a93000ceb4c5"><div class="ttname"><a href="group__group-4.html#ga671f13418b4bcd90ef62a93000ceb4c5">lis3dh_writeByte</a></div><div class="ttdeci">void lis3dh_writeByte(lis3dh_t *device, unsigned char address, unsigned char value)</div><div class="ttdoc">write a byte value to an LIS3DH register</div><div class="ttdef"><b>Definition:</b> writeByte.c:21</div></div>
 <div class="ttc" id="agroup__group-4_html_ga20ae23efb982f3f815160e65a6a98ca8"><div class="ttname"><a href="group__group-4.html#ga20ae23efb982f3f815160e65a6a98ca8">lis3dh_getWhoAmI</a></div><div class="ttdeci">int lis3dh_getWhoAmI(lis3dh_t *device)</div><div class="ttdoc">Reads the sensor identification register (WhoAmI).</div><div class="ttdef"><b>Definition:</b> getWhoAmI.c:21</div></div>
+<div class="ttc" id="agroup__group-4_html_ga89fc559ddf7c4a83adee50dbc8c19e92"><div class="ttname"><a href="group__group-4.html#ga89fc559ddf7c4a83adee50dbc8c19e92">lis3dh_adcCal_mV</a></div><div class="ttdeci">void lis3dh_adcCal_mV(lis3dh_t *device, int mV_L, int mV_H, int value_L, int value_H)</div><div class="ttdoc">Sets the adc calibration values for adc mV reading on AD1.</div><div class="ttdef"><b>Definition:</b> adc_mV.c:97</div></div>
 <div class="ttc" id="agroup__group-4_html_gadfaa983fa024a5a800da51457b36862e"><div class="ttname"><a href="group__group-4.html#gadfaa983fa024a5a800da51457b36862e">lis3dh_setSPImode</a></div><div class="ttdeci">void lis3dh_setSPImode(lis3dh_t *device, int mode)</div><div class="ttdoc">Sets the SPI mode to either 3-wire or 4-wire.</div><div class="ttdef"><b>Definition:</b> setSPImode.c:21</div></div>
 <div class="ttc" id="agroup__group-3_html_ga51984c362978748494df7552450a2e5c"><div class="ttname"><a href="group__group-3.html#ga51984c362978748494df7552450a2e5c">lis3dh_t</a></div><div class="ttdeci">struct lis3dh_st lis3dh_t</div></div>
 <div class="ttc" id="agroup__group-4_html_gaff6bb21fda65dcbaf7833cded7121e57"><div class="ttname"><a href="group__group-4.html#gaff6bb21fda65dcbaf7833cded7121e57">lis3dh_setADCmode</a></div><div class="ttdeci">void lis3dh_setADCmode(lis3dh_t *device, int adcEnable, int tempEnable)</div><div class="ttdoc">Sets ADC mode for the Parallax LIS3DH 3-Axis Accelerometer Module.</div><div class="ttdef"><b>Definition:</b> setADCmode.c:21</div></div>
 <div class="ttc" id="agroup__group-4_html_ga508bfddbec00405921ab6b036265c340"><div class="ttname"><a href="group__group-4.html#ga508bfddbec00405921ab6b036265c340">lis3dh_temp_F</a></div><div class="ttdeci">int lis3dh_temp_F(lis3dh_t *device)</div><div class="ttdoc">Reads the calibrated (referenced) temperature value from the sensor.</div><div class="ttdef"><b>Definition:</b> temp.c:57</div></div>
 <div class="ttc" id="agroup__group-4_html_ga8ae1898878e7ec1fe87280e0cd7c41db"><div class="ttname"><a href="group__group-4.html#ga8ae1898878e7ec1fe87280e0cd7c41db">lis3dh_getAccel</a></div><div class="ttdeci">int lis3dh_getAccel(lis3dh_t *device, int axis)</div><div class="ttdoc">Gets raw accelerometer measurements for a single axis (x, y, or z).</div><div class="ttdef"><b>Definition:</b> accel.c:62</div></div>
 <div class="ttc" id="agroup__group-4_html_ga28b2012b50408d691b56f2b963ed93e8"><div class="ttname"><a href="group__group-4.html#ga28b2012b50408d691b56f2b963ed93e8">lis3dh_init4wire</a></div><div class="ttdeci">lis3dh_t * lis3dh_init4wire(int pinSCK, int pinSDI, int pinSDO, int pinCS)</div><div class="ttdoc">Initialize the sensor with typical configuration for reading axis and adc. Uses 4-Wire SPI mode.</div><div class="ttdef"><b>Definition:</b> init.c:29</div></div>
-<div class="ttc" id="agroup__group-4_html_ga1bf7b48cb813c5567cc30fa9e5d7f128"><div class="ttname"><a href="group__group-4.html#ga1bf7b48cb813c5567cc30fa9e5d7f128">lis3dh_adc_mV</a></div><div class="ttdeci">void lis3dh_adc_mV(lis3dh_t *device, int *ad1, int *ad2, int *ad3)</div><div class="ttdoc">Gets mV adc measurements from all three ADC channels.</div><div class="ttdef"><b>Definition:</b> adc_mV.c:33</div></div>
+<div class="ttc" id="agroup__group-4_html_ga1bf7b48cb813c5567cc30fa9e5d7f128"><div class="ttname"><a href="group__group-4.html#ga1bf7b48cb813c5567cc30fa9e5d7f128">lis3dh_adc_mV</a></div><div class="ttdeci">void lis3dh_adc_mV(lis3dh_t *device, int *ad1, int *ad2, int *ad3)</div><div class="ttdoc">Gets mV adc measurements from all three ADC channels.</div><div class="ttdef"><b>Definition:</b> adc_mV.c:35</div></div>
 <div class="ttc" id="agroup__group-4_html_ga8a0cf1d0a4193ff92856390b655c53b8"><div class="ttname"><a href="group__group-4.html#ga8a0cf1d0a4193ff92856390b655c53b8">lis3dh_setBDUmode</a></div><div class="ttdeci">void lis3dh_setBDUmode(lis3dh_t *device, int mode)</div><div class="ttdoc">Sets the sensor BDU (Block Data Update) mode.</div><div class="ttdef"><b>Definition:</b> setBDUmode.c:21</div></div>
-<div class="ttc" id="agroup__group-4_html_ga120dc41c665944d3d82555e695a5b130"><div class="ttname"><a href="group__group-4.html#ga120dc41c665944d3d82555e695a5b130">lis3dh_getADC_mV</a></div><div class="ttdeci">int lis3dh_getADC_mV(lis3dh_t *device, int channel)</div><div class="ttdoc">Gets mV adc measurement from a single ADC channel.</div><div class="ttdef"><b>Definition:</b> adc_mV.c:64</div></div>
+<div class="ttc" id="agroup__group-4_html_ga120dc41c665944d3d82555e695a5b130"><div class="ttname"><a href="group__group-4.html#ga120dc41c665944d3d82555e695a5b130">lis3dh_getADC_mV</a></div><div class="ttdeci">int lis3dh_getADC_mV(lis3dh_t *device, int channel)</div><div class="ttdoc">Gets mV adc measurement from a single ADC channel.</div><div class="ttdef"><b>Definition:</b> adc_mV.c:78</div></div>
 <div class="ttc" id="agroup__group-4_html_gaf730b123cefce75666b9f91817afec70"><div class="ttname"><a href="group__group-4.html#gaf730b123cefce75666b9f91817afec70">lis3dh_tempRaw</a></div><div class="ttdeci">int lis3dh_tempRaw(lis3dh_t *device)</div><div class="ttdoc">Reads the raw relative temperature value from the sensor.</div><div class="ttdef"><b>Definition:</b> temp.c:23</div></div>
 <div class="ttc" id="agroup__group-4_html_ga758134cb151ff7eba3dc1696ac6bce1b"><div class="ttname"><a href="group__group-4.html#ga758134cb151ff7eba3dc1696ac6bce1b">lis3dh_getAccel_mg</a></div><div class="ttdeci">int lis3dh_getAccel_mg(lis3dh_t *device, int axis)</div><div class="ttdoc">Gets mg (milli-g's) accelerometer measurements from a single axis (x, y, or z).</div><div class="ttdef"><b>Definition:</b> accel_mg.c:64</div></div>
+<div class="ttc" id="agroup__group-4_html_gadd687bcfb0d1fdc91727b443a2e84ccb"><div class="ttname"><a href="group__group-4.html#gadd687bcfb0d1fdc91727b443a2e84ccb">lis3dh_tilt</a></div><div class="ttdeci">int lis3dh_tilt(lis3dh_t *device, int *ax, int *ay, int *az, int *motion)</div><div class="ttdoc">Gets tilt angle measurements for each axis, and magnitude of motion.</div><div class="ttdef"><b>Definition:</b> tilt.c:51</div></div>
 <div class="ttc" id="agroup__group-4_html_ga993c09ecb0b04543155c8f4886d6f6cb"><div class="ttname"><a href="group__group-4.html#ga993c09ecb0b04543155c8f4886d6f6cb">lis3dh_setResolution</a></div><div class="ttdeci">void lis3dh_setResolution(lis3dh_t *device, int bits)</div><div class="ttdoc">Sets the bit resolution for the sensor readings. 8-bit, 10-bit or 12-bit.</div><div class="ttdef"><b>Definition:</b> setResolution.c:21</div></div>
 <div class="ttc" id="agroup__group-4_html_gac6e040e48e2fef729a3c663e47cbb857"><div class="ttname"><a href="group__group-4.html#gac6e040e48e2fef729a3c663e47cbb857">lis3dh_accel_mg</a></div><div class="ttdeci">int lis3dh_accel_mg(lis3dh_t *device, int *xmg, int *ymg, int *zmg)</div><div class="ttdoc">Gets mg (milli-g's) accelerometer measurements from all three axis (x, y, z).</div><div class="ttdef"><b>Definition:</b> accel_mg.c:33</div></div>
 <div class="ttc" id="agroup__group-4_html_ga59f365d7a45f5d966a2a099c84f75297"><div class="ttname"><a href="group__group-4.html#ga59f365d7a45f5d966a2a099c84f75297">lis3dh_adc</a></div><div class="ttdeci">void lis3dh_adc(lis3dh_t *device, int *ad1, int *ad2, int *ad3)</div><div class="ttdoc">Gets raw adc measurements from all three ADC channels.</div><div class="ttdef"><b>Definition:</b> adc.c:21</div></div>
@@ -287,7 +305,7 @@ $(function() {
 <div class="ttc" id="agroup__group-4_html_ga2e6a1e281c1f834f2f3ff76b21169bfc"><div class="ttname"><a href="group__group-4.html#ga2e6a1e281c1f834f2f3ff76b21169bfc">lis3dh_temp_C</a></div><div class="ttdeci">int lis3dh_temp_C(lis3dh_t *device)</div><div class="ttdoc">Reads the calibrated (referenced) temperature value from the sensor.</div><div class="ttdef"><b>Definition:</b> temp.c:48</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Dec 9 2019 17:20:55 for LIS3DH Propeller C library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 27 2020 17:17:04 for LIS3DH Propeller C library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.16
 </small></address>
