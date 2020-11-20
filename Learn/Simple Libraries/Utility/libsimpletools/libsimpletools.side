@@ -1,8 +1,10 @@
 libsimpletools.c
 source/addfiledriver.c
-source/cogrun.c
 source/cogend.c
 source/cognum.c
+source/cogrun.c
+source/constrainFloat.c
+source/constrainInt.c
 source/count.c
 source/dac.c
 source/eeprom_init.c
@@ -30,11 +32,14 @@ source/i2c_in.c
 source/i2c_out.c
 source/input.c
 source/low.c
+source/mapFloat.c
+source/mapInt.c
 source/mark.c
 source/pause.c
 source/pulseIn.c
 source/pulseOut.c
 source/pwm.c
+source/random.c
 source/rcTime.c
 source/reverse.c
 source/sddriverconfig.c
@@ -55,7 +60,7 @@ source/toggle.c
 source/wait.c
 simpletools.h
 >compiler=C
->memtype=lmm main ram
+>memtype=cmm main ram compact
 >optimize=-Os
 >-m32bit-doubles
 >-Wall

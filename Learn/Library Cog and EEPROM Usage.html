@@ -36,6 +36,16 @@ Addresses 0..32767 - Overwritten every time a Spin or C program is loaded into E
 
 <p>
 <blockquote>
+<a href="Simple%20Libraries/Robotics/ActivityBot360/libabcalibrate360/Documentation%20abcalibrate360%20Library.html" target="_blank">abcalibrate360.h</a> - 63418..65470
+  <br>
+  <blockquote>
+    cal_activityBot writes to these addresses.
+  </blockquote>
+</blockquote>
+</p>
+
+<p>
+<blockquote>
 <a href="Simple%20Libraries/Robotics/ActivityBot/Documentation%20abcalibrate%20Library.html" target="_blank">abcalibrate.h</a> - 63418..65470
   <br>
   <blockquote>
@@ -123,6 +133,16 @@ Addresses 0..32767 - Overwritten every time a Spin or C program is loaded into E
 
 <p>
 <blockquote>
+<a href="Simple%20Libraries/Motor/libservo360/Documentation%20servo360%20Library.html" target="_blank">servo360.h</a> +1
+  <blockquote>
+  Launches 1 core that controls up to 4 servos.  Use servo360_connect to initialize
+  each servo.  
+  </blockquote>
+</blockquote>
+</p>
+
+<p>
+<blockquote>
 <a href="Simple%20Libraries/Motor/libservoAux/Documentation%20servoAux%20Library.html" target="_blank">servoAux.h</a> +1
   <blockquote>
    Same as servo.h, but allows controlling 14 more servos if all 14 slots in servo.h are already filled.
@@ -132,9 +152,27 @@ Addresses 0..32767 - Overwritten every time a Spin or C program is loaded into E
 
 <p>
 <blockquote>
+<a href="Simple%20Libraries/Robotics/ActivityBot360/libabcalibrate360/Documentation%20abcalibrate360%20Library.html" target="_blank">abcalibrate360.h</a> +1 (self-terminating)
+  <blockquote>
+  A call to cal_activityBot launches 1 additional core that self-terminate when the function is done.
+  </blockquote>
+</blockquote>
+</p>
+
+<p>
+<blockquote>
 <a href="Simple%20Libraries/Robotics/ActivityBot/Documentation%20abcalibrate%20Library.html" target="_blank">abcalibrate.h</a> +2 (self-terminating)
   <blockquote>
   A call to cal_activityBot launches 2 additional cores that self-terminate when the function is done.
+  </blockquote>
+</blockquote>
+</p>
+
+<p>
+<blockquote>
+<a href="Simple%20Libraries/Robotics/ActivityBot360/libabdrive360/Documentation%20abdrive360%20Library.html" target="_blank">abdrive360.h</a> +1 (including servo360.h)
+  <blockquote>
+  This library itself does not launch any cogs, but it controls and monitors Feedback 360 servos through servo360.h, which does use one additional cog..
   </blockquote>
 </blockquote>
 </p>

@@ -16,13 +16,17 @@
 #include <ctype.h>
 #include "simpletext.h"
 
+
+
 char* _safe_gets(text_t *text, char* origBuf, int count)
 {
   char* buf = origBuf;
   while (count-- > 0)
-  {
-      int ch = text->rxChar(text);
-
+  { 
+    int ch = text->rxChar(text);
+      
+    if(text->terminalEcho)
+    {  
       if (ch == 8 || ch == 127)
       {
           if (buf > origBuf)
@@ -36,16 +40,55 @@ char* _safe_gets(text_t *text, char* origBuf, int count)
           count += 1;
           continue;
       }
+      
+      #ifdef SIMPLETEXT_ECS
+      /*
+      if( !( (ch == *(text->ec)) || (ch == *(text->ec+1)) ) )
+      {
+        text->txChar(text, ch);  
+      }
+      else
+      {
+        char t1 = *(text->ecs);
+        char t2 = *(text->ecs+1);
+        if(t1) text->txChar(text, t1); 
+        if(t2) text->txChar(text, t2); 
+      }
+      */
 
+      if((ch != text->ecA) && (ch != text->ecB))
+      {
+        text->txChar(text, ch); 
+      }
+      else
+      {
+        if(text->ecsA) text->txChar(text, text->ecsA);
+        if(text->ecsB) text->txChar(text, text->ecsB);
+      }
+
+     
+      #endif   
+
+      
+      #ifdef ST_SLASH_ReturN
       text->txChar(text, ch);
+
       if (ch == '\r')
           text->txChar(text, '\n');
+      #endif 
+    }   
+    
+    #ifdef ST_NO_CHAR_SUBS
+    text->txChar(text, ch);
+    #endif
 
-      if (ch == '\r' || ch == '\n')
-          break;
 
-      *(buf++) = ch;
+    if (ch == '\r' || ch == '\n')
+        break;
+
+    *(buf++) = ch;
   }
+
   *buf = 0;
 
   return (origBuf);
