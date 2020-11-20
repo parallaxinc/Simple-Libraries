@@ -1,0 +1,45 @@
+\hypertarget{bme680__gas_resistance_8c}{}\section{bme680\+\_\+gas\+Resistance.\+c File Reference}
+\label{bme680__gas_resistance_8c}\index{bme680\+\_\+gas\+Resistance.\+c@{bme680\+\_\+gas\+Resistance.\+c}}
+
+
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings.  
+
+
+{\ttfamily \#include \char`\"{}bme680.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{bme680__gas_resistance_8c_a49120f07f144b49d94e92e0ca3cb2c7d}{bme680\+\_\+gas\+Resistance}} (\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$dev)
+\begin{DoxyCompactList}\small\item\em Retrieve the relative humidity as a percentage from the last read of the B\+M\+E680 device. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Sensor driver for the Bosch B\+M\+E680 air quality sensor. This library supports i2c and 4-\/wire S\+PI connections, reads temperature, pressure, relative humidity, and V\+OC levels, and provides limited support for adjusting the sensors settings. 
+
+\begin{DoxyAuthor}{Author}
+Matthew Matz
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+5
+\end{DoxyVersion}
+\begin{DoxyCopyright}{Copyright}
+Copyright (C) Parallax, Inc. 2019. All Rights M\+IT Licensed. 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{bme680__gas_resistance_8c_a49120f07f144b49d94e92e0ca3cb2c7d}\label{bme680__gas_resistance_8c_a49120f07f144b49d94e92e0ca3cb2c7d}} 
+\index{bme680\+\_\+gas\+Resistance.\+c@{bme680\+\_\+gas\+Resistance.\+c}!bme680\+\_\+gas\+Resistance@{bme680\+\_\+gas\+Resistance}}
+\index{bme680\+\_\+gas\+Resistance@{bme680\+\_\+gas\+Resistance}!bme680\+\_\+gas\+Resistance.\+c@{bme680\+\_\+gas\+Resistance.\+c}}
+\subsubsection{\texorpdfstring{bme680\+\_\+gas\+Resistance()}{bme680\_gasResistance()}}
+{\footnotesize\ttfamily float bme680\+\_\+gas\+Resistance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbme680__st}{bme680\+\_\+t}} $\ast$}]{dev }\end{DoxyParamCaption})}
+
+
+
+Retrieve the relative humidity as a percentage from the last read of the B\+M\+E680 device. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$dev} & pointer to the bme680 device. \\
+\hline
+\end{DoxyParams}

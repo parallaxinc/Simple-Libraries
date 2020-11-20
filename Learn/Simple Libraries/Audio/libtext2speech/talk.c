@@ -717,3 +717,9 @@ static int32_t talk_set(talk *self, int32_t fmt, int32_t ptr, int32_t pre, int32
   return 0;
 }
 
+void talk_setVolume(talk *self, int level)
+{
+  if(level < 0) level = 0;
+  if(level > 7) level = 7;
+  VocalTract_set_attenuation(&self->v, 7 - level);
+}  

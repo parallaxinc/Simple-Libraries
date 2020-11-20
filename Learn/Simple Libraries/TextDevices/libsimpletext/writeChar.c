@@ -5,11 +5,35 @@
  * Copyright (c) 2013, Parallax Inc.
  * Written by Steve Denson
  */
+
 #include "simpletext.h"
 
 void writeChar(text_t *p, char c)
 {
+  #ifdef ST_SLASH_ReturN
+  if(c == '\n')
+    p->txChar(p, '\r');
   p->txChar(p, c);
+  #endif  
+  
+  #ifdef SIMPLETEXT_ECS
+  //
+  if((c != p->ecA) && (c != p->ecB))
+  {
+    p->txChar(p, c); 
+  }
+  else
+  {
+    if(p->ecsA) p->txChar(p, p->ecsA);
+    if(p->ecsB) p->txChar(p, p->ecsB);
+  }
+  //
+
+  #endif 
+  
+  #ifdef ST_NO_CHAR_SUBS
+  p->txChar(p, c);
+  #endif
 }
 
 /*

@@ -1,0 +1,14 @@
+<html>
+  <p>Type something, then click Enter: </p> 
+  <input type = "text" id = "textField">
+  <button onclick = "changeText()">Enter</button>
+  <p id = "myText">Waiting...</p>
+  
+  <script>
+    function changeText()
+    {
+       var x = document.getElementById("textField").value;
+       document.getElementById("myText").innerHTML = "You typed: " + x;
+    }
+  </script>
+</html>

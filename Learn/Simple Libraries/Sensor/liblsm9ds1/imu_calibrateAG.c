@@ -20,10 +20,6 @@
 
 int __pinAG;
 float __gRes, __aRes;
-float __gBias[3]  = {0,0,0};
-float __aBias[3]  = {0,0,0};
-int __gBiasRaw[3] = {0,0,0};
-int __aBiasRaw[3] = {0,0,0};
 char __autoCalc;
 
 
@@ -66,13 +62,14 @@ void imu_calibrateAG()
 
   for (ii = 0; ii < 3; ii++)
   {
-    __gBiasRaw[ii] = gBiasRawTemp[ii] / samples;
-    __gBias[ii]    = ((float) __gBiasRaw[ii]) / __gRes;
-    __aBiasRaw[ii] = aBiasRawTemp[ii] / samples;
-    __aBias[ii]    = ((float) __aBiasRaw[ii]) / __aRes;
+    gBiasRawTemp[ii] = gBiasRawTemp[ii] / samples;
+    aBiasRawTemp[ii] = aBiasRawTemp[ii] / samples;
   }
+  
+  imu_setGyroCalibration(gBiasRawTemp[0], gBiasRawTemp[1], gBiasRawTemp[2]);
+  imu_setAccelCalibration(aBiasRawTemp[0], aBiasRawTemp[1], aBiasRawTemp[2]);
  
-  __autoCalc = 1; 
+  __autoCalc = 0b11; 
   
   //Disable FIFO
   imu_SPIreadBytes(__pinAG, CTRL_REG9, &tempF, 1);

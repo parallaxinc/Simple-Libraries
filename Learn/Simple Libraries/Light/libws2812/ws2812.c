@@ -31,6 +31,7 @@ typedef struct {
 // -- ns1h is 1-bit high timing (ns)
 // -- ns1l is 1-bit low timing (ns)
 // -- type is TYPE_GRB for ws2812 or ws2812b
+// ws_start(state, 50, 350, 900, 900, 350, TYPE_GRB);  // for ws2812b
 int ws_start(ws2812_t *state, int usreset, int ns0h, int ns0l, int ns1h, int ns1l, int type)
 {
     extern uint32_t binary_ws2812_driver_dat_start[];
@@ -56,7 +57,7 @@ void ws2812_set(ws2812_t *state, int pin, uint32_t *colors, int count)
 {
     uint32_t cmd;
     cmd =  pin
-        | ((count - 1) << 8)
+        | ((count - 1) << 5)
         | ((uint32_t)colors << 16);
     while (state->command)
         ;

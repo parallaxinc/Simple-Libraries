@@ -16,6 +16,10 @@
 <blockquote>
 Make sure you've got the latest, most up-to-date libraries.  More info at <a href="Update%20Your%20Learn%20Folder.html" target="_blank">Update Your Learn Folder</a>.
 </blockquote>
+<blockquote>
+Not sure how many cores/cogs or EEPROM a given library uses?  Check
+the <a href="Library%20Cog%20and%20EEPROM%20Usage.html" target="_blank">Simple Library Core and EEPROM Usage</a> page.
+</blockquote>
 </p>  
 
 
@@ -114,13 +118,54 @@ Mix up to three waveforms, with sine, square, triangle, saw, and noise options.
 </p>
 </blockquote>
 
+<p>
+<blockquote>
+<a href="Simple%20Libraries/Convert/libdac2ch/Documentation%20dac2ch%20Library.html" target="_blank">dac2ch.h</a> - Up to 2 Channels per cog of D/A signals.  Supports multiple cogs.
+</p>
+</blockquote>
+
+<p>
+<blockquote>
+<a href="Simple%20Libraries/Convert/libpwm2ch/Documentation%20pwm2ch%20Library.html" target="_blank">pwm2ch.h</a> - Up to 2 Channels per cog of PWM signals.  Supports multiple cogs.
+</p>
+</blockquote>
+
 
 
 <h3 style="font-family:verdana;">Display</h3>
 
 <p>
 <blockquote>
-<a href="Simple%20Libraries/Display/liboledc/Documentation%20oledc%20Library.html" target="_blank">oledc.h</a> - Functions for controlling the 96 x 64 Color oLED Display Module.
+<a href="Simple%20Libraries/Display/libil3820/Documentation%20il3820%20Library.html" target="_blank">il3820.h</a> - Functions for the 296 x 128 2.9 inch ePaper Display.
+</blockquote>
+</p>
+
+
+<p>
+<blockquote>
+<a href="Simple%20Libraries/Display/liblcdParallel/Documentation%20lcdParallel%20Library.html" target="_blank">lcdParallel.h</a> - Functions for most Character LCDs using its parallel pins.
+</blockquote>
+</p>
+
+
+<p>
+<blockquote>
+<a href="Simple%20Libraries/Display/liboledc/Documentation%20oledc%20Library.html" target="_blank">oledc.h</a> - Functions for the 96 x 64 Color oLED Display Module.
+</blockquote>
+</p>
+
+
+<p>
+<blockquote>
+<a href="Simple%20Libraries/Display/libssd1331/Documentation%20ssd1331%20Library.html" target="_blank">ssd1331.h</a> - Functions for the Color OLED Display Module, 96 x 64.
+</blockquote>
+</p>
+
+
+<p>
+<blockquote>
+<a href="Simple%20Libraries/Display/libsimplegfx/Documentation%20simplegfx%20Library.html" target="_blank">simplegfx.h</a> - This library contains shape, text, and bitmap drawing 
+functions that can be called by applications that use the 296 x 128 2.9 inch ePaper (il3820.h) or RGB OLED Display, 96 x 64 (ssd1331.h).
 </blockquote>
 </p>
 
@@ -153,7 +198,23 @@ Mix up to three waveforms, with sine, square, triangle, saw, and noise options.
 
 
 
+<h3 style="font-family:verdana;">Network</h3>
+
+<p>
+<blockquote>
+<a href="Simple%20Libraries/Network/libwifi/Documentation%20wifi%20Library.html" target="_blank">wifi.h</a> - Parallax WX ESP8266 WiFi Module library.
+</blockquote>
+</p>
+
+
+
 <h3 style="font-family:verdana;">Motor</h3>
+
+<blockquote>
+<p>
+<a href="Simple%20Libraries/Motor/libservo360/Documentation%20servo360%20Library.html" target="_blank">servo360.h</a> - Parallax Feedback 360 High Speed Servo control, monitoring, and settings.
+</blockquote>
+</p>
 
 <blockquote>
 <p>
@@ -217,6 +278,11 @@ libraries.
 </blockquote>
 </p>
 
+<blockquote>
+<a href="Simple%20Libraries/Protocol/libi2cslave/Documentation%20i2cslave%20Library.html" target="_blank">i2cslave.h</a> - Functions for creating one or more I2C slave devices, one per propeller processor (cog).
+</blockquote>
+</p>
+
 
 
 <h3 style="font-family:verdana;">Remote</h3>
@@ -230,6 +296,18 @@ libraries.
 
 
 <h3 style="font-family:verdana;">Robotics</h3>
+
+<p>
+<blockquote>
+<a href="Simple%20Libraries/Robotics/ActivityBot360/libabdrive360/Documentation%20abdrive360%20Library.html" target="_blank">abdrive360.h</a> - Tools for ActivityBot 360 navigation with Feedback 360 servos.
+</blockquote>
+</p>
+
+<p>
+<blockquote>
+<a href="Simple%20Libraries/Robotics/ActivityBot360/libabcalibrate360/Documentation%20abcalibrate360%20Library.html" target="_blank">abcalibrate360.h</a> - Self-calibration functions for the ActivityBot 360.
+</blockquote>
+</p>
 
 <p>
 <blockquote>
@@ -249,6 +327,13 @@ libraries.
 
 <p>
 <blockquote>
+<a href="Simple%20Libraries/Sensor/libbme680/Documentation%20bme680%20Library.html" target="_blank">bme680.h</a> - Sensor driver for the Bosch BME680 air quality sensor. 
+</blockquote>
+</p>
+
+
+<p>
+<blockquote>
 <a href="Simple%20Libraries/Sensor/libcolorpal/Documentation%20colorpal%20Library.html" target="_blank">colorpal.h</a> - For red/green/blue measurements with the ColorPAL.
 </blockquote>
 </p>
@@ -263,7 +348,29 @@ libraries.
 
 <p>
 <blockquote>
+<a href="Simple%20Libraries/Sensor/libdht22/Documentation%20dht22%20Library.html" target="_blank">dht22.h</a> - For measurements with the DHT22 Temperature & Humidity Sensor.
+</blockquote>
+</p>
+
+
+<p>
+<blockquote>
+<a href="Simple%20Libraries/Sensor/libfingerprint/Documentation%20fingerprint%20Library.html" target="_blank">fingerprint.h</a> - For reading the WaveShare fingerprint scanner
+  module.  Search for ID 29126 at parallax.com.
+</blockquote>
+</p>
+
+
+<p>
+<blockquote>
 <a href="Simple%20Libraries/Sensor/libgps/Documentation%20gps%20Library.html" target="_blank">gps.h</a> - For measuring global position with an NMEA GPS module.
+</blockquote>
+</p>
+
+
+<p>
+<blockquote>
+<a href="Simple%20Libraries/Sensor/liblis3dh/Documentation%20lis3dh%20Library.html" target="_blank">lis3dh.h</a> - For measuring 3D acceleration, with the LIS3DH.
 </blockquote>
 </p>
 
@@ -321,6 +428,12 @@ with the LSM9DS1.
  communication, tri-color LEDs, passive touch buttons, touch button LEDs, audio out, 
  and battery.
 </blockquote>
+
+<blockquote>
+<a href="Simple%20Libraries/Social/libbadgewxtools/Documentation%20badgewxtools%20Library.html" target="_blank">badgewxtools.h</a> - Functions for all Parallax WX Hackable Electronic Badge
+ This is a version of hackable badge that has WX Wi-Fi functionality.
+</blockquote>
+
 </p>
 
 

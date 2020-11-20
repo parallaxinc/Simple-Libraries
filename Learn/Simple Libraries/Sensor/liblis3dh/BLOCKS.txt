@@ -1,0 +1,162 @@
+/*
+ * @file BLOCKS.txt
+ *
+ * @author Michael Mulholland
+ *
+ * @version 1.0.0
+ *
+ * @copyright
+ * Copyright (C) Parallax, Inc. 2019. All Rights MIT Licensed.
+ *
+ * @brief BlocklyProp Block definitions for the Parallax LIS3DH 3-Axis Accelerometer with ADC Module.
+ * 
+ */
+  
+  
+  
+  
+/*
+  
+  //
+  // For BlocklyProp
+  //
+
+
+  // Create global pointer to an lis3dh object, for EACH sensor attached:
+  // Example:
+  lis3dh *LIS3DH;
+  
+  
+  // Tip: For multiple sensors, add a suffix to each pointer
+  // Example:
+  lis3dh *LIS3DH_1;
+  lis3dh *LIS3DH_2;
+  
+
+  // BLOCK: LIS3DH initialize SCK(dropdown: pin), SDI(dropdown: pin), CS(dropdown: pin)
+  //		+ Optional Temperature Calibration setting (appears when temp block added to project - see below)
+  //		+ Optional Tilt Averaging Factor setting (appears when tilt block added to project - see below)
+  
+  // Example:
+  LIS3DH initialize SCK 8, SDI 7, CS 6
+  
+  // Emits: (assuming global pointer name is LIS3DH_1)
+  LIS3DH_1 = lis3dh_init(8, 7, 6);
+  
+  
+
+  // BLOCK: LIS3DH read(dropdown: accelerometer 1000ths of g's ; adc mV ; tilt degrees) 
+            *if accel*   store X-axis in (item), store Y-axis in (item), store Z-axis in (item)
+            *if adc*     store AD1    in (item), store AD2    in (item), store AD3    in (item) 
+			*if tilt*    store X-axis in (item), store Y-axis in (item), store Z-axis in (item), store Motion Intensity in (item)
+  
+  // Examples: (Assuming variables x, y, and z have been created with blocks)
+  LIS3DH read accelerometer (1000ths of g), store x axis in x, y axis in y, z axis in z 
+  LIS3DH read adc (mV), store ad1 in x, ad2 in y, ad3 in z 
+  
+  // Examples: (Assuming variables x, y, z and m have been created with blocks)
+  LIS3DH read tilt (degrees), store x axis in x, y axis in y, z axis in z, motion intensity in m 
+  
+  
+  // Emits: (assuming global pointer name is LIS3DH_1)
+  lis3dh_accel_mg(LIS3DH_1, &x, &y, &z);
+  lis3dh_adc_mV(LIS3DH_1, &x, &y, &z);
+  lis3dh_tilt(LIS3DH_1, &x, &y, &z, &m);
+  
+  
+   
+  // BLOCK: (OPTIONAL INIT ITEM - Appears when temperature read block added to project) 
+  //		Set ambient temperature to ambient temperature(actualTempC/actualTempF), (dropdown: F or C)
+  
+  // Examples:
+  Set ambient temperature to 23, C
+  Set ambient temperature to 85, F
+  
+  // Emits: (assuming global pointer name is LIS3DH_1)
+  lis3dh_tempCal_C(LIS3DH_1, 23);
+  lis3dh_tempCal_F(LIS3DH_1, 85);
+  
+  
+  
+  // BLOCK: Temperature read units(dropdown: F or C), store in (item)
+            * WARN! * MUST SET AMBIENT TEMPERATURE IN INIT BLOCK
+
+  // Examples: (Assuming variable t has been created with a block)
+  Temperature read units F, store in t
+  
+  // Emits: (assuming global pointer name is LIS3DH_1)
+  t = lis3dh_temp_C(LIS3DH_1);
+  t = lis3dh_temp_F(LIS3DH_1);
+  
+  
+  
+  
+  // BLOCK: Tilt, store in (x, y, z, motion)
+            * WARN! * MUST SET TILT AVERAGE FACTOR IN INIT BLOCK
+
+  // Examples: (Assuming variables x, y, z, motion have been created with a block)
+  LIS3DH read tilt angles x, y, z, motion, store in x, y, z, motion
+  
+  // Emits: (assuming global pointer name is LIS3DH_1)
+  lis3dh_tilt(LIS3DH_1, x, y, z, motion);
+  
+	@details Angle to each axis in degrees, 
+		X relative to ground  (-90 to 90)
+		Y relative to ground  (-90 to 90)
+		Z relative to gravity (-90 to 90)
+	Motion is the sum of g-force on all axis relative to gravity at ground level (1G). 
+		0 is motionless, larger positve or negative values represent more intense motion.
+		The motion value could be used on it's own for projects requiring vibration sensing.
+
+
+
+  // BLOCK: (OPTIONAL INIT ITEM - Appears when tilt read block added to project) 
+  //		Set Tilt Averaging Factor value percent
+  //
+  // note for Block creator-  default value is 100 which means averaging disabled. (ie. 100% of new data)
+  
+  // Examples:
+  Set Tilt Averaging Factor to 100
+  Set Tilt Averaging Factor to 50
+  
+  // Emits: (assuming global pointer name is LIS3DH_1)
+  lis3dh_tiltConfig(LIS3DH_1, 100);
+  lis3dh_tiltConfig(LIS3DH_1, 50);
+
+
+
+*/
+
+
+
+
+
+
+
+
+/**
+ * TERMS OF USE: MIT License
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ */
+
+
+
+
+

@@ -8,8 +8,8 @@
 {{
     // parameter long
     31:16 base address of array of 32 bit RGB values
-    15:8  number of entries in the array
-     7:0  pin number
+    15:5  number of entries in the array
+     4:0  pin number
     
     // driver header structure
     typedef struct {
@@ -56,9 +56,12 @@ get_cmd                 rdlong  t1, par                 wz      ' look for packe
                         or      dira, txmask
 
                         mov     ledcount, t1                    ' get count
-                        shr     ledcount, #8                    ' isolate
-                        and     ledcount, #$FF                        
-                        add     ledcount, #1                    ' update (1 to 256 leds)
+                        shr     ledcount, #5                    ' isolate
+                        mov     t2      , #7                    ' Build up 7ff mask
+                        shl     t2      , #8                    ' move 0x7 to 0x700
+                        add     t2      , #$FF                  ' add 0xff to get 0x7ff
+                        and     ledcount, t2
+                        add     ledcount, #1                    ' update (1 to 2048 leds)
 
                         mov     hubpntr, t1                     ' get hub address
                         shr     hubpntr, #16                    ' isolate
