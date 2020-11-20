@@ -57,7 +57,7 @@ void ws2812_set(ws2812_t *state, int pin, uint32_t *colors, int count)
 {
     uint32_t cmd;
     cmd =  pin
-        | ((count - 1) << 8)
+        | ((count - 1) << 5)
         | ((uint32_t)colors << 16);
     while (state->command)
         ;
