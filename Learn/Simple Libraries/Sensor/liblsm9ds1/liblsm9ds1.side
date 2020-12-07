@@ -4,7 +4,7 @@ imu_init.c
 imu_calibrateAG.c
 imu_calibrateMag.c
 imu_accelAvailable.c
-imu_gryoAvailable.c
+imu_gyroAvailable.c
 imu_SPIread.c
 imu_SPIwrite.c
 imu_getScale.c
