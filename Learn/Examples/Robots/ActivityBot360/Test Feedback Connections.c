@@ -5,10 +5,10 @@
   Gently turn each wheel by hand.  Right wheel
   blinks P27 LED, left wheel blinks P26 LED.
 
-  http://learn.parallax.com/activitybot/test-feedback-360-servos
+  https://learn.parallax.com/ab360
 */
 
-                                                                             //
+                                                                             
 #include "simpletools.h"                      // Library - simpletools
 #include "abdrive360.h"                       // Library - abdrive360
 

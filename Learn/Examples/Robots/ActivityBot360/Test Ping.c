@@ -3,7 +3,7 @@
 
   Test the PING))) sensor before using it to navigate with the ActivityBot.
 
-  http://learn.parallax.com/activitybot/build-and-test-ping-sensor-circuit
+  https://learn.parallax.com/ab360
 */
 
 #include "simpletools.h"                      // Include simpletools header

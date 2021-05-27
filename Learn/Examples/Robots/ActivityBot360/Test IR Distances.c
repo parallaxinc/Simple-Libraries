@@ -3,7 +3,7 @@
 
   Test distance detection with infrared detectors.
 
-  http://learn.parallax.com/activitybot/ir-test-distances
+  https://learn.parallax.com/ab360
 */
 
 #include "simpletools.h"                        // Include simpletools

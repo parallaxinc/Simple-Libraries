@@ -4,11 +4,11 @@
   Go forward until object detected by whisker(s).  Then, back up, turn
   and go a new direction.
 
-  http://learn.parallax.com/activitybot/roaming-whiskers
+  https://learn.parallax.com/ab360s
 */
 
 #include "simpletools.h"                        // Include simpletools library
-#include "abdrive360.h"                            // Include abdrive library
+#include "abdrive360.h"                         // Include abdrive360 library
 
 int main()                                      // main function
 {

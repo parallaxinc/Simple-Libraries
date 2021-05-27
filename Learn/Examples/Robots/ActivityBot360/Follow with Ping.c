@@ -3,11 +3,11 @@
 
   Maintain a constant distance between ActivityBot and object.
 
-  http://learn.parallax.com/activitybot/follow-objects-ultrasound
+  https://learn.parallax.com/ab360
 */
 
 #include "simpletools.h"                      // Include simpletools header
-#include "abdrive360.h"                          // Include abdrive header
+#include "abdrive360.h"                       // Include abdrive360 header
 #include "ping.h"                             // Include ping header  
 
 int distance, setPoint, errorVal, kp, speed;  // Navigation variables

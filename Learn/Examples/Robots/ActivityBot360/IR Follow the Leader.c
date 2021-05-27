@@ -3,7 +3,7 @@
 
   Follow another ActivityBot 360, your hand and other targets.
 
-  http://learn.parallax.com/activitybot/ir-follow-the-leader
+  https://learn.parallax.com/ab360
 */
 
 #include "simpletools.h"                        // Include simpletools

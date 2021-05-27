@@ -2,10 +2,9 @@
   AB Interpreter.c
 
   Fetches text commands from file on SD card, interprets them,
-  and executes maneuvers. Requires abdrive 0.5.5 from
-  ActivityBot library 2013-10-31 or later.
+  and executes maneuvers. 
 
-  http://learn.parallax.com/activitybot/text-file-maneuver-list
+  http://learn.parallax.com/ab360
 */
 
 #include "simpletools.h"                     // Library includes

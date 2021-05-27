@@ -4,12 +4,12 @@
   Navigate by making your ActivityBot go certain speeds for certain amounts
   of time.
 
-  http://learn.parallax.com/activitybot/set-certain-speeds
+  https://learn.parallax.com/ab360
 */
 
 
 #include "simpletools.h"                      // simpletools library
-#include "abdrive360.h"                          // abdrive library
+#include "abdrive360.h"                       // abdrive360 library
 
 int main()                   
 {

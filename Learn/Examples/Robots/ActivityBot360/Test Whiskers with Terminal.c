@@ -2,6 +2,8 @@
   Test Whiskers with Terminal.c
  
   Display whisker states in terminal.  1 = not pressed, 0 = pressed. 
+  
+  https://learn.parallax.com/ab360
 */
 
 #include "simpletools.h"                      // Include simpletools header

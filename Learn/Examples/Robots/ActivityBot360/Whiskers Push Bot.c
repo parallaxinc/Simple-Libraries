@@ -3,11 +3,11 @@
   
   Push the whiskers to make the ActivityBot back up.
   
-  http://learn.parallax.com/activitybot/whisker-wheel-response
+  https://learn.parallax.com/ab360
 */
 
 #include "simpletools.h"                      // Include simpletools header
-#include "abdrive360.h"                          // Include abdrive header
+#include "abdrive360.h"                       // Include abdrive360 header
 
 int main()                                    // main function
 {

@@ -3,7 +3,7 @@
 
   Display interpolation table values from calibration
 
-  http://learn.parallax.com/activitybot/calibrate-your-activitybot
+  https://learn.parallax.com/ab360
 */
 
 #include "simpletools.h"

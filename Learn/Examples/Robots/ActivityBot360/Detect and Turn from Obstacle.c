@@ -3,11 +3,11 @@
 
   Detect obstacles in the ActivityBot's path, and turn a random direction to avoid them.
 
-  http://learn.parallax.com/activitybot/roaming-ultrasound
+  http://learn.parallax.com/ab360
 */
 
 #include "simpletools.h"                      // Include simpletools header
-#include "abdrive360.h"                          // Include abdrive header
+#include "abdrive360.h"                       // Include abdrive360 header
 #include "ping.h"                             // Include ping header
 
 int turn;                                     // Navigation variable
